@@ -30,6 +30,8 @@ export interface ServerConfig {
   heartbeatMs: number;
   /** 판 기록 파일 폴더 (비우면 저장 안 함) */
   recordsDir: string | null;
+  /** 클라이언트 로그인용 공개 키 (anon/publishable). 비우면 화면에 로그인 없음 */
+  supabasePublishableKey: string | null;
 }
 
 const bool = (v: string | undefined, d: boolean) => (v === undefined ? d : ['1', 'true', 'yes'].includes(v.toLowerCase()));
@@ -53,5 +55,6 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
     supabaseSecretKey: env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY || null,
     heartbeatMs: Number(env.HEARTBEAT_MS ?? 30_000),
     recordsDir: env.RECORDS_DIR || null,
+    supabasePublishableKey: env.SUPABASE_PUBLISHABLE_KEY || env.SUPABASE_ANON_KEY || null,
   };
 }

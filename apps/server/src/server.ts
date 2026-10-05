@@ -70,6 +70,13 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
       res.end(JSON.stringify({ ok: true, rooms: rooms.rooms.size, sessions: sessionsByUser.size }));
       return;
     }
+    // 클라이언트 설정 (공개 값만): 로그인 가능 여부와 Supabase 공개 키
+    if (req.url === '/config.json') {
+      const auth = cfg.supabaseUrl && cfg.supabasePublishableKey && verify ? { supabaseUrl: cfg.supabaseUrl, supabasePublishableKey: cfg.supabasePublishableKey } : null;
+      res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' });
+      res.end(JSON.stringify({ auth, allowGuests: cfg.allowGuests }));
+      return;
+    }
     if (serveStatic) return serveStatic(req, res);
     res.writeHead(404);
     res.end();

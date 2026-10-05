@@ -89,6 +89,24 @@ sudo journalctl -u gst-server -n 5 --no-pager
 
 시작 로그에 `persist=true` 가 보이면 켜진 것.
 
+### 3-1. 화면 가입/로그인 켜기 (선택)
+
+같은 `.env` 에 **공개 키**를 한 줄 더 넣는다 (비밀 키와 다른 키다):
+
+```
+SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
+```
+
+- 위치: Supabase → Project Settings → **API Keys** → Publishable key (레거시 프로젝트면 `anon` 키)
+- 공개 키는 브라우저에 그대로 내려가는 값이라 노출돼도 되지만, 그래도 깃에는 넣지 않는다.
+
+Supabase 대시보드에서 한 번만:
+
+1. Authentication → Sign In / Providers → **Email** 켜짐 확인
+2. 가입 즉시 입장시키려면 같은 화면의 **Confirm email** 을 끈다. (켜 두면 가입 후 확인 메일의 링크를 눌러야 로그인된다. 이때 Authentication → URL Configuration → Site URL 을 `http://<서버IP>:8787` 로 맞출 것)
+
+`sudo systemctl restart gst-server` 후 메인 화면에 게스트 / 로그인 / 가입 탭이 생긴다. 로그인 사용자는 `profiles` 에 닉네임이 생기고 판 기록(`match_players.user_id`)에 연결된다.
+
 ## 4. 첫 판 테스트
 
 1. 브라우저에서 `http://<서버IP>:8787` → 닉네임 입장 → 방 만들기 → **봇 12인까지** → 시작

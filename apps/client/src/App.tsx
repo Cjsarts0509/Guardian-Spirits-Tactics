@@ -4,6 +4,8 @@ import type { RoomDetail, RoomSummary, ServerMessage } from '@gst/protocol';
 import { net, type NetStatus } from './net.js';
 import { Lobby, RoomPanel } from './Lobby.js';
 import { GameScreen, SpectatorScreen } from './Game.js';
+import { MainScreen, connectAs } from './Welcome.js';
+import { currentToken, loadConfig, savedSession } from './auth.js';
 
 export interface Toast {
   id: number;
@@ -23,8 +25,17 @@ export function App() {
   useEffect(() => net.onStatus(setStatus), []);
   // 새로고침: 이 탭의 세션이 남아 있으면 바로 재접속해서 같은 자리로 복귀
   useEffect(() => {
+    if (!net.hasSession() || net.status !== 'idle') return;
+    const login = savedSession();
+    if (login) {
+      loadConfig().then(async (c) => {
+        const s = await currentToken(c.auth);
+        if (s) connectAs(c, s);
+      });
+      return;
+    }
     const saved = net.savedNickname();
-    if (saved && net.hasSession() && net.status === 'idle') net.connect(saved);
+    if (saved) net.connect(saved);
   }, []);
   useEffect(
     () =>
@@ -77,21 +88,7 @@ export function App() {
 
   let body;
   if (!me) {
-    body = (
-      <div className="connect">
-        <h1>가디언 스피리츠 택틱스</h1>
-        <p className="muted">플레이테스트 클라이언트 · 왕자들의 내전</p>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (nick.trim()) net.connect(nick.trim());
-          }}
-        >
-          <input value={nick} maxLength={16} placeholder="닉네임" onChange={(e) => setNick(e.target.value)} autoFocus />
-          <button disabled={!nick.trim() || status === 'connecting'}>{status === 'connecting' ? '연결 중…' : '입장'}</button>
-        </form>
-      </div>
-    );
+    body = <MainScreen status={status} nick={nick} setNick={setNick} />;
   } else if (view && room && room.status !== 'lobby') {
     body = 'spectator' in view ? <SpectatorScreen view={view} events={events} room={room} /> : <GameScreen view={view} events={events} room={room} myId={me.userId} />;
   } else if (room) {

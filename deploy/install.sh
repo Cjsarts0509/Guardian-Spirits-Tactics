@@ -59,9 +59,12 @@ STRICT_ORIGIN=true
 ALLOW_GUESTS=true
 ALLOW_BOTS=true
 TIME_SCALE=1
-# Supabase 판 기록 (선택). 값을 넣고 저장한 뒤: sudo systemctl restart gst-server
+# Supabase (선택). 값을 넣고 저장한 뒤: sudo systemctl restart gst-server
+#  - 판 기록 저장: URL + 비밀 키(sb_secret_…)
+#  - 화면 가입/로그인: URL + 공개 키(sb_publishable_… 또는 anon)
 # SUPABASE_URL=
 # SUPABASE_SECRET_KEY=
+# SUPABASE_PUBLISHABLE_KEY=
 ENV
   chmod 600 "$GST_HOME/.env"
   echo "[install] 기본 설정 생성: $GST_HOME/.env"

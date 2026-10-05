@@ -40,8 +40,12 @@ export class Net {
     }
   }
 
-  connect(nickname: string): void {
+  /** 로그인 사용자의 액세스 토큰 공급자 (없으면 게스트). 접속할 때마다 불러 최신 토큰을 쓴다 */
+  tokenProvider: (() => Promise<string | null>) | null = null;
+
+  connect(nickname: string, tokenProvider: (() => Promise<string | null>) | null = null): void {
     this.nickname = nickname;
+    this.tokenProvider = tokenProvider;
     this.wanted = true;
     try {
       localStorage.setItem(NICK_KEY, nickname);
@@ -60,7 +64,7 @@ export class Net {
     this.setStatus('connecting');
     const ws = new WebSocket(URL);
     this.ws = ws;
-    ws.onopen = () => {
+    ws.onopen = async () => {
       this.retry = 0;
       this.setStatus('open');
       let resume: string | undefined;
@@ -69,7 +73,9 @@ export class Net {
       } catch {
         resume = undefined;
       }
-      this.send({ type: 'hello', protocol: 1, nickname: this.nickname ?? undefined, resume });
+      const token = this.tokenProvider ? ((await this.tokenProvider().catch(() => null)) ?? undefined) : undefined;
+      if (this.ws !== ws) return; // 토큰 기다리는 사이 연결이 바뀜
+      this.send({ type: 'hello', protocol: 1, nickname: this.nickname ?? undefined, resume, token });
     };
     ws.onmessage = (e) => {
       const m = JSON.parse(String(e.data)) as ServerMessage;
@@ -89,6 +95,20 @@ export class Net {
       const delay = Math.min(10_000, 500 * 2 ** this.retry++);
       setTimeout(() => this.wanted && this.open(), delay);
     };
+  }
+
+  /** 로그아웃 등: 재접속 없이 끊고 이 탭의 세션을 지운다 */
+  disconnect(): void {
+    this.wanted = false;
+    this.tokenProvider = null;
+    try {
+      sessionStorage.removeItem(SESSION_KEY);
+    } catch {
+      /* ignore */
+    }
+    this.ws?.close();
+    this.ws = null;
+    this.setStatus('idle');
   }
 
   send(m: ClientMessage): void {

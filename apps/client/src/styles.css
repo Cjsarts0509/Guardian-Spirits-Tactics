@@ -42,9 +42,29 @@ input, select {
 .toasts { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); display: grid; gap: 6px; z-index: 50; }
 .toast { background: #3a2626; border: 1px solid #6a3a3a; padding: 8px 14px; border-radius: 10px; }
 
-.connect { max-width: 420px; margin: 18vh auto; text-align: center; padding: 0 16px; }
-.connect h1 { font-size: 26px; margin-bottom: 4px; }
-.connect form { display: flex; gap: 8px; justify-content: center; margin-top: 20px; }
+.main { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(360px, 460px); background: #07080c; }
+.main-art { position: relative; overflow: hidden; background: radial-gradient(ellipse at 40% 40%, #2a1e3d 0%, #0d0f18 55%, #07080c 100%); }
+.main-art img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.main-art-fade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,8,12,0) 60%, rgba(7,8,12,0.95) 100%), linear-gradient(0deg, rgba(7,8,12,0.9) 0%, rgba(7,8,12,0) 30%); pointer-events: none; }
+.main-panel { display: grid; align-content: center; gap: 18px; padding: 40px 36px; border-left: 1px solid #1b1e2b; }
+.main-kicker { letter-spacing: 0.35em; font-size: 11px; color: #c9a85c; }
+.main-title h1 { font-size: 30px; margin: 4px 0 6px; letter-spacing: -0.01em; }
+.main-form { display: grid; gap: 10px; }
+.main-form form { display: grid; gap: 8px; }
+.main-form input { padding: 10px 12px; font-size: 14px; }
+.main-form button { padding: 10px 12px; font-size: 14px; }
+.main-form form p { margin: 0; }
+.main-tabs { padding: 0 0 8px; }
+.main-tabs button { flex: 1; }
+.main-me { display: flex; gap: 8px; align-items: baseline; }
+.main-msg { margin: 0; font-size: 13px; }
+.main-msg.err { color: var(--warn); }
+.main-msg.ok { color: #8fd3a0; }
+.main-foot { margin: 0; }
+@media (max-width: 900px) {
+  .main { grid-template-columns: 1fr; grid-template-rows: 38vh auto; }
+  .main-panel { border-left: 0; padding: 24px 16px; }
+}
 
 .lobby { max-width: 720px; margin: 32px auto; display: grid; gap: 16px; padding: 0 16px; }
 .lobby h2 { margin: 0 0 10px; font-size: 17px; }
