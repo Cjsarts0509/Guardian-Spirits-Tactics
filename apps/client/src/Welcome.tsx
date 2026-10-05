@@ -3,6 +3,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { currentToken, loadConfig, savedSession, signIn, signOut, signUp, type AuthSession, type ClientConfig } from './auth.js';
 import { net, type NetStatus } from './net.js';
 import { BigLogo } from './Logo.js';
+import { BgmControl } from './BgmControl.js';
 
 const BASE = (import.meta.env.BASE_URL as string | undefined) ?? '/';
 type Tab = 'guest' | 'login' | 'signup';
@@ -153,7 +154,10 @@ export function MainScreen({ status, nick, setNick }: { status: NetStatus; nick:
             {msg && <p className={`main-msg ${msg.kind}`}>{msg.text}</p>}
           </div>
         )}
-        <p className="muted small main-foot">4rum · 워크래프트3 유즈맵 리메이크 · 플레이테스트</p>
+        <div className="main-foot row spread">
+          <span className="muted small">4rum · 워크래프트3 유즈맵 리메이크 · 플레이테스트</span>
+          <BgmControl compact />
+        </div>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { RoomDetail, RoomSummary } from '@gst/protocol';
 import { net } from './net.js';
 import { SmallLogo } from './Logo.js';
+import { BgmControl } from './BgmControl.js';
 import type { ModeId } from '@gst/rules';
 
 const MODES: { id: ModeId; name: string; ready: boolean }[] = [
@@ -19,9 +20,12 @@ export function Lobby({ rooms }: { rooms: RoomSummary[] }) {
     <div className="lobby">
       <div className="lobby-head">
         <SmallLogo text="가디언 스피리츠 택틱스" />
-        <button className="ghost small" onClick={() => (net.disconnect(), location.reload())}>
-          나가기
-        </button>
+        <span className="row">
+          <BgmControl compact />
+          <button className="ghost small" onClick={() => (net.disconnect(), location.reload())}>
+            나가기
+          </button>
+        </span>
       </div>
       <section className="card">
         <h2>방 만들기</h2>

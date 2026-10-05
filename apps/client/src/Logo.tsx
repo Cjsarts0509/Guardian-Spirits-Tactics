@@ -1,12 +1,12 @@
 // 로고: public/art/ 에 파일이 있으면 그림, 없으면 글자 (tools/build_logo.py 로 생성)
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 
 const BASE = (import.meta.env.BASE_URL as string | undefined) ?? '/';
 const missing = new Set<string>();
 
-function Img({ name, className, alt }: { name: string; className: string; alt: string }) {
+function Img({ name, className, alt, fallback = null }: { name: string; className: string; alt: string; fallback?: ReactNode }) {
   const [ok, setOk] = useState(!missing.has(name));
-  if (!ok) return null;
+  if (!ok) return fallback;
   return (
     <img
       className={className}
@@ -30,7 +30,17 @@ export function BigLogo() {
   return (
     <div className="biglogo">
       <Emblem size={512} className="biglogo-emblem" />
-      <Img name="logo_wordmark.webp" className="biglogo-wordmark" alt="GUARDIAN SPIRITS TACTICS" />
+      <Img
+        name="logo_wordmark.webp"
+        className="biglogo-wordmark"
+        alt="GUARDIAN SPIRITS TACTICS"
+        fallback={
+          <span className="biglogo-wordmark-text">
+            <span>Guardian Spirits</span>
+            <small>Tactics</small>
+          </span>
+        }
+      />
       <h1 className="biglogo-title">가디언 스피리츠 택틱스</h1>
     </div>
   );

@@ -4,6 +4,7 @@ import type { ClientAction, RoomDetail } from '@gst/protocol';
 import { net } from './net.js';
 import { Feed } from './Feed.js';
 import { SmallLogo } from './Logo.js';
+import { BgmControl } from './BgmControl.js';
 import { gemIcon, portrait, skillIcon } from './icons.js';
 import { FX_TTL, fxFor, type Fx } from './fx.js';
 
@@ -251,9 +252,12 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
             게임 종료 — <b>{view.winner ? view.sideNames[view.winner] : ''}</b> 승리
           </div>
         )}
-        <button className="ghost" onClick={() => confirm('방에서 나갈까요? 진행 중이면 사망 처리됩니다.') && net.send({ type: 'room.leave' })}>
-          나가기
-        </button>
+        <span className="row">
+          <BgmControl compact />
+          <button className="ghost" onClick={() => confirm('방에서 나갈까요? 진행 중이면 사망 처리됩니다.') && net.send({ type: 'room.leave' })}>
+            나가기
+          </button>
+        </span>
       </header>
 
       <div className="layout">

@@ -6,6 +6,7 @@ import { Lobby, RoomPanel } from './Lobby.js';
 import { GameScreen, SpectatorScreen } from './Game.js';
 import { MainScreen, connectAs } from './Welcome.js';
 import { currentToken, loadConfig, savedSession } from './auth.js';
+import { bgm, type TrackId } from './bgm.js';
 
 export interface Toast {
   id: number;
@@ -78,6 +79,14 @@ export function App() {
       }),
     [],
   );
+
+  // 배경음악: 게임 중엔 모드 곡, 그 외엔 메인 테마
+  useEffect(() => {
+    const inGame = !!(view && room && room.status !== 'lobby');
+    const modes: string[] = ['civil_war', 'primordial', 'lidellut', 'troll'];
+    const id: TrackId = inGame && view && modes.includes(view.mode) ? (view.mode as TrackId) : 'main';
+    void bgm.play(id);
+  }, [view, room]);
 
   // 방 목록 주기 갱신
   useEffect(() => {
