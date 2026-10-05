@@ -157,7 +157,7 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
         case 'room.removeBots':
           return reply(current ? current.removeBots(s.userId) : '방에 없습니다.');
         case 'room.start':
-          return reply(current ? current.start(s.userId, gameNow) : '방에 없습니다.');
+          return reply(current ? current.start(s.userId, gameNow, !!msg.aiOnly) : '방에 없습니다.');
         case 'game.action': {
           if (!current) return send({ type: 'action.result', ok: false, error: '방에 없습니다.', ref: msg.ref });
           const r = current.act(s.userId, msg.action as Action, gameNow);

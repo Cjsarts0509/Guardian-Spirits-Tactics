@@ -188,3 +188,70 @@ export function viewFor(state: GameState, playerId: PlayerId): PlayerView {
     }),
   };
 }
+
+/** 관전(테스트용) 시점: 전원 정체·마나·스킬이 보인다 */
+export interface SpectatorView {
+  spectator: true;
+  mode: string;
+  modeName: string;
+  phase: 'running' | 'ended';
+  winner: Side | null;
+  endReason: string | null;
+  elapsedMs: number;
+  turn: number;
+  nextTurnInMs: number;
+  sideNames: Record<Side, string>;
+  roster: PlayerView['roster'];
+  players: (OtherPlayerView & {
+    character: CharKey;
+    characterName: string;
+    side: Side;
+    mana: number;
+    gem: number;
+    extraLives: number;
+    allies: PlayerId[];
+    skills: { key: SkillKey; name: string; cooldownRemainingMs: number; usesLeft: number | null; passive: boolean }[];
+  })[];
+}
+
+export function spectatorView(state: GameState): SpectatorView {
+  const mode = getMode(state.mode);
+  const g = new Game(state, mode);
+  const now = state.now;
+  const remaining = (until: number) => Math.max(0, until - now);
+  return {
+    spectator: true,
+    mode: state.mode,
+    modeName: mode.displayName,
+    phase: state.phase,
+    winner: state.winner,
+    endReason: state.endReason,
+    elapsedMs: now - state.startedAt,
+    turn: state.turn,
+    nextTurnInMs: state.phase === 'running' ? remaining(state.nextTurnAt) : 0,
+    sideNames: mode.sideNames,
+    roster: mode.characters.map((c) => ({ key: c.key, name: c.name, title: c.title, side: c.side, commander: c.commander, inGame: g.charInGame(c.key) })),
+    players: state.players.map((p) => ({
+      id: p.id,
+      seat: p.seat,
+      nickname: p.nickname,
+      alive: p.alive,
+      left: p.left,
+      published: p.published,
+      revealed: p.character,
+      revealedSide: p.side,
+      statuses: g.activeEffects(p).map((e) => ({ kind: e.kind, source: e.source, remainingMs: remaining(e.until) })),
+      character: p.character,
+      characterName: g.charName(p.character),
+      side: p.side,
+      mana: p.mana,
+      gem: p.gem,
+      extraLives: p.extraLives,
+      allies: p.allies.slice(),
+      skills: p.skills.map((s) => {
+        const d = g.skillDef(s.key);
+        return { key: s.key, name: d.name, cooldownRemainingMs: remaining(s.cooldownUntil), usesLeft: s.usesLeft, passive: !!d.passive };
+      }),
+    })),
+  };
+}

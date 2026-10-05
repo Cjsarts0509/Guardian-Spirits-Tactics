@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
-import type { ChatChannel, GameEvent, PlayerView, SkillView } from '@gst/rules';
+import type { ChatChannel, GameEvent, PlayerView, SkillView, SpectatorView } from '@gst/rules';
 import type { ClientAction, RoomDetail } from '@gst/protocol';
 import { net } from './net.js';
 import { gemIcon, portrait, skillIcon } from './icons.js';
@@ -26,6 +26,107 @@ function act(action: ClientAction) {
   net.send({ type: 'game.action', action, ref: ++refSeq });
 }
 
+export function SpectatorScreen({ view, events, room }: { view: SpectatorView; events: GameEvent[]; room: RoomDetail }) {
+  const now = useNow();
+  const receivedAt = useRef(Date.now());
+  const lastView = useRef(view);
+  if (lastView.current !== view) {
+    lastView.current = view;
+    receivedAt.current = Date.now();
+  }
+  const sinceView = now - receivedAt.current;
+  const box = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    box.current?.scrollTo({ top: box.current.scrollHeight });
+  }, [events.length]);
+  const label = (id: string) => {
+    const p = view.players.find((x) => x.id === id);
+    return p ? `[${p.seat}]` : id;
+  };
+  return (
+    <div className="game">
+      <header className="topbar">
+        <div>
+          <b>{view.modeName}</b> <span className="muted">· {room.name} · 관전 (AI 전용)</span>
+        </div>
+        {view.phase === 'running' ? (
+          <div className="turn">
+            턴 {view.turn} · 다음 턴 <b>{fmt(view.nextTurnInMs - sinceView)}</b> · 경과 {fmt(view.elapsedMs + sinceView)}
+          </div>
+        ) : (
+          <div className="turn end">
+            게임 종료 — <b>{view.winner ? view.sideNames[view.winner] : ''}</b> 승리
+          </div>
+        )}
+        <button className="ghost" onClick={() => net.send({ type: 'room.leave' })}>
+          나가기
+        </button>
+      </header>
+      <div className="layout spectate">
+        <section className="center">
+          <section className="log card">
+            <div className="tabs">
+              <span className="muted small" style={{ padding: '4px 6px' }}>전체 로그 (비공개 이벤트는 받는 사람 표시)</span>
+            </div>
+            <div className="entries" ref={box}>
+              {events.map((e) => (
+                <div key={e.seq} className={`entry ${e.vis.to !== 'all' ? 'private' : ''} k-${e.kind.split('.')[0]}`}>
+                  <span className="time">{fmt(e.at)}</span>
+                  <span className="text">
+                    {e.vis.to === 'players' && <span className="tag">{e.vis.ids.map(label).join(' ')}</span>}
+                    {e.vis.to === 'dead' && <span className="tag">사망자</span>} {e.text}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </section>
+        <main>
+          <section className="players" style={{ gridTemplateColumns: `repeat(${Math.ceil(view.players.length / 2)}, minmax(0, 1fr))` }}>
+            {view.players.map((p) => (
+              <div key={p.id} className={`pcard spec ${!p.alive ? 'dead' : ''}`}>
+                <Face character={p.character} size="sm" dead={!p.alive} />
+                <div className="pc-body">
+                  <div className="pc-top">
+                    <span className="seat">[{p.seat}]</span> {p.nickname}
+                  </div>
+                  <div className={`pc-rev s${p.side}`}>
+                    {p.characterName} <span className="muted">· {view.sideNames[p.side]}</span>
+                  </div>
+                  <div className="pc-pub">공표: {p.published ? (view.roster.find((r) => r.key === p.published)?.name ?? p.published) : '—'}</div>
+                  <div className="muted small">
+                    마나 {p.mana} · 보석 {p.gem} · 목숨 +{p.extraLives} · 동맹 {p.allies.map(label).join(' ') || '없음'}
+                  </div>
+                  <div className="pc-tags">
+                    {p.skills
+                      .filter((sk) => !sk.passive)
+                      .map((sk) => {
+                        const cd = Math.max(0, sk.cooldownRemainingMs - sinceView);
+                        return (
+                          <span key={sk.key} className={`tag ${cd > 0 ? '' : 'ready'}`}>
+                            {sk.name}
+                            {sk.usesLeft !== null ? ` ${sk.usesLeft}회` : ''}
+                            {cd > 0 ? ` ${Math.ceil(cd / 1000)}s` : ''}
+                          </span>
+                        );
+                      })}
+                    {p.statuses.map((st, i) => (
+                      <span key={i} className="tag warn">
+                        {st.kind === 'incapacitated' ? '행동불능' : '무적'}
+                      </span>
+                    ))}
+                    {!p.alive && <span className="tag">사망</span>}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </section>
+        </main>
+      </div>
+    </div>
+  );
+}
+
 export function GameScreen({ view, events, room, myId }: { view: PlayerView; events: GameEvent[]; room: RoomDetail; myId: string }) {
   const now = useNow();
   const receivedAt = useRef(Date.now());
@@ -48,6 +149,28 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
   const sideOf = (k: string | null) => (k ? roster.find((r) => r.key === k)?.side : undefined);
 
   const knowledge = useMemo(() => buildKnowledge(events, myId), [events, myId]);
+  // 플레이어별 메모 (내 브라우저에만 저장, 방 단위)
+  const memoKey = `gst.memo.${room.id}`;
+  const [memos, setMemos] = useState<Record<string, string>>(() => {
+    try {
+      return JSON.parse(localStorage.getItem(memoKey) ?? '{}') as Record<string, string>;
+    } catch {
+      return {};
+    }
+  });
+  const [editingMemo, setEditingMemo] = useState<string | null>(null);
+  const setMemo = (pid: string, text: string) => {
+    setMemos((m) => {
+      const next = { ...m, [pid]: text };
+      if (!text) delete next[pid];
+      try {
+        localStorage.setItem(memoKey, JSON.stringify(next));
+      } catch {
+        /* 저장 불가 환경 */
+      }
+      return next;
+    });
+  };
   const me = view.me;
   const targetPlayer = view.players.find((p) => p.id === target) ?? null;
 
@@ -144,18 +267,25 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
           </dl>
         </aside>
 
+        <section className="center">
+          <Log events={events} myId={myId} />
+          <Chat view={view} target={target} />
+        </section>
+
         <main>
           <section className="players-wrap">
           <FxLayer fx={fx} />
-          <section className="players">
+          <section className="players" style={{ gridTemplateColumns: `repeat(${Math.ceil(view.players.length / 2)}, minmax(0, 1fr))` }}>
             {view.players.map((p) => {
               const k = knowledge.get(p.id);
               const isMe = p.id === myId;
               const hit = fx.find((f): f is Extract<Fx, { type: 'pulse' }> => f.type === 'pulse' && f.to === p.id);
               return (
-                <button
+                <div
                   key={p.id}
                   data-player={p.id}
+                  role="button"
+                  tabIndex={0}
                   className={`pcard ${!p.alive ? 'dead' : ''} ${target === p.id ? 'selected' : ''} ${isMe ? 'mine' : ''} ${hit ? `hit hit-${hit.color} ${hit.big ? 'big' : ''}` : ''}`}
                   onClick={() => !isMe && setTarget(target === p.id ? null : p.id)}
                 >
@@ -181,8 +311,29 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                     {!p.alive && <span className="tag">사망</span>}
                     {p.left && <span className="tag">이탈</span>}
                   </div>
+                  {!isMe && (
+                    <div className="memo" onClick={(e) => e.stopPropagation()}>
+                      {editingMemo === p.id ? (
+                        <input
+                          autoFocus
+                          maxLength={40}
+                          defaultValue={memos[p.id] ?? ''}
+                          placeholder="메모 (나만 봄)"
+                          onBlur={(e) => (setMemo(p.id, e.target.value.trim()), setEditingMemo(null))}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+                            if (e.key === 'Escape') setEditingMemo(null);
+                          }}
+                        />
+                      ) : (
+                        <span className={`memo-text ${memos[p.id] ? '' : 'empty'}`} onClick={() => setEditingMemo(p.id)} title="클릭해서 메모">
+                          {memos[p.id] ? `✎ ${memos[p.id]}` : '✎ 메모'}
+                        </span>
+                      )}
+                    </div>
+                  )}
                   </div>
-                </button>
+                </div>
               );
             })}
           </section>
@@ -215,15 +366,19 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                       {s.hotkey && <kbd>{s.hotkey}</kbd>} {s.name}
                       {s.key === 'advanced_attack' && s.level === 2 && <span className="tag warn">경고</span>}
                     </span>
-                    {!s.passive && (
-                      <span className="sk-meta">
-                        {s.mana > 0 && `마나 ${s.mana}`}
-                        {s.usesLeft !== null && ` · ${s.usesLeft}회`}
-                      </span>
-                    )}
-                    {s.passive && <span className="sk-meta">패시브</span>}
+                    <span className="sk-meta">
+                      {s.passive ? (
+                        <span className="sk-stat">패시브</span>
+                      ) : (
+                        <>
+                          <span className="sk-stat">마나 {s.mana}</span>
+                          <span className="sk-stat">쿨 {s.cooldown > 0 ? `${s.cooldown}초` : '없음'}</span>
+                          <span className="sk-stat">{s.usesLeft !== null ? `${s.usesLeft}회` : '무한'}</span>
+                        </>
+                      )}
+                    </span>
                     <span className="sk-desc">{s.description}</span>
-                    {s.blocked && <span className="sk-blocked">{s.blocked}</span>}
+                    <span className="sk-blocked">{s.blocked ?? ''}</span>
                   </button>
                 );
               })}
@@ -231,11 +386,6 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
           </section>
 
         </main>
-
-        <aside className="right">
-          <Log events={events} myId={myId} />
-          <Chat view={view} target={target} />
-        </aside>
       </div>
 
       {picking && (

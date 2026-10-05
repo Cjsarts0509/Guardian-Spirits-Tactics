@@ -1,6 +1,6 @@
 // 클라이언트 ↔ 게임 서버 메시지 (JSON over WebSocket)
 import { z } from 'zod';
-import type { GameEvent, PlayerView } from '@gst/rules';
+import type { GameEvent, PlayerView, SpectatorView } from '@gst/rules';
 
 export const PROTOCOL_VERSION = 1;
 
@@ -43,7 +43,8 @@ export const clientMessage = z.discriminatedUnion('type', [
   z.object({ type: z.literal('room.leave') }),
   z.object({ type: z.literal('room.addBots'), count: z.number().int().min(1).max(11) }),
   z.object({ type: z.literal('room.removeBots') }),
-  z.object({ type: z.literal('room.start') }),
+  /** aiOnly: 사람은 모두 관전, 봇만으로 판을 돌린다 (테스트용) */
+  z.object({ type: z.literal('room.start'), aiOnly: z.boolean().optional() }),
   z.object({ type: z.literal('game.action'), action: actionSchema, ref: z.number().int().optional() }),
   z.object({ type: z.literal('ping'), t: z.number() }),
 ]);
@@ -68,6 +69,8 @@ export interface RoomMember {
   nickname: string;
   bot: boolean;
   connected: boolean;
+  /** 봇만 돌리는 판의 관전자 */
+  spectator?: boolean;
 }
 
 export interface RoomDetail extends RoomSummary {
@@ -83,7 +86,7 @@ export type ServerMessage =
   | { type: 'error'; message: string; ref?: number }
   | { type: 'rooms'; rooms: RoomSummary[] }
   | { type: 'room'; room: RoomDetail | null }
-  | { type: 'game'; view: PlayerView; events: GameEvent[]; serverTime: number }
+  | { type: 'game'; view: PlayerView | SpectatorView; events: GameEvent[]; serverTime: number }
   | { type: 'action.result'; ok: boolean; error?: string; ref?: number }
   | { type: 'pong'; t: number; serverTime: number };
 

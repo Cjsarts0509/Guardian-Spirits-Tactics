@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import type { GameEvent, PlayerView } from '@gst/rules';
+import type { GameEvent, PlayerView, SpectatorView } from '@gst/rules';
 import type { RoomDetail, RoomSummary, ServerMessage } from '@gst/protocol';
 import { net, type NetStatus } from './net.js';
 import { Lobby, RoomPanel } from './Lobby.js';
-import { GameScreen } from './Game.js';
+import { GameScreen, SpectatorScreen } from './Game.js';
 
 export interface Toast {
   id: number;
@@ -15,7 +15,7 @@ export function App() {
   const [me, setMe] = useState<{ userId: string; nickname: string } | null>(null);
   const [rooms, setRooms] = useState<RoomSummary[]>([]);
   const [room, setRoom] = useState<RoomDetail | null>(null);
-  const [view, setView] = useState<PlayerView | null>(null);
+  const [view, setView] = useState<PlayerView | SpectatorView | null>(null);
   const [events, setEvents] = useState<GameEvent[]>([]);
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [nick, setNick] = useState(net.savedNickname());
@@ -93,7 +93,7 @@ export function App() {
       </div>
     );
   } else if (view && room && room.status !== 'lobby') {
-    body = <GameScreen view={view} events={events} room={room} myId={me.userId} />;
+    body = 'spectator' in view ? <SpectatorScreen view={view} events={events} room={room} /> : <GameScreen view={view} events={events} room={room} myId={me.userId} />;
   } else if (room) {
     body = <RoomPanel room={room} myId={me.userId} />;
   } else {

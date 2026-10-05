@@ -11,6 +11,7 @@ import {
   randomBotAction,
   smartBotAction,
   viewFor,
+  spectatorView,
   type Action,
   type GameState,
 } from '@gst/rules';
@@ -25,6 +26,8 @@ interface Member {
   id: string;
   nickname: string;
   bot: boolean;
+  /** 봇만 돌리는 판의 관전자 */
+  spectator?: boolean;
   /** 로그인 사용자의 auth id (게스트·봇은 null) */
   authId: string | null;
   conn: Conn | null;
@@ -70,7 +73,7 @@ export class Room {
       ...this.summary(),
       hostId: this.hostId,
       turnSeconds: this.turnSeconds,
-      members: this.members.map((m) => ({ id: m.id, nickname: m.nickname, bot: m.bot, connected: m.bot || !!m.conn })),
+      members: this.members.map((m) => ({ id: m.id, nickname: m.nickname, bot: m.bot, connected: m.bot || !!m.conn, ...(m.spectator ? { spectator: true } : {}) })),
       minPlayers: MIN_PLAYERS,
       botsAllowed: this.cfg.allowBots,
     };
@@ -110,6 +113,8 @@ export class Room {
     if (this.status === 'lobby' || this.status === 'ended') {
       this.members = this.members.filter((x) => x.id !== userId);
       if (this.hostId === userId) this.hostId = this.humans()[0]?.id ?? '';
+    } else if (m.spectator) {
+      this.members = this.members.filter((x) => x.id !== userId);
     } else if (this.state) {
       m.conn = null;
       if (m.graceTimer) clearTimeout(m.graceTimer);
@@ -129,7 +134,7 @@ export class Room {
       this.leave(userId, this.clock());
       return;
     }
-    if (this.status === 'playing' && !m.graceTimer) {
+    if (this.status === 'playing' && !m.spectator && !m.graceTimer) {
       m.graceTimer = setTimeout(() => {
         m.graceTimer = null;
         if (!m.conn && this.state && this.status === 'playing') {
@@ -145,7 +150,7 @@ export class Room {
     if (!this.cfg.allowBots) return '봇이 허용되지 않은 서버입니다.';
     if (byUser !== this.hostId) return '방장만 할 수 있습니다.';
     if (this.status !== 'lobby') return '대기 중인 방에서만 가능합니다.';
-    const n = Math.min(count, MAX_PLAYERS - this.members.length);
+    const n = Math.min(count, MAX_PLAYERS - this.members.filter((m) => !m.spectator).length);
     for (let i = 0; i < n; i++) {
       const bid = `bot-${this.id}-${++this.botSeq}`;
       this.members.push({ id: bid, nickname: `봇${this.botSeq}`, bot: true, authId: null, conn: null, lastSeq: 0, graceTimer: null });
@@ -162,13 +167,20 @@ export class Room {
     return null;
   }
 
-  start(byUser: string, now: number): string | null {
+  start(byUser: string, now: number, aiOnly = false): string | null {
     if (byUser !== this.hostId) return '방장만 시작할 수 있습니다.';
     if (this.status !== 'lobby') return '이미 시작되었습니다.';
-    if (this.members.length < MIN_PLAYERS) return `${MIN_PLAYERS}명 이상이어야 시작할 수 있습니다.`;
+    if (aiOnly) {
+      if (!this.cfg.allowBots) return '봇이 허용되지 않은 서버입니다.';
+      for (const m of this.members) if (!m.bot) m.spectator = true;
+      const bots = this.members.filter((m) => m.bot).length;
+      if (bots < MAX_PLAYERS) this.addBots(byUser, MAX_PLAYERS - bots);
+    }
+    const players = this.members.filter((m) => !m.spectator);
+    if (players.length < MIN_PLAYERS) return `${MIN_PLAYERS}명 이상이어야 시작할 수 있습니다.`;
     const { state } = createGame({
       mode: this.mode,
-      players: this.members.map((m) => ({ id: m.id, nickname: m.nickname })),
+      players: players.map((m) => ({ id: m.id, nickname: m.nickname })),
       seed: randomBytes(4).readInt32LE(0),
       now,
       turnSeconds: this.turnSeconds,
@@ -182,6 +194,7 @@ export class Room {
 
   act(userId: string, action: Action, now: number): { ok: boolean; error?: string } {
     if (!this.state || this.status !== 'playing') return { ok: false, error: '진행 중인 게임이 없습니다.' };
+    if (this.member(userId)?.spectator) return { ok: false, error: '관전 중에는 행동할 수 없습니다.' };
     const r = applyAction(this.state, userId, action, now);
     this.afterChange();
     return r.ok ? { ok: true } : { ok: false, error: r.error ?? '실패' };
@@ -218,8 +231,11 @@ export class Room {
     if (!st) return;
     for (const m of only ?? this.members) {
       if (m.bot || !m.conn) continue;
-      const events = eventsFor(st, m.id, m.lastSeq);
-      m.conn.send({ type: 'game', view: viewFor(st, m.id), events, serverTime: this.clock() });
+      if (m.spectator) {
+        m.conn.send({ type: 'game', view: spectatorView(st), events: st.log.filter((e) => e.seq > m.lastSeq), serverTime: this.clock() });
+      } else {
+        m.conn.send({ type: 'game', view: viewFor(st, m.id), events: eventsFor(st, m.id, m.lastSeq), serverTime: this.clock() });
+      }
       m.lastSeq = st.seq;
     }
   }

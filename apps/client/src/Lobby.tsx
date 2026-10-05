@@ -84,6 +84,11 @@ export function RoomPanel({ room, myId }: { room: RoomDetail; myId: string }) {
             <button disabled={missing > 0} onClick={() => net.send({ type: 'room.start' })}>
               시작
             </button>
+            {room.botsAllowed && (
+              <button className="ghost" title="사람은 모두 관전, 봇 12명이 플레이 (테스트용)" onClick={() => net.send({ type: 'room.start', aiOnly: true })}>
+                AI만 돌리기 (관전)
+              </button>
+            )}
           </div>
         )}
         {!isHost && <p className="muted">방장이 시작하기를 기다리는 중…</p>}

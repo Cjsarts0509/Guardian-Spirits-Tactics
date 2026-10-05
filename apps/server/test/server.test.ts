@@ -78,13 +78,15 @@ describe('게임 서버', () => {
     await c.wait((m) => m.type === 'room' && !!m.room && m.room.members.length === 12);
     c.send({ type: 'room.start' });
     const first = await c.wait<Extract<ServerMessage, { type: 'game' }>>((m) => m.type === 'game');
+    if ('spectator' in first.view) throw new Error('플레이어 뷰여야 함');
     expect(first.view.me.id).toBe(welcome.userId);
     expect(first.events.some((e) => e.kind === 'role')).toBe(true);
     // 남의 정체는 뷰에 없다
     for (const p of first.view.players) expect(p.revealed).toBeNull();
 
     // 내 행동 1개: 공표
-    c.send({ type: 'game.action', ref: 1, action: { type: 'skill', skill: 'publish', name: first.view.me.character } });
+    const firstMe = first.view.me;
+    c.send({ type: 'game.action', ref: 1, action: { type: 'skill', skill: 'publish', name: firstMe.character } });
     const ar = await c.wait<Extract<ServerMessage, { type: 'action.result' }>>((m) => m.type === 'action.result' && m.ref === 1);
     // 봇이 빠르게 움직여 이미 죽었거나 행동불능일 수 있다 — 그 외 거절은 실패
     expect(ar.ok || /사망|행동 불능|종료|진행 중인 게임이 없습니다/.test(ar.error ?? ''), ar.error).toBe(true);
@@ -93,11 +95,13 @@ describe('게임 서버', () => {
     let ref = 100;
     const autoplay = setInterval(() => {
       const last = [...c.inbox].reverse().find((m) => m.type === 'game') as Extract<ServerMessage, { type: 'game' }> | undefined;
-      if (!last || !last.view.me.alive || last.view.phase !== 'running') return;
-      const usable = last.view.me.skills.filter((s) => !s.passive && !s.blocked);
+      if (!last || 'spectator' in last.view) return;
+      const lv = last.view;
+      if (!lv.me.alive || lv.phase !== 'running') return;
+      const usable = lv.me.skills.filter((s) => !s.passive && !s.blocked);
       const s = usable[Math.floor(Math.random() * usable.length)];
       if (!s) return;
-      const others = last.view.players.filter((p) => p.alive && p.id !== last.view.me.id);
+      const others = lv.players.filter((p) => p.alive && p.id !== lv.me.id);
       const target = others[Math.floor(Math.random() * others.length)]?.id;
       const name = s.nameOptions ? s.nameOptions[Math.floor(Math.random() * s.nameOptions.length)] : undefined;
       c.send({ type: 'game.action', ref: ++ref, action: { type: 'skill', skill: s.key, ...(s.target !== 'none' ? { target } : {}), ...(name ? { name } : {}) } });
@@ -145,4 +149,43 @@ describe('연결 유지', () => {
     good.close();
     await s.close();
   });
+});
+
+describe('AI 전용 판 (관전)', () => {
+  it('사람은 관전자가 되고 봇 12명이 끝까지 진행, 관전 뷰에는 전원 정체가 보인다', async () => {
+    const cfg = { ...loadConfig({}), port: 0, host: '127.0.0.1', tickMs: 10, botActivity: 0.3, reconnectGraceSeconds: 1, timeScale: 60 };
+    const s = createGameServer(cfg, () => {});
+    const p = await s.listen();
+    const ws = new WebSocket(`ws://127.0.0.1:${p}`);
+    const inbox: ServerMessage[] = [];
+    ws.on('message', (d) => inbox.push(JSON.parse(d.toString()) as ServerMessage));
+    await new Promise((r) => ws.on('open', r));
+    const wait = <T extends ServerMessage>(pred: (m: ServerMessage) => boolean, ms = 30000) =>
+      new Promise<T>((resolve, reject) => {
+        const t0 = Date.now();
+        const tick = () => {
+          const hit = inbox.find(pred);
+          if (hit) return resolve(hit as T);
+          if (Date.now() - t0 > ms) return reject(new Error('timeout'));
+          setTimeout(tick, 20);
+        };
+        tick();
+      });
+    ws.send(JSON.stringify({ type: 'hello', protocol: 1, nickname: '관전자' }));
+    await wait((m) => m.type === 'welcome');
+    ws.send(JSON.stringify({ type: 'room.create', name: 'AI전', mode: 'civil_war', turnSeconds: 60 }));
+    await wait((m) => m.type === 'room' && !!m.room);
+    ws.send(JSON.stringify({ type: 'room.start', aiOnly: true }));
+    const g = await wait<Extract<ServerMessage, { type: 'game' }>>((m) => m.type === 'game');
+    expect('spectator' in g.view && g.view.spectator).toBe(true);
+    expect(g.view.players).toHaveLength(12);
+    expect(g.view.players.every((x) => x.revealed !== null)).toBe(true);
+    ws.send(JSON.stringify({ type: 'game.action', ref: 5, action: { type: 'chat', channel: 'all', text: 'x' } }));
+    const ar = await wait<Extract<ServerMessage, { type: 'action.result' }>>((m) => m.type === 'action.result' && m.ref === 5);
+    expect(ar.ok).toBe(false);
+    const end = await wait<Extract<ServerMessage, { type: 'game' }>>((m) => m.type === 'game' && m.view.phase === 'ended', 60000);
+    expect([1, 2]).toContain(end.view.winner);
+    ws.close();
+    await s.close();
+  }, 70000);
 });
