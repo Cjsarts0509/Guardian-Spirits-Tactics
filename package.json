@@ -1,0 +1,21 @@
+{
+  "name": "gst-web",
+  "private": true,
+  "version": "0.1.0",
+  "description": "가디언 스피리츠 택틱스 웹 리메이크",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "pnpm -r run build",
+    "typecheck": "pnpm -r run typecheck",
+    "test": "pnpm -r run test",
+    "dev:server": "pnpm --filter @gst/server dev",
+    "dev:client": "pnpm --filter @gst/client dev",
+    "sim": "pnpm --filter @gst/rules sim"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

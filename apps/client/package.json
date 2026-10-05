@@ -1,0 +1,27 @@
+{
+  "name": "@gst/client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "가택 플레이테스트용 개발 클라이언트 (정식 UI는 DESIGN_MODERN 기준으로 별도 제작)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "echo \"(client: no tests)\""
+  },
+  "dependencies": {
+    "@gst/protocol": "workspace:*",
+    "@gst/rules": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

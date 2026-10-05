@@ -1,0 +1,1475 @@
+{
+ "mode": "lidellut",
+ "displayName": "리델루트 황야",
+ "modeSelect": {
+  "button": "E[3]",
+  "handler": "ri",
+  "questText": "Ur",
+  "slotUnits": "X[1..12]=H00O,H00S,H00R,H00T,H00P,H00Q,H00U,H00Y,H00V,H00X,H00W,H00Z"
+ },
+ "playerCountRules": {
+  "min": 8,
+  "max": 12,
+  "masks": {
+   "12": "111111111111",
+   "11": "111110111111",
+   "10": "111110111110",
+   "9": "111100111110",
+   "8": "111100111010",
+   "1": "000000010000"
+  },
+  "excludedByCount": {
+   "12": [],
+   "11": [
+    "세피"
+   ],
+   "10": [
+    "세피",
+    "카미카제"
+   ],
+   "9": [
+    "투마",
+    "세피",
+    "카미카제"
+   ],
+   "8": [
+    "투마",
+    "세피",
+    "로네리스",
+    "카미카제"
+   ]
+  },
+  "source": [
+   "Ei",
+   "Ur"
+  ]
+ },
+ "dialogs": {
+  "attack": "다크니스 시전자→G[2](b7..12), 가디언 시전자→G[1](b1..6)",
+  "scan_c": "b2..6+b8..12 (카이·샤이닝 불가)",
+  "av1": "b2..6",
+  "av2": "b8..12",
+  "angel_baptism": [
+   "유이",
+   "로네리스",
+   "수프라"
+  ],
+  "source": [
+   "Fi",
+   "rn"
+  ]
+ },
+ "sides": [
+  {
+   "id": "darkness",
+   "name": "다크니스",
+   "color": "red",
+   "slots": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "winCondition": "(Pb) 샤이닝·유이·로네리스·수프라 전원 사망, 또는 (qb) 샤이닝의 위대한 의지가 실패로 제거된 상태에서 유이·로네리스·수프라·카미카제 전원 사망(샤이닝 생존 무관). 다크니스 판정이 가디언 판정보다 먼저.",
+   "winConditionStruct": {
+    "type": "any",
+    "of": [
+     {
+      "type": "killAll",
+      "targets": [
+       "샤이닝",
+       "유이",
+       "로네리스",
+       "수프라"
+      ],
+      "source": "Pb"
+     },
+     {
+      "type": "all",
+      "of": [
+       {
+        "type": "flag",
+        "name": "great_will_failed",
+        "desc": "A02N level==0 on O[7]"
+       },
+       {
+        "type": "killAll",
+        "targets": [
+         "유이",
+         "로네리스",
+         "수프라",
+         "카미카제"
+        ]
+       }
+      ],
+      "source": "qb"
+     }
+    ],
+    "excludedSlotHandling": {
+     "unverified": true,
+     "reason": "제외 슬롯 O[i]=null → GetPlayerId(null) 의존. 구현 권장: 제외 슬롯은 사망으로 간주"
+    }
+   }
+  },
+  {
+   "id": "guardian",
+   "name": "가디언",
+   "color": "blue",
+   "slots": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "winCondition": "(Qb) 카이 사망.",
+   "winConditionStruct": {
+    "type": "killAll",
+    "targets": [
+     "카이"
+    ],
+    "source": "Qb"
+   }
+  }
+ ],
+ "winCheck": {
+  "function": "wb",
+  "order": [
+   "Pb",
+   "qb",
+   "Qb"
+  ],
+  "triggeredBy": [
+   "Lr",
+   "cn",
+   "qi",
+   "zR(+3s)"
+  ],
+  "onEnd": "yb: 일시정지, 4s 후 전원 역할 공개"
+ },
+ "timedUnlocks": [
+  {
+   "seconds": 300,
+   "timer": "S",
+   "handler": "Wn",
+   "effect": "카스파(O[3]) 생존 시 신탁 A02K 획득"
+  }
+ ],
+ "globals": {
+  "Z": "유이 전략 포인트(0..4)",
+  "rv": "로네리스 기사단 카운터(유이 합류 성공+1, 기사단 창설 성공+1, ==2에서 A02W)",
+  "vv[pid]": "천사의 세례 수혜 여부",
+  "Rv[pid]": "미명의 안개 걸림",
+  "j[slot]": "추가 목숨: j5=1, j12=2, j11 가변"
+ },
+ "characters": [
+  {
+   "key": "kai",
+   "slot": 1,
+   "unitId": "H00O",
+   "name": "카이",
+   "title": "프린스 오브 다크니스",
+   "side": "darkness",
+   "commander": true,
+   "lives": 1,
+   "skills": [
+    "advanced_attack",
+    "ally_check",
+    "global_chat",
+    "publish",
+    "ally",
+    "break_ally",
+    "soul_reaver"
+   ],
+   "skillCodes": {
+    "advanced_attack": "A003",
+    "ally_check": "A009"
+   },
+   "notes": "슬롯1. 사망 시 가디언 승리. 아린 생존 중 공격 면역(공격자 실패). 전체 채팅 가능(Kn: H00O).",
+   "bodyguardedBy": [
+    "아린"
+   ]
+  },
+  {
+   "key": "arin",
+   "slot": 2,
+   "unitId": "H00S",
+   "name": "아린",
+   "title": "다크 템플러",
+   "side": "darkness",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "attack",
+    "enemy_check",
+    "publish",
+    "ally",
+    "break_ally",
+    "loyal_servant",
+    "rune_protection",
+    "bodyguard"
+   ],
+   "skillCodes": {
+    "attack": "A002",
+    "enemy_check": "A008"
+   },
+   "notes": "슬롯2. 생존 시 카이 보디가드."
+  },
+  {
+   "key": "kaspa",
+   "slot": 3,
+   "unitId": "H00R",
+   "name": "카스파",
+   "title": "다크 샤먼",
+   "side": "darkness",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "attack",
+    "ally_check",
+    "publish",
+    "ally",
+    "break_ally",
+    "loyal_servant",
+    "essence_drain",
+    "religious_alliance",
+    "oracle"
+   ],
+   "skillCodes": {
+    "attack": "A002",
+    "ally_check": "A009",
+    "religious_alliance": "A02Y"
+   },
+   "notes": "슬롯3. 신탁은 300초 타이머로 획득."
+  },
+  {
+   "key": "freia",
+   "slot": 4,
+   "unitId": "H00T",
+   "name": "프레이아",
+   "title": "프리스티스 오브 그리드",
+   "side": "darkness",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "advanced_scan",
+    "publish",
+    "ally",
+    "break_ally",
+    "religious_alliance",
+    "dawn_mist"
+   ],
+   "skillCodes": {
+    "advanced_scan": "A036",
+    "religious_alliance": "A02Z"
+   },
+   "notes": "슬롯4. 퀘스트 텍스트 칭호는 '드로우 프리스티스'."
+  },
+  {
+   "key": "tuma",
+   "slot": 5,
+   "unitId": "H00P",
+   "name": "투마",
+   "title": "플레임 블레이더",
+   "side": "darkness",
+   "commander": false,
+   "lives": 2,
+   "skills": [
+    "advanced_attack",
+    "publish",
+    "ally",
+    "break_ally",
+    "valiant_charge",
+    "charge_sense",
+    "flame_source"
+   ],
+   "skillCodes": {
+    "advanced_attack": "A003"
+   },
+   "notes": "슬롯5. j[5]=1. 9인 이하 제외. 돌진 성공 시 A01Z 최상급 공격(실패 페널티 없음)."
+  },
+  {
+   "key": "sepi",
+   "slot": 6,
+   "unitId": "H00Q",
+   "name": "세피",
+   "title": "카오스 위치",
+   "side": "darkness",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "ally_check",
+    "publish",
+    "ally",
+    "break_ally",
+    "confusion",
+    "curse",
+    "burning_magic",
+    "distortion"
+   ],
+   "skillCodes": {
+    "ally_check": "A009"
+   },
+   "notes": "슬롯6. 11인 이하 제외."
+  },
+  {
+   "key": "shining",
+   "slot": 7,
+   "unitId": "H00U",
+   "name": "샤이닝",
+   "title": "그랜드 제너럴",
+   "side": "guardian",
+   "commander": true,
+   "lives": 1,
+   "skills": [
+    "ally_scan",
+    "global_chat",
+    "publish",
+    "ally",
+    "break_ally",
+    "great_will",
+    "kinship_shining",
+    "join"
+   ],
+   "skillCodes": {
+    "ally_scan": "A00T"
+   },
+   "notes": "슬롯7. 전체 채팅 가능(Kn: H00U). Pb 조건 대상."
+  },
+  {
+   "key": "chizuko",
+   "slot": 8,
+   "unitId": "H00Y",
+   "name": "치즈코",
+   "title": "하프 엔젤릭",
+   "side": "guardian",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "enemy_scan",
+    "publish",
+    "ally",
+    "break_ally",
+    "diplomacy",
+    "angel_baptism",
+    "kinship_chizuko",
+    "join"
+   ],
+   "skillCodes": {
+    "enemy_scan": "A040"
+   },
+   "notes": "슬롯8. 어떤 승리 조건에도 포함되지 않음."
+  },
+  {
+   "key": "yui",
+   "slot": 9,
+   "unitId": "H00V",
+   "name": "유이",
+   "title": "디바인 나이트",
+   "side": "guardian",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "attack",
+    "publish",
+    "ally",
+    "break_ally",
+    "chivalry"
+   ],
+   "skillCodes": {
+    "attack": "A002",
+    "scan": "A037",
+    "advanced_scan": "A036"
+   },
+   "notes": "슬롯9. 기사. 획득형: scan(A037)/advanced_scan(A036)/mass_teleport(A031)/greater_mass_teleport(A02V). 합류 스킬 없음(합류의 대상)."
+  },
+  {
+   "key": "loneris",
+   "slot": 10,
+   "unitId": "H00X",
+   "name": "로네리스",
+   "title": "크루스닉",
+   "side": "guardian",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "attack",
+    "publish",
+    "ally",
+    "break_ally",
+    "chivalry",
+    "order_founding",
+    "join"
+   ],
+   "skillCodes": {
+    "attack": "A002",
+    "enemy_check": "A008"
+   },
+   "notes": "슬롯10. 기사. 8인 제외. 획득형: enemy_check(A008, 기사도)/order_inquisition(A02W)/heresy_judgment(A032)/advanced_attack(A003, 이단 심판 성공 시)."
+  },
+  {
+   "key": "supra",
+   "slot": 11,
+   "unitId": "H00W",
+   "name": "수프라",
+   "title": "블러디 나이트",
+   "side": "guardian",
+   "commander": false,
+   "lives": "1+j[11] (가변)",
+   "skills": [
+    "advanced_attack",
+    "publish",
+    "ally",
+    "break_ally",
+    "defend",
+    "chivalry",
+    "join"
+   ],
+   "skillCodes": {
+    "advanced_attack": "A003"
+   },
+   "notes": "슬롯11. 기사. j[11] 초기 0, 기사도 +1, 세례 +2씩."
+  },
+  {
+   "key": "kamikaze",
+   "slot": 12,
+   "unitId": "H00Z",
+   "name": "카미카제",
+   "title": "그레이트 워로드",
+   "side": "guardian",
+   "commander": false,
+   "lives": 3,
+   "skills": [
+    "attack",
+    "publish",
+    "ally",
+    "break_ally",
+    "battle_sense",
+    "commander_search",
+    "ancient_sorcery",
+    "hard_skin",
+    "join"
+   ],
+   "skillCodes": {
+    "attack": "A002",
+    "advanced_ally_check": "A02J"
+   },
+   "notes": "슬롯12. j[12]=2. 10인 이하 제외. 획득형: advanced_ally_check(A02J, 사령관 탐색 성공). 칭호 퀘스트 텍스트 '그레이트 워리어'."
+  }
+ ],
+ "skills": {
+  "soul_reaver": {
+   "abilityCode": "A00B",
+   "name": "소울 리버",
+   "hotkey": "V",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상을 즉시 살해(목숨/보디가드 무시). 20초 후 카이 정체 전체 공개.",
+   "resolution": [
+    "전체: 카이가 <대상P>에게 소울 리버를 시전하여 살해합니다!",
+    "Lr(대상)",
+    "전체: <대상P>의 정체는 <영웅명>입니다!",
+    "전체: 카이의 정체가 20초 후 드러납니다.",
+    "20초 후 전체: 카이의 정체는 <카이P>입니다!",
+    "스크립트 제거 없음(쿨 3600으로 1회)"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 20,
+   "source": [
+    "dE",
+    "fE"
+   ]
+  },
+  "loyal_servant": {
+   "abilityCode": "A00V",
+   "name": "충복",
+   "hotkey": "Z",
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": "infinite_until_success",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 실제 이름이 카이인지 판별. 성공 시 스킬 소멸.",
+   "resolution": [
+    "실제명==카이 → 본인 '이 사람의 정체는 카이입니다!' → 0.2s 후 A00V 제거",
+    "아니면 본인 '카이가 아니다'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "gE",
+    "GE",
+    "hE"
+   ]
+  },
+  "rune_protection": {
+   "abilityCode": "A00W",
+   "name": "룬 프로텍션",
+   "hotkey": "X",
+   "manaCost": 40,
+   "cooldown": 60,
+   "uses": "infinite",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 45초 무적(베이스 Aams 안티매직셸, 스크립트 없음).",
+   "resolution": [
+    "엔진 효과만: 45초 동안 대상은 마법면역 → 대상 지정 스킬의 대상이 될 수 없음(구현 권장)"
+   ],
+   "visibility": {
+    "onSuccess": "none"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "objects:A00W"
+   ],
+   "unverified": true,
+   "reason": "엔진 버프 효과, 스크립트 없음"
+  },
+  "bodyguard": {
+   "abilityCode": "A00X",
+   "name": "보디가드",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": "passive",
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "아린 생존 시 카이를 정답으로 공격해도 실패 처리(공격자 페널티). 즉사기 무관.",
+   "resolution": [
+    "cn: 정답 && nn(황야, 대상 실제명 카이, O[2] 생존) → qr(실패)"
+   ],
+   "visibility": {
+    "onFail": "target(실패 통보)+all(공격자 실패/사망)"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "nn",
+    "cn",
+    "qr"
+   ]
+  },
+  "essence_drain": {
+   "abilityCode": "S003",
+   "name": "정기 흡수",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": "passive",
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "공격으로 살해 시 마나 +50.",
+   "resolution": [
+    "Pr: 살해 후 mana += level(S003)*50"
+   ],
+   "visibility": {
+    "onSuccess": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Pr"
+   ]
+  },
+  "religious_alliance": {
+   "abilityCode": "A02Y|A02Z",
+   "name": "종교 동맹",
+   "hotkey": "C(카스파 핫키없음)/X(프레이아)",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": true,
+   "effect": "진명 필요. 카스파/프레이아 중 먼저 쓴 1명만 발동. 60초 후 전체 공지 + 양측에 서로 정체 비공개 통보.",
+   "resolution": [
+    "SPELL_CAST. 진명 아님 → stop + 본인 '자신의 진명을 공표하고 있어야 합니다.'",
+    "A02Z(O[4])*A02Y(O[3])==0 → stop + 본인 '이미 상대방 측에서 종교 동맹의 서신을 보냈습니다.'",
+    "0.7s 후 시전자 A02Y/A02Z 제거",
+    "60s 대기",
+    "전체: 프레이아와 카스파 사이에 종교 동맹이 체결되었습니다!",
+    "O[3]에게 프레이아=<P>, O[4]에게 카스파=<P>"
+   ],
+   "visibility": {
+    "onSuccess": "all(체결 사실)+카스파/프레이아(상대 정체)",
+    "onFail": "self"
+   },
+   "delaySeconds": 60,
+   "source": [
+    "XR",
+    "OR",
+    "RR",
+    "IR",
+    "AR"
+   ],
+   "wikiDiff": "위키는 각자 상대 정체를 안다고만 서술. 코드: 먼저 쓴 쪽만 발동, 상대는 사용 불가, 결과는 양쪽 모두 획득."
+  },
+  "oracle": {
+   "abilityCode": "A02K",
+   "name": "신탁",
+   "hotkey": "V",
+   "manaCost": 10,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "timer",
+    "seconds": 300,
+    "grantedBy": "타이머 S 만료(Wn), O[3] 생존 && 이름 카스파"
+   },
+   "requiresTrueName": false,
+   "effect": "대상의 진실의 보석 등급 조회.",
+   "resolution": [
+    "I000→'합쳐진 진실의 보석' / I002→'2/3' / I001→'1/3' / 없음 → O[3]에게",
+    "A02K 제거"
+   ],
+   "visibility": {
+    "onSuccess": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Wn",
+    "Un",
+    "bR",
+    "BR"
+   ]
+  },
+  "dawn_mist": {
+   "abilityCode": "A00J",
+   "name": "미명의 안개",
+   "hotkey": "Z",
+   "manaCost": 25,
+   "cooldown": 45,
+   "uses": "infinite",
+   "target": "player(notself)",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "Rv[대상]=true. 다음 1회 적군 확인(A008/A03H) 또는 배틀 센스(A03B)를 무효화하고 프레이아에게 시전자 영웅명 통보. 지속시간 없음.",
+   "resolution": [
+    "dR: Rv[대상]=true",
+    "Fa(적군확인): Rv면 false로, 시전자 '미명의 안개에 가려져…', O[4]에게 '<시전자영웅>가 <대상P>를 배틀 센스로 확인하려 했습니다!'(문구 버그, 생존 체크 없음)",
+    "hn(배틀센스): 동일, O[4] 통보는 프레이아 생존 시(Dn)"
+   ],
+   "visibility": {
+    "onSuccess": "self(통보는 프레이아)"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "CR",
+    "dR",
+    "Fa",
+    "hn",
+    "Dn"
+   ],
+   "wikiDiff": "지속시간 없이 소비형. 적군 확인 무효화 시에도 '배틀 센스'로 통보."
+  },
+  "valiant_charge": {
+   "abilityCode": "A035",
+   "name": "용맹한 돌진",
+   "hotkey": "Z",
+   "manaCost": 75,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 카미카제면 즉사(하드스킨 무시) + 투마 A003→A01Z(최상급 공격) + 카이와 상호 동맹 + 서로 정체 비공개 통보.",
+   "resolution": [
+    "FR(실제명 카미카제) → 전체 공지 2줄, Lr(대상), 전체 '투마의 용맹함이 카이의 귀에 전해집니다.', A003 제거·A01Z 추가, O[1]<->투마 동맹, 카이에게 투마=P, 투마에게 카이=P",
+    "실패 → 전체 '투마가 <대상P>에게 돌진을 시도하였으나 실패하였습니다.', 본인 '그 대상은 켈후가 아니거나…'(내전 문구 잔재)",
+    "항상 A035 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "fR",
+    "FR",
+    "gR"
+   ]
+  },
+  "charge_sense": {
+   "abilityCode": "A02M",
+   "name": "돌격 감각",
+   "hotkey": "X",
+   "manaCost": 30,
+   "cooldown": 100,
+   "uses": "infinite",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 실제명이 카미카제인지 판별. 대상의 공표명이 투마/카미카제면 사용 불가(취소).",
+   "resolution": [
+    "SPELL_CAST. A[대상]∈{투마,카미카제} → stop + 본인 경고",
+    "실제명 카미카제 → 본인 '카미카제이다!' / 아니면 '아니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "hR",
+    "HR",
+    "jR",
+    "JR",
+    "kR"
+   ]
+  },
+  "flame_source": {
+   "abilityCode": "S002",
+   "name": "화염의 근원",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": "passive",
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "추가 목숨 1 (j[5]=1, 2번 맞아야 사망).",
+   "resolution": [
+    "Bi: j[5]=1; Pr에서 감소"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "source": [
+    "Bi",
+    "Pr"
+   ]
+  },
+  "confusion": {
+   "abilityCode": "A00Y",
+   "name": "교란",
+   "hotkey": "X",
+   "manaCost": 25,
+   "cooldown": 120,
+   "uses": "infinite",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 45초 행동불능(PauseUnit, BNdo 버프 소멸 시 해제).",
+   "resolution": [
+    "0.1s 후 전체 '누군가가 <대상P>에게 행동 불능 주문을 시전하였습니다.'",
+    "PauseUnit(대상,true) → 1초 간격으로 버프 확인 → 해제"
+   ],
+   "visibility": {
+    "onSuccess": "all(시전자 익명)"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "yV",
+    "YV"
+   ],
+   "durationSeconds": 45,
+   "valueSource": {
+    "cooldown": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값"
+   }
+  },
+  "burning_magic": {
+   "abilityCode": "A03L",
+   "name": "버닝 매직",
+   "hotkey": "Z",
+   "manaCost": 40,
+   "cooldown": 60,
+   "uses": "infinite",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 마나 -50.",
+   "resolution": [
+    "mana(대상)-=50",
+    "전체 '세피가 누군가에게 버닝 매직을 시전하였습니다.'",
+    "대상 '마나가 50 감소'"
+   ],
+   "visibility": {
+    "onSuccess": "all(세피 이름 공개, 대상 비공개)+target"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "lR",
+    "LR"
+   ],
+   "valueSource": {
+    "manaCost": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값"
+   }
+  },
+  "curse": {
+   "abilityCode": "A03M",
+   "name": "저주",
+   "hotkey": "C",
+   "manaCost": 30,
+   "cooldown": 300,
+   "uses": "infinite",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 마나 ≤50이면 정체 판별(카이/샤이닝은 '지휘관'으로만 표시).",
+   "resolution": [
+    "mana(대상)<=50: 실제명∈{카이,샤이닝,단테스} → '지휘관(카이, 샤이닝)이다.' / 아니면 '<영웅명>이다!'",
+    "아니면 '목표 대상의 마나가 50 이하가 아닙니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "qR",
+    "QR",
+    "sR",
+    "SR",
+    "tR"
+   ]
+  },
+  "distortion": {
+   "abilityCode": "A030",
+   "name": "왜곡",
+   "hotkey": "V",
+   "manaCost": 20,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 보석 1단계 강등(I000→I002→I001→없음). 시전 사실 전체 공개.",
+   "resolution": [
+    "전체 '세피가 <대상P>에게 왜곡을 시전하였습니다.'",
+    "강등 성공/보석 없음 → O[6] 비공개",
+    "A030 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all(시전 사실)+self(결과)"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "MR",
+    "pR"
+   ]
+  },
+  "great_will": {
+   "abilityCode": "A02N",
+   "name": "위대한 의지",
+   "hotkey": "C",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 카이면 즉사(보디가드 무시) → 가디언 승리. 아니면 스킬 제거 후 20초 뒤 샤이닝 정체 공개.",
+   "resolution": [
+    "카이 → 전체 외침+'정체는 카이였습니다.', Lr, '가디언측의 승리입니다.' (wb Qb)",
+    "실패 → 전체 외침+'<대상P>는 카이가 아닙니다!'+'샤이닝의 정체가 20초 후 드러납니다.', A02N 제거, 3s 후 yo(승리판정), 17s 후 전체 '샤이닝의 정체는 <P>입니다!'"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "delaySeconds": 20,
+   "source": [
+    "yR",
+    "YR",
+    "zR"
+   ],
+   "failureEnablesDarknessWin": "qb"
+  },
+  "kinship_shining": {
+   "abilityCode": "A02P",
+   "name": "혈족",
+   "hotkey": "Z",
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": "infinite_until_success",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 치즈코인지 판별. 성공 시 소멸.",
+   "resolution": [
+    "실제명 치즈코 → 본인 성공 메시지, 0.2s 후 A02P 제거",
+    "아니면 '치즈코가 아닙니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "uR",
+    "UR",
+    "wR"
+   ]
+  },
+  "kinship_chizuko": {
+   "abilityCode": "A02S",
+   "name": "혈족",
+   "hotkey": "Z",
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": "infinite_until_success",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 샤이닝인지 판별. 성공 시 소멸.",
+   "resolution": [
+    "실제명 샤이닝 → 본인 성공, 0.2s 후 A02S 제거",
+    "아니면 '샤이닝이 아닙니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "vI",
+    "eI",
+    "xI"
+   ]
+  },
+  "join": {
+   "abilityCode": "A02O",
+   "name": "합류",
+   "hotkey": "V",
+   "manaCost": 20,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 유이면 전략 포인트 Z+1(전체 공개, 영웅명 노출). 실패 시 시전자 정체 전체 공개. Z==4 도달 10초 후 유이에게 매스 텔레포트(세례받았으면 상급).",
+   "resolution": [
+    "Z==4 → stop + 본인 '더 이상 합류할 수 없습니다.' → 0.7s 후 A02O 제거, 종료",
+    "실제명 유이 → 전체 '<시전자영웅>이 유이와 합류에 성공했습니다.', Z+=1, 전체 '현재 전략 포인트 : Z', 시전자 로네리스면 rv+=1, 0.7s 후 제거",
+    "실패 → 전체 '<시전자영웅>이 합류에 실패했습니다!'+'<시전자영웅>의 정체는 <P>입니다!', 제거",
+    "Z==4 → 전체 '10초 후 매스 텔레포트 획득' → 10s → vv[유이]? A02V : A031 추가(O[9] 비공개 통보)",
+    "로네리스 && rv==2 → 전체 공지 + A02W 추가"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all(정체 공개)"
+   },
+   "delaySeconds": 10,
+   "source": [
+    "TO",
+    "uO",
+    "UO",
+    "wO",
+    "WO",
+    "yO",
+    "YO",
+    "zO"
+   ],
+   "wikiDiff": "성공 대상은 유이만. 위키의 '수프라: 로네리스·유이 대상', '치즈코: 유이·샤이닝 대상' 서술은 틀림. 상한 4. 8인은 보유자 3명뿐이라 매스 텔레포트 불가.",
+   "strategyPoint": {
+    "var": "Z",
+    "initial": 0,
+    "max": 4,
+    "holders": [
+     "샤이닝",
+     "치즈코",
+     "수프라",
+     "로네리스",
+     "카미카제"
+    ],
+    "unlock": "Z==4 → 10s 후 유이에게 A031(또는 vv[유이]면 A02V)"
+   }
+  },
+  "chivalry": {
+   "abilityCode": "A03A",
+   "name": "기사도",
+   "hotkey": "Z",
+   "manaCost": 35,
+   "cooldown": 35,
+   "uses": "until_success",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "(대상 진명 OR 시전자 진명) AND 대상 실제명∈{유이,로네리스,수프라} 이면 성공(정체 확인) + 시전자별 보상. 성공 시 스킬 제거, 실패 시 유지.",
+   "resolution": [
+    "nR = iR(대상 진명 || 시전자 진명) && aR(대상 실제명 기사)",
+    "성공 → 본인 '확인에 성공했습니다. 이 사람은 <영웅명>입니다.' → 0.7s",
+    "로네리스: A008 적군 확인 추가",
+    "수프라: S007 +1, j[11]+=1",
+    "유이: A037 보유 시 A036으로 교체, 아니면 A037 추가",
+    "A03A 제거",
+    "실패 → 본인 '확인에 실패하였습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "vR",
+    "eR",
+    "xR",
+    "oR",
+    "rR",
+    "iR",
+    "aR",
+    "nR",
+    "VR"
+   ],
+   "wikiDiff": "유이 보상은 스캔(A037)임(위키: 적군 확인). 적군 확인은 로네리스 보상."
+  },
+  "defend": {
+   "abilityCode": "S007",
+   "name": "디펜드",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": "passive",
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "수프라 추가 목숨 j[11]. 시작 0, 기사도 성공 +1, 천사의 세례마다 +2(상한 없음).",
+   "resolution": [
+    "VR: j[11]+=1",
+    "II: j[11]+=2"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "source": [
+    "VR",
+    "II",
+    "Pr"
+   ]
+  },
+  "angel_baptism": {
+   "abilityCode": "A02R",
+   "name": "천사의 세례",
+   "hotkey": "X",
+   "manaCost": 40,
+   "cooldown": 30,
+   "uses": "infinite_until_fail",
+   "target": "player+knight_name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상과 기사 이름(유이/로네리스/수프라) 선택. 맞으면 해당 기사에게 특수 스킬 부여(반복 가능). 틀리면 스킬 영구 상실.",
+   "resolution": [
+    "VI: ov=대상, 다이얼로그 ev 표시(시간제한 없음)",
+    "II: 버튼 i∈{9,10,11}, ov==O[i] && 대상 생존 → 전체 '치즈코가 <대상영웅명>에게 천사의 세례를 사용했습니다!', vv[대상]=true",
+    "유이: A037 보유 시 A036으로 교체, 아니면 A037 추가; A031 보유 시 A02V로 교체",
+    "로네리스: A032 이단 심판 추가",
+    "수프라: S007 +2, j[11]+=2",
+    "실패 → 치즈코 A02R 제거 + 전체 '치즈코가 천사의 세례에 실패하였습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "all(대상 영웅명 공개)",
+    "onFail": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "nI",
+    "VI",
+    "XI",
+    "OI",
+    "RI",
+    "II"
+   ],
+   "wikiDiff": "같은 대상 반복 성공 가능, 수프라 목숨 무제한 누적.",
+   "grants": {
+    "유이": "스캔 A037(이미 있으면 상급 스캔 A036), 매스 텔레포트 보유 시 상급 매스 텔레포트로 교체, vv=true면 이후 Z=4 때 A02V",
+    "로네리스": "이단 심판 A032",
+    "수프라": "추가 목숨 +2"
+   },
+   "valueSource": {
+    "manaCost": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값"
+   }
+  },
+  "diplomacy": {
+   "abilityCode": "A02T",
+   "name": "외교",
+   "hotkey": "C(핫키 미지정)",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상에게 치즈코 정체 즉시 공개, 15초 후 치즈코가 대상 정체를 알게 됨(무조건 성공).",
+   "resolution": [
+    "전체 '치즈코가 누군가와 외교를 하고 있습니다.'",
+    "대상: 치즈코가 외교 사용 + 치즈코 정체=<P>",
+    "A02T 제거",
+    "15s 후 치즈코: '이 사람은 <대상영웅명>입니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "all(익명)+target+self"
+   },
+   "delaySeconds": 15,
+   "source": [
+    "rI",
+    "iI"
+   ]
+  },
+  "mass_teleport": {
+   "abilityCode": "A031",
+   "name": "매스 텔레포트",
+   "hotkey": "V",
+   "manaCost": 10,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "합류로 Z==4 도달 10초 후, vv[유이]==false"
+   },
+   "requiresTrueName": false,
+   "effect": "대상 즉사(보디가드/목숨 무시) + 유이 정체 전체 공개.",
+   "resolution": [
+    "전체 '유이가 매스 텔레포트를 시전하여 <대상P>를 살해합니다!'",
+    "Lr(대상)",
+    "전체 '유이의 정체는 <P>입니다!'",
+    "A031 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "NI",
+    "bI"
+   ]
+  },
+  "greater_mass_teleport": {
+   "abilityCode": "A02V",
+   "name": "상급 매스 텔레포트",
+   "hotkey": "V",
+   "manaCost": 0,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "Z==4 도달 시 vv[유이]==true, 또는 A031 보유 중 천사의 세례"
+   },
+   "requiresTrueName": false,
+   "effect": "대상 즉사, 유이 정체 공개 없음.",
+   "resolution": [
+    "전체 '유이가 상급 매스 텔레포트를 시전하여 <대상P>를 살해합니다!'",
+    "Lr(대상)",
+    "A02V 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "cI",
+    "CI"
+   ]
+  },
+  "order_founding": {
+   "abilityCode": "A038",
+   "name": "기사단 창설",
+   "hotkey": "X",
+   "manaCost": 25,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 수프라면 성공(rv+1). 성공/실패 전체 공지. rv==2면 기사단의 심문 획득.",
+   "resolution": [
+    "실제명 수프라 → 전체 성공 공지, rv+=1 / 아니면 전체 실패 공지",
+    "rv==2 → 전체 공지 + A02W 추가",
+    "0.7s 후 A038 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "kI",
+    "KI",
+    "lI",
+    "LI"
+   ]
+  },
+  "order_inquisition": {
+   "abilityCode": "A02W",
+   "name": "기사단의 심문",
+   "hotkey": "X",
+   "manaCost": 60,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "rv==2 (로네리스의 유이 합류 성공 + 수프라 기사단 창설 성공, 순서 무관)"
+   },
+   "requiresTrueName": false,
+   "effect": "60초 후 대상 정체를 로네리스에게 비공개 통보(공지 문구는 150초).",
+   "resolution": [
+    "전체 '로네리스가 <대상P>에게 기사단의 심문을 사용했습니다!' + '<대상P>의 정체가 150초 후 로네리스에게 드러납니다!'",
+    "A02W 제거",
+    "60s 후 O[10]: '이 사람은 <영웅명>이다!'"
+   ],
+   "visibility": {
+    "onSuccess": "all(사용 사실)+self(결과)"
+   },
+   "delaySeconds": 60,
+   "source": [
+    "HI",
+    "jI"
+   ],
+   "wikiDiff": "위키/공지 150초(2분 30초), 실제 대기는 60초."
+  },
+  "heresy_judgment": {
+   "abilityCode": "A032",
+   "name": "이단 심판",
+   "hotkey": "C",
+   "manaCost": 20,
+   "cooldown": 60,
+   "uses": "infinite",
+   "target": "player",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "치즈코 천사의 세례(로네리스)"
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 카스파/프레이아면 즉사 + (공격 A002 보유 시) 상급 공격 A003으로 교체. 실패 시 페널티 없음.",
+   "resolution": [
+    "실제명∈{카스파,프레이아} → A002 있으면 A003으로 교체, 0.1s 후 전체 '로네리스가 이단 심판을 사용하여 <대상P>를 살해합니다!', Lr",
+    "실패 → 본인 '이단 심판에 실패했습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "DI",
+    "fI",
+    "FI",
+    "gI",
+    "GI"
+   ]
+  },
+  "battle_sense": {
+   "abilityCode": "A03B",
+   "name": "배틀 센스",
+   "hotkey": "X",
+   "manaCost": 30,
+   "cooldown": 60,
+   "uses": "infinite",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 상급 전사(A003/A01Z) / 일반 전사(A002) / 비전사인지 판별. 미명의 안개에 무효화됨. 공표명 제한 없음.",
+   "resolution": [
+    "SPELL_CAST. Rv[대상] → 소비, 시전자 '미명의 안개…', 프레이아 생존 시 O[4]에게 통보, 종료",
+    "A003||A01Z → '상급 전사'",
+    "A002 → '일반 전사'",
+    "else → '전사가 아니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "dn",
+    "Dn",
+    "fn",
+    "Fn",
+    "gn",
+    "Gn",
+    "hn"
+   ],
+   "wikiDiff": "위키의 '카미카제·투마 진명 대상 제외'는 돌격 감각의 제한. 배틀 센스에는 제한 없음."
+  },
+  "commander_search": {
+   "abilityCode": "A03N",
+   "name": "사령관 탐색",
+   "hotkey": "(핫키 미지정)",
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": "infinite_until_success",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 샤이닝이면 성공 → A03N 제거, A02J(상급 아군 확인) 획득.",
+   "resolution": [
+    "실제명 샤이닝 → 본인 성공 메시지, 0.2s 후 A03N 제거, A02J 추가",
+    "아니면 '샤이닝이 아닙니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "qI",
+    "QI",
+    "sI"
+   ]
+  },
+  "ancient_sorcery": {
+   "abilityCode": "A034",
+   "name": "고대의 주술",
+   "hotkey": "Z",
+   "manaCost": 50,
+   "cooldown": 150,
+   "uses": "infinite",
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "자신 보석 1단계 상승(I001→I002, I002→I000). 없거나 I000이면 사용 불가. 성공 시 전체 공지.",
+   "resolution": [
+    "(코드) 조건 검사는 o[1+GetPlayerId(GetOwningPlayer(GetSpellTargetUnit()))] 인벤토리(무대상 스킬이라 null), 변경은 시전자 → 버그",
+    "I000 → stop + '더 이상 등급을 상승시킬 수 없습니다.'",
+    "I002 → 시전자 I002→I000 + 전체 공지",
+    "I001 → 시전자 I001→I002 + 전체 공지",
+    "없음 → stop + '진실의 보석이 없으면 사용할 수 없습니다.'",
+    "구현 권장: 시전자 인벤토리로 판정"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "MI",
+    "pI"
+   ],
+   "unverified": true,
+   "reason": "GetSpellTargetUnit() null 참조 버그 — 실제 원본 동작은 엔진 null 처리에 의존"
+  },
+  "hard_skin": {
+   "abilityCode": "S008",
+   "name": "하드스킨",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": "passive",
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "추가 목숨 2 (j[12]=2, 3번 맞아야 사망).",
+   "resolution": [
+    "Bi: j[12]=2"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "source": [
+    "Bi",
+    "Pr"
+   ]
+  }
+ },
+ "wikiDiffs": [
+  "유이 기사도 보상=스캔(A037), 적군 확인은 로네리스",
+  "배틀 센스엔 공표명 제한 없음(돌격 감각에만 있음)",
+  "기사단의 심문 실제 60초(공지·위키 150초)",
+  "합류 성공 대상은 유이뿐, 실패 시 정체 전체 공개, 8인 매스 텔레포트 불가",
+  "천사의 세례 반복 가능·수프라 목숨 무제한 누적",
+  "qb: 위대한 의지 실패+유이·로네리스·수프라·카미카제 전멸이면 샤이닝 생존해도 다크니스 승",
+  "종교 동맹은 먼저 쓴 1명만, 결과는 양측 모두",
+  "충복·혈족·사령관 탐색은 성공 시 소멸"
+ ],
+ "unverified": [
+  "GetPlayerId(null) — 제외 슬롯 시 Pb/qb, 고대의 주술",
+  "룬 프로텍션(Aams) 엔진 효과 범위",
+  "A02R/A03L 마나 비용(베이스 기본값)",
+  "A00Y 쿨다운(베이스 기본값, 툴팁 120)",
+  "SPELL_EFFECT 단계 stop 시 마나/쿨 소모 여부"
+ ]
+}

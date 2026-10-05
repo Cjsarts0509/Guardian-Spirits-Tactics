@@ -1,0 +1,22 @@
+# /etc/systemd/system/gst-server.service
+[Unit]
+Description=GST game server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=gst
+Group=gst
+WorkingDirectory=/opt/gst
+EnvironmentFile=/opt/gst/.env
+ExecStart=/usr/bin/node /opt/gst/server.mjs
+Restart=always
+RestartSec=3
+# 진행 중 판은 메모리에 있으므로 재시작 시 사라진다. 배포는 빈 시간에.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

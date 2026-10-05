@@ -1,0 +1,1982 @@
+{
+ "mode": "core",
+ "displayName": "공통 시스템",
+ "playerCountRules": {
+  "min": 8,
+  "max": 12,
+  "singlePlayerTest": 1,
+  "excludedByCount": {
+   "civil_war": {
+    "12": [],
+    "11": [
+     "세피"
+    ],
+    "10": [
+     "세피",
+     "카스파"
+    ],
+    "9": [
+     "레인딜라",
+     "세피",
+     "카스파"
+    ],
+    "8": [
+     "레인딜라",
+     "세피",
+     "투마",
+     "카스파"
+    ],
+    "1": [
+     "단테스"
+    ]
+   },
+   "primordial": {
+    "12": [],
+    "11": [
+     "컨슘"
+    ],
+    "10": [
+     "쿠마린",
+     "컨슘"
+    ],
+    "9": [
+     "쿠마린",
+     "허밀리",
+     "컨슘"
+    ],
+    "8": [
+     "타친",
+     "쿠마린",
+     "사신트",
+     "컨슘"
+    ],
+    "1": [
+     "사신트"
+    ]
+   },
+   "lidellut": {
+    "12": [],
+    "11": [
+     "세피"
+    ],
+    "10": [
+     "세피",
+     "카미카제"
+    ],
+    "9": [
+     "투마",
+     "세피",
+     "카미카제"
+    ],
+    "8": [
+     "투마",
+     "세피",
+     "로네리스",
+     "카미카제"
+    ],
+    "1": [
+     "치즈코"
+    ]
+   },
+   "troll": {
+    "12": [],
+    "11": [
+     "하치"
+    ],
+    "10": [
+     "하치",
+     "세이로우"
+    ],
+    "9": [
+     "울디안",
+     "울피안",
+     "세이로우"
+    ],
+    "8": [
+     "하치",
+     "울디안",
+     "울피안",
+     "세이로우"
+    ],
+    "1": [
+     "데카"
+    ]
+   }
+  }
+ },
+ "sides": [
+  {
+   "id": "B1",
+   "name": "포스 B[1]",
+   "note": "모드별 슬롯 범위는 flow.slotTable"
+  },
+  {
+   "id": "B2",
+   "name": "포스 B[2]"
+  }
+ ],
+ "characters": [],
+ "skills": {
+  "publish": {
+   "abilityCode": "A000",
+   "name": "공표",
+   "hotkey": "Q",
+   "manaCost": 0,
+   "manaGain": 5,
+   "cooldown": 40,
+   "uses": null,
+   "target": "none+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "이름 하나를 골라 자신의 공표 이름 A[p]로 설정. 자기 머리 위(메모유닛) 텍스트태그 '<플레이어번호> : <이름>' 영구 표시. 마나 +5.",
+   "resolution": [
+    "시전(SPELL_EFFECT, 쿨 40 소모) → 공표 다이얼로그 R(배정된 모든 캐릭터 이름, 지휘관 포함, 순서=슬롯순)을 시전자에게 6초 표시 후 자동 닫힘 (Wi)",
+    "이름 클릭(zi): 기존 텍스트태그 제거 → 시전자 영웅 사망이면 종료",
+    "새 텍스트태그 생성. 색상: 내전/트롤은 슬롯>7, 태초/리델루트는 슬롯>6 기준으로 내전·태초·리델루트는 1진영 이름=빨강, 2진영 이름=파랑; 트롤은 반대(1진영=파랑, 2진영=빨강)",
+    "전원에게(10초): 처음이면 '<H[p]> : |c00ff0000<이름>|r 로 공표를 하였습니다.', 아니면 '<H[p]> : |c000080ff<이전>|r -> |c00ff0000<이름>|r 로 공표를 하였습니다.'",
+    "마나 +5, A[p]=이름"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onCancel": "none"
+   },
+   "delaySeconds": 0,
+   "cancelWindowSeconds": 6,
+   "goldenPublish": "미공표자는 매 턴 종료(qi) 시 노랑 태그로 b[플레이어번호] 이름이 자동 공표됨(본인 정체 아님). 이후 직접 공표하면 일반 색으로 교체.",
+   "source": [
+    "Wi",
+    "zi",
+    "Fi",
+    "qi"
+   ],
+   "wikiDiff": "툴팁엔 '6초 내 미선택 시 취소'지만 쿨다운(40초)은 이미 소모됨. 공표 할 때마다 마나+5(쿨 40초마다 반복 가능)."
+  },
+  "ally": {
+   "abilityCode": "A004",
+   "name": "동맹",
+   "hotkey": "E",
+   "manaCost": 10,
+   "cooldown": 10,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "시전자→대상 단방향 동맹 설정(ALLIED, 시야 공유 없음). 상호 동맹은 양쪽이 각각 사용해야 함.",
+   "resolution": [
+    "SPELL_CAST 단계에서 판정(ea)",
+    "이미 시전자가 대상에게 동맹이면 시전 취소(stop, 비용 없음) + 시전자에게 '그 대상과는 이미 동맹을 맺고 있습니다.'",
+    "아니면 SetPlayerAllianceState(시전자,대상,ALLIED). 시전자: '<H[대상]> 에게 동맹 관계를 설정하였습니다.' 대상: '<H[시전자]> 가 당신에게 동맹 관계를 설정하였습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self+target",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "manaAlliance": "매 턴 마나 +10 × (ForceEnumAllies(자신) 인원-1). 방향은 엔진 의존(unverified).",
+   "allyChat": "WC3 엔진 동맹 채팅: 발신자가 동맹 설정한 플레이어에게 전달(엔진 동작, 스크립트 없음, unverified). 사망자는 모두가 자신을 동맹으로 두고 자신은 아무도 동맹이 아니므로 모든 동맹 채팅을 보되 보낼 수 없는 구조(Lr).",
+   "source": [
+    "va",
+    "ea",
+    "qi",
+    "Lr"
+   ],
+   "wikiDiff": "툴팁 쿨다운 5 표기, 오브젝트 acdn1=10"
+  },
+  "break_ally": {
+   "abilityCode": "A005",
+   "name": "동맹 파기",
+   "hotkey": "R",
+   "manaCost": 10,
+   "cooldown": 10,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "시전자→대상 동맹 해제(UNALLIED). 대상→시전자 방향은 유지.",
+   "resolution": [
+    "SPELL_CAST 판정(ra)",
+    "시전자가 대상에게 동맹이면 해제. 시전자: '<H[대상]> 와의 동맹관계를 파기하였습니다.' 대상: '<H[시전자]> 가 당신과의 동맹관계를 파기하였습니다.'",
+    "동맹이 아니면 시전 취소(stop) + '그 대상과는 동맹 관계가 아닙니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self+target",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "unverified": true,
+   "unverifiedReason": "cooldown 미수정(Acri 기본값). 툴팁은 5초 → [해결] 수치는 베이스 기본값으로 확정",
+   "source": [
+    "oa",
+    "ra"
+   ],
+   "valueSource": {
+    "cooldown": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값"
+   }
+  },
+  "attack": {
+   "abilityCode": "A002",
+   "name": "공격",
+   "hotkey": "A",
+   "manaCost": 50,
+   "cooldown": 60,
+   "uses": null,
+   "target": "player+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 플레이어와 그의 정체(이름)를 지정. 정체가 맞으면 살해(추가목숨 차감), 틀리면 실패 → 일반 공격은 시전자 사망.",
+   "resolution": [
+    "시전(SPELL_EFFECT, 마나·쿨 소모): f[시전자]=대상. 시전자가 B[1]이면 G[2](2진영 이름), B[2]면 G[1](1진영 이름) 다이얼로그를 6초 표시(rn). 지휘관 이름 포함. 6초 내 미선택 시 아무 일 없음(비용은 소모)",
+    "이름 클릭(cn, 클릭한 사람 생존 필요). 선택이름 == b[D[대상]](대상 진짜 정체)인지 확인",
+    "틀림 → 실패처리 qr",
+    "맞음 → (a) 대상=엘타스 & O[12](컨슘) 생존 & 컨슘 S005 레벨 1~2: S005 레벨+1, 전원 '<공격자 영웅명>이 엘타스를 공격하였으나 살해하지 못했습니다. (보디가드)' (공격자 페널티 없음)",
+    "(b) 대상=라엘 & O[6](쿠마린) 생존 & 쿠마린 A01X 레벨 1~2: 동일(라엘)",
+    "(c) 절대 보디가드(Rn): 리델루트 카이 & O[2](아린) 생존 / 내전 카이 & O[9](아린) 생존 / 내전 단테스 & O[3](켈후) 생존 / 트롤 치스 & (O[2] 사토시 또는 O[3] 즈윈라 생존) → 실패처리 qr (시전자 페널티 적용)",
+    "(d) 그 외 → 성공처리 Pr",
+    "Pr-1: 대상이 A03K(블러디 매드니스) 보유 & 마나≥25 → 대상 마나-25, 전원 '-<공격자>가 <대상>를 공격하였으나 살해하지 못했습니다.(블러디 매드니스!)' 종료",
+    "Pr-2: j[대상슬롯]>0 → 전원 '-<공격자>가 <대상>를 공격하였습니다.' + '-<대상>는 <j>회 더 공격받으면 사망합니다.', j-1, 공격자 마나 += S006레벨×30",
+    "Pr-3: 그 외 → 전원 '-<공격자>가 <대상>를 공격하여 살해했습니다.' → Lr(대상) → 전원 '-살해당한 <대상>는(은) <H>입니다!' → 공격자 마나 += S003×50 + S004×50 + S006×30. (킬데르가 에오릴 살해 시 A00Q 제거, A00N 지급 + 전원 공지)",
+    "판정 후 wb(승리판정)",
+    "qr(실패): 대상에게만 '<공격자 영웅명>가 당신을 공격하였으나 실패하였습니다.' → K[공격자](영혼의 회복) true면 전원 '-<공격자>가 누군가를 공격하였으나 실패하였습니다.' + '- 영혼의 회복으로 인해 공격 실패 페널티를 받지 않습니다.' → 아니면 A003 레벨1 보유: 경고(아래 advanced_attack) / A01Z 보유: 페널티 없음 / 그 외: 전원 '-<공격자>가 누군가를 공격하였으나 실패하여 살해당하였습니다.' → Lr(공격자) → '-<공격자>은 <H>입니다!'"
+   ],
+   "visibility": {
+    "onSuccess": "all(공격자·대상 영웅 고유이름 공개, 살해 시 대상 플레이어 공개)",
+    "onFail": "대상에게 공격자 영웅명 비공개 통지 + 전원에게 '<공격자 영웅명>가 누군가를 공격...실패'"
+   },
+   "delaySeconds": 0,
+   "dialogTimeoutSeconds": 6,
+   "notes": [
+    "모든 공격 메시지에 공격자의 '영웅 고유이름'이 노출됨(플레이어는 아님)",
+    "소엔 연쇄살인 A01D도 같은 핸들러: 성공/추가목숨 메시지에 '(연쇄살인!)' 접미, 추가목숨에 막히면 A01D 제거, 실패 시 전원 '-소엔이 연쇄살인에 실패하였습니다!'(15초) + A01D 제거만(사망 없음)",
+    "무적 대상은 엔진상 대상 지정 불가, 행동불능 시 시전 불가"
+   ],
+   "source": [
+    "en",
+    "xn",
+    "rn",
+    "an",
+    "cn",
+    "bn",
+    "Nn",
+    "An",
+    "Rn",
+    "nn",
+    "Vn",
+    "En",
+    "On",
+    "Pr",
+    "qr"
+   ],
+   "wikiDiff": "트롤 치스 보디가드: 툴팁은 '사토시와 즈윈라가 살아있으면'이지만 코드는 둘 중 하나만 살아있어도 막힘(Xn = OR)"
+  },
+  "advanced_attack": {
+   "abilityCode": "A003",
+   "name": "상급 공격",
+   "hotkey": "A",
+   "manaCost": 50,
+   "cooldown": 60,
+   "uses": null,
+   "levels": 2,
+   "target": "player+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "공격과 동일. 첫 실패 시 사망 대신 레벨2로 오르고, 두 번째 실패(레벨2 상태) 시 사망.",
+   "resolution": [
+    "attack과 동일한 판정",
+    "qr에서 A003 레벨==1이면 전원 '-<공격자>가 누군가를 공격하였으나 실패하였습니다.' + '-공격에 한번 더 실패하면 사망합니다.' → A003 레벨 2 (영구, 초기화 없음)",
+    "레벨2에서 실패 → 일반 공격과 같이 사망"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "source": [
+    "qr",
+    "cn",
+    "Pr"
+   ]
+  },
+  "supreme_attack": {
+   "abilityCode": "A01Z",
+   "name": "최상급 공격",
+   "hotkey": "A",
+   "manaCost": 50,
+   "cooldown": 60,
+   "uses": null,
+   "target": "player+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "공격과 동일. 실패해도 사망하지 않음(무제한).",
+   "resolution": [
+    "attack과 동일",
+    "qr에서 (A003 레벨1 아님 &) A01Z 레벨1 → 전원 '-<공격자>가 누군가를 공격하였으나 실패하였습니다.'만 출력, 페널티 없음"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "source": [
+    "qr",
+    "cn",
+    "Pr"
+   ]
+  },
+  "ally_check": {
+   "abilityCode": "A009",
+   "name": "아군 확인",
+   "hotkey": "F",
+   "manaCost": 15,
+   "cooldown": 45,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상의 공표 이름이 진명이고 같은 진영이면 정체를 알려줌. 변장/위장은 가짜 성공을 냄.",
+   "resolution": [
+    "전원: '누군가가 <H[대상]> 을 살피고 있습니다.'(대상 플레이어 공개, 시전자 비공개)",
+    "변장 판정(Ra): (Ea) 시전자∈B[1] & 대상∈B[2] & 대상 정체=네오니스 & A[대상]∈{치스,사토시,즈윈라,토크라,울디안,울피안,하치} 또는 (Oa) 시전자∈B[2] & 대상∈B[1] & 대상 정체=소엔 & A[대상]∈{카이,카스파,투마,아린,크레이트} → 시전자: '확인에 성공했습니다. 이 사람은 <A[대상](가짜 이름)>입니다.'",
+    "아니면 대상 정체≠하치 & A[대상]==정체(진명)일 때: 시전자와 대상이 서로 반대 포스(B1/B2)면 '확인에 실패하였습니다.', 아니면 '확인에 성공했습니다. 이 사람은 <정체>입니다.'",
+    "그 외(진명 아님 또는 하치) → '확인에 실패하였습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self",
+    "announce": "all(대상 플레이어명만)"
+   },
+   "commanderException": "없음(지휘관도 진명이면 확인됨)",
+   "source": [
+    "aa",
+    "na",
+    "Ca",
+    "Ra",
+    "Ea",
+    "Oa",
+    "Va",
+    "Xa",
+    "Ba",
+    "Na"
+   ]
+  },
+  "advanced_ally_check": {
+   "abilityCode": "A02J",
+   "name": "상급 아군 확인",
+   "hotkey": "F",
+   "manaCost": 15,
+   "cooldown": 30,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "ally_check와 완전히 동일한 핸들러(Ca). 차이는 쿨다운 30뿐.",
+   "resolution": [
+    "ally_check 참조"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "source": [
+    "aa",
+    "Ca"
+   ]
+  },
+  "enemy_check": {
+   "abilityCode": "A008",
+   "name": "적군 확인",
+   "hotkey": "F",
+   "manaCost": 20,
+   "cooldown": 60,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상의 공표 이름이 진명이고 적 진영이면 정체를 알려줌.",
+   "resolution": [
+    "전원: '누군가가 <H[대상]> 을 살피고 있습니다.'",
+    "Rv[대상](프레이아 미명의 안개, A00J) true면: Rv=false(1회 소모), 시전자 '-비공개: 미명의 안개에 가려져 정확한 탐색이 불가능하다.', O[4](슬롯4 플레이어)에게 '-비공개: <시전자 영웅명>가 <H[대상]>를 배틀 센스로 확인하려 했습니다!' (문구가 '배틀 센스'로 고정, 프레이아 생존/모드 검사 없음) → 종료",
+    "A[대상]≠정체 → '확인에 실패하였습니다.'",
+    "시전자·대상이 반대 포스 & 대상≠하치 → '확인에 성공했습니다. 이 사람은 <정체>입니다.'",
+    "그 외 → '확인에 실패하였습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self",
+    "announce": "all"
+   },
+   "disguiseInteraction": "변장(S001)/위장(S00A)은 적군 확인에 영향 없음",
+   "commanderException": "없음",
+   "source": [
+    "Da",
+    "fa",
+    "Fa",
+    "pr"
+   ]
+  },
+  "advanced_enemy_check": {
+   "abilityCode": "A03H",
+   "name": "상급 적군 확인",
+   "hotkey": "F",
+   "manaCost": 20,
+   "cooldown": 45,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "enemy_check와 동일 핸들러(Fa). 쿨다운 45.",
+   "resolution": [
+    "enemy_check 참조"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "source": [
+    "Da",
+    "Fa"
+   ]
+  },
+  "scan": {
+   "abilityCode": {
+    "civil_war": "A016",
+    "primordial": "A01L",
+    "lidellut": "A037",
+    "troll": "A02Q"
+   },
+   "name": "스캔",
+   "hotkey": "D",
+   "manaCost": 20,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상과 이름을 지정해 정체가 맞으면 알려줌(공표와 무관하게 진짜 정체 비교). 지휘관 2명은 선택지에 없음. 하치는 항상 실패.",
+   "resolution": [
+    "전원: '누군가가 <H[대상]> 을 살피고 있습니다.' d[시전자]=대상",
+    "스캔 다이얼로그 c 표시(자동 닫힘 없음). 목록 = 배정된 캐릭터 중 각 진영 지휘관(내전 단테스·카이, 태초 라엘·엘타스, 리델루트 카이·샤이닝, 트롤 치스·데카) 제외 전원, 진영 무관",
+    "클릭한 슬롯 mr(Ua): b[mr]=='하치' → '스캔에 실패하였습니다.'",
+    "O[mr](그 캐릭터의 플레이어)==대상 → '성공했습니다. 이 사람은 <b[mr]>입니다.'",
+    "아니고 b[mr]==A[대상](대상이 그 이름을 공표 중): 메시지 2개를 연속 출력 — 첫째: mr<8이면 (대상 S00A 보유 & 시전자∈B[1]) ? '성공했습니다. 이 사람은 <A[대상]>' : '스캔에 실패하였습니다.', mr≥8이면 '스캔에 실패하였습니다.'; 둘째: mr>7이면 (대상 S001 보유 & 시전자∈B[2]) ? '성공...<A[대상]>' : '스캔에 실패하였습니다.', mr≤7이면 '스캔에 실패하였습니다.'",
+    "그 외 → '스캔에 실패하였습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self",
+    "announce": "all"
+   },
+   "disguiseInteraction": "소엔(S001, 내전 슬롯5)이 카이측 이름(슬롯8~12)을 공표 중이고 카이측(B2)이 그 이름으로 스캔하면 가짜 '성공'. 네오니스(S00A, 트롤 슬롯9)가 얼음부족 이름(슬롯1~7)을 공표 중이고 얼음부족(B1)이 그 이름으로 스캔하면 가짜 성공. 버그: 이때도 '스캔에 실패하였습니다.'가 함께 출력됨(성공 직전 또는 직후). 가짜가 아닌 경우 실패 메시지 2회.",
+   "source": [
+    "Qa",
+    "sa",
+    "Sa",
+    "Ua",
+    "Ta",
+    "ua",
+    "Fi"
+   ],
+   "wikiDiff": "툴팁엔 단순 '실패/성공'이지만 공표이름 일치 시 메시지가 2줄(성공+실패 혼재) 출력되는 버그"
+  },
+  "advanced_scan": {
+   "abilityCode": {
+    "civil_war": "A017",
+    "primordial": "A01M",
+    "lidellut": "A036"
+   },
+   "name": "상급 스캔",
+   "hotkey": "D",
+   "manaCost": 20,
+   "cooldown": 30,
+   "uses": null,
+   "target": "player+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "scan과 동일 핸들러(Sa/Ua). 쿨다운 30.",
+   "resolution": [
+    "scan 참조"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "notes": "A01M은 핸들러에 등록돼 있으나 어떤 유닛도 보유/지급하지 않음",
+   "source": [
+    "Qa",
+    "Sa",
+    "Ua"
+   ]
+  },
+  "ally_scan": {
+   "abilityCode": {
+    "lidellut": "A00T",
+    "troll": "A015"
+   },
+   "name": "아군 스캔",
+   "hotkey": "D",
+   "manaCost": 20,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "scan과 같은 판정이지만 선택지가 자기 진영 캐릭터만(지휘관 제외).",
+   "resolution": [
+    "전원 '누군가가 <H[대상]> 을 살피고 있습니다.'",
+    "시전자∈B[1]이면 av[1](1진영, 지휘관 제외), B[2]면 av[2](2진영, 지휘관 제외) 표시 (La)",
+    "클릭 판정은 scan과 동일 로직(Pa, Ma=S00A&시전자B1, pa=S001&시전자B2)"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self",
+    "announce": "all"
+   },
+   "notes": "리델루트 샤이닝(A00T, 2진영 지휘관)의 목록엔 자기 자신 제외 2진영 5명. 트롤 치스(A015)도 동일. 대상이 반대 진영이면 목록에 그 이름이 없어 사실상 실패만 가능",
+   "source": [
+    "ka",
+    "Ka",
+    "La",
+    "Pa",
+    "Ma",
+    "pa"
+   ]
+  },
+  "enemy_scan": {
+   "abilityCode": {
+    "lidellut": "A040",
+    "troll": "A03T"
+   },
+   "name": "적군 스캔",
+   "hotkey": "D",
+   "manaCost": 20,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "scan과 같은 판정, 선택지는 상대 진영 캐릭터만(상대 지휘관 제외).",
+   "resolution": [
+    "전원 공지",
+    "시전자∈B[1]이면 av[2], B[2]면 av[1] 표시 (ja)",
+    "판정 Pa"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self",
+    "announce": "all"
+   },
+   "notes": "Rv(미명의 안개)는 적군 스캔에 영향 없음(Fa/hn에서만 소모)",
+   "source": [
+    "Ga",
+    "ha",
+    "ja",
+    "Pa"
+   ]
+  },
+  "truth_gem": {
+   "abilityCode": {
+    "I002": "A01B",
+    "I000": "A01A"
+   },
+   "name": "진실의 보석",
+   "hotkey": null,
+   "manaCost": {
+    "I002": 50,
+    "I000": 75
+   },
+   "cooldown": {
+    "I002": 240,
+    "I000": 240
+   },
+   "uses": {
+    "I001": 0,
+    "I002": 1,
+    "I000": "unverified(툴팁 '무한')"
+   },
+   "target": "player",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "매 턴 진명 공표 상태 유지(qi): I001(1/3, 사용불가) → I002(2/3, 1회용) → I000(합쳐진 진실의 보석)"
+   },
+   "requiresTrueName": false,
+   "effect": "대상의 정체를 즉시 시전자에게만 알려줌. 지휘관은 '지휘관'이라고만 표기.",
+   "resolution": [
+    "SPELL_EFFECT(Za): 대상 정체가 샤이닝/단테스/카이면 시전자에게 '-비공개: 이 사람은 지휘관(|c00ff8080카이, 단테스, 샤이닝|r)이다.'",
+    "그 외 모든 캐릭터 → '-비공개: 이 사람은 |c00ff0000<정체>|r이다!' (라엘·엘타스·치스·데카도 이름이 그대로 공개됨, 하치도 예외 없음)",
+    "I002는 1회 사용 후 소모(iuse=1, iper=1) → 인벤 비면 다음 진명 턴에 다시 I001부터",
+    "대상에게 버프 Bfae('이 대상은 진실의 보석에 의해 정체가 드러납니다.') 부여(ACfa 기반, 엔진 표시)"
+   ],
+   "visibility": {
+    "onSuccess": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Wa",
+    "ya",
+    "Za",
+    "Ya",
+    "qi",
+    "objects w3t I000/I001/I002"
+   ],
+   "unverified": true,
+   "unverifiedReason": "I000 사용횟수: iusa=1·iper=1이나 iuse 미설정(툴팁 '무한'). I000 툴팁 쿨 360 vs 어빌리티 acdn1=240",
+   "wikiDiff": "지휘관 판정은 하드코딩 3명(카이·단테스·샤이닝)뿐. 태초/트롤 지휘관(라엘,엘타스,치스,데카)은 정체가 바로 공개됨"
+  },
+  "global_chat": {
+   "abilityCode": "A00D",
+   "name": "전체 채팅(공개)",
+   "hotkey": null,
+   "manaCost": 35,
+   "cooldown": null,
+   "uses": null,
+   "target": "chat",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "채팅 '-전체 <내용>' → 전원에게 '|c00ff8080<영웅 고유이름>|r: <내용>'(15초). 플레이어 정체는 숨기고 캐릭터명으로 말함.",
+   "resolution": [
+    "트리거 me(모든 플레이어 '-전체' 부분일치) + 조건 ln: 발신자 영웅 유닛타입 ∈ {H005 단테스, H000 카이(내전), H00O 카이(리델루트), H00U 샤이닝} & 앞 8바이트=='-전체 '",
+    "마나≥35면 마나-35 후 전원 출력. 내용=9바이트째부터 100바이트까지(UTF-8 바이트 기준 SubString, 한글 약 30자)",
+    "마나 부족 → 본인 '-비공개: 마나가 모자랍니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "notes": "A00D는 표시용 패시브 아이콘일 뿐, 실제 권한은 유닛타입으로 판정. 생존/행동불능 검사 없음(행동불능 중에도 사용 가능)",
+   "source": [
+    "ln",
+    "Kn",
+    "Ln",
+    "mn"
+   ]
+  },
+  "global_chat_shared": {
+   "abilityCode": "A025",
+   "name": "전체 채팅(비공개)",
+   "hotkey": null,
+   "manaCost": 25,
+   "cooldown": null,
+   "uses": null,
+   "target": "chat",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "채팅 '-전체 <내용>' → 전원에게 '|c00ff8080전체 채팅|r: <내용>'(15초). 캐릭터명도 숨김.",
+   "resolution": [
+    "트리거 Me + 조건 Pn: 영웅 유닛타입 ∈ {H00F 뉴켈리어스, H00L 드라칸, H018 네오니스, H010 치스} & 앞 8바이트 '-전체 '",
+    "마나≥25 → 마나-25, 출력. 아니면 '-비공개: 마나가 모자랍니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "source": [
+    "Pn",
+    "pn",
+    "qn",
+    "Qn"
+   ]
+  },
+  "dead_check": {
+   "abilityCode": "A01E",
+   "name": "사망자 확인",
+   "hotkey": "A",
+   "manaCost": 0,
+   "cooldown": 10,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "owner": "메모유닛 u000",
+   "effect": "사망한 모든 플레이어의 'H[n] : <영웅 고유이름>'을 시전자에게 30초간 표시.",
+   "resolution": [
+    "pN: n=1..12에 대해 o[n] 사망(IsUnitDeadBJ)이면 출력. 미참여 슬롯은 o[n]=null → 사망 취급되어 'H[n] : '(빈 이름)으로 같이 출력됨"
+   ],
+   "visibility": {
+    "onSuccess": "self"
+   },
+   "unverified": true,
+   "unverifiedReason": "manaCost 미수정(Absk 기본값, u000 마나 없음 → 0으로 간주) → [해결] 수치는 베이스 기본값으로 확정",
+   "source": [
+    "MN",
+    "pN"
+   ],
+   "valueSource": {
+    "manaCost": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값 (툴팁과 일치)"
+   }
+  },
+  "memo": {
+   "abilityCode": {
+    "!": "A011",
+    "@": "A013",
+    "#": "A014",
+    "$": "A012"
+   },
+   "name": "메모",
+   "hotkey": {
+    "A011": "Q",
+    "A013": "W",
+    "A014": "E",
+    "A012": "R"
+   },
+   "manaCost": 0,
+   "cooldown": 1,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "owner": "메모유닛 u000(사망 시 제거)",
+   "effect": "개인 메모 4칸(!,@,#,$). 채팅으로 기록, 스킬 또는 채팅으로 열람(본인만).",
+   "resolution": [
+    "기록(덮어쓰기): 채팅 첫 글자가 기호이고 둘째 글자가 공백이 아니면 메모=2바이트째~100바이트 (TN/wN/YN/vb). 예 '!안녕'",
+    "추가: 채팅이 '<기호> '(기호+공백)로 시작하면 메모 = 기존 + ' ' + 3바이트째~ (ob/ab/Eb/Rb)",
+    "열람: u000의 A011/A013/A014/A012 사용 또는 채팅 '-!','-@','-#','-$' → 본인에게 '메모[<기호>] : <내용>'(15초) (Nb/cb/Db/gb, lb)"
+   ],
+   "visibility": {
+    "onSuccess": "self"
+   },
+   "notes": "메모 채팅 자체는 일반 채팅으로 엔진이 전송함(트리거가 숨기지 않음) — 동맹 없는 동맹채팅 등으로 입력해야 남에게 안 보임(엔진 동작, unverified)",
+   "source": [
+    "tN",
+    "TN",
+    "UN",
+    "wN",
+    "yN",
+    "YN",
+    "ZN",
+    "vb",
+    "xb",
+    "ob",
+    "ib",
+    "ab",
+    "Vb",
+    "Eb",
+    "Ob",
+    "Rb",
+    "Ab",
+    "Nb",
+    "Bb",
+    "cb",
+    "db",
+    "Db",
+    "Fb",
+    "gb",
+    "Hb",
+    "lb"
+   ]
+  }
+ },
+ "flow": {
+  "phases": [
+   {
+    "step": 1,
+    "func": "main",
+    "desc": "12슬롯 전부에 메모 유닛 u000('참가자') 생성. A[],b[]='' 초기화, 타이머 e,S,T,y,z,iv 생성, 포스 B[0..2] 생성."
+   },
+   {
+    "step": 2,
+    "func": "Qr (Zv)",
+    "desc": "퀘스트 로그(제작진/명령어/게임 개요) 생성."
+   },
+   {
+    "step": 3,
+    "func": "Yr (re, 0.01초)",
+    "desc": "관전자 허용, Player(0) 외 인터페이스 숨김. 다이얼로그 V 버튼: '랜덤 모드 선택'(E[9]),'왕자들의 내전'(E[1]),'태초의 전쟁'(E[2]),'리델루트 황야'(E[3]),'트롤 부족의 반란'(E[4]); 메시지 '모드 선택 (제한시간 15초)'. Player(0)(빨강, 1번 슬롯)에게만 표시. 전원에게 '방장이 모드를 선택중입니다. 잠시만 기다려 주세요.'(10초). 타이머 T 15초 시작."
+   },
+   {
+    "step": 4,
+    "func": "ri (ie, DialogEvent V)",
+    "desc": "버튼 클릭 시: 랜덤이면 GetRandomInt(1,4)로 1=내전,2=태초,3=리델루트,4=트롤. U(모드명), X[1..12](슬롯별 유닛ID) 세팅 후 모드별 퀘스트 트리거(Sr/Tr/Ur/Wr) 실행. 전원: ('랜덤'이면 '|c00ffff00모드 랜덤 선택|r') '모드 - <U>', '직업을 분배중입니다.' 이후 즉시 ni 실행."
+   },
+   {
+    "step": 5,
+    "func": "ni (ae, 타이머 T 만료 또는 ri에서 직접)",
+    "desc": "T 정지, 모드다이얼로그 트리거 파괴. U=='없음'(15초 내 미선택)이면 내전으로 강제: '방장이 모드를 선택하지 않아 |c00ffff00왕자들의 내전|r이 선택되었습니다.\\n\\n직업을 분배중입니다. \\n5초 후 게임이 시작됩니다.'(실제 5초 대기 없음). 모든 플레이어 이름을 '[n] 이름'으로 변경, H[n]=플레이어 색상코드+이름."
+   },
+   {
+    "step": 6,
+    "func": "Ei (ne)",
+    "desc": "참여 인원 Xi = 유저 조종 & PLAYING 슬롯 수(Mr). 모드별 12자리 패턴 Oi로 사용 슬롯 결정(modeExclusions). 2~7명은 전원 패배('사람 수가 부족합니다!'). 배정: mr=1부터 패턴이 '1'인 슬롯마다 남은 플레이어 중 ForcePickRandomPlayer로 무작위 1명 → O[slot]=플레이어, 그 플레이어 시작위치에 X[slot] 영웅 생성, o[playerIdx]=영웅, b[slot]=영웅 고유이름, D[playerIdx]=slot. 본인에게 '당신은 |c00ff00ff<이름>|r입니다.'(8초). (= 균등 무작위 순열)"
+   },
+   {
+    "step": 7,
+    "func": "Bi (Ve)",
+    "desc": "슬롯별 목표 메시지(본인에게만, 8초) 출력 + 진영 포스 B[1]/B[2] 편성 + 추가목숨 j[slot] 설정 + 시작 동맹. slotTable 참조. 버그: 트롤 모드 데카(O[8])에게는 목표 메시지가 가지 않고, 데카용 메시지('얼음 일족을 파멸시켜야 합니다...치스를 살해하면 승리합니다. 당신이 살해당하면 그즐리카 트롤은 게임에서 패배합니다.')가 울피안(O[7])에게 중복 출력됨."
+   },
+   {
+    "step": 8,
+    "func": "Fi (Ee)",
+    "desc": "다이얼로그 구성: R(공표)=배정된 모든 b[] 이름; G[1]/G[2](공격)=진영별 이름(지휘관 포함); c(스캔)=지휘관 2명 제외 전체; av[1]/av[2](아군/적군 스캔, 리델루트·트롤만)=진영별 이름, 지휘관 제외; w[1]/w[2](리더쉽, 태초·리델루트·트롤); ev(천사의 세례, 리델루트); Vv(사냥꾼의 표식, 트롤 8~12). '다이얼로그 세팅 중...' 출력."
+   },
+   {
+    "step": 9,
+    "func": "hi (Xe)",
+    "desc": "비참여 슬롯의 u000 제거, 참여 슬롯은 맵핵 감지(선택 이벤트) 등록. 멀티보드 생성(Ki). '|c0080ffff그러면, 게임을 시작합니다.|r'. 인터페이스 표시. 타이머다이얼로그 '턴' 표시. 타이머 동시 시작: e=90s(턴), S=300s, z=360s, y=120s, iv=180s."
+   }
+  ],
+  "turn": {
+   "timer": "e",
+   "seconds": 90,
+   "repeat": "qi 끝에서 재시작",
+   "handler": "qi",
+   "steps": [
+    "1) wb(승리판정) 실행",
+    "2) 플레이어 번호 mr=1..12 중 영웅 생존자마다: A[mr]==''(한 번도 공표 안 함)이면 메모유닛 위에 노랑(100,100,10) 텍스트태그 '<mr> : <b[mr]>' 생성, A[mr]=b[mr] (= '황금공표'. 주의: b는 슬롯 인덱스 배열이므로 본인 정체가 아니라 '플레이어 번호와 같은 번호 슬롯의 캐릭터명'으로 자동 공표됨. 배정이 무작위라 사실상 무작위 이름. 해당 슬롯이 제외 슬롯이면 b=='' → 미공표 상태 유지, 빈 이름 태그가 매 턴 생성됨. 별도 채팅 공지는 없음)",
+    "3) 마나 += CountPlayersInForce(ForceEnumAllies(player))*10 + 10. (자기 자신 포함 → 동맹 0명이면 +20). 본인에게 '- 새로운 턴이 시작되었습니다.\\n- 모든 영웅의 마나가 20 회복됩니다.' 동맹 수>1이면 '당신은 동맹으로 인해 <(수-1)*10> 마나를 추가로 회복하였습니다.'",
+    "4) 다시 mr=1..12: A[mr]==영웅 고유이름(진명 공표) & 생존이면 마나+10 ('-비공개: 진실된 이름으로 인해 마나가 추가로 10 회복됩니다.'), 그리고 인벤토리 비었으면 I001 지급('진실의 조각 1/3 을 획득'), I001 보유면 I002로 교체('2/3'), I002 보유면 I000으로 교체('진실된 이름이 결실을 맺어 보석이 완성되었습니다.'), I000 보유면 변화 없음",
+    "5) e 90초 재시작"
+   ],
+   "manaCap": 150,
+   "manaStart": 120,
+   "manaRegen": 0,
+   "manaSource": "objects w3u umpm=150, umpi=120, umpr=0 (모든 영웅 동일)",
+   "unverified": [
+    "ForceEnumAllies의 방향(내가 동맹 설정한 사람 vs 나에게 동맹 설정한 사람)은 엔진 정의 의존. Lr이 모든 생존자→사망자 를 ALLIED로 설정하므로, 방향에 따라 사망자 수만큼 생존자 마나가 +10씩 늘어날 수 있음"
+   ]
+  },
+  "timers": [
+   {
+    "timer": "y",
+    "seconds": 120,
+    "trigger": "Qe",
+    "handler": "rV",
+    "grants": [
+     {
+      "cond": "O[5] 생존 & 이름 '토크라'(트롤)",
+      "ability": "A02X",
+      "name": "야생의 정기",
+      "to": "O[5]",
+      "func": "xV"
+     },
+     {
+      "cond": "O[9] 생존 & 이름 '킬데르'(태초)",
+      "ability": "A00Q",
+      "name": "카사노바",
+      "to": "O[9]",
+      "func": "oV"
+     }
+    ]
+   },
+   {
+    "timer": "iv",
+    "seconds": 180,
+    "trigger": "qe",
+    "handler": "vV",
+    "grants": [
+     {
+      "cond": "O[3] 생존 & '즈윈라'(트롤)",
+      "ability": "A044",
+      "name": "족장 탐색",
+      "to": "O[3]",
+      "func": "Yn"
+     },
+     {
+      "cond": "O[4] 생존 & '프레이아' & U=='왕자들의 내전'",
+      "ability": "A006",
+      "name": "신탁",
+      "to": "O[4]",
+      "func": "zn"
+     },
+     {
+      "cond": "O[1] 생존 & '치스'(트롤)",
+      "ability": "A03P",
+      "name": "정령의 주술",
+      "to": "O[1]",
+      "func": "Zn"
+     }
+    ]
+   },
+   {
+    "timer": "S",
+    "seconds": 300,
+    "trigger": "Pe",
+    "handler": "Wn",
+    "grants": [
+     {
+      "cond": "O[3] 생존 & '카스파'(리델루트)",
+      "ability": "A02K",
+      "name": "신탁",
+      "to": "O[3]",
+      "func": "Un"
+     },
+     {
+      "cond": "O[12] 생존 & '카스파'(내전)",
+      "ability": "A018",
+      "name": "그림자의 눈",
+      "to": "O[12]",
+      "func": "wn"
+     }
+    ]
+   },
+   {
+    "timer": "z",
+    "seconds": 360,
+    "trigger": "pe",
+    "handler": "Tn",
+    "grants": [
+     {
+      "cond": "O[1] 생존 & '라엘' & A01H 보유(미사용)",
+      "ability": "A02F",
+      "name": "상급 리더쉽",
+      "replaces": "A01H",
+      "to": "O[1]",
+      "func": "Sn"
+     },
+     {
+      "cond": "O[7] 생존 & '엘타스' & A021 보유(미사용)",
+      "ability": "A02G",
+      "name": "상급 리더쉽",
+      "replaces": "A021",
+      "to": "O[7]",
+      "func": "tn"
+     }
+    ]
+   }
+  ],
+  "timerGrantMessage": "대상 본인에게만 '-|c00ff0000비공개|r: |c00ff8080<스킬명>|r 스킬을 획득하였습니다.'(8초). 사망 상태면 지급 안 됨. 1회성(타이머 재시작 없음).",
+  "notTimerGated": "울피안 정화의 주술(A03Q)·네오니스 네비아탄의 화신(A03E)은 퀘스트 설명엔 3분/2분 후 획득이지만 실제로는 유닛 기본 보유(units.json H016/H018), 타이머 지급 코드 없음",
+  "slotTable": {
+   "civil_war": {
+    "displayName": "왕자들의 내전",
+    "slots": [
+     {
+      "slot": 1,
+      "unitId": "H005",
+      "name": "단테스",
+      "force": "B1",
+      "commander": true,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 2,
+      "unitId": "H006",
+      "name": "메르츠키엘",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 3,
+      "unitId": "H00A",
+      "name": "켈후",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 2
+     },
+     {
+      "slot": 4,
+      "unitId": "H009",
+      "name": "프레이아",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 5,
+      "unitId": "H00B",
+      "name": "소엔",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 6,
+      "unitId": "H008",
+      "name": "레인딜라",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 7,
+      "unitId": "H007",
+      "name": "세피",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 8,
+      "unitId": "H000",
+      "name": "카이",
+      "force": "B2",
+      "commander": true,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 9,
+      "unitId": "H002",
+      "name": "아린",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 10,
+      "unitId": "H001",
+      "name": "투마",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 1
+     },
+     {
+      "slot": 11,
+      "unitId": "H003",
+      "name": "크레이트",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 12,
+      "unitId": "H004",
+      "name": "카스파",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     }
+    ],
+    "forces": {
+     "B1": [
+      1,
+      7
+     ],
+     "B2": [
+      8,
+      12
+     ]
+    },
+    "startAlliances": [],
+    "publishTagColor": "1-7 빨강, 8-12 파랑"
+   },
+   "primordial": {
+    "displayName": "태초의 전쟁",
+    "slots": [
+     {
+      "slot": 1,
+      "unitId": "H00D",
+      "name": "라엘",
+      "force": "B1",
+      "commander": true,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 2,
+      "unitId": "H00C",
+      "name": "케인",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 1
+     },
+     {
+      "slot": 3,
+      "unitId": "H00E",
+      "name": "에오릴",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 4,
+      "unitId": "H00F",
+      "name": "뉴켈리어스",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 5,
+      "unitId": "H00G",
+      "name": "타친",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 1
+     },
+     {
+      "slot": 6,
+      "unitId": "H00H",
+      "name": "쿠마린",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 7,
+      "unitId": "H00I",
+      "name": "엘타스",
+      "force": "B2",
+      "commander": true,
+      "extraLivesJ": 2
+     },
+     {
+      "slot": 8,
+      "unitId": "H00J",
+      "name": "사신트",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 9,
+      "unitId": "H00K",
+      "name": "킬데르",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 10,
+      "unitId": "H00L",
+      "name": "드라칸",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 11,
+      "unitId": "H00M",
+      "name": "허밀리",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 12,
+      "unitId": "H00N",
+      "name": "컨슘",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     }
+    ],
+    "forces": {
+     "B1": [
+      1,
+      6
+     ],
+     "B2": [
+      7,
+      12
+     ]
+    },
+    "startAlliances": [],
+    "publishTagColor": "1-6 빨강, 7-12 파랑"
+   },
+   "lidellut": {
+    "displayName": "리델루트 황야",
+    "slots": [
+     {
+      "slot": 1,
+      "unitId": "H00O",
+      "name": "카이",
+      "force": "B1",
+      "commander": true,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 2,
+      "unitId": "H00S",
+      "name": "아린",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 3,
+      "unitId": "H00R",
+      "name": "카스파",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 4,
+      "unitId": "H00T",
+      "name": "프레이아",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 5,
+      "unitId": "H00P",
+      "name": "투마",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 1
+     },
+     {
+      "slot": 6,
+      "unitId": "H00Q",
+      "name": "세피",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 7,
+      "unitId": "H00U",
+      "name": "샤이닝",
+      "force": "B2",
+      "commander": true,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 8,
+      "unitId": "H00Y",
+      "name": "치즈코",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 9,
+      "unitId": "H00V",
+      "name": "유이",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 10,
+      "unitId": "H00X",
+      "name": "로네리스",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 11,
+      "unitId": "H00W",
+      "name": "수프라",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 12,
+      "unitId": "H00Z",
+      "name": "카미카제",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 2
+     }
+    ],
+    "forces": {
+     "B1": [
+      1,
+      6
+     ],
+     "B2": [
+      7,
+      12
+     ]
+    },
+    "startAlliances": [],
+    "publishTagColor": "1-6 빨강, 7-12 파랑"
+   },
+   "troll": {
+    "displayName": "트롤 부족의 반란",
+    "slots": [
+     {
+      "slot": 1,
+      "unitId": "H010",
+      "name": "치스",
+      "force": "B1",
+      "commander": true,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 2,
+      "unitId": "H011",
+      "name": "사토시",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 1
+     },
+     {
+      "slot": 3,
+      "unitId": "H012",
+      "name": "즈윈라",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 1
+     },
+     {
+      "slot": 4,
+      "unitId": "H013",
+      "name": "하치",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 5,
+      "unitId": "H014",
+      "name": "토크라",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 6,
+      "unitId": "H015",
+      "name": "울디안",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 7,
+      "unitId": "H016",
+      "name": "울피안",
+      "force": "B1",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 8,
+      "unitId": "H017",
+      "name": "데카",
+      "force": "B2",
+      "commander": true,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 9,
+      "unitId": "H018",
+      "name": "네오니스",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 10,
+      "unitId": "H019",
+      "name": "카'눌라",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     },
+     {
+      "slot": 11,
+      "unitId": "H01A",
+      "name": "카즈로우",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 1
+     },
+     {
+      "slot": 12,
+      "unitId": "H01B",
+      "name": "세이로우",
+      "force": "B2",
+      "commander": false,
+      "extraLivesJ": 0
+     }
+    ],
+    "forces": {
+     "B1": [
+      1,
+      7
+     ],
+     "B2": [
+      8,
+      12
+     ]
+    },
+    "startAlliances": [
+     [
+      6,
+      7
+     ],
+     [
+      11,
+      12
+     ]
+    ],
+    "publishTagColor": "1-7 파랑, 8-12 빨강 (다른 모드와 반대)"
+   }
+  },
+  "victory": {
+   "func": "wb (trigger yo)",
+   "calledFrom": [
+    "qi(매 턴 시작)",
+    "cn(공격 판정 후)",
+    "Lr(사망 처리 중)",
+    "zR 등 일부 고유스킬"
+   ],
+   "checks": [
+    {
+     "order": 1,
+     "func": "mb",
+     "mode": "troll",
+     "cond": "O[2](사토시),O[3](즈윈라),O[6](울디안) 모두 사망(제외 슬롯은 사망 취급)",
+     "winner": "트롤 반란자",
+     "message": "얼음 트롤에는 더 이상 공격할 힘이 남아 있지 않습니다!\\n\\n|c00ff8080트롤 반란자|r측이 승리했습니다."
+    },
+    {
+     "order": 2,
+     "func": "Mb",
+     "mode": "troll",
+     "cond": "O[8](데카) 사망",
+     "winner": "얼음 부족",
+     "message": "|c00ff8080얼음 부족|r이 승리했습니다."
+    },
+    {
+     "order": 3,
+     "func": "pb",
+     "mode": "troll",
+     "cond": "O[1](치스) 사망",
+     "winner": "트롤 반란자",
+     "message": "|c00ff8080트롤 반란자|r측이 승리했습니다."
+    },
+    {
+     "order": 4,
+     "func": "Pb",
+     "mode": "lidellut",
+     "cond": "O[7](샤이닝),O[9](유이),O[10](로네리스),O[11](수프라) 모두 사망",
+     "winner": "다크니스",
+     "message": "|c00ff8080다크니스|r측이 승리했습니다."
+    },
+    {
+     "order": 5,
+     "func": "qb",
+     "mode": "lidellut",
+     "cond": "O[7] 샤이닝의 A02N(위대한 의지) 레벨 0(사용함) AND O[9],O[10],O[11],O[12](카미카제) 모두 사망",
+     "winner": "다크니스",
+     "message": "가디언에는 더 이상 공격할 힘이 남아 있지 않습니다!\\n\\n|c00ff8080다크니스|r측이 승리했습니다."
+    },
+    {
+     "order": 6,
+     "func": "Qb",
+     "mode": "lidellut",
+     "cond": "O[1](카이) 사망",
+     "winner": "가디언",
+     "message": "|c00ff8080가디언|r측이 승리했습니다."
+    },
+    {
+     "order": 7,
+     "func": "sb",
+     "mode": "primordial",
+     "cond": "O[1](라엘),O[2](케인) 모두 사망",
+     "winner": "다크니스",
+     "message": "|c00ff8080다크니스|r측이 승리했습니다."
+    },
+    {
+     "order": 8,
+     "func": "Sb",
+     "mode": "primordial",
+     "cond": "O[7](엘타스) 사망",
+     "winner": "지상 연합",
+     "message": "|c00ff8080지상 연합|r측이 승리했습니다."
+    },
+    {
+     "order": 9,
+     "func": "tb",
+     "mode": "civil_war",
+     "cond": "O[8](카이) 사망",
+     "winner": "단테스",
+     "message": "|c00ff8080단테스|r측이 승리했습니다."
+    },
+    {
+     "order": 10,
+     "func": "Tb",
+     "mode": "civil_war",
+     "cond": "O[1](단테스),O[2](메르츠키엘) 사망 AND 메르츠키엘이 A00E(후계자) 보유",
+     "winner": "카이",
+     "message": "단테스가 사망하고, 후계자인 메르츠키엘도 사망했습니다.\\n\\n|c00ff8080카이|r측이 승리했습니다."
+    },
+    {
+     "order": 11,
+     "func": "ub",
+     "mode": "civil_war",
+     "cond": "O[1](단테스) 사망 AND 메르츠키엘 A00E 미보유",
+     "winner": "카이",
+     "message": "|c00ff8080카이|r측이 승리했습니다."
+    },
+    {
+     "order": 12,
+     "func": "Ub",
+     "mode": "civil_war",
+     "cond": "O[1](단테스) 사망 AND 메르츠키엘 A00E 보유(생존 여부 미검사)",
+     "winner": null,
+     "message": "|c00ff8080메르츠키엘|r이 단테스의 뒤를 이어받았습니다.",
+     "note": "게임 종료 아님, 트리거 파괴 안 함 → wb가 실행될 때마다(매 턴/매 공격/매 사망) 반복 출력"
+    }
+   ],
+   "onVictory": "각 체크는 메시지(전원, 30초) 후 Yo(yb) 실행 + wb 트리거 파괴(이후 판정 안 함). yb: PauseGameOn(게임 일시정지), 턴 타이머 정지, 4초 대기 후 전원에게 각 플레이어 'H[n] : <영웅 고유이름>' 목록(빈 슬롯 포함) + '다음 방제 : <-공지 내용>'. CustomVictory/Defeat 호출 없음 → 실제 게임 종료가 아니라 정지 화면. 프레이아 '(배신)' 표기 분기는 J가 코드에서 true로 설정되지 않아 사용 안 됨.",
+   "excludedSlotNote": "제외 슬롯은 O[slot]=null → o[0](null 유닛) 참조 → IsUnitDeadBJ=true, IsUnitAliveBJ=false 로 '사망' 취급. 예: 리델루트 8인(로네리스 제외)에서 Pb는 샤이닝·유이·수프라만 죽이면 성립."
+  },
+  "death": {
+   "func": "Lr(playerIdx)",
+   "steps": [
+    "영웅 생존 시에만: 공표 텍스트태그 제거",
+    "모든 플레이어 → 사망자 동맹상태 ALLIED(2), 사망자 → 모든 플레이어 UNALLIED(0)",
+    "영웅 KillUnit, 메모유닛 u000 KillUnit(→ 메모/사망자확인 사용 불가)",
+    "사망자 본인: '당신은 사망했습니다.'(8초)",
+    "wb(승리판정) 실행",
+    "멀티보드 해당 행을 흰색 플레이어 이름으로 변경",
+    "PLAYER_STATE_OBSERVER=true (관전자 전환)",
+    "전원: '-사망한 |c00ff8080<영웅 고유이름>|r는(은) <H[a]>입니다!'(8초) → 사망 시 정체와 플레이어가 공개됨"
+   ],
+   "leave": {
+    "trigger": "be",
+    "cond": "si: 나간 플레이어 영웅 생존",
+    "handler": "Si",
+    "effect": "Lr 호출(정체 공개 포함) 후 전원 '<이름>님께서 나가셨습니다!'(30초)"
+   }
+  },
+  "multiboard": {
+   "func": "Ki/mi",
+   "desc": "제목 '가디언 스피리츠 택틱스', 2열×13행. 1~12행 1열=H[n](PLAYING 아니면 '-'), 13행 '경과된 시간', 2열=분:초(0패딩 없음, mi가 1초마다 갱신). 사망 시 해당 행 흰색. 진영/정체 표시는 없음.",
+   "bug": "pi(1초 주기)는 루프 증가문이 없어 무한루프 → 스레드 op-limit로 매번 중단(무해)"
+  },
+  "antiMaphack": {
+   "trigger": "Be",
+   "cond": "Ti: 선택한 유닛이 영웅 & 남의 소유 & 본인 영웅 생존",
+   "handler": "ui",
+   "message": "전원: '<이름>이 맵핵을 사용하여 다른 사람의 영웅을 훔쳐보고 있습니다!'(30초)",
+   "note": "모든 영웅은 A001(영웅 투명화, Apiv)로 서로 보이지 않음. 웹 구현에선 불필요"
+  },
+  "statusEffects": {
+   "disable": {
+    "desc": "행동불능: 대상 영웅에 PauseUnit(true), 버프 BNdo(ANdo 기반 스킬) 존재하는 동안 1초 폴링 후 PauseUnit(false). 쉐도우 자일(A00H, Aams 기반 버프 B001)은 B001 동안 정지, 해제 시 BNdo도 있으면 정지 유지.",
+    "effectOnSkills": "정지된 영웅은 어떤 스킬(공표·공격·확인 포함)도 시전 불가(엔진). 메모유닛(u000)의 메모/사망자확인과 채팅 명령(-전체, 귓말, 메모 기록)은 막히지 않음.",
+    "bug": "중첩 시 먼저 끝난 효과가 PauseUnit(false)를 호출 → 다른 행동불능이 남아도 풀림(교란이 쉐도우 자일보다 먼저 끝나면 행동불능 해제, 무적만 남음)",
+    "source": [
+     "YV",
+     "JE",
+     "iX",
+     "NO",
+     "fV"
+    ]
+   },
+   "invulnerable": {
+    "desc": "무적: Aams(안티매직 쉘) 기반 스킬(룬 프로텍션 A00W 45초, 쉐도우 자일 A00H 45초, 시잉 오브 리비도 A02C 35초) 버프. 스크립트에 무적 판정 코드는 없음 → 엔진이 대상 지정을 거부(모든 공통 대상 스킬 targets='air,organic,notself,ground'). 즉 무적 대상에게는 공격/확인/스캔/보석 등 대상 지정 스킬 사용 자체가 불가.",
+    "unverified": "정확한 엔진 메커니즘(마법면역에 의한 타깃 불가)은 실측 필요. 웹 구현은 '무적 대상은 어떤 대상 지정 스킬로도 선택 불가'로 처리 권장",
+    "source": [
+     "objects w3a A00W/A00H/A02C base Aams"
+    ]
+   },
+   "cancelPattern": "SPELL_CAST 이벤트에서 IssueImmediateOrderById(stop=851972)로 시전 취소 → 마나/쿨다운 소모 없음. 동맹/동맹파기, 각종 '자신에게 사용 불가/조건 불충족' 처리에 사용."
+  },
+  "truthDefinition": "진명 = A[player](현재 공표 이름) == GetHeroProperName(o[player]). 정체 = b[D[player]] (= 영웅 고유이름).",
+  "chat": {
+   "whisper": {
+    "trigger": "mo",
+    "cond": "qN: 앞 3바이트가 '-1 '~'-9 ' 또는 '-10','-11','-12'",
+    "handler": "sN",
+    "effect": "대상 플레이어(S2I(2~3바이트))에게만 '<H[발신자]>의 귓속말 : <4바이트째~150>'(8초). 발신자에게 사본 없음. 생존 검사 없음 → 사망자(관전자)도 생존자에게 귓말 가능. 원문 채팅 자체는 엔진 채널대로 보임(숨김 처리 없음)"
+   },
+   "notice": {
+    "trigger": "Oe",
+    "cond": "Player(0)만, ji: 앞 7바이트=='-공지'",
+    "handler": "Ji",
+    "effect": "Y = 8바이트째~99 (다음 방제). 1회 후 트리거 파괴. 게임 종료(yb) 시 '다음 방제 : <Y>' 전원 출력"
+   },
+   "globalChat": "global_chat / global_chat_shared 참조 (me/Me)",
+   "memo": "memo 참조 (Mo,po,Po,qo,Qo,so,So,to,Wo)",
+   "allChatTriggers": [
+    "Oe -공지",
+    "me -전체(35)",
+    "Me -전체(25)",
+    "mo 귓말",
+    "Mo !",
+    "po @",
+    "Po #",
+    "qo $",
+    "Qo '! '",
+    "so '@ '",
+    "So '# '",
+    "to '$ '",
+    "Wo -!/-@/-#/-$"
+   ]
+  }
+ },
+ "modeExclusions": {
+  "civil_war": {
+   "displayName": "왕자들의 내전",
+   "allowedCounts": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    1
+   ],
+   "otherCounts": "2~7명이면 모든 플레이어에게 CustomDefeatBJ('사람 수가 부족합니다!')",
+   "table": {
+    "12": {
+     "excludedSlots": [],
+     "excluded": [],
+     "pattern": "111111111111"
+    },
+    "11": {
+     "excludedSlots": [
+      7
+     ],
+     "excluded": [
+      "세피"
+     ],
+     "pattern": "111111011111"
+    },
+    "10": {
+     "excludedSlots": [
+      7,
+      12
+     ],
+     "excluded": [
+      "세피",
+      "카스파"
+     ],
+     "pattern": "111111011110"
+    },
+    "9": {
+     "excludedSlots": [
+      6,
+      7,
+      12
+     ],
+     "excluded": [
+      "레인딜라",
+      "세피",
+      "카스파"
+     ],
+     "pattern": "111110011110"
+    },
+    "8": {
+     "excludedSlots": [
+      6,
+      7,
+      10,
+      12
+     ],
+     "excluded": [
+      "레인딜라",
+      "세피",
+      "투마",
+      "카스파"
+     ],
+     "pattern": "111110011010"
+    },
+    "1": {
+     "onlySlot": [
+      1
+     ],
+     "onlyName": [
+      "단테스"
+     ],
+     "note": "1인 테스트용: 이 캐릭터 하나만 생성"
+    }
+   },
+   "source": [
+    "Ei",
+    "Sr",
+    "Tr",
+    "Ur",
+    "Wr"
+   ]
+  },
+  "primordial": {
+   "displayName": "태초의 전쟁",
+   "allowedCounts": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    1
+   ],
+   "otherCounts": "2~7명이면 모든 플레이어에게 CustomDefeatBJ('사람 수가 부족합니다!')",
+   "table": {
+    "12": {
+     "excludedSlots": [],
+     "excluded": [],
+     "pattern": "111111111111"
+    },
+    "11": {
+     "excludedSlots": [
+      12
+     ],
+     "excluded": [
+      "컨슘"
+     ],
+     "pattern": "111111111110"
+    },
+    "10": {
+     "excludedSlots": [
+      6,
+      12
+     ],
+     "excluded": [
+      "쿠마린",
+      "컨슘"
+     ],
+     "pattern": "111110111110"
+    },
+    "9": {
+     "excludedSlots": [
+      6,
+      11,
+      12
+     ],
+     "excluded": [
+      "쿠마린",
+      "허밀리",
+      "컨슘"
+     ],
+     "pattern": "111110111100",
+     "questTextDiff": "퀘스트(Tr/Sr/Ur/Wr) 표기: 컨슘/쿠마린/사신트"
+    },
+    "8": {
+     "excludedSlots": [
+      5,
+      6,
+      8,
+      12
+     ],
+     "excluded": [
+      "타친",
+      "쿠마린",
+      "사신트",
+      "컨슘"
+     ],
+     "pattern": "111100101110"
+    },
+    "1": {
+     "onlySlot": [
+      8
+     ],
+     "onlyName": [
+      "사신트"
+     ],
+     "note": "1인 테스트용: 이 캐릭터 하나만 생성"
+    }
+   },
+   "source": [
+    "Ei",
+    "Sr",
+    "Tr",
+    "Ur",
+    "Wr"
+   ]
+  },
+  "lidellut": {
+   "displayName": "리델루트 황야",
+   "allowedCounts": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    1
+   ],
+   "otherCounts": "2~7명이면 모든 플레이어에게 CustomDefeatBJ('사람 수가 부족합니다!')",
+   "table": {
+    "12": {
+     "excludedSlots": [],
+     "excluded": [],
+     "pattern": "111111111111"
+    },
+    "11": {
+     "excludedSlots": [
+      6
+     ],
+     "excluded": [
+      "세피"
+     ],
+     "pattern": "111110111111"
+    },
+    "10": {
+     "excludedSlots": [
+      6,
+      12
+     ],
+     "excluded": [
+      "세피",
+      "카미카제"
+     ],
+     "pattern": "111110111110"
+    },
+    "9": {
+     "excludedSlots": [
+      5,
+      6,
+      12
+     ],
+     "excluded": [
+      "투마",
+      "세피",
+      "카미카제"
+     ],
+     "pattern": "111100111110"
+    },
+    "8": {
+     "excludedSlots": [
+      5,
+      6,
+      10,
+      12
+     ],
+     "excluded": [
+      "투마",
+      "세피",
+      "로네리스",
+      "카미카제"
+     ],
+     "pattern": "111100111010"
+    },
+    "1": {
+     "onlySlot": [
+      8
+     ],
+     "onlyName": [
+      "치즈코"
+     ],
+     "note": "1인 테스트용: 이 캐릭터 하나만 생성"
+    }
+   },
+   "source": [
+    "Ei",
+    "Sr",
+    "Tr",
+    "Ur",
+    "Wr"
+   ]
+  },
+  "troll": {
+   "displayName": "트롤 부족의 반란",
+   "allowedCounts": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    1
+   ],
+   "otherCounts": "2~7명이면 모든 플레이어에게 CustomDefeatBJ('사람 수가 부족합니다!')",
+   "table": {
+    "12": {
+     "excludedSlots": [],
+     "excluded": [],
+     "pattern": "111111111111"
+    },
+    "11": {
+     "excludedSlots": [
+      4
+     ],
+     "excluded": [
+      "하치"
+     ],
+     "pattern": "111011111111"
+    },
+    "10": {
+     "excludedSlots": [
+      4,
+      12
+     ],
+     "excluded": [
+      "하치",
+      "세이로우"
+     ],
+     "pattern": "111011111110"
+    },
+    "9": {
+     "excludedSlots": [
+      6,
+      7,
+      12
+     ],
+     "excluded": [
+      "울디안",
+      "울피안",
+      "세이로우"
+     ],
+     "pattern": "111110011110"
+    },
+    "8": {
+     "excludedSlots": [
+      4,
+      6,
+      7,
+      12
+     ],
+     "excluded": [
+      "하치",
+      "울디안",
+      "울피안",
+      "세이로우"
+     ],
+     "pattern": "111010011110"
+    },
+    "1": {
+     "onlySlot": [
+      8
+     ],
+     "onlyName": [
+      "데카"
+     ],
+     "note": "1인 테스트용: 이 캐릭터 하나만 생성"
+    }
+   },
+   "source": [
+    "Ei",
+    "Sr",
+    "Tr",
+    "Ur",
+    "Wr"
+   ]
+  }
+ }
+}

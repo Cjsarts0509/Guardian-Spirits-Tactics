@@ -1,0 +1,7 @@
+# /etc/caddy/Caddyfile
+# Cloudflare 프록시(주황 구름) 뒤에서 Origin Certificate 사용 (SSL 모드: Full (strict))
+# ws.<도메인>.xyz 를 실제 서브도메인으로 바꾼다
+ws.example.xyz {
+	tls /etc/caddy/cf-origin.pem /etc/caddy/cf-origin.key
+	reverse_proxy 127.0.0.1:8787
+}

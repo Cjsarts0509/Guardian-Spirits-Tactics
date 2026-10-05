@@ -1,0 +1,1469 @@
+{
+ "mode": "civil_war",
+ "displayName": "왕자들의 내전",
+ "selection": {
+  "source": [
+   "Yr",
+   "ri",
+   "ni"
+  ],
+  "notes": "방장 15초 다이얼로그; 미선택 시 내전 기본; 랜덤버튼은 GetRandomInt(1,4)==1"
+ },
+ "playerCountRules": {
+  "min": 8,
+  "max": 12,
+  "source": [
+   "Ei",
+   "Sr"
+  ],
+  "masks": {
+   "12": "111111111111",
+   "11": "111111011111",
+   "10": "111111011110",
+   "9": "111110011110",
+   "8": "111110011010",
+   "1": "100000000000"
+  },
+  "excludedByCount": {
+   "12": [],
+   "11": [
+    "세피"
+   ],
+   "10": [
+    "세피",
+    "카스파"
+   ],
+   "9": [
+    "레인딜라",
+    "세피",
+    "카스파"
+   ],
+   "8": [
+    "레인딜라",
+    "세피",
+    "투마",
+    "카스파"
+   ]
+  },
+  "otherCounts": "2~7명: 전원 CustomDefeat '사람 수가 부족합니다!'; 1명: 단테스만(테스트)",
+  "assignment": "role 1..12 순서로, 마스크 '1'인 슬롯마다 남은 인원 중 무작위 1명 배정. 본인에게만 '당신은 X입니다.'"
+ },
+ "roleSlots": {
+  "1": "H005",
+  "2": "H006",
+  "3": "H00A",
+  "4": "H009",
+  "5": "H00B",
+  "6": "H008",
+  "7": "H007",
+  "8": "H000",
+  "9": "H002",
+  "10": "H001",
+  "11": "H003",
+  "12": "H004"
+ },
+ "sides": [
+  {
+   "id": "dantes",
+   "name": "단테스 측",
+   "color": "red",
+   "force": "B[1]",
+   "roles": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "winCondition": "카이(role 8) 사망 시 즉시 승리 (wb.tb, 다른 판정보다 우선)",
+   "winConditionStruct": {
+    "type": "killAny",
+    "targets": [
+     "카이"
+    ],
+    "priority": 1
+   }
+  },
+  {
+   "id": "kai",
+   "name": "카이 측",
+   "color": "blue",
+   "force": "B[2]",
+   "roles": [
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "winCondition": "단테스 사망 시 승리. 단, 메르츠키엘이 후계자(A00E)를 가졌으면 단테스와 메르츠키엘이 모두 죽어야 승리. 후계자 없이 단테스가 죽으면 메르츠키엘 생존과 무관하게 즉시 승리.",
+   "winConditionStruct": {
+    "type": "killCommanderWithSuccessor",
+    "commander": "단테스",
+    "successor": {
+     "name": "메르츠키엘",
+     "flagAbility": "A00E",
+     "grantedBy": "dantes_successor"
+    },
+    "rules": [
+     "Tb: 단테스 사망 & 메르츠 사망 & 메르츠 A00E 보유 -> 카이측 승리",
+     "ub: 단테스 사망 & 메르츠 A00E 미보유 -> 카이측 승리",
+     "Ub: 단테스 사망 & A00E 보유(메르츠 생존) -> '메르츠키엘이 단테스의 뒤를 이어받았습니다.' 전체 출력, 게임 계속 (yo 실행 때마다 반복 출력)"
+    ],
+    "priority": 2
+   }
+  }
+ ],
+ "winCheck": {
+  "function": "wb",
+  "trigger": "yo",
+  "calledFrom": [
+   "Lr(사망)",
+   "cn(공격 다이얼로그 처리 후)",
+   "qi(매 턴 시작)"
+  ],
+  "order": [
+   "tb",
+   "Tb",
+   "ub",
+   "Ub"
+  ],
+  "onWin": "Yo=yb: 게임 일시정지, 턴타이머 정지, 4초 후 전원 정체 공개 + 다음 방제"
+ },
+ "timedUnlocks": [
+  {
+   "timer": "iv",
+   "seconds": 180,
+   "func": "vV/zn",
+   "grant": "A006",
+   "to": "프레이아(O[4]) 생존 시",
+   "message": "본인: '신탁 스킬을 획득하였습니다.'"
+  },
+  {
+   "timer": "S",
+   "seconds": 300,
+   "func": "Wn/wn",
+   "grant": "A018",
+   "to": "O[12]이 카스파이고 생존 시",
+   "message": "본인: '그림자의 눈 스킬을 획득하였습니다.'"
+  },
+  {
+   "timer": "y",
+   "seconds": 120,
+   "func": "rV",
+   "grant": null,
+   "to": "내전 효과 없음"
+  },
+  {
+   "timer": "z",
+   "seconds": 360,
+   "func": "Tn",
+   "grant": null,
+   "to": "내전 효과 없음"
+  }
+ ],
+ "attackRules": {
+  "source": [
+   "rn",
+   "cn",
+   "Pr",
+   "qr",
+   "Vn",
+   "En",
+   "Bi"
+  ],
+  "dialog": "단테스측 공격자는 카이측 이름(b[8..12]), 카이측은 단테스측 이름(b[1..7])만 선택 가능. 6초 미선택 시 취소(마나/쿨 소모됨)",
+  "bodyguard": [
+   {
+    "protected": "카이",
+    "guard": "아린",
+    "role": 9,
+    "check": "Vn: 대상 실제영웅=='카이' and O[9] 생존"
+   },
+   {
+    "protected": "단테스",
+    "guard": "켈후",
+    "role": 3,
+    "check": "En: 대상 실제영웅=='단테스' and O[3] 생존"
+   }
+  ],
+  "bodyguardAppliesTo": [
+   "attack",
+   "advanced_attack",
+   "soen_chain_murder"
+  ],
+  "extraLives": {
+   "켈후": 2,
+   "투마": 1,
+   "others": 0
+  },
+  "extraLivesAppliesTo": "일반 공격 계열(Pr)만. 백스탭/돌진/소울리버/마황자의 명령은 Lr 직접 호출로 즉사",
+  "hitMessages": "명중(목숨 남음): 전체 '-<공격자영웅>가 <대상영웅>를 공격하였습니다.' + '-<대상영웅>는 N회 더 공격받으면 사망합니다.'(N=감소 전) / 사망: 전체 '-A가 B를 공격하여 살해했습니다.' + Lr + '-살해당한 B는(은) <플레이어>입니다!'",
+  "failure": "qr: 대상에게만 '<공격자영웅>가 당신을 공격하였으나 실패하였습니다.'; K[a](영혼의 회복)면 페널티 없음(전체 공지); A003 레벨1이면 레벨2로(전체 '한번 더 실패하면 사망'); 그 외 사망. 소엔(H00B)은 전체 '소엔이 연쇄살인에 실패하였습니다!' + A01D 제거만, 사망 없음",
+  "manaOnKill": {
+   "S003": 50
+  }
+ },
+ "characters": [
+  {
+   "key": "dantes",
+   "unitId": "H005",
+   "name": "단테스",
+   "title": "석세서 오브 다크니스",
+   "side": "dantes",
+   "role": 1,
+   "commander": true,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "ally_check",
+    "attack",
+    "dantes_command",
+    "dantes_successor",
+    "global_chat"
+   ],
+   "skillCodes": {
+    "ally_check": "A009",
+    "attack": "A002"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "전체채팅은 H005/H000만 가능(ln), 35마나",
+   "bodyguardedBy": [
+    "켈후"
+   ],
+   "excludedAt": []
+  },
+  {
+   "key": "mertz",
+   "unitId": "H006",
+   "name": "메르츠키엘",
+   "title": "세컨드 프린스",
+   "side": "dantes",
+   "role": 2,
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "advanced_attack",
+    "mertz_spouse",
+    "shadow_jail"
+   ],
+   "skillCodes": {
+    "advanced_attack": "A003"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "후계자 A00E는 단테스의 후계자 임명으로 획득",
+   "grantable": [
+    "successor"
+   ]
+  },
+  {
+   "key": "kelhu",
+   "unitId": "H00A",
+   "name": "켈후",
+   "title": "오우거 로드",
+   "side": "dantes",
+   "role": 3,
+   "commander": false,
+   "lives": 3,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "advanced_attack",
+    "warrior_scent",
+    "bodyguard_kelhu",
+    "kelhu_loyal",
+    "hard_skin"
+   ],
+   "skillCodes": {
+    "advanced_attack": "A003"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "j[3]=2 → 일반 공격 3회 명중에 사망. 돌진/백스탭/소울리버엔 즉사",
+   "extraLives": 2,
+   "guards": "단테스",
+   "grantable": [
+    "calmness"
+   ]
+  },
+  {
+   "key": "freya",
+   "unitId": "H009",
+   "name": "프레이아",
+   "title": "프리스티스 오브 그리드",
+   "side": "dantes",
+   "role": 4,
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "scan"
+   ],
+   "skillCodes": {
+    "scan": "A016"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "위키/퀘스트 칭호는 '드로우 프리스티스'. 신탁은 180초 생존 시 획득",
+   "timedSkills": [
+    {
+     "skill": "oracle",
+     "at": 180
+    }
+   ]
+  },
+  {
+   "key": "soen",
+   "unitId": "H00B",
+   "name": "소엔",
+   "title": "드로우 어쌔신",
+   "side": "dantes",
+   "role": 5,
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "enemy_check",
+    "backstab",
+    "disguise",
+    "advice"
+   ],
+   "skillCodes": {
+    "enemy_check": "A008"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "공격/상급공격 없음. 연쇄살인은 백스탭 성공 시 획득",
+   "grantable": [
+    "soen_chain_murder"
+   ]
+  },
+  {
+   "key": "reindila",
+   "unitId": "H008",
+   "name": "레인딜라",
+   "title": "소울 팔로어",
+   "side": "dantes",
+   "role": 6,
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "ally_check",
+    "libido_priestess",
+    "reindila_spouse",
+    "soul_wall",
+    "soul_recovery"
+   ],
+   "skillCodes": {
+    "ally_check": "A009"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "",
+   "excludedAt": [
+    9,
+    8
+   ]
+  },
+  {
+   "key": "sephy",
+   "unitId": "H007",
+   "name": "세피",
+   "title": "카오스 위치",
+   "side": "dantes",
+   "role": 7,
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "ally_check",
+    "burning_magic",
+    "confusion",
+    "curse"
+   ],
+   "skillCodes": {
+    "ally_check": "A009"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "",
+   "excludedAt": [
+    11,
+    10,
+    9,
+    8
+   ]
+  },
+  {
+   "key": "kai",
+   "unitId": "H000",
+   "name": "카이",
+   "title": "프린스 오브 다크니스",
+   "side": "kai",
+   "role": 8,
+   "commander": true,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "advanced_attack",
+    "ally_check",
+    "soul_reaver",
+    "global_chat"
+   ],
+   "skillCodes": {
+    "advanced_attack": "A003",
+    "ally_check": "A009"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "",
+   "bodyguardedBy": [
+    "아린"
+   ]
+  },
+  {
+   "key": "arin",
+   "unitId": "H002",
+   "name": "아린",
+   "title": "다크 템플러",
+   "side": "kai",
+   "role": 9,
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "attack",
+    "advanced_enemy_check",
+    "rune_protection",
+    "bodyguard_arin",
+    "kai_loyal"
+   ],
+   "skillCodes": {
+    "attack": "A002",
+    "advanced_enemy_check": "A03H"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "",
+   "guards": "카이"
+  },
+  {
+   "key": "tuma",
+   "unitId": "H001",
+   "name": "투마",
+   "title": "플레임 블레이더",
+   "side": "kai",
+   "role": 10,
+   "commander": false,
+   "lives": 2,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "advanced_attack",
+    "valiant_charge",
+    "flame_source",
+    "warrior_scent"
+   ],
+   "skillCodes": {
+    "advanced_attack": "A003"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "j[10]=1 → 일반 공격 2회 명중에 사망. 위키 서술에 없는 상급 공격 보유",
+   "extraLives": 1,
+   "excludedAt": [
+    8
+   ]
+  },
+  {
+   "key": "krate",
+   "unitId": "H003",
+   "name": "크레이트",
+   "title": "둠 로드",
+   "side": "kai",
+   "role": 11,
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "advanced_scan",
+    "nightmare"
+   ],
+   "skillCodes": {
+    "advanced_scan": "A017"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "공격 수단 없음"
+  },
+  {
+   "key": "kaspa",
+   "unitId": "H004",
+   "name": "카스파",
+   "title": "다크 샤먼",
+   "side": "kai",
+   "role": 12,
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "attack",
+    "ally_check",
+    "kai_loyal",
+    "essence_absorb"
+   ],
+   "skillCodes": {
+    "attack": "A002",
+    "ally_check": "A009"
+   },
+   "startMana": 120,
+   "maxMana": 150,
+   "notes": "",
+   "excludedAt": [
+    10,
+    9,
+    8
+   ],
+   "timedSkills": [
+    {
+     "skill": "shadow_eye",
+     "at": 300
+    }
+   ]
+  }
+ ],
+ "skills": {
+  "dantes_command": {
+   "hotkey": "V",
+   "manaCost": 0,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00A",
+   "name": "마황자의 명령",
+   "effect": "대상 실제 영웅이 카이면 대상 즉사(단테스측 승리), 아니면 단테스 본인 즉사",
+   "resolution": [
+    "대상 실제영웅=='카이'(AV) → 전체: '-단테스 : 카이는<대상P>이다! 놈을 체포하라!', '-<대상P>의 정체는 카이였습니다.' → Lr(대상) → '- 카이가 처형당했습니다! 단테스측의 승리입니다.' (yo→tb 승리)",
+    "아니면 → 전체: 동일 선언 + '-<대상P>는 카이가 아닙니다!' → Lr(단테스) → '- 카이 : \"어리석군. 네놈의 운명도 여기까지다.\" - 카이가 단테스를 살해하였습니다!' (후계자 규칙으로 승패)",
+    "보디가드/영혼의 벽/목숨 무시. 스킬은 제거 안 됨(쿨 3600)"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "source": [
+    "IV",
+    "NV",
+    "AV"
+   ]
+  },
+  "dantes_successor": {
+   "hotkey": "Z",
+   "manaCost": 30,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00C",
+   "name": "후계자 임명",
+   "effect": "대상이 메르츠키엘이면 A00E(후계자) 부여. 성패 무관 스킬 제거",
+   "resolution": [
+    "대상 실제영웅=='메르츠키엘'(cV) → 전체: '단테스가 메르츠키엘을 후계자로 임명하였습니다!'(플레이어 비공개); 단테스: '<대상P>를 후계자로 설정하였습니다.'; 대상: '단테스가 당신을 후계자로 임명하였습니다!'; 대상에 A00E 추가",
+    "아니면 → 단테스: '그 대상은 메르츠키엘이 아닙니다.'",
+    "항상 A00C 제거(1회 기회)"
+   ],
+   "visibility": {
+    "onSuccess": "all(공지)+self+target",
+    "onFail": "self"
+   },
+   "source": [
+    "BV",
+    "CV",
+    "cV"
+   ]
+  },
+  "successor": {
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "dantes_successor"
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00E",
+   "name": "후계자",
+   "effect": "패시브. 승리판정 Tb/ub/Ub에서 보유 여부만 사용. 단테스 사망해도 메르츠 생존 시 게임 계속",
+   "source": [
+    "Tb",
+    "ub",
+    "Ub"
+   ]
+  },
+  "mertz_spouse": {
+   "hotkey": "Z",
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A01C",
+   "name": "배우자",
+   "effect": "대상이 레인딜라인지 확인. 성공 시 0.2초 후 스킬 제거",
+   "resolution": [
+    "실제영웅=='레인딜라' → 본인: '이 사람의 정체는 레인딜라입니다!' → 0.2s 후 A01C 제거",
+    "아니면 본인: '이 사람은 레인딜라가 아닙니다.' (스킬 유지)"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "source": [
+    "gV",
+    "GV",
+    "hV"
+   ]
+  },
+  "reindila_spouse": {
+   "hotkey": "Z",
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00R",
+   "name": "배우자",
+   "effect": "대상이 메르츠키엘인지 확인. 성공 시 0.2초 후 스킬 제거",
+   "resolution": [
+    "실제영웅=='메르츠키엘' → 본인: '이 사람의 정체는 메르츠키엘입니다!' → 제거",
+    "아니면 '이 사람은 메르츠키엘이 아닙니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "source": [
+    "aE",
+    "nE",
+    "VE"
+   ]
+  },
+  "shadow_jail": {
+   "hotkey": "X",
+   "manaCost": 35,
+   "cooldown": 180,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00H",
+   "name": "쉐도우 자일",
+   "effect": "45초 무적(주문면역, Aams 버프 B001) + 행동불능(PauseUnit)",
+   "resolution": [
+    "0.1s 대기",
+    "전체(15s): '메르츠키엘이 <대상P>에게 쉐도우 자일을 시전하였습니다.'",
+    "대상 영웅 Pause",
+    "1초마다 B001 버프 확인, 사라지면 Unpause(단 BNdo 버프 있으면 유지)",
+    "주문면역 동안 대상은 모든 대상지정 스킬의 목표가 될 수 없음(엔진, unverified)"
+   ],
+   "durationSeconds": 45,
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "source": [
+    "DV",
+    "fV"
+   ]
+  },
+  "kelhu_loyal": {
+   "hotkey": null,
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00L",
+   "name": "충복",
+   "effect": "대상이 단테스인지 확인. 성공 시 스킬 제거",
+   "resolution": [
+    "실제영웅=='단테스' → 본인: '이 사람의 정체는 단테스다!' → 0.2s 후 제거",
+    "아니면 '이 사람은 단테스가 아니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "source": [
+    "jV",
+    "JV",
+    "kV"
+   ],
+   "notes": "tip은 (F) 표기, ahky 미설정"
+  },
+  "kai_loyal": {
+   "hotkey": "Z",
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00V",
+   "name": "충복",
+   "effect": "대상이 카이인지 확인. 성공 시 스킬 제거 (아린/카스파 공용)",
+   "resolution": [
+    "실제영웅=='카이' → 본인: '이 사람의 정체는 카이입니다!' → 제거",
+    "아니면 '이 사람은 카이가 아니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "source": [
+    "gE",
+    "GE",
+    "hE"
+   ]
+  },
+  "bodyguard_kelhu": {
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00K",
+   "name": "보디가드",
+   "effect": "패시브(표시용). 실제 판정 En: 켈후(O[3]) 생존 시 단테스에 대한 일반공격/연쇄살인 정답도 실패 처리",
+   "source": [
+    "En",
+    "cn"
+   ]
+  },
+  "bodyguard_arin": {
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00X",
+   "name": "보디가드",
+   "effect": "패시브(표시용). 실제 판정 Vn: 아린(O[9]) 생존 시 카이에 대한 일반공격/연쇄살인 정답도 실패 처리",
+   "source": [
+    "Vn",
+    "cn"
+   ]
+  },
+  "hard_skin": {
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "S000",
+   "name": "하드스킨",
+   "effect": "표시용. 실제는 Bi에서 j[3]=2 → 일반 공격 3회째 명중에 사망",
+   "source": [
+    "Bi",
+    "Pr"
+   ]
+  },
+  "flame_source": {
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "S002",
+   "name": "화염의 근원",
+   "effect": "표시용. 실제는 Bi에서 j[10]=1 → 일반 공격 2회째 명중에 사망",
+   "source": [
+    "Bi",
+    "Pr"
+   ]
+  },
+  "warrior_scent": {
+   "hotkey": "X",
+   "manaCost": 40,
+   "cooldown": 180,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A019",
+   "name": "전사의 후각",
+   "effect": "대상 실제 영웅이 카이/메르츠키엘/켈후면 '상급 전사'",
+   "resolution": [
+    "대상 공표명 A[t]가 '투마' 또는 '켈후' → stop + 본인: '투마나 켈후의 이름을 공표한 사람에게 사용할 수 없습니다.' (EFFECT라 마나/쿨 소모, 엔진 동작(EFFECT 이벤트 후 stop은 마나/쿨 환불 안 됨)으로 추정)",
+    "실제영웅 ∈ {카이, 메르츠키엘, 켈후} → 본인: '이 사람은 상급 전사이다.'",
+    "그 외 → '이 사람은 상급 전사가 아니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "source": [
+    "aV",
+    "nV",
+    "EV",
+    "OV"
+   ],
+   "wikiDiff": "툴팁은 '상급공격/최상급공격 보유 여부'지만 코드는 이름 하드코딩. 상급공격 보유자 투마는 '아니다'로 판정됨"
+  },
+  "advice": {
+   "hotkey": "C",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A02H",
+   "name": "조언",
+   "effect": "대상이 켈후면 켈후에 냉정함(A02I) 부여 + 소엔↔켈후 상호동맹 + 켈후에게 소엔 정체 통보. 성패 무관 스킬 제거",
+   "resolution": [
+    "실제영웅=='켈후' → 전체: '-소엔이 켈후를 보좌하기 시작합니다.'; 켈후에 A02I 추가; 소엔→O[3], O[3]→소엔 ALLIED; 켈후에게만 '-소엔의 정체는 <소엔P>입니다!'",
+    "아니면 소엔: '그 대상은 켈후가 아닙니다.'",
+    "항상 A02H 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all(공지)+target",
+    "onFail": "self"
+   },
+   "source": [
+    "SV",
+    "tV",
+    "TV"
+   ]
+  },
+  "calmness": {
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "advice"
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A02I",
+   "name": "냉정함",
+   "effect": "패시브. 용맹한 돌진(lE) 실패 조건",
+   "source": [
+    "lE"
+   ]
+  },
+  "backstab": {
+   "hotkey": "Z",
+   "manaCost": 10,
+   "cooldown": 1,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_CAST",
+   "abilityCode": "A00M",
+   "name": "백스탭",
+   "effect": "대상 플레이어가 소엔에게 동맹설정(일방이라도) 중이면 대상 즉사. 성공 시 연쇄살인 획득",
+   "resolution": [
+    "대상 소유자==소엔 → stop, '자신에게 사용할 수 없습니다.'",
+    "IsPlayerAlly(대상P, 소엔) → 전체: '-소엔이 <대상영웅>를(을) 암살하였습니다!', '-<대상영웅>은<대상P>입니다!' → Lr(대상) (진영/목숨/보디가드/영혼의 벽 무시) → A01D 미보유면 추가 + 본인 '연쇄살인 스킬을 획득했습니다!'",
+    "아니면 stop(CAST라 시전 취소, 마나/쿨 미소모로 추정) + 본인: '이 사람은 당신에게 동맹설정을 하지 않았습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "source": [
+    "MV",
+    "pV",
+    "PV",
+    "qV",
+    "QV"
+   ]
+  },
+  "soen_chain_murder": {
+   "hotkey": "V",
+   "manaCost": 30,
+   "cooldown": 10,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "backstab"
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A01D",
+   "name": "연쇄살인",
+   "effect": "공격과 동일 흐름(카이측 이름 선택). 살해 성공 시 스킬 유지, 그 외 스킬 제거. 소엔은 실패해도 죽지 않음",
+   "resolution": [
+    "rn: 6초 다이얼로그 G[2](카이측 이름)",
+    "정답+보디가드없음+목숨0 → 전체 '...공격하여 살해했습니다.(연쇄살인!)' + Lr, 스킬 유지",
+    "정답+목숨남음(투마) → 전체 '...살해하지 못했습니다.(연쇄살인!)' + 목숨-1 + A01D 제거",
+    "오답 또는 카이+아린생존 → 전체 '-소엔이 연쇄살인에 실패하였습니다!' + A01D 제거 (사망 없음)"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "source": [
+    "en",
+    "rn",
+    "cn",
+    "Pr",
+    "qr"
+   ]
+  },
+  "disguise": {
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "S001",
+   "name": "변장",
+   "effect": "카이측의 아군확인/스캔에 거짓 성공을 띄움",
+   "resolution": [
+    "아군확인(Ca/Oa): 시전자 B[2], 대상 B[1], 대상 실제영웅=='소엔', 대상 공표명∈{카이,카스파,투마,아린,크레이트} → '확인에 성공했습니다. 이 사람은 <공표명>입니다.' (S001 보유 아닌 이름으로 판정)",
+    "스캔(Ua/ua): 시전자 B[2], 선택 이름이 카이측(mr>7)이고 대상 공표명과 같고 대상이 S001 보유 → '성공했습니다. 이 사람은 X입니다.' 단 같은 분기에서 '스캔에 실패하였습니다.'도 함께 출력됨(버그)"
+   ],
+   "source": [
+    "Oa",
+    "Xa",
+    "Ca",
+    "ua",
+    "Ua",
+    "pa",
+    "Pa"
+   ]
+  },
+  "burning_magic": {
+   "hotkey": "Z",
+   "manaCost": 40,
+   "cooldown": 100,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00O",
+   "name": "버닝 매직",
+   "effect": "대상 마나 -70",
+   "resolution": [
+    "대상 마나 -70",
+    "전체(15s): '-세피가 누군가에게 버닝 매직을 시전하였습니다.'",
+    "대상: '버닝 매직으로 인하여 마나가 70 감소하였습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "all(대상 비공개)+target"
+   },
+   "source": [
+    "UV",
+    "wV"
+   ],
+   "unverified": true,
+   "unverifiedReason": "manaCost 미수정(ACfa 기본값) — 툴팁에도 없음 → [해결] 수치는 베이스 기본값으로 확정",
+   "valueSource": {
+    "manaCost": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값"
+   }
+  },
+  "confusion": {
+   "hotkey": "X",
+   "manaCost": 25,
+   "cooldown": 120,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00Y",
+   "name": "교란",
+   "effect": "45초 행동불능(ANdo 버프 BNdo 동안 Pause). 나이트메어와 메시지 동일",
+   "resolution": [
+    "0.1s 대기",
+    "전체(15s): '누군가가 <대상P>에게 행동 불능 주문을 시전하였습니다.'",
+    "Pause; 1초마다 BNdo 확인, 없어지면 Unpause(쉐도우 자일 중이어도 해제 — 버그)"
+   ],
+   "durationSeconds": 45,
+   "visibility": {
+    "onSuccess": "all(시전자 비공개)"
+   },
+   "source": [
+    "yV",
+    "YV"
+   ],
+   "unverified": true,
+   "unverifiedReason": "cooldown 미수정; 툴팁 120 기준 → [해결] 수치는 베이스 기본값으로 확정",
+   "valueSource": {
+    "cooldown": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값 (툴팁과 일치)"
+   }
+  },
+  "nightmare": {
+   "hotkey": "Z",
+   "manaCost": 30,
+   "cooldown": 120,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00P",
+   "name": "나이트메어",
+   "effect": "교란과 동일 (45초 행동불능, 동일 메시지)",
+   "resolution": [
+    "YV와 동일 (JE)"
+   ],
+   "durationSeconds": 45,
+   "visibility": {
+    "onSuccess": "all(시전자 비공개)"
+   },
+   "source": [
+    "jE",
+    "JE"
+   ],
+   "unverified": true,
+   "unverifiedReason": "cooldown 미수정; 툴팁 120 기준 → [해결] 수치는 베이스 기본값으로 확정",
+   "valueSource": {
+    "cooldown": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값 (툴팁과 일치)"
+   }
+  },
+  "curse": {
+   "hotkey": "C",
+   "manaCost": 30,
+   "cooldown": 200,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": true,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A007",
+   "name": "저주",
+   "effect": "진명 공표 중일 때, 대상 마나 ≤50이면 정체 확인(지휘관은 '지휘관'으로만)",
+   "resolution": [
+    "A[세피]!='세피' → stop + '자신의 진명을 공표해야 합니다.' (EFFECT라 마나/쿨 소모, 엔진 동작(EFFECT 이벤트 후 stop은 마나/쿨 환불 안 됨)으로 추정)",
+    "대상 마나 ≤ 50: 실제영웅∈{단테스,샤이닝,카이} → '이 사람은 지휘관(카이, 단테스, 샤이닝)이다.' / 그 외 '이 사람은 <영웅명>이다!'",
+    "대상 마나 > 50 → '목표 대상의 마나가 50 이하가 아닙니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "source": [
+    "ZV",
+    "vE",
+    "xE",
+    "oE",
+    "rE"
+   ]
+  },
+  "libido_priestess": {
+   "hotkey": null,
+   "manaCost": 100,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": true,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00F",
+   "name": "리비도의 여사제",
+   "effect": "진명 공표 중이면 프레이아(O[4])의 플레이어를 알아냄",
+   "resolution": [
+    "A[레인딜라]=='레인딜라' → 본인: '-프레이아는 <O[4]P>입니다!' → 스킬 제거",
+    "아니면 stop + '자신의 진명을 공표하고 있어야 합니다.' (EFFECT라 마나100/쿨3600 소모 → 사실상 소실, 엔진 동작(EFFECT 이벤트 후 stop은 마나/쿨 환불 안 됨)으로 추정)"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "source": [
+    "IE",
+    "AE",
+    "NE"
+   ]
+  },
+  "soul_recovery": {
+   "hotkey": "X",
+   "manaCost": 40,
+   "cooldown": 70,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00S",
+   "name": "영혼의 회복",
+   "effect": "60초간 K[대상]=true: 공격 실패 시 사망/상급공격 레벨업 페널티 없음",
+   "resolution": [
+    "K[대상]=true",
+    "레인딜라: '<대상P>에게 영혼의 회복을 시전합니다.'; 대상: '레인딜라가 당신에게 영혼의 회복을 시전합니다. 60초 동안 공격 실패시 페널티를 입지 않습니다.' + 대상에게만 60초 타이머창",
+    "60초 후 K=false (중첩 시 먼저 끝나는 쪽이 해제 — 버그)"
+   ],
+   "durationSeconds": 60,
+   "visibility": {
+    "onSuccess": "self+target"
+   },
+   "source": [
+    "XE",
+    "OE",
+    "qr"
+   ]
+  },
+  "soul_wall": {
+   "hotkey": "V",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00U",
+   "name": "영혼의 벽",
+   "effect": "대상에 영구 소울 리버 면역(k=true), 레인딜라 자신 사망",
+   "resolution": [
+    "k[대상]=true",
+    "전체: '- 레인딜라가 스스로를 희생하여 영혼의 벽을 시전하였습니다. - 누군가가 이 영혼의 벽의 보호를 받고 있습니다.'",
+    "Lr(레인딜라) → 레인딜라 플레이어 공개"
+   ],
+   "visibility": {
+    "onSuccess": "all(대상 비공개)"
+   },
+   "source": [
+    "BE",
+    "cE",
+    "DE"
+   ]
+  },
+  "soul_reaver": {
+   "hotkey": "V",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 20,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00B",
+   "name": "소울 리버",
+   "effect": "대상 무조건 즉사(영혼의 벽만 예외). 20초 후 카이 플레이어 전체 공개",
+   "resolution": [
+    "k[대상] → 전체: '-카이가 <대상P>에게 소울 리버를 시전합니다.' '-그러나 <대상P>는 영혼의 벽으로 보호받고 있습니다!' (생존)",
+    "아니면 전체: '-카이가 <대상P>에게 소울 리버를 시전하여 살해합니다!' → Lr(대상) → '-<대상P>의 정체는 <영웅명>입니다!' (보디가드/목숨/영혼의 회복 무시)",
+    "공통: 전체 '-카이의 정체가 20초 후 드러납니다.' → 20s 후 전체 '-카이의 정체는 <카이P>입니다!'"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "source": [
+    "dE",
+    "DE",
+    "fE"
+   ]
+  },
+  "rune_protection": {
+   "hotkey": "X",
+   "manaCost": 40,
+   "cooldown": 60,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00W",
+   "name": "룬 프로텍션",
+   "effect": "45초 무적(Aams 주문면역). 스크립트 핸들러 없음 — 엔진 효과만",
+   "durationSeconds": 45,
+   "resolution": [
+    "대상은 45초간 모든 대상지정 스킬의 목표가 될 수 없음",
+    "공지 없음"
+   ],
+   "visibility": {
+    "onSuccess": "none"
+   },
+   "source": [],
+   "unverified": true,
+   "unverifiedReason": "스크립트 참조 0건; 효과는 WC3 Aams 엔진 동작 추정"
+  },
+  "valiant_charge": {
+   "hotkey": "Z",
+   "manaCost": 75,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A00Z",
+   "name": "용맹한 돌진",
+   "effect": "대상이 냉정함 없는 켈후면 즉사 + 카이↔투마 상호동맹 + 서로 정체 통보. 성패 무관 스킬 제거",
+   "resolution": [
+    "실제영웅=='켈후' & A02I 미보유 → 전체: '-투마가 켈후에게 돌진하여 쓰러뜨렸습니다.' '-켈후는 <P>입니다.' → Lr(켈후) (목숨 무시) → 전체 '-투마의 용맹함이 카이의 귀에 전해집니다.' → O[8]↔O[10] ALLIED → 카이에게 '-투마의 정체는 <투마P>입니다!', 투마에게 '-카이의 정체는 <카이P>입니다!'",
+    "아니면 전체: '-투마가 <대상P>에게 돌진을 시도하였으나 실패하였습니다.'; 투마: '그 대상은 켈후가 아니거나, 냉정함 스킬을 가지고 있습니다.'",
+    "항상 A00Z 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all+kai+self",
+    "onFail": "all"
+   },
+   "source": [
+    "KE",
+    "lE",
+    "LE"
+   ]
+  },
+  "oracle": {
+   "hotkey": "Z",
+   "manaCost": 40,
+   "cooldown": 90,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "timer",
+    "seconds": 180,
+    "grantedBy": "vV/zn (프레이아 생존 시)"
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A006",
+   "name": "신탁",
+   "effect": "대상의 진실의 보석 단계 확인",
+   "resolution": [
+    "I000 → '합쳐진 진실의 보석을 가지고 있습니다!'",
+    "I002 → '진실의 조각 2/3을 가지고 있습니다!'",
+    "I001 → '진실의 조각 1/3을 가지고 있습니다!'",
+    "없음 → '진실의 보석을 가지고 있지 않습니다!'"
+   ],
+   "visibility": {
+    "onSuccess": "self"
+   },
+   "source": [
+    "lV",
+    "LV",
+    "vV",
+    "zn"
+   ]
+  },
+  "shadow_eye": {
+   "hotkey": "X",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "timer",
+    "seconds": 300,
+    "grantedBy": "Wn/wn (O[12] 카스파 생존 시)"
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "A018",
+   "name": "그림자의 눈",
+   "effect": "진실 아이템 보유 시 대상 실제 정체 확인, 아이템 전부 소멸",
+   "resolution": [
+    "트리거 조건 pE에 '시전자가 I001/I002/I000 보유' 포함 — 미보유면 핸들러 미실행(마나/쿨만 소모, 메시지 없음)",
+    "보유 시 I000/I002/I001 모두 제거 → 본인: '이 사람은 <영웅명>이다!' → 0.2s 후 스킬 제거"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "none"
+   },
+   "source": [
+    "ME",
+    "pE",
+    "PE",
+    "Wn",
+    "wn"
+   ]
+  },
+  "essence_absorb": {
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "delaySeconds": 0,
+   "event": "SPELL_EFFECT",
+   "abilityCode": "S003",
+   "name": "정기 흡수",
+   "effect": "Pr에서 일반 공격으로 대상을 살해했을 때만 마나 +50 (목숨만 깎으면 없음)",
+   "source": [
+    "Pr"
+   ]
+  }
+ }
+}

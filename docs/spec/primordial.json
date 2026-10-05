@@ -1,0 +1,1775 @@
+{
+ "mode": "primordial",
+ "displayName": "태초의 전쟁",
+ "modeString": "태초의 전쟁",
+ "playerCountRules": {
+  "min": 8,
+  "max": 12,
+  "slotMask": {
+   "12": "111111111111",
+   "11": "111111111110",
+   "10": "111110111110",
+   "9": "111110111100",
+   "8": "111100101110",
+   "1": "000000010000"
+  },
+  "excludedByCount": {
+   "12": [],
+   "11": [
+    "컨슘"
+   ],
+   "10": [
+    "쿠마린",
+    "컨슘"
+   ],
+   "9": [
+    "쿠마린",
+    "허밀리",
+    "컨슘"
+   ],
+   "8": [
+    "타친",
+    "쿠마린",
+    "사신트",
+    "컨슘"
+   ]
+  },
+  "otherCounts": "2~7명은 CustomDefeatBJ '사람 수가 부족합니다!'(Ei). 1명=사신트만(테스트).",
+  "assignment": "슬롯 1..12 순서대로 마스크가 '1'인 슬롯마다 참가자 중 무작위 1명(ForcePickRandomPlayer) 배정. O[slot]=플레이어, D[player]=slot, b[slot]=역할 이름. 본인에게 '당신은 <이름>입니다.'(Ei)",
+  "source": [
+   "Ei",
+   "ri",
+   "Tr"
+  ],
+  "wikiDiff": "인게임 퀘스트(Tr)는 9인 제외를 '컨슘/쿠마린/사신트'로 적었으나 실제 코드는 '쿠마린/허밀리/컨슘'(위키 요약은 코드와 일치)."
+ },
+ "slots": {
+  "1": "라엘 H00D",
+  "2": "케인 H00C",
+  "3": "에오릴 H00E",
+  "4": "뉴켈리어스 H00F",
+  "5": "타친 H00G",
+  "6": "쿠마린 H00H",
+  "7": "엘타스 H00I",
+  "8": "사신트 H00J",
+  "9": "킬데르 H00K",
+  "10": "드라칸 H00L",
+  "11": "허밀리 H00M",
+  "12": "컨슘 H00N"
+ },
+ "sides": [
+  {
+   "id": "earth",
+   "name": "지상 연합",
+   "force": "B[1]",
+   "slots": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "color": "publishTag red(100,10,10)",
+   "winCondition": "엘타스(O[7]) 사망 시 승리 '지상 연합측이 승리했습니다.' / 라엘(O[1])과 케인(O[2]) 둘 다 사망 시 패배",
+   "winConditionStruct": {
+    "type": "killAll",
+    "targets": [
+     "엘타스"
+    ]
+   },
+   "loseConditionStruct": {
+    "type": "allDead",
+    "targets": [
+     "라엘",
+     "케인"
+    ]
+   },
+   "source": [
+    "wb",
+    "Sb",
+    "sb",
+    "Bi"
+   ]
+  },
+  {
+   "id": "darkness",
+   "name": "다크니스",
+   "force": "B[2]",
+   "slots": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "color": "publishTag blue(10,10,100)",
+   "winCondition": "라엘과 케인 모두 사망 시 승리 '다크니스측이 승리했습니다.' / 엘타스 사망 시 패배",
+   "winConditionStruct": {
+    "type": "killAll",
+    "targets": [
+     "라엘",
+     "케인"
+    ]
+   },
+   "loseConditionStruct": {
+    "type": "allDead",
+    "targets": [
+     "엘타스"
+    ]
+   },
+   "source": [
+    "wb",
+    "sb",
+    "Sb",
+    "Bi"
+   ]
+  }
+ ],
+ "winCheck": "승패 트리거 yo(=wb)는 사망(Lr)·공격 판정·턴 종료 시 실행. 체크 순서상 sb(다크니스 승리)가 Sb(지상연합 승리)보다 먼저 → 동시 충족 시 다크니스 승리. 승리 시 Yo(yb): 게임 일시정지, 4초 후 전원 역할 공개.",
+ "startMessages": {
+  "라엘": "다크니스의 세력을 파멸시켜야 합니다. 엘타스를 살해하면 승리합니다. 당신과 케인이 살해당하면 지상 연합군은 게임에서 패배합니다.",
+  "케인": "…당신과 라엘이 살해당하면 지상 연합군은 게임에서 패배합니다.",
+  "지상연합원": "지상연합의 세력원으로서 다크니스의 세력을 파멸시켜야 합니다. 엘타스를 살해하면 승리합니다.",
+  "엘타스": "지상연합의 세력을 파멸시켜야 합니다. 케인/라엘을 모두 살해하면 승리합니다. 당신이 살해당하면 다크니스는 게임에서 패배합니다.",
+  "다크니스원": "다크니스의 세력원으로서 지상연합의 세력을 파멸시켜야 합니다. 케인/라엘을 모두 살해하면 승리합니다."
+ },
+ "extraLives": {
+  "desc": "j[slot] = 사망 전 추가로 버틸 공격 횟수(Pr에서 j>0이면 1 감소 후 생존). 초기값 Bi.",
+  "initial": {
+   "케인": 1,
+   "타친": 1,
+   "엘타스": 2
+  },
+  "granted": {
+   "컨슘": "인챈트먼트 머슬 시 j[12]=2"
+  }
+ },
+ "attackRules": {
+  "dialog": "공격 시 지상연합은 G[2](엘타스+다크니스 슬롯7~12), 다크니스는 G[1](슬롯1~6)에서 이름 선택 → 상대 진영 이름만 기입 가능(Fi, rn). 6초 내 미선택 시 다이얼로그 닫힘.",
+  "order": [
+   "이름 == 대상 진짜 역할(bn) 아니면 → 공격자 실패 qr",
+   "엘타스 보디가드(Nn) → 방어, 무페널티",
+   "라엘 보디가드(An) → 방어, 무페널티",
+   "지휘관 즉사 판정 In(Rn): 태초 항목 없음 → 통과",
+   "Pr: j>0이면 목숨 1 감소(+블러디하트 30), 아니면 살해(+뱀파이어릭 50/블러디하트 30, 킬데르→에오릴 특수)"
+  ],
+  "source": [
+   "cn",
+   "Pr",
+   "qr",
+   "Nn",
+   "An",
+   "Rn"
+  ]
+ },
+ "timers": [
+  {
+   "timer": "y",
+   "seconds": 120,
+   "handler": "rV",
+   "effect": "킬데르(O[9]) 생존 시 카사노바 A00Q 추가"
+  },
+  {
+   "timer": "iv",
+   "seconds": 180,
+   "handler": "vV",
+   "effect": "태초 해당 없음"
+  },
+  {
+   "timer": "S",
+   "seconds": 300,
+   "handler": "Wn",
+   "effect": "태초 해당 없음(카스파 조건)"
+  },
+  {
+   "timer": "z",
+   "seconds": 360,
+   "handler": "Tn",
+   "effect": "라엘 A01H→A02F, 엘타스 A021→A02G (각각 생존·미사용 시)"
+  }
+ ],
+ "dialogs": {
+  "scan_c": "슬롯 2~6, 8~12 (라엘·엘타스 제외) → 스캔으로 라엘/엘타스 판별 불가",
+  "leadership_w1": "슬롯 2~6",
+  "leadership_w2": "슬롯 8~12",
+  "attack_G1": "슬롯 1~6",
+  "attack_G2": "슬롯 7~12",
+  "source": [
+   "Fi"
+  ]
+ },
+ "characters": [
+  {
+   "key": "rael",
+   "unitId": "H00D",
+   "slot": 1,
+   "name": "라엘",
+   "title": "엘프 히어로",
+   "side": "earth",
+   "commander": true,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "attack",
+    "ally_check",
+    "rael_leadership",
+    "rael_adv_leadership",
+    "rael_eoril_test",
+    "rael_master_power"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "attack": "A002",
+    "ally_check": "A009"
+   },
+   "notes": "지상연합 공동 지휘관. 라엘·케인 둘 다 죽어야 지상연합 패배(sb). 기본 목숨 1(j[1]=0). 쿠마린 지휘관 보호 성공 시 쿠마린 생존 동안 공격 2회 방어. 스캔 다이얼로그(c)에 없음 → 스캔으로 정체 불가.",
+   "bodyguardedBy": [
+    "쿠마린"
+   ]
+  },
+  {
+   "key": "kane",
+   "unitId": "H00C",
+   "slot": 2,
+   "name": "케인",
+   "title": "문 울프",
+   "side": "earth",
+   "commander": true,
+   "lives": 2,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "attack",
+    "advanced_enemy_check",
+    "kane_wolfs_slash",
+    "kane_moon_protection"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "attack": "A002",
+    "advanced_enemy_check": "A03H"
+   },
+   "notes": "지상연합 공동 지휘관(패배조건 대상). j[2]=1 → 공격 2회 맞아야 사망(Bi). 보디가드 없음."
+  },
+  {
+   "key": "eoril",
+   "unitId": "H00E",
+   "slot": 3,
+   "name": "에오릴",
+   "title": "피닉스 퀸",
+   "side": "earth",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "ally_check",
+    "eoril_flame_shackle",
+    "eoril_trial",
+    "eoril_phoenix_flame",
+    "eoril_queens_eye"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "ally_check": "A009"
+   },
+   "notes": "공격 스킬 없음. 킬데르가 일반 공격으로 에오릴을 죽이면 킬데르가 마스터의 권능 획득(Pr)."
+  },
+  {
+   "key": "nukelius",
+   "unitId": "H00F",
+   "slot": 4,
+   "name": "뉴켈리어스",
+   "title": "엘더 드루이드",
+   "side": "earth",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "scan",
+    "nukelius_chakra_magic",
+    "global_chat"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "scan": "A01L",
+    "global_chat": "A025"
+   },
+   "notes": "공격 스킬 없음. 전체채팅은 비공개형(A025: 정체/진명 숨김, 25마나, 트리거 Me/Pn/Qn, 유닛타입 H00F 기준)."
+  },
+  {
+   "key": "tachin",
+   "unitId": "H00G",
+   "slot": 5,
+   "name": "타친",
+   "title": "트롤 치프틴",
+   "side": "earth",
+   "commander": false,
+   "lives": 2,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "advanced_attack",
+    "tachin_union",
+    "tachin_neutralize",
+    "tachin_troll_regen"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "advanced_attack": "A003"
+   },
+   "notes": "j[5]=1 → 공격 2회 맞아야 사망. 8인 시 제외."
+  },
+  {
+   "key": "kumarin",
+   "unitId": "H00H",
+   "slot": 6,
+   "name": "쿠마린",
+   "title": "타우리안 치프틴",
+   "side": "earth",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "attack",
+    "ally_check",
+    "kumarin_union",
+    "kumarin_binding",
+    "kumarin_commander_guard",
+    "kumarin_bodyguard"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "attack": "A002",
+    "ally_check": "A009"
+   },
+   "notes": "10/9/8인 시 제외. 보디가드(A01X)는 지휘관 보호 성공 시에만 획득."
+  },
+  {
+   "key": "eltas",
+   "unitId": "H00I",
+   "slot": 7,
+   "name": "엘타스",
+   "title": "블랙 나이트",
+   "side": "darkness",
+   "commander": true,
+   "lives": 3,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "supreme_attack",
+    "ally_check",
+    "eltas_leadership",
+    "eltas_adv_leadership",
+    "eltas_bloody_heart",
+    "eltas_shield"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "supreme_attack": "A01Z",
+    "ally_check": "A009"
+   },
+   "notes": "다크니스 단독 지휘관. 사망 시 즉시 다크니스 패배(Sb). j[7]=2 → 3회 맞아야 사망. 컨슘 주인 보호 성공 시 컨슘 생존 동안 공격 2회 추가 방어. 최상급 공격이라 공격 실패해도 사망 안 함(qr). 스캔으로 정체 불가.",
+   "bodyguardedBy": [
+    "컨슘"
+   ]
+  },
+  {
+   "key": "sasint",
+   "unitId": "H00J",
+   "slot": 8,
+   "name": "사신트",
+   "title": "오버로드",
+   "side": "darkness",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "attack",
+    "advanced_ally_check",
+    "sasint_support",
+    "sasint_training",
+    "sasint_battle_mastery"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "attack": "A002",
+    "advanced_ally_check": "A02J"
+   },
+   "notes": "8인 시 제외. 1인 테스트 모드에서는 사신트만 생성."
+  },
+  {
+   "key": "kilder",
+   "unitId": "H00K",
+   "slot": 9,
+   "name": "킬데르",
+   "title": "로열 뱀파이어",
+   "side": "darkness",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "attack",
+    "ally_check",
+    "kilder_vampiric",
+    "kilder_casanova",
+    "kilder_master_power"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "attack": "A002",
+    "ally_check": "A009"
+   },
+   "notes": "카사노바는 시작 시 없음, 게임 120초 후 획득(rV)."
+  },
+  {
+   "key": "drakan",
+   "unitId": "H00L",
+   "slot": 10,
+   "name": "드라칸",
+   "title": "블랙타워 위자드",
+   "side": "darkness",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "enemy_check",
+    "drakan_black_spell",
+    "drakan_enchant_muscle",
+    "global_chat"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "enemy_check": "A008",
+    "global_chat": "A025"
+   },
+   "notes": "공격 스킬 없음. 전체채팅 비공개형(A025)."
+  },
+  {
+   "key": "hermilly",
+   "unitId": "H00M",
+   "slot": 11,
+   "name": "허밀리",
+   "title": "다크 프리스트",
+   "side": "darkness",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "scan",
+    "hermilly_seeing_libido",
+    "hermilly_libido_protection"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "scan": "A01L"
+   },
+   "notes": "공격 스킬 없음. 9인 시 제외(코드 기준)."
+  },
+  {
+   "key": "consume",
+   "unitId": "H00N",
+   "slot": 12,
+   "name": "컨슘",
+   "title": "미트 골렘",
+   "side": "darkness",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "attack",
+    "consume_slave_instinct",
+    "consume_master_guard",
+    "consume_final_evolution",
+    "consume_bodyguard",
+    "consume_resistance",
+    "consume_iron_skin",
+    "consume_slaughter"
+   ],
+   "skillCodes": {
+    "publish": "A000",
+    "ally": "A004",
+    "break_ally": "A005",
+    "attack": "A002",
+    "advanced_attack": "A003"
+   },
+   "notes": "기본 목숨 1. 인챈트먼트 머슬로 j[12]=2(3회). 레지스턴스/아이언스킨/상급공격/학살/보디가드는 획득형. 11인 이하 시 항상 제외."
+  }
+ ],
+ "skills": {
+  "rael_leadership": {
+   "abilityCode": "A01H",
+   "name": "리더쉽",
+   "hotkey": "Z",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "진명(공표 이름 '라엘') 상태에서만 사용. 지상연합 역할 목록(슬롯2~6 중 참가 중인 것: 케인/에오릴/뉴켈리어스/타친/쿠마린) 중 하나를 골라 그 역할의 플레이어를 알아낸다.",
+   "resolution": [
+    "SPELL_CAST 시점 판정(Ox→tE/uE)",
+    "A[시전자]=='라엘'(TE)이 아니면: 정지 명령으로 시전 취소(마나/쿨 소모 없음 – 엔진 동작) + 본인에게 '자신의 진명을 공표하고 있어야 합니다.' → 스킬 유지",
+    "맞으면: 0.3초 대기 후 다이얼로그 w[1](제목 '리더쉽')을 시전자에게 표시, A01H 제거(1회성)",
+    "다이얼로그 버튼 클릭(Le→Jn): 본인에게 '-비공개:<역할명>의 정체는 <해당 플레이어 색이름 H[]>입니다.' (사망자도 그대로 알려줌)",
+    "다이얼로그 제한시간 없음. 첫 버튼 '[ 아래 중 하나를 선택하세요 ]'는 무효"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0.3,
+   "source": [
+    "Ox",
+    "tE",
+    "uE",
+    "TE",
+    "Jn",
+    "Fi"
+   ],
+   "wikiDiff": "6분 경과 시점에 아직 리더쉽(A01H)을 쓰지 않았고 라엘 생존 시에만 상급 리더쉽으로 교체됨(Tn/Sn). 이미 썼으면 상급 없음."
+  },
+  "rael_adv_leadership": {
+   "abilityCode": "A02F",
+   "name": "상급 리더쉽",
+   "hotkey": "Z",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "timer",
+    "seconds": 360,
+    "grantedBy": "타이머 z(360s) → Tn: 라엘 생존 && A01H 보유 시 A01H 제거·A02F 추가, 본인에게 '-비공개: 상급 리더쉽 스킬을 획득하였습니다.'"
+   },
+   "requiresTrueName": false,
+   "effect": "리더쉽과 동일하나 진명 조건 없음.",
+   "resolution": [
+    "SPELL_CAST(Xx→sE)",
+    "0.3초 후 w[1] 다이얼로그 표시, A02F 제거",
+    "클릭 시 Jn과 동일 결과(본인 비공개)"
+   ],
+   "visibility": {
+    "onSuccess": "self"
+   },
+   "delaySeconds": 0.3,
+   "source": [
+    "Xx",
+    "sE",
+    "Tn",
+    "Sn",
+    "Jn"
+   ]
+  },
+  "rael_eoril_test": {
+   "abilityCode": "A01I",
+   "name": "에오릴의 시험",
+   "hotkey": "X",
+   "manaCost": 60,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "에오릴의 시련(A01N) 성공 60초 후"
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 에오릴(진짜 정체)이면 라엘이 마스터의 권능(A01J)을 획득.",
+   "resolution": [
+    "SPELL_EFFECT(Rx→yE)",
+    "대상 진짜 이름=='에오릴'(WE): 효과음, 전체 '-라엘이 에오릴의 시험을 통과하여 마스터가 되었습니다!', 시전자에 A01J 추가",
+    "아니면: 본인 '-비공개: 그 대상은 에오릴이 아닙니다.'",
+    "성공/실패 무관 A01I 제거(1회)"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Rx",
+    "wE",
+    "yE",
+    "WE"
+   ],
+   "wikiDiff": "공표 이름이 아니라 진짜 정체로 판정. 실패해도 소멸."
+  },
+  "rael_master_power": {
+   "abilityCode": "A01J",
+   "name": "마스터의 권능(라엘)",
+   "hotkey": "X",
+   "manaCost": 10,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "에오릴의 시험 성공"
+   },
+   "requiresTrueName": false,
+   "effect": "대상을 정체·목숨·보디가드와 무관하게 즉시 살해.",
+   "resolution": [
+    "SPELL_EFFECT(Ix→ZE)",
+    "전체 '-<시전자 진짜이름>이 마스터의 권능으로 <대상 H[]>을 살해합니다!'",
+    "Lr(대상) → 사망 처리(정체 공개, 승패 체크)",
+    "A01J 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Ix",
+    "zE",
+    "ZE",
+    "Lr"
+   ],
+   "wikiDiff": "남은 목숨(j)·보디가드 무시."
+  },
+  "kane_wolfs_slash": {
+   "abilityCode": "A01G",
+   "name": "울프스 슬러쉬",
+   "hotkey": "Z",
+   "manaCost": 60,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "이름 기입 없이 대상을 즉시 1회 공격. 사용하면 케인의 정체(플레이어)가 전체 공개.",
+   "resolution": [
+    "SPELL_EFFECT(Ax→xX)",
+    "j[D[대상]]>0이면: 전체 '-케인가 울프스 슬러쉬를 시전하여 <대상 진짜이름>을(를) 공격합니다!' + '-<대상 진짜이름>는 N회 더 공격받으면 사망합니다.'(N=감소 전 값), j 1 감소",
+    "아니면: 전체 '...을(를) 살해합니다!' 후 Lr(대상)",
+    "항상 전체 '-케인은 <시전자 H[]>입니다!'",
+    "A01G 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Ax",
+    "eX",
+    "xX",
+    "Lr"
+   ],
+   "wikiDiff": "보디가드(쿠마린/컨슘) 판정이 없음 → 엘타스 보디가드 무시하고 목숨만 깎음. 블러디하트/뱀파이어릭 마나 보너스, 킬데르-에오릴 특수처리 없음. 메시지에 대상의 진짜 이름이 노출됨."
+  },
+  "kane_moon_protection": {
+   "abilityCode": "A01F",
+   "name": "문 프로텍션",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "self",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "패시브(표시용). 실제 효과는 Bi에서 j[2]=1 설정 → 2회 공격받아야 사망.",
+   "resolution": [
+    "Bi: set j[2]=1"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "source": [
+    "Bi"
+   ],
+   "passive": true
+  },
+  "eoril_flame_shackle": {
+   "abilityCode": "A01K",
+   "name": "플레임 쉐클",
+   "hotkey": "Z",
+   "manaCost": 30,
+   "cooldown": 120,
+   "uses": "unlimited",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 영웅을 45초 동안 행동 불능(Pause).",
+   "resolution": [
+    "SPELL_EFFECT(Nx→iX)",
+    "0.1초 후 전체 '누군가가 <대상 H[]>에게 행동 불능 주문을 시전하였습니다.'(시전자 비공개)",
+    "대상 영웅 PauseUnit(true)",
+    "1초마다 대상의 BNdo 버프 확인, 없어지면 Pause 해제(기본 45초, 중화의 주술로 버프 제거 시 즉시 해제)"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Nx",
+    "rX",
+    "iX"
+   ],
+   "cooldownNote": "오브젝트에서 acdn 미수정 → 베이스 ANdo(둠) 기본값. 툴팁 120초.",
+   "unverified": true,
+   "unverifiedReason": "쿨다운: 베이스 ANdo 기본값을 데이터로 확인 못 함(툴팁 120)",
+   "valueSource": {
+    "cooldown": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값 (툴팁과 일치)"
+   }
+  },
+  "eoril_trial": {
+   "abilityCode": "A01N",
+   "name": "시련",
+   "hotkey": "X",
+   "manaCost": 60,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 라엘이면 60초 뒤 라엘이 에오릴의 시험(A01I) 획득.",
+   "resolution": [
+    "SPELL_EFFECT(bx→EX)",
+    "대상 진짜이름=='라엘'(VX): 효과음, 전체 '-에오릴이 라엘에게 시련을 부여하였습니다.', 대상 비공개 '-비공개: 1분 후 에오릴의 시험 스킬을 획득합니다.', A01N 제거, 60초 대기 → O[1](라엘) 비공개 '…획득하였습니다.' + A01I 추가",
+    "아니면: 본인 비공개 '그 대상은 라엘이 아닙니다.', A01N 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all(+target)",
+    "onFail": "self"
+   },
+   "delaySeconds": 60,
+   "source": [
+    "bx",
+    "nX",
+    "EX",
+    "VX"
+   ],
+   "wikiDiff": "60초 사이 에오릴 사망 여부는 체크하지 않음(툴팁 '시련 전 사망하면 실패'는 에오릴이 죽으면 시험 대상이 없어서 무용지물이라는 의미)."
+  },
+  "eoril_phoenix_flame": {
+   "abilityCode": "A01O",
+   "name": "피닉스의 불꽃",
+   "hotkey": "C",
+   "manaCost": 10,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 컨슘이고 레지스턴스가 없으면 즉사.",
+   "resolution": [
+    "SPELL_EFFECT(Bx→AX)",
+    "대상 진짜이름=='컨슘'(IX) && A01Y 보유(RX): 전체 '-에오릴이 컨슘에게 피닉스의 불꽃을 시전하였으나 실패했습니다. -컨슘은 플레임 레지스턴스를 가지고 있습니다.'",
+    "컨슘 && A01Y 없음: 효과음, 전체 '…시전하여 살해합니다.', Lr(대상) — 아이언스킨/보디가드/목숨 무시",
+    "컨슘 아님: 전체 '-에오릴이 <대상 H[]>에게 피닉스의 불꽃을 시전하였으나 실패했습니다.'",
+    "항상 A01O 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Bx",
+    "OX",
+    "AX",
+    "IX",
+    "RX",
+    "Lr"
+   ],
+   "wikiDiff": "사용 즉시 에오릴 역할 사용 사실과 대상 플레이어가 전체 공개됨(실패 시에도)."
+  },
+  "eoril_queens_eye": {
+   "abilityCode": "A01P",
+   "name": "여왕의 눈",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "self",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "패시브(표시용). 실제 처리는 카사노바 핸들러(RO)에서 O[3](에오릴 슬롯)에게 메시지.",
+   "resolution": [
+    "kilder_casanova 참조"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "source": [
+    "RO",
+    "XO",
+    "OO"
+   ],
+   "passive": true
+  },
+  "nukelius_chakra_magic": {
+   "abilityCode": "A01Q",
+   "name": "차크라 매직",
+   "hotkey": "Z",
+   "manaCost": 20,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 마나 +100. 60초 뒤 뉴켈리어스의 플레이어 전체 공개.",
+   "resolution": [
+    "SPELL_EFFECT(cx→BX)",
+    "대상 마나 +100(최대 마나 150 캡 – 엔진)",
+    "전체 '-뉴켈리어스가 차크라 매직을 시전합니다. - 이 마법에 영향을 받은 영웅의 마나가 100 회복됩니다. - 60초 후 뉴켈리어스의 정체가 드러납니다.'",
+    "대상 비공개 '-비공개: 뉴켈리어스가 당신에게 차크라 매직을 시전합니다.'",
+    "60초 후 전체 '-뉴켈리어스의 정체는 <시전자 H[]>입니다!'"
+   ],
+   "visibility": {
+    "onSuccess": "all(+target)"
+   },
+   "delaySeconds": 60,
+   "source": [
+    "cx",
+    "bX",
+    "BX"
+   ],
+   "wikiDiff": "스크립트에서 제거하지 않음 → 쿨다운 3600으로 사실상 1회. 영웅 최대마나 umpm=150.",
+   "uses_note": "ability not removed; cooldown 3600"
+  },
+  "tachin_union": {
+   "abilityCode": "A01R",
+   "name": "연합 결성(타친)",
+   "hotkey": "Z",
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": "unlimited(성공 시 제거)",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 쿠마린이면 알아낸다.",
+   "resolution": [
+    "SPELL_EFFECT(Cx→DX)",
+    "대상 진짜이름=='쿠마린'(dX): 본인 '-비공개: 이 사람의 정체는 쿠마린입니다!', 0.2초 후 A01R 제거",
+    "아니면 본인 '-비공개: 이 사람은 쿠마린이 아닙니다.' (쿨 40 후 재사용)"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Cx",
+    "CX",
+    "DX",
+    "dX"
+   ],
+   "wikiDiff": "성공 시 자동 동맹 같은 부가효과 없음. 성공하면 스킬 소멸."
+  },
+  "tachin_neutralize": {
+   "abilityCode": "A01U",
+   "name": "중화의 주술",
+   "hotkey": "X",
+   "manaCost": 50,
+   "cooldown": 0,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상의 모든 버프 제거(UnitRemoveBuffsBJ(2=전체)). 플레임 쉐클/블랙 스펠(BNdo) 조기 해제, 시잉 오브 리비도(Bams) 제거로 정체 확인 무산·무적 해제.",
+   "resolution": [
+    "SPELL_EFFECT(Dx→gX)",
+    "효과음, 대상 버프 전부 제거",
+    "전체 '-타친이 <대상 H[]>에게 중화의 주술을 시전하였습니다.'",
+    "A01U 제거(1회)"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Dx",
+    "FX",
+    "gX"
+   ],
+   "unverified": true,
+   "unverifiedReason": "manaCost/cooldown 미수정 → 베이스 Aadm(디스펠) 기본값 확인 못 함. 1회성이므로 쿨은 무의미. 마법면역(Aams) 대상 지정 가능 여부는 엔진 동작이라 미확인(퀘스트 설명상 의도는 가능). → [해결] 수치는 베이스 기본값으로 확정",
+   "valueSource": {
+    "manaCost": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값",
+    "cooldown": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값"
+   }
+  },
+  "tachin_troll_regen": {
+   "abilityCode": "A01T",
+   "name": "트롤 리제너레이션",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "self",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "패시브(표시용). Bi에서 j[5]=1 → 2회 공격받아야 사망.",
+   "resolution": [
+    "Bi: set j[5]=1"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "source": [
+    "Bi"
+   ],
+   "passive": true
+  },
+  "kumarin_union": {
+   "abilityCode": "A01S",
+   "name": "연합 결성(쿠마린)",
+   "hotkey": "Z",
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": "unlimited(성공 시 제거)",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 타친이면 알아낸다.",
+   "resolution": [
+    "SPELL_EFFECT(fx→jX)",
+    "대상 진짜이름=='타친'(HX): 본인 '이 사람의 정체는 타친입니다!', 0.2초 후 A01S 제거",
+    "아니면 본인 '이 사람은 타친이 아닙니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "fx",
+    "hX",
+    "jX",
+    "HX"
+   ]
+  },
+  "kumarin_binding": {
+   "abilityCode": "A01V",
+   "name": "포박의 주술",
+   "hotkey": "X",
+   "manaCost": 10,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 레지스턴스(A01Y)를 가졌으면 제거.",
+   "resolution": [
+    "SPELL_EFFECT(Fx→lX)",
+    "대상 영웅에 A01Y 있음(KX): A01Y 제거, 효과음, 전체 '-쿠마린이 컨슘에게 포박의 주술을 시전하였습니다.' + '-컨슘의 레지스턴스 능력이 소멸했습니다.'",
+    "없음: 전체 '-쿠마린이 <대상 H[]>에게 포박의 주술을 시전하였으나 실패했습니다.'",
+    "항상 A01V 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Fx",
+    "kX",
+    "lX",
+    "KX"
+   ],
+   "wikiDiff": "코드는 '컨슘인지'가 아니라 'A01Y 보유'만 판정. 레지스턴스 받기 전 컨슘에게 쓰면 실패·소멸."
+  },
+  "kumarin_commander_guard": {
+   "abilityCode": "A01W",
+   "name": "지휘관 보호",
+   "hotkey": "C(툴팁; 오브젝트 핫키 없음)",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 라엘이면 쿠마린이 라엘의 보디가드(A01X)가 된다.",
+   "resolution": [
+    "SPELL_EFFECT(gx→pX)",
+    "대상 진짜이름=='라엘'(MX): 효과음, 전체 '-쿠마린이 라엘을 보호하기 시작합니다!' + '-라엘에게 향하는 2번의 공격을 방어합니다!', 시전자에 A01X(레벨1) 추가",
+    "아니면 본인 비공개 '그 대상은 라엘이 아닙니다.'",
+    "항상 A01W 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "gx",
+    "mX",
+    "pX",
+    "MX"
+   ]
+  },
+  "kumarin_bodyguard": {
+   "abilityCode": "A01X",
+   "name": "보디가드(쿠마린)",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": 2,
+   "target": "self",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "지휘관 보호 성공"
+   },
+   "requiresTrueName": false,
+   "effect": "쿠마린(O[6]) 생존 && A01X 레벨 1~2인 동안, 라엘에 대한 '이름이 맞은' 공격 1회를 무효화하고 레벨+1. 레벨3이 되면 효과 종료(총 2회).",
+   "resolution": [
+    "공격 이름 선택 처리(Ke→cn): 정답(bn) → 엘타스 보디가드(Nn) 확인 → 라엘 보디가드(An) 확인",
+    "An: 대상 진짜이름 '라엘' && 쿠마린 생존 && 0<A01X레벨<3 → A01X 레벨+1, 전체 '<공격자 진짜이름>이 라엘을 공격하였으나 살해하지 못했습니다. (보디가드)'",
+    "공격자는 실패 페널티 없음, 라엘 목숨 감소 없음",
+    "틀린 이름 공격은 보디가드와 무관하게 공격자 실패(qr)"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "cn",
+    "An",
+    "Nn"
+   ],
+   "wikiDiff": "보디가드가 '공격당하지 않음'이 아니라 정확히 2회 방어. 울프스 슬러쉬·마스터의 권능·학살은 보디가드 무시.",
+   "passive": true
+  },
+  "eltas_leadership": {
+   "abilityCode": "A021",
+   "name": "리더쉽(엘타스)",
+   "hotkey": "Z",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "진명('엘타스' 공표) 상태에서만. 다크니스 역할(슬롯8~12 참가 중: 사신트/킬데르/드라칸/허밀리/컨슘) 하나를 골라 그 플레이어를 알아낸다.",
+   "resolution": [
+    "SPELL_CAST(hx→TX)",
+    "A[시전자]!='엘타스'(tX): 시전 취소 + 본인 '자신의 진명을 공표하고 있어야 합니다.'",
+    "맞으면 0.3초 후 다이얼로그 w[2] 표시, A021 제거",
+    "클릭 시 본인 비공개 '<역할>의 정체는 <H[]>입니다.'(Jn)"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0.3,
+   "source": [
+    "hx",
+    "SX",
+    "TX",
+    "tX",
+    "Jn"
+   ]
+  },
+  "eltas_adv_leadership": {
+   "abilityCode": "A02G",
+   "name": "상급 리더쉽(엘타스)",
+   "hotkey": "Z",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "timer",
+    "seconds": 360,
+    "grantedBy": "Tn/tn: 엘타스 생존 && A021 미사용 시 교체"
+   },
+   "requiresTrueName": false,
+   "effect": "진명 조건 없는 리더쉽.",
+   "resolution": [
+    "SPELL_CAST(Gx→QX)",
+    "0.3초 후 w[2] 표시, A02G 제거",
+    "Jn 결과 본인 비공개"
+   ],
+   "visibility": {
+    "onSuccess": "self"
+   },
+   "delaySeconds": 0.3,
+   "source": [
+    "Gx",
+    "qX",
+    "QX",
+    "Tn",
+    "tn"
+   ],
+   "wikiDiff": "툴팁(오브젝트)에는 '진명 필요, 6분 후 변경' 문구가 잘못 복사돼 있으나 코드상 진명 조건 없음."
+  },
+  "eltas_bloody_heart": {
+   "abilityCode": "S006",
+   "name": "블러디 하트",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "self",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "엘타스가 일반 공격(공격 다이얼로그 경유, Pr)에 성공하면 마나 +30. 목숨만 깎은 경우(j>0 감소)에도 +30, 살해 시에도 +30.",
+   "resolution": [
+    "Pr: 목숨 감소 분기에서 +S006레벨*30",
+    "Pr: 살해 분기에서 +S006레벨*30"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "source": [
+    "Pr"
+   ],
+   "passive": true,
+   "wikiDiff": "'공격 성공'에 목숨만 깎은 타격도 포함. 보디가드에 막힌 경우는 없음."
+  },
+  "eltas_shield": {
+   "abilityCode": "A020",
+   "name": "엘타스의 방패",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "self",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "패시브(표시용). Bi에서 j[7]=2 → 3회 공격받아야 사망.",
+   "resolution": [
+    "Bi: set j[7]=2"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "source": [
+    "Bi"
+   ],
+   "passive": true
+  },
+  "sasint_support": {
+   "abilityCode": "A00G",
+   "name": "지원",
+   "hotkey": "Z",
+   "manaCost": 10,
+   "cooldown": 90,
+   "uses": "unlimited",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 마나 +30. 자기 자신 불가.",
+   "resolution": [
+    "SPELL_CAST 시점(Hx→WX) – 시전 시작 즉시 효과",
+    "대상이 자신(wX): 0.1초 후 정지 명령 + 본인 '자신에게 사용할 수 없습니다.' (타겟 플래그 notself라 실제로는 불가)",
+    "대상 마나 +30, 효과음",
+    "전체 '-사신트가 누군가를 지원하고 있습니다.'",
+    "본인 '<대상 H[]>의 마나가 30 증가합니다.' / '<대상 H[]>를 지원합니다.'",
+    "대상 '-비공개 : 사신트가 당신을 지원합니다. -비공개 : 당신의 마나가 30 증가합니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "all(익명)+self+target"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Hx",
+    "UX",
+    "WX",
+    "wX"
+   ],
+   "wikiDiff": "배틀 마스터리 사용 시 소멸."
+  },
+  "sasint_training": {
+   "abilityCode": "A00I",
+   "name": "트레이닝",
+   "hotkey": "X",
+   "manaCost": 40,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 컨슘이면 컨슘의 공격(A002)을 상급 공격(A003)으로 교체.",
+   "resolution": [
+    "SPELL_EFFECT(jx→ZX)",
+    "대상 진짜이름=='컨슘'(zX): 효과음, 전체 '-사신트가 컨슘을 훈련시키는 데 성공하였습니다. -컨슘이 상급공격 스킬을 획득하였습니다.', O[12] 영웅에 A003 추가·A002 제거",
+    "아니면 본인 비공개 '그 대상은 컨슘이 아닙니다.'",
+    "항상 A00I 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "jx",
+    "YX",
+    "ZX",
+    "zX"
+   ]
+  },
+  "sasint_battle_mastery": {
+   "abilityCode": "A02E",
+   "name": "배틀 마스터리",
+   "hotkey": "C(툴팁; 오브젝트 핫키 없음)",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "지원·공격을 잃고 상급 공격 획득.",
+   "resolution": [
+    "SPELL_EFFECT(Jx→xO)",
+    "효과음, 전체 '-사신트가 배틀 마스터리를 익혔습니다! -상급 공격 스킬을 획득하였습니다.'",
+    "A02E·A002·A00G 제거, A003 추가(레벨1=실패 2회 허용)"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Jx",
+    "eO",
+    "xO"
+   ]
+  },
+  "kilder_vampiric": {
+   "abilityCode": "S004",
+   "name": "뱀파이어릭",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "self",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "일반 공격(Pr)으로 살해 시 마나 +50. 살해 대상이 에오릴(유닛 H00E)이면 카사노바(A00Q) 제거 + 마스터의 권능(A00N) 획득, 전체 '-킬데르가 피닉스의 여왕이 가진 힘을 흡수하였습니다.'",
+   "resolution": [
+    "Pr 살해 분기: 공격자 유닛 H00K && 대상 유닛 H00E → A00Q 제거, A00N 추가, 전체 메시지",
+    "Pr: +S004레벨*50 마나(대상 진영 무관)"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Pr"
+   ],
+   "passive": true,
+   "wikiDiff": "'적' 판정 없음: 아군을 죽여도 +50. 에오릴을 울프스슬러쉬/학살 등 다른 수단으로 죽이면 발동 안 함(킬데르 본인의 일반 공격만)."
+  },
+  "kilder_casanova": {
+   "abilityCode": "A00Q",
+   "name": "카사노바",
+   "hotkey": "Z",
+   "manaCost": 30,
+   "cooldown": 60,
+   "uses": "unlimited",
+   "target": "player",
+   "availableFrom": {
+    "type": "timer",
+    "seconds": 120,
+    "grantedBy": "타이머 y(120s) → rV/oV: O[9] 생존 && 킬데르면 A00Q 추가, 본인 '-비공개: 카사노바 스킬을 획득하였습니다.'"
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 에오릴인지 8초 후 알아낸다. 에오릴은 항상 대상(플레이어)을 통보받고, 에오릴이 진명 공표 중이면 킬데르 플레이어도 알게 된다.",
+   "resolution": [
+    "SPELL_CAST 시점(Kx→RO)",
+    "대상의 공표 이름=='킬데르'(VO): 시전 취소 + 본인 '킬데르의 이름을 공표한 사람에게 사용할 수 없습니다.' → 종료",
+    "(자기 대상 EO 체크 – notself라 사실상 불가)",
+    "A[O[3]]=='에오릴'(에오릴이 진명 공표 중, XO): O[3]에게 '-비공개: 뱀파이어의 정체는 <킬데르 H[]>입니다!'",
+    "대상 진짜이름=='에오릴'(OO): O[3]에게 '-비공개: 뱀파이어가 <대상 H[]>에게서 당신의 흔적을 찾고 있습니다.' + '-비공개: 당신의 정체가 킬데르에게 드러났습니다!' → 8초 대기 → 킬데르 '-비공개: 이 사람의 정체는 에오릴입니다!'",
+    "아니면: O[3]에게 '…<대상 H[]>에게서 당신의 흔적을 찾고 있습니다.' → 8초 → 킬데르 '-비공개: 이 사람은 에오릴이 아닙니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self(8s 후)+에오릴",
+    "onFail": "self(8s 후)+에오릴"
+   },
+   "delaySeconds": 8,
+   "source": [
+    "Kx",
+    "nO",
+    "RO",
+    "VO",
+    "EO",
+    "XO",
+    "OO",
+    "rV",
+    "oV"
+   ],
+   "wikiDiff": "툴팁 '6초 후' vs 코드 nr(8.) = 8초. '킬데르 이름 공표 대상 불가'는 대상(타깃)의 공표 이름 기준(에오릴이 킬데르를 사칭하면 면역). 에오릴 생존 여부 체크 없음. 에오릴을 일반 공격으로 죽이면 소멸."
+  },
+  "kilder_master_power": {
+   "abilityCode": "A00N",
+   "name": "마스터의 권능(킬데르)",
+   "hotkey": "C",
+   "manaCost": 10,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "킬데르 일반 공격으로 에오릴 살해(Pr)"
+   },
+   "requiresTrueName": false,
+   "effect": "대상 무조건 살해.",
+   "resolution": [
+    "SPELL_EFFECT(kx→iO)",
+    "전체 '-<시전자 진짜이름>이 마스터의 권능으로 <대상 H[]>을 살해합니다!'",
+    "Lr(대상)",
+    "A00N 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "kx",
+    "rO",
+    "iO",
+    "Lr"
+   ]
+  },
+  "drakan_black_spell": {
+   "abilityCode": "A02D",
+   "name": "블랙 스펠",
+   "hotkey": "Z",
+   "manaCost": 80,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 마나 −50, 100초 행동 불능.",
+   "resolution": [
+    "SPELL_EFFECT(lx→NO)",
+    "효과음, 대상 마나 −50(0 하한 – 엔진)",
+    "0.1초 후 전체 '-드라칸이 <대상 H[]>에게 블랙 스펠을 시전하였습니다.' + '-<대상 H[]>의 마나가 50 감소하였습니다.'",
+    "A02D 제거",
+    "대상 Pause, 1초마다 BNdo 버프 확인 → 없어지면 해제(기본 100초, 중화의 주술로 조기 해제)"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "lx",
+    "AO",
+    "NO"
+   ]
+  },
+  "drakan_enchant_muscle": {
+   "abilityCode": "A026",
+   "name": "인챈트먼트 머슬",
+   "hotkey": "C",
+   "manaCost": 40,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 컨슘이면 아이언 스킨(A028) 부여 → 컨슘 목숨 j[12]=2(3회).",
+   "resolution": [
+    "SPELL_EFFECT(Lx→CO)",
+    "대상 진짜이름=='컨슘'(cO): 효과음, 전체 '-드라칸이 컨슘에게 인챈트먼트 머슬을 시전합니다. -컨슘이 아이언 스킨 스킬을 획득하였습니다.', O[12]에 A028 추가, j[12]=2(대입)",
+    "아니면 본인 비공개 '그 대상은 컨슘이 아닙니다.'",
+    "항상 A026 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Lx",
+    "BO",
+    "CO",
+    "cO"
+   ],
+   "wikiDiff": "j를 2로 '대입'하므로 이미 맞은 횟수와 무관하게 3회로 리셋(받기 전엔 컨슘 j=0)."
+  },
+  "hermilly_seeing_libido": {
+   "abilityCode": "A02C",
+   "name": "시잉 오브 리비도",
+   "hotkey": "Z",
+   "manaCost": 40,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상에 35초 버프(Bams, 베이스 안티매직쉘). 30초 후 버프가 남아있으면 대상의 진짜 이름을 알아낸다.",
+   "resolution": [
+    "SPELL_EFFECT(mx→fO)",
+    "효과음, 전체 '-허밀리가 <대상 H[]>에게 시잉 오브 리비도를 시전하였습니다.'",
+    "0.1초 후 A02C 제거",
+    "30초 대기 후 대상에 Bams 버프 있으면 본인 '-비공개: 이 사람은 <대상 진짜이름>이다!' (없으면 아무 메시지 없음)"
+   ],
+   "visibility": {
+    "onSuccess": "all(시전 사실)+self(결과)"
+   },
+   "delaySeconds": 30,
+   "source": [
+    "mx",
+    "DO",
+    "fO"
+   ],
+   "wikiDiff": "툴팁 '35초 무적': 베이스 Aams(안티매직 쉘)=마법 면역 → 대부분의 타깃 스킬(공격 포함, 모두 주문 기반) 대상 지정 불가로 추정. 중화의 주술로 버프 제거 시 결과 무산.",
+   "unverified": true,
+   "unverifiedReason": "무적/마법면역의 실제 범위는 엔진(Aams) 동작이라 코드로 확인 불가."
+  },
+  "hermilly_libido_protection": {
+   "abilityCode": "A024",
+   "name": "리비도의 보호",
+   "hotkey": "V",
+   "manaCost": 30,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 컨슘이면 레지스턴스(A01Y) 부여.",
+   "resolution": [
+    "SPELL_EFFECT(Mx→hO)",
+    "대상 진짜이름=='컨슘'(GO): 효과음, 전체 '-허밀리가 컨슘에게 리비도의 보호를 시전합니다. -컨슘이 레지스턴스 스킬을 획득하였습니다.', O[12]에 A01Y 추가",
+    "아니면 본인 비공개 '그 대상은 컨슘이 아닙니다.'",
+    "항상 A024 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Mx",
+    "gO",
+    "hO",
+    "GO"
+   ]
+  },
+  "consume_slave_instinct": {
+   "abilityCode": "A02B",
+   "name": "노예 본능",
+   "hotkey": "Z",
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": "unlimited(성공 시 제거)",
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 엘타스면 알아낸다.",
+   "resolution": [
+    "SPELL_EFFECT(px→kO)",
+    "대상 진짜이름=='엘타스'(JO): 본인 '이 사람의 정체는 엘타스입니다!', 0.2초 후 A02B 제거",
+    "아니면 본인 '이 사람은 엘타스가 아니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "px",
+    "jO",
+    "kO",
+    "JO"
+   ]
+  },
+  "consume_master_guard": {
+   "abilityCode": "A027",
+   "name": "주인 보호",
+   "hotkey": "X",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 엘타스면 컨슘이 엘타스 보디가드(S005)가 된다.",
+   "resolution": [
+    "SPELL_EFFECT(Px→mO)",
+    "대상 진짜이름=='엘타스'(LO): 효과음, 전체 '-컨슘이 엘타스를 보호하기 시작합니다!' + '-엘타스에게 향하는 2번의 공격을 방어합니다!', 시전자에 S005(레벨1) 추가",
+    "아니면 본인 비공개 '그 대상은 엘타스가 아닙니다.'",
+    "항상 A027 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Px",
+    "lO",
+    "mO",
+    "LO"
+   ],
+   "wikiDiff": "인게임 퀘스트 설명엔 '라엘은 2번 보호'로 오기(실제는 엘타스)."
+  },
+  "consume_bodyguard": {
+   "abilityCode": "S005",
+   "name": "보디가드(컨슘)",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": 2,
+   "target": "self",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "주인 보호 성공"
+   },
+   "requiresTrueName": false,
+   "effect": "컨슘(O[12]) 생존 && S005 레벨 1~2 동안 엘타스에 대한 정답 공격 1회 무효화, 레벨+1(총 2회).",
+   "resolution": [
+    "cn: 정답 → Nn(대상 진짜이름 '엘타스' && 컨슘 생존 && 0<S005<3) → S005 레벨+1, 전체 '<공격자 진짜이름>이 엘타스를 공격하였으나 살해하지 못했습니다. (보디가드)'",
+    "엘타스 보디가드 판정이 라엘 보디가드보다 먼저"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "cn",
+    "Nn"
+   ],
+   "passive": true
+  },
+  "consume_resistance": {
+   "abilityCode": "A01Y",
+   "name": "레지스턴스",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "self",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "허밀리 리비도의 보호"
+   },
+   "requiresTrueName": false,
+   "effect": "피닉스의 불꽃 무효. 쿠마린 포박의 주술로 제거됨. 최종 진화 조건 중 하나.",
+   "resolution": [
+    "AX: RX 체크",
+    "lX: 제거",
+    "PO: 진화 조건"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "source": [
+    "AX",
+    "lX",
+    "PO"
+   ],
+   "passive": true
+  },
+  "consume_iron_skin": {
+   "abilityCode": "A028",
+   "name": "아이언 스킨",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "self",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "드라칸 인챈트먼트 머슬"
+   },
+   "requiresTrueName": false,
+   "effect": "j[12]=2 → 3회 공격받아야 사망. 최종 진화 조건.",
+   "resolution": [
+    "CO: j[12]=2"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "source": [
+    "CO",
+    "PO"
+   ],
+   "passive": true
+  },
+  "consume_final_evolution": {
+   "abilityCode": "A029",
+   "name": "최종 진화",
+   "hotkey": "F",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "레지스턴스(A01Y)+아이언 스킨(A028)+상급 공격(A003) 모두 보유 시 학살(A02A) 획득.",
+   "resolution": [
+    "SPELL_EFFECT(qx→qO)",
+    "PO 충족: 효과음, 전체 '-컨슘이 최종 진화에 성공하였습니다! -학살의 시간이 다가왔습니다.', A02A 추가",
+    "미충족: 본인 비공개 '스킬을 모두 가지고 있지 않아 진화에 실패하였습니다.'",
+    "성공/실패 무관 A029 제거(실패해도 소멸)"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "qx",
+    "pO",
+    "qO",
+    "PO"
+   ],
+   "wikiDiff": "실패해도 스킬 소멸(재시도 불가)."
+  },
+  "consume_slaughter": {
+   "abilityCode": "A02A",
+   "name": "학살",
+   "hotkey": "F(툴팁; 오브젝트 핫키 없음)",
+   "manaCost": 10,
+   "cooldown": 30,
+   "uses": "unlimited",
+   "target": "player",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "최종 진화 성공"
+   },
+   "requiresTrueName": false,
+   "effect": "대상 무조건 살해.",
+   "resolution": [
+    "SPELL_EFFECT(Qx→SO)",
+    "효과음, 전체 '-<시전자 진짜이름=컨슘>이 학살을 시작합니다! <대상 H[]>가 살해당했습니다.'",
+    "Lr(대상) — 목숨/보디가드 무시",
+    "스킬 유지(쿨 30)"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "source": [
+    "Qx",
+    "sO",
+    "SO",
+    "Lr"
+   ],
+   "wikiDiff": "위키 마나 15 → 오브젝트 amcs1=10."
+  }
+ },
+ "unverified": [
+  "A01K 플레임 쉐클 쿨다운: 오브젝트 미수정, 베이스 ANdo 기본값 미확인(툴팁 120)",
+  "A01U 중화의 주술 마나/쿨: 오브젝트 미수정, 베이스 Aadm 기본값 미확인",
+  "A02C 시잉 오브 리비도 '무적' 범위(베이스 Aams 마법면역)와 중화의 주술로 대상 지정 가능 여부: 엔진 동작",
+  "리더쉽 류(AHtc 베이스)를 SPELL_CAST 0.3초 후 제거할 때 마나 50이 실제 소모되는지: 엔진 동작",
+  "A025 전체채팅: 생존 체크 없음 → 사망한 뉴켈/드라칸도 마나만 있으면 사용 가능한지(사망 유닛 마나값) 미확인"
+ ]
+}

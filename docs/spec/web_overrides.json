@@ -1,0 +1,180 @@
+{
+ "version": "gst-web-1",
+ "basedOn": "GST v1.33 (GT133p.w3x)",
+ "overrides": [
+  {
+   "id": "A1",
+   "mode": "*",
+   "skill": [
+    "scan",
+    "advanced_scan",
+    "ally_scan",
+    "enemy_scan",
+    "ally_check",
+    "advanced_ally_check"
+   ],
+   "original": "변장/위장 판정 시 결과 메시지 2건(성공+실패), 실패 시 2건",
+   "web": "결과 1건. 변장/위장이 통하면 success로만 보고",
+   "evidence": "S001/S00A 툴팁·퀘스트"
+  },
+  {
+   "id": "A3",
+   "mode": [
+    "lidellut",
+    "troll"
+   ],
+   "skill": [
+    "ancient_sorcery",
+    "ancient_hex_hachi"
+   ],
+   "original": "GetSpellTargetUnit()=null 인벤토리 검사",
+   "web": "시전자 본인의 진실의 조각 등급 +1, 조각 없음/완성 상태면 사용 불가",
+   "evidence": "A034/A03I 툴팁 '소유한 보석'"
+  },
+  {
+   "id": "A4",
+   "mode": "troll",
+   "skill": "ancient_hex_hachi",
+   "original": {
+    "cooldown": 3600
+   },
+   "web": {
+    "cooldown": 150,
+    "uses": null
+   },
+   "evidence": "A03I 툴팁 쿨 150·사용 무한"
+  },
+  {
+   "id": "A6",
+   "mode": "*",
+   "skill": "*incapacitate*",
+   "original": "Pause 효과 중첩 시 먼저 끝난 효과가 해제",
+   "web": "효과별 독립 만료, 남은 효과 있으면 유지",
+   "evidence": "각 툴팁 지속시간"
+  },
+  {
+   "id": "A8",
+   "mode": "lidellut",
+   "skill": [
+    "angel_baptism",
+    "defend"
+   ],
+   "original": "같은 기사에게 반복 성공 가능, 수프라 추가목숨 무한 누적",
+   "web": {
+    "baptismOncePerKnight": true,
+    "supraMaxExtraLives": 3
+   },
+   "evidence": "S007 alev=4(레벨4='4번 공격당해야 사망'), 유이 퀘스트 '기사도와 세례를 전부 받으면 상급 스캔'"
+  },
+  {
+   "id": "A9",
+   "mode": [
+    "civil_war",
+    "primordial"
+   ],
+   "skill": [
+    "essence_absorb",
+    "kilder_vampiric"
+   ],
+   "original": "아군 살해에도 마나 +50",
+   "web": "적 살해 시에만",
+   "evidence": "S003/S004 툴팁 '적을 공격하여 살해하면'"
+  },
+  {
+   "id": "A9b",
+   "mode": "primordial",
+   "skill": "eltas_bloody_heart",
+   "original": "아군 공격 성공에도 +30",
+   "web": "적에게 명중(목숨 감소 포함)·살해 시에만 +30",
+   "evidence": "S006 툴팁 '공격에 성공하면', A9와 일관"
+  },
+  {
+   "id": "A10",
+   "mode": "primordial",
+   "skill": "kilder_casanova",
+   "original": "자기 대상 시 경고 후 진행",
+   "web": "자기 대상 불가",
+   "evidence": "RO return 누락"
+  },
+  {
+   "id": "A11",
+   "mode": "*",
+   "skill": "ally",
+   "original": "ForceEnumAllies 기준(사망자 포함 가능)",
+   "web": "턴 마나 = 20 + 10 × (나에게 동맹을 건 생존 플레이어 수) + (진명이면 10)",
+   "evidence": "A004 툴팁"
+  },
+  {
+   "id": "A12",
+   "mode": "*",
+   "skill": "*",
+   "original": "EFFECT 단계에서 스크립트 취소 시 마나·쿨 소모",
+   "web": "서버 사전 검증, 불충족이면 사용 불가·소모 없음",
+   "evidence": "-"
+  },
+  {
+   "id": "A13",
+   "mode": "civil_war",
+   "skill": "warrior_scent",
+   "original": "카이·메르츠키엘·켈후 이름 목록으로 판정",
+   "web": "대상이 advanced_attack 또는 supreme_attack 보유 시 '상급 전사'",
+   "evidence": "A019 툴팁"
+  },
+  {
+   "id": "A14",
+   "mode": "*",
+   "skill": "publish",
+   "original": "미공표자 자동 공표 이름 = b[플레이어번호]",
+   "web": "배정된 캐릭터 이름 중 균등 무작위, 전체 공지",
+   "evidence": "위키 황금공표 서술"
+  },
+  {
+   "id": "B",
+   "mode": "*",
+   "skill": "*messages*",
+   "original": "데카 목표문구 오전송, 후계자 메시지 반복, 야생의 길 메시지 2회, 형제 실패 문구, 미명의 안개 통보 문구, 태초 9인 표기, A02G 툴팁",
+   "web": "모두 수정",
+   "evidence": "DECISIONS.md B"
+  },
+  {
+   "id": "G1",
+   "mode": "troll",
+   "skill": "bodyguard_chief",
+   "decision": "keep_original",
+   "rule": "사토시 OR 즈윈라 생존 시 치스는 일반 공격으로 사망하지 않음",
+   "evidence": "Xn 함수의 명시적 or 조건"
+  },
+  {
+   "id": "G2",
+   "mode": "*",
+   "skill": "victory",
+   "decision": "keep_original",
+   "rule": "인원 부족으로 비운 슬롯은 승리 판정에서 사망으로 취급",
+   "evidence": "위키 '공격 능력 무력화' / '카이를 죽일 수 있는 기술이 없어서 종료'"
+  },
+  {
+   "id": "G5",
+   "mode": "lidellut",
+   "skill": "victory",
+   "decision": "keep_original",
+   "rule": "위대한 의지 실패 + 유이·로네리스·수프라·카미카제 전멸 → 다크니스 승리",
+   "evidence": "위키 서술, 샤이닝·치즈코 공격 스킬 없음"
+  },
+  {
+   "id": "G6",
+   "mode": "civil_war",
+   "skill": "backstab",
+   "decision": "keep_original",
+   "rule": "대상이 소엔에게 동맹을 걸었으면 진영 무관 살해",
+   "evidence": "A00M 툴팁·퀘스트"
+  },
+  {
+   "id": "G7",
+   "mode": "troll",
+   "skill": "wild_blessing",
+   "decision": "keep_original",
+   "rule": "성공해도 유지, 실패 시 소멸 → 울디안·울피안 둘 다 부여 가능",
+   "evidence": "A042 툴팁 '사용 횟수 무한 … 실패하면 사라진다'"
+  }
+ ]
+}

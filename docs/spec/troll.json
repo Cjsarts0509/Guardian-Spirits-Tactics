@@ -1,0 +1,1583 @@
+{
+ "mode": "troll",
+ "displayName": "트롤 부족의 반란",
+ "playerCountRules": {
+  "min": 8,
+  "max": 12,
+  "slotMaskByCount": {
+   "12": "111111111111",
+   "11": "111011111111",
+   "10": "111011111110",
+   "9": "111110011110",
+   "8": "111010011110",
+   "1": "000000010000"
+  },
+  "excludedByCount": {
+   "12": [],
+   "11": [
+    "하치"
+   ],
+   "10": [
+    "하치",
+    "세이로우"
+   ],
+   "9": [
+    "울디안",
+    "울피안",
+    "세이로우"
+   ],
+   "8": [
+    "하치",
+    "울디안",
+    "울피안",
+    "세이로우"
+   ]
+  },
+  "otherCounts": "2~7명: CustomDefeat '사람 수가 부족합니다!'",
+  "source": [
+   "Ei",
+   "Wr"
+  ]
+ },
+ "sides": [
+  {
+   "id": "ice",
+   "name": "얼음 부족",
+   "force": "B[1]",
+   "slots": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "color": "blue",
+   "winCondition": "데카(슬롯8) 사망 시 승리. 치스 사망 또는 사토시·즈윈라·울디안 전원 사망 시 패배.",
+   "winConditionStruct": {
+    "type": "killAll",
+    "targets": [
+     "데카"
+    ]
+   },
+   "source": [
+    "wb",
+    "Mb"
+   ]
+  },
+  {
+   "id": "rebels",
+   "name": "트롤 반란자",
+   "force": "B[2]",
+   "slots": [
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "color": "red",
+   "winCondition": "치스(슬롯1) 사망, 또는 사토시(2)·즈윈라(3)·울디안(6) 전원 사망 시 승리.",
+   "winConditionStruct": {
+    "type": "any",
+    "conditions": [
+     {
+      "type": "killAll",
+      "targets": [
+       "사토시",
+       "즈윈라",
+       "울디안"
+      ],
+      "message": "얼음 트롤에는 더 이상 공격할 힘이 남아 있지 않습니다!"
+     },
+     {
+      "type": "killAll",
+      "targets": [
+       "치스"
+      ]
+     }
+    ]
+   },
+   "source": [
+    "wb",
+    "mb",
+    "pb"
+   ]
+  }
+ ],
+ "victoryCheckOrder": [
+  "mb: 사토시&즈윈라&울디안 사망 → 반란자 승",
+  "Mb: 데카 사망 → 얼음 승",
+  "pb: 치스 사망 → 반란자 승"
+ ],
+ "victoryCheckNotes": "yo(wb)는 Lr·qi·cn 끝에서 실행된다. 9/8인에서 울디안이 없을 때 O[6]=null의 평가는 unverified → 사망으로 취급 권장.",
+ "startAlliances": [
+  [
+   "울디안",
+   "울피안"
+  ],
+  [
+   "카즈로우",
+   "세이로우"
+  ]
+ ],
+ "extraLives": {
+  "사토시": 1,
+  "즈윈라": 1,
+  "카즈로우": 1,
+  "세이로우": "광폭화 후 1"
+ },
+ "timers": [
+  {
+   "seconds": 120,
+   "timer": "y",
+   "handler": "rV",
+   "grants": [
+    {
+     "char": "토크라",
+     "skill": "wild_essence"
+    }
+   ]
+  },
+  {
+   "seconds": 180,
+   "timer": "iv",
+   "handler": "vV",
+   "grants": [
+    {
+     "char": "즈윈라",
+     "skill": "chief_search"
+    },
+    {
+     "char": "치스",
+     "skill": "spirit_hex"
+    }
+   ]
+  },
+  {
+   "seconds": 300,
+   "timer": "S",
+   "handler": "Wn",
+   "grants": []
+  },
+  {
+   "seconds": 360,
+   "timer": "z",
+   "handler": "Tn",
+   "grants": []
+  }
+ ],
+ "dialogs": {
+  "attack_vs_ice(G[1])": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "attack_vs_rebels(G[2])": [
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "scan(c)": [
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   9,
+   10,
+   11,
+   12
+  ],
+  "scan_av1": [
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "scan_av2": [
+   9,
+   10,
+   11,
+   12
+  ],
+  "hunters_mark(Vv)": [
+   8,
+   9,
+   10,
+   11,
+   12
+  ]
+ },
+ "publishTagColor": "이름 슬롯 8~12 → 빨강, 1~7 → 파랑 (zi)",
+ "maxMana": 150,
+ "startMana": 120,
+ "characters": [
+  {
+   "key": "chis",
+   "unitId": "H010",
+   "name": "치스",
+   "title": "트롤 치프틴",
+   "side": "ice",
+   "commander": true,
+   "lives": 1,
+   "bodyguardedBy": [
+    "사토시",
+    "즈윈라"
+   ],
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "troll_ally_scan",
+    "holy_binding",
+    "global_chat",
+    "spirit_hex"
+   ],
+   "skillCodes": {
+    "global_chat": "A025"
+   },
+   "grantedLater": {
+    "spirit_hex": "180초"
+   },
+   "notes": "보디가드: 사토시 또는 즈윈라가 살아 있으면 공격 무효(OR). 공격 스킬 없음.",
+   "slot": 1
+  },
+  {
+   "key": "satoshi",
+   "unitId": "H011",
+   "name": "사토시",
+   "title": "아이스 가드",
+   "side": "ice",
+   "commander": false,
+   "lives": 2,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "advanced_attack",
+    "troll_regeneration",
+    "bodyguard_chief",
+    "brothers",
+    "chief_protection"
+   ],
+   "skillCodes": {
+    "brothers": "A03C"
+   },
+   "grantedLater": {
+    "ally_check": "형제 성공 시 A009"
+   },
+   "notes": "j[2]=1",
+   "slot": 2
+  },
+  {
+   "key": "zwinra",
+   "unitId": "H012",
+   "name": "즈윈라",
+   "title": "아이스 워로드",
+   "side": "ice",
+   "commander": false,
+   "lives": 2,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "advanced_attack",
+    "troll_regeneration",
+    "brothers",
+    "bodyguard_chief",
+    "chief_search"
+   ],
+   "skillCodes": {
+    "brothers": "A03D"
+   },
+   "grantedLater": {
+    "chief_search": "180초",
+    "ally_check": "형제 성공 시 A009"
+   },
+   "notes": "j[3]=1",
+   "slot": 3
+  },
+  {
+   "key": "hachi",
+   "unitId": "H013",
+   "name": "하치",
+   "title": "엘더 헤드헌터",
+   "side": "ice",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "troll_venom",
+    "ancient_hex_hachi",
+    "hide",
+    "hunters_mark"
+   ],
+   "notes": "11인/10인/8인에서 제외.",
+   "slot": 4
+  },
+  {
+   "key": "tokra",
+   "unitId": "H014",
+   "name": "토크라",
+   "title": "아이스 샤먼",
+   "side": "ice",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "support",
+    "troll_scan",
+    "wild_essence"
+   ],
+   "skillCodes": {
+    "support": "A02U",
+    "scan": "A02Q"
+   },
+   "grantedLater": {
+    "wild_essence": "120초",
+    "wild_blessing": "야생의 정기 성공 10초 후"
+   },
+   "slot": 5
+  },
+  {
+   "key": "uldian",
+   "unitId": "H015",
+   "name": "울디안",
+   "title": "와일드 휴먼",
+   "side": "ice",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "attack",
+    "ally_check",
+    "wild_bond",
+    "wild_path"
+   ],
+   "skillCodes": {
+    "attack": "A002",
+    "ally_check": "A009"
+   },
+   "grantedLater": {
+    "advanced_attack": "야생의 축복 (A002→A003)"
+   },
+   "startAllies": [
+    "울피안"
+   ],
+   "notes": "9인/8인에서 제외. 반란자 승리조건 mb의 대상.",
+   "slot": 6
+  },
+  {
+   "key": "ulpian",
+   "unitId": "H016",
+   "name": "울피안",
+   "title": "와일드 휴먼",
+   "side": "ice",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "enemy_check",
+    "wild_bond",
+    "purify_hex"
+   ],
+   "skillCodes": {
+    "enemy_check": "A008"
+   },
+   "grantedLater": {
+    "battle_sense": "야생의 축복"
+   },
+   "startAllies": [
+    "울디안"
+   ],
+   "notes": "9인/8인에서 제외. 데카용 시작 안내 문구를 잘못 받는 버그.",
+   "slot": 7
+  },
+  {
+   "key": "deka",
+   "unitId": "H017",
+   "name": "데카",
+   "title": "트롤 버서커",
+   "side": "rebels",
+   "commander": true,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "supreme_attack",
+    "advanced_ally_check",
+    "bloody_madness"
+   ],
+   "skillCodes": {
+    "supreme_attack": "A01Z",
+    "advanced_ally_check": "A02J"
+   },
+   "grantedLater": {
+    "berserk_deka": "파괴자의 인도"
+   },
+   "notes": "블러디 매드니스: 마나≥25면 공격 1회마다 25 소모하고 생존. 시작 안내 메시지를 못 받음(버그). 정령의 주술/스캔류 목록에서 제외.",
+   "slot": 8
+  },
+  {
+   "key": "neonis",
+   "unitId": "H018",
+   "name": "네오니스",
+   "title": "쉐도우 시프",
+   "side": "rebels",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "attack",
+    "enemy_check",
+    "global_chat",
+    "support",
+    "disguise",
+    "neviathan_avatar"
+   ],
+   "skillCodes": {
+    "attack": "A002",
+    "enemy_check": "A008",
+    "global_chat": "A025",
+    "support": "A03X"
+   },
+   "slot": 9
+  },
+  {
+   "key": "kanulla",
+   "unitId": "H019",
+   "name": "카'눌라",
+   "title": "카오스 샤먼",
+   "side": "rebels",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "troll_enemy_scan",
+    "chaos_hex",
+    "destroyer_guidance"
+   ],
+   "slot": 10
+  },
+  {
+   "key": "kazrow",
+   "unitId": "H01A",
+   "name": "카즈로우",
+   "title": "카오스 어설트",
+   "side": "rebels",
+   "commander": false,
+   "lives": 2,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "advanced_attack",
+    "berserk_kazrow",
+    "reckless_charge",
+    "assault_bond",
+    "dark_skin"
+   ],
+   "skillCodes": {
+    "dark_skin": "S00B"
+   },
+   "startAllies": [
+    "세이로우"
+   ],
+   "notes": "j[11]=1",
+   "slot": 11
+  },
+  {
+   "key": "seirow",
+   "unitId": "H01B",
+   "name": "세이로우",
+   "title": "파나틱 어설트",
+   "side": "rebels",
+   "commander": false,
+   "lives": 1,
+   "skills": [
+    "publish",
+    "ally",
+    "break_ally",
+    "advanced_ally_check",
+    "berserk_seirow",
+    "battle_sense",
+    "reckless_charge",
+    "assault_bond"
+   ],
+   "skillCodes": {
+    "advanced_ally_check": "A02J"
+   },
+   "grantedLater": {
+    "advanced_attack": "광폭화(A02J 상실)",
+    "dark_skin": "광폭화(S009, lives→2)"
+   },
+   "startAllies": [
+    "카즈로우"
+   ],
+   "notes": "10/9/8인에서 제외.",
+   "slot": 12
+  }
+ ],
+ "skills": {
+  "troll_ally_scan": {
+   "abilityCode": "A015",
+   "name": "아군 스캔(트롤)",
+   "hotkey": "D",
+   "manaCost": 20,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "얼음 부족 이름 목록(슬롯 2~7, 치스 제외)에서 하나를 골라 대상의 정체를 맞힌다. 실제 정체가 맞으면 성공. 위장(S00A)한 네오니스가 그 이름으로 공표 중이면 거짓 성공.",
+   "resolution": [
+    "[ALL] '누군가가 {대상} 을 살피고 있습니다.'",
+    "다이얼로그 av[1](슬롯 2~7) 표시",
+    "고른 이름이 '하치' → 실패",
+    "대상이 그 슬롯 플레이어(정체 일치) → [SELF] '성공했습니다. 이 사람은 X입니다.' (1줄)",
+    "고른 이름 == 대상 공표명 이고 대상이 S00A 보유이고 시전자 B[1] → '성공…' + '스캔에 실패하였습니다.' 2줄 (원본 버그)",
+    "그 외 실패"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self",
+    "onCast": "all"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "Ka",
+    "La",
+    "Pa",
+    "Ma"
+   ]
+  },
+  "troll_scan": {
+   "abilityCode": "A02Q",
+   "name": "스캔(트롤)",
+   "hotkey": "D",
+   "manaCost": 20,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "이름 목록이 슬롯 2~7, 9~12(치스, 데카 없음)인 스캔. 판정은 Pa와 같은 Ua(위장 두 줄 버그 포함).",
+   "resolution": [
+    "[ALL] 살피는 중 메시지",
+    "다이얼로그 c 표시",
+    "Ua: 하치 이름 → 실패, 정체 일치 → 성공, 위장(S00A, 시전자 B[1], 슬롯<8 이름) → 성공+실패 2줄, 그 외 실패"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self",
+    "onCast": "all"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "sa",
+    "Sa",
+    "Ua",
+    "Ta"
+   ]
+  },
+  "troll_enemy_scan": {
+   "abilityCode": "A03T",
+   "name": "적군 스캔(트롤)",
+   "hotkey": "D",
+   "manaCost": 20,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "B[2] 시전자이므로 av[1](슬롯 2~7, 치스 제외) 목록으로 스캔한다. 판정은 Pa.",
+   "resolution": [
+    "[ALL] 살피는 중 메시지",
+    "시전자 B[2] → av[1] 표시",
+    "Pa 판정(위장 분기는 시전자가 B[1]일 때만이라 무관)"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self",
+    "onCast": "all"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "ha",
+    "ja",
+    "Pa"
+   ]
+  },
+  "holy_binding": {
+   "abilityCode": "A03J",
+   "name": "홀리 바인딩",
+   "hotkey": "X",
+   "manaCost": 60,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 데카면 정체를 전체 공개하고 블러디 매드니스(A03K)를 제거한다. 데카가 광폭화(A043)를 갖고 있으면 대신 마나 -80.",
+   "resolution": [
+    "대상 실명=데카: [ALL] '-치스가 {대상}에게 홀리 바인딩을 시전합니다!', '-데카는 {대상}였습니다!'",
+    "A043 보유 → 마나 -80, [ALL] '데카의 마나가 80 감소합니다!' (A03K 유지)",
+    "A043 없음 → A03K 제거, [ALL] '블러디 매드니스가 정화되어 사라졌습니다!'",
+    "데카 아님 → [ALL] 시전 문구 + '{대상}는 데카가 아닙니다!'",
+    "항상 A03J 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "tI",
+    "UI",
+    "TI",
+    "uI"
+   ],
+   "wikiDiff": "위키 '데카의 광폭화 제거'는 틀림: 제거되는 것은 블러디 매드니스이고, 광폭화 상태면 마나 -80만"
+  },
+  "spirit_hex": {
+   "abilityCode": "A03P",
+   "name": "정령의 주술",
+   "hotkey": "C",
+   "manaCost": 40,
+   "cooldown": 60,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "timer",
+    "seconds": 180,
+    "grantedBy": "vV (타이머 iv), 치스 생존 시"
+   },
+   "requiresTrueName": true,
+   "effect": "진명(A=='치스')일 때만. 대상이 B[2](반란자)이고 진실의 조각/보석(I001/I002/I000)을 하나도 갖고 있지 않으면 실명을 알아낸다.",
+   "resolution": [
+    "진명 아님 → stop + [SELF] '자신의 진명을 공표하고 있어야 합니다.' (EFFECT 단계라 비용 소비)",
+    "[TGT] '치스가 당신에게 정령의 주술을 사용하였습니다!'",
+    "[ALL] '-치스가 누군가에게 정령의 주술을 시전하였습니다.'",
+    "조건 충족 → [SELF] '주술이 성공하였습니다. 이 사람은 X입니다.'",
+    "아니면 [SELF] '정령의 주술이 실패했습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self",
+    "onCast": "all+target"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "WI",
+    "zI",
+    "yI",
+    "YI",
+    "vV"
+   ],
+   "wikiDiff": "manaCost 미설정(ACfa 기본값) → unverified",
+   "unverified": [
+    "manaCost"
+   ],
+   "valueSource": {
+    "manaCost": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값"
+   }
+  },
+  "troll_regeneration": {
+   "abilityCode": "A010",
+   "name": "트롤 리제너레이션",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "패시브(표시용). 실제 효과는 j[slot]=1이라 2회 피격 시 사망 (사토시 j[2], 즈윈라 j[3]).",
+   "resolution": [
+    "Pr에서 j>0이면 '{j}회 더 공격받으면 사망합니다.' 후 j--"
+   ],
+   "visibility": {
+    "onTrigger": "all"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "Bi",
+    "Pr"
+   ]
+  },
+  "bodyguard_chief": {
+   "abilityCode": "A022",
+   "name": "보디가드",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "패시브. troll 모드에서 치스를 정답 이름으로 공격해도 사토시(O[2]) 또는 즈윈라(O[3]) 중 한 명이라도 살아 있으면 공격 실패(qr) 처리된다.",
+   "resolution": [
+    "cn: 이름 일치 → In() → On(): U==troll && 대상 실명==치스 && (사토시 생존 || 즈윈라 생존) → qr(공격자)"
+   ],
+   "visibility": {
+    "onTrigger": "attacker(qr 메시지)"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "On",
+    "Xn",
+    "cn",
+    "qr"
+   ],
+   "wikiDiff": "위키·툴팁은 '둘 다 살아있으면'이지만 코드는 OR: 한 명만 살아 있어도 보호"
+  },
+  "brothers": {
+   "abilityCode": "A03C/A03D",
+   "name": "형제",
+   "hotkey": "Z",
+   "manaCost": 35,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "사토시는 즈윈라에게(A03C), 즈윈라는 사토시에게(A03D) 써서 성공하면 둘이 상호 동맹이 되고 둘 다 아군 확인(A009)을 얻는다.",
+   "resolution": [
+    "성공 조건: (A03C && 대상 실명==즈윈라) || (A03D && 대상 실명==사토시)",
+    "성공: [P2] '즈윈라와 당신이 동맹이 되었습니다!', [P3] '사토시와 당신이 동맹이 되었습니다!', O2↔O3 동맹, 0.01초 후 양쪽 A03C/A03D 제거, 양쪽 A009 추가",
+    "실패: [SELF] '이 사람은 즈윈라가 아닙니다.' (즈윈라가 써도 같은 문구), 재사용 가능"
+   ],
+   "visibility": {
+    "onSuccess": "satoshi+zwinra",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "eA",
+    "aA",
+    "rA"
+   ],
+   "abilityCodes": {
+    "satoshi": "A03C",
+    "zwinra": "A03D"
+   }
+  },
+  "chief_protection": {
+   "abilityCode": "A03F",
+   "name": "족장 보호",
+   "hotkey": "V",
+   "manaCost": 40,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 치스면 전역 플래그 Xv=true. 이후 사토시가 살아 있는 동안 치스에게 쓰인 무모한 돌진을 모두 막는다.",
+   "resolution": [
+    "치스: [ALL] '-사토시가 치스를 보호하기 시작합니다!', '-치스에게 향하는 무모한 돌진을 방어합니다!', Xv=true",
+    "아님: [SELF] '그 대상은 치스가 아닙니다.'",
+    "항상 A03F 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "VA",
+    "XA",
+    "jN"
+   ],
+   "unverified": [
+    "manaCost"
+   ],
+   "valueSource": {
+    "manaCost": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값"
+   }
+  },
+  "chief_search": {
+   "abilityCode": "A044",
+   "name": "족장 탐색",
+   "hotkey": "V",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "timer",
+    "seconds": 180,
+    "grantedBy": "vV (타이머 iv), 즈윈라 생존 시"
+   },
+   "requiresTrueName": true,
+   "effect": "진명이면 60초 뒤 치스의 플레이어를 알려준다.",
+   "resolution": [
+    "진명 아님 → stop + [SELF] 진명 필요 메시지 (EFFECT라 쿨 3600 소비 → 사실상 잃음)",
+    "진명: 0.7초 후 A044 제거, 60초 대기(재검사 없음), [SELF] '치스는 {P}입니다!'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 60.7,
+   "spellEvent": "effect",
+   "source": [
+    "RA",
+    "AA",
+    "IA",
+    "vV"
+   ]
+  },
+  "hide": {
+   "abilityCode": "A033",
+   "name": "하이드",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "패시브. 아군/적군 확인은 대상 실명이 하치면 실패한다. 스캔 계열(Pa/Ua)은 고른 이름이 '하치'면 무조건 실패한다. 배틀 센스, 정령의 주술, 공격, 표식에는 영향 없음.",
+   "resolution": [
+    "Ba/Fa: 대상 실명 != '하치' 조건",
+    "Pa/Ua: b[mr]!='하치' 조건"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "Ba",
+    "Fa",
+    "Pa",
+    "Ua"
+   ]
+  },
+  "troll_venom": {
+   "abilityCode": "A03G",
+   "name": "트롤 부족의 맹독",
+   "hotkey": "Z",
+   "manaCost": 20,
+   "cooldown": 70,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 마나 -30 (조건 없음).",
+   "resolution": [
+    "[ALL] '-하치가 {대상}에게 트롤 부족의 맹독을 시전하였습니다.', '-{대상}의 마나가 30 감소하였습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "all"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "bA",
+    "BA"
+   ]
+  },
+  "ancient_hex_hachi": {
+   "abilityCode": "A03I",
+   "name": "고대의 주술",
+   "hotkey": "X",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "self",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "본인 보석 등급을 한 단계 올린다: I001→I002, I002→I000. I000이거나 보석이 없으면 거절.",
+   "resolution": [
+    "I000 보유 → stop, [SELF] '더 이상 등급을 상승시킬 수 없습니다.'",
+    "I002 → 시전자 I002 제거 후 I000 지급, [ALL] '-하치가 고대의 주술을…올렸습니다!'",
+    "I001 → I002, [ALL] 같은 문구",
+    "없음 → stop, [SELF] '진실의 보석이 없으면 사용할 수 없습니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "CA",
+    "dA"
+   ],
+   "wikiDiff": "툴팁 쿨다운 150, 오브젝트 acdn1=3600(사실상 1회). 보유 검사가 GetSpellTargetUnit(null)의 주인 영웅 기준이라 버그 가능",
+   "unverified": [
+    "보유검사 대상(null 타겟)"
+   ]
+  },
+  "hunters_mark": {
+   "abilityCode": "A03U",
+   "name": "사냥꾼의 표식",
+   "hotkey": "A",
+   "manaCost": 50,
+   "cooldown": 60,
+   "uses": null,
+   "target": "player+name",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "반란자 이름 목록(슬롯 8~12)에서 대상의 정체를 고른다. 맞으면 대상의 플레이어와 정체를 전체 공개하고, 틀리면 하치의 플레이어를 전체 공개한다.",
+   "resolution": [
+    "f[하치]=대상, 다이얼로그 Vv 6초 표시 (미선택 시 효과 없음)",
+    "HA: 정답 → [ALL] '사냥꾼의 표식이 새겨져 {P}의 정체가 공개되었습니다! 그는 X였습니다!'",
+    "오답 → [ALL] '사냥꾼의 표식이 실패하여 하치의 정체가 드러납니다! 하치의 정체는 {하치P}였습니다!'"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "fA",
+    "FA",
+    "HA",
+    "GA"
+   ],
+   "wikiDiff": "퀘스트 텍스트의 '진명 공표 상태로 사용 가능' 조건이 코드에 없음. 위키 '마나 50'은 맵 데이터 미설정(unverified)",
+   "unverified": [
+    "manaCost"
+   ],
+   "valueSource": {
+    "manaCost": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값"
+   }
+  },
+  "support": {
+   "abilityCode": "A02U/A03X",
+   "name": "지원",
+   "hotkey": "Z",
+   "manaCost": 10,
+   "cooldown": 90,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상 마나 +30. 자기 자신의 유닛에는 사용할 수 없다. 대상은 누가 지원했는지 모른다.",
+   "resolution": [
+    "자신 소유 유닛 대상 → 0.1초 후 stop, [SELF] '자신에게 사용할 수 없습니다.' (CAST라 비용 없음)",
+    "대상 마나 +30, [SELF] '{대상}의 마나가 30 증가합니다.', '{대상}를 지원합니다.', [TGT] '누군가가 당신을 지원합니다. 당신의 마나가 30 증가합니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self+target"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "cast",
+   "source": [
+    "uA",
+    "wA",
+    "XN",
+    "RN"
+   ],
+   "abilityCodes": {
+    "tokra": "A02U",
+    "neonis": "A03X"
+   }
+  },
+  "wild_essence": {
+   "abilityCode": "A02X",
+   "name": "야생의 정기",
+   "hotkey": "X",
+   "manaCost": 25,
+   "cooldown": 40,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "timer",
+    "seconds": 120,
+    "grantedBy": "rV (타이머 y), 토크라 생존 시"
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 울디안 또는 울피안이면 알려주고, 10초 뒤 야생의 축복(A042)을 얻는다. 둘 중 누구인지는 알려주지 않는다.",
+   "resolution": [
+    "성공: [SELF] '야생의 기운이 느껴집니다! 10초 후 야생의 축복 스킬을 획득합니다!', A02X 제거, 10초 후 A042 추가",
+    "실패: [SELF] '야생의 기운이 느껴지지 않습니다.' (재사용 가능)"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 10,
+   "spellEvent": "effect",
+   "source": [
+    "yA",
+    "ZA",
+    "rV"
+   ],
+   "wikiDiff": "퀘스트에는 기본 스킬처럼 쓰여 있으나 실제로는 120초 후 획득"
+  },
+  "wild_blessing": {
+   "abilityCode": "A042",
+   "name": "야생의 축복",
+   "hotkey": "X",
+   "manaCost": 70,
+   "cooldown": 90,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "wild_essence 성공 10초 후"
+   },
+   "requiresTrueName": false,
+   "effect": "울디안에게 쓰면 A002를 A003 상급 공격으로 바꾸고, 울피안에게 쓰면 A03B 배틀 센스를 준다. 실패 시 스킬이 사라진다. 성공 시에는 남는다.",
+   "resolution": [
+    "울디안: [ALL] '-토크라가 누군가에게 야생의 축복을 시전하였습니다!', A002 제거 + A003 추가, [TGT] 상급 공격 획득",
+    "울피안: [ALL] 같은 문구, A03B 추가, [TGT] 배틀 센스 획득",
+    "그 외: [ALL] '-토크라가 야생의 축복에 실패하였습니다!', A042 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all+target",
+    "onFail": "all"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "eN",
+    "rN"
+   ],
+   "wikiDiff": "성공해도 A042가 제거되지 않아 둘 다에게 부여 가능"
+  },
+  "wild_bond": {
+   "abilityCode": "A02L",
+   "name": "야생의 결속",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "울디안↔울피안 시작 상호 동맹 (Bi: O[6]↔O[7]).",
+   "resolution": [
+    "Bi에서 SetPlayerAllianceStateBJ 양방향"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "Bi"
+   ]
+  },
+  "wild_path": {
+   "abilityCode": "A03O",
+   "name": "야생의 길",
+   "hotkey": "Z",
+   "manaCost": 50,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": true,
+   "effect": "진명이면 20초 뒤에도 진명을 유지하고 있을 때 치스의 플레이어를 알려준다.",
+   "resolution": [
+    "CAST 시 진명 아님 → stop(비용 없음), [SELF] 진명 필요 메시지",
+    "진명: 0.7초 후 A03O 제거, 20초 대기, 재검사: 진명 → [SELF] '치스는 {P}입니다!', 아니면 [SELF] '자신의 진명을 공표하고 있지 않아 스킬이 실패했습니다.'",
+    "트리거 do(JA/lA)와 Do(mA/PA)가 같은 동작으로 중복 등록 → 모든 메시지 2회"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 20.7,
+   "spellEvent": "cast",
+   "source": [
+    "JA",
+    "lA",
+    "kA",
+    "KA",
+    "mA",
+    "PA",
+    "MA",
+    "pA"
+   ],
+   "wikiDiff": "진명 검사는 시작과 20.7초 시점 두 번뿐이고 메시지가 두 번 나옴"
+  },
+  "purify_hex": {
+   "abilityCode": "A03Q",
+   "name": "정화의 주술",
+   "hotkey": "Z",
+   "manaCost": 40,
+   "cooldown": 90,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 카'눌라이거나 Ov(가장 최근 혼돈의 주술 성공 대상)이면 즉사시킨다(Lr). 성공·실패 모두 스킬이 사라진다.",
+   "resolution": [
+    "성공: [ALL] '-울피안이 {대상}에게 정화의 주술을 시전하여 혼돈의 힘을 정화합니다!', Lr(대상) (블러디 매드니스·추가 목숨 무시)",
+    "실패: [ALL] '-울피안이 {대상}에게 정화의 주술을 시전하였으나 실패했습니다.'",
+    "항상 A03Q 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "all"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "QA",
+    "tA",
+    "sA"
+   ],
+   "wikiDiff": "퀘스트 '3분 후 획득'은 코드에 없음: 시작부터 보유",
+   "unverified": [
+    "manaCost"
+   ],
+   "valueSource": {
+    "manaCost": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값"
+   }
+  },
+  "bloody_madness": {
+   "abilityCode": "A03K",
+   "name": "블러디 매드니스",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "패시브. 공격 판정(Pr)에서 가장 먼저 검사한다. A03K를 보유하고 마나 ≥ 25이면 마나 25를 소모하고 생존한다(횟수 무제한). 즉사(Lr 직접 호출)는 막지 못한다.",
+   "resolution": [
+    "Pr: A03K>0 && mana>=25 → [ALL] '-X가 데카를 공격하였으나 살해하지 못했습니다.(블러디 매드니스!)', 마나 -25, return"
+   ],
+   "visibility": {
+    "onTrigger": "all"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "Pr"
+   ]
+  },
+  "berserk_deka": {
+   "abilityCode": "A043",
+   "name": "광폭화(데카)",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "granted",
+    "grantedBy": "destroyer_guidance (데카가 A03K 보유 시)"
+   },
+   "requiresTrueName": false,
+   "effect": "패시브. 홀리 바인딩을 받으면 A03K를 잃는 대신 마나 -80.",
+   "resolution": [
+    "UI: TI() → 마나 -80"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "UI",
+    "TI",
+    "BN"
+   ]
+  },
+  "disguise": {
+   "abilityCode": "S00A",
+   "name": "위장",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "패시브. B[1] 시전자의 아군 확인(A009/A02J)은 네오니스가 얼음 부족 7명 중 하나로 공표 중이면 그 이름으로 성공을 표시한다. 스캔(A015/A02Q)은 고른 이름 == 공표명이고 슬롯 1~7 이름이면 성공 문구를 표시하지만, 원본 버그로 실패 문구가 한 줄 더 나온다. 적군 확인(A008)은 속이지 못한다.",
+   "resolution": [
+    "Ea(아군확인)",
+    "Ma(Pa), Ta(Ua)"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "Ea",
+    "Va",
+    "Ma",
+    "Ta",
+    "Pa",
+    "Ua"
+   ]
+  },
+  "neviathan_avatar": {
+   "abilityCode": "A03E",
+   "name": "네비아탄의 화신",
+   "hotkey": "C",
+   "manaCost": 0,
+   "cooldown": 30,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 카'눌라인지 알려준다.",
+   "resolution": [
+    "성공 [SELF] '이 사람의 정체는 카'눌라입니다!'",
+    "실패 [SELF] '이 사람은 카'눌라가 아닙니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "aN",
+    "VN"
+   ],
+   "wikiDiff": "퀘스트 '2분 후 획득'은 코드에 없음: 시작부터 보유"
+  },
+  "chaos_hex": {
+   "abilityCode": "A03V",
+   "name": "혼돈의 주술",
+   "hotkey": "C",
+   "manaCost": 40,
+   "cooldown": 70,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": true,
+   "effect": "진명(A=='카'눌라')일 때만. 60초 뒤 대상이 B[2](아군 진영)이면 실명을 알아내고, 전역 Ov=대상으로 정한다(정화의 주술 대상이 됨).",
+   "resolution": [
+    "진명 아님 → stop, [SELF] 진명 필요 메시지 (EFFECT라 비용 소비)",
+    "60초 대기(재검사 없음)",
+    "대상 B[2]: [ALL] '- 카'눌라가 혼돈의 주술을 사용해 누군가의 정체를 알아내었습니다!', [SELF] '대상의 정체는 X입니다!', Ov=대상 pid (덮어쓰기)",
+    "아니면 [SELF] '혼돈의 주술이 실패한 모양입니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "all+self",
+    "onFail": "self"
+   },
+   "delaySeconds": 60,
+   "spellEvent": "effect",
+   "source": [
+    "CN",
+    "DN",
+    "dN"
+   ]
+  },
+  "destroyer_guidance": {
+   "abilityCode": "A03Y",
+   "name": "파괴자의 인도",
+   "hotkey": "V",
+   "manaCost": 10,
+   "cooldown": 30,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 데카면 카'눌라가 죽고, 데카는 A03K가 있으면 마나 100% + A043 광폭화를, 없으면 A03K를 다시 얻는다. 성공·실패 모두 스킬이 사라진다.",
+   "resolution": [
+    "데카: [ALL] '- 카'눌라가 스스로를 희생하여 금단의 주술을 시전하였습니다!'",
+    "A03K 보유 → 마나 100%, A043 추가, [ALL] '데카가 광폭화 스킬을 획득하고 모든 마나를 회복하였습니다!'",
+    "미보유 → A03K 추가, [ALL] '데카가 블러드 매드니스를 다시 획득하였습니다!'",
+    "Lr(카'눌라)",
+    "아님: [SELF] '그 대상은 데카가 아닙니다.'",
+    "항상 A03Y 제거"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onFail": "self"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "AN",
+    "BN",
+    "NN",
+    "bN"
+   ]
+  },
+  "berserk_kazrow": {
+   "abilityCode": "A03R",
+   "name": "광폭화(카즈로우)",
+   "hotkey": "Z",
+   "manaCost": 0,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": true,
+   "effect": "진명이면 자신의 모든 어빌리티 쿨다운을 초기화하고(UnitResetCooldown), 사용 사실을 즉시 전체에 알린다(사용자 익명).",
+   "resolution": [
+    "진명 아님 → stop, 진명 필요 메시지 (EFFECT라 쿨 3600 소비)",
+    "0.7초 후 A03R 제거, UnitResetCooldown, [ALL] '-누군가가 광폭화 스킬을 사용하였습니다!'"
+   ],
+   "visibility": {
+    "onSuccess": "all(익명)",
+    "onFail": "self"
+   },
+   "delaySeconds": 0.7,
+   "spellEvent": "effect",
+   "source": [
+    "FN",
+    "GN",
+    "gN"
+   ]
+  },
+  "reckless_charge": {
+   "abilityCode": "A03Z",
+   "name": "무모한 돌진",
+   "hotkey": "C",
+   "manaCost": 40,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상을 무조건 즉사시키고 자신도 즉사한다. 단, 대상이 치스이고 족장 보호(Xv)가 켜져 있고 사토시가 살아 있으면 막히며, 돌진자와 사토시가 서로의 플레이어를 알게 된다(돌진자 생존).",
+   "resolution": [
+    "[ALL] '-{시전자 실명}가 {대상}에게 무모한 돌진을 시전하였습니다!'",
+    "jN(치스 && 사토시 생존 && Xv): [ALL] '하지만 무모한 돌진은 사토시에 의해 가로막혔습니다!', [SELF] 사토시 플레이어 공개, [P2] 돌격자 플레이어 공개, A03Z 제거",
+    "그 외: Lr(대상), Lr(시전자) — 보디가드·추가 목숨·블러디 매드니스 무시"
+   ],
+   "visibility": {
+    "onSuccess": "all",
+    "onBlocked": "all+self+satoshi"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "HN",
+    "JN",
+    "jN"
+   ],
+   "wikiDiff": "퀘스트의 '네비아탄의 가호' 예외는 코드에 없음. 시전자 캐릭터명이 전체에 공개됨",
+   "unverified": [
+    "manaCost"
+   ],
+   "valueSource": {
+    "manaCost": "WC3 베이스 어빌리티 기본값 (AbilityData.slk 1.27.1/1.32.8 동일) — 오브젝트에서 수정 안 한 값"
+   }
+  },
+  "assault_bond": {
+   "abilityCode": "A039",
+   "name": "돌격대의 결속",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "카즈로우↔세이로우 시작 상호 동맹 (Bi: O[11]↔O[12]).",
+   "resolution": [
+    "Bi"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "Bi"
+   ]
+  },
+  "dark_skin": {
+   "abilityCode": "S00B/S009",
+   "name": "다크 스킨",
+   "hotkey": null,
+   "manaCost": null,
+   "cooldown": null,
+   "uses": null,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "패시브(표시용). 카즈로우는 j[11]=1(시작), 세이로우는 광폭화 시 S009 + j[12]=1 → 2회 피격 시 사망.",
+   "resolution": [
+    "Pr j 처리"
+   ],
+   "visibility": {},
+   "delaySeconds": 0,
+   "spellEvent": "effect",
+   "source": [
+    "Bi",
+    "LN",
+    "Pr"
+   ],
+   "abilityCodes": {
+    "kazrow": "S00B",
+    "seirow": "S009"
+   }
+  },
+  "berserk_seirow": {
+   "abilityCode": "A03S",
+   "name": "광폭화(세이로우)",
+   "hotkey": "Z",
+   "manaCost": 0,
+   "cooldown": 3600,
+   "uses": 1,
+   "target": "none",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": true,
+   "effect": "진명이면 A02J를 잃고 A003 상급 공격과 S009 다크스킨(j[12]=1)을 얻는다. 20초 뒤 사용 사실을 익명으로 전체에 알린다.",
+   "resolution": [
+    "진명 아님 → stop, 진명 필요 메시지 (EFFECT라 쿨 3600 소비)",
+    "0.7초 후 A03S 제거, A02J 제거, A003 추가, S009 추가, j[12]=1",
+    "20초 후 [ALL] '-누군가가 광폭화 스킬을 사용하였습니다!'"
+   ],
+   "visibility": {
+    "onSuccess": "all(20초 지연, 익명)",
+    "onFail": "self"
+   },
+   "delaySeconds": 20.7,
+   "spellEvent": "effect",
+   "source": [
+    "KN",
+    "LN",
+    "lN"
+   ]
+  },
+  "battle_sense": {
+   "abilityCode": "A03B",
+   "name": "배틀 센스",
+   "hotkey": "X",
+   "manaCost": 30,
+   "cooldown": 60,
+   "uses": null,
+   "target": "player",
+   "availableFrom": {
+    "type": "start",
+    "seconds": 0
+   },
+   "requiresTrueName": false,
+   "effect": "대상이 A003 또는 A01Z를 가지면 상급 전사, A002를 가지면 일반 전사, 둘 다 없으면 전사가 아니라고 알려준다.",
+   "resolution": [
+    "(Rv 미명의 안개는 troll에서 항상 false)",
+    "A003||A01Z → [SELF] '이 사람은 상급 전사이다.'",
+    "A002 → '일반 전사이다.'",
+    "그 외 → '전사가 아니다.'"
+   ],
+   "visibility": {
+    "onSuccess": "self"
+   },
+   "delaySeconds": 0,
+   "spellEvent": "cast",
+   "source": [
+    "dn",
+    "hn",
+    "gn",
+    "Fn"
+   ]
+  }
+ },
+ "unverified": [
+  "manaCost: A03P, A03Q, A03U, A03F, A03Z (베이스 어빌리티 기본값)",
+  "GetPlayerId(null): 울디안 제외 시 mb, 고대의 주술 보유검사",
+  "EFFECT 단계 stop 시 비용 소비(엔진 동작 추정)",
+  "UnitResetCooldown이 아이템 쿨다운까지 초기화하는지"
+ ]
+}
