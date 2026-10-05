@@ -2,7 +2,8 @@
 
 - `manifest.csv` — 원작 v1.33 의 모드·캐릭터·스킬별 아이콘 경로와 툴팁·설명 원문 (custom = 맵 임포트, standard = 워3 기본)
 - `icons.csv` — 아이콘 1개당 1행, 그 아이콘을 쓰는 오브젝트와 설명 원문
-- `gemini_prompts.csv` — 웹판 아이콘 185종 목록과 생성 프롬프트. `file` 열 이름으로 `apps/client/public/icons/` 에 넣는다
+- `GEMINI_가이드.md` — 아이콘 제작 방식(다크 판타지)과 내전 57종 시트 프롬프트
+- `gemini_prompts.csv` — 웹판 아이콘 185종 목록과 개별 프롬프트. `file` 열 이름으로 `apps/client/public/icons/` 에 넣는다
 - `standard_icons.txt` — 원작이 쓰던 워3 기본 아이콘 114종 경로
 
 원작 이미지 파일은 레포에 넣지 않는다 (블리자드·외부 출처 아트 포함). 웹판은 새로 만든 아이콘만 쓴다.
