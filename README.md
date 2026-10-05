@@ -23,7 +23,7 @@ docs/spec           역분석 명세 원본 (md/json) + source/ (복원 스크�
 ```bash
 corepack enable
 pnpm install
-pnpm test                 # 규칙 엔진 85개 + 서버 9개
+pnpm test                 # 규칙 엔진 85개 + 서버 16개
 pnpm dev:server           # ws://localhost:8787
 pnpm dev:client           # http://localhost:5173
 ```
@@ -71,17 +71,20 @@ eventsFor(state, playerId, lastSeq);   // 그 플레이어가 볼 수 있는 새
 | `RECONNECT_GRACE_SECONDS` | 60 | 진행 중 끊긴 플레이어 사망 처리까지 유예 |
 | `SUPABASE_URL` | — | 설정 시 JWKS로 로그인 토큰 검증 |
 | `SUPABASE_SECRET_KEY` | — | 설정 시 판 종료 기록 저장 (`sb_secret_…`, 서버 전용. 레거시 `SUPABASE_SERVICE_ROLE_KEY` 도 받음) |
+| `STATIC_DIR` | — | 설정 시 화면(클라이언트 빌드)도 이 서버가 제공 |
+| `STRICT_ORIGIN` | false | true 면 같은 주소 + `ALLOWED_ORIGINS` 만 접속 허용 |
 | `HEARTBEAT_MS` | 30000 | 연결 유지 ping 주기 (Cloudflare 는 100초 무응답 WebSocket 을 끊음) |
 
 빌드 결과물은 의존성까지 묶인 단일 파일: `pnpm --filter @gst/server build` → `apps/server/dist/index.js` (node 22 로 바로 실행).
 
 ## 배포
 
-자세한 순서는 **`docs/DEPLOY.md`**.
+자세한 순서는 **`docs/DEPLOY.md`**. 지금은 도메인 없이 오라클 서버 IP 로 운영한다.
 
-- **화면**: Cloudflare Workers 정적 자산 (`wrangler.jsonc`) ← GitHub 연결, main push 시 자동 배포. 빌드 변수 `VITE_SERVER_URL=wss://ws.<도메인>`
-- **게임 서버**: 오라클 서버 `127.0.0.1:8787` + Cloudflare Tunnel (`ws.<도메인>`). GitHub Actions **Deploy server** 로 설치·갱신 (`deploy/install.sh`)
-- **Supabase**: `supabase/migrations/*.sql` 적용
+- main 에 push → Actions **Release** 가 서버+화면을 빌드해서 GitHub 릴리스 `latest` 에 올림
+- 오라클 서버에서 한 줄로 설치·업데이트: `curl -fsSL https://raw.githubusercontent.com/Cjsarts0509/Guardian-Spirits-Tactics/main/deploy/bootstrap.sh | sudo bash`
+- 게임 서버가 화면도 같이 준다 (`STATIC_DIR`) → 접속 주소 `http://<서버IP>:8787`
+- Supabase: `supabase/migrations/*.sql` 적용, 서버 `/opt/gst/.env` 에 `SUPABASE_URL`, `SUPABASE_SECRET_KEY`
 
 ## 문서
 - `docs/spec/DECISIONS.md` — 원본과 달라지는 규칙(버그 수정)과 근거

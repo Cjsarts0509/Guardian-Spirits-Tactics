@@ -1,5 +1,6 @@
 import { createServer as createHttpServer, type IncomingMessage, type Server } from 'node:http';
 import { randomBytes } from 'node:crypto';
+import { createStatic } from './static.js';
 import { WebSocketServer, type WebSocket } from 'ws';
 import { parseClientMessage, type ServerMessage } from '@gst/protocol';
 import type { Action } from '@gst/rules';
@@ -26,6 +27,19 @@ export interface GameServer {
 
 const RATE_PER_SEC = 20;
 
+/** 같은 주소(화면을 이 서버가 줄 때)는 항상, 그 외에는 허용 목록. 목록이 비고 strict 가 아니면 전부 허용(개발) */
+export function originAllowed(cfg: Pick<ServerConfig, 'allowedOrigins' | 'strictOrigin'>, req: Pick<IncomingMessage, 'headers'>): boolean {
+  const origin = req.headers.origin ?? '';
+  let sameOrigin = false;
+  try {
+    sameOrigin = !!origin && new URL(origin).host === req.headers.host;
+  } catch {
+    sameOrigin = false;
+  }
+  if (sameOrigin || cfg.allowedOrigins.includes(origin)) return true;
+  return !cfg.strictOrigin && cfg.allowedOrigins.length === 0;
+}
+
 export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => void = console.log): GameServer {
   const verify = createVerifier(cfg);
   const sessionsByToken = new Map<string, Session>();
@@ -41,12 +55,14 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
   const clock = () => (cfg.timeScale === 1 ? Date.now() : Math.round(t0 + (Date.now() - t0) * cfg.timeScale));
   const rooms = new RoomManager(cfg, onEnd, clock);
 
+  const serveStatic = cfg.staticDir ? createStatic(cfg.staticDir) : null;
   const http = createHttpServer((req, res) => {
     if (req.url === '/health') {
-      res.writeHead(200, { 'content-type': 'application/json' });
+      res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' });
       res.end(JSON.stringify({ ok: true, rooms: rooms.rooms.size, sessions: sessionsByUser.size }));
       return;
     }
+    if (serveStatic) return serveStatic(req, res);
     res.writeHead(404);
     res.end();
   });
@@ -54,8 +70,7 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
   const wss = new WebSocketServer({ noServer: true, maxPayload: 16 * 1024 });
 
   http.on('upgrade', (req: IncomingMessage, socket, head) => {
-    const origin = req.headers.origin ?? '';
-    if (cfg.allowedOrigins.length && !cfg.allowedOrigins.includes(origin)) {
+    if (!originAllowed(cfg, req)) {
       socket.write('HTTP/1.1 403 Forbidden\r\n\r\n');
       socket.destroy();
       return;

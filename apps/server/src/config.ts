@@ -6,8 +6,12 @@ export interface ServerConfig {
   allowGuests: boolean;
   /** 방장이 봇으로 빈자리 채우기 허용 (개발·테스트용) */
   allowBots: boolean;
-  /** WebSocket Origin 허용 목록. 비우면 검사 안 함 */
+  /** WebSocket Origin 허용 목록. 같은 주소(화면을 이 서버가 직접 줄 때)는 항상 허용 */
   allowedOrigins: string[];
+  /** true 면 같은 주소 + 허용 목록만 받는다. false 이고 목록이 비어 있으면 검사 안 함 (개발용) */
+  strictOrigin: boolean;
+  /** 화면(클라이언트 빌드) 폴더. 설정하면 이 서버가 화면도 같이 준다 */
+  staticDir: string | null;
   /** 진행 중 연결이 끊긴 플레이어를 사망 처리하기까지 대기 (초) */
   reconnectGraceSeconds: number;
   tickMs: number;
@@ -33,6 +37,8 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
     allowGuests: bool(env.ALLOW_GUESTS, true),
     allowBots: bool(env.ALLOW_BOTS, true),
     allowedOrigins: (env.ALLOWED_ORIGINS ?? '').split(',').map((s) => s.trim()).filter(Boolean),
+    strictOrigin: bool(env.STRICT_ORIGIN, false),
+    staticDir: env.STATIC_DIR || null,
     reconnectGraceSeconds: Number(env.RECONNECT_GRACE_SECONDS ?? 60),
     tickMs: Number(env.TICK_MS ?? 250),
     timeScale: Number(env.TIME_SCALE ?? 1),

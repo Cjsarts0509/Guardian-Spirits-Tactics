@@ -1,0 +1,47 @@
+# main 에 push 될 때마다 서버+화면을 빌드해서 GitHub 릴리스 "latest" 에 올린다.
+# 오라클 서버에서는 deploy/bootstrap.sh 한 줄로 이 빌드를 받아 설치·업데이트한다 (docs/DEPLOY.md).
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+      - run: pnpm --filter @gst/server build
+      - run: pnpm --filter @gst/client build # VITE_SERVER_URL 없음 → 화면을 준 서버와 같은 주소로 접속
+
+      - name: Pack
+        run: |
+          mkdir -p out/pkg
+          cp apps/server/dist/index.js out/pkg/server.mjs
+          cp -r apps/client/dist out/pkg/public
+          find out/pkg/public -name '*.map' -delete
+          cp deploy/install.sh deploy/gst-server.service out/pkg/
+          echo "${GITHUB_SHA::7} $(date -u +%Y-%m-%dT%H:%MZ)" > out/pkg/VERSION
+          tar -czf out/gst-release.tar.gz -C out/pkg .
+          (cd out && sha256sum gst-release.tar.gz > gst-release.tar.gz.sha256)
+          ls -la out
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view latest >/dev/null 2>&1 || gh release create latest --title "최신 빌드" --notes "main 에 push 될 때마다 자동으로 갱신됩니다. 설치: docs/DEPLOY.md" --target main
+          gh release upload latest out/gst-release.tar.gz out/gst-release.tar.gz.sha256 --clobber

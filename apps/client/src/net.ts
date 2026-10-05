@@ -1,7 +1,11 @@
 // 서버 연결: 자동 재접속 + 세션 토큰으로 같은 자리 복귀
 import type { ClientMessage, ServerMessage } from '@gst/protocol';
 
-const URL = (import.meta.env.VITE_SERVER_URL as string | undefined) ?? `ws://${location.hostname}:8787`;
+// 운영 빌드는 화면을 준 서버와 같은 주소로 접속 (도메인 없이 http://<서버IP>:8787 하나로 운영 가능)
+// 개발(vite)에서는 따로 뜬 게임 서버(:8787)로, 화면과 서버를 다른 곳에 두면 VITE_SERVER_URL 로 지정
+const URL =
+  (import.meta.env.VITE_SERVER_URL as string | undefined) ||
+  (import.meta.env.DEV ? `ws://${location.hostname}:8787` : `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}`);
 const SESSION_KEY = 'gst.session';
 const NICK_KEY = 'gst.nickname';
 
