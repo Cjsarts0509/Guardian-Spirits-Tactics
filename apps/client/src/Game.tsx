@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ChatChannel, GameEvent, PlayerView, SkillView } from '@gst/rules';
 import type { ClientAction, RoomDetail } from '@gst/protocol';
 import { net } from './net.js';
+import { gemIcon, portrait, skillIcon } from './icons.js';
 
 type Roster = PlayerView['roster'];
 
@@ -73,10 +74,15 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
 
       <div className="layout">
         <aside className="me card">
-          <div className={`side s${me.side}`}>{view.sideNames[me.side]}</div>
-          <h2>
-            {me.characterName} <span className="muted">{me.title}</span>
-          </h2>
+          <div className="me-head">
+            <Face character={me.character} size="lg" dead={!me.alive} />
+            <div>
+              <div className={`side s${me.side}`}>{view.sideNames[me.side]}</div>
+              <h2>
+                {me.characterName} <span className="muted">{me.title}</span>
+              </h2>
+            </div>
+          </div>
           {!me.alive && <div className="dead-banner">사망</div>}
           <p className="objective">{me.objective}</p>
           <div className="bar">
@@ -91,7 +97,10 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
               {nameOf(me.published)} {me.trueName && '(진명)'}
             </dd>
             <dt>진실의 보석</dt>
-            <dd>{['없음', '조각 1/3', '조각 2/3', '완성'][me.gem]}</dd>
+            <dd className="gem">
+              {gemIcon(me.gem) && <img src={gemIcon(me.gem)!} alt="" />}
+              {['없음', '조각 1/3', '조각 2/3', '완성'][me.gem]}
+            </dd>
             <dt>추가 목숨</dt>
             <dd>{me.extraLives}</dd>
             <dt>다음 턴 마나</dt>
@@ -120,6 +129,8 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                   className={`pcard ${!p.alive ? 'dead' : ''} ${target === p.id ? 'selected' : ''} ${isMe ? 'mine' : ''}`}
                   onClick={() => !isMe && setTarget(target === p.id ? null : p.id)}
                 >
+                  <Face character={p.revealed ?? k?.character ?? null} size="sm" dead={!p.alive} />
+                  <div className="pc-body">
                   <div className="pc-top">
                     <span className="seat">[{p.seat}]</span> {p.nickname} {isMe && <span className="tag">나</span>}
                   </div>
@@ -139,6 +150,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                     {!p.alive && <span className="tag">사망</span>}
                     {p.left && <span className="tag">이탈</span>}
                   </div>
+                  </div>
                 </button>
               );
             })}
@@ -151,6 +163,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
             <div className="skillbar">
               {me.skills.map((s) => {
                 const cd = Math.max(0, s.cooldownRemainingMs - sinceView);
+                const icon = skillIcon(s.key, me.gem);
                 return (
                   <button
                     key={s.key}
@@ -159,6 +172,14 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                     title={`${s.description}${s.blocked ? `\n\n사용 불가: ${s.blocked}` : ''}`}
                     onClick={() => useSkill(s)}
                   >
+                    <span className="sk-icon">
+                      {icon ? <img src={icon} alt="" /> : <span className="sk-noicon">{s.name.slice(0, 1)}</span>}
+                      {cd > 0 && s.cooldown > 0 && (
+                        <span className="sk-cd" style={{ ['--p' as string]: `${Math.min(1, cd / (s.cooldown * 1000)) * 360}deg` }}>
+                          {Math.ceil(cd / 1000)}
+                        </span>
+                      )}
+                    </span>
                     <span className="sk-name">
                       {s.hotkey && <kbd>{s.hotkey}</kbd>} {s.name}
                       {s.key === 'advanced_attack' && s.level === 2 && <span className="tag warn">경고</span>}
@@ -167,7 +188,6 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                       <span className="sk-meta">
                         {s.mana > 0 && `마나 ${s.mana}`}
                         {s.usesLeft !== null && ` · ${s.usesLeft}회`}
-                        {cd > 0 && ` · ${Math.ceil(cd / 1000)}s`}
                       </span>
                     )}
                     {s.passive && <span className="sk-meta">패시브</span>}
@@ -195,6 +215,14 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
         />
       )}
     </div>
+  );
+}
+
+/** 초상화. 모르는 캐릭터면 물음표 실루엣 */
+function Face({ character, size, dead = false }: { character: string | null; size: 'sm' | 'lg'; dead?: boolean }) {
+  const src = portrait(character, size === 'lg' ? 256 : 128);
+  return (
+    <span className={`face ${size} ${dead ? 'dead' : ''} ${src ? '' : 'unknown'}`}>{src ? <img src={src} alt="" /> : '?'}</span>
   );
 }
 
@@ -230,8 +258,11 @@ function NamePicker({
         <div className="names">
           {options.map((r) => (
             <button key={r.key} className={`name s${r.side}`} onClick={() => onPick(r.key)}>
-              {r.name}
-              <span className="muted small">{r.title}</span>
+              <Face character={r.key} size="sm" />
+              <span className="name-text">
+                {r.name}
+                <span className="muted small">{r.title}</span>
+              </span>
             </button>
           ))}
         </div>
