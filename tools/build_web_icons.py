@@ -15,6 +15,7 @@ PUB = os.path.join(ROOT, 'apps/client/public/icons')
 
 def main(master, pack=None):
     names = sorted(f[:-4] for f in os.listdir(master) if f.endswith('.png'))
+    remastered = list(names)
     for size in (128, 256):
         os.makedirs(f'{PUB}/{size}', exist_ok=True)
     for n in names:
@@ -50,7 +51,9 @@ def main(master, pack=None):
             alias[r['key']] = first[r['name']]
     ts = ['// tools/build_web_icons.py 로 생성됨. 직접 수정하지 마세요.',
           f'export const ICON_NAMES: ReadonlySet<string> = new Set({json.dumps(names)});',
-          f'export const CHARACTER_ALIAS: Readonly<Record<string, string>> = {json.dumps(alias, ensure_ascii=False, sort_keys=True)};', '']
+          f'export const CHARACTER_ALIAS: Readonly<Record<string, string>> = {json.dumps(alias, ensure_ascii=False, sort_keys=True)};',
+          '/** 리마스터(제미나이)로 만든 아이콘 이름. 나머지는 원본 아이콘 대체본 */',
+          f'export const GEN_ONLY: ReadonlySet<string> = new Set({json.dumps(sorted(remastered))});', '']
     open(os.path.join(ROOT, 'apps/client/src/icons.gen.ts'), 'w', encoding='utf-8').write('\n'.join(ts))
     total = sum(os.path.getsize(os.path.join(dp, f)) for dp, _, fs in os.walk(PUB) for f in fs)
     print(f'{len(names)} icons ({fallback} from original pack), aliases {len(alias)}, public/icons {total // 1024} KB')
