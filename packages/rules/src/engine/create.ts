@@ -1,5 +1,6 @@
 import { DEFAULT_TURN_SECONDS, MAX_PLAYERS, MIN_PLAYERS, START_MANA } from '../constants.js';
 import { getMode } from '../modes/index.js';
+import { skillRegistry } from '../skills/registry.js';
 import { shuffle } from '../rng.js';
 import { josa } from '../text.js';
 import type { CharKey, CreateGameOptions, GameEvent, GameState, PlayerState } from '../types.js';
@@ -93,10 +94,15 @@ export function createGame(opts: CreateGameOptions): CreateResult {
     for (const k of g.charDef(p.character).skills) g.grantSkill(p, k);
   }
 
+  const skillNames: Record<string, string> = {};
+  for (const [k, d] of Object.entries(skillRegistry)) skillNames[k] = d.name;
+  for (const [k, d] of Object.entries(mode.skills)) skillNames[k] = d.name;
   g.toAll('game.start', `모드 - ${mode.displayName}`, {
     mode: mode.id,
     roster: g.rosterInGame().map((c) => c.key),
     excluded: mode.characters.filter((c) => !g.charInGame(c.key)).map((c) => c.key),
+    // 클라이언트 알림 카드용 스킬 이름표 (키 → 표시 이름)
+    skillNames,
   });
   for (const p of state.players) {
     const def = g.charDef(p.character);

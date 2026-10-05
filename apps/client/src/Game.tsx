@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import type { ChatChannel, GameEvent, PlayerView, SkillView, SpectatorView } from '@gst/rules';
 import type { ClientAction, RoomDetail } from '@gst/protocol';
 import { net } from './net.js';
+import { Feed } from './Feed.js';
 import { gemIcon, portrait, skillIcon } from './icons.js';
 import { fxFor, type Fx } from './fx.js';
 
@@ -64,6 +65,7 @@ export function SpectatorScreen({ view, events, room }: { view: SpectatorView; e
       </header>
       <div className="layout spectate">
         <section className="center">
+          <div className="center-chat">
           <section className="log card">
             <div className="tabs">
               <span className="muted small" style={{ padding: '4px 6px' }}>전체 로그 (비공개 이벤트는 받는 사람 표시)</span>
@@ -80,6 +82,8 @@ export function SpectatorScreen({ view, events, room }: { view: SpectatorView; e
               ))}
             </div>
           </section>
+          </div>
+          <Feed view={view} events={events} />
         </section>
         <main>
           <section className="players" style={{ gridTemplateColumns: `repeat(${Math.ceil(view.players.length / 2)}, minmax(0, 1fr))` }}>
@@ -268,8 +272,11 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
         </aside>
 
         <section className="center">
-          <Log events={events} myId={myId} />
-          <Chat view={view} target={target} />
+          <div className="center-chat">
+            <Log events={events} myId={myId} />
+            <Chat view={view} target={target} />
+          </div>
+          <Feed view={view} events={events} />
         </section>
 
         <main>
