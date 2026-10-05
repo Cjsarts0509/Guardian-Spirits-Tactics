@@ -27,13 +27,18 @@ GitHub main 에 push ──▶ Actions "Release" 가 서버+화면을 빌드해�
 
 서버 자체 방화벽(iptables/ufw)은 2단계 설치 스크립트가 자동으로 연다. 오라클 클라우드 쪽 방화벽은 콘솔에서 직접 열어야 한다.
 
-1. 오라클 클라우드 콘솔 → **Compute → Instances** → 해당 서버
-2. **Primary VNIC** 의 **Subnet** 링크 → **Security Lists** (또는 Security 탭) → 쓰고 있는 목록 (보통 Default Security List)
-3. **Add Ingress Rules**
+인스턴스 화면의 **Security 탭이 아니다** (그건 Shielded instance 설정). 서브넷의 보안 목록으로 들어가야 한다.
+
+1. 오라클 클라우드 콘솔 → **Compute → Instances** → 해당 서버 → **Networking** 탭
+2. **Primary VNIC** 영역의 **Subnet** 이름(파란 링크)을 누른다
+3. 서브넷 화면에서 **Security** 탭 → **Security lists** 의 목록 (보통 `Default Security List for ...`) 을 누른다
+4. **Security rules** 탭 → **Add Ingress Rules**
    - Source CIDR: `0.0.0.0/0`
    - IP Protocol: `TCP`
    - Destination Port Range: `8787`
-4. 저장
+5. **Add Ingress Rules** 로 저장
+
+다른 길: 왼쪽 메뉴 **Networking → Virtual cloud networks** → 서버가 쓰는 VCN → **Security** 탭 → 같은 보안 목록.
 
 인스턴스에 **Network Security Group** 을 붙여 쓰고 있다면 같은 규칙을 그 NSG 에 넣는다.
 
