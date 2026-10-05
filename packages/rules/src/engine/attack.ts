@@ -7,7 +7,8 @@ export type AttackKind = 'normal' | 'advanced' | 'supreme' | 'chain';
 
 /** 살해 시 공격자 마나 보너스 패시브 (적을 죽였을 때만, DECISIONS A9) */
 const ON_KILL_MANA: Record<string, number> = {
-  essence_absorb: 50, // 카스파 정기 흡수 S003
+  essence_absorb: 50, // 카스파 정기 흡수 S003 (내전)
+  essence_drain: 50, // 카스파 정기 흡수 S003 (황야)
   kilder_vampiric: 50, // 킬데르 뱀파이어릭 S004 (태초)
 };
 /** 명중(목숨 감소 포함) 시 마나 보너스 (적 대상만, DECISIONS A9b) */

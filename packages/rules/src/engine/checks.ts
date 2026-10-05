@@ -65,6 +65,7 @@ export function resolveEnemyCheck(c: SkillCtx): void {
   const { g, actor } = c;
   const target = c.target as PlayerState;
   announceInspect(g, target);
+  if (g.mode.beforeEnemyCheck?.(g, actor, target, c.skill.key)) return;
 
   const trueName = target.published === target.character;
   if (trueName && target.side !== actor.side && !hidden(g, target.character)) {

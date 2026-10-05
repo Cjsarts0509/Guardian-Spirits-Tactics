@@ -46,21 +46,37 @@ const GUARDS: Record<string, Record<CharKey, CharKey>> = {
   civil_war: { kai: 'arin', dantes: 'kelhu' },
   lidellut: { kai: 'arin' },
 };
-/** 대상이 특정 캐릭터일 때만 의미 있는 1회성 스킬. friendly: 아군에게 거는 것(공표 이름을 믿고 시도) */
-const NEEDS: Record<string, { want: CharKey; friendly: boolean }> = {
-  dantes_command: { want: 'kai', friendly: false },
-  dantes_successor: { want: 'mertz', friendly: true },
-  valiant_charge: { want: 'kelhu', friendly: false },
-  advice: { want: 'kelhu', friendly: true },
-  eoril_trial: { want: 'rael', friendly: true },
-  rael_eoril_test: { want: 'eoril', friendly: true },
-  kumarin_commander_guard: { want: 'rael', friendly: true },
-  consume_master_guard: { want: 'eltas', friendly: true },
-  sasint_training: { want: 'consume', friendly: true },
-  drakan_enchant_muscle: { want: 'consume', friendly: true },
-  hermilly_libido_protection: { want: 'consume', friendly: true },
-  eoril_phoenix_flame: { want: 'consume', friendly: false },
-  kumarin_binding: { want: 'consume', friendly: false },
+/** 대상이 특정 캐릭터일 때만 의미 있는 조건부 스킬. friendly: 아군에게 거는 것(공표 이름을 믿고 시도). knownOnly: 확실히 알 때만 (실패 손해가 큰 것) */
+interface Need {
+  want: CharKey[];
+  friendly: boolean;
+  knownOnly?: boolean;
+}
+const need = (want: CharKey | CharKey[], friendly: boolean, knownOnly = false): Need => ({ want: Array.isArray(want) ? want : [want], friendly, knownOnly });
+const NEEDS_COMMON: Record<string, Need> = {
+  dantes_command: need('kai', false),
+  dantes_successor: need('mertz', true),
+  advice: need('kelhu', true),
+  eoril_trial: need('rael', true),
+  rael_eoril_test: need('eoril', true),
+  kumarin_commander_guard: need('rael', true),
+  consume_master_guard: need('eltas', true),
+  sasint_training: need('consume', true),
+  drakan_enchant_muscle: need('consume', true),
+  hermilly_libido_protection: need('consume', true),
+  eoril_phoenix_flame: need('consume', false),
+  kumarin_binding: need('consume', false),
+};
+/** 같은 스킬 키가 모드마다 다른 대상을 원하는 경우 (내전 용맹한 돌진 → 켈후, 황야 → 카미카제) */
+const NEEDS_MODE: Record<string, Record<string, Need>> = {
+  civil_war: { valiant_charge: need('kelhu', false) },
+  lidellut: {
+    valiant_charge: need('kamikaze', false),
+    great_will: need('kai', false, true), // 실패하면 샤이닝 정체 공개 + 패배 조건 추가
+    heresy_judgment: need(['kaspa', 'freia'], false),
+    join: need('yui', true),
+    order_founding: need('supra', true),
+  },
 };
 /** 정체 확인용 탐색 스킬: 대상이 이 캐릭터인지 알아낸다 (반복 사용 가능) */
 const PROBES: Record<string, CharKey> = {
@@ -72,16 +88,25 @@ const PROBES: Record<string, CharKey> = {
   kumarin_union: 'tachin',
   consume_slave_instinct: 'eltas',
   kilder_casanova: 'eoril',
+  loyal_servant: 'kai',
+  kinship_shining: 'chizuko',
+  kinship_chizuko: 'shining',
+  commander_search: 'shining',
+  charge_sense: 'kamikaze',
 };
+/** 이 이름을 공표한 대상에게는 쓸 수 없는 탐색 (황야 돌격 감각) */
+const PROBE_EXCLUDES_PUBLISHED: Record<string, CharKey[]> = { charge_sense: ['tuma', 'kamikaze'] };
+/** 천사의 세례 대상 (기사) */
+const KNIGHTS: CharKey[] = ['yui', 'loneris', 'supra'];
 const ATTACKS = ['supreme_attack', 'advanced_attack', 'attack', 'soen_chain_murder'] as const;
 /** 정체·목숨·보디가드 무시 살해 */
-const EXECUTES = ['soul_reaver', 'rael_master_power', 'kilder_master_power', 'consume_slaughter'] as const;
+const EXECUTES = ['soul_reaver', 'rael_master_power', 'kilder_master_power', 'consume_slaughter', 'mass_teleport', 'greater_mass_teleport'] as const;
 /** 이름 없이 때리는 공격 (목숨 1 감소) */
 const STRIKES = ['kane_wolfs_slash'] as const;
-const DISRUPT = ['shadow_jail', 'nightmare', 'confusion', 'burning_magic', 'eoril_flame_shackle', 'drakan_black_spell'] as const;
-const INFO = ['warrior_scent', 'oracle', 'shadow_eye', 'curse', 'hermilly_seeing_libido'] as const;
+const DISRUPT = ['shadow_jail', 'nightmare', 'confusion', 'burning_magic', 'eoril_flame_shackle', 'drakan_black_spell', 'distortion'] as const;
+const INFO = ['warrior_scent', 'oracle', 'shadow_eye', 'curse', 'hermilly_seeing_libido', 'battle_sense'] as const;
 /** 아군(같은 편 이름 공표자)에게 거는 지원 */
-const SUPPORT = ['sasint_support', 'nukelius_chakra_magic', 'rune_protection', 'soul_recovery'] as const;
+const SUPPORT = ['sasint_support', 'nukelius_chakra_magic', 'rune_protection', 'soul_recovery', 'dawn_mist', 'diplomacy'] as const;
 /** 행동 불능인 아군을 풀어주는 해제 */
 const DISPEL = ['tachin_neutralize'] as const;
 const MIN = 60_000;
@@ -145,6 +170,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const sideOf = new Map(view.roster.map((r) => [r.key, r.side]));
   const isCommander = new Map(view.roster.map((r) => [r.key, r.commander]));
   const guards = GUARDS[view.mode] ?? {};
+  const needs: Record<string, Need> = { ...NEEDS_COMMON, ...(NEEDS_MODE[view.mode] ?? {}) };
+  const baptized = new Set<CharKey>();
+  for (const e of eventsFor(state, playerId)) if (e.kind === 'skill.angel_baptism' && typeof e.data?.character === 'string') baptized.add(e.data.character as CharKey);
   const deadChars = new Set(view.players.filter((p) => !p.alive && p.revealed).map((p) => p.revealed!));
   const alive = view.players.filter((p) => p.alive && p.id !== playerId && !p.statuses.some((s) => s.kind === 'invulnerable'));
   const usable = new Map(me.skills.filter((s) => !s.passive && s.blocked === null).map((s) => [s.key, s]));
@@ -169,9 +197,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   knownEnemies.sort((a, b) => Number(!!isCommander.get(known.get(b.id)!)) - Number(!!isCommander.get(known.get(a.id)!)));
   for (const p of knownEnemies) {
     const c = known.get(p.id)!;
-    for (const [k, need] of Object.entries(NEEDS)) {
+    for (const [k, need] of Object.entries(needs)) {
       const s = usable.get(k);
-      if (s && !need.friendly && c === need.want) return act(s, p.id);
+      if (s && !need.friendly && need.want.includes(c)) return act(s, p.id);
     }
     for (const k of EXECUTES) {
       const s = usable.get(k);
@@ -194,18 +222,38 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     if (t) return act(backstab, t.id);
   }
   // 아군에게 거는 조건부 스킬: 정체를 알거나, 그 이름을 공표한 사람이 있으면 (적 이름을 공표한 사람은 제외)
-  for (const [k, need] of Object.entries(NEEDS)) {
+  for (const [k, need] of Object.entries(needs)) {
     const s = usable.get(k);
     if (!s || !need.friendly) continue;
-    const t = alive.find((p) => known.get(p.id) === need.want) ?? (elapsed > 2 * MIN ? alive.find((p) => !known.has(p.id) && p.published === need.want && (candidates.get(p.id) ?? []).includes(need.want)) : undefined);
+    const t =
+      alive.find((p) => need.want.includes(known.get(p.id)!)) ??
+      (elapsed > 2 * MIN && !need.knownOnly ? alive.find((p) => !known.has(p.id) && p.published !== null && need.want.includes(p.published) && (candidates.get(p.id) ?? []).includes(p.published)) : undefined);
     if (t) return act(s, t.id);
+  }
+  // 천사의 세례: 정체를 아는 아군 기사(아직 세례 전)에게. 틀리면 영구 소멸이라 아는 경우만
+  const baptism = usable.get('angel_baptism');
+  if (baptism) {
+    const t = alive.find((p) => {
+      const c = known.get(p.id);
+      return c !== undefined && KNIGHTS.includes(c) && !baptized.has(c);
+    });
+    if (t) return act(baptism, t.id, known.get(t.id)!);
+  }
+  // 기사도: 내가 진명을 공표했거나 대상이 기사 이름을 공표했을 때, 아군 기사(확실하거나 기사 이름 공표자)에게
+  const chivalry = usable.get('chivalry');
+  if (chivalry && nextRandom(mem) < 0.5) {
+    const knightClaim = (p: { published: CharKey | null }) => p.published !== null && KNIGHTS.includes(p.published);
+    const t =
+      alive.find((p) => KNIGHTS.includes(known.get(p.id)!) && (me.trueName || knightClaim(p))) ??
+      alive.find((p) => !known.has(p.id) && knightClaim(p) && (candidates.get(p.id) ?? []).includes(p.published!));
+    if (t) return act(chivalry, t.id);
   }
   // 적에게 거는 조건부 1회 스킬: 시간이 지났고 그 이름을 공표한 사람이 있으면 시도
   if (elapsed > 8 * MIN) {
-    for (const [k, need] of Object.entries(NEEDS)) {
+    for (const [k, need] of Object.entries(needs)) {
       const s = usable.get(k);
-      if (!s || need.friendly) continue;
-      const t = alive.find((p) => !known.has(p.id) && p.published === need.want && (candidates.get(p.id) ?? []).includes(need.want));
+      if (!s || need.friendly || need.knownOnly) continue;
+      const t = alive.find((p) => !known.has(p.id) && p.published !== null && need.want.includes(p.published) && (candidates.get(p.id) ?? []).includes(p.published));
       if (t && nextRandom(mem) < 0.3) return act(s, t.id);
     }
   }
@@ -214,6 +262,11 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   if (mastery && elapsed > 3 * MIN) return act(mastery);
   const evo = usable.get('consume_final_evolution');
   if (evo && ['consume_resistance', 'consume_iron_skin', 'advanced_attack'].every((k) => me.skills.some((x) => x.key === k))) return act(evo);
+  // 황야: 고대의 주술(조각 보유 시 blocked 가 아님)·종교 동맹(진명 공표 시)
+  for (const k of ['ancient_sorcery', 'religious_alliance'] as const) {
+    const s = usable.get(k);
+    if (s) return act(s);
+  }
   // 이름만 고르는 정보 스킬 (리더쉽): 모르는 아군 이름 하나
   for (const s of usable.values()) {
     if (s.target !== 'none' || !s.nameOptions || s.key === 'publish') continue;
@@ -275,7 +328,8 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     for (const [k, want] of Object.entries(PROBES)) {
       const s = usable.get(k);
       if (!s) continue;
-      const pool = unknown.filter((p) => candidates.get(p.id)?.includes(want));
+      const ex = PROBE_EXCLUDES_PUBLISHED[k];
+      const pool = unknown.filter((p) => candidates.get(p.id)?.includes(want) && !(ex && p.published !== null && ex.includes(p.published)));
       const t = pool.find((p) => p.published === want) ?? pick(pool);
       if (t) return act(s, t.id);
     }

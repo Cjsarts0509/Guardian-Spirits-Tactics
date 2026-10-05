@@ -78,7 +78,8 @@ function checkMode(modeId: string, specFile: string, sideIds: string[]) {
     it('고유 스킬의 코드·마나·쿨·횟수', () => {
       for (const [key, s] of Object.entries(specSkills)) {
         const d = def(key);
-        expect(d.code, key).toBe(s.abilityCode);
+        // 'A02Y|A02Z' 처럼 캐릭터별 코드가 갈리는 스킬은 skillCodes 로 덮어쓴다
+        expect(String(s.abilityCode).split('|'), key).toContain(d.code);
         if (s.manaCost === null || s.manaCost === undefined) {
           expect(!!d.passive, `${key} passive`).toBe(true);
           continue;
@@ -116,3 +117,4 @@ function checkMode(modeId: string, specFile: string, sideIds: string[]) {
 }
 
 checkMode('primordial', 'primordial.json', ['earth', 'darkness']);
+checkMode('lidellut', 'lidellut.json', ['darkness', 'guardian']);

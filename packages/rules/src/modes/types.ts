@@ -95,4 +95,6 @@ export interface ModeDef {
   onAttackKill?(g: Game, attacker: PlayerState, target: PlayerState): void;
   /** 모드 고유 예약 작업 (g.schedule(at, 'mode', payload)) */
   onTask?(g: Game, payload: Record<string, unknown>): void;
+  /** 적군 확인류가 실행되기 전 가로채기 (황야 미명의 안개). true 면 확인이 무산된 것 */
+  beforeEnemyCheck?(g: Game, actor: PlayerState, target: PlayerState, skill: SkillKey): boolean;
 }
