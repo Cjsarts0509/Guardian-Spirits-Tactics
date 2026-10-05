@@ -7,7 +7,7 @@ const MODES: { id: ModeId; name: string; ready: boolean }[] = [
   { id: 'civil_war', name: '왕자들의 내전', ready: true },
   { id: 'primordial', name: '태초의 전쟁', ready: true },
   { id: 'lidellut', name: '리델루트 황야', ready: true },
-  { id: 'troll', name: '트롤 부족의 반란', ready: false },
+  { id: 'troll', name: '트롤 부족의 반란', ready: true },
 ];
 
 export function Lobby({ rooms }: { rooms: RoomSummary[] }) {

@@ -1,6 +1,6 @@
 import { josa } from '../text.js';
 import type { SkillCtx } from '../modes/types.js';
-import type { PlayerState } from '../types.js';
+import type { CharKey, PlayerState } from '../types.js';
 import type { Game } from './game.js';
 
 export type AttackKind = 'normal' | 'advanced' | 'supreme' | 'chain';
@@ -27,13 +27,13 @@ function heroName(g: Game, p: PlayerState): string {
 export function resolveAttack(c: SkillCtx, kind: AttackKind): void {
   const { g, actor } = c;
   const target = c.target as PlayerState;
-  const name = c.name as string;
+  const name = c.name as CharKey;
 
   const correct = target.character === name;
   if (!correct) {
-    failAttack(g, actor, target, kind, 'wrong');
+    failAttack(g, actor, target, kind, 'wrong', name);
   } else if (g.mode.isAbsolutelyGuarded(g, target)) {
-    failAttack(g, actor, target, kind, 'bodyguard');
+    failAttack(g, actor, target, kind, 'bodyguard', name);
   } else {
     // 횟수제 보디가드 (태초): 막히면 공격자 페널티도 목숨 감소도 없다
     const guarded = g.mode.chargedGuard?.(g, actor, target) ?? null;
@@ -95,6 +95,7 @@ function failAttack(
   target: PlayerState,
   kind: AttackKind,
   reason: 'wrong' | 'bodyguard',
+  name: CharKey,
 ): void {
   const a = heroName(g, actor);
 
@@ -107,6 +108,14 @@ function failAttack(
   g.toPlayer(target, 'attack.fail.target', `${josa(a, '이/가')} 당신을 공격하였으나 실패하였습니다.`, {
     attacker: actor.character,
   });
+  // 공격자는 자기가 고른 이름이 틀렸다는 것을 안다 (보디가드에 막힌 경우는 구별할 수 없으므로 같은 문구, 추론 정보 없음)
+  g.toPlayer(
+    actor,
+    'attack.fail.self',
+    `-비공개: ${josa(g.label(target), '은/는')} ${josa(g.charName(name), '이/가')} 아니거나, 보디가드가 지키고 있습니다.`,
+    { target: target.id, name },
+    reason === 'wrong' ? [{ player: target.id, character: null, not: name }] : undefined,
+  );
 
   const soulRecovery = Number(actor.flags.soulRecoveryUntil ?? 0) > g.now;
   if (soulRecovery) {

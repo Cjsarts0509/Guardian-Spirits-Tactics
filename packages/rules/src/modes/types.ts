@@ -29,7 +29,7 @@ export interface SkillDef {
   description: string;
   /** player+name 스킬의 이름 선택지 */
   nameOptions?(g: Game, actor: PlayerState): CharKey[];
-  /** 공통 검증(생존·행동불능·쿨·마나·대상) 이후 스킬 고유 사전 조건. 문자열을 돌려주면 비용 없이 거절 */
+  /** 공통 검증(생존·행동불능·쿨·마나·대상) 이후 스킬 고유 사전 조건. 문자열을 돌려주면 비용 없이 거절. 뷰의 blocked 계산 때는 target=null 로도 불리므로 대상 조건은 null 이면 통과시킬 것 */
   precheck?(c: SkillCtx): string | null;
   /** 효과 처리. 비용은 이미 지불됨 */
   resolve?(c: SkillCtx): void;
@@ -89,6 +89,8 @@ export interface ModeDef {
   isAbsolutelyGuarded(g: Game, target: PlayerState): boolean;
   /** 승리 판정. 종료 시 g.endGame 호출 */
   checkVictory(g: Game): void;
+  /** 게임 시작 직후 (역할 안내 뒤). 시작 동맹 등 */
+  onStart?(g: Game): void;
   /** 정답 공격을 횟수제로 막는 보디가드 (태초 2회 방어 등). 막았으면 메시지를 돌려준다 (이미 공지했으면 '') */
   chargedGuard?(g: Game, attacker: PlayerState, target: PlayerState): string | null;
   /** 이름 공격으로 살해가 확정됐을 때 (살해 처리 직전) */

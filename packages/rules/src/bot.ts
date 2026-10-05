@@ -42,9 +42,10 @@ export function randomBotAction(state: GameState, playerId: PlayerId, rng: { rng
 // ── 똑똑한 봇 ───────────────────────────────────────────────────────────
 
 /** 보디가드가 살아 있으면 공격이 무조건 실패하는 관계 (모드 규칙, 공개 정보). 태초의 횟수제 보디가드는 공격자 손해가 없어 제외 */
-const GUARDS: Record<string, Record<CharKey, CharKey>> = {
-  civil_war: { kai: 'arin', dantes: 'kelhu' },
-  lidellut: { kai: 'arin' },
+const GUARDS: Record<string, Record<CharKey, CharKey[]>> = {
+  civil_war: { kai: ['arin'], dantes: ['kelhu'] },
+  lidellut: { kai: ['arin'] },
+  troll: { chis: ['satoshi', 'zwinra'] }, // 한 명이라도 살아 있으면 보호 (G1)
 };
 /** 대상이 특정 캐릭터일 때만 의미 있는 조건부 스킬. friendly: 아군에게 거는 것(공표 이름을 믿고 시도). knownOnly: 확실히 알 때만 (실패 손해가 큰 것) */
 interface Need {
@@ -77,6 +78,14 @@ const NEEDS_MODE: Record<string, Record<string, Need>> = {
     join: need('yui', true),
     order_founding: need('supra', true),
   },
+  troll: {
+    holy_binding: need('deka', false),
+    purify_hex: need('kanulla', false),
+    brothers: need(['satoshi', 'zwinra'], true),
+    chief_protection: need('chis', true, true),
+    wild_essence: need(['uldian', 'ulpian'], true),
+    wild_blessing: need(['uldian', 'ulpian'], true),
+  },
 };
 /** 정체 확인용 탐색 스킬: 대상이 이 캐릭터인지 알아낸다 (반복 사용 가능) */
 const PROBES: Record<string, CharKey> = {
@@ -93,20 +102,32 @@ const PROBES: Record<string, CharKey> = {
   kinship_chizuko: 'shining',
   commander_search: 'shining',
   charge_sense: 'kamikaze',
+  neviathan_avatar: 'kanulla',
 };
 /** 이 이름을 공표한 대상에게는 쓸 수 없는 탐색 (황야 돌격 감각) */
 const PROBE_EXCLUDES_PUBLISHED: Record<string, CharKey[]> = { charge_sense: ['tuma', 'kamikaze'] };
 /** 천사의 세례 대상 (기사) */
 const KNIGHTS: CharKey[] = ['yui', 'loneris', 'supra'];
+/** 죽으면 자기 진영이 패배 조건에 가까워지는 캐릭터: 추측 공격을 더 조심한다 */
+const PRECIOUS: Record<string, CharKey[]> = {
+  troll: ['satoshi', 'zwinra', 'uldian'],
+  lidellut: ['yui', 'loneris', 'supra'],
+};
+/** 사냥꾼의 표식 이름 목록 (반란자) */
+const REBELS: CharKey[] = ['deka', 'neonis', 'kanulla', 'kazrow', 'seirow'];
 const ATTACKS = ['supreme_attack', 'advanced_attack', 'attack', 'soen_chain_murder'] as const;
 /** 정체·목숨·보디가드 무시 살해 */
 const EXECUTES = ['soul_reaver', 'rael_master_power', 'kilder_master_power', 'consume_slaughter', 'mass_teleport', 'greater_mass_teleport'] as const;
 /** 이름 없이 때리는 공격 (목숨 1 감소) */
 const STRIKES = ['kane_wolfs_slash'] as const;
-const DISRUPT = ['shadow_jail', 'nightmare', 'confusion', 'burning_magic', 'eoril_flame_shackle', 'drakan_black_spell', 'distortion'] as const;
-const INFO = ['warrior_scent', 'oracle', 'shadow_eye', 'curse', 'hermilly_seeing_libido', 'battle_sense'] as const;
+const DISRUPT = ['shadow_jail', 'nightmare', 'confusion', 'burning_magic', 'eoril_flame_shackle', 'drakan_black_spell', 'distortion', 'troll_venom'] as const;
+const INFO = ['warrior_scent', 'oracle', 'shadow_eye', 'curse', 'hermilly_seeing_libido', 'battle_sense', 'spirit_hex'] as const;
 /** 아군(같은 편 이름 공표자)에게 거는 지원 */
-const SUPPORT = ['sasint_support', 'nukelius_chakra_magic', 'rune_protection', 'soul_recovery', 'dawn_mist', 'diplomacy'] as const;
+const SUPPORT = ['sasint_support', 'nukelius_chakra_magic', 'rune_protection', 'soul_recovery', 'dawn_mist', 'diplomacy', 'support', 'chaos_hex'] as const;
+/** 자기도 죽는 즉사기 (무모한 돌진): 정체를 아는 적 지휘관에게만 */
+const SUICIDES = ['reckless_charge'] as const;
+/** 진명 공표 등 조건만 맞으면 바로 쓰는 자기 대상 스킬 */
+const SELF_SKILLS = ['ancient_sorcery', 'religious_alliance', 'ancient_hex_hachi', 'chief_search', 'wild_path', 'berserk_seirow'] as const;
 /** 행동 불능인 아군을 풀어주는 해제 */
 const DISPEL = ['tachin_neutralize'] as const;
 const MIN = 60_000;
@@ -172,13 +193,20 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const guards = GUARDS[view.mode] ?? {};
   const needs: Record<string, Need> = { ...NEEDS_COMMON, ...(NEEDS_MODE[view.mode] ?? {}) };
   const baptized = new Set<CharKey>();
-  for (const e of eventsFor(state, playerId)) if (e.kind === 'skill.angel_baptism' && typeof e.data?.character === 'string') baptized.add(e.data.character as CharKey);
+  let chiefProtected = false;
+  let madnessPurged = false;
+  for (const e of eventsFor(state, playerId)) {
+    if (e.kind === 'skill.angel_baptism' && typeof e.data?.character === 'string') baptized.add(e.data.character as CharKey);
+    if (e.kind === 'skill.chief_protection') chiefProtected = true;
+    if (e.kind === 'skill.holy_binding.purge') madnessPurged = true;
+    if (e.kind === 'skill.destroyer_guidance.madness') madnessPurged = false;
+  }
   const deadChars = new Set(view.players.filter((p) => !p.alive && p.revealed).map((p) => p.revealed!));
   const alive = view.players.filter((p) => p.alive && p.id !== playerId && !p.statuses.some((s) => s.kind === 'invulnerable'));
   const usable = new Map(me.skills.filter((s) => !s.passive && s.blocked === null).map((s) => [s.key, s]));
   const pick = <T,>(xs: T[]): T | undefined => xs[randomInt(mem, xs.length)];
   const enemy = (c: CharKey) => sideOf.get(c) !== me.side;
-  const attackable = (c: CharKey) => enemy(c) && !(guards[c] && !deadChars.has(guards[c]!));
+  const attackable = (c: CharKey) => enemy(c) && !guards[c]?.some((gd) => !deadChars.has(gd));
   const act = (s: SkillView, target?: PlayerId, name?: CharKey): Action => {
     const a: Action = { type: 'skill', skill: s.key };
     if (target) a.target = target;
@@ -209,7 +237,19 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       const s = usable.get(k);
       if (s && (isCommander.get(c) || elapsed > 6 * MIN)) return act(s, p.id);
     }
+    for (const k of SUICIDES) {
+      const s = usable.get(k);
+      if (!s || !isCommander.get(c)) continue;
+      if (c === 'chis' && chiefProtected && !deadChars.has('satoshi')) continue; // 족장 보호에 막힌다
+      return act(s, p.id);
+    }
+    // 사냥꾼의 표식: 정체를 아는 반란자에게 (틀리면 하치가 드러나므로 아는 경우만)
+    const mark = usable.get('hunters_mark');
+    if (mark && REBELS.includes(c)) return act(mark, p.id, c);
     if (!attackable(c)) continue;
+    // 블러디 매드니스(데카)는 마나를 깎아야 뚫린다: 맹독을 먼저
+    const venom = usable.get('troll_venom');
+    if (venom && c === 'deka') return act(venom, p.id);
     for (const k of ATTACKS) {
       const s = usable.get(k);
       if (s && s.nameOptions?.includes(c)) return act(s, p.id, c);
@@ -230,6 +270,12 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       (elapsed > 2 * MIN && !need.knownOnly ? alive.find((p) => !known.has(p.id) && p.published !== null && need.want.includes(p.published) && (candidates.get(p.id) ?? []).includes(p.published)) : undefined);
     if (t) return act(s, t.id);
   }
+  // 파괴자의 인도: 데카의 블러디 매드니스가 정화된 뒤, 정체를 아는 데카에게 (카'눌라 희생)
+  const guidance = usable.get('destroyer_guidance');
+  if (guidance && madnessPurged) {
+    const t = alive.find((p) => known.get(p.id) === 'deka');
+    if (t) return act(guidance, t.id);
+  }
   // 천사의 세례: 정체를 아는 아군 기사(아직 세례 전)에게. 틀리면 영구 소멸이라 아는 경우만
   const baptism = usable.get('angel_baptism');
   if (baptism) {
@@ -248,13 +294,29 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       alive.find((p) => !known.has(p.id) && knightClaim(p) && (candidates.get(p.id) ?? []).includes(p.published!));
     if (t) return act(chivalry, t.id);
   }
-  // 적에게 거는 조건부 1회 스킬: 시간이 지났고 그 이름을 공표한 사람이 있으면 시도
+  // 적에게 거는 조건부 1회 스킬: 시간이 지났고 그 이름을 공표한 사람이 있거나, 후보가 2명 이하로 좁혀졌으면 시도
   if (elapsed > 8 * MIN) {
     for (const [k, need] of Object.entries(needs)) {
       const s = usable.get(k);
       if (!s || need.friendly || need.knownOnly) continue;
-      const t = alive.find((p) => !known.has(p.id) && p.published !== null && need.want.includes(p.published) && (candidates.get(p.id) ?? []).includes(p.published));
+      const t =
+        alive.find((p) => !known.has(p.id) && p.published !== null && need.want.includes(p.published) && (candidates.get(p.id) ?? []).includes(p.published)) ??
+        (elapsed > 12 * MIN
+          ? alive.find((p) => {
+              const c = candidates.get(p.id) ?? [];
+              return !known.has(p.id) && c.length <= 2 && c.some((x) => need.want.includes(x));
+            })
+          : undefined);
       if (t && nextRandom(mem) < 0.3) return act(s, t.id);
+    }
+    // 사냥꾼의 표식 추측: 후보가 반란자 2명 이하로 좁혀진 사람
+    const mark = usable.get('hunters_mark');
+    if (mark && elapsed > 12 * MIN && nextRandom(mem) < 0.3) {
+      const t = alive.find((p) => {
+        const c = candidates.get(p.id) ?? [];
+        return !known.has(p.id) && c.length > 0 && c.length <= 2 && c.every((x) => REBELS.includes(x));
+      });
+      if (t) return act(mark, t.id, pick(candidates.get(t.id)!)!);
     }
   }
   // 자기 자신에게 쓰는 성장 스킬
@@ -262,11 +324,14 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   if (mastery && elapsed > 3 * MIN) return act(mastery);
   const evo = usable.get('consume_final_evolution');
   if (evo && ['consume_resistance', 'consume_iron_skin', 'advanced_attack'].every((k) => me.skills.some((x) => x.key === k))) return act(evo);
-  // 황야: 고대의 주술(조각 보유 시 blocked 가 아님)·종교 동맹(진명 공표 시)
-  for (const k of ['ancient_sorcery', 'religious_alliance'] as const) {
+  // 조건만 맞으면 바로 쓰는 자기 대상 스킬 (조건 미달이면 blocked 라 usable 에 없다)
+  for (const k of SELF_SKILLS) {
     const s = usable.get(k);
     if (s) return act(s);
   }
+  // 카즈로우 광폭화: 쿨다운 중인 스킬이 있을 때
+  const berserk = usable.get('berserk_kazrow');
+  if (berserk && elapsed > 5 * MIN && me.skills.some((x) => x.cooldownRemainingMs > 0)) return act(berserk);
   // 이름만 고르는 정보 스킬 (리더쉽): 모르는 아군 이름 하나
   for (const s of usable.values()) {
     if (s.target !== 'none' || !s.nameOptions || s.key === 'publish') continue;
@@ -333,7 +398,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       const t = pool.find((p) => p.published === want) ?? pick(pool);
       if (t) return act(s, t.id);
     }
-    for (const k of ['advanced_scan', 'scan', 'ally_scan', 'enemy_scan'] as const) {
+    for (const k of ['advanced_scan', 'scan', 'ally_scan', 'enemy_scan', 'troll_scan', 'troll_ally_scan', 'troll_enemy_scan'] as const) {
       const s = usable.get(k);
       if (!s?.nameOptions) continue;
       const t = pick(unknown);
@@ -389,10 +454,12 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       const name = t.p.published && t.c.includes(t.p.published) ? t.p.published : pick(t.c)!;
       const supreme = usable.get('supreme_attack');
       if (supreme?.nameOptions?.includes(name)) return act(supreme, t.p.id, name);
+      // 자기 진영의 패배 조건에 들어가는 캐릭터(트롤 사토시·즈윈라·울디안, 황야 기사단)는 후보가 좁을 때만 건다
+      const careful = (PRECIOUS[view.mode] ?? []).includes(me.character);
       const adv = usable.get('advanced_attack');
-      if (adv && adv.nameOptions?.includes(name) && (adv.level === 1 || t.all.length <= 2)) return act(adv, t.p.id, name);
+      if (adv && adv.nameOptions?.includes(name) && ((adv.level === 1 && !careful) || t.all.length <= 2)) return act(adv, t.p.id, name);
       const atk = usable.get('attack');
-      if (atk && atk.nameOptions?.includes(name) && (t.all.length <= 2 || elapsed > 20 * MIN)) return act(atk, t.p.id, name);
+      if (atk && atk.nameOptions?.includes(name) && (t.all.length <= 2 || (elapsed > 20 * MIN && !careful))) return act(atk, t.p.id, name);
     }
   }
   // 8) 즉사기: 오래 끌리면 적 지휘관일 가능성이 가장 높은 사람에게

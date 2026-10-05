@@ -104,6 +104,7 @@ export function createGame(opts: CreateGameOptions): CreateResult {
       { player: p.id, character: p.character },
     ]);
   }
+  mode.onStart?.(g);
   g.toAll('game.begin', '그러면, 게임을 시작합니다.');
 
   state.nextTurnAt = state.now + state.turnMs;

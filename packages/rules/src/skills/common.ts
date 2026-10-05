@@ -61,7 +61,7 @@ export const commonSkills: Record<string, SkillDef> = {
     target: 'player',
     description:
       '대상에게 동맹을 선언한다(단방향). 나에게 동맹을 건 생존 플레이어 1명당 매 턴 마나 +10. 내가 동맹을 건 사람은 내 동맹 채팅을 본다.',
-    precheck: ({ g, actor, target }) => (g.isAllied(actor, target as PlayerState) ? '그 대상과는 이미 동맹을 맺고 있습니다.' : null),
+    precheck: ({ g, actor, target }) => (target && g.isAllied(actor, target) ? '그 대상과는 이미 동맹을 맺고 있습니다.' : null),
     resolve({ g, actor, target }) {
       const t = target as PlayerState;
       g.setAlly(actor, t, true);
@@ -83,7 +83,7 @@ export const commonSkills: Record<string, SkillDef> = {
     uses: null,
     target: 'player',
     description: '내가 건 동맹을 해제한다.',
-    precheck: ({ g, actor, target }) => (g.isAllied(actor, target as PlayerState) ? null : '그 대상과는 동맹 관계가 아닙니다.'),
+    precheck: ({ g, actor, target }) => (!target || g.isAllied(actor, target) ? null : '그 대상과는 동맹 관계가 아닙니다.'),
     resolve({ g, actor, target }) {
       const t = target as PlayerState;
       g.setAlly(actor, t, false);

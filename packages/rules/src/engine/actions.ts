@@ -68,8 +68,8 @@ export function skillBlocker(g: Game, actor: PlayerState, key: SkillKey): string
   if (g.isIncapacitated(actor)) return '행동 불능 상태입니다.';
   const cost = def.manaFor ? def.manaFor(actor) : def.mana;
   if (actor.mana < cost) return `마나가 부족합니다. (${cost} 필요)`;
-  // 대상이 없는 스킬의 사전 조건(진명 공표 등)은 미리 보여준다
-  if (def.target === 'none' && def.precheck) {
+  // 시전자 쪽 사전 조건(진명 공표·조각 보유 등)은 미리 보여준다. 대상이 필요한 조건은 target=null 이면 통과시켜야 한다
+  if (def.precheck) {
     const pre = def.precheck({ g, actor, target: null, name: null, skill: def });
     if (pre) return pre;
   }

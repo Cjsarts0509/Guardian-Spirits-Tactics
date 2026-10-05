@@ -221,7 +221,7 @@ const skills: Record<string, SkillDef> = {
   backstab: {
     key: 'backstab', name: '백스탭', code: 'A00M', hotkey: 'Z', mana: 10, cooldown: 1, uses: null, target: 'player',
     description: '대상이 소엔에게 동맹을 걸어 둔 상태면 진영과 관계없이 살해한다(목숨·보디가드 무시). 성공하면 연쇄살인을 얻는다.',
-    precheck: ({ g, actor, target }) => (target && g.isAllied(target, actor) ? null : '이 사람은 당신에게 동맹설정을 하지 않았습니다.'),
+    precheck: ({ g, actor, target }) => (!target || g.isAllied(target, actor) ? null : '이 사람은 당신에게 동맹설정을 하지 않았습니다.'),
     resolve(c) {
       const { g, actor } = c;
       const tg = t(c);

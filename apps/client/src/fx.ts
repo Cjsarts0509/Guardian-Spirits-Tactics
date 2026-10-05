@@ -113,6 +113,14 @@ export function fxFor(e: GameEvent, ctx: FxContext): Fx[] {
     case 'game.end':
       return [{ id: id(), type: 'banner', text: e.text, color: 'gold' }];
     default:
+      // 모드 고유 스킬: 대상 플레이어가 공개된 이벤트면 그 카드에 표시 (살해·실패는 색으로 구분)
+      if (e.kind.startsWith('skill.') && target) {
+        const kill = /살해|사망|정화합니다/.test(e.text);
+        const fail = /실패|아닙니다/.test(e.text);
+        const skill = e.kind.split('.')[1] ?? '';
+        const from = mine(skill, target) ? ctx.myId : null;
+        return [{ id: id(), type: 'fly', from, to: target, icon: skillIcon(skill), color: kill ? 'red' : fail ? 'grey' : 'teal', label: kill ? '처형' : undefined }];
+      }
       return [];
   }
 }

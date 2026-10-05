@@ -23,6 +23,7 @@ export interface Table {
 
 export const PRIMORDIAL_ORDER: CharKey[] = ['rael', 'kane', 'eoril', 'nukelius', 'tachin', 'kumarin', 'eltas', 'sasint', 'kilder', 'drakan', 'hermilly', 'consume'];
 export const LIDELLUT_ORDER: CharKey[] = ['kai', 'arin', 'kaspa', 'freia', 'tuma', 'sepi', 'shining', 'chizuko', 'yui', 'loneris', 'supra', 'kamikaze'];
+export const TROLL_ORDER: CharKey[] = ['chis', 'satoshi', 'zwinra', 'hachi', 'tokra', 'uldian', 'ulpian', 'deka', 'neonis', 'kanulla', 'kazrow', 'seirow'];
 
 /** 캐릭터를 플레이어 id 로 고정 배정한 내전 테이블. chars 를 생략하면 12인 전원 */
 export function civilTable(chars: CharKey[] = CIVIL_ORDER, seed = 1): Table {

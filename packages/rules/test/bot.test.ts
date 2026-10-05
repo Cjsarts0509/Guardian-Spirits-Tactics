@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest';
 import { advance, applyAction, botKnowledge, createGame, eventsFor, smartBotAction, viewFor } from '../src/index.js';
 
-const MODES = ['civil_war', 'primordial', 'lidellut'] as const;
+const MODES = ['civil_war', 'primordial', 'lidellut', 'troll'] as const;
 function play(seed: number, n: number, mode: (typeof MODES)[number] = 'civil_war') {
   const players = Array.from({ length: n }, (_, k) => ({ id: `p${k + 1}`, nickname: `봇${k + 1}` }));
   const { state } = createGame({ mode, players, seed, now: 0 });
@@ -24,11 +24,11 @@ function play(seed: number, n: number, mode: (typeof MODES)[number] = 'civil_war
 }
 
 describe('똑똑한 봇', () => {
-  it('60판 모두 60분 안에 끝나고, 거절되는 행동이 거의 없다', () => {
+  it('80판 모두 60분 안에 끝나고, 거절되는 행동이 거의 없다', () => {
     let rejected = 0;
     let actions = 0;
     const minutes: number[] = [];
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 80; i++) {
       const r = play(500 + i, 8 + (i % 5), MODES[Math.floor(i / 20)]!);
       expect(r.state.phase, `seed ${500 + i}`).toBe('ended');
       rejected += r.rejected;
@@ -40,8 +40,8 @@ describe('똑똑한 봇', () => {
   });
 
   it('처음 4분 동안은 공격 실패(자살)가 없다', () => {
-    for (let i = 0; i < 30; i++) {
-      const { state } = play(900 + i, 12, MODES[i % 3]!);
+    for (let i = 0; i < 40; i++) {
+      const { state } = play(900 + i, 12, MODES[i % 4]!);
       const early = state.log.filter((e) => e.at < 4 * 60000 && e.kind.startsWith('attack.fail'));
       expect(early, `seed ${900 + i}`).toHaveLength(0);
     }

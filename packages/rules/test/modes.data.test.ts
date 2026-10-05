@@ -9,6 +9,10 @@ const abilities: { code: string; manaCost: number | null; cooldown: number | nul
 const units: { id: string; name: string; title: string; abilities: string[] }[] = load('source/units.json');
 const ability = (code: string) => abilities.find((a) => a.code === code);
 
+/** 웹판에서 의도적으로 바꾼 수치 (DECISIONS A4: 하치 고대의 주술 쿨 150·반복) */
+const WEB_OVERRIDES: Record<string, { cooldown: number; uses: number | null }> = {
+  A03I: { cooldown: 150, uses: null },
+};
 /** 원본 오브젝트에 값이 없어 베이스 기본값으로 확정한 항목 (DECISIONS E) */
 const BASE_DEFAULTS: Record<string, { mana?: number; cooldown?: number }> = {
   A005: { cooldown: 10 },
@@ -69,7 +73,7 @@ function checkMode(modeId: string, specFile: string, sideIds: string[]) {
       }
     });
     it('인원별 마스크', () => {
-      const masks = spec.playerCountRules.slotMask ?? spec.playerCountRules.masks;
+      const masks = spec.playerCountRules.slotMask ?? spec.playerCountRules.masks ?? spec.playerCountRules.slotMaskByCount;
       for (const n of [8, 9, 10, 11, 12]) expect(mode.masks[n], `${n}명`).toBe(masks[String(n)]);
     });
   });
@@ -79,13 +83,17 @@ function checkMode(modeId: string, specFile: string, sideIds: string[]) {
       for (const [key, s] of Object.entries(specSkills)) {
         const d = def(key);
         // 'A02Y|A02Z' 처럼 캐릭터별 코드가 갈리는 스킬은 skillCodes 로 덮어쓴다
-        expect(String(s.abilityCode).split('|'), key).toContain(d.code);
+        expect(String(s.abilityCode).split(/[|/]/), key).toContain(d.code);
         if (s.manaCost === null || s.manaCost === undefined) {
           expect(!!d.passive, `${key} passive`).toBe(true);
           continue;
         }
         expect(d.mana, `${key} mana`).toBe(s.manaCost);
-        if (s.cooldown === 3600) {
+        const ov = WEB_OVERRIDES[d.code];
+        if (ov) {
+          expect(d.cooldown, `${key} cooldown(web)`).toBe(ov.cooldown);
+          expect(d.uses, `${key} uses(web)`).toBe(ov.uses);
+        } else if (s.cooldown === 3600) {
           expect(d.uses, `${key} uses`).toBe(1);
           expect(d.cooldown, `${key} cooldown`).toBe(0);
         } else {
@@ -106,7 +114,7 @@ function checkMode(modeId: string, specFile: string, sideIds: string[]) {
         const base = BASE_DEFAULTS[code] ?? {};
         const mana = a!.manaCost ?? base.mana;
         if (mana !== undefined) expect(d.mana, `${key} mana`).toBe(mana);
-        const cd = a!.cooldown ?? base.cooldown;
+        const cd = WEB_OVERRIDES[code]?.cooldown ?? a!.cooldown ?? base.cooldown;
         if (cd !== undefined) {
           if (cd === 3600) expect(d.uses, `${key} uses`).toBe(1);
           else expect(d.cooldown, `${key} cooldown`).toBe(cd);
@@ -118,3 +126,4 @@ function checkMode(modeId: string, specFile: string, sideIds: string[]) {
 
 checkMode('primordial', 'primordial.json', ['earth', 'darkness']);
 checkMode('lidellut', 'lidellut.json', ['darkness', 'guardian']);
+checkMode('troll', 'troll.json', ['ice', 'rebels']);
