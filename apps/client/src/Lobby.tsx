@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { RoomDetail, RoomSummary } from '@gst/protocol';
 import { net } from './net.js';
+import { SmallLogo } from './Logo.js';
 import type { ModeId } from '@gst/rules';
 
 const MODES: { id: ModeId; name: string; ready: boolean }[] = [
@@ -16,6 +17,12 @@ export function Lobby({ rooms }: { rooms: RoomSummary[] }) {
   const [mode, setMode] = useState<ModeId>('civil_war');
   return (
     <div className="lobby">
+      <div className="lobby-head">
+        <SmallLogo text="가디언 스피리츠 택틱스" />
+        <button className="ghost small" onClick={() => (net.disconnect(), location.reload())}>
+          나가기
+        </button>
+      </div>
       <section className="card">
         <h2>방 만들기</h2>
         <div className="row">

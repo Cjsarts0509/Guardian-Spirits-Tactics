@@ -2,6 +2,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { currentToken, loadConfig, savedSession, signIn, signOut, signUp, type AuthSession, type ClientConfig } from './auth.js';
 import { net, type NetStatus } from './net.js';
+import { BigLogo } from './Logo.js';
 
 const BASE = (import.meta.env.BASE_URL as string | undefined) ?? '/';
 type Tab = 'guest' | 'login' | 'signup';
@@ -88,8 +89,7 @@ export function MainScreen({ status, nick, setNick }: { status: NetStatus; nick:
       </div>
       <div className="main-panel">
         <div className="main-title">
-          <span className="main-kicker">GUARDIAN SPIRITS</span>
-          <h1>가디언 스피리츠 택틱스</h1>
+          <BigLogo />
           <p className="muted">정체를 숨기고, 추리하고, 처단하라 — 12인 심리전</p>
         </div>
 

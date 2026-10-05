@@ -3,6 +3,7 @@ import type { ChatChannel, GameEvent, PlayerView, SkillView, SpectatorView } fro
 import type { ClientAction, RoomDetail } from '@gst/protocol';
 import { net } from './net.js';
 import { Feed } from './Feed.js';
+import { SmallLogo } from './Logo.js';
 import { gemIcon, portrait, skillIcon } from './icons.js';
 import { FX_TTL, fxFor, type Fx } from './fx.js';
 
@@ -237,7 +238,8 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
   return (
     <div className="game">
       <header className="topbar">
-        <div>
+        <div className="topbar-left">
+          <SmallLogo />
           <b>{view.modeName}</b> <span className="muted">· {room.name}</span>
         </div>
         {view.phase === 'running' ? (

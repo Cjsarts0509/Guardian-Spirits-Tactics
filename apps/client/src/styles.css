@@ -47,8 +47,16 @@ input, select {
 .main-art img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
 .main-art-fade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,8,12,0) 60%, rgba(7,8,12,0.95) 100%), linear-gradient(0deg, rgba(7,8,12,0.9) 0%, rgba(7,8,12,0) 30%); pointer-events: none; }
 .main-panel { display: grid; align-content: center; gap: 18px; padding: 40px 36px; border-left: 1px solid #1b1e2b; }
-.main-kicker { letter-spacing: 0.35em; font-size: 11px; color: #c9a85c; }
-.main-title h1 { font-size: 30px; margin: 4px 0 6px; letter-spacing: -0.01em; }
+.biglogo { display: grid; justify-items: start; gap: 6px; }
+.biglogo-emblem { width: 96px; height: 96px; filter: drop-shadow(0 0 18px rgba(201, 168, 92, 0.35)); }
+.biglogo-wordmark { max-width: 100%; width: 360px; height: auto; }
+.biglogo-title { font-family: 'Noto Serif KR', 'Nanum Myeongjo', serif; font-weight: 900; font-size: 30px; margin: 2px 0 4px; letter-spacing: -0.01em; color: #efe6cf; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
+.biglogo-wordmark + .biglogo-title { font-size: 20px; font-weight: 700; color: #cfc6ae; }
+.smalllogo { display: inline-flex; align-items: center; gap: 8px; }
+.smalllogo .logo-emblem { width: 24px; height: 24px; }
+.topbar-left { display: flex; align-items: center; gap: 8px; }
+.lobby-head { display: flex; justify-content: space-between; align-items: center; padding: 0 4px; }
+.lobby-head b { font-family: 'Noto Serif KR', serif; font-size: 16px; }
 .main-form { display: grid; gap: 10px; }
 .main-form form { display: grid; gap: 8px; }
 .main-form input { padding: 10px 12px; font-size: 14px; }
