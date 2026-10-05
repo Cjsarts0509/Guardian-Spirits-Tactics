@@ -54,6 +54,7 @@ elif [[ ! -f "$GST_HOME/.env" ]]; then
 PORT=8787
 HOST=0.0.0.0
 STATIC_DIR=$GST_HOME/public
+RECORDS_DIR=$GST_HOME/records
 STRICT_ORIGIN=true
 ALLOW_GUESTS=true
 ALLOW_BOTS=true
@@ -65,6 +66,9 @@ ENV
   chmod 600 "$GST_HOME/.env"
   echo "[install] 기본 설정 생성: $GST_HOME/.env"
 fi
+# 판 기록 폴더 (서버 프로세스가 쓴다). 기존 .env 에 RECORDS_DIR 이 없으면 추가
+install -d -o gst -g gst -m 750 "$GST_HOME/records"
+grep -qE '^RECORDS_DIR=' "$GST_HOME/.env" || echo "RECORDS_DIR=$GST_HOME/records" >> "$GST_HOME/.env"
 install -o root -g root -m 644 "$SRC/gst-server.service" /etc/systemd/system/gst-server.service
 envval() { grep -E "^$1=" "$GST_HOME/.env" | tail -n1 | cut -d= -f2-; }
 port="$(envval PORT)"; port="${port:-8787}"

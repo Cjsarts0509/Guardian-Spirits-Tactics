@@ -19,6 +19,7 @@ import {
 } from '@gst/rules';
 import type { RoomDetail, RoomSummary, ServerMessage } from '@gst/protocol';
 import type { ServerConfig } from './config.js';
+import type { ActionRecord } from './records.js';
 
 export interface Conn {
   send(msg: ServerMessage): void;
@@ -40,6 +41,9 @@ interface Member {
 const id = (n = 6) => randomBytes(n).toString('base64url').slice(0, n);
 
 export class Room {
+  /** 이번 판의 모든 행동 (거절 포함) — 판 기록용 */
+  actions: ActionRecord[] = [];
+  aiOnly = false;
   readonly id = id(6);
   status: 'lobby' | 'playing' | 'ended' = 'lobby';
   members: Member[] = [];
@@ -189,6 +193,8 @@ export class Room {
     });
     this.state = state;
     this.status = 'playing';
+    this.aiOnly = aiOnly;
+    this.actions = [];
     this.broadcastRoom();
     this.syncGame();
     return null;
@@ -198,6 +204,7 @@ export class Room {
     if (!this.state || this.status !== 'playing') return { ok: false, error: '진행 중인 게임이 없습니다.' };
     if (this.member(userId)?.spectator) return { ok: false, error: '관전 중에는 행동할 수 없습니다.' };
     const r = applyAction(this.state, userId, action, now);
+    this.record(userId, action, now, r.ok, r.error);
     this.afterChange();
     return r.ok ? { ok: true } : { ok: false, error: r.error ?? '실패' };
   }
@@ -211,7 +218,10 @@ export class Room {
       if (!m.bot) continue;
       const bot = this.cfg.botKind === 'random' ? randomBotAction : smartBotAction;
       const a = bot(this.state, m.id, this.botRng, { activity: this.cfg.botActivity });
-      if (a) applyAction(this.state, m.id, a, now);
+      if (a) {
+        const r = applyAction(this.state, m.id, a, now);
+        this.record(m.id, a, now, r.ok, r.error);
+      }
     }
     if (this.state.seq !== before) this.afterChange();
   }
@@ -245,6 +255,15 @@ export class Room {
   broadcastRoom(): void {
     const detail = this.detail();
     for (const m of this.members) m.conn?.send({ type: 'room', room: detail });
+  }
+
+  private record(player: string, action: Action, now: number, ok: boolean, error?: string): void {
+    if (!this.state) return;
+    this.actions.push({ t: now - this.state.startedAt, player, action, ok, ...(error ? { error } : {}) });
+  }
+
+  botIds(): Set<string> {
+    return new Set(this.members.filter((m) => m.bot).map((m) => m.id));
   }
 
   authIds(): Record<string, string | null> {

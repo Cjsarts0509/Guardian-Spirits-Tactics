@@ -28,6 +28,8 @@ export interface ServerConfig {
   supabaseSecretKey: string | null;
   /** 연결 유지 ping 주기. Cloudflare 는 100초 동안 오가는 게 없으면 WebSocket 을 끊는다 */
   heartbeatMs: number;
+  /** 판 기록 파일 폴더 (비우면 저장 안 함) */
+  recordsDir: string | null;
 }
 
 const bool = (v: string | undefined, d: boolean) => (v === undefined ? d : ['1', 'true', 'yes'].includes(v.toLowerCase()));
@@ -50,5 +52,6 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
     supabaseJwtSecret: env.SUPABASE_JWT_SECRET || null,
     supabaseSecretKey: env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY || null,
     heartbeatMs: Number(env.HEARTBEAT_MS ?? 30_000),
+    recordsDir: env.RECORDS_DIR || null,
   };
 }

@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ChatChannel, GameEvent, PlayerView, SkillView, SpectatorView } from '@gst/rules';
 import type { ClientAction, RoomDetail } from '@gst/protocol';
 import { net } from './net.js';
 import { Feed } from './Feed.js';
 import { gemIcon, portrait, skillIcon } from './icons.js';
-import { fxFor, type Fx } from './fx.js';
+import { FX_TTL, fxFor, type Fx } from './fx.js';
 
 type Roster = PlayerView['roster'];
 
@@ -16,6 +16,8 @@ function useNow(ms = 250) {
   }, [ms]);
   return now;
 }
+
+const HOTKEYS = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C', 'R', 'F', 'V', 'T', 'G', 'B'];
 
 const fmt = (ms: number) => {
   const s = Math.max(0, Math.ceil(ms / 1000));
@@ -35,7 +37,7 @@ export function SpectatorScreen({ view, events, room }: { view: SpectatorView; e
     lastView.current = view;
     receivedAt.current = Date.now();
   }
-  const sinceView = now - receivedAt.current;
+  const sinceView = Math.max(0, now - receivedAt.current);
   const box = useRef<HTMLDivElement>(null);
   useEffect(() => {
     box.current?.scrollTo({ top: box.current.scrollHeight });
@@ -139,7 +141,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
     lastView.current = view;
     receivedAt.current = Date.now();
   }
-  const sinceView = now - receivedAt.current;
+  const sinceView = Math.max(0, now - receivedAt.current);
 
   const [target, setTarget] = useState<string | null>(null);
   const [picking, setPicking] = useState<SkillView | null>(null);
@@ -192,11 +194,10 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
       for (const [pid, k] of knowledge) if (k.character === c) return pid;
       return c === me.character ? myId : null;
     };
-    const items = fresh.flatMap((e) => fxFor(e, { myId, lastAction: lastAction.current, playerOf, view }));
+    const items = fresh.flatMap((e) => fxFor(e, { myId, playerOf, view }));
     if (items.length === 0) return;
     setFx((cur) => [...cur, ...items]);
-    const ids = new Set(items.map((i) => i.id));
-    setTimeout(() => setFx((cur) => cur.filter((i) => !ids.has(i.id))), 2600);
+    for (const i of items) setTimeout(() => setFx((cur) => cur.filter((x) => x.id !== i.id)), FX_TTL[i.type]);
   }, [events, view, knowledge, me.character, myId]);
 
   const useSkill = (s: SkillView) => {
@@ -205,6 +206,33 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
     if (s.nameOptions) return setPicking(s);
     sendSkill(s.key, s.target !== 'none' && target ? target : undefined);
   };
+  // 단축키: 카드 순서대로 Q W E / A S D / Z X C / R F V / T G B (패시브 제외)
+  const hotkeyOf = useMemo(() => {
+    const m = new Map<string, string>();
+    let i = 0;
+    for (const s of me.skills) if (!s.passive) m.set(s.key, HOTKEYS[i++] ?? '');
+    return m;
+  }, [me.skills]);
+  const useSkillRef = useRef(useSkill);
+  useSkillRef.current = useSkill;
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+      if (picking) return;
+      const key = e.key.toUpperCase();
+      for (const s of me.skills) {
+        if (hotkeyOf.get(s.key) === key) {
+          e.preventDefault();
+          useSkillRef.current(s);
+          return;
+        }
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [me.skills, hotkeyOf, picking]);
 
   return (
     <div className="game">
@@ -287,16 +315,28 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
               const k = knowledge.get(p.id);
               const isMe = p.id === myId;
               const hit = fx.find((f): f is Extract<Fx, { type: 'pulse' }> => f.type === 'pulse' && f.to === p.id);
+              const marks = fx.filter((f): f is Extract<Fx, { type: 'mark' }> => f.type === 'mark' && f.to === p.id);
+              const glow = hit ?? marks[marks.length - 1];
               return (
                 <div
                   key={p.id}
                   data-player={p.id}
                   role="button"
                   tabIndex={0}
-                  className={`pcard ${!p.alive ? 'dead' : ''} ${target === p.id ? 'selected' : ''} ${isMe ? 'mine' : ''} ${hit ? `hit hit-${hit.color} ${hit.big ? 'big' : ''}` : ''}`}
+                  className={`pcard ${!p.alive ? 'dead' : ''} ${target === p.id ? 'selected' : ''} ${isMe ? 'mine' : ''} ${glow ? `hit hit-${glow.color} ${hit?.big ? 'big' : ''}` : ''}`}
                   onClick={() => !isMe && setTarget(target === p.id ? null : p.id)}
                 >
                   {hit?.label && <span className={`fx-label c-${hit.color}`} key={hit.id}>{hit.label}</span>}
+                  {marks.length > 0 && (
+                    <span className="fx-marks">
+                      {marks.slice(-3).map((m) => (
+                        <span key={m.id} className={`fx-mark c-${m.color}`} title={m.label}>
+                          {m.icon ? <img src={m.icon} alt="" /> : <b>?</b>}
+                          {m.label && <em>{m.label}</em>}
+                        </span>
+                      ))}
+                    </span>
+                  )}
                   <Face character={p.revealed ?? k?.character ?? null} size="sm" dead={!p.alive} />
                   <div className="pc-body">
                   <div className="pc-top">
@@ -370,7 +410,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                       )}
                     </span>
                     <span className="sk-name">
-                      {s.hotkey && <kbd>{s.hotkey}</kbd>} {s.name}
+                      {hotkeyOf.get(s.key) && <kbd>{hotkeyOf.get(s.key)}</kbd>} {s.name}
                       {s.key === 'advanced_attack' && s.level === 2 && <span className="tag warn">경고</span>}
                     </span>
                     <span className="sk-meta">
@@ -385,7 +425,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                       )}
                     </span>
                     <span className="sk-desc">{s.description}</span>
-                    <span className="sk-blocked">{s.blocked ?? ''}</span>
+                    <span className="sk-blocked">{s.blocked?.startsWith('재사용') ? (cd > 0 ? `재사용 대기 중 (${Math.ceil(cd / 1000)}초)` : '') : (s.blocked ?? '')}</span>
                   </button>
                 );
               })}
@@ -411,62 +451,32 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
   );
 }
 
-/** 카드 사이를 날아가는 아이콘과 중앙 배너 */
+/** 중앙 배너 (공격·사망·게임 종료 같은 전체 공지) */
 function FxLayer({ fx }: { fx: Fx[] }) {
-  const layer = useRef<HTMLDivElement>(null);
-  const flies = fx.filter((f): f is Extract<Fx, { type: 'fly' }> => f.type === 'fly');
   const banners = fx.filter((f): f is Extract<Fx, { type: 'banner' }> => f.type === 'banner');
+  const small = banners.filter((b) => !b.big);
+  const big = banners.filter((b) => b.big);
   return (
-    <div className="fx-layer" ref={layer}>
-      {flies.map((f) => (
-        <Projectile key={f.id} fx={f} layer={layer} />
-      ))}
-      {banners.map((b, i) => (
+    <div className="fx-layer">
+      {small.map((b, i) => (
         <div key={b.id} className={`fx-banner c-${b.color}`} style={{ top: `${12 + i * 56}px` }}>
           {b.left && <img src={b.left} alt="" />}
           <span>{b.text}</span>
           {b.right && <img src={b.right} alt="" />}
         </div>
       ))}
-    </div>
-  );
-}
-
-function Projectile({ fx, layer }: { fx: Extract<Fx, { type: 'fly' }>; layer: RefObject<HTMLDivElement | null> }) {
-  const el = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const box = layer.current;
-    const node = el.current;
-    if (!box || !node) return;
-    const base = box.getBoundingClientRect();
-    const center = (id: string | null) => {
-      const card = id ? box.parentElement?.querySelector<HTMLElement>(`[data-player="${CSS.escape(id)}"]`) : null;
-      if (!card) return { x: base.width / 2, y: -40 }; // 출처 불명: 위쪽 중앙에서
-      const r = card.getBoundingClientRect();
-      return { x: r.left - base.left + r.width / 2, y: r.top - base.top + r.height / 2 };
-    };
-    const a = center(fx.from);
-    const b = center(fx.to);
-    const dx = b.x - a.x;
-    const dy = b.y - a.y;
-    const dist = Math.hypot(dx, dy);
-    const dur = Math.min(900, 350 + dist * 0.9);
-    node.style.left = `${a.x}px`;
-    node.style.top = `${a.y}px`;
-    node.animate(
-      [
-        { transform: 'translate(-50%,-50%) scale(0.4)', opacity: 0, offset: 0 },
-        { transform: 'translate(-50%,-50%) scale(1.15)', opacity: 1, offset: 0.12 },
-        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1)`, opacity: 1, offset: 0.9 },
-        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1.6)`, opacity: 0, offset: 1 },
-      ],
-      { duration: dur, easing: 'cubic-bezier(.3,.1,.3,1)', fill: 'forwards' },
-    );
-  }, [fx, layer]);
-  return (
-    <div ref={el} className={`fx-fly c-${fx.color}`}>
-      {fx.icon ? <img src={fx.icon} alt="" /> : <span>?</span>}
-      {fx.label && <em>{fx.label}</em>}
+      {/* 사망·살해·게임 종료: 가운데에 크게 */}
+      {big.length > 0 && (
+        <div className="fx-big-wrap">
+          {big.map((b) => (
+            <div key={b.id} className={`fx-banner big c-${b.color}`}>
+              {b.left && <img src={b.left} alt="" />}
+              <span>{b.text}</span>
+              {b.right && <img src={b.right} alt="" />}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -502,6 +512,13 @@ function NamePicker({
   onClose: () => void;
 }) {
   const options = (skill.nameOptions ?? []).map((k) => roster.find((r) => r.key === k)!).filter(Boolean);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
   return (
     <div className="modal" onClick={onClose}>
       <div className="modal-body card" onClick={(e) => e.stopPropagation()}>
