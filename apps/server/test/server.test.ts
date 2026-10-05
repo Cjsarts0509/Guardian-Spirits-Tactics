@@ -9,7 +9,7 @@ let server: GameServer;
 let port = 0;
 
 beforeAll(async () => {
-  const cfg = { ...loadConfig({}), port: 0, host: '127.0.0.1', tickMs: 10, botActivity: 0.3, reconnectGraceSeconds: 1, timeScale: 60 };
+  const cfg = { ...loadConfig({}), port: 0, host: '127.0.0.1', tickMs: 10, botActivity: 0.3, botKind: 'random' as const, reconnectGraceSeconds: 1, timeScale: 60 };
   server = createGameServer(cfg, () => {});
   port = await server.listen();
 });

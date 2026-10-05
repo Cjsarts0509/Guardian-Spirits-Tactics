@@ -90,11 +90,12 @@ export function resolveScan(c: SkillCtx): void {
   const name = c.name as CharKey;
   announceInspect(g, target);
 
-  const fail = (): void => {
-    g.toPlayer(actor, 'inspect.result', '스캔에 실패하였습니다.', { target: target.id, success: false, name });
+  // 실패는 '대상은 그 이름이 아니다' 라는 확정 정보 (숨겨진 이름은 항상 실패하므로 제외)
+  const fail = (deduce: boolean): void => {
+    g.toPlayer(actor, 'inspect.result', '스캔에 실패하였습니다.', { target: target.id, success: false, name }, deduce ? [{ player: target.id, character: null, not: name }] : undefined);
   };
 
-  if (hidden(g, name)) return fail();
+  if (hidden(g, name)) return fail(false);
   const holder = g.byChar(name);
   if (holder && holder.id === target.id) {
     g.toPlayer(
@@ -116,7 +117,7 @@ export function resolveScan(c: SkillCtx): void {
     );
     return;
   }
-  fail();
+  fail(true);
 }
 
 /** 지휘관이면 정체 대신 '지휘관'으로만 알려주는 결과 (진실의 보석, 저주) */

@@ -1,33 +1,44 @@
-// 봇 시뮬레이션: pnpm sim -- [판수] [인원]  (인원 생략 시 8~12 순환)
-import { advance, applyAction, createGame, randomBotAction } from '../src/index.js';
+// 봇 시뮬레이션: pnpm sim -- [판수] [인원] [smart|random]
+// 서버와 같은 조건(250ms 틱, 봇 행동 확률 0.012)으로 돌려 판 길이 분포를 본다
+import { advance, applyAction, createGame, randomBotAction, smartBotAction } from '../src/index.js';
 
 const args = process.argv.slice(2).filter((a) => a !== '--');
 const games = Number(args[0] ?? 200);
 const count = Number(args[1] ?? 0);
+const kind = args[2] ?? 'smart';
+const TICK = 250;
+const ACTIVITY = 0.012;
+const LIMIT = 90 * 60 * 1000;
 const wins = { 1: 0, 2: 0, none: 0 };
-let totalEvents = 0;
-let totalTurns = 0;
+const minutes: number[] = [];
+const reasons = new Map<string, number>();
+let failedAttacksEarly = 0;
 const t0 = Date.now();
 
 for (let i = 0; i < games; i++) {
   const n = count || 8 + (i % 5);
   const players = Array.from({ length: n }, (_, k) => ({ id: `p${k + 1}`, nickname: `봇${k + 1}` }));
   const { state } = createGame({ mode: 'civil_war', players, seed: 1000 + i, now: 0 });
-  const bot = { rng: 77 + i };
+  const mem = { rng: 77 + i };
   let now = 0;
-  // 최대 60분, 1초 단위 진행
-  while (state.phase === 'running' && now < 60 * 60 * 1000) {
-    now += 1000;
+  while (state.phase === 'running' && now < LIMIT) {
+    now += TICK;
     advance(state, now);
     for (const p of state.players) {
-      const a = randomBotAction(state, p.id, bot, { activity: 0.05 });
+      const a = kind === 'random' ? randomBotAction(state, p.id, mem, { activity: ACTIVITY }) : smartBotAction(state, p.id, mem, { activity: ACTIVITY });
       if (a) applyAction(state, p.id, a, now);
     }
   }
   if (state.winner === 1) wins[1]++;
   else if (state.winner === 2) wins[2]++;
   else wins.none++;
-  totalEvents += state.log.length;
-  totalTurns += state.turn;
+  minutes.push((state.now - state.startedAt) / 60000);
+  const r = (state.endReason ?? '시간 초과').slice(0, 20);
+  reasons.set(r, (reasons.get(r) ?? 0) + 1);
+  failedAttacksEarly += state.log.filter((e) => e.at < 4 * 60000 && e.kind.startsWith('attack.fail')).length;
 }
-console.log(JSON.stringify({ games, wins, avgEvents: Math.round(totalEvents / games), avgTurns: +(totalTurns / games).toFixed(1), ms: Date.now() - t0 }));
+minutes.sort((a, b) => a - b);
+const q = (x: number) => +minutes[Math.min(minutes.length - 1, Math.floor(x * minutes.length))]!.toFixed(1);
+console.log(
+  JSON.stringify({ kind, games, wins, minutes: { p10: q(0.1), median: q(0.5), p90: q(0.9), max: q(0.999) }, failedAttacksFirst4min: failedAttacksEarly, reasons: Object.fromEntries(reasons), ms: Date.now() - t0 }, null, 1),
+);

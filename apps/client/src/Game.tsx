@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import type { ChatChannel, GameEvent, PlayerView, SkillView } from '@gst/rules';
 import type { ClientAction, RoomDetail } from '@gst/protocol';
 import { net } from './net.js';
 import { gemIcon, portrait, skillIcon } from './icons.js';
+import { fxFor, type Fx } from './fx.js';
 
 type Roster = PlayerView['roster'];
 
@@ -38,6 +39,11 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
   const [target, setTarget] = useState<string | null>(null);
   const [picking, setPicking] = useState<SkillView | null>(null);
   const roster = view.roster;
+  const lastAction = useRef<{ skill: string; target?: string; at: number } | null>(null);
+  const sendSkill = (skill: string, t?: string, name?: string) => {
+    lastAction.current = { skill, ...(t ? { target: t } : {}), at: Date.now() };
+    act({ type: 'skill', skill, ...(t ? { target: t } : {}), ...(name ? { name } : {}) });
+  };
   const nameOf = (k: string | null) => (k ? (roster.find((r) => r.key === k)?.name ?? k) : '—');
   const sideOf = (k: string | null) => (k ? roster.find((r) => r.key === k)?.side : undefined);
 
@@ -45,11 +51,32 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
   const me = view.me;
   const targetPlayer = view.players.find((p) => p.id === target) ?? null;
 
+  // 화면 효과: 새 이벤트마다 fx 를 만들고 잠시 뒤 지운다
+  const [fx, setFx] = useState<Fx[]>([]);
+  const fxSeq = useRef(0);
+  useEffect(() => {
+    const fresh = events.filter((e) => e.seq > fxSeq.current);
+    if (fresh.length === 0) return;
+    fxSeq.current = events[events.length - 1]!.seq;
+    if (fresh.length > 12) return; // 재접속·복기처럼 한꺼번에 오면 효과 생략
+    const playerOf = (c: string) => {
+      const pub = view.players.find((p) => p.revealed === c);
+      if (pub) return pub.id;
+      for (const [pid, k] of knowledge) if (k.character === c) return pid;
+      return c === me.character ? myId : null;
+    };
+    const items = fresh.flatMap((e) => fxFor(e, { myId, lastAction: lastAction.current, playerOf, view }));
+    if (items.length === 0) return;
+    setFx((cur) => [...cur, ...items]);
+    const ids = new Set(items.map((i) => i.id));
+    setTimeout(() => setFx((cur) => cur.filter((i) => !ids.has(i.id))), 2600);
+  }, [events, view, knowledge, me.character, myId]);
+
   const useSkill = (s: SkillView) => {
     if (s.passive || s.blocked) return;
     if (s.target !== 'none' && !target) return alertToast('먼저 대상 플레이어를 선택하세요.');
     if (s.nameOptions) return setPicking(s);
-    act({ type: 'skill', skill: s.key, ...(s.target !== 'none' && target ? { target } : {}) });
+    sendSkill(s.key, s.target !== 'none' && target ? target : undefined);
   };
 
   return (
@@ -76,11 +103,10 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
         <aside className="me card">
           <div className="me-head">
             <Face character={me.character} size="lg" dead={!me.alive} />
-            <div>
+            <div className="me-title">
               <div className={`side s${me.side}`}>{view.sideNames[me.side]}</div>
-              <h2>
-                {me.characterName} <span className="muted">{me.title}</span>
-              </h2>
+              <div className="muted title">{me.title}</div>
+              <h2>{me.characterName}</h2>
             </div>
           </div>
           {!me.alive && <div className="dead-banner">사망</div>}
@@ -119,16 +145,21 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
         </aside>
 
         <main>
+          <section className="players-wrap">
+          <FxLayer fx={fx} />
           <section className="players">
             {view.players.map((p) => {
               const k = knowledge.get(p.id);
               const isMe = p.id === myId;
+              const hit = fx.find((f): f is Extract<Fx, { type: 'pulse' }> => f.type === 'pulse' && f.to === p.id);
               return (
                 <button
                   key={p.id}
-                  className={`pcard ${!p.alive ? 'dead' : ''} ${target === p.id ? 'selected' : ''} ${isMe ? 'mine' : ''}`}
+                  data-player={p.id}
+                  className={`pcard ${!p.alive ? 'dead' : ''} ${target === p.id ? 'selected' : ''} ${isMe ? 'mine' : ''} ${hit ? `hit hit-${hit.color} ${hit.big ? 'big' : ''}` : ''}`}
                   onClick={() => !isMe && setTarget(target === p.id ? null : p.id)}
                 >
+                  {hit?.label && <span className={`fx-label c-${hit.color}`} key={hit.id}>{hit.label}</span>}
                   <Face character={p.revealed ?? k?.character ?? null} size="sm" dead={!p.alive} />
                   <div className="pc-body">
                   <div className="pc-top">
@@ -155,6 +186,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
               );
             })}
           </section>
+          </section>
 
           <section className="skills card">
             <div className="muted small">
@@ -169,7 +201,6 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                     key={s.key}
                     className={`skill ${s.passive ? 'passive' : ''}`}
                     disabled={!s.passive && (!!s.blocked && !(s.blocked.startsWith('재사용') && cd <= 0))}
-                    title={`${s.description}${s.blocked ? `\n\n사용 불가: ${s.blocked}` : ''}`}
                     onClick={() => useSkill(s)}
                   >
                     <span className="sk-icon">
@@ -191,15 +222,20 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                       </span>
                     )}
                     {s.passive && <span className="sk-meta">패시브</span>}
+                    <span className="sk-desc">{s.description}</span>
+                    {s.blocked && <span className="sk-blocked">{s.blocked}</span>}
                   </button>
                 );
               })}
             </div>
           </section>
 
+        </main>
+
+        <aside className="right">
           <Log events={events} myId={myId} />
           <Chat view={view} target={target} />
-        </main>
+        </aside>
       </div>
 
       {picking && (
@@ -209,11 +245,71 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
           targetLabel={targetPlayer ? `[${targetPlayer.seat}] ${targetPlayer.nickname}` : ''}
           onClose={() => setPicking(null)}
           onPick={(name) => {
-            act({ type: 'skill', skill: picking.key, name, ...(picking.target !== 'none' && target ? { target } : {}) });
+            sendSkill(picking.key, picking.target !== 'none' && target ? target : undefined, name);
             setPicking(null);
           }}
         />
       )}
+    </div>
+  );
+}
+
+/** 카드 사이를 날아가는 아이콘과 중앙 배너 */
+function FxLayer({ fx }: { fx: Fx[] }) {
+  const layer = useRef<HTMLDivElement>(null);
+  const flies = fx.filter((f): f is Extract<Fx, { type: 'fly' }> => f.type === 'fly');
+  const banners = fx.filter((f): f is Extract<Fx, { type: 'banner' }> => f.type === 'banner');
+  return (
+    <div className="fx-layer" ref={layer}>
+      {flies.map((f) => (
+        <Projectile key={f.id} fx={f} layer={layer} />
+      ))}
+      {banners.map((b, i) => (
+        <div key={b.id} className={`fx-banner c-${b.color}`} style={{ top: `${12 + i * 56}px` }}>
+          {b.left && <img src={b.left} alt="" />}
+          <span>{b.text}</span>
+          {b.right && <img src={b.right} alt="" />}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Projectile({ fx, layer }: { fx: Extract<Fx, { type: 'fly' }>; layer: RefObject<HTMLDivElement | null> }) {
+  const el = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const box = layer.current;
+    const node = el.current;
+    if (!box || !node) return;
+    const base = box.getBoundingClientRect();
+    const center = (id: string | null) => {
+      const card = id ? box.parentElement?.querySelector<HTMLElement>(`[data-player="${CSS.escape(id)}"]`) : null;
+      if (!card) return { x: base.width / 2, y: -40 }; // 출처 불명: 위쪽 중앙에서
+      const r = card.getBoundingClientRect();
+      return { x: r.left - base.left + r.width / 2, y: r.top - base.top + r.height / 2 };
+    };
+    const a = center(fx.from);
+    const b = center(fx.to);
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const dist = Math.hypot(dx, dy);
+    const dur = Math.min(900, 350 + dist * 0.9);
+    node.style.left = `${a.x}px`;
+    node.style.top = `${a.y}px`;
+    node.animate(
+      [
+        { transform: 'translate(-50%,-50%) scale(0.4)', opacity: 0, offset: 0 },
+        { transform: 'translate(-50%,-50%) scale(1.15)', opacity: 1, offset: 0.12 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1)`, opacity: 1, offset: 0.9 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1.6)`, opacity: 0, offset: 1 },
+      ],
+      { duration: dur, easing: 'cubic-bezier(.3,.1,.3,1)', fill: 'forwards' },
+    );
+  }, [fx, layer]);
+  return (
+    <div ref={el} className={`fx-fly c-${fx.color}`}>
+      {fx.icon ? <img src={fx.icon} alt="" /> : <span>?</span>}
+      {fx.label && <em>{fx.label}</em>}
     </div>
   );
 }

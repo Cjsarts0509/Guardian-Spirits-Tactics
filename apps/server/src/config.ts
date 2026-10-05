@@ -19,6 +19,8 @@ export interface ServerConfig {
   timeScale: number;
   /** 봇이 틱마다 행동할 확률 */
   botActivity: number;
+  /** smart: 아는 정보로 판단하는 봇(기본) / random: 무작위 (테스트) */
+  botKind: 'smart' | 'random';
   supabaseUrl: string | null;
   /** HS256 레거시 JWT 시크릿 (JWKS 를 못 쓰는 경우) */
   supabaseJwtSecret: string | null;
@@ -43,6 +45,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
     tickMs: Number(env.TICK_MS ?? 250),
     timeScale: Number(env.TIME_SCALE ?? 1),
     botActivity: Number(env.BOT_ACTIVITY ?? 0.012),
+    botKind: env.BOT_KIND === 'random' ? 'random' : 'smart',
     supabaseUrl: env.SUPABASE_URL || null,
     supabaseJwtSecret: env.SUPABASE_JWT_SECRET || null,
     supabaseSecretKey: env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY || null,

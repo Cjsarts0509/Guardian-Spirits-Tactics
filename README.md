@@ -23,7 +23,7 @@ docs/spec           역분석 명세 원본 (md/json) + source/ (복원 스크�
 ```bash
 corepack enable
 pnpm install
-pnpm test                 # 규칙 엔진 85개 + 서버 16개
+pnpm test                 # 규칙 엔진 88개 + 서버 16개
 pnpm dev:server           # ws://localhost:8787
 pnpm dev:client           # http://localhost:5173
 ```

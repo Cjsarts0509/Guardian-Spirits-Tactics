@@ -9,6 +9,7 @@ import {
   getMode,
   playerLeft,
   randomBotAction,
+  smartBotAction,
   viewFor,
   type Action,
   type GameState,
@@ -193,7 +194,8 @@ export class Room {
     advance(this.state, now);
     for (const m of this.members) {
       if (!m.bot) continue;
-      const a = randomBotAction(this.state, m.id, this.botRng, { activity: this.cfg.botActivity });
+      const bot = this.cfg.botKind === 'random' ? randomBotAction : smartBotAction;
+      const a = bot(this.state, m.id, this.botRng, { activity: this.cfg.botActivity });
       if (a) applyAction(this.state, m.id, a, now);
     }
     if (this.state.seq !== before) this.afterChange();
