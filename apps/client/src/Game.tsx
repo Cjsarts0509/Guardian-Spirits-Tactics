@@ -310,7 +310,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
             <Log events={events} myId={myId} />
             <Chat view={view} target={target} />
           </div>
-          <Feed view={view} events={events} />
+          <Feed view={view} events={events} myId={myId} />
         </section>
 
         <main>
@@ -550,40 +550,29 @@ function NamePicker({
   );
 }
 
-function Log({ events, myId }: { events: GameEvent[]; myId: string }) {
-  const [tab, setTab] = useState<'all' | 'private' | 'chat'>('all');
+function Log({ events }: { events: GameEvent[]; myId: string }) {
+  // 채팅 전용. 스킬·시스템 알림은 오른쪽 알림 카드로
   const box = useRef<HTMLDivElement>(null);
-  const filtered = events.filter((e) => {
-    const chat = e.kind.startsWith('chat.');
-    if (tab === 'chat') return chat;
-    if (tab === 'private') return !chat && e.vis.to === 'players' && e.vis.ids.includes(myId);
-    return true;
-  });
+  const chats = events.filter((e) => e.kind.startsWith('chat.'));
   useEffect(() => {
     box.current?.scrollTo({ top: box.current.scrollHeight });
-  }, [filtered.length, tab]);
+  }, [chats.length]);
+  const channel = (k: string) => ({ 'chat.all': '', 'chat.ally': '동맹', 'chat.whisper': '귓속말', 'chat.global': '방송', 'chat.dead': '사망자' })[k] ?? '';
   return (
     <section className="log card">
       <div className="tabs">
-        {(['all', 'private', 'chat'] as const).map((t) => (
-          <button key={t} className={tab === t ? 'on' : ''} onClick={() => setTab(t)}>
-            {{ all: '전체', private: '내 정보', chat: '채팅' }[t]}
-          </button>
-        ))}
+        <b style={{ padding: '4px 6px' }}>채팅</b>
       </div>
       <div className="entries" ref={box}>
-        {filtered.map((e) => {
-          // 게임 종료 후 공개된 남의 비공개 이벤트는 '복기' 표시
-          const replay = (e.vis.to === 'players' && !e.vis.ids.includes(myId)) || e.vis.to === 'dead';
-          return (
-            <div key={e.seq} className={`entry ${e.vis.to !== 'all' ? 'private' : ''} ${replay ? 'replay' : ''} k-${e.kind.split('.')[0]}`}>
-              <span className="time">{fmt(e.at)}</span>
-              <span className="text">
-                {replay && <span className="tag">복기</span>} {e.text}
-              </span>
-            </div>
-          );
-        })}
+        {chats.length === 0 && <div className="muted small">아직 대화가 없습니다.</div>}
+        {chats.map((e) => (
+          <div key={e.seq} className={`entry k-chat c-${e.kind.slice(5)}`}>
+            <span className="time">{fmt(e.at)}</span>
+            <span className="text">
+              {channel(e.kind) && <span className="tag">{channel(e.kind)}</span>} {e.text}
+            </span>
+          </div>
+        ))}
       </div>
     </section>
   );

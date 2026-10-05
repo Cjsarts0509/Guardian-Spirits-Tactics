@@ -1,5 +1,5 @@
 // 스킬 사용 알림 카드. 전체 공개(vis.to === 'all') 이벤트만 쓴다 — 비공개 정보는 절대 섞지 않는다.
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { GameEvent, PlayerView, SpectatorView } from '@gst/rules';
 import { gemIcon, portrait, skillIcon } from './icons.js';
 
@@ -23,11 +23,11 @@ const fmt = (ms: number) => {
 
 const str = (v: unknown): string | null => (typeof v === 'string' ? v : null);
 
-/** 카드로 보여주지 않는 공개 이벤트 */
-const SKIP = new Set(['game.start', 'game.begin', 'turn', 'chat.all', 'chat.global', 'chat.ally', 'chat.whisper', 'chat.dead']);
+/** 카드로 보여주지 않는 이벤트 */
+const SKIP = new Set(['game.start', 'game.begin', 'turn']);
 
 function toCard(e: GameEvent, names: Record<string, string>, charName: (k: string | null) => string): Card | null {
-  if (e.vis.to !== 'all' || SKIP.has(e.kind) || e.kind.startsWith('chat.')) return null;
+  if (SKIP.has(e.kind) || e.kind.startsWith('chat.')) return null;
   const d = e.data ?? {};
   const text = e.text.replace(/^-/, '');
   const [head, sub] = e.kind.split('.');
@@ -47,12 +47,12 @@ function toCard(e: GameEvent, names: Record<string, string>, charName: (k: strin
       tone = 'gold';
       break;
     case 'inspect':
-      title = '확인·스캔';
+      title = sub === 'result' ? (d.success ? '확인 성공' : '확인 실패') : '확인·스캔';
       icon = skillIcon('scan');
-      tone = 'muted';
+      tone = sub === 'result' ? (d.success ? 'info' : 'muted') : 'muted';
       break;
     case 'gem':
-      title = '진실의 보석';
+      title = sub === 'result' ? '보석 결과' : '진실의 보석';
       icon = gemIcon(3);
       tone = 'gold';
       break;
@@ -96,6 +96,21 @@ function toCard(e: GameEvent, names: Record<string, string>, charName: (k: strin
       title = '게임 종료';
       tone = 'gold';
       break;
+    case 'role':
+      title = '내 역할';
+      icon = portrait(str(d.character));
+      tone = 'gold';
+      break;
+    case 'probe':
+      title = '탐색 결과';
+      icon = skillIcon('scan');
+      tone = d.success ? 'info' : 'muted';
+      break;
+    case 'ally':
+      title = sub?.includes('unset') ? '동맹 파기' : '동맹';
+      icon = skillIcon(sub?.includes('unset') ? 'break_ally' : 'ally');
+      tone = sub?.includes('unset') ? 'muted' : 'info';
+      break;
     default:
       title = head ?? '';
   }
@@ -103,34 +118,64 @@ function toCard(e: GameEvent, names: Record<string, string>, charName: (k: strin
   return { seq: e.seq, at: e.at, title: title || charName(null), text, icon, faces, tone };
 }
 
-export function Feed({ view, events }: { view: AnyView; events: GameEvent[] }) {
+export function Feed({ view, events, myId }: { view: AnyView; events: GameEvent[]; myId?: string }) {
   const box = useRef<HTMLDivElement>(null);
+  const [tab, setTab] = useState<'public' | 'mine'>('public');
   const names = useMemo(() => {
     const start = events.find((e) => e.kind === 'game.start');
     const n = start?.data?.skillNames;
     return (n && typeof n === 'object' ? (n as Record<string, string>) : {}) as Record<string, string>;
   }, [events]);
   const charName = (k: string | null) => (k ? (view.roster.find((r) => r.key === k)?.name ?? k) : '');
-  const cards = useMemo(() => events.map((e) => toCard(e, names, charName)).filter((c): c is Card => c !== null), [events, names]); // eslint-disable-line react-hooks/exhaustive-deps
+  // 공개 탭: 전체 공개 이벤트. 내 정보 탭: 나한테만 온 비공개 결과 (게임 끝난 뒤 공개되는 남의 비공개는 '복기')
+  const cards = useMemo(() => {
+    const out: (Card & { replay?: boolean })[] = [];
+    for (const e of events) {
+      const pub = e.vis.to === 'all';
+      if (tab === 'public' ? !pub : pub) continue;
+      if (tab === 'mine' && !myId) continue;
+      const c = toCard(e, names, charName);
+      if (!c) continue;
+      const replay = tab === 'mine' && ((e.vis.to === 'players' && !e.vis.ids.includes(myId!)) || e.vis.to === 'dead');
+      out.push(replay ? { ...c, replay } : c);
+    }
+    return out;
+  }, [events, names, tab, myId]); // eslint-disable-line react-hooks/exhaustive-deps
+  const myCount = useMemo(() => (myId ? events.filter((e) => e.vis.to === 'players' && e.vis.ids.includes(myId) && !e.kind.startsWith('chat.')).length : 0), [events, myId]);
   useEffect(() => {
     box.current?.scrollTo({ top: box.current.scrollHeight });
-  }, [cards.length]);
+  }, [cards.length, tab]);
   return (
     <section className="feed card">
       <div className="feed-head">
-        <b>알림</b> <span className="muted small">공개된 행동만</span>
+        {myId ? (
+          <div className="tabs feed-tabs">
+            <button className={tab === 'public' ? 'on' : ''} onClick={() => setTab('public')}>
+              공개 행동
+            </button>
+            <button className={tab === 'mine' ? 'on' : ''} onClick={() => setTab('mine')}>
+              내 정보 <span className="muted small">{myCount}</span>
+            </button>
+          </div>
+        ) : (
+          <>
+            <b>알림</b> <span className="muted small">공개된 행동만</span>
+          </>
+        )}
       </div>
       <div className="feed-list" ref={box}>
-        {cards.length === 0 && <div className="muted small">아직 공개된 행동이 없습니다.</div>}
+        {cards.length === 0 && <div className="muted small">{tab === 'mine' ? '아직 받은 비공개 정보가 없습니다.' : '아직 공개된 행동이 없습니다.'}</div>}
         {cards.map((c) => (
-          <div key={c.seq} className={`ncard t-${c.tone}`}>
+          <div key={c.seq} className={`ncard t-${c.tone} ${tab === 'mine' ? 'mine' : ''} ${c.replay ? 'replay' : ''}`}>
             <span className="n-icon">{c.icon ? <img src={c.icon} alt="" /> : <span className="n-noicon">{c.title.slice(0, 1)}</span>}</span>
             <div className="n-body">
               <div className="n-top">
                 <b>{c.title}</b>
                 <span className="n-time">{fmt(c.at)}</span>
               </div>
-              <div className="n-text">{c.text}</div>
+              <div className="n-text">
+                {c.replay && <span className="tag">복기</span>} {c.text}
+              </div>
               {c.faces.length > 0 && (
                 <div className="n-faces">
                   {c.faces.map((k) => {
