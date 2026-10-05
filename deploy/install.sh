@@ -91,7 +91,7 @@ systemctl daemon-reload
 systemctl enable gst-server >/dev/null 2>&1
 systemctl restart gst-server
 for _ in $(seq 1 30); do
-  if curl -fsS "http://127.0.0.1:${port}/health" >/dev/null; then
+  if curl -fsS "http://127.0.0.1:${port}/health" >/dev/null 2>&1; then
     echo "[install] 완료 — 버전 $(cat "$GST_HOME/VERSION" 2>/dev/null || echo '?')"
     if [[ "$host" == "0.0.0.0" ]]; then
       ip="$(curl -fsS -m 5 https://checkip.amazonaws.com 2>/dev/null || true)"
