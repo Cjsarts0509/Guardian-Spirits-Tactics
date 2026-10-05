@@ -110,7 +110,7 @@ export function createGame(opts: CreateGameOptions): CreateResult {
   g.schedule(state.nextTurnAt, 'turn', {});
   for (const p of state.players) {
     for (const u of g.charDef(p.character).unlocks ?? []) {
-      g.schedule(state.now + u.at * 1000, 'unlock', { player: p.id, skill: u.skill });
+      g.schedule(state.now + u.at * 1000, 'unlock', { player: p.id, skill: u.skill, ...(u.requires ? { requires: u.requires } : {}), ...(u.replaces ? { replaces: u.replaces } : {}) });
     }
   }
   return { state, events: g.events };

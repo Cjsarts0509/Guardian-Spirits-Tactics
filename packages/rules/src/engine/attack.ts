@@ -34,7 +34,13 @@ export function resolveAttack(c: SkillCtx, kind: AttackKind): void {
   } else if (g.mode.isAbsolutelyGuarded(g, target)) {
     failAttack(g, actor, target, kind, 'bodyguard');
   } else {
-    hitAttack(g, actor, target, kind);
+    // 횟수제 보디가드 (태초): 막히면 공격자 페널티도 목숨 감소도 없다
+    const guarded = g.mode.chargedGuard?.(g, actor, target) ?? null;
+    if (guarded !== null) {
+      if (guarded) g.toAll('attack.guarded', guarded, { attacker: actor.character, target: target.character });
+    } else {
+      hitAttack(g, actor, target, kind);
+    }
   }
   if (!g.ended) g.mode.checkVictory(g);
 }
@@ -74,6 +80,7 @@ function hitAttack(g: Game, actor: PlayerState, target: PlayerState, kind: Attac
     attacker: actor.character,
     target: target.character,
   });
+  g.mode.onAttackKill?.(g, actor, target);
   g.kill(target, 'attack');
   if (enemy) {
     for (const [k, v] of Object.entries(ON_KILL_MANA)) if (g.hasSkill(actor, k)) g.addMana(actor, v);

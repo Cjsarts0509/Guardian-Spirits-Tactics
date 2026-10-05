@@ -1,6 +1,8 @@
 // 클라이언트 ↔ 게임 서버 메시지 (JSON over WebSocket)
 import { z } from 'zod';
-import type { GameEvent, PlayerView, SpectatorView } from '@gst/rules';
+import type { GameEvent, ModeId, PlayerView, SpectatorView } from '@gst/rules';
+
+export const MODE_IDS = ['civil_war', 'primordial', 'lidellut', 'troll'] as const;
 
 export const PROTOCOL_VERSION = 1;
 
@@ -36,7 +38,7 @@ export const clientMessage = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('room.create'),
     name: z.string().min(1).max(30),
-    mode: z.literal('civil_war'),
+    mode: z.enum(MODE_IDS),
     turnSeconds: z.union([z.literal(60), z.literal(90), z.literal(120)]).default(90),
   }),
   z.object({ type: z.literal('room.join'), roomId: z.string().max(32) }),
@@ -57,7 +59,7 @@ export type ClientAction = z.infer<typeof actionSchema>;
 export interface RoomSummary {
   id: string;
   name: string;
-  mode: 'civil_war';
+  mode: ModeId;
   modeName: string;
   players: number;
   maxPlayers: number;

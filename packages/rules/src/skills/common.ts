@@ -16,11 +16,14 @@ import type { CharKey, PlayerState } from '../types.js';
 const opponentNames = (g: Game, actor: PlayerState): CharKey[] =>
   g.sideRoster(actor.side === 1 ? 2 : 1).map((c) => c.key);
 
-const scanNames = (g: Game): CharKey[] =>
-  g
+/** 스캔 이름 목록: 모드가 따로 정하지 않으면 지휘관 제외 (태초는 케인은 가능·라엘/엘타스만 제외) */
+const scanNames = (g: Game): CharKey[] => {
+  const excluded = g.mode.scanExcludes ?? g.commandersInGame();
+  return g
     .rosterInGame()
-    .filter((c) => !c.commander)
+    .filter((c) => !excluded.includes(c.key))
     .map((c) => c.key);
+};
 
 export const commonSkills: Record<string, SkillDef> = {
   publish: {

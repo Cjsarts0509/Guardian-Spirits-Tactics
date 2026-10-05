@@ -2,9 +2,9 @@
 import { describe, expect, it } from 'vitest';
 import { advance, applyAction, botKnowledge, createGame, eventsFor, smartBotAction, viewFor } from '../src/index.js';
 
-function play(seed: number, n: number) {
+function play(seed: number, n: number, mode: 'civil_war' | 'primordial' = 'civil_war') {
   const players = Array.from({ length: n }, (_, k) => ({ id: `p${k + 1}`, nickname: `봇${k + 1}` }));
-  const { state } = createGame({ mode: 'civil_war', players, seed, now: 0 });
+  const { state } = createGame({ mode, players, seed, now: 0 });
   const mem = { rng: seed * 7 };
   let now = 0;
   let rejected = 0;
@@ -27,8 +27,8 @@ describe('똑똑한 봇', () => {
     let rejected = 0;
     let actions = 0;
     const minutes: number[] = [];
-    for (let i = 0; i < 30; i++) {
-      const r = play(500 + i, 8 + (i % 5));
+    for (let i = 0; i < 40; i++) {
+      const r = play(500 + i, 8 + (i % 5), i < 20 ? 'civil_war' : 'primordial');
       expect(r.state.phase, `seed ${500 + i}`).toBe('ended');
       rejected += r.rejected;
       actions += r.actions;
@@ -40,7 +40,7 @@ describe('똑똑한 봇', () => {
 
   it('처음 4분 동안은 공격 실패(자살)가 없다', () => {
     for (let i = 0; i < 20; i++) {
-      const { state } = play(900 + i, 12);
+      const { state } = play(900 + i, 12, i % 2 ? 'primordial' : 'civil_war');
       const early = state.log.filter((e) => e.at < 4 * 60000 && e.kind.startsWith('attack.fail'));
       expect(early, `seed ${900 + i}`).toHaveLength(0);
     }

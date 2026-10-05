@@ -1,22 +1,39 @@
 import { useState } from 'react';
 import type { RoomDetail, RoomSummary } from '@gst/protocol';
 import { net } from './net.js';
+import type { ModeId } from '@gst/rules';
+
+const MODES: { id: ModeId; name: string; ready: boolean }[] = [
+  { id: 'civil_war', name: '왕자들의 내전', ready: true },
+  { id: 'primordial', name: '태초의 전쟁', ready: true },
+  { id: 'lidellut', name: '리델루트 황야', ready: false },
+  { id: 'troll', name: '트롤 부족의 반란', ready: false },
+];
 
 export function Lobby({ rooms }: { rooms: RoomSummary[] }) {
   const [name, setName] = useState('가택 한 판');
   const [turn, setTurn] = useState<60 | 90 | 120>(90);
+  const [mode, setMode] = useState<ModeId>('civil_war');
   return (
     <div className="lobby">
       <section className="card">
         <h2>방 만들기</h2>
         <div className="row">
           <input value={name} maxLength={30} onChange={(e) => setName(e.target.value)} />
+          <select value={mode} onChange={(e) => setMode(e.target.value as ModeId)}>
+            {MODES.map((m) => (
+              <option key={m.id} value={m.id} disabled={!m.ready}>
+                {m.name}
+                {m.ready ? '' : ' (준비 중)'}
+              </option>
+            ))}
+          </select>
           <select value={turn} onChange={(e) => setTurn(Number(e.target.value) as 60 | 90 | 120)}>
             <option value={60}>턴 60초</option>
             <option value={90}>턴 90초 (원본)</option>
             <option value={120}>턴 120초</option>
           </select>
-          <button onClick={() => net.send({ type: 'room.create', name: name.trim() || '가택', mode: 'civil_war', turnSeconds: turn })}>만들기</button>
+          <button onClick={() => net.send({ type: 'room.create', name: name.trim() || '가택', mode, turnSeconds: turn })}>만들기</button>
         </div>
       </section>
       <section className="card">

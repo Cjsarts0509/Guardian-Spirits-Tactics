@@ -6,7 +6,7 @@ export { applyAction, advance, playerLeft, skillBlocker } from './engine/actions
 export { viewFor, eventsFor, canSee, spectatorView } from './engine/view.js';
 export type { PlayerView, OtherPlayerView, SkillView, SpectatorView } from './engine/view.js';
 export { Game } from './engine/game.js';
-export { modes, getMode, civilWar } from './modes/index.js';
+export { modes, getMode, civilWar, primordial } from './modes/index.js';
 export type { ModeDef, CharacterDef, SkillDef, SkillCtx, TargetKind } from './modes/index.js';
 export { skillRegistry } from './skills/registry.js';
 export { randomBotAction, smartBotAction, botKnowledge } from './bot.js';

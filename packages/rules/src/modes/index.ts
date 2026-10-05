@@ -1,9 +1,11 @@
 import type { ModeId } from '../types.js';
 import { civilWar } from './civil_war.js';
+import { primordial } from './primordial.js';
 import type { ModeDef } from './types.js';
 
-export const modes: Record<ModeId, ModeDef> = {
+export const modes: Partial<Record<ModeId, ModeDef>> = {
   civil_war: civilWar,
+  primordial,
 };
 
 export function getMode(id: ModeId): ModeDef {
@@ -12,5 +14,5 @@ export function getMode(id: ModeId): ModeDef {
   return m;
 }
 
-export { civilWar };
+export { civilWar, primordial };
 export type { ModeDef, CharacterDef, SkillDef, SkillCtx, TargetKind, DisguiseRule } from './types.js';

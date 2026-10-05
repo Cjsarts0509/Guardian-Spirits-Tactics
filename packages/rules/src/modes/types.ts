@@ -37,6 +37,8 @@ export interface SkillDef {
   manaFor?(actor: PlayerState): number;
   /** 스킬 인스턴스 대신 별도 쿨다운/보유 판정을 쓰는 아이템형 스킬 */
   item?: boolean;
+  /** 무적(마법 면역) 대상에게도 쓸 수 있는 해제 계열 (DECISIONS D) */
+  ignoresInvulnerable?: boolean;
 }
 
 export interface CharacterDef {
@@ -54,8 +56,8 @@ export interface CharacterDef {
   skills: SkillKey[];
   /** 공통 스킬의 모드별 원본 코드 */
   skillCodes?: Record<SkillKey, string>;
-  /** 시간 해금 (게임 시작 후 초) — 해금 시점에 살아 있어야 받는다 */
-  unlocks?: { at: number; skill: SkillKey }[];
+  /** 시간 해금 (게임 시작 후 초) — 해금 시점에 살아 있어야 받는다. requires: 그 스킬을 아직 갖고 있을 때만, replaces: 해금 시 제거 */
+  unlocks?: { at: number; skill: SkillKey; requires?: SkillKey; replaces?: SkillKey }[];
   /** 게임 시작 시 본인에게 보여주는 목표 */
   objective: string;
 }
@@ -76,13 +78,21 @@ export interface ModeDef {
   masks: Record<number, string>;
   /** 모드 고유 스킬 */
   skills: Record<SkillKey, SkillDef>;
-  /** '-전체' 익명 방송 권한 */
-  globalChat: { characters: CharKey[]; mana: number };
+  /** '-전체' 방송 권한. anonymous: 캐릭터 이름도 숨긴다 (태초·황야·트롤의 비공개형 A025) */
+  globalChat: { characters: CharKey[]; mana: number; anonymous?: boolean };
   disguises: DisguiseRule[];
   /** 확인·스캔이 항상 실패하는 캐릭터 (트롤 하치 하이드) */
   hiddenFromChecks: CharKey[];
+  /** 스캔 이름 목록에서 빠지는 캐릭터. 없으면 지휘관 전원 */
+  scanExcludes?: CharKey[];
   /** 정답 공격이어도 공격자 실패 처리되는 '절대 보디가드' (원본 Rn) */
   isAbsolutelyGuarded(g: Game, target: PlayerState): boolean;
   /** 승리 판정. 종료 시 g.endGame 호출 */
   checkVictory(g: Game): void;
+  /** 정답 공격을 횟수제로 막는 보디가드 (태초 2회 방어 등). 막았으면 메시지를 돌려준다 (이미 공지했으면 '') */
+  chargedGuard?(g: Game, attacker: PlayerState, target: PlayerState): string | null;
+  /** 이름 공격으로 살해가 확정됐을 때 (살해 처리 직전) */
+  onAttackKill?(g: Game, attacker: PlayerState, target: PlayerState): void;
+  /** 모드 고유 예약 작업 (g.schedule(at, 'mode', payload)) */
+  onTask?(g: Game, payload: Record<string, unknown>): void;
 }

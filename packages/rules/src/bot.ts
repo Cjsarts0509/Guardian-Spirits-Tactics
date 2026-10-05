@@ -41,27 +41,49 @@ export function randomBotAction(state: GameState, playerId: PlayerId, rng: { rng
 
 // ── 똑똑한 봇 ───────────────────────────────────────────────────────────
 
-/** 보디가드가 살아 있으면 공격이 무조건 실패하는 관계 (모드 규칙, 공개 정보) */
+/** 보디가드가 살아 있으면 공격이 무조건 실패하는 관계 (모드 규칙, 공개 정보). 태초의 횟수제 보디가드는 공격자 손해가 없어 제외 */
 const GUARDS: Record<string, Record<CharKey, CharKey>> = {
   civil_war: { kai: 'arin', dantes: 'kelhu' },
   lidellut: { kai: 'arin' },
 };
-/** 대상이 특정 캐릭터일 때만 의미 있는 1회성/조건부 스킬 */
-const NEEDS: Record<string, CharKey> = {
-  dantes_command: 'kai',
-  dantes_successor: 'mertz',
-  valiant_charge: 'kelhu',
-  advice: 'kelhu',
+/** 대상이 특정 캐릭터일 때만 의미 있는 1회성 스킬. friendly: 아군에게 거는 것(공표 이름을 믿고 시도) */
+const NEEDS: Record<string, { want: CharKey; friendly: boolean }> = {
+  dantes_command: { want: 'kai', friendly: false },
+  dantes_successor: { want: 'mertz', friendly: true },
+  valiant_charge: { want: 'kelhu', friendly: false },
+  advice: { want: 'kelhu', friendly: true },
+  eoril_trial: { want: 'rael', friendly: true },
+  rael_eoril_test: { want: 'eoril', friendly: true },
+  kumarin_commander_guard: { want: 'rael', friendly: true },
+  consume_master_guard: { want: 'eltas', friendly: true },
+  sasint_training: { want: 'consume', friendly: true },
+  drakan_enchant_muscle: { want: 'consume', friendly: true },
+  hermilly_libido_protection: { want: 'consume', friendly: true },
+  eoril_phoenix_flame: { want: 'consume', friendly: false },
+  kumarin_binding: { want: 'consume', friendly: false },
 };
-/** 정체 확인용 탐색 스킬: 대상이 이 캐릭터인지 알아낸다 */
+/** 정체 확인용 탐색 스킬: 대상이 이 캐릭터인지 알아낸다 (반복 사용 가능) */
 const PROBES: Record<string, CharKey> = {
   mertz_spouse: 'reindila',
   reindila_spouse: 'mertz',
   kelhu_loyal: 'dantes',
   kai_loyal: 'kai',
+  tachin_union: 'kumarin',
+  kumarin_union: 'tachin',
+  consume_slave_instinct: 'eltas',
+  kilder_casanova: 'eoril',
 };
 const ATTACKS = ['supreme_attack', 'advanced_attack', 'attack', 'soen_chain_murder'] as const;
-const DISRUPT = ['shadow_jail', 'nightmare', 'confusion', 'burning_magic'] as const;
+/** 정체·목숨·보디가드 무시 살해 */
+const EXECUTES = ['soul_reaver', 'rael_master_power', 'kilder_master_power', 'consume_slaughter'] as const;
+/** 이름 없이 때리는 공격 (목숨 1 감소) */
+const STRIKES = ['kane_wolfs_slash'] as const;
+const DISRUPT = ['shadow_jail', 'nightmare', 'confusion', 'burning_magic', 'eoril_flame_shackle', 'drakan_black_spell'] as const;
+const INFO = ['warrior_scent', 'oracle', 'shadow_eye', 'curse', 'hermilly_seeing_libido'] as const;
+/** 아군(같은 편 이름 공표자)에게 거는 지원 */
+const SUPPORT = ['sasint_support', 'nukelius_chakra_magic', 'rune_protection', 'soul_recovery'] as const;
+/** 행동 불능인 아군을 풀어주는 해제 */
+const DISPEL = ['tachin_neutralize'] as const;
 const MIN = 60_000;
 
 export interface Knowledge {
@@ -143,15 +165,22 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const unknown = alive.filter((p) => !known.has(p.id));
   const claimsSide = (p: { published: CharKey | null }, side: number) => p.published !== null && sideOf.get(p.published) === side;
 
-  // 1) 확실한 처치: 정체를 아는 적
+  // 1) 확실한 처치: 정체를 아는 적 (지휘관 우선)
+  knownEnemies.sort((a, b) => Number(!!isCommander.get(known.get(b.id)!)) - Number(!!isCommander.get(known.get(a.id)!)));
   for (const p of knownEnemies) {
     const c = known.get(p.id)!;
-    for (const [k, want] of Object.entries(NEEDS)) {
+    for (const [k, need] of Object.entries(NEEDS)) {
       const s = usable.get(k);
-      if (s && c === want && k !== 'dantes_successor' && k !== 'advice') return act(s, p.id);
+      if (s && !need.friendly && c === need.want) return act(s, p.id);
     }
-    const reaver = usable.get('soul_reaver');
-    if (reaver && (isCommander.get(c) || elapsed > 6 * MIN)) return act(reaver, p.id);
+    for (const k of EXECUTES) {
+      const s = usable.get(k);
+      if (s && (isCommander.get(c) || elapsed > 6 * MIN || s.usesLeft === null)) return act(s, p.id);
+    }
+    for (const k of STRIKES) {
+      const s = usable.get(k);
+      if (s && (isCommander.get(c) || elapsed > 6 * MIN)) return act(s, p.id);
+    }
     if (!attackable(c)) continue;
     for (const k of ATTACKS) {
       const s = usable.get(k);
@@ -164,17 +193,47 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     const t = alive.find((p) => me.alliedBy.includes(p.id) && (known.has(p.id) ? enemy(known.get(p.id)!) : claimsSide(p, me.side === 1 ? 2 : 1)));
     if (t) return act(backstab, t.id);
   }
-  // 아군 전용 조건부 스킬 (후계자 임명, 조언)
-  for (const k of ['dantes_successor', 'advice'] as const) {
+  // 아군에게 거는 조건부 스킬: 정체를 알거나, 그 이름을 공표한 사람이 있으면 (적 이름을 공표한 사람은 제외)
+  for (const [k, need] of Object.entries(NEEDS)) {
     const s = usable.get(k);
-    const t = s && alive.find((p) => known.get(p.id) === NEEDS[k]);
+    if (!s || !need.friendly) continue;
+    const t = alive.find((p) => known.get(p.id) === need.want) ?? (elapsed > 2 * MIN ? alive.find((p) => !known.has(p.id) && p.published === need.want && (candidates.get(p.id) ?? []).includes(need.want)) : undefined);
+    if (t) return act(s, t.id);
+  }
+  // 적에게 거는 조건부 1회 스킬: 시간이 지났고 그 이름을 공표한 사람이 있으면 시도
+  if (elapsed > 8 * MIN) {
+    for (const [k, need] of Object.entries(NEEDS)) {
+      const s = usable.get(k);
+      if (!s || need.friendly) continue;
+      const t = alive.find((p) => !known.has(p.id) && p.published === need.want && (candidates.get(p.id) ?? []).includes(need.want));
+      if (t && nextRandom(mem) < 0.3) return act(s, t.id);
+    }
+  }
+  // 자기 자신에게 쓰는 성장 스킬
+  const mastery = usable.get('sasint_battle_mastery');
+  if (mastery && elapsed > 3 * MIN) return act(mastery);
+  const evo = usable.get('consume_final_evolution');
+  if (evo && ['consume_resistance', 'consume_iron_skin', 'advanced_attack'].every((k) => me.skills.some((x) => x.key === k))) return act(evo);
+  // 이름만 고르는 정보 스킬 (리더쉽): 모르는 아군 이름 하나
+  for (const s of usable.values()) {
+    if (s.target !== 'none' || !s.nameOptions || s.key === 'publish') continue;
+    const unknownNames = s.nameOptions.filter((n) => ![...known.values()].includes(n));
+    const n = pick(unknownNames.length ? unknownNames : s.nameOptions);
+    if (n) return act(s, undefined, n);
+  }
+  // 행동 불능인 아군 풀어주기
+  for (const k of DISPEL) {
+    const s = usable.get(k);
+    const t = s && alive.find((p) => p.statuses.some((st) => st.kind === 'incapacitated') && (known.has(p.id) ? !enemy(known.get(p.id)!) : claimsSide(p, me.side)));
     if (s && t) return act(s, t.id);
   }
-  // 정체가 드러난 아군 지휘관 보호
-  const rune = usable.get('rune_protection');
-  if (rune) {
+  // 아군 지원·보호: 정체가 드러난 아군 지휘관 우선, 아니면 같은 편 이름 공표자
+  for (const k of SUPPORT) {
+    const s = usable.get(k);
+    if (!s || nextRandom(mem) > 0.25) continue;
     const cmd = alive.find((p) => p.revealed && !enemy(p.revealed) && isCommander.get(p.revealed));
-    if (cmd) return act(rune, cmd.id);
+    const t = cmd ?? pick(alive.filter((p) => (known.has(p.id) ? !enemy(known.get(p.id)!) : claimsSide(p, me.side))));
+    if (t) return act(s, t.id);
   }
 
   // 2) 공표. 지휘관은 진명을 숨기고, 나머지는 대체로 진명(턴 마나·진실의 조각). 가짜로 시작했어도 나중에 진명으로 바꾼다
@@ -228,7 +287,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       const name = t && (t.published && options.includes(t.published) ? t.published : pick(options));
       if (t && name) return act(s, t.id, name);
     }
-    for (const k of ['warrior_scent', 'oracle', 'shadow_eye', 'curse'] as const) {
+    for (const k of INFO) {
       const s = usable.get(k);
       const t = s && pick(unknown);
       if (s && t) return act(s, t.id);
@@ -282,8 +341,8 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       if (atk && atk.nameOptions?.includes(name) && (t.all.length <= 2 || elapsed > 20 * MIN)) return act(atk, t.p.id, name);
     }
   }
-  // 8) 카이의 소울 리버: 오래 끌리면 단테스일 가능성이 가장 높은 사람에게
-  const reaver = usable.get('soul_reaver');
+  // 8) 즉사기: 오래 끌리면 적 지휘관일 가능성이 가장 높은 사람에게
+  const reaver = [...EXECUTES, ...STRIKES].map((k) => usable.get(k)).find((s) => s);
   if (reaver && elapsed > 15 * MIN && nextRandom(mem) < 0.3) {
     const pool = alive
       .map((p) => ({ p, all: candidates.get(p.id) ?? [] }))

@@ -1,7 +1,8 @@
 // 가택 규칙 엔진 공용 타입.
 // 상태는 전부 JSON 직렬화 가능한 평범한 객체/배열로 유지한다 (리플레이·저장·전송용).
 
-export type ModeId = 'civil_war';
+export type ModeId = 'civil_war' | 'primordial' | 'lidellut' | 'troll';
+export const MODE_IDS: ModeId[] = ['civil_war', 'primordial', 'lidellut', 'troll'];
 export type Side = 1 | 2;
 export type PlayerId = string;
 export type CharKey = string;
@@ -88,7 +89,7 @@ export interface GameEvent {
 export interface ScheduledTask {
   id: number;
   at: number;
-  kind: 'turn' | 'unlock' | 'reveal' | 'effectEnd' | 'flagEnd';
+  kind: 'turn' | 'unlock' | 'reveal' | 'effectEnd' | 'flagEnd' | 'mode';
   payload: Record<string, unknown>;
 }
 

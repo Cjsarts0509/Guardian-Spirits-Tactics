@@ -68,6 +68,11 @@ export function skillBlocker(g: Game, actor: PlayerState, key: SkillKey): string
   if (g.isIncapacitated(actor)) return '행동 불능 상태입니다.';
   const cost = def.manaFor ? def.manaFor(actor) : def.mana;
   if (actor.mana < cost) return `마나가 부족합니다. (${cost} 필요)`;
+  // 대상이 없는 스킬의 사전 조건(진명 공표 등)은 미리 보여준다
+  if (def.target === 'none' && def.precheck) {
+    const pre = def.precheck({ g, actor, target: null, name: null, skill: def });
+    if (pre) return pre;
+  }
   return null;
 }
 
@@ -83,7 +88,7 @@ function useSkill(g: Game, actor: PlayerState, key: SkillKey, targetId: PlayerId
     if (!tp) return fail(g, '대상이 없습니다.');
     if (tp.id === actor.id) return fail(g, '자신에게 사용할 수 없습니다.');
     if (!tp.alive) return fail(g, '이미 사망한 대상입니다.');
-    if (g.isInvulnerable(tp)) return fail(g, '대상이 보호받고 있어 지정할 수 없습니다.');
+    if (g.isInvulnerable(tp) && !def.ignoresInvulnerable) return fail(g, '대상이 보호받고 있어 지정할 수 없습니다.');
     target = tp;
   }
 
@@ -163,8 +168,12 @@ function chat(g: Game, actor: PlayerState, channel: string, raw: string, to: Pla
       const cost = g.mode.globalChat.mana;
       if (actor.mana < cost) return fail(g, '마나가 모자랍니다.');
       actor.mana -= cost;
-      const who = g.charName(actor.character);
-      g.toAll('chat.global', `${who}: ${text}`, { character: actor.character, channel, text });
+      if (g.mode.globalChat.anonymous) {
+        g.toAll('chat.global', `|전체 채팅|: ${text}`, { channel, text });
+      } else {
+        const who = g.charName(actor.character);
+        g.toAll('chat.global', `${who}: ${text}`, { character: actor.character, channel, text });
+      }
       return { ok: true, events: g.events };
     }
   }

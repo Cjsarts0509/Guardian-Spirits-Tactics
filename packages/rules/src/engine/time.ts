@@ -28,12 +28,19 @@ function runTask(g: Game, task: ScheduledTask): void {
     case 'unlock': {
       const p = g.player(String(task.payload.player));
       const skill = String(task.payload.skill);
-      if (p && p.alive && !g.hasSkill(p, skill)) {
-        g.grantSkill(p, skill);
-        g.toPlayer(p, 'skill.grant', `-비공개: ${g.skillDef(skill).name} 스킬을 획득하였습니다.`, { skill });
-      }
+      if (!p || !p.alive || g.hasSkill(p, skill)) return;
+      const requires = task.payload.requires ? String(task.payload.requires) : null;
+      if (requires && !g.hasSkill(p, requires)) return;
+      const replaces = task.payload.replaces ? String(task.payload.replaces) : null;
+      if (replaces) g.removeSkill(p, replaces);
+      g.grantSkill(p, skill);
+      g.toPlayer(p, 'skill.grant', `-비공개: ${g.skillDef(skill).name} 스킬을 획득하였습니다.`, { skill });
       return;
     }
+
+    case 'mode':
+      g.mode.onTask?.(g, task.payload);
+      return;
 
     case 'reveal': {
       const p = g.player(String(task.payload.player));

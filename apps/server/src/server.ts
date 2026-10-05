@@ -8,6 +8,7 @@ import { createVerifier } from './auth.js';
 import type { ServerConfig } from './config.js';
 import { saveMatch } from './persist.js';
 import { RoomManager, type Conn, type Room } from './rooms.js';
+import { modes } from '@gst/rules';
 
 interface Session {
   userId: string;
@@ -140,6 +141,7 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
           return send({ type: 'rooms', rooms: rooms.list() });
         case 'room.create': {
           if (current) return reply('이미 방에 들어가 있습니다.');
+          if (!modes[msg.mode]) return reply('아직 준비되지 않은 모드입니다.');
           const room = rooms.create(msg.name, msg.mode, s.userId, msg.turnSeconds);
           return reply(room.join(s.userId, s.nickname, s.authId, conn));
         }

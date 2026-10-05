@@ -7,6 +7,8 @@ import {
   createGame,
   eventsFor,
   getMode,
+  modes,
+  type ModeId,
   playerLeft,
   randomBotAction,
   smartBotAction,
@@ -49,7 +51,7 @@ export class Room {
   constructor(
     readonly cfg: ServerConfig,
     readonly name: string,
-    readonly mode: 'civil_war',
+    readonly mode: ModeId,
     public hostId: string,
     readonly turnSeconds: number,
     private readonly onEnd: (room: Room) => void,
@@ -263,7 +265,7 @@ export class RoomManager {
     private readonly clock: () => number = Date.now,
   ) {}
 
-  create(name: string, mode: 'civil_war', hostId: string, turnSeconds: number): Room {
+  create(name: string, mode: ModeId, hostId: string, turnSeconds: number): Room {
     const room = new Room(this.cfg, name, mode, hostId, turnSeconds, this.onEnd, this.clock);
     this.rooms.set(room.id, room);
     return room;

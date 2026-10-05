@@ -1,5 +1,5 @@
 import { applyAction, advance, createGame, eventsFor } from '../src/index.js';
-import type { Action, ActionResult, CharKey, GameEvent, GameState, PlayerState } from '../src/index.js';
+import type { Action, ActionResult, CharKey, GameEvent, GameState, ModeId, PlayerState } from '../src/index.js';
 
 /** 내전 슬롯 순서 */
 export const CIVIL_ORDER: CharKey[] = [
@@ -21,8 +21,14 @@ export interface Table {
   texts(events: GameEvent[]): string[];
 }
 
+export const PRIMORDIAL_ORDER: CharKey[] = ['rael', 'kane', 'eoril', 'nukelius', 'tachin', 'kumarin', 'eltas', 'sasint', 'kilder', 'drakan', 'hermilly', 'consume'];
+
 /** 캐릭터를 플레이어 id 로 고정 배정한 내전 테이블. chars 를 생략하면 12인 전원 */
 export function civilTable(chars: CharKey[] = CIVIL_ORDER, seed = 1): Table {
+  return modeTable('civil_war', chars, seed);
+}
+
+export function modeTable(mode: ModeId, chars: CharKey[], seed = 1): Table {
   const players = chars.map((_c, i) => ({ id: `u${i + 1}`, nickname: `플레이어${i + 1}` }));
   const assignment: Record<string, CharKey> = {};
   const id: Record<CharKey, string> = {};
@@ -30,7 +36,7 @@ export function civilTable(chars: CharKey[] = CIVIL_ORDER, seed = 1): Table {
     assignment[`u${i + 1}`] = c;
     id[c] = `u${i + 1}`;
   });
-  const { state } = createGame({ mode: 'civil_war', players, seed, now: 0, assignment });
+  const { state } = createGame({ mode, players, seed, now: 0, assignment });
   const t: Table = {
     state,
     now: 0,
