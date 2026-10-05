@@ -52,6 +52,7 @@ export function Lobby({ rooms }: { rooms: RoomSummary[] }) {
           <h2>열린 방</h2>
           <button className="ghost" onClick={() => net.send({ type: 'room.list' })}>새로고침</button>
         </div>
+        {rooms.some((r) => r.rejoinable) && <p className="muted small">자리를 비워 둔 판이 있습니다. 재입장하면 봇이 대신하던 자리를 이어받습니다. 새 방을 만들면 그 판에서는 사망 처리됩니다.</p>}
         {rooms.length === 0 && <p className="muted">열린 방이 없습니다.</p>}
         <ul className="rooms">
           {rooms.map((r) => (
@@ -62,9 +63,13 @@ export function Lobby({ rooms }: { rooms: RoomSummary[] }) {
               <span className="muted">
                 {r.players}/{r.maxPlayers} · {r.status === 'lobby' ? '대기 중' : '진행 중'}
               </span>
-              <button disabled={r.status !== 'lobby'} onClick={() => net.send({ type: 'room.join', roomId: r.id })}>
-                입장
-              </button>
+              {r.rejoinable ? (
+                <button onClick={() => net.send({ type: 'room.join', roomId: r.id })}>재입장</button>
+              ) : (
+                <button disabled={r.status !== 'lobby'} onClick={() => net.send({ type: 'room.join', roomId: r.id })}>
+                  입장
+                </button>
+              )}
             </li>
           ))}
         </ul>
@@ -89,12 +94,12 @@ export function RoomPanel({ room, myId }: { room: RoomDetail; myId: string }) {
           {room.members.map((m) => (
             <li key={m.id}>
               {m.nickname} {m.bot && <span className="tag">봇</span>} {m.id === room.hostId && <span className="tag">방장</span>}{' '}
-              {!m.connected && <span className="tag warn">연결 끊김</span>}
+              {m.away ? <span className="tag warn">자리 비움 · 봇 대행</span> : !m.connected && <span className="tag warn">연결 끊김</span>}
             </li>
           ))}
         </ol>
         <p className="muted">
-          {room.members.length}/{room.maxPlayers}명 · {missing > 0 ? `시작까지 ${missing}명 더 필요` : '시작 가능'}
+          {room.members.length}/{room.maxPlayers}명 · {missing > 0 ? (room.botsAllowed ? `시작하면 봇 ${missing}명이 채워짐` : `시작까지 ${missing}명 더 필요`) : '시작 가능'}
         </p>
         {isHost && (
           <div className="row">
@@ -109,8 +114,8 @@ export function RoomPanel({ room, myId }: { room: RoomDetail; myId: string }) {
                 <button className="ghost" onClick={() => net.send({ type: 'room.removeBots' })}>봇 제거</button>
               </>
             )}
-            <button disabled={missing > 0} onClick={() => net.send({ type: 'room.start' })}>
-              시작
+            <button disabled={missing > 0 && !room.botsAllowed} onClick={() => net.send({ type: 'room.start' })}>
+              게임 시작
             </button>
             {room.botsAllowed && (
               <button className="ghost" title="사람은 모두 관전, 봇 12명이 플레이 (테스트용)" onClick={() => net.send({ type: 'room.start', aiOnly: true })}>

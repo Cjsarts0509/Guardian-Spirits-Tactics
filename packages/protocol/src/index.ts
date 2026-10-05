@@ -42,7 +42,8 @@ export const clientMessage = z.discriminatedUnion('type', [
     turnSeconds: z.union([z.literal(60), z.literal(90), z.literal(120)]).default(90),
   }),
   z.object({ type: z.literal('room.join'), roomId: z.string().max(32) }),
-  z.object({ type: z.literal('room.leave') }),
+  /** away: 자리를 비움 (봇이 대신, 재입장 가능). quit: 완전히 나감 (진행 중이면 사망 처리) */
+  z.object({ type: z.literal('room.leave'), mode: z.enum(['away', 'quit']).optional() }),
   z.object({ type: z.literal('room.addBots'), count: z.number().int().min(1).max(11) }),
   z.object({ type: z.literal('room.removeBots') }),
   /** aiOnly: 사람은 모두 관전, 봇만으로 판을 돌린다 (테스트용) */
@@ -64,6 +65,8 @@ export interface RoomSummary {
   players: number;
   maxPlayers: number;
   status: 'lobby' | 'playing' | 'ended';
+  /** 요청한 사람이 이 방의 자리를 비운 상태 (재입장 가능) */
+  rejoinable?: boolean;
 }
 
 export interface RoomMember {
@@ -71,6 +74,8 @@ export interface RoomMember {
   nickname: string;
   bot: boolean;
   connected: boolean;
+  /** 자리 비움 (봇이 대신 플레이 중) */
+  away?: boolean;
   /** 봇만 돌리는 판의 관전자 */
   spectator?: boolean;
 }

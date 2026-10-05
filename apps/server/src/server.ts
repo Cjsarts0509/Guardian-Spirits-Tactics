@@ -139,7 +139,9 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
         session = await authenticate(msg, conn, ws);
         if (!session) return;
         send({ type: 'welcome', userId: session.userId, nickname: session.nickname, session: session.token, guest: !session.authId });
-        const room = rooms.roomOf(session.userId);
+        // 끊겼다 돌아온 자리(away)는 자동 복귀, 스스로 잠시 나간 자리(left)는 로비에서 재입장
+        const uid = session.userId;
+        const room = rooms.roomOf(uid) ?? rooms.awayRoomsOf(uid).find((r) => r.member(uid)?.away && !r.member(uid)?.left);
         if (room) room.join(session.userId, session.nickname, session.authId, conn);
         else send({ type: 'room', room: null });
         return;
@@ -152,10 +154,12 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
 
       switch (msg.type) {
         case 'room.list':
-          return send({ type: 'rooms', rooms: rooms.list() });
+          return send({ type: 'rooms', rooms: rooms.list(s.userId) });
         case 'room.create': {
           if (current) return reply('이미 방에 들어가 있습니다.');
           if (!modes[msg.mode]) return reply('아직 준비되지 않은 모드입니다.');
+          // 자리를 비워 둔 다른 판이 있으면 그 판에서는 완전히 나간 것으로 (사망 처리)
+          for (const r of rooms.awayRoomsOf(s.userId)) r.leave(s.userId, gameNow, 'quit');
           const room = rooms.create(msg.name, msg.mode, s.userId, msg.turnSeconds);
           return reply(room.join(s.userId, s.nickname, s.authId, conn));
         }
@@ -163,10 +167,11 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
           if (current && current.id !== msg.roomId) return reply('이미 다른 방에 들어가 있습니다.');
           const room = rooms.rooms.get(msg.roomId);
           if (!room) return reply('방이 없습니다.');
+          for (const r of rooms.awayRoomsOf(s.userId)) if (r.id !== room.id) r.leave(s.userId, gameNow, 'quit');
           return reply(room.join(s.userId, s.nickname, s.authId, conn));
         }
         case 'room.leave':
-          current?.leave(s.userId, gameNow);
+          current?.leave(s.userId, gameNow, msg.mode ?? 'quit');
           return send({ type: 'room', room: null });
         case 'room.addBots':
           return reply(current ? current.addBots(s.userId, msg.count) : '방에 없습니다.');

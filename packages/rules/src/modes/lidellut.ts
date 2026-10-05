@@ -262,7 +262,7 @@ const skills: Record<string, SkillDef> = {
       const tg = t(c);
       g.addEffect(tg, 'incapacitated', 45, 'confusion', true);
       g.toAll('status.incapacitated', `누군가가 ${g.label(tg)}에게 행동 불능 주문을 시전하였습니다.`, { target: tg.id, seconds: 45 });
-      g.toPlayer(tg, 'status.incapacitated.self', '행동 불능 상태가 되었습니다. (45초)', { source: 'sepi' });
+      g.toPlayer(tg, 'status.incapacitated.self', '행동 불능 상태가 되었습니다. (45초)');
     },
   },
   burning_magic: {
@@ -349,8 +349,9 @@ const skills: Record<string, SkillDef> = {
         }
         if (z === 4) onStrategyFull(g);
       } else {
-        g.toAll('skill.join.fail', `-${josa(me, '이/가')} 합류에 실패했습니다! ${me}의 정체는 ${josa(g.label(actor), '이다/다')}!`, { character: actor.character, player: actor.id });
+        g.toAll('skill.join.fail', `-${josa(me, '이/가')} 합류에 실패했습니다!`, { character: actor.character });
         g.revealPublic(actor);
+        g.toAll('reveal', `-${me}의 정체는 ${josa(g.label(actor), '이다/다')}!`, { player: actor.id, character: actor.character });
         g.toPlayer(actor, 'skill.join.fail.self', '-비공개: 그 대상은 유이가 아닙니다.', { target: tg.id }, [{ player: tg.id, character: null, not: 'yui' }]);
       }
     },

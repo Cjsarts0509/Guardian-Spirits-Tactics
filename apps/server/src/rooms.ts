@@ -36,6 +36,9 @@ interface Member {
   conn: Conn | null;
   lastSeq: number;
   graceTimer: NodeJS.Timeout | null;
+  /** 자리 비움: 접속이 오래 끊겼거나(away) 스스로 잠시 나감(left). 그동안 봇이 대신 플레이, 돌아오면 해제 */
+  away?: boolean;
+  left?: boolean;
 }
 
 const id = (n = 6) => randomBytes(n).toString('base64url').slice(0, n);
@@ -79,7 +82,7 @@ export class Room {
       ...this.summary(),
       hostId: this.hostId,
       turnSeconds: this.turnSeconds,
-      members: this.members.map((m) => ({ id: m.id, nickname: m.nickname, bot: m.bot, connected: m.bot || !!m.conn, ...(m.spectator ? { spectator: true } : {}) })),
+      members: this.members.map((m) => ({ id: m.id, nickname: m.nickname, bot: m.bot, connected: m.bot || !!m.conn, ...(m.spectator ? { spectator: true } : {}), ...(m.away || m.left ? { away: true } : {}) })),
       minPlayers: MIN_PLAYERS,
       botsAllowed: this.cfg.allowBots,
     };
@@ -101,6 +104,8 @@ export class Room {
       existing.lastSeq = 0; // 재접속 시 전체 로그 다시 전송
       if (existing.graceTimer) clearTimeout(existing.graceTimer);
       existing.graceTimer = null;
+      existing.away = false;
+      existing.left = false;
       this.broadcastRoom();
       this.syncGame([existing]);
       return null;
@@ -112,8 +117,8 @@ export class Room {
     return null;
   }
 
-  /** 명시적 퇴장 */
-  leave(userId: string, now: number): void {
+  /** 명시적 퇴장. 진행 중인 판에서 away 면 자리를 비우고(봇 대행, 재입장 가능), quit 이면 사망 처리 */
+  leave(userId: string, now: number, mode: 'away' | 'quit' = 'quit'): void {
     const m = this.member(userId);
     if (!m) return;
     if (this.status === 'lobby' || this.status === 'ended') {
@@ -125,10 +130,25 @@ export class Room {
       m.conn = null;
       if (m.graceTimer) clearTimeout(m.graceTimer);
       m.graceTimer = null;
-      playerLeft(this.state, userId, now);
-      this.afterChange();
+      const alive = this.state.players.find((p) => p.id === userId)?.alive;
+      if (mode === 'away' && alive) {
+        m.left = true;
+        this.afterChange();
+      } else {
+        // 완전히 나감: 사망 처리하고 방 명단에서도 뺀다 (재입장 불가, 새 방 가능)
+        playerLeft(this.state, userId, now);
+        this.members = this.members.filter((x) => x.id !== userId);
+        if (this.hostId === userId) this.hostId = this.humans()[0]?.id ?? '';
+        this.afterChange();
+      }
     }
     this.broadcastRoom();
+  }
+
+  /** 이 사람이 자리를 비운 채 남아 있는 진행 중인 판인가 (재입장 대상) */
+  isAway(userId: string): boolean {
+    const m = this.member(userId);
+    return !!m && !m.bot && !m.spectator && !!(m.away || m.left);
   }
 
   /** 연결 끊김 */
@@ -141,11 +161,12 @@ export class Room {
       return;
     }
     if (this.status === 'playing' && !m.spectator && !m.graceTimer) {
+      // 유예 시간이 지나도 안 돌아오면 사망 대신 봇이 자리를 대신한다 (탭을 닫아도 돌아오면 이어서)
       m.graceTimer = setTimeout(() => {
         m.graceTimer = null;
         if (!m.conn && this.state && this.status === 'playing') {
-          playerLeft(this.state, m.id, this.clock());
-          this.afterChange();
+          m.away = true;
+          this.broadcastRoom();
         }
       }, this.cfg.reconnectGraceSeconds * 1000);
     }
@@ -182,7 +203,12 @@ export class Room {
       const bots = this.members.filter((m) => m.bot).length;
       if (bots < MAX_PLAYERS) this.addBots(byUser, MAX_PLAYERS - bots);
     }
-    const players = this.members.filter((m) => !m.spectator);
+    // 인원이 모자라면 봇으로 채워서 바로 시작 (봇 허용 서버)
+    let players = this.members.filter((m) => !m.spectator);
+    if (players.length < MIN_PLAYERS && this.cfg.allowBots) {
+      this.addBots(byUser, MIN_PLAYERS - players.length);
+      players = this.members.filter((m) => !m.spectator);
+    }
     if (players.length < MIN_PLAYERS) return `${MIN_PLAYERS}명 이상이어야 시작할 수 있습니다.`;
     const { state } = createGame({
       mode: this.mode,
@@ -215,7 +241,9 @@ export class Room {
     const before = this.state.seq;
     advance(this.state, now);
     for (const m of this.members) {
-      if (!m.bot) continue;
+      // 봇, 그리고 자리를 비운 사람(접속 없음)은 봇이 대신 움직인다
+      if (!m.bot && !((m.away || m.left) && !m.conn)) continue;
+      if (m.spectator) continue;
       const bot = this.cfg.botKind === 'random' ? randomBotAction : smartBotAction;
       const a = bot(this.state, m.id, this.botRng, { activity: this.cfg.botActivity });
       if (a) {
@@ -290,13 +318,21 @@ export class RoomManager {
     return room;
   }
 
+  /** 지금 들어가 있는 방 (자리를 비운 방은 제외) */
   roomOf(userId: string): Room | undefined {
-    for (const r of this.rooms.values()) if (r.member(userId)) return r;
+    for (const r of this.rooms.values()) if (r.member(userId) && !r.isAway(userId)) return r;
     return undefined;
   }
 
-  list(): RoomSummary[] {
-    return [...this.rooms.values()].filter((r) => r.status !== 'ended').map((r) => r.summary());
+  /** 자리를 비운 채 남아 있는 진행 중인 방들 */
+  awayRoomsOf(userId: string): Room[] {
+    return [...this.rooms.values()].filter((r) => r.status === 'playing' && r.isAway(userId));
+  }
+
+  list(forUser?: string): RoomSummary[] {
+    return [...this.rooms.values()]
+      .filter((r) => r.status !== 'ended')
+      .map((r) => ({ ...r.summary(), ...(forUser && r.isAway(forUser) ? { rejoinable: true } : {}) }));
   }
 
   tick(now: number): void {

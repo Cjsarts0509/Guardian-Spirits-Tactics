@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ChatChannel, GameEvent, PlayerView, SkillView, SpectatorView } from '@gst/rules';
 import type { ClientAction, RoomDetail } from '@gst/protocol';
 import { net } from './net.js';
 import { Feed } from './Feed.js';
+import { RoleReveal } from './RoleReveal.js';
 import { SmallLogo } from './Logo.js';
 import { BgmControl } from './BgmControl.js';
 import { gemIcon, portrait, skillIcon } from './icons.js';
@@ -181,6 +182,19 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
   };
   const me = view.me;
   const targetPlayer = view.players.find((p) => p.id === target) ?? null;
+  // 시작 연출: 이 방에서 처음 게임 화면을 볼 때 1회 (새로고침·재접속은 건너뜀)
+  const revealKey = `gst.reveal.${room.id}`;
+  const [reveal, setReveal] = useState<boolean>(() => {
+    try {
+      if (sessionStorage.getItem(revealKey)) return false;
+      sessionStorage.setItem(revealKey, '1');
+    } catch {
+      /* ignore */
+    }
+    return view.phase === 'running' && view.elapsedMs < 60_000;
+  });
+  const closeReveal = useCallback(() => setReveal(false), []);
+  const [leaving, setLeaving] = useState(false);
 
   // 화면 효과: 새 이벤트마다 fx 를 만들고 잠시 뒤 지운다
   const [fx, setFx] = useState<Fx[]>([]);
@@ -254,7 +268,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
         )}
         <span className="row">
           <BgmControl compact />
-          <button className="ghost" onClick={() => confirm('방에서 나갈까요? 진행 중이면 사망 처리됩니다.') && net.send({ type: 'room.leave' })}>
+          <button className="ghost" onClick={() => setLeaving(true)}>
             나가기
           </button>
         </span>
@@ -441,6 +455,28 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
         </main>
       </div>
 
+      {reveal && <RoleReveal view={view} onClose={closeReveal} />}
+      {leaving && (
+        <div className="modal" onClick={() => setLeaving(false)}>
+          <div className="modal-body card leave-body" onClick={(e) => e.stopPropagation()}>
+            <h3>나가기</h3>
+            {view.phase === 'running' && me.alive ? (
+              <>
+                <p className="muted">진행 중인 판입니다. 어떻게 할까요?</p>
+                <button onClick={() => net.send({ type: 'room.leave', mode: 'away' })}>잠시 나가기 — 봇이 대신 플레이, 로비에서 재입장 가능</button>
+                <button className="ghost warn" onClick={() => net.send({ type: 'room.leave', mode: 'quit' })}>
+                  완전히 나가기 — 내 캐릭터는 사망 처리
+                </button>
+              </>
+            ) : (
+              <button onClick={() => net.send({ type: 'room.leave', mode: 'quit' })}>방 나가기</button>
+            )}
+            <button className="ghost" onClick={() => setLeaving(false)}>
+              취소
+            </button>
+          </div>
+        </div>
+      )}
       {picking && (
         <NamePicker
           skill={picking}

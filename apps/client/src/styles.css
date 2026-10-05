@@ -254,3 +254,23 @@ kbd { font-size: 10px; border: 1px solid var(--line); border-radius: 4px; paddin
 }
 
 .c-gold { --c: #e8c35a; } .c-teal { --c: #4fd1c5; } .c-red { --c: #ff5a5a; } .c-violet { --c: #a675ff; } .c-green { --c: #6fd38a; } .c-grey { --c: #9aa0b4; } .c-blue { --c: #6a8cff; }
+
+/* 역할 배분 연출 */
+.reveal { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; background: rgba(5, 6, 10, 0.86); backdrop-filter: blur(4px); animation: reveal-in 0.4s ease-out; }
+.reveal-body { display: grid; justify-items: center; gap: 10px; text-align: center; max-width: 560px; padding: 32px; }
+.reveal-kicker { letter-spacing: 0.2em; font-size: 12px; color: #c9a85c; text-transform: uppercase; }
+.reveal-face { width: 220px; height: 220px; border-radius: 16px; overflow: hidden; background: #0c0d12; box-shadow: 0 0 0 2px #3a3e50, 0 0 40px rgba(0, 0, 0, 0.8); display: grid; place-items: center; font-size: 60px; color: var(--muted); }
+.reveal-face img { width: 100%; height: 100%; display: block; }
+.reveal.shuffle .reveal-face { filter: saturate(0.4) brightness(0.8); }
+.reveal.reveal .reveal-face { animation: reveal-pop 0.6s cubic-bezier(.2,1.4,.4,1); }
+.reveal-face.s1 { box-shadow: 0 0 0 2px var(--s1), 0 0 48px var(--s1); }
+.reveal-face.s2 { box-shadow: 0 0 0 2px var(--s2), 0 0 48px var(--s2); }
+.reveal-name { font-family: 'Noto Serif KR', serif; font-size: 34px; font-weight: 900; line-height: 1.1; }
+.reveal-title { font-size: 14px; }
+.reveal-objective { white-space: pre-line; color: #e8dcc0; margin: 4px 0; line-height: 1.5; }
+.reveal-skills { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
+.reveal-body button { margin-top: 8px; padding: 10px 28px; font-size: 15px; }
+@keyframes reveal-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes reveal-pop { 0% { transform: scale(0.7); filter: brightness(2); } 60% { transform: scale(1.06); } 100% { transform: scale(1); filter: brightness(1); } }
+.leave-body button { width: 100%; padding: 10px 12px; text-align: left; }
+.leave-body button.warn { color: var(--warn); border-color: #5a3a2a; }

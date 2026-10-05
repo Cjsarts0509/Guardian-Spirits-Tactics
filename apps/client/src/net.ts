@@ -1,4 +1,4 @@
-// 서버 연결: 자동 재접속 + 세션 토큰으로 같은 자리 복귀
+// 서버 연결: 자동 재접속 + 세션 토큰으로 같은 자리 복귀 (토큰은 localStorage — 탭을 닫았다 열어도 복귀)
 import type { ClientMessage, ServerMessage } from '@gst/protocol';
 
 // 운영 빌드는 화면을 준 서버와 같은 주소로 접속 (도메인 없이 http://<서버IP>:8787 하나로 운영 가능)
@@ -34,7 +34,7 @@ export class Net {
   /** 이 탭에 이전 세션이 있으면 (새로고침) 자동 재접속 가능 */
   hasSession(): boolean {
     try {
-      return !!sessionStorage.getItem(SESSION_KEY);
+      return !!localStorage.getItem(SESSION_KEY);
     } catch {
       return false;
     }
@@ -69,7 +69,7 @@ export class Net {
       this.setStatus('open');
       let resume: string | undefined;
       try {
-        resume = sessionStorage.getItem(SESSION_KEY) ?? undefined;
+        resume = localStorage.getItem(SESSION_KEY) ?? undefined;
       } catch {
         resume = undefined;
       }
@@ -81,7 +81,7 @@ export class Net {
       const m = JSON.parse(String(e.data)) as ServerMessage;
       if (m.type === 'welcome') {
         try {
-          sessionStorage.setItem(SESSION_KEY, m.session);
+          localStorage.setItem(SESSION_KEY, m.session);
         } catch {
           /* ignore */
         }
@@ -102,7 +102,7 @@ export class Net {
     this.wanted = false;
     this.tokenProvider = null;
     try {
-      sessionStorage.removeItem(SESSION_KEY);
+      localStorage.removeItem(SESSION_KEY);
     } catch {
       /* ignore */
     }

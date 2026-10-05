@@ -213,7 +213,7 @@ const skills: Record<string, SkillDef> = {
       const tg = t(c);
       g.addEffect(tg, 'incapacitated', 45, 'eoril_flame_shackle', true);
       g.toAll('status.incapacitated', `누군가가 ${g.label(tg)}에게 행동 불능 주문을 시전하였습니다.`, { target: tg.id, seconds: 45 });
-      g.toPlayer(tg, 'status.incapacitated.self', '행동 불능 상태가 되었습니다. (45초)', { source: 'eoril' });
+      g.toPlayer(tg, 'status.incapacitated.self', '행동 불능 상태가 되었습니다. (45초)');
     },
   },
   eoril_trial: {
@@ -393,7 +393,7 @@ const skills: Record<string, SkillDef> = {
       g.addMana(tg, -50);
       g.addEffect(tg, 'incapacitated', 100, 'drakan_black_spell', true);
       g.toAll('skill.drakan_black_spell', `-드라칸이 ${g.label(tg)}에게 블랙 스펠을 시전하였습니다. -${g.label(tg)}의 마나가 50 감소하였습니다.`, { target: tg.id, seconds: 100 });
-      g.toPlayer(tg, 'status.incapacitated.self', '행동 불능 상태가 되었습니다. (100초)', { source: 'drakan' });
+      g.toPlayer(tg, 'status.incapacitated.self', '행동 불능 상태가 되었습니다. (100초)');
     },
   },
   drakan_enchant_muscle: {

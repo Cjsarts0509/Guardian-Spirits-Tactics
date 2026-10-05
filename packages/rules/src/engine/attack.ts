@@ -100,7 +100,7 @@ function failAttack(
   const a = heroName(g, actor);
 
   if (kind === 'chain') {
-    g.toAll('attack.fail', `-${josa(a, '이/가')} 연쇄살인에 실패하였습니다!`, { attacker: actor.character, reason });
+    g.toAll('attack.fail', `-${josa(a, '이/가')} 연쇄살인에 실패하였습니다!`, { attacker: actor.character });
     g.removeSkill(actor, 'soen_chain_murder');
     return;
   }

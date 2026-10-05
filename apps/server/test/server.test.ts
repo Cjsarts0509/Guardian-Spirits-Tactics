@@ -17,8 +17,8 @@ afterAll(async () => {
   await server.close();
 });
 
-function client() {
-  const ws = new WebSocket(`ws://127.0.0.1:${port}`);
+function client(p = port) {
+  const ws = new WebSocket(`ws://127.0.0.1:${p}`);
   const inbox: ServerMessage[] = [];
   const waiters: { pred: (m: ServerMessage) => boolean; resolve: (m: ServerMessage) => void }[] = [];
   ws.on('message', (d) => {
@@ -35,11 +35,11 @@ function client() {
     inbox,
     open,
     send: (m: unknown) => ws.send(JSON.stringify(m)),
-    wait: <T extends ServerMessage>(pred: (m: ServerMessage) => boolean, ms = 15000) =>
+    wait: <T extends ServerMessage>(pred: (m: ServerMessage) => boolean, ms = 15000, label = '') =>
       new Promise<T>((resolve, reject) => {
         const hit = inbox.find(pred);
         if (hit) return resolve(hit as T);
-        const to = setTimeout(() => reject(new Error('timeout')), ms);
+        const to = setTimeout(() => reject(new Error(`timeout ${label} (inbox ${inbox.map((m) => (m.type === 'error' ? `error:${m.message}` : m.type)).join(',')})`)), ms);
         waiters.push({ pred, resolve: (m) => (clearTimeout(to), resolve(m as T)) });
       }),
   };
@@ -62,7 +62,7 @@ describe('게임 서버', () => {
     c.ws.close();
   });
 
-  it('게스트 입장 → 방 생성 → 봇 11명 → 시작 → 내 시점 뷰만 받음 → 종료까지 진행', async () => {
+  it('게스트 입장 → 방 생성 → 봇 3명 → 시작(봇 자동 충원) → 내 시점 뷰만 받음 → 종료까지 진행', async () => {
     const c = client();
     await c.open;
     c.send({ type: 'hello', protocol: 1, nickname: '테스터' });
@@ -71,14 +71,13 @@ describe('게임 서버', () => {
 
     c.send({ type: 'room.create', name: '테스트방', mode: 'civil_war', turnSeconds: 60 });
     await c.wait((m) => m.type === 'room' && !!m.room);
-    c.send({ type: 'room.start' });
-    await c.wait((m) => m.type === 'error' && m.message.includes('8명'));
-
-    c.send({ type: 'room.addBots', count: 11 });
-    await c.wait((m) => m.type === 'room' && !!m.room && m.room.members.length === 12);
+    c.send({ type: 'room.addBots', count: 3 });
+    await c.wait((m) => m.type === 'room' && !!m.room && m.room.members.length === 4);
+    // 인원이 모자라도 방장이 시작하면 봇으로 채워서 시작한다
     c.send({ type: 'room.start' });
     const first = await c.wait<Extract<ServerMessage, { type: 'game' }>>((m) => m.type === 'game');
     if ('spectator' in first.view) throw new Error('플레이어 뷰여야 함');
+    expect(first.view.players).toHaveLength(8);
     expect(first.view.me.id).toBe(welcome.userId);
     expect(first.events.some((e) => e.kind === 'role')).toBe(true);
     // 남의 정체는 뷰에 없다
@@ -132,6 +131,55 @@ describe('게임 서버', () => {
     // 로비에서 끊기면 방에서 빠지므로 방은 사라졌거나 비어 있다
     expect(room.room!.id).toBeTruthy();
     b.ws.close();
+  });
+});
+
+describe('자리 비움 · 재입장', () => {
+  it('잠시 나가기 → 봇이 대신 움직이고 방 목록에 재입장 표시 → 재입장하면 같은 자리로', async () => {
+    // 공용 서버는 60배속이라 판이 몇 초 만에 끝난다 — 이 테스트는 실시간 서버로
+    const slowCfg = { ...loadConfig({}), port: 0, host: '127.0.0.1', tickMs: 50, botActivity: 0.08, reconnectGraceSeconds: 1, timeScale: 1 };
+    const slow = createGameServer(slowCfg, () => {});
+    const slowPort = await slow.listen();
+    const c = client(slowPort);
+    await c.open;
+    c.send({ type: 'hello', protocol: 1, nickname: '외출' });
+    const welcome = await c.wait<Extract<ServerMessage, { type: 'welcome' }>>((m) => m.type === 'welcome');
+    c.send({ type: 'room.create', name: '외출방', mode: 'civil_war', turnSeconds: 60 });
+    await c.wait((m) => m.type === 'room' && !!m.room);
+    c.send({ type: 'room.start' });
+    const first = await c.wait<Extract<ServerMessage, { type: 'game' }>>((m) => m.type === 'game');
+    if ('spectator' in first.view) throw new Error('플레이어 뷰여야 함');
+    const roomId = (c.inbox.find((m) => m.type === 'room' && !!m.room) as Extract<ServerMessage, { type: 'room' }>).room!.id;
+
+    c.send({ type: 'room.leave', mode: 'away' });
+    await c.wait((m) => m.type === 'room' && m.room === null);
+    c.send({ type: 'room.list' });
+    const list = await c.wait<Extract<ServerMessage, { type: 'rooms' }>>((m) => m.type === 'rooms');
+    const mine = list.rooms.find((r) => r.id === roomId);
+    expect(mine?.status).toBe('playing');
+    expect(mine?.rejoinable).toBe(true);
+
+    // 비운 동안 봇이 내 자리로 행동한다 (공표는 거의 바로 한다)
+    await new Promise((r) => setTimeout(r, 1500));
+    c.send({ type: 'room.join', roomId });
+    const back = await c.wait<Extract<ServerMessage, { type: 'game' }>>((m) => m.type === 'game' && m.serverTime > first.serverTime, 15000, 'back');
+    if ('spectator' in back.view) throw new Error('플레이어 뷰여야 함');
+    expect(back.view.me.id).toBe(welcome.userId);
+    expect(back.view.me.character).toBe(first.view.me.character);
+    expect(back.view.me.alive).toBe(true);
+    const myActs = back.events.filter((e) => e.kind === 'publish' && e.data?.player === welcome.userId);
+    expect(myActs.length).toBeGreaterThan(0);
+    const detail = await c.wait<Extract<ServerMessage, { type: 'room' }>>((m) => m.type === 'room' && !!m.room && !m.room.members.find((x) => x.id === welcome.userId)?.away, 15000, 'detail');
+    expect(detail.room!.members.find((x) => x.id === welcome.userId)?.away).toBeUndefined();
+
+    // 완전히 나가기 → 사망 처리, 재입장 표시 없음
+    c.send({ type: 'room.leave', mode: 'quit' });
+    await c.wait((m) => m.type === 'room' && m.room === null);
+    c.send({ type: 'room.list' });
+    const list2 = await c.wait<Extract<ServerMessage, { type: 'rooms' }>>((m) => m.type === 'rooms' && m !== list, 15000, 'list2');
+    expect(list2.rooms.find((r) => r.id === roomId)?.rejoinable).toBeUndefined();
+    c.ws.close();
+    await slow.close();
   });
 });
 
