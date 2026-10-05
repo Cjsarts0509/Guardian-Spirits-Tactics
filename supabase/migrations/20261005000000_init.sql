@@ -9,8 +9,8 @@ create table if not exists public.profiles (
 );
 alter table public.profiles enable row level security;
 create policy "profiles: 누구나 조회" on public.profiles for select using (true);
-create policy "profiles: 본인 생성" on public.profiles for insert with check (auth.uid() = id);
-create policy "profiles: 본인 수정" on public.profiles for update using (auth.uid() = id);
+create policy "profiles: 본인 생성" on public.profiles for insert to authenticated with check ((select auth.uid()) = id);
+create policy "profiles: 본인 수정" on public.profiles for update to authenticated using ((select auth.uid()) = id) with check ((select auth.uid()) = id);
 
 -- 판 기록 --------------------------------------------------------------
 create table if not exists public.matches (
@@ -40,7 +40,7 @@ create table if not exists public.match_players (
 );
 create index if not exists match_players_user_idx on public.match_players (user_id);
 
--- 리플레이용 이벤트 로그 (GameEvent JSON)
+-- 리플레이용 이벤트 로그 (GameEvent JSON, 채팅 제외)
 create table if not exists public.match_events (
   match_id uuid not null references public.matches (id) on delete cascade,
   seq integer not null,
@@ -57,6 +57,18 @@ create policy "matches: 누구나 조회" on public.matches for select using (tr
 create policy "match_players: 누구나 조회" on public.match_players for select using (true);
 create policy "match_events: 누구나 조회" on public.match_events for select using (true);
 
+-- 채팅 로그는 비공개 (귓속말·동맹·사망자 채널 포함). 신고 처리용으로만 service_role 이 읽는다.
+-- RLS 켜고 정책 없음 = anon/authenticated 접근 불가
+create table if not exists public.match_chat (
+  match_id uuid not null references public.matches (id) on delete cascade,
+  seq integer not null,
+  t_ms integer not null,
+  channel text not null,
+  payload jsonb not null,
+  primary key (match_id, seq)
+);
+alter table public.match_chat enable row level security;
+
 -- 신고 -----------------------------------------------------------------
 create table if not exists public.reports (
   id bigint generated always as identity primary key,
@@ -68,8 +80,11 @@ create table if not exists public.reports (
   created_at timestamptz not null default now()
 );
 alter table public.reports enable row level security;
-create policy "reports: 본인 신고 작성" on public.reports for insert to authenticated with check (auth.uid() = reporter);
-create policy "reports: 본인 신고 조회" on public.reports for select to authenticated using (auth.uid() = reporter);
+create index if not exists reports_match_idx on public.reports (match_id);
+create index if not exists reports_reporter_idx on public.reports (reporter);
+create index if not exists reports_target_user_idx on public.reports (target_user);
+create policy "reports: 본인 신고 작성" on public.reports for insert to authenticated with check ((select auth.uid()) = reporter);
+create policy "reports: 본인 신고 조회" on public.reports for select to authenticated using ((select auth.uid()) = reporter);
 
 -- 캐릭터별 승률 뷰 (밸런스 텔레메트리)
 create or replace view public.character_stats with (security_invoker = true) as

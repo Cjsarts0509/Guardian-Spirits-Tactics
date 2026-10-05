@@ -42,10 +42,27 @@ export async function saveMatch(cfg: ServerConfig, state: GameState, userIds: Re
   const r2 = await fetch(`${base}/match_players`, { method: 'POST', headers, body: JSON.stringify(players) });
   if (!r2.ok) throw new Error(`match_players insert ${r2.status}: ${await r2.text()}`);
 
-  // 이벤트 로그는 500건 단위로 나눠 저장 (리플레이용)
-  const events = state.log.map((e) => ({ match_id: match.id, seq: e.seq, t_ms: e.at, payload: e }));
-  for (let i = 0; i < events.length; i += 500) {
-    const r3 = await fetch(`${base}/match_events`, { method: 'POST', headers, body: JSON.stringify(events.slice(i, i + 500)) });
-    if (!r3.ok) throw new Error(`match_events insert ${r3.status}: ${await r3.text()}`);
+  // 이벤트 로그는 500건 단위로 나눠 저장 (리플레이용). 채팅은 비공개 테이블로 분리
+  const rows = splitLog(match.id, state);
+  await insertBatches(`${base}/match_events`, headers, rows.events, 'match_events');
+  await insertBatches(`${base}/match_chat`, headers, rows.chat, 'match_chat');
+}
+
+export function splitLog(matchId: string, state: GameState) {
+  const events: { match_id: string; seq: number; t_ms: number; payload: unknown }[] = [];
+  const chat: { match_id: string; seq: number; t_ms: number; channel: string; payload: unknown }[] = [];
+  for (const e of state.log) {
+    const t_ms = e.at; // 이미 게임 시작 기준 경과 ms
+    if (e.kind.startsWith('chat.')) chat.push({ match_id: matchId, seq: e.seq, t_ms, channel: e.kind.slice(5), payload: e });
+    else events.push({ match_id: matchId, seq: e.seq, t_ms, payload: e });
+  }
+  return { events, chat };
+}
+
+async function insertBatches(url: string, headers: Record<string, string>, rows: unknown[], label: string): Promise<void> {
+  const h = { ...headers, Prefer: 'return=minimal' };
+  for (let i = 0; i < rows.length; i += 500) {
+    const r = await fetch(url, { method: 'POST', headers: h, body: JSON.stringify(rows.slice(i, i + 500)) });
+    if (!r.ok) throw new Error(`${label} insert ${r.status}: ${await r.text()}`);
   }
 }
