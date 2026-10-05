@@ -13,7 +13,8 @@ packages/protocol   클라이언트↔서버 WebSocket 메시지 스키마 (zod)
 apps/server         게임 서버 (권한 서버, ws). 방·재접속·봇 채우기·플레이어별 시점 전송
 apps/client         플레이테스트 클라이언트 (React/Vite). 정식 UI는 DESIGN_MODERN 기준 별도 제작
 supabase/migrations 프로필·판 기록·리플레이·신고 스키마
-deploy/             Oracle VM 설정 스크립트, systemd 유닛, Caddyfile (초안)
+deploy/             오라클 서버 설치 스크립트, systemd 유닛 (docs/DEPLOY.md)
+tools/              아이콘 변환 등 보조 스크립트
 docs/spec           역분석 명세 원본 (md/json) + source/ (복원 스크립트·오브젝트 데이터)
 ```
 
@@ -22,7 +23,7 @@ docs/spec           역분석 명세 원본 (md/json) + source/ (복원 스크�
 ```bash
 corepack enable
 pnpm install
-pnpm test                 # 규칙 엔진 85개 + 서버 통합 4개
+pnpm test                 # 규칙 엔진 85개 + 서버 9개
 pnpm dev:server           # ws://localhost:8787
 pnpm dev:client           # http://localhost:5173
 ```
@@ -69,15 +70,17 @@ eventsFor(state, playerId, lastSeq);   // 그 플레이어가 볼 수 있는 새
 | `ALLOWED_ORIGINS` | (없음) | 운영 시 클라이언트 도메인만 허용 |
 | `RECONNECT_GRACE_SECONDS` | 60 | 진행 중 끊긴 플레이어 사망 처리까지 유예 |
 | `SUPABASE_URL` | — | 설정 시 JWKS로 로그인 토큰 검증 |
-| `SUPABASE_SERVICE_ROLE_KEY` | — | 설정 시 판 종료 기록 저장 (서버 전용) |
+| `SUPABASE_SECRET_KEY` | — | 설정 시 판 종료 기록 저장 (`sb_secret_…`, 서버 전용. 레거시 `SUPABASE_SERVICE_ROLE_KEY` 도 받음) |
+| `HEARTBEAT_MS` | 30000 | 연결 유지 ping 주기 (Cloudflare 는 100초 무응답 WebSocket 을 끊음) |
 
 빌드 결과물은 의존성까지 묶인 단일 파일: `pnpm --filter @gst/server build` → `apps/server/dist/index.js` (node 22 로 바로 실행).
 
-## 배포 (초안 — 인프라 확정 후)
+## 배포
 
-- **클라이언트**: Cloudflare Pages ← GitHub 연결. 빌드 명령 `pnpm install && pnpm --filter @gst/client build`, 출력 `apps/client/dist`, 환경변수 `VITE_SERVER_URL=wss://ws.<도메인>.xyz`
-- **서버**: Oracle VM 에서 `sudo bash deploy/setup-oracle.sh` → `.env` 작성 → `server.mjs` 업로드. 이후 GitHub Actions `Deploy server`(수동 실행)로 갱신
-- **DNS**: Cloudflare 에 도메인 연결, `game.` → Pages, `ws.` → Oracle 공인 IP (프록시 ON), SSL Full(strict) + Origin 인증서(`deploy/Caddyfile`)
+자세한 순서는 **`docs/DEPLOY.md`**.
+
+- **화면**: Cloudflare Workers 정적 자산 (`wrangler.jsonc`) ← GitHub 연결, main push 시 자동 배포. 빌드 변수 `VITE_SERVER_URL=wss://ws.<도메인>`
+- **게임 서버**: 오라클 서버 `127.0.0.1:8787` + Cloudflare Tunnel (`ws.<도메인>`). GitHub Actions **Deploy server** 로 설치·갱신 (`deploy/install.sh`)
 - **Supabase**: `supabase/migrations/*.sql` 적용
 
 ## 문서

@@ -18,8 +18,10 @@ export interface ServerConfig {
   supabaseUrl: string | null;
   /** HS256 레거시 JWT 시크릿 (JWKS 를 못 쓰는 경우) */
   supabaseJwtSecret: string | null;
-  /** 판 기록 저장용 (서버 전용, 절대 클라이언트에 노출 금지) */
-  supabaseServiceRoleKey: string | null;
+  /** 판 기록 저장용 secret 키 (sb_secret_… 또는 레거시 service_role). 서버 전용, 절대 클라이언트에 노출 금지 */
+  supabaseSecretKey: string | null;
+  /** 연결 유지 ping 주기. Cloudflare 는 100초 동안 오가는 게 없으면 WebSocket 을 끊는다 */
+  heartbeatMs: number;
 }
 
 const bool = (v: string | undefined, d: boolean) => (v === undefined ? d : ['1', 'true', 'yes'].includes(v.toLowerCase()));
@@ -37,6 +39,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
     botActivity: Number(env.BOT_ACTIVITY ?? 0.012),
     supabaseUrl: env.SUPABASE_URL || null,
     supabaseJwtSecret: env.SUPABASE_JWT_SECRET || null,
-    supabaseServiceRoleKey: env.SUPABASE_SERVICE_ROLE_KEY || null,
+    supabaseSecretKey: env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY || null,
+    heartbeatMs: Number(env.HEARTBEAT_MS ?? 30_000),
   };
 }

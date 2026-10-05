@@ -3,14 +3,9 @@ import type { GameState } from '@gst/rules';
 import type { ServerConfig } from './config.js';
 
 export async function saveMatch(cfg: ServerConfig, state: GameState, userIds: Record<string, string | null>): Promise<void> {
-  if (!cfg.supabaseUrl || !cfg.supabaseServiceRoleKey) return;
+  if (!cfg.supabaseUrl || !cfg.supabaseSecretKey) return;
   const base = `${cfg.supabaseUrl.replace(/\/$/, '')}/rest/v1`;
-  const headers = {
-    apikey: cfg.supabaseServiceRoleKey,
-    Authorization: `Bearer ${cfg.supabaseServiceRoleKey}`,
-    'Content-Type': 'application/json',
-    Prefer: 'return=representation',
-  };
+  const headers = { ...authHeaders(cfg.supabaseSecretKey), 'Content-Type': 'application/json', Prefer: 'return=representation' };
   const res = await fetch(`${base}/matches`, {
     method: 'POST',
     headers,
@@ -46,6 +41,11 @@ export async function saveMatch(cfg: ServerConfig, state: GameState, userIds: Re
   const rows = splitLog(match.id, state);
   await insertBatches(`${base}/match_events`, headers, rows.events, 'match_events');
   await insertBatches(`${base}/match_chat`, headers, rows.chat, 'match_chat');
+}
+
+/** 새 키(sb_secret_…)는 JWT 가 아니라서 apikey 헤더에만 넣는다. 레거시 service_role(JWT)은 Bearer 도 같이 */
+export function authHeaders(key: string): Record<string, string> {
+  return key.startsWith('sb_') ? { apikey: key } : { apikey: key, Authorization: `Bearer ${key}` };
 }
 
 export function splitLog(matchId: string, state: GameState) {

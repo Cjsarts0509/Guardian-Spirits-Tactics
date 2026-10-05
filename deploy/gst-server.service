@@ -1,6 +1,6 @@
-# /etc/systemd/system/gst-server.service
+# /etc/systemd/system/gst-server.service  (deploy/install.sh 가 설치)
 [Unit]
-Description=GST game server
+Description=Guardian Spirits Tactics game server
 After=network-online.target
 Wants=network-online.target
 
@@ -9,14 +9,18 @@ User=gst
 Group=gst
 WorkingDirectory=/opt/gst
 EnvironmentFile=/opt/gst/.env
-ExecStart=/usr/bin/node /opt/gst/server.mjs
+ExecStart=/opt/gst/node/bin/node /opt/gst/server.mjs
 Restart=always
 RestartSec=3
-# 진행 중 판은 메모리에 있으므로 재시작 시 사라진다. 배포는 빈 시간에.
+# 진행 중인 판은 메모리에만 있어서 재시작하면 사라진다. 배포는 빈 시간에.
 NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
 PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
 
 [Install]
 WantedBy=multi-user.target

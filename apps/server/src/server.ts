@@ -63,7 +63,27 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
     wss.handleUpgrade(req, socket, head, (ws) => wss.emit('connection', ws, req));
   });
 
+  // 연결 유지: 주기적으로 ping, 다음 주기까지 pong 이 없으면 끊는다
+  const alive = new WeakMap<WebSocket, boolean>();
+  const heartbeat = setInterval(() => {
+    for (const c of wss.clients) {
+      if (alive.get(c) === false) {
+        c.terminate();
+        continue;
+      }
+      alive.set(c, false);
+      try {
+        c.ping();
+      } catch {
+        /* 닫히는 중 */
+      }
+    }
+  }, cfg.heartbeatMs);
+  heartbeat.unref();
+
   wss.on('connection', (ws: WebSocket) => {
+    alive.set(ws, true);
+    ws.on('pong', () => alive.set(ws, true));
     let session: Session | null = null;
     let tokens = RATE_PER_SEC;
     let last = Date.now();
@@ -203,6 +223,7 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
     close: () =>
       new Promise((resolve) => {
         if (timer) clearInterval(timer);
+        clearInterval(heartbeat);
         for (const r of rooms.rooms.values()) r.dispose();
         for (const c of wss.clients) c.terminate();
         wss.close();

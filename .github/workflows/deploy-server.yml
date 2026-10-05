@@ -1,9 +1,12 @@
-# 게임 서버 수동 배포 (초안 — 인프라 확정 후 시크릿 등록하고 사용)
-# 필요한 시크릿: ORACLE_HOST, ORACLE_USER, ORACLE_SSH_KEY
+# 게임 서버 배포 — Actions 탭에서 "Run workflow" 로 실행 (진행 중인 판은 끊기므로 빈 시간에)
+# Secrets: ORACLE_HOST, ORACLE_USER, ORACLE_SSH_KEY, SUPABASE_SECRET_KEY(선택)
+# Variables: GST_ALLOWED_ORIGINS (예: https://play.example.xyz), SUPABASE_URL(선택)
 name: Deploy server
 
 on:
   workflow_dispatch:
+
+concurrency: deploy-server
 
 jobs:
   deploy:
@@ -18,13 +21,38 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
       - run: pnpm --filter @gst/server build
-      - name: Upload & restart
+
+      - name: Prepare files
+        env:
+          ALLOWED_ORIGINS: ${{ vars.GST_ALLOWED_ORIGINS }}
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          test -n "$ALLOWED_ORIGINS" || { echo "::error::Variables 에 GST_ALLOWED_ORIGINS 가 없습니다"; exit 1; }
+          mkdir -p out
+          cp apps/server/dist/index.js out/server.mjs
+          cp deploy/install.sh deploy/gst-server.service out/
+          umask 077
+          {
+            echo "PORT=8787"
+            echo "HOST=127.0.0.1"
+            echo "ALLOW_GUESTS=true"
+            echo "ALLOW_BOTS=true"
+            echo "TIME_SCALE=1"
+            echo "ALLOWED_ORIGINS=$ALLOWED_ORIGINS"
+            if [ -n "$SUPABASE_URL" ]; then echo "SUPABASE_URL=$SUPABASE_URL"; fi
+            if [ -n "$SUPABASE_SECRET_KEY" ]; then echo "SUPABASE_SECRET_KEY=$SUPABASE_SECRET_KEY"; fi
+          } > out/gst.env
+
+      - name: Upload & install
         env:
           HOST: ${{ secrets.ORACLE_HOST }}
           SSH_USER: ${{ secrets.ORACLE_USER }}
           KEY: ${{ secrets.ORACLE_SSH_KEY }}
         run: |
-          install -m 600 /dev/null key && echo "$KEY" > key
-          scp -i key -o StrictHostKeyChecking=accept-new apps/server/dist/index.js "$SSH_USER@$HOST:/tmp/gst-server.mjs"
-          ssh -i key "$SSH_USER@$HOST" 'sudo install -o gst -g gst -m 644 /tmp/gst-server.mjs /opt/gst/server.mjs && sudo systemctl restart gst-server && sleep 1 && curl -fsS http://127.0.0.1:8787/health'
-          rm -f key
+          install -m 600 /dev/null key && printf '%s\n' "$KEY" > key
+          SSH="ssh -i key -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20"
+          $SSH "$SSH_USER@$HOST" 'rm -rf /tmp/gst-deploy && mkdir -m 700 /tmp/gst-deploy'
+          scp -i key -o StrictHostKeyChecking=accept-new out/* "$SSH_USER@$HOST:/tmp/gst-deploy/"
+          $SSH "$SSH_USER@$HOST" 'sudo bash /tmp/gst-deploy/install.sh /tmp/gst-deploy; rc=$?; rm -rf /tmp/gst-deploy; exit $rc'
+          rm -f key out/gst.env

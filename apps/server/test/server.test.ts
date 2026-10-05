@@ -130,3 +130,19 @@ describe('게임 서버', () => {
     b.ws.close();
   });
 });
+
+describe('연결 유지', () => {
+  it('pong 에 답하지 않는 연결은 끊고, 답하는 연결은 유지', async () => {
+    const cfg = { ...loadConfig({}), port: 0, host: '127.0.0.1', heartbeatMs: 80 };
+    const s = createGameServer(cfg, () => {});
+    const p = await s.listen();
+    const good = new WebSocket(`ws://127.0.0.1:${p}`);
+    const bad = new WebSocket(`ws://127.0.0.1:${p}`, { autoPong: false });
+    await Promise.all([new Promise((r) => good.on('open', r)), new Promise((r) => bad.on('open', r))]);
+    const badClosed = new Promise<boolean>((r) => bad.on('close', () => r(true)));
+    expect(await Promise.race([badClosed, new Promise((r) => setTimeout(() => r(false), 1000))])).toBe(true);
+    expect(good.readyState).toBe(WebSocket.OPEN);
+    good.close();
+    await s.close();
+  });
+});

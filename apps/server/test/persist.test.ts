@@ -2,7 +2,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { advance, applyAction, createGame, randomBotAction, type GameState } from '@gst/rules';
 import { loadConfig } from '../src/config.js';
-import { saveMatch, splitLog } from '../src/persist.js';
+import { authHeaders, saveMatch, splitLog } from '../src/persist.js';
 
 function playedGame(): GameState {
   const players = Array.from({ length: 10 }, (_, k) => ({ id: `p${k + 1}`, nickname: `봇${k + 1}` }));
@@ -44,13 +44,15 @@ describe('판 기록', () => {
     const calls: { url: string; body: unknown[] }[] = [];
     vi.stubGlobal(
       'fetch',
-      vi.fn(async (url: string, init: { body: string }) => {
+      vi.fn(async (url: string, init: { body: string; headers: Record<string, string> }) => {
+        expect(init.headers.apikey).toBe('sb_secret_test');
+        expect(init.headers.Authorization).toBeUndefined();
         const body = JSON.parse(init.body) as unknown;
         calls.push({ url, body: Array.isArray(body) ? body : [body] });
         return new Response(url.endsWith('/matches') ? JSON.stringify([{ id: 'm1' }]) : '', { status: 201 });
       }),
     );
-    const cfg = { ...loadConfig({}), supabaseUrl: 'https://x.supabase.co', supabaseServiceRoleKey: 'k' };
+    const cfg = { ...loadConfig({}), supabaseUrl: 'https://x.supabase.co', supabaseSecretKey: 'sb_secret_test' };
     await saveMatch(cfg, state, { p1: 'u1' });
     const tables = [...new Set(calls.map((c) => c.url.split('/').pop()))];
     expect(tables).toEqual(['matches', 'match_players', 'match_events', 'match_chat']);
@@ -59,6 +61,11 @@ describe('판 기록', () => {
     expect(mp.filter((r) => r.user_id).map((r) => r.user_id)).toEqual(['u1']);
     const pub = calls.filter((c) => c.url.endsWith('/match_events')).flatMap((c) => c.body) as { payload: { kind: string } }[];
     expect(pub.every((r) => !r.payload.kind.startsWith('chat.'))).toBe(true);
+  });
+
+  it('키 형식별 헤더: 새 secret 키는 apikey 만, 레거시 JWT 는 Bearer 도', () => {
+    expect(authHeaders('sb_secret_abc')).toEqual({ apikey: 'sb_secret_abc' });
+    expect(authHeaders('eyJhbGciOi.x.y')).toEqual({ apikey: 'eyJhbGciOi.x.y', Authorization: 'Bearer eyJhbGciOi.x.y' });
   });
 
   it('설정이 없으면 아무것도 안 한다', async () => {
