@@ -1,0 +1,237 @@
+{
+  "format": 1,
+  "scope": "post-validation diagnostics only; no subsequent policy tuning; first 100 divergences",
+  "counts": {
+    "changedTargetOrSkill": 5,
+    "attackToWait": 0,
+    "other": 0
+  },
+  "games": [
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 34009,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 654250
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 34009,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 549750
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 34009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "winnerPolicy": "current",
+      "elapsedMs": 620500
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 34009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 544000
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 34046,
+        "count": 9,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 211250
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 34046,
+        "count": 9,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 201500
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 34046,
+        "count": 9,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "winnerPolicy": "current",
+      "elapsedMs": 364000
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 34046,
+        "count": 9,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 364000
+    }
+  ],
+  "records": [
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 34009,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "elapsedMs": 464000,
+      "self": "p6",
+      "character": "arin",
+      "mana": 50,
+      "actual": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p8",
+        "name": "chizuko"
+      },
+      "baseline": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p3",
+        "name": "supra"
+      },
+      "kind": "changedTargetOrSkill"
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 34009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 464000,
+      "self": "p6",
+      "character": "arin",
+      "mana": 60,
+      "actual": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p1",
+        "name": "loneris"
+      },
+      "baseline": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p3",
+        "name": "supra"
+      },
+      "kind": "changedTargetOrSkill"
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 34009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 544000,
+      "self": "p6",
+      "character": "arin",
+      "mana": 50,
+      "actual": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p2",
+        "name": "kamikaze"
+      },
+      "baseline": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p3",
+        "name": "supra"
+      },
+      "kind": "changedTargetOrSkill"
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 34009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "elapsedMs": 368500,
+      "self": "p1",
+      "character": "loneris",
+      "mana": 65,
+      "actual": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p11",
+        "name": "freia"
+      },
+      "baseline": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p9",
+        "name": "tuma"
+      },
+      "kind": "changedTargetOrSkill"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 34046,
+        "count": 9,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "elapsedMs": 124250,
+      "self": "p6",
+      "character": "neonis",
+      "mana": 65,
+      "actual": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p5",
+        "name": "tokra"
+      },
+      "baseline": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p1",
+        "name": "zwinra"
+      },
+      "kind": "changedTargetOrSkill"
+    }
+  ],
+  "hashes": {
+    "../src/bot.ts": "470b030dea365901139deed914c43a07cd991b58961b8b0db154a1e8e46b0d99",
+    "../src/bot-rollout.ts": "6572549a6876853d3e73fa0a42cec9a4f6f5dcf2696fd6258dfca2af45179cdc",
+    "../src/bot-response.ts": "a07c32b75c83a7e0f1cff4140505f8492abbc69e00d78d50895cb4b0482c32fc",
+    "./response-search-trace.ts": "565c704dc13e1435afdb21ac08c4429157ef87e2f6af18a2ec4747497ad2835b"
+  }
+}
