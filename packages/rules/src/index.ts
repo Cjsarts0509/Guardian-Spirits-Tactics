@@ -15,5 +15,7 @@ export { createBotMemory, updateBotKnowledge } from './bot-memory.js';
 export type { BotPerception } from './bot-memory.js';
 export { assignmentBelief, sampleAssignments, probabilityOf, checkInformation, beliefBrier } from './bot-belief.js';
 export type { AssignmentBelief } from './bot-belief.js';
+export { hypothesisWorld, hypothesisScenarios } from './bot-hypothesis.js';
+export type { HypothesisWorld, HypothesisScenario, HypothesisPlayer, HypothesisSkill, Interval } from './bot-hypothesis.js';
 export { roleSkills, skillTiming, estimatedHits, neutralizedSkill, roleThreat } from './bot-tactics.js';
 export type { BattleMemory, SkillTiming, SkillPlan } from './bot-tactics.js';
