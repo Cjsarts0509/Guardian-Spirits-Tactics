@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "startSeed": 50000,
+  "seeds": 5,
+  "manaLevels": [
+    60,
+    100
+  ],
+  "modes": {
+    "civil_war": {
+      "followupEvaluations": 366,
+      "followupCacheHits": 6482,
+      "positions": 100,
+      "confirmation": 72,
+      "publication": 0,
+      "unavailable": 28,
+      "maxSimulations": 96
+    },
+    "primordial": {
+      "followupEvaluations": 440,
+      "followupCacheHits": 8200,
+      "positions": 100,
+      "confirmation": 90,
+      "publication": 0,
+      "unavailable": 10,
+      "maxSimulations": 96
+    },
+    "lidellut": {
+      "followupEvaluations": 314,
+      "followupCacheHits": 5638,
+      "positions": 100,
+      "confirmation": 62,
+      "publication": 0,
+      "unavailable": 38,
+      "maxSimulations": 96
+    },
+    "troll": {
+      "followupEvaluations": 338,
+      "followupCacheHits": 5998,
+      "positions": 100,
+      "confirmation": 66,
+      "publication": 0,
+      "unavailable": 34,
+      "maxSimulations": 96
+    }
+  },
+  "scope": "synthetic identities-private truthful-claims positions; local runtime, not VM or live-game latency",
+  "latencyMs": {
+    "samples": 400,
+    "median": 25.11677200000031,
+    "p95": 34.84417799999994,
+    "max": 66.59491799999998
+  },
+  "hashes": {
+    "../src/bot-followup.ts": "a076800c1e2da5d59a6f02fab1e7fd1106b72b2df75b601dcc82325603e795a2",
+    "../src/bot-sequence.ts": "dadea3f6f58ba671fe3a1b0dd909801be3dc1aea57713b36d3f3282b57d04789",
+    "../src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "../src/bot-rollout.ts": "ac1dd1f0bfacad7dce1302645b42a8097abe3a1fb0c22163f71fbc7744192376",
+    "../src/bot-response.ts": "9fb5281a5d5947c60b69e8e56ec24e5f2e765c1340cdcf67102e656b8522988b",
+    "../src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "./sequence-skills-audit.ts": "a7d4e62fdca5b8f4ceeea70844c8932ea31b97c74f046364849cf37c40208a51"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "format": 1,
+  "scope": "32 development diagnostic games; role-skill vs plain-search shadow choices; not independent evidence or VM latency",
+  "startSeed": 48005,
+  "seeds": 2,
+  "settings": {
+    "tickMs": 250,
+    "activity": 0.012,
+    "limitMs": 5400000
+  },
+  "calls": 161694,
+  "actions": 857,
+  "switches": 30,
+  "rejects": 3,
+  "changed": {
+    "publish -> advanced_enemy_check": 4,
+    "advanced_scan -> advanced_scan": 5,
+    "publish -> advanced_scan": 1,
+    "publish -> scan": 6,
+    "scan -> scan": 3,
+    "advanced_enemy_check -> publish": 2,
+    "publish -> advanced_ally_check": 2,
+    "advanced_enemy_check -> advanced_enemy_check": 1,
+    "publish -> troll_scan": 4,
+    "troll_scan -> troll_scan": 2
+  },
+  "byRole": {
+    "arin": 4,
+    "krate": 6,
+    "nukelius": 9,
+    "kane": 3,
+    "sasint": 2,
+    "tokra": 6
+  },
+  "actionDecisionMs": {
+    "median": 0.3017150000014226,
+    "p95": 26.781385000000228,
+    "max": 49.29955099999998
+  },
+  "hashes": {
+    "../src/bot.ts": "73b907689a47f0fa8d3d66e08e1c9ff1e228f966f365001f55a6b6d097fd1fb6",
+    "../src/bot-followup.ts": "a076800c1e2da5d59a6f02fab1e7fd1106b72b2df75b601dcc82325603e795a2",
+    "../src/bot-sequence.ts": "dadea3f6f58ba671fe3a1b0dd909801be3dc1aea57713b36d3f3282b57d04789",
+    "../src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "./sequence-skills-decisions.ts": "cd74b00954459b5e0f3014f871c4cdb0c7237934dd142a49b51ea439c31d4a5b",
+    "./league-runner.ts": "f06567dbb2fbdff690cdbe99bf8b7bd953c6ba7b6fb57ef276e6e185eb9bc4d8"
+  }
+}
