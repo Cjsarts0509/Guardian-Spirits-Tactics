@@ -2,10 +2,40 @@ import { describe, expect, it } from 'vitest';
 import { advance, botKnowledge, createBotMemory, smartBotAction, viewFor } from '../src/index.js';
 import { smartBotAction as previous } from '../scripts/baselines/pre-adaptive.js';
 import { fixtures, prepareMatch } from '../scripts/league-runner.js';
-import { adaptiveClaimName, observedClaimStyle } from '../src/bot-claim-policy.js';
+import { adaptiveClaimName, observedClaimStyle, preserveClaimResources } from '../src/bot-claim-policy.js';
 import { civilTable, modeTable, PRIMORDIAL_ORDER } from './helpers.js';
 
 describe('관찰된 상대 공표 성향', () => {
+  it('자원 보호 옵션은 완성 전 보석과 다음 턴까지 돌아오는 공격 마나를 지킨다', () => {
+    const t = modeTable('primordial', PRIMORDIAL_ORDER);
+    const v = viewFor(t.state, t.id.kane!);
+    v.me.gem = 2;
+    expect(preserveClaimResources(v)).toBe(true);
+    v.me.gem = 3;
+    const attack = v.me.skills.find((s) => s.key === 'attack')!;
+    const publish = v.me.skills.find((s) => s.key === 'publish')!;
+    v.me.mana = attack.mana + publish.mana - 1;
+    expect(preserveClaimResources(v)).toBe(true);
+    v.me.mana++;
+    expect(preserveClaimResources(v)).toBe(false);
+    v.me.mana = 0;
+    attack.cooldownRemainingMs = v.nextTurnInMs + 1;
+    expect(preserveClaimResources(v)).toBe(false);
+    attack.cooldownRemainingMs = 0;
+    attack.usesLeft = 0;
+    expect(preserveClaimResources(v)).toBe(false);
+  });
+
+  it('성향 증거가 있어도 자원 보호는 진명을 유지하고 충족되면 가명을 허용한다', () => {
+    const t = civilTable(); t.publish('kai', 'dantes'); t.publish('arin', 'kelhu');
+    t.state.revealed[t.id.kai!] = 'kai'; t.state.revealed[t.id.arin!] = 'arin';
+    const m = createBotMemory(7), v = viewFor(t.state, t.id.dantes!);
+    const k = botKnowledge(t.state, t.id.dantes!, v, m);
+    expect(adaptiveClaimName(v, k, m)).not.toBe('dantes');
+    expect(adaptiveClaimName(v, k, m, true)).toBe('dantes');
+    v.me.gem = 3; v.me.mana = v.me.maxMana;
+    expect(adaptiveClaimName(v, k, m, true)).not.toBe('dantes');
+  });
   it('블러핑 증거가 없으면 기존 정책과 행동·난수 경로가 같다', () => {
     for (const mode of ['civil_war', 'primordial', 'lidellut', 'troll'] as const) {
       const { state } = prepareMatch(fixtures(mode, 13, 12)[0]!);
