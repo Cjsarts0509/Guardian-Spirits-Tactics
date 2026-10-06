@@ -1,0 +1,33 @@
+{
+  "format": 1,
+  "startSeed": 30000,
+  "seeds": 20,
+  "counts": [
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "times": [
+    0,
+    120000,
+    400000,
+    800000
+  ],
+  "worlds": 10240,
+  "scenarios": 20480,
+  "modes": {
+    "civil_war": 2560,
+    "primordial": 2560,
+    "lidellut": 2560,
+    "troll": 2560
+  },
+  "scope": "schema and range validation only; not combat rollouts or performance improvement",
+  "hashes": {
+    "../src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "../src/bot-belief.ts": "a7d9c12c1c0ede88ef9be92d72ce9ce1ef3b0a46bdcfd6bf6cef8fd6ef912dd3",
+    "../src/bot-tactics.ts": "15858021a45a2f4dcdfdc6a65ecef44b560028f2ed8dcaa541edbda864c13a94",
+    "./hypothesis-audit.ts": "de36071790dc2b15d1f153721e414f4d1d222fca482e87335f4cc3953bc68894"
+  }
+}
