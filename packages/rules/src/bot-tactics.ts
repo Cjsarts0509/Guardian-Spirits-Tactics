@@ -150,8 +150,9 @@ export function observeBattle(view: PlayerView, event: GameEvent, battle: Battle
 export function skillTiming(battle: BattleMemory, character: string, skill: string): SkillTiming | undefined {
   return battle.timings.get(timingKey(character, skill));
 }
-export function estimatedHits(view: PlayerView, battle: BattleMemory, character: string): number {
+export function estimatedHits(view: PlayerView, battle: BattleMemory, character: string, includeGuard = true): number {
   const hits = battle.hitsRemaining.get(character) ?? (getMode(view.mode as ModeId).characters.find((r) => r.key === character)!.extraLives + 1);
+  if (!includeGuard) return hits;
   const guardian = view.mode === 'primordial' ? ({ rael: 'kumarin', eltas: 'consume' } as Record<string, string>)[character] : undefined;
   const absent = guardian && (!view.roster.some((r) => r.key === guardian && r.inGame) || view.players.some((p) => p.revealed === guardian && !p.alive));
   return hits + (absent ? 0 : battle.guardCharges.get(character) ?? 0);

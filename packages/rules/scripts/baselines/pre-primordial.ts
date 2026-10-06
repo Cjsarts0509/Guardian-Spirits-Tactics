@@ -1,23 +1,20 @@
+// 평가 전용 고정 정책: b1dc606 (원격 c29c3ad):packages/rules/src/bot.ts.
 // 봇 두 종류
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
 //   상대 정체를 모르면 공격하지 않고 확인부터 한다. 시간이 지나면 후보가 좁혀진 대상에게 추측 공격을 시작한다.
-import { randomInt, nextRandom } from './rng.js';
-import type { Action, CharKey, GameState, PlayerId } from './types.js';
-import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
-import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from './bot-memory.js';
-import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
-import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
-import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
-export type { BotMemory, Knowledge } from './bot-memory.js';
+import { randomInt, nextRandom } from '../../src/rng.js';
+import type { Action, CharKey, GameState, PlayerId } from '../../src/types.js';
+import { eventsFor, viewFor, type PlayerView, type SkillView } from '../../src/engine/view.js';
+import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from '../../src/bot-memory.js';
+import { assignmentBelief, checkInformation, probabilityOf } from '../../src/bot-belief.js';
+import { claimCheckSucceeds, wantsTrueName } from '../../src/bot-claims.js';
+import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from '../../src/bot-tactics.js';
+export type { BotMemory, Knowledge } from '../../src/bot-memory.js';
 
 export interface BotOptions {
   /** 행동 확률 (0~1). 호출될 때마다 이 확률로만 행동 */
   activity?: number;
-  /** 태초 정책 비교용. 조기 공표·무작위 리더쉽 대상을 유지한다. */
-  primordialLeadership?: 'early' | 'after-six-minutes';
-  primordialPriorities?: boolean;
-  primordialSlash?: 'early' | 'finish-or-revealed';
 }
 
 export function randomBotAction(state: GameState, playerId: PlayerId, rng: { rng: number }, opts: BotOptions = {}): Action | null {
@@ -202,9 +199,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
 
   // 필요한 진명 스킬을 공표로 열어 둔다. 지휘관도 역할상 필요하면 예외다.
   const publish = usable.get('publish');
-  const waitLeadership = view.mode === 'primordial' && opts.primordialLeadership === 'after-six-minutes' &&
-    ['rael', 'eltas'].includes(me.character);
-  if (publish && !me.trueName && ((!waitLeadership && wantsTrueName(view)) || mem.perception!.trueNameUntil > elapsed) && publish.nameOptions?.includes(me.character)) {
+  if (publish && !me.trueName && (wantsTrueName(view) || mem.perception!.trueNameUntil > elapsed) && publish.nameOptions?.includes(me.character)) {
     return act(publish, undefined, me.character);
   }
 
@@ -229,8 +224,6 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     }
     for (const k of STRIKES) {
       const s = usable.get(k);
-      if (k === 'kane_wolfs_slash' && (opts.primordialSlash ?? 'finish-or-revealed') === 'finish-or-revealed' &&
-        !view.players.find((p) => p.id === me.id)?.revealed && estimatedHits(view, battle, c, false) > 1) continue;
       if (s && (isCommander.get(c) || elapsed > 6 * MIN)) return act(s, p.id);
     }
     for (const k of SUICIDES) {
@@ -360,9 +353,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   for (const s of usable.values()) {
     if (s.target !== 'none' || !s.nameOptions || s.key === 'publish') continue;
     const unknownNames = s.nameOptions.filter((n) => ![...known.values()].includes(n));
-    const priority = view.mode === 'primordial' && opts.primordialPriorities && s.key.includes('leadership')
-      ? me.character === 'rael' ? ['eoril', 'kumarin', 'tachin', 'nukelius'] : ['consume', 'sasint', 'kilder', 'hermilly', 'drakan'] : [];
-    const n = priority.find((n) => unknownNames.includes(n)) ?? pick(unknownNames.length ? unknownNames : s.nameOptions);
+    const n = pick(unknownNames.length ? unknownNames : s.nameOptions);
     if (n) return act(s, undefined, n);
   }
   // 행동 불능인 아군 풀어주기
@@ -509,8 +500,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     }
   }
   // 8) 즉사기: 오래 끌리면 적 지휘관일 가능성이 가장 높은 사람에게
-  const reaver = [...EXECUTES, ...STRIKES].filter((k) => k !== 'kane_wolfs_slash' || (opts.primordialSlash ?? 'finish-or-revealed') !== 'finish-or-revealed' ||
-    view.players.find((p) => p.id === me.id)?.revealed).map((k) => usable.get(k)).find((s) => s);
+  const reaver = [...EXECUTES, ...STRIKES].map((k) => usable.get(k)).find((s) => s);
   if (reaver && elapsed > 15 * MIN && nextRandom(mem) < 0.3) {
     const pool = alive
       .map((p) => ({ p, all: candidates.get(p.id) ?? [] }))
