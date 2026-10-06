@@ -115,7 +115,7 @@ function positionScore(initial: GameState, state: GameState, self: string): numb
  * 세계별 비공개 상태를 보고 다른 후속 행동을 고르는 전략 융합을 하지 않는다.
  */
 export function boundedAttackSearch(view: PlayerView, knowledge: Knowledge, memory: BotMemory, responses = false,
-  baseline?: Action): { action: Action | null; simulations: number; score: number } | undefined {
+  baseline?: Action, tactical = false): { action: Action | null; simulations: number; score: number } | undefined {
   if (!memory.perception || view.phase !== 'running' || view.me.effects.length) return undefined;
   const roles = new Map(view.roster.map((r) => [r.key, r]));
   const enemies = view.players.filter((p) => p.alive && knowledge.known.has(p.id) &&
@@ -145,7 +145,7 @@ export function boundedAttackSearch(view: PlayerView, knowledge: Knowledge, memo
       const state = structuredClone(initial);
       const valid = !first || applyAction(state, view.me.id, first, state.now).ok;
       if (valid) {
-        if (response) respondToKnownEnemies(state, view.me.id);
+        if (response) respondToKnownEnemies(state, view.me.id, tactical);
         advance(state, view.elapsedMs + horizon);
       }
       return { initial, state, response, valid };
@@ -157,7 +157,7 @@ export function boundedAttackSearch(view: PlayerView, knowledge: Knowledge, memo
       if (!valid) { worst = -Infinity; break; }
       const state = structuredClone(prefix);
       if (state.phase === 'running' && second) applyAction(state, view.me.id, second, state.now);
-      if (response && state.phase === 'running') respondToKnownEnemies(state, view.me.id);
+      if (response && state.phase === 'running') respondToKnownEnemies(state, view.me.id, tactical);
       worst = Math.min(worst, positionScore(initial, state, view.me.id));
     }
     if (!best || worst > best.score) best = { action: first, score: worst };
