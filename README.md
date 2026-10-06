@@ -3,7 +3,7 @@
 워크래프트3 유즈맵 **가디언 스피리츠 택틱스 v1.33**(4rum)을 웹게임으로 옮기는 모노레포.
 규칙은 원본 맵 스크립트·오브젝트 데이터를 역분석한 명세(`docs/spec`)를 기준으로 하고, 원본 버그는 재현하지 않는다(`docs/spec/DECISIONS.md`).
 
-현재 구현 범위: **왕자들의 내전** 규칙 엔진 전체 + 게임 서버 + 플레이테스트용 클라이언트.
+현재 구현 범위: **4개 모드 전부**(왕자들의 내전·태초의 전쟁·리델루트 황야·트롤 부족의 반란) 규칙 엔진 + 권한 서버 + 클라이언트 + 봇 + 로그인 + BGM. 운영 중. 인계·현황은 **`HANDOFF.md`**.
 
 ## 구조
 
@@ -23,7 +23,7 @@ docs/spec           역분석 명세 원본 (md/json) + source/ (복원 스크�
 ```bash
 corepack enable
 pnpm install
-pnpm test                 # 규칙 엔진 88개 + 서버 16개
+pnpm test                 # 규칙 엔진 178개 + 서버 19개
 pnpm dev:server           # ws://localhost:8787
 pnpm dev:client           # http://localhost:5173
 ```
