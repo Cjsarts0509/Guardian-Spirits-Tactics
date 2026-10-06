@@ -101,16 +101,20 @@ function positionScore(initial: GameState, state: GameState, self: string): numb
 /** 정체가 확인된 적의 이름 공격/대기만, 고정된 두 행동 수순을 동일 가설들에서 비교한다.
  * 세계별 비공개 상태를 보고 다른 후속 행동을 고르는 전략 융합을 하지 않는다.
  */
-export function boundedAttackSearch(view: PlayerView, knowledge: Knowledge, memory: BotMemory, responses = false): { action: Action | null; simulations: number; score: number } | undefined {
+export function boundedAttackSearch(view: PlayerView, knowledge: Knowledge, memory: BotMemory, responses = false,
+  baseline?: Action): { action: Action | null; simulations: number; score: number } | undefined {
   if (!memory.perception || view.phase !== 'running' || view.me.effects.length) return undefined;
   const roles = new Map(view.roster.map((r) => [r.key, r]));
   const enemies = view.players.filter((p) => p.alive && knowledge.known.has(p.id) &&
     roles.get(knowledge.known.get(p.id)!)?.side !== view.me.side && !p.statuses.some((s) => s.kind === 'invulnerable'));
   enemies.sort((a, b) => Number(roles.get(knowledge.known.get(b.id)!)!.commander) - Number(roles.get(knowledge.known.get(a.id)!)!.commander) ||
     estimatedHits(view, memory.perception!.battle, knowledge.known.get(a.id)!) - estimatedHits(view, memory.perception!.battle, knowledge.known.get(b.id)!));
-  const candidates: (Action | null)[] = enemies.flatMap((p) => view.me.skills.filter((s) => NAME_ATTACKS.includes(s.key) &&
+  const allowed = enemies.flatMap((p) => view.me.skills.filter((s) => NAME_ATTACKS.includes(s.key) &&
     !s.passive && s.blocked === null && s.nameOptions?.includes(knowledge.known.get(p.id)!)).map((s): Action =>
-    ({ type: 'skill', skill: s.key, target: p.id, name: knowledge.known.get(p.id)! }))).slice(0, 3);
+    ({ type: 'skill', skill: s.key, target: p.id, name: knowledge.known.get(p.id)! })));
+  const same = (a: Action, b: Action) => JSON.stringify(a) === JSON.stringify(b);
+  const original = baseline && allowed.find((a) => same(a, baseline));
+  const candidates: (Action | null)[] = (original ? [original, ...allowed.filter((a) => !same(a, original))] : allowed).slice(0, 3);
   if (!candidates.length) return undefined;
   candidates.push(null);
   const worlds = sampleAssignments(view, knowledge, memory, { rng: memory.rng ^ 0x53454152 }, 2);
@@ -122,18 +126,29 @@ export function boundedAttackSearch(view: PlayerView, knowledge: Knowledge, memo
   });
   const horizon = Math.min(10_000, responses ? Math.max(0, view.nextTurnInMs - 1) : view.nextTurnInMs);
   let best: { action: Action | null; score: number } | undefined, simulations = 0;
-  for (const first of candidates) for (const second of candidates) {
+  for (const first of candidates) {
+    // 동일 첫 행동·대응·시간 진행은 후속 후보 사이에 재사용한다.
+    const prefixes = states.flatMap((initial) => (responses ? [false, true] : [false]).map((response) => {
+      const state = structuredClone(initial);
+      const valid = !first || applyAction(state, view.me.id, first, state.now).ok;
+      if (valid) {
+        if (response) respondToKnownEnemies(state, view.me.id);
+        advance(state, view.elapsedMs + horizon);
+      }
+      return { initial, state, response, valid };
+    }));
+    for (const second of candidates) {
     let worst = Infinity;
-    for (const initial of states) for (const response of (responses ? [false, true] : [false])) {
-      const state = structuredClone(initial); simulations++;
-      if (first && !applyAction(state, view.me.id, first, state.now).ok) { worst = -Infinity; break; }
-      if (response) respondToKnownEnemies(state, view.me.id);
-      advance(state, view.elapsedMs + horizon);
+    for (const { initial, state: prefix, response, valid } of prefixes) {
+      simulations++;
+      if (!valid) { worst = -Infinity; break; }
+      const state = structuredClone(prefix);
       if (state.phase === 'running' && second) applyAction(state, view.me.id, second, state.now);
       if (response && state.phase === 'running') respondToKnownEnemies(state, view.me.id);
       worst = Math.min(worst, positionScore(initial, state, view.me.id));
     }
     if (!best || worst > best.score) best = { action: first, score: worst };
+    }
   }
   return best && Number.isFinite(best.score) ? { ...best, simulations } : undefined;
 }

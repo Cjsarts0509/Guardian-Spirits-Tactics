@@ -14,6 +14,9 @@ export function respondToKnownEnemies(state: GameState, self: string): number {
   for (const player of state.players) {
     if (state.phase !== 'running') break;
     if (!player.alive || player.side === side) continue;
+    // 쿨다운/횟수로 불가능한 상대의 뷰·기억을 반복 구성하지 않는다.
+    if (!player.skills.some((s) => NAME_ATTACKS.includes(s.key) && s.cooldownUntil <= state.now &&
+      (s.usesLeft === null || s.usesLeft > 0))) continue;
     const view = viewFor(state, player.id);
     const knowledge = updateBotKnowledge(view, eventsFor(state, player.id), createBotMemory(0));
     const roles = new Map(view.roster.map((r) => [r.key, r]));

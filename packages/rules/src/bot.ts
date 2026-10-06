@@ -273,8 +273,11 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       const s = usable.get(k);
       if (s && s.nameOptions?.includes(c)) {
         if (opts.attackSearch) {
-          const plan = boundedAttackSearch(view, knowledge, mem, opts.attackResponse ?? false);
-          if (plan) return plan.action;
+          const plan = boundedAttackSearch(view, knowledge, mem, opts.attackResponse ?? false,
+            opts.attackResponse ? act(s, p.id, c) : undefined);
+          // 상대 대응 실험은 기존 공격의 순위를 보완한다. 불완전한 가설의
+          // 대기 선택으로 기존 공격을 반복 취소하지 않는다.
+          if (plan && (!opts.attackResponse || plan.action)) return plan.action;
         }
         return act(s, p.id, c);
       }

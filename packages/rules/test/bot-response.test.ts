@@ -66,4 +66,17 @@ describe('가설 상대의 관찰 기반 대응', () => {
     expect(result.action).toMatchObject({ target: t.id.krate });
     expect(view).toEqual(before); expect(memory.rng).toBe(7);
   });
+
+  it('후보 상한 밖의 기존 공격도 포함하고 동점이면 기존 선택을 유지한다', () => {
+    const t = civilTable(); fill(t, 'mertz');
+    for (const c of ['kai', 'arin', 'krate', 'kaspa', 'tuma']) t.state.revealed[t.id[c]!] = c;
+    const view = viewFor(t.state, t.id.mertz!), memory = createBotMemory(7);
+    const knowledge = botKnowledge(t.state, view.me.id, view, memory);
+    const baseline = { type: 'skill' as const, skill: 'advanced_attack', target: t.id.kaspa!, name: 'kaspa' };
+    expect(boundedAttackSearch(view, knowledge, memory, true, baseline)!.action).toEqual(baseline);
+    expect(boundedAttackSearch(view, knowledge, memory, true)!.action).not.toEqual(baseline);
+    // 확인 후보에 없는 대상/이름은 baseline 인자로도 추가하지 않는다.
+    const unknown = { ...baseline, target: t.id.kelhu!, name: 'arin' };
+    expect(boundedAttackSearch(view, knowledge, memory, true, unknown)!.action).not.toEqual(unknown);
+  });
 });
