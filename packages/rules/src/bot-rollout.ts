@@ -4,6 +4,8 @@ import type { BotMemory, Knowledge } from './bot-memory.js';
 import { createGame } from './engine/create.js';
 import { advance, applyAction } from './engine/actions.js';
 import { getMode } from './modes/index.js';
+import { skillRegistry } from './skills/registry.js';
+import { respondToKnownEnemies } from './bot-response.js';
 import { NAME_ATTACKS, estimatedHits } from './bot-tactics.js';
 import { sampleAssignments } from './bot-belief.js';
 import { hypothesisScenarios, hypothesisWorld, type HypothesisScenario, type HypothesisWorld } from './bot-hypothesis.js';
@@ -24,7 +26,7 @@ export function rolloutState(view: PlayerView, world: HypothesisWorld, scenario:
     p.alive = hypothesis.alive; p.left = observed.left; p.diedAt = p.alive ? null : state.now;
     p.mana = hypothesis.mana; p.extraLives = Math.max(0, hypothesis.lives - 1); p.published = observed.published;
     p.flags = p.id === view.me.id ? { ...view.me.flags } : { guardCharges: hypothesis.guardCharges };
-    p.skills = hypothesis.skills.filter((s) => s.present && !(mode.skills[s.key]?.item)).map((s) => ({
+    p.skills = hypothesis.skills.filter((s) => s.present && !((mode.skills[s.key] ?? skillRegistry[s.key])?.item)).map((s) => ({
       key: s.key, cooldownUntil: state.now + s.cooldownRemainingMs, usesLeft: s.usesLeft,
       level: p.id === view.me.id ? view.me.skills.find((q) => q.key === s.key)!.level : 1,
     }));
@@ -42,6 +44,37 @@ export function rolloutState(view: PlayerView, world: HypothesisWorld, scenario:
     }
   }
   return state;
+}
+
+/** 공격/방어에 필요한 기본 보유와 교체 관계만 복원한다. 전체 도달 가능성 증명은 아니다. */
+export function combatScenario(view: PlayerView, scenario: HypothesisScenario, memory: BotMemory): HypothesisScenario {
+  const result = structuredClone(scenario), mode = getMode(view.mode as ModeId);
+  for (const [id, p] of result.players) {
+    if (id === view.me.id) continue;
+    const def = mode.characters.find((r) => r.key === p.character)!;
+    const base = new Set([...def.skills, ...(def.unlocks ?? []).filter((u) => u.at * 1000 <= view.elapsedMs).map((u) => u.skill)]);
+    for (const skill of p.skills) if (base.has(skill.key)) skill.present = true;
+    const replacements: [string, string[]][] = [
+      ['advanced_attack', ['attack']], ['supreme_attack', ['advanced_attack', 'attack']],
+      ['advanced_scan', ['scan']], ['greater_mass_teleport', ['mass_teleport']],
+      ['kilder_master_power', ['kilder_casanova']],
+      ...((def.unlocks ?? []).filter((u) => !!u.replaces).map((u): [string, string[]] => [u.skill, [u.replaces!]])),
+    ];
+    const has = (key: string) => p.skills.some((s) => s.key === key && s.present);
+    for (const [replacement, removed] of replacements) if (has(replacement)) {
+      for (const skill of p.skills) if (removed.includes(skill.key)) skill.present = false;
+    }
+    if (view.mode === 'primordial' && p.character === 'sasint' && has('advanced_attack')) {
+      for (const skill of p.skills) if (skill.key === 'sasint_support') skill.present = false;
+    }
+    if (view.mode === 'troll' && p.character === 'seirow' && has('advanced_attack')) {
+      for (const skill of p.skills) if (skill.key === 'advanced_ally_check') skill.present = false;
+    }
+    if (view.mode === 'troll' && p.character === 'deka' && memory.perception?.madnessPurged) {
+      for (const skill of p.skills) if (skill.key === 'bloody_madness') skill.present = false;
+    }
+  }
+  return result;
 }
 
 function positionScore(initial: GameState, state: GameState, self: string): number {
@@ -68,7 +101,7 @@ function positionScore(initial: GameState, state: GameState, self: string): numb
 /** 정체가 확인된 적의 이름 공격/대기만, 고정된 두 행동 수순을 동일 가설들에서 비교한다.
  * 세계별 비공개 상태를 보고 다른 후속 행동을 고르는 전략 융합을 하지 않는다.
  */
-export function boundedAttackSearch(view: PlayerView, knowledge: Knowledge, memory: BotMemory): { action: Action | null; simulations: number; score: number } | undefined {
+export function boundedAttackSearch(view: PlayerView, knowledge: Knowledge, memory: BotMemory, responses = false): { action: Action | null; simulations: number; score: number } | undefined {
   if (!memory.perception || view.phase !== 'running' || view.me.effects.length) return undefined;
   const roles = new Map(view.roster.map((r) => [r.key, r]));
   const enemies = view.players.filter((p) => p.alive && knowledge.known.has(p.id) &&
@@ -84,17 +117,20 @@ export function boundedAttackSearch(view: PlayerView, knowledge: Knowledge, memo
   if (!worlds.length) return undefined;
   const states = worlds.flatMap((assignment) => {
     const world = hypothesisWorld(view, knowledge, memory.perception!.battle, assignment);
-    return hypothesisScenarios(world, view.me.id).map((scenario) => rolloutState(view, world, scenario));
+    return hypothesisScenarios(world, view.me.id).map((scenario) => rolloutState(view, world,
+      responses ? combatScenario(view, scenario, memory) : scenario));
   });
-  const horizon = Math.min(10_000, view.nextTurnInMs);
+  const horizon = Math.min(10_000, responses ? Math.max(0, view.nextTurnInMs - 1) : view.nextTurnInMs);
   let best: { action: Action | null; score: number } | undefined, simulations = 0;
   for (const first of candidates) for (const second of candidates) {
     let worst = Infinity;
-    for (const initial of states) {
+    for (const initial of states) for (const response of (responses ? [false, true] : [false])) {
       const state = structuredClone(initial); simulations++;
       if (first && !applyAction(state, view.me.id, first, state.now).ok) { worst = -Infinity; break; }
+      if (response) respondToKnownEnemies(state, view.me.id);
       advance(state, view.elapsedMs + horizon);
       if (state.phase === 'running' && second) applyAction(state, view.me.id, second, state.now);
+      if (response && state.phase === 'running') respondToKnownEnemies(state, view.me.id);
       worst = Math.min(worst, positionScore(initial, state, view.me.id));
     }
     if (!best || worst > best.score) best = { action: first, score: worst };

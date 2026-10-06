@@ -20,6 +20,8 @@ export interface BotOptions {
   activity?: number;
   /** 확인된 적에 대한 제한 엔진 탐색 실험. 기본은 비활성화. */
   attackSearch?: boolean;
+  /** 기본 스킬·교체 관계와 관찰에 기반한 상대 대응을 포함한 탐색 실험. */
+  attackResponse?: boolean;
   /** 태초 정책 비교용. 조기 공표·무작위 리더쉽 대상을 유지한다. */
   primordialLeadership?: 'early' | 'after-six-minutes';
   primordialPriorities?: boolean;
@@ -271,7 +273,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       const s = usable.get(k);
       if (s && s.nameOptions?.includes(c)) {
         if (opts.attackSearch) {
-          const plan = boundedAttackSearch(view, knowledge, mem);
+          const plan = boundedAttackSearch(view, knowledge, mem, opts.attackResponse ?? false);
           if (plan) return plan.action;
         }
         return act(s, p.id, c);
