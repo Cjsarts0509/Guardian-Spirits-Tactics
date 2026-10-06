@@ -1,16 +1,16 @@
+// 평가 전용 고정 정책: f0e58d1 / c505d4b:packages/rules/src/bot.ts.
 // 봇 두 종류
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
 //   상대 정체를 모르면 공격하지 않고 확인부터 한다. 시간이 지나면 후보가 좁혀진 대상에게 추측 공격을 시작한다.
-import { randomInt, nextRandom } from './rng.js';
-import type { Action, CharKey, GameState, PlayerId } from './types.js';
-import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
-import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from './bot-memory.js';
-import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
-import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
-import { adaptiveClaimName } from './bot-claim-policy.js';
-import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
-export type { BotMemory, Knowledge } from './bot-memory.js';
+import { randomInt, nextRandom } from '../../src/rng.js';
+import type { Action, CharKey, GameState, PlayerId } from '../../src/types.js';
+import { eventsFor, viewFor, type PlayerView, type SkillView } from '../../src/engine/view.js';
+import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from '../../src/bot-memory.js';
+import { assignmentBelief, checkInformation, probabilityOf } from '../../src/bot-belief.js';
+import { claimCheckSucceeds, wantsTrueName } from '../../src/bot-claims.js';
+import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from '../../src/bot-tactics.js';
+export type { BotMemory, Knowledge } from '../../src/bot-memory.js';
 
 export interface BotOptions {
   /** 행동 확률 (0~1). 호출될 때마다 이 확률로만 행동 */
@@ -20,7 +20,7 @@ export interface BotOptions {
   primordialPriorities?: boolean;
   primordialSlash?: 'early' | 'finish-or-revealed';
   /** 공표 전략 비교. 기본은 진명이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
-  claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders' | 'adaptive';
+  claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders';
 }
 
 export function randomBotAction(state: GameState, playerId: PlayerId, rng: { rng: number }, opts: BotOptions = {}): Action | null {
@@ -177,7 +177,6 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const attackable = (c: CharKey) => enemy(c) && !guards[c]?.some((gd) => !deadChars.has(gd));
   const act = (s: SkillView, target?: PlayerId, name?: CharKey): Action => {
     const strategy = opts.claimStrategy ?? (opts.primordialLeadership === 'after-six-minutes' ? 'current' : 'truthful');
-    if (s.key === 'publish' && strategy === 'adaptive') name = adaptiveClaimName(view, knowledge, mem);
     if (s.key === 'publish' && (strategy === 'truthful' ||
       (strategy === 'truthful-noncommanders' && !me.commander)) && s.nameOptions?.includes(me.character)) name = me.character;
     const a: Action = { type: 'skill', skill: s.key };
@@ -391,14 +390,6 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
 
   // 2) 공표. 지휘관은 진명을 숨기고, 나머지는 대체로 진명(턴 마나·진실의 조각). 가짜로 시작했어도 나중에 진명으로 바꾼다
   if (publish) {
-    if (opts.claimStrategy === 'adaptive') {
-      const desired = adaptiveClaimName(view, knowledge, mem);
-      // 최초 공표는 기존 난수·후보 선택 경로를 유지해 비교를 성향 전환 효과에 한정한다.
-      // 자동 가짜 공표의 진명 복구 시점도 기존 정책과 같게 두고, 자기 수동 위장만 되돌린다.
-      const ownManual = mem.perception!.manualClaims.get(me.id);
-      if (me.published !== null && desired !== me.published && (desired !== me.character || ownManual?.name === me.published) &&
-        publish.nameOptions?.includes(desired)) return act(publish, undefined, desired);
-    }
     const commander = !!isCommander.get(me.character);
     const own = view.roster.filter((r) => r.inGame && r.side === me.side && !r.commander && r.key !== me.character).map((r) => r.key);
     if (me.published === null) {

@@ -26,6 +26,7 @@ export interface BotPerception {
   /** 실패는 이름 오류/보디가드 여부를 확정하지 않고 시도 순서에만 사용한다. */
   lastAttackNameFailure: Map<PlayerId, Map<CharKey, number>>;
   automaticClaims: Set<PlayerId>;
+  manualClaims: Map<PlayerId, { name: CharKey; at: number }>;
   trueNameUntil: number;
   battle: BattleMemory;
   lastBurn?: { target: PlayerId; at: number };
@@ -53,7 +54,7 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
       lastElapsedMs: view.elapsedMs, lastSeq: 0,
       known: new Map(), excluded: new Map(), alternatives: new Map(), commanders: new Set(),
       baptized: new Set(), chiefProtected: false, madnessPurged: false, lastAttackFailure: new Map(), lastAttackNameFailure: new Map(),
-      automaticClaims: new Set(), trueNameUntil: 0,
+      automaticClaims: new Set(), manualClaims: new Map(), trueNameUntil: 0,
       battle: createBattleMemory(),
     };
   }
@@ -88,8 +89,11 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
       }
     }
     if ((e.kind === 'publish' || e.kind === 'publish.auto') && typeof e.data?.player === 'string') {
-      if (e.kind === 'publish.auto') p.automaticClaims.add(e.data.player);
-      else p.automaticClaims.delete(e.data.player);
+      if (e.kind === 'publish.auto') { p.automaticClaims.add(e.data.player); p.manualClaims.delete(e.data.player); }
+      else {
+        p.automaticClaims.delete(e.data.player);
+        if (typeof e.data.name === 'string') p.manualClaims.set(e.data.player, { name: e.data.name, at: e.at });
+      }
     }
     // 재접속 때도 안전하게 유지하도록 관찰 시점부터 최소 20초를 확보한다.
     if (e.kind === 'skill.wild_path.self') p.trueNameUntil = view.elapsedMs + 20_000;
