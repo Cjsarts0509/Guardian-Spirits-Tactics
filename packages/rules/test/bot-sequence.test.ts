@@ -61,6 +61,18 @@ describe('확인과 공표 후 관찰 기반 수순', () => {
     expect(sequenceFollowup(view, knowledge, memory)?.action).not.toMatchObject({ skill: 'attack' });
   });
 
+  it('기존 수신 번호가 높아도 새 가설 로그의 확인 결과를 놓치지 않는다', () => {
+    const t = civilTable(); fill(t, 'dantes'); t.publish('krate', 'krate');
+    t.p('dantes').skills.push({ key: 'enemy_check', cooldownUntil: 0, usesLeft: null, level: 1 });
+    const memory = createBotMemory(9), view = viewFor(t.state, t.id.dantes!);
+    botKnowledge(t.state, view.me.id, view, memory);
+    memory.perception!.lastSeq = 500;
+    t.state.seq = 500; t.state.log = [];
+    t.skill('dantes', 'enemy_check', 'krate');
+    expect(observeSequence(t.state, view.me.id, memory).known.get(t.id.krate!)).toBe('krate');
+    expect(memory.perception!.lastSeq).toBeGreaterThan(500);
+  });
+
   it('가설 탐색은 공격을 첫 후보로 받지 않고 입력과 행동 RNG를 보존한다', () => {
     const t = civilTable(); fill(t, 'dantes'); t.publish('krate', 'krate');
     t.p('dantes').skills.push({ key: 'enemy_check', cooldownUntil: 0, usesLeft: null, level: 1 });

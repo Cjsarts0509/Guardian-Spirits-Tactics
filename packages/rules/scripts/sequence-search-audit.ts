@@ -7,9 +7,9 @@ import { fixtures, prepareMatch } from './league-runner.js';
 
 // 정체는 미공개이고 각자 진명을 공표한 합성 스트레스 위치. 실제 게임의 호출 분포/VM 지연이 아니다.
 const durations: number[] = [];
-const modes: Record<string, { positions: number; attack: number; wait: number; unavailable: number; maxSimulations: number }> = {};
+const modes: Record<string, { positions: number; confirmation: number; publication: number; unavailable: number; maxSimulations: number }> = {};
 for (const mode of ['civil_war', 'primordial', 'lidellut', 'troll'] as const) {
-  const result = modes[mode] = { positions: 0, attack: 0, wait: 0, unavailable: 0, maxSimulations: 0 };
+  const result = modes[mode] = { positions: 0, confirmation: 0, publication: 0, unavailable: 0, maxSimulations: 0 };
   for (let i = 0; i < 5; i++) {
     const { state } = prepareMatch(fixtures(mode, 44000 + i, 8 + i % 5)[0]!);
     advance(state, 400_000);
@@ -26,7 +26,7 @@ for (const mode of ['civil_war', 'primordial', 'lidellut', 'troll'] as const) {
       if (!plan) result.unavailable++;
       else {
         result.maxSimulations = Math.max(result.maxSimulations, plan.simulations);
-        if (plan.action) result.attack++; else result.wait++;
+        if (plan.action.type === 'skill' && plan.action.skill === 'publish') result.publication++; else result.confirmation++;
         if (plan.simulations > 128) throw new Error('탐색 상한 초과');
       }
     }

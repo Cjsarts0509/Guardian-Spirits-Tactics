@@ -1,0 +1,69 @@
+{
+  "format": 1,
+  "scope": "32 development diagnostic games; not independent evidence or VM latency",
+  "startSeed": 40005,
+  "seeds": 2,
+  "settings": {
+    "tickMs": 250,
+    "activity": 0.012,
+    "limitMs": 5400000
+  },
+  "calls": 146880,
+  "actions": 809,
+  "switches": 62,
+  "rejects": 2,
+  "changed": {
+    "ally -> ally_check": 3,
+    "publish -> advanced_enemy_check": 4,
+    "wait -> advanced_scan": 2,
+    "advanced_enemy_check -> advanced_enemy_check": 2,
+    "wait -> enemy_check": 8,
+    "wait -> publish": 6,
+    "ally -> advanced_scan": 2,
+    "wait -> advanced_enemy_check": 2,
+    "wait -> scan": 2,
+    "wait -> ally_check": 5,
+    "ally -> enemy_check": 2,
+    "enemy_check -> enemy_check": 4,
+    "publish -> enemy_check": 6,
+    "enemy_scan -> publish": 2,
+    "wait -> troll_scan": 2,
+    "wait -> troll_ally_scan": 3,
+    "wait -> troll_enemy_scan": 5,
+    "ally -> troll_enemy_scan": 1,
+    "ally -> troll_scan": 1
+  },
+  "byRole": {
+    "dantes": 1,
+    "arin": 10,
+    "krate": 4,
+    "soen": 4,
+    "kai": 2,
+    "rael": 2,
+    "kane": 2,
+    "nukelius": 2,
+    "eltas": 2,
+    "sasint": 2,
+    "drakan": 5,
+    "chizuko": 2,
+    "loneris": 2,
+    "tokra": 3,
+    "satoshi": 3,
+    "chis": 3,
+    "kanulla": 6,
+    "neonis": 5,
+    "deka": 2
+  },
+  "actionDecisionMs": {
+    "median": 0.3384310000001278,
+    "p95": 36.051548000001276,
+    "max": 56.019680000001244
+  },
+  "hashes": {
+    "../src/bot.ts": "fc40f28e65d32efada2564575de9e6f95ae29811dc62951e8472d60e6c10c43b",
+    "../src/bot-sequence.ts": "9c30d33db7562c99a8ef47afad0b9825ea7b33c357d625bb57fe69ef86c0f593",
+    "../src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "./sequence-search-decisions.ts": "a70e3a56032cc7c87344c57fcac8d1ad5cbbb64574920b2f428e0dc29558fa45",
+    "./league-runner.ts": "f06567dbb2fbdff690cdbe99bf8b7bd953c6ba7b6fb57ef276e6e185eb9bc4d8"
+  }
+}

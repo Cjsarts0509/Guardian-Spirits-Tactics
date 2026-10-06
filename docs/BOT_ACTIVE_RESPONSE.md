@@ -40,6 +40,8 @@ node --import tsx scripts/response-active-audit.ts
 
 원자료·실행 설정·소스 SHA-256은 `evaluations/response-active-heldout.json`, `response-active-audit.json`에 보존했다. 2,400개 공개 정체 합성 위치에서 입력/RNG 보존과 최대 128회 수순 평가를 확인했다. 로컬 중앙값 15.15ms, p95 28.14ms, 최대 37.09ms다. 대전/빌드가 겹친 참고 수치이며 실제 VM이나 라이브 서버 지연이 아니다.
 
+확인·공표 후 관찰에 따른 자기 후속 수순 실험은 [BOT_SEQUENCE_SEARCH.md](BOT_SEQUENCE_SEARCH.md)에 이어서 기록한다. 이 문서는 액티브 상대 대응 단계의 고정 평가다.
+
 ## 검증과 남은 작업
 
 타입 검사, 전체 315개 테스트, 클라이언트·서버 빌드 통과. 새 테스트는 미확인 대상 공격 금지, 이름 공격 없는 상대의 행동 불능기, 쿨다운/사용 횟수, 조건부 즉사 대상 제한, 불가능한 보상/지연 획득 가설 제거를 확인한다.
