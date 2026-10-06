@@ -1,15 +1,16 @@
+// 평가 전용 고정 정책: 446d213 (원격 7faac91):packages/rules/src/bot.ts.
 // 봇 두 종류
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
 //   상대 정체를 모르면 공격하지 않고 확인부터 한다. 시간이 지나면 후보가 좁혀진 대상에게 추측 공격을 시작한다.
-import { randomInt, nextRandom } from './rng.js';
-import type { Action, CharKey, GameState, PlayerId } from './types.js';
-import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
-import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from './bot-memory.js';
-import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
-import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
-import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
-export type { BotMemory, Knowledge } from './bot-memory.js';
+import { randomInt, nextRandom } from '../../src/rng.js';
+import type { Action, CharKey, GameState, PlayerId } from '../../src/types.js';
+import { eventsFor, viewFor, type PlayerView, type SkillView } from '../../src/engine/view.js';
+import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from '../../src/bot-memory.js';
+import { assignmentBelief, checkInformation, probabilityOf } from '../../src/bot-belief.js';
+import { claimCheckSucceeds, wantsTrueName } from '../../src/bot-claims.js';
+import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from '../../src/bot-tactics.js';
+export type { BotMemory, Knowledge } from '../../src/bot-memory.js';
 
 export interface BotOptions {
   /** 행동 확률 (0~1). 호출될 때마다 이 확률로만 행동 */
@@ -18,8 +19,6 @@ export interface BotOptions {
   primordialLeadership?: 'early' | 'after-six-minutes';
   primordialPriorities?: boolean;
   primordialSlash?: 'early' | 'finish-or-revealed';
-  /** 공표 전략 비교. 기본은 진명이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
-  claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders';
 }
 
 export function randomBotAction(state: GameState, playerId: PlayerId, rng: { rng: number }, opts: BotOptions = {}): Action | null {
@@ -175,9 +174,6 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const enemy = (c: CharKey) => sideOf.get(c) !== me.side;
   const attackable = (c: CharKey) => enemy(c) && !guards[c]?.some((gd) => !deadChars.has(gd));
   const act = (s: SkillView, target?: PlayerId, name?: CharKey): Action => {
-    const strategy = opts.claimStrategy ?? (opts.primordialLeadership === 'after-six-minutes' ? 'current' : 'truthful');
-    if (s.key === 'publish' && (strategy === 'truthful' ||
-      (strategy === 'truthful-noncommanders' && !me.commander)) && s.nameOptions?.includes(me.character)) name = me.character;
     const a: Action = { type: 'skill', skill: s.key };
     if (target) a.target = target;
     if (name) a.name = name;
@@ -487,9 +483,6 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const guessLimit = elapsed > 30 * MIN ? 7 : elapsed > 20 * MIN ? 4 : elapsed > 12 * MIN ? 3 : elapsed > 8 * MIN ? 2 : elapsed > 4 * MIN ? 1 : 0;
   const guessChance = elapsed > 20 * MIN ? 0.7 : 0.4;
   if (guessLimit > 0 && nextRandom(mem) < guessChance) {
-    const supreme = usable.get('supreme_attack');
-    const safeExplore = view.mode === 'troll' && !!supreme && me.mana >= 100 && elapsed > 12 * MIN;
-    const oldestNameFailure = (id: PlayerId, names: CharKey[]) => Math.min(...names.map((n) => mem.perception!.lastAttackNameFailure.get(id)?.get(n) ?? -1));
     const targets = alive
       .map((p) => {
         const all = candidates.get(p.id) ?? [];
@@ -500,17 +493,13 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       .filter((x) => x.c.length > 0 && x.all.length <= guessLimit && (x.enemyRatio >= 0.5 ||
         // 최상급 공격은 오답으로 죽지 않는다. 장기 정체·여유 마나일 때 안전한 이름 후보를 시도한다.
         (view.mode === 'troll' && usable.has('supreme_attack') && me.mana >= 100 && elapsed > 12 * MIN && x.enemyRatio > 0)));
-    targets.sort((a, b) => (safeExplore ? oldestNameFailure(a.p.id, a.c) - oldestNameFailure(b.p.id, b.c) : 0) || a.all.length - b.all.length ||
+    targets.sort((a, b) => a.all.length - b.all.length ||
       (Math.abs(b.enemyRatio - a.enemyRatio) > 1e-9 ? b.enemyRatio - a.enemyRatio : 0) ||
       (lastAttackFailure.get(a.p.id) ?? -1) - (lastAttackFailure.get(b.p.id) ?? -1));
     const t = targets[0];
     if (t) {
-      // 실패 사망이 없는 최상급 공격만 미시도/오래전에 실패한 이름을 순환한다.
-      // 실패를 정체 배제 증거로 쓰지 않으며 일반·상급 공격은 기존 확률 판단을 유지한다.
-      const failures = mem.perception!.lastAttackNameFailure.get(t.p.id);
-      const name = safeExplore
-        ? t.c.slice().sort((a, b) => (failures?.get(a) ?? -1) - (failures?.get(b) ?? -1) || massOf(t.p.id, b) - massOf(t.p.id, a))[0]!
-        : likelyName(t.p.id, t.c)!;
+      const name = likelyName(t.p.id, t.c)!;
+      const supreme = usable.get('supreme_attack');
       if (supreme?.nameOptions?.includes(name)) return act(supreme, t.p.id, name);
       // 자기 진영의 패배 조건에 들어가는 캐릭터(트롤 사토시·즈윈라·울디안, 황야 기사단)는 후보가 좁을 때만 건다
       const careful = (PRECIOUS[view.mode] ?? []).includes(me.character);

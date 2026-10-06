@@ -23,6 +23,8 @@ export interface BotPerception {
   chiefProtected: boolean;
   madnessPurged: boolean;
   lastAttackFailure: Map<PlayerId, number>;
+  /** 실패는 이름 오류/보디가드 여부를 확정하지 않고 시도 순서에만 사용한다. */
+  lastAttackNameFailure: Map<PlayerId, Map<CharKey, number>>;
   automaticClaims: Set<PlayerId>;
   trueNameUntil: number;
   battle: BattleMemory;
@@ -50,7 +52,7 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
       playerId: view.me.id, mode: view.mode, character: view.me.character,
       lastElapsedMs: view.elapsedMs, lastSeq: 0,
       known: new Map(), excluded: new Map(), alternatives: new Map(), commanders: new Set(),
-      baptized: new Set(), chiefProtected: false, madnessPurged: false, lastAttackFailure: new Map(),
+      baptized: new Set(), chiefProtected: false, madnessPurged: false, lastAttackFailure: new Map(), lastAttackNameFailure: new Map(),
       automaticClaims: new Set(), trueNameUntil: 0,
       battle: createBattleMemory(),
     };
@@ -77,7 +79,14 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
     if (e.kind === 'skill.chief_protection') p.chiefProtected = true;
     if (e.kind === 'skill.holy_binding.purge') p.madnessPurged = true;
     if (e.kind === 'skill.destroyer_guidance.madness') p.madnessPurged = false;
-    if (e.kind === 'attack.fail.self' && typeof e.data?.target === 'string') p.lastAttackFailure.set(e.data.target, e.at);
+    if (e.kind === 'attack.fail.self' && typeof e.data?.target === 'string') {
+      p.lastAttackFailure.set(e.data.target, e.at);
+      if (typeof e.data.name === 'string') {
+        const names = p.lastAttackNameFailure.get(e.data.target) ?? new Map<CharKey, number>();
+        names.set(e.data.name, e.at);
+        p.lastAttackNameFailure.set(e.data.target, names);
+      }
+    }
     if ((e.kind === 'publish' || e.kind === 'publish.auto') && typeof e.data?.player === 'string') {
       if (e.kind === 'publish.auto') p.automaticClaims.add(e.data.player);
       else p.automaticClaims.delete(e.data.player);

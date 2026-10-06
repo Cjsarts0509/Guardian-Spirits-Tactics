@@ -10,12 +10,12 @@ const args = process.argv.slice(2).filter((a) => a !== '--');
 const seeds = Number(args[0] ?? 100), startSeed = Number(args[1] ?? 4000);
 if (!Number.isSafeInteger(seeds) || seeds <= 0 || !Number.isSafeInteger(startSeed)) throw new Error('시드 설정 오류');
 const variants: Record<string, BotOptions> = {
-  early_random: { primordialLeadership: 'early', primordialPriorities: false, primordialSlash: 'early' },
-  early_priority: { primordialLeadership: 'early', primordialPriorities: true, primordialSlash: 'early' },
-  hidden_random: { primordialLeadership: 'after-six-minutes', primordialPriorities: false, primordialSlash: 'early' },
-  hidden_priority: { primordialLeadership: 'after-six-minutes', primordialPriorities: true, primordialSlash: 'early' },
-  early_finish: { primordialLeadership: 'early', primordialPriorities: false, primordialSlash: 'finish-or-revealed' },
-  hidden_finish: { primordialLeadership: 'after-six-minutes', primordialPriorities: false, primordialSlash: 'finish-or-revealed' },
+  early_random: { claimStrategy: 'current', primordialLeadership: 'early', primordialPriorities: false, primordialSlash: 'early' },
+  early_priority: { claimStrategy: 'current', primordialLeadership: 'early', primordialPriorities: true, primordialSlash: 'early' },
+  hidden_random: { claimStrategy: 'current', primordialLeadership: 'after-six-minutes', primordialPriorities: false, primordialSlash: 'early' },
+  hidden_priority: { claimStrategy: 'current', primordialLeadership: 'after-six-minutes', primordialPriorities: true, primordialSlash: 'early' },
+  early_finish: { claimStrategy: 'current', primordialLeadership: 'early', primordialPriorities: false, primordialSlash: 'finish-or-revealed' },
+  hidden_finish: { claimStrategy: 'current', primordialLeadership: 'after-six-minutes', primordialPriorities: false, primordialSlash: 'finish-or-revealed' },
 };
 const median = (xs: number[]) => xs.length ? +xs.slice().sort((a, b) => a - b)[Math.floor(xs.length / 2)]!.toFixed(2) : null;
 const output: Record<string, unknown> = {};
