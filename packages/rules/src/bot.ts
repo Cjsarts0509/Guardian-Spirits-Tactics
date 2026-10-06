@@ -9,6 +9,7 @@ import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } f
 import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
 import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
 import { adaptiveClaimName } from './bot-claim-policy.js';
+import { bestGemTarget } from './bot-information.js';
 import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
 export type { BotMemory, Knowledge } from './bot-memory.js';
 
@@ -18,6 +19,8 @@ export interface BotOptions {
   /** 태초 정책 비교용. 조기 공표·무작위 리더쉽 대상을 유지한다. */
   primordialLeadership?: 'early' | 'after-six-minutes';
   primordialPriorities?: boolean;
+  /** 비교용으로 기존 보석 대상 선택을 지정할 수 있다. */
+  gemTargets?: 'legacy';
   primordialSlash?: 'early' | 'finish-or-revealed';
   /** 공표 전략 비교. 기본은 진명이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
   claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders' | 'adaptive';
@@ -418,7 +421,10 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     // 교환 리그로 검증한 트롤에 적용한다. 다른 모드의 전투 우선순위는 별도 검증 전 유지한다.
     const pool = view.mode === 'troll' ? unknown.filter((p) => !mem.perception!.commanders.has(p.id) &&
       (!belief.consistent || checkInformation(view, belief, p.id, 'truth_gem') > 0)) : unknown;
-    const t = pool.find((p) => claimsSide(p, me.side === 1 ? 2 : 1)) ?? pick(pool);
+    const useInformation = view.mode !== 'troll' && opts.gemTargets !== 'legacy' && belief.consistent;
+    const targetId = useInformation ? bestGemTarget(view, belief, pool) : undefined;
+    const t = useInformation ? pool.find((p) => p.id === targetId) :
+      pool.find((p) => claimsSide(p, me.side === 1 ? 2 : 1)) ?? pick(pool);
     if (t) return act(gem, t.id);
   }
   // 혼돈의 주술은 단순 지원이 아니라 반란자의 정체를 확인하는 지연 정보 스킬이다.
