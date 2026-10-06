@@ -1,5 +1,7 @@
 import type { CharKey, GameEvent, PlayerId } from './types.js';
 import type { PlayerView } from './engine/view.js';
+import type { AssignmentBelief } from './bot-belief.js';
+import { createBattleMemory, observeBattle, type BattleMemory, type SkillPlan } from './bot-tactics.js';
 
 export interface Knowledge {
   /** 확정 정체. 변장 가능한 확인 결과는 포함하지 않는다. */
@@ -21,12 +23,20 @@ export interface BotPerception {
   chiefProtected: boolean;
   madnessPurged: boolean;
   lastAttackFailure: Map<PlayerId, number>;
+  /** 실패는 이름 오류/보디가드 여부를 확정하지 않고 시도 순서에만 사용한다. */
+  lastAttackNameFailure: Map<PlayerId, Map<CharKey, number>>;
+  automaticClaims: Set<PlayerId>;
+  trueNameUntil: number;
+  battle: BattleMemory;
+  lastBurn?: { target: PlayerId; at: number };
 }
 
 /** 한 판의 한 플레이어 전용. 서버 상태나 다른 봇의 기억을 보관하지 않는다. */
 export interface BotMemory {
   rng: number;
   perception?: BotPerception;
+  beliefCache?: { signature: string; value: AssignmentBelief };
+  plan?: SkillPlan;
 }
 
 export function createBotMemory(seed: number): BotMemory {
@@ -37,15 +47,20 @@ export function createBotMemory(seed: number): BotMemory {
 export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[], memory: BotMemory): Knowledge {
   let p = memory.perception;
   if (!p || p.playerId !== view.me.id || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs) {
+    memory.plan = undefined;
     p = memory.perception = {
       playerId: view.me.id, mode: view.mode, character: view.me.character,
       lastElapsedMs: view.elapsedMs, lastSeq: 0,
       known: new Map(), excluded: new Map(), alternatives: new Map(), commanders: new Set(),
-      baptized: new Set(), chiefProtected: false, madnessPurged: false, lastAttackFailure: new Map(),
+      baptized: new Set(), chiefProtected: false, madnessPurged: false, lastAttackFailure: new Map(), lastAttackNameFailure: new Map(),
+      automaticClaims: new Set(), trueNameUntil: 0,
+      battle: createBattleMemory(),
     };
   }
   for (const e of events) {
     if (e.seq <= p.lastSeq || !(e.vis.to === 'all' || (e.vis.to === 'players' && e.vis.ids.includes(view.me.id)))) continue;
+    observeBattle(view, e, p.battle);
+    if (e.kind === 'skill.burning_magic.self' && typeof e.data?.target === 'string') p.lastBurn = { target: e.data.target, at: e.at };
     for (const f of e.facts ?? []) {
       if (f.player === view.me.id) continue;
       if (f.character) p.known.set(f.player, f.character);
@@ -64,7 +79,20 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
     if (e.kind === 'skill.chief_protection') p.chiefProtected = true;
     if (e.kind === 'skill.holy_binding.purge') p.madnessPurged = true;
     if (e.kind === 'skill.destroyer_guidance.madness') p.madnessPurged = false;
-    if (e.kind === 'attack.fail.self' && typeof e.data?.target === 'string') p.lastAttackFailure.set(e.data.target, e.at);
+    if (e.kind === 'attack.fail.self' && typeof e.data?.target === 'string') {
+      p.lastAttackFailure.set(e.data.target, e.at);
+      if (typeof e.data.name === 'string') {
+        const names = p.lastAttackNameFailure.get(e.data.target) ?? new Map<CharKey, number>();
+        names.set(e.data.name, e.at);
+        p.lastAttackNameFailure.set(e.data.target, names);
+      }
+    }
+    if ((e.kind === 'publish' || e.kind === 'publish.auto') && typeof e.data?.player === 'string') {
+      if (e.kind === 'publish.auto') p.automaticClaims.add(e.data.player);
+      else p.automaticClaims.delete(e.data.player);
+    }
+    // 재접속 때도 안전하게 유지하도록 관찰 시점부터 최소 20초를 확보한다.
+    if (e.kind === 'skill.wild_path.self') p.trueNameUntil = view.elapsedMs + 20_000;
     p.lastSeq = e.seq;
   }
   p.lastElapsedMs = view.elapsedMs;

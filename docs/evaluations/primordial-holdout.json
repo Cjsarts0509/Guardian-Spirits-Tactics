@@ -1,0 +1,3854 @@
+{
+  "format": 1,
+  "startSeed": 5000,
+  "seeds": 100,
+  "settings": {
+    "tickMs": 250,
+    "activity": 0.012,
+    "limitMs": 5400000
+  },
+  "policySha256": "79101321efadbf07e9ad684e343722732b737a84864d8efe7965b22a427755b4",
+  "variants": {
+    "early_random": {
+      "options": {
+        "primordialLeadership": "early",
+        "primordialPriorities": false,
+        "primordialSlash": "early"
+      },
+      "games": 200,
+      "wins": {
+        "earth": 45,
+        "darkness": 155,
+        "unfinished": 0
+      },
+      "earthScore": 0.225,
+      "earthSeedBootstrap95": [
+        0.165,
+        0.285
+      ],
+      "attempted": 13593,
+      "rejected": 0,
+      "earlyFails": 0,
+      "unfinished": [],
+      "deaths": {
+        "rael": {
+          "games": 200,
+          "died": 157,
+          "causes": {
+            "master_power": 31,
+            "attack": 123,
+            "slaughter": 3
+          },
+          "medianDeathMinute": 6
+        },
+        "kane": {
+          "games": 200,
+          "died": 197,
+          "causes": {
+            "attack": 192,
+            "master_power": 5
+          },
+          "medianDeathMinute": 1.49
+        },
+        "eltas": {
+          "games": 200,
+          "died": 45,
+          "causes": {
+            "attack": 18,
+            "master_power": 27
+          },
+          "medianDeathMinute": 6.09
+        },
+        "eoril": {
+          "games": 200,
+          "died": 143,
+          "causes": {
+            "attack": 143
+          },
+          "medianDeathMinute": 3.27
+        },
+        "consume": {
+          "games": 40,
+          "died": 7,
+          "causes": {
+            "attack": 2,
+            "master_power": 4,
+            "phoenix_flame": 1
+          },
+          "medianDeathMinute": 6.09
+        }
+      },
+      "firstTrueName": {
+        "rael": {
+          "games": 200,
+          "medianMinute": 0.22
+        },
+        "eltas": {
+          "games": 200,
+          "medianMinute": 0.25
+        },
+        "eoril": {
+          "games": 200,
+          "medianMinute": 0.31
+        },
+        "consume": {
+          "games": 37,
+          "medianMinute": 0.23
+        }
+      },
+      "skills": {
+        "eltas:eltas_leadership": {
+          "games": 199,
+          "accepted": 199,
+          "targets": {
+            "kilder": 64,
+            "hermilly": 53,
+            "drakan": 39,
+            "sasint": 34,
+            "consume": 9
+          },
+          "medianMinute": 0.62
+        },
+        "drakan:drakan_black_spell": {
+          "games": 144,
+          "accepted": 144,
+          "targets": {
+            "kane": 22,
+            "rael": 28,
+            "eoril": 80,
+            "nukelius": 5,
+            "tachin": 5,
+            "kumarin": 4
+          },
+          "medianMinute": 1.63
+        },
+        "rael:rael_leadership": {
+          "games": 199,
+          "accepted": 199,
+          "targets": {
+            "eoril": 59,
+            "tachin": 51,
+            "kumarin": 24,
+            "nukelius": 65
+          },
+          "medianMinute": 0.56
+        },
+        "nukelius:scan": {
+          "games": 198,
+          "accepted": 546,
+          "targets": {
+            "eoril": 238,
+            "drakan": 56,
+            "hermilly": 51,
+            "tachin": 88,
+            "kilder": 44,
+            "sasint": 27,
+            "kumarin": 37,
+            "consume": 3,
+            "kane": 2
+          },
+          "medianMinute": 1.82
+        },
+        "rael:ally_check": {
+          "games": 183,
+          "accepted": 331,
+          "targets": {
+            "nukelius": 82,
+            "tachin": 93,
+            "eoril": 57,
+            "kane": 43,
+            "kumarin": 56
+          },
+          "medianMinute": 1.48
+        },
+        "drakan:enemy_check": {
+          "games": 191,
+          "accepted": 516,
+          "targets": {
+            "kane": 38,
+            "rael": 169,
+            "eoril": 170,
+            "tachin": 68,
+            "kumarin": 36,
+            "nukelius": 32,
+            "kilder": 3
+          },
+          "medianMinute": 2.03
+        },
+        "nukelius:nukelius_chakra_magic": {
+          "games": 163,
+          "accepted": 163,
+          "targets": {
+            "eoril": 129,
+            "kane": 23,
+            "tachin": 11
+          },
+          "medianMinute": 1.91
+        },
+        "eltas:ally_check": {
+          "games": 193,
+          "accepted": 458,
+          "targets": {
+            "hermilly": 105,
+            "drakan": 127,
+            "kilder": 132,
+            "sasint": 72,
+            "consume": 22
+          },
+          "medianMinute": 2.2
+        },
+        "eoril:ally_check": {
+          "games": 196,
+          "accepted": 420,
+          "targets": {
+            "rael": 179,
+            "nukelius": 66,
+            "tachin": 113,
+            "kumarin": 47,
+            "kane": 15
+          },
+          "medianMinute": 1.57
+        },
+        "eoril:eoril_trial": {
+          "games": 198,
+          "accepted": 198,
+          "targets": {
+            "rael": 198
+          },
+          "medianMinute": 1.27
+        },
+        "hermilly:scan": {
+          "games": 159,
+          "accepted": 595,
+          "targets": {
+            "eoril": 195,
+            "drakan": 89,
+            "kilder": 80,
+            "nukelius": 47,
+            "tachin": 66,
+            "sasint": 55,
+            "kumarin": 44,
+            "consume": 10,
+            "kane": 9
+          },
+          "medianMinute": 2.38
+        },
+        "hermilly:hermilly_seeing_libido": {
+          "games": 154,
+          "accepted": 154,
+          "targets": {
+            "rael": 24,
+            "kane": 16,
+            "drakan": 22,
+            "kilder": 17,
+            "nukelius": 19,
+            "sasint": 14,
+            "eltas": 15,
+            "tachin": 9,
+            "eoril": 6,
+            "consume": 6,
+            "kumarin": 6
+          },
+          "medianMinute": 1.18
+        },
+        "eltas:supreme_attack": {
+          "games": 191,
+          "accepted": 399,
+          "targets": {
+            "nukelius": 78,
+            "kane": 139,
+            "rael": 107,
+            "tachin": 49,
+            "eoril": 15,
+            "kumarin": 11
+          },
+          "medianMinute": 3.69
+        },
+        "kilder:ally_check": {
+          "games": 196,
+          "accepted": 598,
+          "targets": {
+            "eltas": 196,
+            "hermilly": 122,
+            "sasint": 109,
+            "drakan": 149,
+            "consume": 22
+          },
+          "medianMinute": 2.14
+        },
+        "kilder:kilder_casanova": {
+          "games": 154,
+          "accepted": 168,
+          "targets": {
+            "kane": 4,
+            "eoril": 149,
+            "nukelius": 5,
+            "tachin": 7,
+            "kumarin": 3
+          },
+          "medianMinute": 2.56
+        },
+        "kane:advanced_enemy_check": {
+          "games": 200,
+          "accepted": 279,
+          "targets": {
+            "eltas": 200,
+            "hermilly": 18,
+            "drakan": 22,
+            "kilder": 25,
+            "sasint": 13,
+            "consume": 1
+          },
+          "medianMinute": 0.96
+        },
+        "rael:rael_eoril_test": {
+          "games": 156,
+          "accepted": 156,
+          "targets": {
+            "eoril": 156
+          },
+          "medianMinute": 2.51
+        },
+        "kane:kane_wolfs_slash": {
+          "games": 191,
+          "accepted": 191,
+          "targets": {
+            "eltas": 191
+          },
+          "medianMinute": 1.13
+        },
+        "kilder:attack": {
+          "games": 187,
+          "accepted": 351,
+          "targets": {
+            "kane": 121,
+            "eoril": 127,
+            "tachin": 17,
+            "rael": 46,
+            "nukelius": 32,
+            "kumarin": 8
+          },
+          "medianMinute": 3.03
+        },
+        "eoril:eoril_flame_shackle": {
+          "games": 92,
+          "accepted": 108,
+          "targets": {
+            "kilder": 35,
+            "drakan": 34,
+            "eltas": 29,
+            "hermilly": 1,
+            "sasint": 9
+          },
+          "medianMinute": 2.55
+        },
+        "kilder:kilder_master_power": {
+          "games": 46,
+          "accepted": 46,
+          "targets": {
+            "rael": 31,
+            "tachin": 9,
+            "kumarin": 1,
+            "kane": 5
+          },
+          "medianMinute": 3.78
+        },
+        "rael:attack": {
+          "games": 33,
+          "accepted": 38,
+          "targets": {
+            "kilder": 5,
+            "eltas": 16,
+            "drakan": 5,
+            "sasint": 5,
+            "consume": 2,
+            "hermilly": 5
+          },
+          "medianMinute": 4.56
+        },
+        "kane:attack": {
+          "games": 61,
+          "accepted": 80,
+          "targets": {
+            "eltas": 59,
+            "kilder": 4,
+            "hermilly": 5,
+            "drakan": 8,
+            "sasint": 3,
+            "consume": 1
+          },
+          "medianMinute": 1.85
+        },
+        "sasint:advanced_ally_check": {
+          "games": 157,
+          "accepted": 502,
+          "targets": {
+            "eltas": 154,
+            "drakan": 101,
+            "kilder": 125,
+            "hermilly": 101,
+            "consume": 21
+          },
+          "medianMinute": 2.04
+        },
+        "sasint:sasint_support": {
+          "games": 106,
+          "accepted": 124,
+          "targets": {
+            "eltas": 89,
+            "kilder": 14,
+            "hermilly": 5,
+            "drakan": 8,
+            "consume": 8
+          },
+          "medianMinute": 1.95
+        },
+        "sasint:attack": {
+          "games": 119,
+          "accepted": 148,
+          "targets": {
+            "kane": 113,
+            "nukelius": 34,
+            "rael": 1
+          },
+          "medianMinute": 1.45
+        },
+        "sasint:sasint_battle_mastery": {
+          "games": 124,
+          "accepted": 124,
+          "targets": {},
+          "medianMinute": 3.23
+        },
+        "tachin:advanced_attack": {
+          "games": 81,
+          "accepted": 94,
+          "targets": {
+            "kilder": 23,
+            "sasint": 24,
+            "drakan": 22,
+            "consume": 5,
+            "hermilly": 13,
+            "eltas": 7
+          },
+          "medianMinute": 3.64
+        },
+        "tachin:tachin_neutralize": {
+          "games": 98,
+          "accepted": 98,
+          "targets": {
+            "rael": 21,
+            "eoril": 65,
+            "kane": 7,
+            "kumarin": 4,
+            "nukelius": 1
+          },
+          "medianMinute": 2.24
+        },
+        "sasint:advanced_attack": {
+          "games": 25,
+          "accepted": 29,
+          "targets": {
+            "tachin": 8,
+            "rael": 13,
+            "kane": 2,
+            "nukelius": 3,
+            "kumarin": 2,
+            "eoril": 1
+          },
+          "medianMinute": 6.34
+        },
+        "kumarin:ally_check": {
+          "games": 78,
+          "accepted": 169,
+          "targets": {
+            "kane": 11,
+            "nukelius": 35,
+            "eoril": 75,
+            "tachin": 20,
+            "rael": 28
+          },
+          "medianMinute": 1.58
+        },
+        "tachin:tachin_union": {
+          "games": 80,
+          "accepted": 142,
+          "targets": {
+            "kumarin": 69,
+            "consume": 3,
+            "kilder": 9,
+            "eoril": 7,
+            "rael": 4,
+            "eltas": 9,
+            "nukelius": 9,
+            "sasint": 11,
+            "drakan": 7,
+            "hermilly": 6,
+            "kane": 8
+          },
+          "medianMinute": 1.55
+        },
+        "kumarin:kumarin_union": {
+          "games": 74,
+          "accepted": 105,
+          "targets": {
+            "eltas": 9,
+            "kilder": 8,
+            "sasint": 6,
+            "tachin": 47,
+            "eoril": 3,
+            "hermilly": 6,
+            "drakan": 8,
+            "kane": 10,
+            "consume": 3,
+            "nukelius": 3,
+            "rael": 2
+          },
+          "medianMinute": 1.64
+        },
+        "kumarin:kumarin_commander_guard": {
+          "games": 80,
+          "accepted": 80,
+          "targets": {
+            "rael": 79,
+            "nukelius": 1
+          },
+          "medianMinute": 2.14
+        },
+        "kumarin:attack": {
+          "games": 27,
+          "accepted": 38,
+          "targets": {
+            "hermilly": 6,
+            "eltas": 20,
+            "sasint": 5,
+            "drakan": 1,
+            "kilder": 6
+          },
+          "medianMinute": 5.22
+        },
+        "consume:consume_slave_instinct": {
+          "games": 37,
+          "accepted": 43,
+          "targets": {
+            "eltas": 36,
+            "kilder": 1,
+            "rael": 3,
+            "sasint": 1,
+            "drakan": 1,
+            "kane": 1
+          },
+          "medianMinute": 0.58
+        },
+        "consume:consume_master_guard": {
+          "games": 39,
+          "accepted": 39,
+          "targets": {
+            "eltas": 39
+          },
+          "medianMinute": 1.62
+        },
+        "consume:attack": {
+          "games": 22,
+          "accepted": 26,
+          "targets": {
+            "kane": 12,
+            "nukelius": 7,
+            "rael": 6,
+            "tachin": 1
+          },
+          "medianMinute": 2.08
+        },
+        "sasint:sasint_training": {
+          "games": 36,
+          "accepted": 36,
+          "targets": {
+            "drakan": 5,
+            "consume": 25,
+            "kilder": 5,
+            "hermilly": 1
+          },
+          "medianMinute": 2.12
+        },
+        "hermilly:hermilly_libido_protection": {
+          "games": 38,
+          "accepted": 38,
+          "targets": {
+            "drakan": 3,
+            "consume": 29,
+            "kilder": 3,
+            "sasint": 3
+          },
+          "medianMinute": 2.23
+        },
+        "drakan:drakan_enchant_muscle": {
+          "games": 32,
+          "accepted": 32,
+          "targets": {
+            "consume": 26,
+            "kilder": 3,
+            "hermilly": 1,
+            "sasint": 2
+          },
+          "medianMinute": 2.81
+        },
+        "rael:rael_master_power": {
+          "games": 62,
+          "accepted": 62,
+          "targets": {
+            "drakan": 9,
+            "kilder": 12,
+            "eltas": 27,
+            "sasint": 5,
+            "consume": 4,
+            "hermilly": 5
+          },
+          "medianMinute": 6.28
+        },
+        "kumarin:kumarin_binding": {
+          "games": 2,
+          "accepted": 2,
+          "targets": {
+            "consume": 2
+          },
+          "medianMinute": 8.18
+        },
+        "consume:consume_final_evolution": {
+          "games": 18,
+          "accepted": 18,
+          "targets": {},
+          "medianMinute": 3.05
+        },
+        "consume:consume_slaughter": {
+          "games": 11,
+          "accepted": 15,
+          "targets": {
+            "kumarin": 3,
+            "rael": 3,
+            "tachin": 5,
+            "nukelius": 4
+          },
+          "medianMinute": 3.82
+        },
+        "consume:advanced_attack": {
+          "games": 7,
+          "accepted": 9,
+          "targets": {
+            "rael": 3,
+            "tachin": 2,
+            "kane": 3,
+            "nukelius": 1
+          },
+          "medianMinute": 3.31
+        },
+        "eoril:eoril_phoenix_flame": {
+          "games": 1,
+          "accepted": 1,
+          "targets": {
+            "consume": 1
+          },
+          "medianMinute": 3.15
+        }
+      }
+    },
+    "early_priority": {
+      "options": {
+        "primordialLeadership": "early",
+        "primordialPriorities": true,
+        "primordialSlash": "early"
+      },
+      "games": 200,
+      "wins": {
+        "earth": 43,
+        "darkness": 157,
+        "unfinished": 0
+      },
+      "earthScore": 0.215,
+      "earthSeedBootstrap95": [
+        0.155,
+        0.27
+      ],
+      "attempted": 13681,
+      "rejected": 0,
+      "earlyFails": 0,
+      "unfinished": [],
+      "deaths": {
+        "rael": {
+          "games": 200,
+          "died": 159,
+          "causes": {
+            "master_power": 32,
+            "attack": 123,
+            "slaughter": 4
+          },
+          "medianDeathMinute": 5.45
+        },
+        "kane": {
+          "games": 200,
+          "died": 198,
+          "causes": {
+            "attack": 193,
+            "master_power": 5
+          },
+          "medianDeathMinute": 1.49
+        },
+        "eltas": {
+          "games": 200,
+          "died": 43,
+          "causes": {
+            "attack": 18,
+            "master_power": 25
+          },
+          "medianDeathMinute": 6.36
+        },
+        "eoril": {
+          "games": 200,
+          "died": 143,
+          "causes": {
+            "attack": 143
+          },
+          "medianDeathMinute": 3.27
+        },
+        "consume": {
+          "games": 40,
+          "died": 5,
+          "causes": {
+            "master_power": 3,
+            "attack": 1,
+            "phoenix_flame": 1
+          },
+          "medianDeathMinute": 6.09
+        }
+      },
+      "firstTrueName": {
+        "rael": {
+          "games": 200,
+          "medianMinute": 0.22
+        },
+        "eltas": {
+          "games": 200,
+          "medianMinute": 0.25
+        },
+        "eoril": {
+          "games": 200,
+          "medianMinute": 0.31
+        },
+        "consume": {
+          "games": 37,
+          "medianMinute": 0.23
+        }
+      },
+      "skills": {
+        "eltas:eltas_leadership": {
+          "games": 199,
+          "accepted": 199,
+          "targets": {
+            "kilder": 44,
+            "sasint": 112,
+            "consume": 40,
+            "hermilly": 3
+          },
+          "medianMinute": 0.62
+        },
+        "drakan:drakan_black_spell": {
+          "games": 143,
+          "accepted": 143,
+          "targets": {
+            "kane": 21,
+            "rael": 26,
+            "eoril": 81,
+            "nukelius": 6,
+            "tachin": 5,
+            "kumarin": 4
+          },
+          "medianMinute": 1.63
+        },
+        "rael:rael_leadership": {
+          "games": 199,
+          "accepted": 199,
+          "targets": {
+            "eoril": 167,
+            "tachin": 15,
+            "kumarin": 13,
+            "nukelius": 4
+          },
+          "medianMinute": 0.56
+        },
+        "nukelius:scan": {
+          "games": 198,
+          "accepted": 546,
+          "targets": {
+            "eoril": 238,
+            "drakan": 56,
+            "hermilly": 51,
+            "tachin": 88,
+            "kilder": 43,
+            "sasint": 27,
+            "kumarin": 38,
+            "consume": 3,
+            "kane": 2
+          },
+          "medianMinute": 1.82
+        },
+        "rael:ally_check": {
+          "games": 183,
+          "accepted": 377,
+          "targets": {
+            "nukelius": 120,
+            "tachin": 143,
+            "kumarin": 66,
+            "kane": 48
+          },
+          "medianMinute": 1.7
+        },
+        "drakan:enemy_check": {
+          "games": 191,
+          "accepted": 518,
+          "targets": {
+            "kane": 38,
+            "rael": 170,
+            "eoril": 169,
+            "tachin": 72,
+            "kumarin": 34,
+            "nukelius": 32,
+            "kilder": 3
+          },
+          "medianMinute": 2.05
+        },
+        "nukelius:nukelius_chakra_magic": {
+          "games": 164,
+          "accepted": 164,
+          "targets": {
+            "eoril": 130,
+            "kane": 23,
+            "tachin": 11
+          },
+          "medianMinute": 1.91
+        },
+        "eltas:ally_check": {
+          "games": 194,
+          "accepted": 473,
+          "targets": {
+            "hermilly": 155,
+            "drakan": 150,
+            "kilder": 139,
+            "sasint": 29
+          },
+          "medianMinute": 2.2
+        },
+        "eoril:ally_check": {
+          "games": 196,
+          "accepted": 423,
+          "targets": {
+            "rael": 179,
+            "nukelius": 66,
+            "tachin": 115,
+            "kumarin": 48,
+            "kane": 15
+          },
+          "medianMinute": 1.57
+        },
+        "eoril:eoril_trial": {
+          "games": 198,
+          "accepted": 198,
+          "targets": {
+            "rael": 198
+          },
+          "medianMinute": 1.27
+        },
+        "hermilly:scan": {
+          "games": 159,
+          "accepted": 598,
+          "targets": {
+            "eoril": 195,
+            "drakan": 88,
+            "kilder": 80,
+            "nukelius": 47,
+            "tachin": 67,
+            "sasint": 58,
+            "kumarin": 44,
+            "consume": 10,
+            "kane": 9
+          },
+          "medianMinute": 2.4
+        },
+        "hermilly:hermilly_seeing_libido": {
+          "games": 155,
+          "accepted": 155,
+          "targets": {
+            "rael": 24,
+            "kane": 16,
+            "drakan": 22,
+            "kilder": 17,
+            "nukelius": 19,
+            "sasint": 14,
+            "eltas": 16,
+            "tachin": 9,
+            "eoril": 6,
+            "consume": 6,
+            "kumarin": 6
+          },
+          "medianMinute": 1.18
+        },
+        "eltas:supreme_attack": {
+          "games": 189,
+          "accepted": 401,
+          "targets": {
+            "nukelius": 79,
+            "kane": 142,
+            "rael": 108,
+            "tachin": 48,
+            "kumarin": 12,
+            "eoril": 12
+          },
+          "medianMinute": 3.7
+        },
+        "kilder:ally_check": {
+          "games": 196,
+          "accepted": 601,
+          "targets": {
+            "eltas": 196,
+            "hermilly": 124,
+            "sasint": 110,
+            "drakan": 148,
+            "consume": 23
+          },
+          "medianMinute": 2.14
+        },
+        "kilder:kilder_casanova": {
+          "games": 154,
+          "accepted": 167,
+          "targets": {
+            "kane": 4,
+            "eoril": 148,
+            "nukelius": 5,
+            "tachin": 7,
+            "kumarin": 3
+          },
+          "medianMinute": 2.55
+        },
+        "kane:advanced_enemy_check": {
+          "games": 200,
+          "accepted": 279,
+          "targets": {
+            "eltas": 200,
+            "hermilly": 18,
+            "drakan": 22,
+            "kilder": 25,
+            "sasint": 13,
+            "consume": 1
+          },
+          "medianMinute": 0.96
+        },
+        "rael:rael_eoril_test": {
+          "games": 155,
+          "accepted": 155,
+          "targets": {
+            "eoril": 155
+          },
+          "medianMinute": 2.51
+        },
+        "kane:kane_wolfs_slash": {
+          "games": 190,
+          "accepted": 190,
+          "targets": {
+            "eltas": 190
+          },
+          "medianMinute": 1.13
+        },
+        "kilder:attack": {
+          "games": 187,
+          "accepted": 349,
+          "targets": {
+            "kane": 120,
+            "eoril": 129,
+            "tachin": 17,
+            "rael": 43,
+            "nukelius": 32,
+            "kumarin": 8
+          },
+          "medianMinute": 3.02
+        },
+        "eoril:eoril_flame_shackle": {
+          "games": 92,
+          "accepted": 107,
+          "targets": {
+            "kilder": 35,
+            "drakan": 33,
+            "eltas": 29,
+            "hermilly": 1,
+            "sasint": 9
+          },
+          "medianMinute": 2.23
+        },
+        "kilder:kilder_master_power": {
+          "games": 49,
+          "accepted": 49,
+          "targets": {
+            "rael": 32,
+            "tachin": 10,
+            "kumarin": 2,
+            "kane": 5
+          },
+          "medianMinute": 3.78
+        },
+        "rael:attack": {
+          "games": 30,
+          "accepted": 35,
+          "targets": {
+            "kilder": 5,
+            "eltas": 13,
+            "drakan": 4,
+            "sasint": 5,
+            "consume": 2,
+            "hermilly": 6
+          },
+          "medianMinute": 4.52
+        },
+        "kane:attack": {
+          "games": 61,
+          "accepted": 81,
+          "targets": {
+            "eltas": 60,
+            "kilder": 4,
+            "hermilly": 5,
+            "drakan": 8,
+            "sasint": 3,
+            "consume": 1
+          },
+          "medianMinute": 1.85
+        },
+        "sasint:advanced_ally_check": {
+          "games": 157,
+          "accepted": 508,
+          "targets": {
+            "eltas": 154,
+            "drakan": 100,
+            "kilder": 127,
+            "hermilly": 106,
+            "consume": 21
+          },
+          "medianMinute": 2.07
+        },
+        "sasint:sasint_support": {
+          "games": 106,
+          "accepted": 125,
+          "targets": {
+            "eltas": 87,
+            "kilder": 15,
+            "hermilly": 5,
+            "drakan": 8,
+            "consume": 10
+          },
+          "medianMinute": 1.94
+        },
+        "sasint:attack": {
+          "games": 119,
+          "accepted": 148,
+          "targets": {
+            "kane": 112,
+            "nukelius": 34,
+            "rael": 2
+          },
+          "medianMinute": 1.48
+        },
+        "sasint:sasint_battle_mastery": {
+          "games": 121,
+          "accepted": 121,
+          "targets": {},
+          "medianMinute": 3.23
+        },
+        "tachin:advanced_attack": {
+          "games": 81,
+          "accepted": 94,
+          "targets": {
+            "kilder": 22,
+            "sasint": 25,
+            "drakan": 23,
+            "consume": 4,
+            "hermilly": 12,
+            "eltas": 8
+          },
+          "medianMinute": 3.64
+        },
+        "tachin:tachin_neutralize": {
+          "games": 98,
+          "accepted": 98,
+          "targets": {
+            "rael": 21,
+            "eoril": 65,
+            "nukelius": 2,
+            "kumarin": 4,
+            "kane": 6
+          },
+          "medianMinute": 2.24
+        },
+        "sasint:advanced_attack": {
+          "games": 28,
+          "accepted": 33,
+          "targets": {
+            "tachin": 10,
+            "rael": 14,
+            "eoril": 2,
+            "kane": 2,
+            "nukelius": 3,
+            "kumarin": 2
+          },
+          "medianMinute": 6.34
+        },
+        "kumarin:ally_check": {
+          "games": 78,
+          "accepted": 170,
+          "targets": {
+            "kane": 11,
+            "nukelius": 36,
+            "eoril": 75,
+            "tachin": 20,
+            "rael": 28
+          },
+          "medianMinute": 1.58
+        },
+        "tachin:tachin_union": {
+          "games": 80,
+          "accepted": 143,
+          "targets": {
+            "kumarin": 69,
+            "consume": 3,
+            "kilder": 9,
+            "eoril": 7,
+            "rael": 4,
+            "eltas": 9,
+            "nukelius": 9,
+            "sasint": 11,
+            "drakan": 8,
+            "hermilly": 6,
+            "kane": 8
+          },
+          "medianMinute": 1.55
+        },
+        "kumarin:kumarin_union": {
+          "games": 74,
+          "accepted": 106,
+          "targets": {
+            "eltas": 9,
+            "kilder": 8,
+            "sasint": 6,
+            "tachin": 48,
+            "eoril": 3,
+            "hermilly": 6,
+            "drakan": 8,
+            "kane": 10,
+            "consume": 3,
+            "nukelius": 3,
+            "rael": 2
+          },
+          "medianMinute": 1.64
+        },
+        "kumarin:kumarin_commander_guard": {
+          "games": 80,
+          "accepted": 80,
+          "targets": {
+            "rael": 79,
+            "nukelius": 1
+          },
+          "medianMinute": 2.14
+        },
+        "kumarin:attack": {
+          "games": 28,
+          "accepted": 39,
+          "targets": {
+            "hermilly": 6,
+            "eltas": 22,
+            "sasint": 4,
+            "drakan": 1,
+            "kilder": 6
+          },
+          "medianMinute": 5.32
+        },
+        "consume:consume_slave_instinct": {
+          "games": 37,
+          "accepted": 43,
+          "targets": {
+            "eltas": 36,
+            "kilder": 1,
+            "rael": 3,
+            "sasint": 1,
+            "drakan": 1,
+            "kane": 1
+          },
+          "medianMinute": 0.58
+        },
+        "consume:consume_master_guard": {
+          "games": 39,
+          "accepted": 39,
+          "targets": {
+            "eltas": 39
+          },
+          "medianMinute": 1.62
+        },
+        "consume:attack": {
+          "games": 22,
+          "accepted": 26,
+          "targets": {
+            "kane": 12,
+            "nukelius": 7,
+            "rael": 6,
+            "tachin": 1
+          },
+          "medianMinute": 2.08
+        },
+        "sasint:sasint_training": {
+          "games": 37,
+          "accepted": 37,
+          "targets": {
+            "drakan": 5,
+            "consume": 26,
+            "kilder": 5,
+            "hermilly": 1
+          },
+          "medianMinute": 2.12
+        },
+        "hermilly:hermilly_libido_protection": {
+          "games": 38,
+          "accepted": 38,
+          "targets": {
+            "drakan": 3,
+            "consume": 29,
+            "kilder": 3,
+            "sasint": 3
+          },
+          "medianMinute": 2.23
+        },
+        "drakan:drakan_enchant_muscle": {
+          "games": 32,
+          "accepted": 32,
+          "targets": {
+            "consume": 26,
+            "kilder": 3,
+            "hermilly": 1,
+            "sasint": 2
+          },
+          "medianMinute": 2.81
+        },
+        "rael:rael_master_power": {
+          "games": 58,
+          "accepted": 58,
+          "targets": {
+            "drakan": 8,
+            "eltas": 25,
+            "hermilly": 5,
+            "sasint": 6,
+            "kilder": 11,
+            "consume": 3
+          },
+          "medianMinute": 6.4
+        },
+        "kumarin:kumarin_binding": {
+          "games": 3,
+          "accepted": 3,
+          "targets": {
+            "consume": 3
+          },
+          "medianMinute": 6.23
+        },
+        "consume:consume_final_evolution": {
+          "games": 18,
+          "accepted": 18,
+          "targets": {},
+          "medianMinute": 3.05
+        },
+        "consume:consume_slaughter": {
+          "games": 12,
+          "accepted": 17,
+          "targets": {
+            "kumarin": 2,
+            "rael": 4,
+            "tachin": 7,
+            "nukelius": 4
+          },
+          "medianMinute": 3.82
+        },
+        "consume:advanced_attack": {
+          "games": 7,
+          "accepted": 9,
+          "targets": {
+            "rael": 3,
+            "tachin": 2,
+            "kane": 3,
+            "nukelius": 1
+          },
+          "medianMinute": 3.31
+        },
+        "eoril:eoril_phoenix_flame": {
+          "games": 1,
+          "accepted": 1,
+          "targets": {
+            "consume": 1
+          },
+          "medianMinute": 3.15
+        }
+      }
+    },
+    "hidden_random": {
+      "options": {
+        "primordialLeadership": "after-six-minutes",
+        "primordialPriorities": false,
+        "primordialSlash": "early"
+      },
+      "games": 200,
+      "wins": {
+        "earth": 113,
+        "darkness": 87,
+        "unfinished": 0
+      },
+      "earthScore": 0.565,
+      "earthSeedBootstrap95": [
+        0.5,
+        0.635
+      ],
+      "attempted": 16493,
+      "rejected": 0,
+      "earlyFails": 0,
+      "unfinished": [],
+      "deaths": {
+        "rael": {
+          "games": 200,
+          "died": 103,
+          "causes": {
+            "attack": 87,
+            "attack-fail": 10,
+            "slaughter": 2,
+            "master_power": 4
+          },
+          "medianDeathMinute": 12.28
+        },
+        "kane": {
+          "games": 200,
+          "died": 118,
+          "causes": {
+            "attack": 109,
+            "master_power": 7,
+            "slaughter": 1,
+            "attack-fail": 1
+          },
+          "medianDeathMinute": 12.3
+        },
+        "eltas": {
+          "games": 200,
+          "died": 113,
+          "causes": {
+            "attack": 111,
+            "wolfs_slash": 1,
+            "master_power": 1
+          },
+          "medianDeathMinute": 13.88
+        },
+        "eoril": {
+          "games": 200,
+          "died": 127,
+          "causes": {
+            "attack": 125,
+            "slaughter": 2
+          },
+          "medianDeathMinute": 4.03
+        },
+        "consume": {
+          "games": 40,
+          "died": 33,
+          "causes": {
+            "phoenix_flame": 6,
+            "attack-fail": 6,
+            "attack": 20,
+            "wolfs_slash": 1
+          },
+          "medianDeathMinute": 7.9
+        }
+      },
+      "firstTrueName": {
+        "eoril": {
+          "games": 200,
+          "medianMinute": 0.31
+        },
+        "consume": {
+          "games": 39,
+          "medianMinute": 0.23
+        }
+      },
+      "skills": {
+        "eltas:ally_check": {
+          "games": 200,
+          "accepted": 695,
+          "targets": {
+            "hermilly": 160,
+            "kilder": 179,
+            "drakan": 175,
+            "sasint": 146,
+            "consume": 35
+          },
+          "medianMinute": 2.38
+        },
+        "drakan:drakan_black_spell": {
+          "games": 129,
+          "accepted": 129,
+          "targets": {
+            "eoril": 80,
+            "rael": 10,
+            "nukelius": 6,
+            "kane": 17,
+            "tachin": 10,
+            "kumarin": 6
+          },
+          "medianMinute": 1.51
+        },
+        "rael:ally_check": {
+          "games": 200,
+          "accepted": 789,
+          "targets": {
+            "kane": 260,
+            "eoril": 181,
+            "nukelius": 129,
+            "tachin": 141,
+            "kumarin": 76,
+            "kilder": 2
+          },
+          "medianMinute": 2.59
+        },
+        "nukelius:scan": {
+          "games": 200,
+          "accepted": 661,
+          "targets": {
+            "eoril": 265,
+            "kilder": 64,
+            "drakan": 56,
+            "sasint": 51,
+            "kane": 49,
+            "hermilly": 56,
+            "kumarin": 29,
+            "consume": 9,
+            "tachin": 82
+          },
+          "medianMinute": 2.18
+        },
+        "kane:advanced_enemy_check": {
+          "games": 200,
+          "accepted": 1382,
+          "targets": {
+            "eltas": 685,
+            "hermilly": 151,
+            "drakan": 183,
+            "kilder": 188,
+            "sasint": 142,
+            "consume": 33
+          },
+          "medianMinute": 5.15
+        },
+        "drakan:enemy_check": {
+          "games": 184,
+          "accepted": 523,
+          "targets": {
+            "nukelius": 51,
+            "kane": 89,
+            "rael": 101,
+            "eoril": 139,
+            "tachin": 99,
+            "kumarin": 38,
+            "kilder": 6
+          },
+          "medianMinute": 2.2
+        },
+        "nukelius:nukelius_chakra_magic": {
+          "games": 194,
+          "accepted": 194,
+          "targets": {
+            "eoril": 167,
+            "kane": 15,
+            "tachin": 6,
+            "kumarin": 3,
+            "rael": 3
+          },
+          "medianMinute": 2.37
+        },
+        "hermilly:scan": {
+          "games": 147,
+          "accepted": 579,
+          "targets": {
+            "kilder": 59,
+            "eoril": 190,
+            "sasint": 42,
+            "nukelius": 41,
+            "tachin": 61,
+            "drakan": 68,
+            "kumarin": 36,
+            "kane": 71,
+            "consume": 11
+          },
+          "medianMinute": 2.6
+        },
+        "hermilly:hermilly_seeing_libido": {
+          "games": 138,
+          "accepted": 138,
+          "targets": {
+            "rael": 19,
+            "kane": 26,
+            "drakan": 19,
+            "kilder": 14,
+            "nukelius": 17,
+            "sasint": 10,
+            "eltas": 12,
+            "tachin": 8,
+            "eoril": 6,
+            "consume": 5,
+            "kumarin": 2
+          },
+          "medianMinute": 1.08
+        },
+        "eltas:supreme_attack": {
+          "games": 178,
+          "accepted": 471,
+          "targets": {
+            "nukelius": 120,
+            "rael": 100,
+            "kane": 175,
+            "eoril": 19,
+            "tachin": 43,
+            "kumarin": 14
+          },
+          "medianMinute": 10.91
+        },
+        "kilder:ally_check": {
+          "games": 185,
+          "accepted": 496,
+          "targets": {
+            "drakan": 127,
+            "hermilly": 97,
+            "sasint": 79,
+            "eltas": 175,
+            "consume": 16,
+            "nukelius": 2
+          },
+          "medianMinute": 1.8
+        },
+        "kilder:kilder_casanova": {
+          "games": 134,
+          "accepted": 179,
+          "targets": {
+            "kane": 31,
+            "eoril": 119,
+            "rael": 18,
+            "nukelius": 4,
+            "tachin": 6,
+            "kumarin": 1
+          },
+          "medianMinute": 2.75
+        },
+        "eoril:eoril_flame_shackle": {
+          "games": 139,
+          "accepted": 280,
+          "targets": {
+            "kilder": 43,
+            "drakan": 39,
+            "eltas": 163,
+            "sasint": 22,
+            "consume": 3,
+            "hermilly": 9,
+            "rael": 1
+          },
+          "medianMinute": 5.11
+        },
+        "kane:attack": {
+          "games": 187,
+          "accepted": 393,
+          "targets": {
+            "hermilly": 81,
+            "drakan": 111,
+            "kilder": 104,
+            "sasint": 68,
+            "eltas": 13,
+            "consume": 16
+          },
+          "medianMinute": 2.46
+        },
+        "kilder:attack": {
+          "games": 114,
+          "accepted": 190,
+          "targets": {
+            "eoril": 102,
+            "kane": 23,
+            "kumarin": 7,
+            "tachin": 13,
+            "nukelius": 40,
+            "rael": 5
+          },
+          "medianMinute": 3.86
+        },
+        "eltas:eltas_adv_leadership": {
+          "games": 200,
+          "accepted": 200,
+          "targets": {
+            "kilder": 62,
+            "sasint": 38,
+            "hermilly": 28,
+            "consume": 8,
+            "drakan": 64
+          },
+          "medianMinute": 6.24
+        },
+        "rael:rael_adv_leadership": {
+          "games": 200,
+          "accepted": 200,
+          "targets": {
+            "eoril": 44,
+            "nukelius": 46,
+            "tachin": 76,
+            "kumarin": 34
+          },
+          "medianMinute": 6.22
+        },
+        "sasint:advanced_ally_check": {
+          "games": 156,
+          "accepted": 490,
+          "targets": {
+            "kilder": 119,
+            "drakan": 91,
+            "eltas": 180,
+            "consume": 13,
+            "hermilly": 85,
+            "kane": 1,
+            "nukelius": 1
+          },
+          "medianMinute": 1.96
+        },
+        "eoril:ally_check": {
+          "games": 192,
+          "accepted": 641,
+          "targets": {
+            "nukelius": 93,
+            "tachin": 117,
+            "kane": 198,
+            "kumarin": 64,
+            "rael": 168,
+            "kilder": 1
+          },
+          "medianMinute": 2.39
+        },
+        "sasint:sasint_support": {
+          "games": 64,
+          "accepted": 67,
+          "targets": {
+            "kilder": 24,
+            "drakan": 25,
+            "consume": 7,
+            "hermilly": 11
+          },
+          "medianMinute": 1.6
+        },
+        "sasint:sasint_battle_mastery": {
+          "games": 113,
+          "accepted": 113,
+          "targets": {},
+          "medianMinute": 3.24
+        },
+        "sasint:advanced_attack": {
+          "games": 61,
+          "accepted": 121,
+          "targets": {
+            "nukelius": 10,
+            "rael": 24,
+            "kane": 32,
+            "eoril": 8,
+            "tachin": 39,
+            "kumarin": 8
+          },
+          "medianMinute": 11.02
+        },
+        "tachin:advanced_attack": {
+          "games": 128,
+          "accepted": 206,
+          "targets": {
+            "sasint": 31,
+            "eltas": 92,
+            "drakan": 28,
+            "hermilly": 21,
+            "consume": 8,
+            "kilder": 26
+          },
+          "medianMinute": 8.55
+        },
+        "rael:attack": {
+          "games": 119,
+          "accepted": 280,
+          "targets": {
+            "eltas": 266,
+            "hermilly": 7,
+            "drakan": 2,
+            "sasint": 5
+          },
+          "medianMinute": 11.41
+        },
+        "tachin:tachin_neutralize": {
+          "games": 92,
+          "accepted": 92,
+          "targets": {
+            "eoril": 64,
+            "rael": 8,
+            "nukelius": 2,
+            "kane": 12,
+            "kumarin": 6
+          },
+          "medianMinute": 2.02
+        },
+        "kumarin:ally_check": {
+          "games": 80,
+          "accepted": 259,
+          "targets": {
+            "rael": 56,
+            "nukelius": 38,
+            "tachin": 37,
+            "kane": 54,
+            "eoril": 74
+          },
+          "medianMinute": 2.25
+        },
+        "tachin:tachin_union": {
+          "games": 80,
+          "accepted": 160,
+          "targets": {
+            "kumarin": 78,
+            "consume": 3,
+            "kilder": 5,
+            "kane": 20,
+            "eoril": 6,
+            "rael": 9,
+            "eltas": 8,
+            "nukelius": 10,
+            "hermilly": 4,
+            "drakan": 5,
+            "sasint": 12
+          },
+          "medianMinute": 1.77
+        },
+        "kumarin:kumarin_union": {
+          "games": 76,
+          "accepted": 127,
+          "targets": {
+            "eltas": 10,
+            "nukelius": 6,
+            "kane": 22,
+            "rael": 21,
+            "kilder": 6,
+            "eoril": 2,
+            "drakan": 5,
+            "sasint": 4,
+            "tachin": 42,
+            "hermilly": 6,
+            "consume": 3
+          },
+          "medianMinute": 1.77
+        },
+        "kumarin:attack": {
+          "games": 57,
+          "accepted": 87,
+          "targets": {
+            "kilder": 8,
+            "eltas": 36,
+            "hermilly": 13,
+            "drakan": 13,
+            "sasint": 9,
+            "consume": 8
+          },
+          "medianMinute": 8.93
+        },
+        "kilder:kilder_master_power": {
+          "games": 23,
+          "accepted": 23,
+          "targets": {
+            "tachin": 10,
+            "kane": 7,
+            "eltas": 1,
+            "rael": 4,
+            "nukelius": 1
+          },
+          "medianMinute": 11.18
+        },
+        "kane:kane_wolfs_slash": {
+          "games": 73,
+          "accepted": 73,
+          "targets": {
+            "kilder": 26,
+            "drakan": 11,
+            "hermilly": 14,
+            "eltas": 6,
+            "sasint": 13,
+            "tachin": 1,
+            "consume": 2
+          },
+          "medianMinute": 9.01
+        },
+        "consume:consume_slave_instinct": {
+          "games": 37,
+          "accepted": 137,
+          "targets": {
+            "kumarin": 16,
+            "rael": 19,
+            "eoril": 9,
+            "eltas": 24,
+            "nukelius": 7,
+            "hermilly": 4,
+            "kane": 17,
+            "tachin": 14,
+            "kilder": 12,
+            "drakan": 8,
+            "sasint": 7
+          },
+          "medianMinute": 2.82
+        },
+        "sasint:sasint_training": {
+          "games": 27,
+          "accepted": 27,
+          "targets": {
+            "drakan": 4,
+            "consume": 17,
+            "rael": 2,
+            "kilder": 2,
+            "eltas": 2
+          },
+          "medianMinute": 2.11
+        },
+        "consume:consume_master_guard": {
+          "games": 23,
+          "accepted": 23,
+          "targets": {
+            "eltas": 23
+          },
+          "medianMinute": 6.21
+        },
+        "kumarin:kumarin_binding": {
+          "games": 18,
+          "accepted": 18,
+          "targets": {
+            "consume": 18
+          },
+          "medianMinute": 8.7
+        },
+        "eoril:eoril_phoenix_flame": {
+          "games": 6,
+          "accepted": 6,
+          "targets": {
+            "consume": 6
+          },
+          "medianMinute": 9.58
+        },
+        "hermilly:hermilly_libido_protection": {
+          "games": 22,
+          "accepted": 22,
+          "targets": {
+            "consume": 17,
+            "eltas": 1,
+            "rael": 2,
+            "kilder": 1,
+            "sasint": 1
+          },
+          "medianMinute": 2.21
+        },
+        "drakan:drakan_enchant_muscle": {
+          "games": 13,
+          "accepted": 13,
+          "targets": {
+            "consume": 9,
+            "hermilly": 1,
+            "rael": 1,
+            "eltas": 2
+          },
+          "medianMinute": 3.05
+        },
+        "consume:advanced_attack": {
+          "games": 7,
+          "accepted": 15,
+          "targets": {
+            "kumarin": 2,
+            "rael": 9,
+            "kane": 1,
+            "eoril": 2,
+            "nukelius": 1
+          },
+          "medianMinute": 10.61
+        },
+        "consume:consume_final_evolution": {
+          "games": 5,
+          "accepted": 5,
+          "targets": {},
+          "medianMinute": 3.36
+        },
+        "consume:consume_slaughter": {
+          "games": 3,
+          "accepted": 7,
+          "targets": {
+            "eoril": 2,
+            "kane": 1,
+            "rael": 2,
+            "tachin": 1,
+            "kumarin": 1
+          },
+          "medianMinute": 11.54
+        },
+        "eoril:eoril_trial": {
+          "games": 3,
+          "accepted": 3,
+          "targets": {
+            "nukelius": 3
+          },
+          "medianMinute": 2.17
+        },
+        "sasint:attack": {
+          "games": 22,
+          "accepted": 22,
+          "targets": {
+            "nukelius": 22
+          },
+          "medianMinute": 2.93
+        },
+        "consume:attack": {
+          "games": 11,
+          "accepted": 16,
+          "targets": {
+            "rael": 6,
+            "nukelius": 4,
+            "tachin": 5,
+            "kane": 1
+          },
+          "medianMinute": 8.09
+        },
+        "kumarin:kumarin_commander_guard": {
+          "games": 2,
+          "accepted": 2,
+          "targets": {
+            "nukelius": 2
+          },
+          "medianMinute": 2.16
+        }
+      }
+    },
+    "hidden_priority": {
+      "options": {
+        "primordialLeadership": "after-six-minutes",
+        "primordialPriorities": true,
+        "primordialSlash": "early"
+      },
+      "games": 200,
+      "wins": {
+        "earth": 114,
+        "darkness": 86,
+        "unfinished": 0
+      },
+      "earthScore": 0.57,
+      "earthSeedBootstrap95": [
+        0.505,
+        0.64
+      ],
+      "attempted": 16529,
+      "rejected": 0,
+      "earlyFails": 0,
+      "unfinished": [],
+      "deaths": {
+        "rael": {
+          "games": 200,
+          "died": 104,
+          "causes": {
+            "attack": 86,
+            "attack-fail": 12,
+            "slaughter": 2,
+            "master_power": 4
+          },
+          "medianDeathMinute": 12.28
+        },
+        "kane": {
+          "games": 200,
+          "died": 117,
+          "causes": {
+            "attack": 108,
+            "master_power": 7,
+            "slaughter": 1,
+            "attack-fail": 1
+          },
+          "medianDeathMinute": 12.3
+        },
+        "eltas": {
+          "games": 200,
+          "died": 114,
+          "causes": {
+            "attack": 112,
+            "wolfs_slash": 1,
+            "master_power": 1
+          },
+          "medianDeathMinute": 13.75
+        },
+        "eoril": {
+          "games": 200,
+          "died": 126,
+          "causes": {
+            "attack": 124,
+            "slaughter": 2
+          },
+          "medianDeathMinute": 4.03
+        },
+        "consume": {
+          "games": 40,
+          "died": 33,
+          "causes": {
+            "phoenix_flame": 6,
+            "attack-fail": 6,
+            "attack": 20,
+            "wolfs_slash": 1
+          },
+          "medianDeathMinute": 7.9
+        }
+      },
+      "firstTrueName": {
+        "eoril": {
+          "games": 200,
+          "medianMinute": 0.31
+        },
+        "consume": {
+          "games": 39,
+          "medianMinute": 0.23
+        }
+      },
+      "skills": {
+        "eltas:ally_check": {
+          "games": 200,
+          "accepted": 697,
+          "targets": {
+            "hermilly": 162,
+            "kilder": 179,
+            "drakan": 180,
+            "sasint": 143,
+            "consume": 33
+          },
+          "medianMinute": 2.38
+        },
+        "drakan:drakan_black_spell": {
+          "games": 129,
+          "accepted": 129,
+          "targets": {
+            "eoril": 80,
+            "rael": 10,
+            "nukelius": 6,
+            "kane": 17,
+            "tachin": 10,
+            "kumarin": 6
+          },
+          "medianMinute": 1.51
+        },
+        "rael:ally_check": {
+          "games": 200,
+          "accepted": 804,
+          "targets": {
+            "kane": 276,
+            "eoril": 180,
+            "nukelius": 130,
+            "tachin": 145,
+            "kumarin": 71,
+            "kilder": 2
+          },
+          "medianMinute": 2.61
+        },
+        "nukelius:scan": {
+          "games": 200,
+          "accepted": 661,
+          "targets": {
+            "eoril": 265,
+            "kilder": 64,
+            "drakan": 56,
+            "sasint": 51,
+            "kane": 49,
+            "hermilly": 56,
+            "kumarin": 29,
+            "consume": 9,
+            "tachin": 82
+          },
+          "medianMinute": 2.18
+        },
+        "kane:advanced_enemy_check": {
+          "games": 200,
+          "accepted": 1389,
+          "targets": {
+            "eltas": 693,
+            "hermilly": 151,
+            "drakan": 182,
+            "kilder": 188,
+            "sasint": 142,
+            "consume": 33
+          },
+          "medianMinute": 5.17
+        },
+        "drakan:enemy_check": {
+          "games": 184,
+          "accepted": 524,
+          "targets": {
+            "nukelius": 51,
+            "kane": 89,
+            "rael": 101,
+            "eoril": 139,
+            "tachin": 100,
+            "kumarin": 38,
+            "kilder": 6
+          },
+          "medianMinute": 2.2
+        },
+        "nukelius:nukelius_chakra_magic": {
+          "games": 194,
+          "accepted": 194,
+          "targets": {
+            "eoril": 167,
+            "kane": 15,
+            "tachin": 6,
+            "kumarin": 3,
+            "rael": 3
+          },
+          "medianMinute": 2.37
+        },
+        "hermilly:scan": {
+          "games": 147,
+          "accepted": 579,
+          "targets": {
+            "kilder": 59,
+            "eoril": 190,
+            "sasint": 42,
+            "nukelius": 41,
+            "tachin": 61,
+            "drakan": 68,
+            "kumarin": 36,
+            "kane": 71,
+            "consume": 11
+          },
+          "medianMinute": 2.6
+        },
+        "hermilly:hermilly_seeing_libido": {
+          "games": 138,
+          "accepted": 138,
+          "targets": {
+            "rael": 19,
+            "kane": 26,
+            "drakan": 19,
+            "kilder": 14,
+            "nukelius": 17,
+            "sasint": 10,
+            "eltas": 12,
+            "tachin": 8,
+            "eoril": 6,
+            "consume": 5,
+            "kumarin": 2
+          },
+          "medianMinute": 1.08
+        },
+        "eltas:supreme_attack": {
+          "games": 178,
+          "accepted": 474,
+          "targets": {
+            "nukelius": 120,
+            "rael": 102,
+            "kane": 175,
+            "eoril": 19,
+            "tachin": 44,
+            "kumarin": 14
+          },
+          "medianMinute": 11
+        },
+        "kilder:ally_check": {
+          "games": 185,
+          "accepted": 496,
+          "targets": {
+            "drakan": 127,
+            "hermilly": 97,
+            "sasint": 79,
+            "eltas": 175,
+            "consume": 16,
+            "nukelius": 2
+          },
+          "medianMinute": 1.8
+        },
+        "kilder:kilder_casanova": {
+          "games": 134,
+          "accepted": 179,
+          "targets": {
+            "kane": 31,
+            "eoril": 119,
+            "rael": 18,
+            "nukelius": 4,
+            "tachin": 6,
+            "kumarin": 1
+          },
+          "medianMinute": 2.75
+        },
+        "eoril:eoril_flame_shackle": {
+          "games": 139,
+          "accepted": 281,
+          "targets": {
+            "kilder": 43,
+            "drakan": 39,
+            "eltas": 164,
+            "sasint": 22,
+            "consume": 3,
+            "hermilly": 9,
+            "rael": 1
+          },
+          "medianMinute": 5.11
+        },
+        "kane:attack": {
+          "games": 187,
+          "accepted": 392,
+          "targets": {
+            "hermilly": 81,
+            "drakan": 111,
+            "kilder": 104,
+            "sasint": 69,
+            "eltas": 11,
+            "consume": 16
+          },
+          "medianMinute": 2.46
+        },
+        "kilder:attack": {
+          "games": 114,
+          "accepted": 189,
+          "targets": {
+            "eoril": 102,
+            "kane": 23,
+            "kumarin": 7,
+            "tachin": 13,
+            "nukelius": 40,
+            "rael": 4
+          },
+          "medianMinute": 3.83
+        },
+        "eltas:eltas_adv_leadership": {
+          "games": 200,
+          "accepted": 200,
+          "targets": {
+            "kilder": 62,
+            "sasint": 42,
+            "hermilly": 28,
+            "consume": 11,
+            "drakan": 57
+          },
+          "medianMinute": 6.24
+        },
+        "rael:rael_adv_leadership": {
+          "games": 200,
+          "accepted": 200,
+          "targets": {
+            "eoril": 47,
+            "nukelius": 44,
+            "tachin": 70,
+            "kumarin": 39
+          },
+          "medianMinute": 6.22
+        },
+        "sasint:advanced_ally_check": {
+          "games": 156,
+          "accepted": 490,
+          "targets": {
+            "kilder": 119,
+            "drakan": 91,
+            "eltas": 180,
+            "consume": 13,
+            "hermilly": 85,
+            "kane": 1,
+            "nukelius": 1
+          },
+          "medianMinute": 1.96
+        },
+        "eoril:ally_check": {
+          "games": 192,
+          "accepted": 641,
+          "targets": {
+            "nukelius": 93,
+            "tachin": 117,
+            "kane": 198,
+            "kumarin": 64,
+            "rael": 168,
+            "kilder": 1
+          },
+          "medianMinute": 2.39
+        },
+        "sasint:sasint_support": {
+          "games": 64,
+          "accepted": 67,
+          "targets": {
+            "kilder": 24,
+            "drakan": 25,
+            "consume": 7,
+            "hermilly": 11
+          },
+          "medianMinute": 1.6
+        },
+        "sasint:sasint_battle_mastery": {
+          "games": 113,
+          "accepted": 113,
+          "targets": {},
+          "medianMinute": 3.24
+        },
+        "sasint:advanced_attack": {
+          "games": 60,
+          "accepted": 121,
+          "targets": {
+            "nukelius": 10,
+            "rael": 25,
+            "kane": 31,
+            "eoril": 7,
+            "tachin": 40,
+            "kumarin": 8
+          },
+          "medianMinute": 11.2
+        },
+        "tachin:advanced_attack": {
+          "games": 128,
+          "accepted": 208,
+          "targets": {
+            "sasint": 31,
+            "eltas": 95,
+            "drakan": 27,
+            "hermilly": 21,
+            "consume": 8,
+            "kilder": 26
+          },
+          "medianMinute": 8.56
+        },
+        "rael:attack": {
+          "games": 122,
+          "accepted": 281,
+          "targets": {
+            "eltas": 265,
+            "hermilly": 7,
+            "drakan": 3,
+            "kilder": 1,
+            "sasint": 5
+          },
+          "medianMinute": 11.36
+        },
+        "tachin:tachin_neutralize": {
+          "games": 92,
+          "accepted": 92,
+          "targets": {
+            "eoril": 64,
+            "rael": 8,
+            "nukelius": 2,
+            "kane": 12,
+            "kumarin": 6
+          },
+          "medianMinute": 2.02
+        },
+        "kumarin:ally_check": {
+          "games": 80,
+          "accepted": 259,
+          "targets": {
+            "rael": 56,
+            "nukelius": 38,
+            "tachin": 37,
+            "kane": 54,
+            "eoril": 74
+          },
+          "medianMinute": 2.25
+        },
+        "tachin:tachin_union": {
+          "games": 80,
+          "accepted": 160,
+          "targets": {
+            "kumarin": 78,
+            "consume": 3,
+            "kilder": 5,
+            "kane": 20,
+            "eoril": 6,
+            "rael": 9,
+            "eltas": 8,
+            "nukelius": 10,
+            "hermilly": 4,
+            "drakan": 5,
+            "sasint": 12
+          },
+          "medianMinute": 1.77
+        },
+        "kumarin:kumarin_union": {
+          "games": 76,
+          "accepted": 127,
+          "targets": {
+            "eltas": 10,
+            "nukelius": 6,
+            "kane": 22,
+            "rael": 21,
+            "kilder": 6,
+            "eoril": 2,
+            "drakan": 5,
+            "sasint": 4,
+            "tachin": 42,
+            "hermilly": 6,
+            "consume": 3
+          },
+          "medianMinute": 1.77
+        },
+        "kumarin:attack": {
+          "games": 58,
+          "accepted": 87,
+          "targets": {
+            "kilder": 8,
+            "eltas": 37,
+            "hermilly": 13,
+            "drakan": 12,
+            "sasint": 9,
+            "consume": 8
+          },
+          "medianMinute": 8.93
+        },
+        "kilder:kilder_master_power": {
+          "games": 23,
+          "accepted": 23,
+          "targets": {
+            "tachin": 10,
+            "kane": 7,
+            "eltas": 1,
+            "rael": 4,
+            "nukelius": 1
+          },
+          "medianMinute": 11.18
+        },
+        "kane:kane_wolfs_slash": {
+          "games": 73,
+          "accepted": 73,
+          "targets": {
+            "kilder": 26,
+            "drakan": 11,
+            "hermilly": 14,
+            "eltas": 6,
+            "sasint": 13,
+            "tachin": 1,
+            "consume": 2
+          },
+          "medianMinute": 9.01
+        },
+        "consume:consume_slave_instinct": {
+          "games": 37,
+          "accepted": 137,
+          "targets": {
+            "kumarin": 16,
+            "rael": 19,
+            "eoril": 9,
+            "eltas": 24,
+            "nukelius": 7,
+            "hermilly": 4,
+            "kane": 17,
+            "tachin": 14,
+            "kilder": 12,
+            "drakan": 8,
+            "sasint": 7
+          },
+          "medianMinute": 2.82
+        },
+        "sasint:sasint_training": {
+          "games": 27,
+          "accepted": 27,
+          "targets": {
+            "drakan": 4,
+            "consume": 17,
+            "rael": 2,
+            "kilder": 2,
+            "eltas": 2
+          },
+          "medianMinute": 2.11
+        },
+        "consume:consume_master_guard": {
+          "games": 23,
+          "accepted": 23,
+          "targets": {
+            "eltas": 23
+          },
+          "medianMinute": 6.21
+        },
+        "kumarin:kumarin_binding": {
+          "games": 18,
+          "accepted": 18,
+          "targets": {
+            "consume": 18
+          },
+          "medianMinute": 8.7
+        },
+        "eoril:eoril_phoenix_flame": {
+          "games": 6,
+          "accepted": 6,
+          "targets": {
+            "consume": 6
+          },
+          "medianMinute": 9.58
+        },
+        "hermilly:hermilly_libido_protection": {
+          "games": 22,
+          "accepted": 22,
+          "targets": {
+            "consume": 17,
+            "eltas": 1,
+            "rael": 2,
+            "kilder": 1,
+            "sasint": 1
+          },
+          "medianMinute": 2.21
+        },
+        "drakan:drakan_enchant_muscle": {
+          "games": 13,
+          "accepted": 13,
+          "targets": {
+            "consume": 9,
+            "hermilly": 1,
+            "rael": 1,
+            "eltas": 2
+          },
+          "medianMinute": 3.05
+        },
+        "consume:advanced_attack": {
+          "games": 7,
+          "accepted": 15,
+          "targets": {
+            "kumarin": 2,
+            "rael": 9,
+            "kane": 1,
+            "eoril": 2,
+            "nukelius": 1
+          },
+          "medianMinute": 10.61
+        },
+        "consume:consume_final_evolution": {
+          "games": 5,
+          "accepted": 5,
+          "targets": {},
+          "medianMinute": 3.36
+        },
+        "consume:consume_slaughter": {
+          "games": 3,
+          "accepted": 7,
+          "targets": {
+            "eoril": 2,
+            "kane": 1,
+            "rael": 2,
+            "tachin": 1,
+            "kumarin": 1
+          },
+          "medianMinute": 11.54
+        },
+        "eoril:eoril_trial": {
+          "games": 3,
+          "accepted": 3,
+          "targets": {
+            "nukelius": 3
+          },
+          "medianMinute": 2.17
+        },
+        "sasint:attack": {
+          "games": 22,
+          "accepted": 22,
+          "targets": {
+            "nukelius": 22
+          },
+          "medianMinute": 2.93
+        },
+        "consume:attack": {
+          "games": 11,
+          "accepted": 16,
+          "targets": {
+            "rael": 6,
+            "nukelius": 4,
+            "tachin": 5,
+            "kane": 1
+          },
+          "medianMinute": 8.09
+        },
+        "kumarin:kumarin_commander_guard": {
+          "games": 2,
+          "accepted": 2,
+          "targets": {
+            "nukelius": 2
+          },
+          "medianMinute": 2.16
+        }
+      }
+    },
+    "early_finish": {
+      "options": {
+        "primordialLeadership": "early",
+        "primordialPriorities": false,
+        "primordialSlash": "finish-or-revealed"
+      },
+      "games": 200,
+      "wins": {
+        "earth": 131,
+        "darkness": 69,
+        "unfinished": 0
+      },
+      "earthScore": 0.655,
+      "earthSeedBootstrap95": [
+        0.58,
+        0.73
+      ],
+      "attempted": 17359,
+      "rejected": 0,
+      "earlyFails": 0,
+      "unfinished": [],
+      "deaths": {
+        "rael": {
+          "games": 200,
+          "died": 98,
+          "causes": {
+            "master_power": 8,
+            "attack": 89,
+            "slaughter": 1
+          },
+          "medianDeathMinute": 9.2
+        },
+        "kane": {
+          "games": 200,
+          "died": 97,
+          "causes": {
+            "attack": 78,
+            "master_power": 17,
+            "slaughter": 2
+          },
+          "medianDeathMinute": 9.38
+        },
+        "eltas": {
+          "games": 200,
+          "died": 131,
+          "causes": {
+            "wolfs_slash": 32,
+            "attack": 88,
+            "master_power": 11
+          },
+          "medianDeathMinute": 9.25
+        },
+        "eoril": {
+          "games": 200,
+          "died": 177,
+          "causes": {
+            "attack": 177
+          },
+          "medianDeathMinute": 3.71
+        },
+        "consume": {
+          "games": 40,
+          "died": 15,
+          "causes": {
+            "attack": 9,
+            "master_power": 5,
+            "phoenix_flame": 1
+          },
+          "medianDeathMinute": 7.42
+        }
+      },
+      "firstTrueName": {
+        "rael": {
+          "games": 200,
+          "medianMinute": 0.22
+        },
+        "eltas": {
+          "games": 200,
+          "medianMinute": 0.25
+        },
+        "eoril": {
+          "games": 200,
+          "medianMinute": 0.31
+        },
+        "consume": {
+          "games": 39,
+          "medianMinute": 0.23
+        }
+      },
+      "skills": {
+        "eltas:eltas_leadership": {
+          "games": 200,
+          "accepted": 200,
+          "targets": {
+            "kilder": 66,
+            "hermilly": 52,
+            "drakan": 36,
+            "sasint": 38,
+            "consume": 8
+          },
+          "medianMinute": 0.6
+        },
+        "drakan:drakan_black_spell": {
+          "games": 162,
+          "accepted": 162,
+          "targets": {
+            "kane": 21,
+            "tachin": 6,
+            "eoril": 80,
+            "nukelius": 4,
+            "rael": 47,
+            "kumarin": 4
+          },
+          "medianMinute": 1.9
+        },
+        "rael:rael_leadership": {
+          "games": 200,
+          "accepted": 200,
+          "targets": {
+            "eoril": 59,
+            "tachin": 52,
+            "kumarin": 24,
+            "nukelius": 65
+          },
+          "medianMinute": 0.56
+        },
+        "nukelius:scan": {
+          "games": 200,
+          "accepted": 610,
+          "targets": {
+            "eoril": 251,
+            "drakan": 67,
+            "hermilly": 49,
+            "sasint": 35,
+            "tachin": 85,
+            "kilder": 59,
+            "kane": 28,
+            "kumarin": 31,
+            "consume": 5
+          },
+          "medianMinute": 2.02
+        },
+        "rael:ally_check": {
+          "games": 187,
+          "accepted": 467,
+          "targets": {
+            "nukelius": 74,
+            "tachin": 96,
+            "kane": 183,
+            "eoril": 54,
+            "kumarin": 60
+          },
+          "medianMinute": 2.04
+        },
+        "drakan:enemy_check": {
+          "games": 192,
+          "accepted": 648,
+          "targets": {
+            "kane": 104,
+            "eoril": 162,
+            "rael": 181,
+            "tachin": 110,
+            "kumarin": 51,
+            "nukelius": 36,
+            "kilder": 4
+          },
+          "medianMinute": 2.57
+        },
+        "nukelius:nukelius_chakra_magic": {
+          "games": 183,
+          "accepted": 183,
+          "targets": {
+            "eoril": 148,
+            "tachin": 13,
+            "kane": 8,
+            "rael": 9,
+            "kumarin": 5
+          },
+          "medianMinute": 2.13
+        },
+        "eltas:ally_check": {
+          "games": 197,
+          "accepted": 544,
+          "targets": {
+            "hermilly": 120,
+            "drakan": 156,
+            "kilder": 150,
+            "sasint": 86,
+            "consume": 32
+          },
+          "medianMinute": 2.42
+        },
+        "eoril:ally_check": {
+          "games": 197,
+          "accepted": 456,
+          "targets": {
+            "rael": 180,
+            "nukelius": 69,
+            "kane": 75,
+            "tachin": 93,
+            "kumarin": 39
+          },
+          "medianMinute": 1.69
+        },
+        "eoril:eoril_trial": {
+          "games": 197,
+          "accepted": 197,
+          "targets": {
+            "rael": 197
+          },
+          "medianMinute": 1.27
+        },
+        "hermilly:scan": {
+          "games": 159,
+          "accepted": 783,
+          "targets": {
+            "eoril": 198,
+            "kane": 115,
+            "drakan": 110,
+            "kilder": 102,
+            "nukelius": 39,
+            "tachin": 85,
+            "sasint": 70,
+            "kumarin": 54,
+            "consume": 10
+          },
+          "medianMinute": 3.05
+        },
+        "hermilly:hermilly_seeing_libido": {
+          "games": 155,
+          "accepted": 155,
+          "targets": {
+            "rael": 21,
+            "kane": 23,
+            "sasint": 15,
+            "kilder": 16,
+            "nukelius": 23,
+            "drakan": 19,
+            "eltas": 13,
+            "tachin": 9,
+            "eoril": 7,
+            "consume": 6,
+            "kumarin": 3
+          },
+          "medianMinute": 1.18
+        },
+        "eltas:supreme_attack": {
+          "games": 169,
+          "accepted": 367,
+          "targets": {
+            "nukelius": 102,
+            "rael": 70,
+            "tachin": 67,
+            "kane": 101,
+            "kumarin": 15,
+            "eoril": 12
+          },
+          "medianMinute": 8.24
+        },
+        "kilder:ally_check": {
+          "games": 196,
+          "accepted": 712,
+          "targets": {
+            "eltas": 196,
+            "hermilly": 156,
+            "drakan": 187,
+            "sasint": 140,
+            "consume": 33
+          },
+          "medianMinute": 2.5
+        },
+        "kilder:kilder_casanova": {
+          "games": 173,
+          "accepted": 220,
+          "targets": {
+            "kane": 33,
+            "eoril": 170,
+            "nukelius": 6,
+            "tachin": 8,
+            "kumarin": 3
+          },
+          "medianMinute": 2.8
+        },
+        "kane:advanced_enemy_check": {
+          "games": 200,
+          "accepted": 926,
+          "targets": {
+            "eltas": 200,
+            "hermilly": 156,
+            "drakan": 190,
+            "kilder": 194,
+            "sasint": 149,
+            "consume": 37
+          },
+          "medianMinute": 3.56
+        },
+        "rael:rael_eoril_test": {
+          "games": 161,
+          "accepted": 161,
+          "targets": {
+            "eoril": 161
+          },
+          "medianMinute": 2.52
+        },
+        "kane:attack": {
+          "games": 200,
+          "accepted": 436,
+          "targets": {
+            "eltas": 414,
+            "kilder": 4,
+            "hermilly": 6,
+            "drakan": 8,
+            "sasint": 3,
+            "consume": 1
+          },
+          "medianMinute": 2.06
+        },
+        "eoril:eoril_flame_shackle": {
+          "games": 104,
+          "accepted": 127,
+          "targets": {
+            "kilder": 54,
+            "drakan": 37,
+            "eltas": 23,
+            "hermilly": 1,
+            "consume": 1,
+            "sasint": 11
+          },
+          "medianMinute": 2.77
+        },
+        "kilder:attack": {
+          "games": 176,
+          "accepted": 323,
+          "targets": {
+            "eoril": 162,
+            "kane": 43,
+            "tachin": 29,
+            "rael": 34,
+            "kumarin": 8,
+            "nukelius": 47
+          },
+          "medianMinute": 4.38
+        },
+        "rael:rael_master_power": {
+          "games": 85,
+          "accepted": 85,
+          "targets": {
+            "hermilly": 15,
+            "kilder": 22,
+            "drakan": 21,
+            "sasint": 11,
+            "consume": 5,
+            "eltas": 11
+          },
+          "medianMinute": 7.37
+        },
+        "rael:attack": {
+          "games": 76,
+          "accepted": 85,
+          "targets": {
+            "eltas": 45,
+            "kilder": 10,
+            "drakan": 11,
+            "sasint": 8,
+            "consume": 1,
+            "hermilly": 10
+          },
+          "medianMinute": 8.42
+        },
+        "kilder:kilder_master_power": {
+          "games": 35,
+          "accepted": 35,
+          "targets": {
+            "rael": 8,
+            "kane": 17,
+            "tachin": 9,
+            "kumarin": 1
+          },
+          "medianMinute": 8.86
+        },
+        "kane:kane_wolfs_slash": {
+          "games": 32,
+          "accepted": 32,
+          "targets": {
+            "eltas": 32
+          },
+          "medianMinute": 9.08
+        },
+        "sasint:advanced_ally_check": {
+          "games": 158,
+          "accepted": 572,
+          "targets": {
+            "eltas": 156,
+            "drakan": 126,
+            "kilder": 144,
+            "hermilly": 125,
+            "consume": 21
+          },
+          "medianMinute": 2.17
+        },
+        "sasint:sasint_support": {
+          "games": 115,
+          "accepted": 126,
+          "targets": {
+            "eltas": 89,
+            "kilder": 15,
+            "drakan": 10,
+            "hermilly": 5,
+            "consume": 7
+          },
+          "medianMinute": 1.88
+        },
+        "sasint:sasint_battle_mastery": {
+          "games": 149,
+          "accepted": 149,
+          "targets": {},
+          "medianMinute": 3.23
+        },
+        "tachin:advanced_attack": {
+          "games": 107,
+          "accepted": 154,
+          "targets": {
+            "kilder": 38,
+            "drakan": 30,
+            "sasint": 30,
+            "eltas": 25,
+            "consume": 12,
+            "hermilly": 19
+          },
+          "medianMinute": 4.3
+        },
+        "tachin:tachin_neutralize": {
+          "games": 113,
+          "accepted": 113,
+          "targets": {
+            "eoril": 63,
+            "rael": 32,
+            "kane": 14,
+            "kumarin": 4
+          },
+          "medianMinute": 2.24
+        },
+        "sasint:advanced_attack": {
+          "games": 55,
+          "accepted": 71,
+          "targets": {
+            "rael": 17,
+            "kane": 33,
+            "tachin": 11,
+            "nukelius": 7,
+            "eoril": 3
+          },
+          "medianMinute": 9.02
+        },
+        "kumarin:ally_check": {
+          "games": 79,
+          "accepted": 196,
+          "targets": {
+            "kane": 32,
+            "tachin": 33,
+            "nukelius": 39,
+            "eoril": 69,
+            "rael": 23
+          },
+          "medianMinute": 1.73
+        },
+        "tachin:tachin_union": {
+          "games": 80,
+          "accepted": 159,
+          "targets": {
+            "kumarin": 74,
+            "consume": 3,
+            "kilder": 7,
+            "eoril": 5,
+            "rael": 7,
+            "eltas": 8,
+            "nukelius": 10,
+            "sasint": 12,
+            "drakan": 8,
+            "hermilly": 6,
+            "kane": 19
+          },
+          "medianMinute": 1.77
+        },
+        "kumarin:kumarin_union": {
+          "games": 75,
+          "accepted": 107,
+          "targets": {
+            "eltas": 6,
+            "sasint": 4,
+            "tachin": 47,
+            "eoril": 3,
+            "kilder": 9,
+            "drakan": 8,
+            "kane": 16,
+            "hermilly": 5,
+            "consume": 3,
+            "nukelius": 4,
+            "rael": 2
+          },
+          "medianMinute": 1.46
+        },
+        "kumarin:kumarin_commander_guard": {
+          "games": 80,
+          "accepted": 80,
+          "targets": {
+            "rael": 79,
+            "nukelius": 1
+          },
+          "medianMinute": 2.15
+        },
+        "kumarin:attack": {
+          "games": 51,
+          "accepted": 78,
+          "targets": {
+            "drakan": 7,
+            "sasint": 13,
+            "hermilly": 12,
+            "eltas": 33,
+            "consume": 6,
+            "kilder": 7
+          },
+          "medianMinute": 8.55
+        },
+        "sasint:attack": {
+          "games": 20,
+          "accepted": 20,
+          "targets": {
+            "nukelius": 19,
+            "kumarin": 1
+          },
+          "medianMinute": 2.98
+        },
+        "consume:consume_slave_instinct": {
+          "games": 37,
+          "accepted": 43,
+          "targets": {
+            "eltas": 36,
+            "kilder": 1,
+            "rael": 3,
+            "sasint": 1,
+            "drakan": 1,
+            "kane": 1
+          },
+          "medianMinute": 0.58
+        },
+        "consume:consume_master_guard": {
+          "games": 39,
+          "accepted": 39,
+          "targets": {
+            "eltas": 39
+          },
+          "medianMinute": 1.17
+        },
+        "sasint:sasint_training": {
+          "games": 36,
+          "accepted": 36,
+          "targets": {
+            "drakan": 5,
+            "consume": 27,
+            "hermilly": 1,
+            "kilder": 3
+          },
+          "medianMinute": 2.12
+        },
+        "hermilly:hermilly_libido_protection": {
+          "games": 38,
+          "accepted": 38,
+          "targets": {
+            "drakan": 3,
+            "consume": 30,
+            "sasint": 3,
+            "kilder": 2
+          },
+          "medianMinute": 2.23
+        },
+        "drakan:drakan_enchant_muscle": {
+          "games": 35,
+          "accepted": 35,
+          "targets": {
+            "consume": 29,
+            "hermilly": 1,
+            "sasint": 3,
+            "kilder": 2
+          },
+          "medianMinute": 2.81
+        },
+        "consume:attack": {
+          "games": 13,
+          "accepted": 25,
+          "targets": {
+            "nukelius": 8,
+            "rael": 6,
+            "kumarin": 2,
+            "kane": 7,
+            "tachin": 2
+          },
+          "medianMinute": 8.73
+        },
+        "kumarin:kumarin_binding": {
+          "games": 22,
+          "accepted": 22,
+          "targets": {
+            "consume": 22
+          },
+          "medianMinute": 8.7
+        },
+        "consume:consume_final_evolution": {
+          "games": 22,
+          "accepted": 22,
+          "targets": {},
+          "medianMinute": 3.05
+        },
+        "consume:consume_slaughter": {
+          "games": 14,
+          "accepted": 16,
+          "targets": {
+            "nukelius": 5,
+            "rael": 1,
+            "kumarin": 5,
+            "kane": 2,
+            "tachin": 3
+          },
+          "medianMinute": 6.66
+        },
+        "consume:advanced_attack": {
+          "games": 14,
+          "accepted": 15,
+          "targets": {
+            "kane": 6,
+            "rael": 6,
+            "tachin": 2,
+            "nukelius": 1
+          },
+          "medianMinute": 8.48
+        },
+        "eoril:eoril_phoenix_flame": {
+          "games": 1,
+          "accepted": 1,
+          "targets": {
+            "consume": 1
+          },
+          "medianMinute": 3.7
+        }
+      }
+    },
+    "hidden_finish": {
+      "options": {
+        "primordialLeadership": "after-six-minutes",
+        "primordialPriorities": false,
+        "primordialSlash": "finish-or-revealed"
+      },
+      "games": 200,
+      "wins": {
+        "earth": 112,
+        "darkness": 88,
+        "unfinished": 0
+      },
+      "earthScore": 0.56,
+      "earthSeedBootstrap95": [
+        0.495,
+        0.63
+      ],
+      "attempted": 16497,
+      "rejected": 0,
+      "earlyFails": 0,
+      "unfinished": [],
+      "deaths": {
+        "rael": {
+          "games": 200,
+          "died": 104,
+          "causes": {
+            "attack": 89,
+            "attack-fail": 10,
+            "slaughter": 1,
+            "master_power": 4
+          },
+          "medianDeathMinute": 12.3
+        },
+        "kane": {
+          "games": 200,
+          "died": 119,
+          "causes": {
+            "attack": 109,
+            "master_power": 7,
+            "slaughter": 2,
+            "attack-fail": 1
+          },
+          "medianDeathMinute": 12.3
+        },
+        "eltas": {
+          "games": 200,
+          "died": 112,
+          "causes": {
+            "attack": 110,
+            "wolfs_slash": 1,
+            "master_power": 1
+          },
+          "medianDeathMinute": 13.88
+        },
+        "eoril": {
+          "games": 200,
+          "died": 127,
+          "causes": {
+            "attack": 125,
+            "slaughter": 2
+          },
+          "medianDeathMinute": 4.03
+        },
+        "consume": {
+          "games": 40,
+          "died": 33,
+          "causes": {
+            "phoenix_flame": 6,
+            "attack-fail": 6,
+            "attack": 20,
+            "wolfs_slash": 1
+          },
+          "medianDeathMinute": 7.9
+        }
+      },
+      "firstTrueName": {
+        "eoril": {
+          "games": 200,
+          "medianMinute": 0.31
+        },
+        "consume": {
+          "games": 39,
+          "medianMinute": 0.23
+        }
+      },
+      "skills": {
+        "eltas:ally_check": {
+          "games": 200,
+          "accepted": 695,
+          "targets": {
+            "hermilly": 160,
+            "kilder": 179,
+            "drakan": 175,
+            "sasint": 146,
+            "consume": 35
+          },
+          "medianMinute": 2.38
+        },
+        "drakan:drakan_black_spell": {
+          "games": 129,
+          "accepted": 129,
+          "targets": {
+            "eoril": 80,
+            "rael": 10,
+            "nukelius": 6,
+            "kane": 17,
+            "tachin": 10,
+            "kumarin": 6
+          },
+          "medianMinute": 1.51
+        },
+        "rael:ally_check": {
+          "games": 200,
+          "accepted": 789,
+          "targets": {
+            "kane": 260,
+            "eoril": 181,
+            "nukelius": 129,
+            "tachin": 141,
+            "kumarin": 76,
+            "kilder": 2
+          },
+          "medianMinute": 2.59
+        },
+        "nukelius:scan": {
+          "games": 200,
+          "accepted": 661,
+          "targets": {
+            "eoril": 265,
+            "kilder": 64,
+            "drakan": 56,
+            "sasint": 51,
+            "kane": 49,
+            "hermilly": 56,
+            "kumarin": 29,
+            "consume": 9,
+            "tachin": 82
+          },
+          "medianMinute": 2.18
+        },
+        "kane:advanced_enemy_check": {
+          "games": 200,
+          "accepted": 1386,
+          "targets": {
+            "eltas": 689,
+            "hermilly": 151,
+            "drakan": 183,
+            "kilder": 188,
+            "sasint": 142,
+            "consume": 33
+          },
+          "medianMinute": 5.15
+        },
+        "drakan:enemy_check": {
+          "games": 184,
+          "accepted": 523,
+          "targets": {
+            "nukelius": 51,
+            "kane": 89,
+            "rael": 101,
+            "eoril": 139,
+            "tachin": 99,
+            "kumarin": 38,
+            "kilder": 6
+          },
+          "medianMinute": 2.2
+        },
+        "nukelius:nukelius_chakra_magic": {
+          "games": 194,
+          "accepted": 194,
+          "targets": {
+            "eoril": 167,
+            "kane": 15,
+            "tachin": 6,
+            "kumarin": 3,
+            "rael": 3
+          },
+          "medianMinute": 2.37
+        },
+        "hermilly:scan": {
+          "games": 147,
+          "accepted": 579,
+          "targets": {
+            "kilder": 59,
+            "eoril": 190,
+            "sasint": 42,
+            "nukelius": 41,
+            "tachin": 61,
+            "drakan": 68,
+            "kumarin": 36,
+            "kane": 71,
+            "consume": 11
+          },
+          "medianMinute": 2.6
+        },
+        "hermilly:hermilly_seeing_libido": {
+          "games": 138,
+          "accepted": 138,
+          "targets": {
+            "rael": 19,
+            "kane": 26,
+            "drakan": 19,
+            "kilder": 14,
+            "nukelius": 17,
+            "sasint": 10,
+            "eltas": 12,
+            "tachin": 8,
+            "eoril": 6,
+            "consume": 5,
+            "kumarin": 2
+          },
+          "medianMinute": 1.08
+        },
+        "eltas:supreme_attack": {
+          "games": 178,
+          "accepted": 475,
+          "targets": {
+            "nukelius": 120,
+            "rael": 101,
+            "kane": 178,
+            "eoril": 19,
+            "tachin": 43,
+            "kumarin": 14
+          },
+          "medianMinute": 11
+        },
+        "kilder:ally_check": {
+          "games": 185,
+          "accepted": 496,
+          "targets": {
+            "drakan": 127,
+            "hermilly": 97,
+            "sasint": 79,
+            "eltas": 175,
+            "consume": 16,
+            "nukelius": 2
+          },
+          "medianMinute": 1.8
+        },
+        "kilder:kilder_casanova": {
+          "games": 134,
+          "accepted": 179,
+          "targets": {
+            "kane": 31,
+            "eoril": 119,
+            "rael": 18,
+            "nukelius": 4,
+            "tachin": 6,
+            "kumarin": 1
+          },
+          "medianMinute": 2.75
+        },
+        "eoril:eoril_flame_shackle": {
+          "games": 139,
+          "accepted": 280,
+          "targets": {
+            "kilder": 43,
+            "drakan": 39,
+            "eltas": 163,
+            "sasint": 22,
+            "consume": 3,
+            "hermilly": 9,
+            "rael": 1
+          },
+          "medianMinute": 5.11
+        },
+        "kane:attack": {
+          "games": 187,
+          "accepted": 397,
+          "targets": {
+            "hermilly": 81,
+            "drakan": 111,
+            "kilder": 104,
+            "sasint": 68,
+            "eltas": 16,
+            "consume": 17
+          },
+          "medianMinute": 2.5
+        },
+        "kilder:attack": {
+          "games": 114,
+          "accepted": 190,
+          "targets": {
+            "eoril": 102,
+            "kane": 23,
+            "kumarin": 7,
+            "tachin": 13,
+            "nukelius": 40,
+            "rael": 5
+          },
+          "medianMinute": 3.86
+        },
+        "eltas:eltas_adv_leadership": {
+          "games": 200,
+          "accepted": 200,
+          "targets": {
+            "kilder": 62,
+            "sasint": 38,
+            "hermilly": 28,
+            "consume": 8,
+            "drakan": 64
+          },
+          "medianMinute": 6.24
+        },
+        "rael:rael_adv_leadership": {
+          "games": 200,
+          "accepted": 200,
+          "targets": {
+            "eoril": 44,
+            "nukelius": 46,
+            "tachin": 76,
+            "kumarin": 34
+          },
+          "medianMinute": 6.22
+        },
+        "sasint:advanced_ally_check": {
+          "games": 156,
+          "accepted": 490,
+          "targets": {
+            "kilder": 119,
+            "drakan": 91,
+            "eltas": 180,
+            "consume": 13,
+            "hermilly": 85,
+            "kane": 1,
+            "nukelius": 1
+          },
+          "medianMinute": 1.96
+        },
+        "eoril:ally_check": {
+          "games": 192,
+          "accepted": 641,
+          "targets": {
+            "nukelius": 93,
+            "tachin": 117,
+            "kane": 198,
+            "kumarin": 64,
+            "rael": 168,
+            "kilder": 1
+          },
+          "medianMinute": 2.39
+        },
+        "sasint:sasint_support": {
+          "games": 64,
+          "accepted": 67,
+          "targets": {
+            "kilder": 24,
+            "drakan": 25,
+            "consume": 7,
+            "hermilly": 11
+          },
+          "medianMinute": 1.6
+        },
+        "sasint:sasint_battle_mastery": {
+          "games": 113,
+          "accepted": 113,
+          "targets": {},
+          "medianMinute": 3.24
+        },
+        "sasint:advanced_attack": {
+          "games": 61,
+          "accepted": 119,
+          "targets": {
+            "nukelius": 10,
+            "rael": 24,
+            "kane": 30,
+            "eoril": 8,
+            "tachin": 39,
+            "kumarin": 8
+          },
+          "medianMinute": 11.02
+        },
+        "tachin:advanced_attack": {
+          "games": 128,
+          "accepted": 206,
+          "targets": {
+            "sasint": 31,
+            "eltas": 92,
+            "drakan": 28,
+            "hermilly": 21,
+            "consume": 8,
+            "kilder": 26
+          },
+          "medianMinute": 8.55
+        },
+        "rael:attack": {
+          "games": 118,
+          "accepted": 278,
+          "targets": {
+            "eltas": 264,
+            "hermilly": 7,
+            "drakan": 2,
+            "sasint": 5
+          },
+          "medianMinute": 11.37
+        },
+        "tachin:tachin_neutralize": {
+          "games": 92,
+          "accepted": 92,
+          "targets": {
+            "eoril": 64,
+            "rael": 8,
+            "nukelius": 2,
+            "kane": 12,
+            "kumarin": 6
+          },
+          "medianMinute": 2.02
+        },
+        "kumarin:ally_check": {
+          "games": 80,
+          "accepted": 259,
+          "targets": {
+            "rael": 56,
+            "nukelius": 38,
+            "tachin": 37,
+            "kane": 54,
+            "eoril": 74
+          },
+          "medianMinute": 2.25
+        },
+        "tachin:tachin_union": {
+          "games": 80,
+          "accepted": 160,
+          "targets": {
+            "kumarin": 78,
+            "consume": 3,
+            "kilder": 5,
+            "kane": 20,
+            "eoril": 6,
+            "rael": 9,
+            "eltas": 8,
+            "nukelius": 10,
+            "hermilly": 4,
+            "drakan": 5,
+            "sasint": 12
+          },
+          "medianMinute": 1.77
+        },
+        "kumarin:kumarin_union": {
+          "games": 76,
+          "accepted": 127,
+          "targets": {
+            "eltas": 10,
+            "nukelius": 6,
+            "kane": 22,
+            "rael": 21,
+            "kilder": 6,
+            "eoril": 2,
+            "drakan": 5,
+            "sasint": 4,
+            "tachin": 42,
+            "hermilly": 6,
+            "consume": 3
+          },
+          "medianMinute": 1.77
+        },
+        "kumarin:attack": {
+          "games": 57,
+          "accepted": 87,
+          "targets": {
+            "kilder": 8,
+            "eltas": 36,
+            "hermilly": 13,
+            "drakan": 13,
+            "sasint": 9,
+            "consume": 8
+          },
+          "medianMinute": 8.93
+        },
+        "kilder:kilder_master_power": {
+          "games": 23,
+          "accepted": 23,
+          "targets": {
+            "tachin": 10,
+            "kane": 7,
+            "eltas": 1,
+            "rael": 4,
+            "nukelius": 1
+          },
+          "medianMinute": 11.18
+        },
+        "kane:kane_wolfs_slash": {
+          "games": 67,
+          "accepted": 67,
+          "targets": {
+            "kilder": 26,
+            "drakan": 11,
+            "hermilly": 14,
+            "eltas": 1,
+            "sasint": 14,
+            "consume": 1
+          },
+          "medianMinute": 8.56
+        },
+        "consume:consume_slave_instinct": {
+          "games": 37,
+          "accepted": 137,
+          "targets": {
+            "kumarin": 16,
+            "rael": 19,
+            "eoril": 9,
+            "eltas": 24,
+            "nukelius": 7,
+            "hermilly": 4,
+            "kane": 17,
+            "tachin": 14,
+            "kilder": 12,
+            "drakan": 8,
+            "sasint": 7
+          },
+          "medianMinute": 2.82
+        },
+        "sasint:sasint_training": {
+          "games": 27,
+          "accepted": 27,
+          "targets": {
+            "drakan": 4,
+            "consume": 17,
+            "rael": 2,
+            "kilder": 2,
+            "eltas": 2
+          },
+          "medianMinute": 2.11
+        },
+        "consume:consume_master_guard": {
+          "games": 23,
+          "accepted": 23,
+          "targets": {
+            "eltas": 23
+          },
+          "medianMinute": 6.21
+        },
+        "kumarin:kumarin_binding": {
+          "games": 18,
+          "accepted": 18,
+          "targets": {
+            "consume": 18
+          },
+          "medianMinute": 8.7
+        },
+        "eoril:eoril_phoenix_flame": {
+          "games": 6,
+          "accepted": 6,
+          "targets": {
+            "consume": 6
+          },
+          "medianMinute": 9.58
+        },
+        "hermilly:hermilly_libido_protection": {
+          "games": 22,
+          "accepted": 22,
+          "targets": {
+            "consume": 17,
+            "eltas": 1,
+            "rael": 2,
+            "kilder": 1,
+            "sasint": 1
+          },
+          "medianMinute": 2.21
+        },
+        "drakan:drakan_enchant_muscle": {
+          "games": 13,
+          "accepted": 13,
+          "targets": {
+            "consume": 9,
+            "hermilly": 1,
+            "rael": 1,
+            "eltas": 2
+          },
+          "medianMinute": 3.05
+        },
+        "consume:advanced_attack": {
+          "games": 7,
+          "accepted": 15,
+          "targets": {
+            "kumarin": 2,
+            "rael": 10,
+            "eoril": 2,
+            "nukelius": 1
+          },
+          "medianMinute": 10.61
+        },
+        "consume:consume_final_evolution": {
+          "games": 5,
+          "accepted": 5,
+          "targets": {},
+          "medianMinute": 3.36
+        },
+        "consume:consume_slaughter": {
+          "games": 3,
+          "accepted": 7,
+          "targets": {
+            "eoril": 2,
+            "kane": 2,
+            "rael": 1,
+            "tachin": 1,
+            "kumarin": 1
+          },
+          "medianMinute": 11.54
+        },
+        "eoril:eoril_trial": {
+          "games": 3,
+          "accepted": 3,
+          "targets": {
+            "nukelius": 3
+          },
+          "medianMinute": 2.17
+        },
+        "sasint:attack": {
+          "games": 22,
+          "accepted": 22,
+          "targets": {
+            "nukelius": 22
+          },
+          "medianMinute": 2.93
+        },
+        "consume:attack": {
+          "games": 11,
+          "accepted": 16,
+          "targets": {
+            "rael": 6,
+            "nukelius": 4,
+            "tachin": 5,
+            "kane": 1
+          },
+          "medianMinute": 8.09
+        },
+        "kumarin:kumarin_commander_guard": {
+          "games": 2,
+          "accepted": 2,
+          "targets": {
+            "nukelius": 2
+          },
+          "medianMinute": 2.16
+        }
+      }
+    }
+  }
+}

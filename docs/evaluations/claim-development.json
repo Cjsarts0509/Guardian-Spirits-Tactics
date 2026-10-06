@@ -1,0 +1,4201 @@
+{
+  "format": 1,
+  "seeds": 25,
+  "startSeed": 7000,
+  "checkpointsMs": [
+    60000,
+    180000,
+    360000
+  ],
+  "hashes": {
+    "../src/bot.ts": "79101321efadbf07e9ad684e343722732b737a84864d8efe7965b22a427755b4",
+    "../src/bot-claims.ts": "8b4a70a2b81c531c42b4b55dc97f657e817cfb714c9ad2a544983ffefc60dd04",
+    "./claim-opponents.ts": "56b70de28ec2c24d9165f909b6065e99a24bbbd6d334ebd6f4cd1a8d3cd395ef",
+    "./claim-audit.ts": "a0aa5bbdf56c40649b6d1dd0d501e895809caf640959e6097f248df888070174"
+  },
+  "modes": {
+    "civil_war": {
+      "truthful": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 25,
+            "reference": 75,
+            "unfinished": 0
+          },
+          "sideWins": {
+            "1": 71,
+            "2": 29
+          },
+          "currentScore": 0.25,
+          "seedBootstrap95": [
+            0.19,
+            0.31
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 23,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 2,
+              "unfinished": 0
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 12,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 13,
+              "unfinished": 0
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 3056,
+              "accepted": 3032,
+              "rejected": 24,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "dantes_command": 3,
+                "enemy_check": 4,
+                "truth_gem": 9,
+                "kelhu_loyal": 2,
+                "shadow_jail": 1,
+                "warrior_scent": 5
+              }
+            },
+            "reference": {
+              "attempted": 3527,
+              "accepted": 3514,
+              "rejected": 13,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "ally": 5,
+                "advanced_scan": 3,
+                "dantes_command": 5
+              }
+            }
+          },
+          "survival": {
+            "mertz": {
+              "current": {
+                "games": 50,
+                "alive": 16
+              },
+              "reference": {
+                "games": 50,
+                "alive": 25
+              }
+            },
+            "soen": {
+              "current": {
+                "games": 50,
+                "alive": 37
+              },
+              "reference": {
+                "games": 50,
+                "alive": 38
+              }
+            },
+            "freya": {
+              "current": {
+                "games": 50,
+                "alive": 31
+              },
+              "reference": {
+                "games": 50,
+                "alive": 30
+              }
+            },
+            "kai": {
+              "current": {
+                "games": 50,
+                "alive": 2
+              },
+              "reference": {
+                "games": 50,
+                "alive": 27
+              }
+            },
+            "arin": {
+              "current": {
+                "games": 50,
+                "alive": 21
+              },
+              "reference": {
+                "games": 50,
+                "alive": 42
+              }
+            },
+            "kelhu": {
+              "current": {
+                "games": 50,
+                "alive": 28
+              },
+              "reference": {
+                "games": 50,
+                "alive": 46
+              }
+            },
+            "dantes": {
+              "current": {
+                "games": 50,
+                "alive": 21
+              },
+              "reference": {
+                "games": 50,
+                "alive": 48
+              }
+            },
+            "krate": {
+              "current": {
+                "games": 50,
+                "alive": 26
+              },
+              "reference": {
+                "games": 50,
+                "alive": 38
+              }
+            },
+            "tuma": {
+              "current": {
+                "games": 40,
+                "alive": 21
+              },
+              "reference": {
+                "games": 40,
+                "alive": 34
+              }
+            },
+            "reindila": {
+              "current": {
+                "games": 30,
+                "alive": 5
+              },
+              "reference": {
+                "games": 30,
+                "alive": 4
+              }
+            },
+            "kaspa": {
+              "current": {
+                "games": 20,
+                "alive": 10
+              },
+              "reference": {
+                "games": 20,
+                "alive": 16
+              }
+            },
+            "sephy": {
+              "current": {
+                "games": 10,
+                "alive": 0
+              },
+              "reference": {
+                "games": 10,
+                "alive": 1
+              }
+            }
+          },
+          "minutes": {
+            "median": 7.63,
+            "p90": 10.64,
+            "max": 12.28
+          },
+          "unfinished": [],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 0.25
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 0.25
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 0.25
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 0.25
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 0
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 0
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 0.25
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 0
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 0
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 0.25
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 0.25
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 0.25
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 0.5
+            }
+          ]
+        },
+        "acceptedClaims": 497,
+        "trueClaims": 497,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 483,
+            "targets": 4133,
+            "weightedBrier": 0.8072708965502774,
+            "neutralBrier": 0.869914872646882
+          },
+          "3": {
+            "sampledGames": 100,
+            "observers": 463,
+            "targets": 3376,
+            "weightedBrier": 0.7641281061600378,
+            "neutralBrier": 0.8289713210218674
+          },
+          "6": {
+            "sampledGames": 58,
+            "observers": 190,
+            "targets": 907,
+            "weightedBrier": 0.6235881064988864,
+            "neutralBrier": 0.7249811343226095
+          }
+        }
+      },
+      "bluff": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 83,
+            "reference": 17,
+            "unfinished": 0
+          },
+          "sideWins": {
+            "1": 45,
+            "2": 55
+          },
+          "currentScore": 0.83,
+          "seedBootstrap95": [
+            0.77,
+            0.89
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 39,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 44,
+              "unfinished": 0
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 44,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 39,
+              "unfinished": 0
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 4807,
+              "accepted": 4785,
+              "rejected": 22,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "ally": 9,
+                "truth_gem": 2,
+                "ally_check": 1,
+                "shadow_jail": 1,
+                "kai_loyal": 2,
+                "oracle": 1,
+                "advanced_attack": 4,
+                "advanced_scan": 1,
+                "warrior_scent": 1
+              }
+            },
+            "reference": {
+              "attempted": 4811,
+              "accepted": 4792,
+              "rejected": 19,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "enemy_check": 11,
+                "confusion": 1,
+                "burning_magic": 1,
+                "ally": 1,
+                "scan": 4,
+                "kelhu_loyal": 1
+              }
+            }
+          },
+          "survival": {
+            "mertz": {
+              "current": {
+                "games": 50,
+                "alive": 31
+              },
+              "reference": {
+                "games": 50,
+                "alive": 37
+              }
+            },
+            "soen": {
+              "current": {
+                "games": 50,
+                "alive": 1
+              },
+              "reference": {
+                "games": 50,
+                "alive": 29
+              }
+            },
+            "freya": {
+              "current": {
+                "games": 50,
+                "alive": 34
+              },
+              "reference": {
+                "games": 50,
+                "alive": 40
+              }
+            },
+            "kai": {
+              "current": {
+                "games": 50,
+                "alive": 44
+              },
+              "reference": {
+                "games": 50,
+                "alive": 11
+              }
+            },
+            "arin": {
+              "current": {
+                "games": 50,
+                "alive": 50
+              },
+              "reference": {
+                "games": 50,
+                "alive": 16
+              }
+            },
+            "kelhu": {
+              "current": {
+                "games": 50,
+                "alive": 44
+              },
+              "reference": {
+                "games": 50,
+                "alive": 38
+              }
+            },
+            "dantes": {
+              "current": {
+                "games": 50,
+                "alive": 32
+              },
+              "reference": {
+                "games": 50,
+                "alive": 6
+              }
+            },
+            "krate": {
+              "current": {
+                "games": 50,
+                "alive": 50
+              },
+              "reference": {
+                "games": 50,
+                "alive": 23
+              }
+            },
+            "tuma": {
+              "current": {
+                "games": 40,
+                "alive": 40
+              },
+              "reference": {
+                "games": 40,
+                "alive": 26
+              }
+            },
+            "reindila": {
+              "current": {
+                "games": 30,
+                "alive": 2
+              },
+              "reference": {
+                "games": 30,
+                "alive": 21
+              }
+            },
+            "kaspa": {
+              "current": {
+                "games": 20,
+                "alive": 20
+              },
+              "reference": {
+                "games": 20,
+                "alive": 8
+              }
+            },
+            "sephy": {
+              "current": {
+                "games": 10,
+                "alive": 3
+              },
+              "reference": {
+                "games": 10,
+                "alive": 8
+              }
+            }
+          },
+          "minutes": {
+            "median": 10.33,
+            "p90": 19.87,
+            "max": 31.5
+          },
+          "unfinished": [],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 1
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 0.75
+            }
+          ]
+        },
+        "acceptedClaims": 1635,
+        "trueClaims": 0,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 482,
+            "targets": 4255,
+            "weightedBrier": 0.8532760182131134,
+            "neutralBrier": 0.8750754771679958
+          },
+          "3": {
+            "sampledGames": 100,
+            "observers": 463,
+            "targets": 3692,
+            "weightedBrier": 0.8275854183446042,
+            "neutralBrier": 0.8440252131606342
+          },
+          "6": {
+            "sampledGames": 100,
+            "observers": 449,
+            "targets": 3033,
+            "weightedBrier": 0.7741461057047355,
+            "neutralBrier": 0.7938956072926711
+          }
+        }
+      },
+      "skill-aware-bluff": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 82,
+            "reference": 18,
+            "unfinished": 0
+          },
+          "sideWins": {
+            "1": 46,
+            "2": 54
+          },
+          "currentScore": 0.82,
+          "seedBootstrap95": [
+            0.76,
+            0.88
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 39,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 43,
+              "unfinished": 0
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 44,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 38,
+              "unfinished": 0
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 4761,
+              "accepted": 4742,
+              "rejected": 19,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "ally": 9,
+                "ally_check": 1,
+                "shadow_jail": 1,
+                "truth_gem": 1,
+                "oracle": 1,
+                "advanced_attack": 4,
+                "advanced_scan": 1,
+                "kai_loyal": 1
+              }
+            },
+            "reference": {
+              "attempted": 4353,
+              "accepted": 4327,
+              "rejected": 26,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "enemy_check": 17,
+                "dantes_command": 3,
+                "ally": 1,
+                "scan": 4,
+                "kelhu_loyal": 1
+              }
+            }
+          },
+          "survival": {
+            "mertz": {
+              "current": {
+                "games": 50,
+                "alive": 31
+              },
+              "reference": {
+                "games": 50,
+                "alive": 38
+              }
+            },
+            "soen": {
+              "current": {
+                "games": 50,
+                "alive": 1
+              },
+              "reference": {
+                "games": 50,
+                "alive": 29
+              }
+            },
+            "freya": {
+              "current": {
+                "games": 50,
+                "alive": 34
+              },
+              "reference": {
+                "games": 50,
+                "alive": 42
+              }
+            },
+            "kai": {
+              "current": {
+                "games": 50,
+                "alive": 43
+              },
+              "reference": {
+                "games": 50,
+                "alive": 11
+              }
+            },
+            "arin": {
+              "current": {
+                "games": 50,
+                "alive": 50
+              },
+              "reference": {
+                "games": 50,
+                "alive": 16
+              }
+            },
+            "kelhu": {
+              "current": {
+                "games": 50,
+                "alive": 44
+              },
+              "reference": {
+                "games": 50,
+                "alive": 36
+              }
+            },
+            "dantes": {
+              "current": {
+                "games": 50,
+                "alive": 32
+              },
+              "reference": {
+                "games": 50,
+                "alive": 7
+              }
+            },
+            "krate": {
+              "current": {
+                "games": 50,
+                "alive": 50
+              },
+              "reference": {
+                "games": 50,
+                "alive": 23
+              }
+            },
+            "tuma": {
+              "current": {
+                "games": 40,
+                "alive": 40
+              },
+              "reference": {
+                "games": 40,
+                "alive": 26
+              }
+            },
+            "reindila": {
+              "current": {
+                "games": 30,
+                "alive": 2
+              },
+              "reference": {
+                "games": 30,
+                "alive": 0
+              }
+            },
+            "kaspa": {
+              "current": {
+                "games": 20,
+                "alive": 19
+              },
+              "reference": {
+                "games": 20,
+                "alive": 8
+              }
+            },
+            "sephy": {
+              "current": {
+                "games": 10,
+                "alive": 3
+              },
+              "reference": {
+                "games": 10,
+                "alive": 0
+              }
+            }
+          },
+          "minutes": {
+            "median": 9.98,
+            "p90": 19.87,
+            "max": 31.5
+          },
+          "unfinished": [],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 1
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 0.75
+            }
+          ]
+        },
+        "acceptedClaims": 1350,
+        "trueClaims": 40,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 482,
+            "targets": 4175,
+            "weightedBrier": 0.8466404627986569,
+            "neutralBrier": 0.8724909257183933
+          },
+          "3": {
+            "sampledGames": 100,
+            "observers": 463,
+            "targets": 3541,
+            "weightedBrier": 0.8206244078425539,
+            "neutralBrier": 0.839051578030199
+          },
+          "6": {
+            "sampledGames": 100,
+            "observers": 449,
+            "targets": 2909,
+            "weightedBrier": 0.7598583894899887,
+            "neutralBrier": 0.781033109145739
+          }
+        }
+      }
+    },
+    "primordial": {
+      "truthful": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 40,
+            "reference": 60,
+            "unfinished": 0
+          },
+          "sideWins": {
+            "1": 82,
+            "2": 18
+          },
+          "currentScore": 0.4,
+          "seedBootstrap95": [
+            0.34,
+            0.45
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 36,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 4,
+              "unfinished": 0
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 20,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 20,
+              "unfinished": 0
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 3849,
+              "accepted": 3849,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            },
+            "reference": {
+              "attempted": 4035,
+              "accepted": 4035,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            }
+          },
+          "survival": {
+            "kane": {
+              "current": {
+                "games": 50,
+                "alive": 29
+              },
+              "reference": {
+                "games": 50,
+                "alive": 44
+              }
+            },
+            "eltas": {
+              "current": {
+                "games": 50,
+                "alive": 4
+              },
+              "reference": {
+                "games": 50,
+                "alive": 14
+              }
+            },
+            "nukelius": {
+              "current": {
+                "games": 50,
+                "alive": 2
+              },
+              "reference": {
+                "games": 50,
+                "alive": 5
+              }
+            },
+            "kilder": {
+              "current": {
+                "games": 50,
+                "alive": 31
+              },
+              "reference": {
+                "games": 50,
+                "alive": 32
+              }
+            },
+            "drakan": {
+              "current": {
+                "games": 50,
+                "alive": 35
+              },
+              "reference": {
+                "games": 50,
+                "alive": 29
+              }
+            },
+            "eoril": {
+              "current": {
+                "games": 50,
+                "alive": 8
+              },
+              "reference": {
+                "games": 50,
+                "alive": 14
+              }
+            },
+            "rael": {
+              "current": {
+                "games": 50,
+                "alive": 25
+              },
+              "reference": {
+                "games": 50,
+                "alive": 45
+              }
+            },
+            "hermilly": {
+              "current": {
+                "games": 40,
+                "alive": 28
+              },
+              "reference": {
+                "games": 40,
+                "alive": 23
+              }
+            },
+            "sasint": {
+              "current": {
+                "games": 40,
+                "alive": 27
+              },
+              "reference": {
+                "games": 40,
+                "alive": 25
+              }
+            },
+            "tachin": {
+              "current": {
+                "games": 40,
+                "alive": 25
+              },
+              "reference": {
+                "games": 40,
+                "alive": 29
+              }
+            },
+            "kumarin": {
+              "current": {
+                "games": 20,
+                "alive": 13
+              },
+              "reference": {
+                "games": 20,
+                "alive": 15
+              }
+            },
+            "consume": {
+              "current": {
+                "games": 10,
+                "alive": 5
+              },
+              "reference": {
+                "games": 10,
+                "alive": 5
+              }
+            }
+          },
+          "minutes": {
+            "median": 8.64,
+            "p90": 10.98,
+            "max": 13.67
+          },
+          "unfinished": [],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 0.25
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 0.5
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 0.25
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 0.25
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 0.25
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 0.5
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 0
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 0.5
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 0.5
+            }
+          ]
+        },
+        "acceptedClaims": 500,
+        "trueClaims": 500,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 496,
+            "targets": 4112,
+            "weightedBrier": 0.7726878175400675,
+            "neutralBrier": 0.8699401557382209
+          },
+          "3": {
+            "sampledGames": 99,
+            "observers": 453,
+            "targets": 2774,
+            "weightedBrier": 0.6862856118246151,
+            "neutralBrier": 0.813816326735119
+          },
+          "6": {
+            "sampledGames": 73,
+            "observers": 247,
+            "targets": 1098,
+            "weightedBrier": 0.5320183150714037,
+            "neutralBrier": 0.7107598424929331
+          }
+        }
+      },
+      "bluff": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 79,
+            "reference": 21,
+            "unfinished": 0
+          },
+          "sideWins": {
+            "1": 33,
+            "2": 67
+          },
+          "currentScore": 0.79,
+          "seedBootstrap95": [
+            0.73,
+            0.85
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 31,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 48,
+              "unfinished": 0
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 39,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 40,
+              "unfinished": 0
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 4256,
+              "accepted": 4256,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            },
+            "reference": {
+              "attempted": 4752,
+              "accepted": 4752,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            }
+          },
+          "survival": {
+            "kane": {
+              "current": {
+                "games": 50,
+                "alive": 29
+              },
+              "reference": {
+                "games": 50,
+                "alive": 2
+              }
+            },
+            "eltas": {
+              "current": {
+                "games": 50,
+                "alive": 48
+              },
+              "reference": {
+                "games": 50,
+                "alive": 19
+              }
+            },
+            "nukelius": {
+              "current": {
+                "games": 50,
+                "alive": 0
+              },
+              "reference": {
+                "games": 50,
+                "alive": 3
+              }
+            },
+            "kilder": {
+              "current": {
+                "games": 50,
+                "alive": 11
+              },
+              "reference": {
+                "games": 50,
+                "alive": 12
+              }
+            },
+            "drakan": {
+              "current": {
+                "games": 50,
+                "alive": 10
+              },
+              "reference": {
+                "games": 50,
+                "alive": 11
+              }
+            },
+            "eoril": {
+              "current": {
+                "games": 50,
+                "alive": 1
+              },
+              "reference": {
+                "games": 50,
+                "alive": 12
+              }
+            },
+            "rael": {
+              "current": {
+                "games": 50,
+                "alive": 14
+              },
+              "reference": {
+                "games": 50,
+                "alive": 2
+              }
+            },
+            "hermilly": {
+              "current": {
+                "games": 40,
+                "alive": 19
+              },
+              "reference": {
+                "games": 40,
+                "alive": 10
+              }
+            },
+            "sasint": {
+              "current": {
+                "games": 40,
+                "alive": 17
+              },
+              "reference": {
+                "games": 40,
+                "alive": 10
+              }
+            },
+            "tachin": {
+              "current": {
+                "games": 40,
+                "alive": 28
+              },
+              "reference": {
+                "games": 40,
+                "alive": 12
+              }
+            },
+            "kumarin": {
+              "current": {
+                "games": 20,
+                "alive": 9
+              },
+              "reference": {
+                "games": 20,
+                "alive": 7
+              }
+            },
+            "consume": {
+              "current": {
+                "games": 10,
+                "alive": 3
+              },
+              "reference": {
+                "games": 10,
+                "alive": 1
+              }
+            }
+          },
+          "minutes": {
+            "median": 15.82,
+            "p90": 21.6,
+            "max": 30.91
+          },
+          "unfinished": [],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 1
+            }
+          ]
+        },
+        "acceptedClaims": 2226,
+        "trueClaims": 0,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 481,
+            "targets": 4058,
+            "weightedBrier": 0.8550354262638978,
+            "neutralBrier": 0.8727410802325979
+          },
+          "3": {
+            "sampledGames": 100,
+            "observers": 382,
+            "targets": 2690,
+            "weightedBrier": 0.831604176886804,
+            "neutralBrier": 0.8397341552285897
+          },
+          "6": {
+            "sampledGames": 100,
+            "observers": 310,
+            "targets": 1650,
+            "weightedBrier": 0.7596438323206525,
+            "neutralBrier": 0.7656425835605404
+          }
+        }
+      },
+      "skill-aware-bluff": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 89,
+            "reference": 11,
+            "unfinished": 0
+          },
+          "sideWins": {
+            "1": 61,
+            "2": 39
+          },
+          "currentScore": 0.89,
+          "seedBootstrap95": [
+            0.84,
+            0.94
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 50,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 39,
+              "unfinished": 0
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 48,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 41,
+              "unfinished": 0
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 3827,
+              "accepted": 3827,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            },
+            "reference": {
+              "attempted": 3776,
+              "accepted": 3776,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            }
+          },
+          "survival": {
+            "kane": {
+              "current": {
+                "games": 50,
+                "alive": 50
+              },
+              "reference": {
+                "games": 50,
+                "alive": 11
+              }
+            },
+            "eltas": {
+              "current": {
+                "games": 50,
+                "alive": 39
+              },
+              "reference": {
+                "games": 50,
+                "alive": 0
+              }
+            },
+            "nukelius": {
+              "current": {
+                "games": 50,
+                "alive": 12
+              },
+              "reference": {
+                "games": 50,
+                "alive": 0
+              }
+            },
+            "kilder": {
+              "current": {
+                "games": 50,
+                "alive": 12
+              },
+              "reference": {
+                "games": 50,
+                "alive": 50
+              }
+            },
+            "drakan": {
+              "current": {
+                "games": 50,
+                "alive": 16
+              },
+              "reference": {
+                "games": 50,
+                "alive": 50
+              }
+            },
+            "eoril": {
+              "current": {
+                "games": 50,
+                "alive": 8
+              },
+              "reference": {
+                "games": 50,
+                "alive": 6
+              }
+            },
+            "rael": {
+              "current": {
+                "games": 50,
+                "alive": 49
+              },
+              "reference": {
+                "games": 50,
+                "alive": 6
+              }
+            },
+            "hermilly": {
+              "current": {
+                "games": 40,
+                "alive": 17
+              },
+              "reference": {
+                "games": 40,
+                "alive": 40
+              }
+            },
+            "sasint": {
+              "current": {
+                "games": 40,
+                "alive": 17
+              },
+              "reference": {
+                "games": 40,
+                "alive": 40
+              }
+            },
+            "tachin": {
+              "current": {
+                "games": 40,
+                "alive": 34
+              },
+              "reference": {
+                "games": 40,
+                "alive": 32
+              }
+            },
+            "kumarin": {
+              "current": {
+                "games": 20,
+                "alive": 18
+              },
+              "reference": {
+                "games": 20,
+                "alive": 16
+              }
+            },
+            "consume": {
+              "current": {
+                "games": 10,
+                "alive": 6
+              },
+              "reference": {
+                "games": 10,
+                "alive": 10
+              }
+            }
+          },
+          "minutes": {
+            "median": 9.72,
+            "p90": 16.15,
+            "max": 34.4
+          },
+          "unfinished": [],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 1
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 1
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 1
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 1
+            }
+          ]
+        },
+        "acceptedClaims": 951,
+        "trueClaims": 150,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 490,
+            "targets": 4123,
+            "weightedBrier": 0.8230197852933169,
+            "neutralBrier": 0.8718165416924346
+          },
+          "3": {
+            "sampledGames": 100,
+            "observers": 398,
+            "targets": 2569,
+            "weightedBrier": 0.7610325188281837,
+            "neutralBrier": 0.8129609570000842
+          },
+          "6": {
+            "sampledGames": 62,
+            "observers": 192,
+            "targets": 983,
+            "weightedBrier": 0.6390342212995563,
+            "neutralBrier": 0.7160133429895941
+          }
+        }
+      }
+    },
+    "lidellut": {
+      "truthful": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 31,
+            "reference": 69,
+            "unfinished": 0
+          },
+          "sideWins": {
+            "1": 49,
+            "2": 51
+          },
+          "currentScore": 0.31,
+          "seedBootstrap95": [
+            0.22,
+            0.4
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 15,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 16,
+              "unfinished": 0
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 18,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 13,
+              "unfinished": 0
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 3299,
+              "accepted": 3292,
+              "rejected": 7,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "dawn_mist": 1,
+                "advanced_scan": 1,
+                "ally_check": 2,
+                "loyal_servant": 1,
+                "enemy_scan": 1,
+                "battle_sense": 1
+              }
+            },
+            "reference": {
+              "attempted": 3620,
+              "accepted": 3597,
+              "rejected": 23,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "attack": 3,
+                "ally": 5,
+                "ally_check": 10,
+                "enemy_scan": 3,
+                "battle_sense": 1,
+                "advanced_attack": 1
+              }
+            }
+          },
+          "survival": {
+            "arin": {
+              "current": {
+                "games": 50,
+                "alive": 29
+              },
+              "reference": {
+                "games": 50,
+                "alive": 29
+              }
+            },
+            "shining": {
+              "current": {
+                "games": 50,
+                "alive": 10
+              },
+              "reference": {
+                "games": 50,
+                "alive": 31
+              }
+            },
+            "freia": {
+              "current": {
+                "games": 50,
+                "alive": 18
+              },
+              "reference": {
+                "games": 50,
+                "alive": 22
+              }
+            },
+            "chizuko": {
+              "current": {
+                "games": 50,
+                "alive": 22
+              },
+              "reference": {
+                "games": 50,
+                "alive": 35
+              }
+            },
+            "yui": {
+              "current": {
+                "games": 50,
+                "alive": 5
+              },
+              "reference": {
+                "games": 50,
+                "alive": 22
+              }
+            },
+            "kaspa": {
+              "current": {
+                "games": 50,
+                "alive": 14
+              },
+              "reference": {
+                "games": 50,
+                "alive": 23
+              }
+            },
+            "kai": {
+              "current": {
+                "games": 50,
+                "alive": 15
+              },
+              "reference": {
+                "games": 50,
+                "alive": 34
+              }
+            },
+            "supra": {
+              "current": {
+                "games": 50,
+                "alive": 8
+              },
+              "reference": {
+                "games": 50,
+                "alive": 17
+              }
+            },
+            "loneris": {
+              "current": {
+                "games": 40,
+                "alive": 10
+              },
+              "reference": {
+                "games": 40,
+                "alive": 14
+              }
+            },
+            "tuma": {
+              "current": {
+                "games": 30,
+                "alive": 15
+              },
+              "reference": {
+                "games": 30,
+                "alive": 19
+              }
+            },
+            "kamikaze": {
+              "current": {
+                "games": 20,
+                "alive": 11
+              },
+              "reference": {
+                "games": 20,
+                "alive": 16
+              }
+            },
+            "sepi": {
+              "current": {
+                "games": 10,
+                "alive": 6
+              },
+              "reference": {
+                "games": 10,
+                "alive": 7
+              }
+            }
+          },
+          "minutes": {
+            "median": 7.39,
+            "p90": 9.66,
+            "max": 14.18
+          },
+          "unfinished": [],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 0
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 0
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 0
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 0.5
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 0
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 0
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 0.25
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 0.25
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 0.25
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 0.5
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 0.25
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 0
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 0.5
+            }
+          ]
+        },
+        "acceptedClaims": 497,
+        "trueClaims": 497,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 478,
+            "targets": 3999,
+            "weightedBrier": 0.7523261813738992,
+            "neutralBrier": 0.8674376965326154
+          },
+          "3": {
+            "sampledGames": 100,
+            "observers": 400,
+            "targets": 2345,
+            "weightedBrier": 0.6499972979912221,
+            "neutralBrier": 0.7905731260103775
+          },
+          "6": {
+            "sampledGames": 60,
+            "observers": 164,
+            "targets": 626,
+            "weightedBrier": 0.4892743104323472,
+            "neutralBrier": 0.6654487433862433
+          }
+        }
+      },
+      "bluff": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 87,
+            "reference": 13,
+            "unfinished": 0
+          },
+          "sideWins": {
+            "1": 53,
+            "2": 47
+          },
+          "currentScore": 0.87,
+          "seedBootstrap95": [
+            0.8,
+            0.93
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 45,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 42,
+              "unfinished": 0
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 45,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 42,
+              "unfinished": 0
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 6266,
+              "accepted": 6198,
+              "rejected": 68,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "ally": 25,
+                "truth_gem": 11,
+                "loyal_servant": 15,
+                "advanced_scan": 5,
+                "ally_check": 3,
+                "enemy_scan": 1,
+                "enemy_check": 3,
+                "dawn_mist": 3,
+                "great_will": 1,
+                "battle_sense": 1
+              }
+            },
+            "reference": {
+              "attempted": 6235,
+              "accepted": 6226,
+              "rejected": 9,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "ally": 2,
+                "ally_scan": 4,
+                "enemy_scan": 2,
+                "battle_sense": 1
+              }
+            }
+          },
+          "survival": {
+            "arin": {
+              "current": {
+                "games": 50,
+                "alive": 50
+              },
+              "reference": {
+                "games": 50,
+                "alive": 5
+              }
+            },
+            "shining": {
+              "current": {
+                "games": 50,
+                "alive": 39
+              },
+              "reference": {
+                "games": 50,
+                "alive": 3
+              }
+            },
+            "freia": {
+              "current": {
+                "games": 50,
+                "alive": 50
+              },
+              "reference": {
+                "games": 50,
+                "alive": 15
+              }
+            },
+            "chizuko": {
+              "current": {
+                "games": 50,
+                "alive": 33
+              },
+              "reference": {
+                "games": 50,
+                "alive": 11
+              }
+            },
+            "yui": {
+              "current": {
+                "games": 50,
+                "alive": 22
+              },
+              "reference": {
+                "games": 50,
+                "alive": 1
+              }
+            },
+            "kaspa": {
+              "current": {
+                "games": 50,
+                "alive": 38
+              },
+              "reference": {
+                "games": 50,
+                "alive": 12
+              }
+            },
+            "kai": {
+              "current": {
+                "games": 50,
+                "alive": 45
+              },
+              "reference": {
+                "games": 50,
+                "alive": 8
+              }
+            },
+            "supra": {
+              "current": {
+                "games": 50,
+                "alive": 26
+              },
+              "reference": {
+                "games": 50,
+                "alive": 3
+              }
+            },
+            "loneris": {
+              "current": {
+                "games": 40,
+                "alive": 12
+              },
+              "reference": {
+                "games": 40,
+                "alive": 1
+              }
+            },
+            "tuma": {
+              "current": {
+                "games": 30,
+                "alive": 25
+              },
+              "reference": {
+                "games": 30,
+                "alive": 12
+              }
+            },
+            "kamikaze": {
+              "current": {
+                "games": 20,
+                "alive": 9
+              },
+              "reference": {
+                "games": 20,
+                "alive": 3
+              }
+            },
+            "sepi": {
+              "current": {
+                "games": 10,
+                "alive": 10
+              },
+              "reference": {
+                "games": 10,
+                "alive": 3
+              }
+            }
+          },
+          "minutes": {
+            "median": 14.75,
+            "p90": 23.39,
+            "max": 36.08
+          },
+          "unfinished": [],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 1
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 1
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 1
+            }
+          ]
+        },
+        "acceptedClaims": 3545,
+        "trueClaims": 0,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 479,
+            "targets": 4165,
+            "weightedBrier": 0.8425751540582247,
+            "neutralBrier": 0.8746620597547841
+          },
+          "3": {
+            "sampledGames": 100,
+            "observers": 436,
+            "targets": 3178,
+            "weightedBrier": 0.8210439442713912,
+            "neutralBrier": 0.8375248896390306
+          },
+          "6": {
+            "sampledGames": 98,
+            "observers": 422,
+            "targets": 2439,
+            "weightedBrier": 0.7382416388889592,
+            "neutralBrier": 0.7590058754943668
+          }
+        }
+      },
+      "skill-aware-bluff": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 74,
+            "reference": 26,
+            "unfinished": 0
+          },
+          "sideWins": {
+            "1": 48,
+            "2": 52
+          },
+          "currentScore": 0.74,
+          "seedBootstrap95": [
+            0.66,
+            0.82
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 36,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 38,
+              "unfinished": 0
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 36,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 38,
+              "unfinished": 0
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 4402,
+              "accepted": 4394,
+              "rejected": 8,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "truth_gem": 1,
+                "ally": 4,
+                "loyal_servant": 3
+              }
+            },
+            "reference": {
+              "attempted": 3977,
+              "accepted": 3975,
+              "rejected": 2,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "loyal_servant": 1,
+                "battle_sense": 1
+              }
+            }
+          },
+          "survival": {
+            "arin": {
+              "current": {
+                "games": 50,
+                "alive": 33
+              },
+              "reference": {
+                "games": 50,
+                "alive": 7
+              }
+            },
+            "shining": {
+              "current": {
+                "games": 50,
+                "alive": 32
+              },
+              "reference": {
+                "games": 50,
+                "alive": 14
+              }
+            },
+            "freia": {
+              "current": {
+                "games": 50,
+                "alive": 18
+              },
+              "reference": {
+                "games": 50,
+                "alive": 2
+              }
+            },
+            "chizuko": {
+              "current": {
+                "games": 50,
+                "alive": 35
+              },
+              "reference": {
+                "games": 50,
+                "alive": 45
+              }
+            },
+            "yui": {
+              "current": {
+                "games": 50,
+                "alive": 24
+              },
+              "reference": {
+                "games": 50,
+                "alive": 7
+              }
+            },
+            "kaspa": {
+              "current": {
+                "games": 50,
+                "alive": 14
+              },
+              "reference": {
+                "games": 50,
+                "alive": 1
+              }
+            },
+            "kai": {
+              "current": {
+                "games": 50,
+                "alive": 36
+              },
+              "reference": {
+                "games": 50,
+                "alive": 12
+              }
+            },
+            "supra": {
+              "current": {
+                "games": 50,
+                "alive": 23
+              },
+              "reference": {
+                "games": 50,
+                "alive": 2
+              }
+            },
+            "loneris": {
+              "current": {
+                "games": 40,
+                "alive": 13
+              },
+              "reference": {
+                "games": 40,
+                "alive": 4
+              }
+            },
+            "tuma": {
+              "current": {
+                "games": 30,
+                "alive": 17
+              },
+              "reference": {
+                "games": 30,
+                "alive": 11
+              }
+            },
+            "kamikaze": {
+              "current": {
+                "games": 20,
+                "alive": 7
+              },
+              "reference": {
+                "games": 20,
+                "alive": 11
+              }
+            },
+            "sepi": {
+              "current": {
+                "games": 10,
+                "alive": 7
+              },
+              "reference": {
+                "games": 10,
+                "alive": 5
+              }
+            }
+          },
+          "minutes": {
+            "median": 10.81,
+            "p90": 16.1,
+            "max": 27.86
+          },
+          "unfinished": [],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 0.5
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 1
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 0.75
+            }
+          ]
+        },
+        "acceptedClaims": 917,
+        "trueClaims": 240,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 478,
+            "targets": 4023,
+            "weightedBrier": 0.7801983912940578,
+            "neutralBrier": 0.8683716274851683
+          },
+          "3": {
+            "sampledGames": 100,
+            "observers": 400,
+            "targets": 2372,
+            "weightedBrier": 0.7147746588614702,
+            "neutralBrier": 0.7939041207711096
+          },
+          "6": {
+            "sampledGames": 96,
+            "observers": 329,
+            "targets": 1433,
+            "weightedBrier": 0.6246369667652644,
+            "neutralBrier": 0.6838295254916944
+          }
+        }
+      }
+    },
+    "troll": {
+      "truthful": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 30,
+            "reference": 70,
+            "unfinished": 0
+          },
+          "sideWins": {
+            "1": 60,
+            "2": 40
+          },
+          "currentScore": 0.3,
+          "seedBootstrap95": [
+            0.23,
+            0.38
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 20,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 10,
+              "unfinished": 0
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 14,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 16,
+              "unfinished": 0
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 3388,
+              "accepted": 3388,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            },
+            "reference": {
+              "attempted": 3730,
+              "accepted": 3730,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            }
+          },
+          "survival": {
+            "satoshi": {
+              "current": {
+                "games": 50,
+                "alive": 15
+              },
+              "reference": {
+                "games": 50,
+                "alive": 35
+              }
+            },
+            "deka": {
+              "current": {
+                "games": 50,
+                "alive": 10
+              },
+              "reference": {
+                "games": 50,
+                "alive": 30
+              }
+            },
+            "tokra": {
+              "current": {
+                "games": 50,
+                "alive": 21
+              },
+              "reference": {
+                "games": 50,
+                "alive": 29
+              }
+            },
+            "neonis": {
+              "current": {
+                "games": 50,
+                "alive": 34
+              },
+              "reference": {
+                "games": 50,
+                "alive": 32
+              }
+            },
+            "kanulla": {
+              "current": {
+                "games": 50,
+                "alive": 9
+              },
+              "reference": {
+                "games": 50,
+                "alive": 18
+              }
+            },
+            "zwinra": {
+              "current": {
+                "games": 50,
+                "alive": 18
+              },
+              "reference": {
+                "games": 50,
+                "alive": 36
+              }
+            },
+            "chis": {
+              "current": {
+                "games": 50,
+                "alive": 47
+              },
+              "reference": {
+                "games": 50,
+                "alive": 47
+              }
+            },
+            "kazrow": {
+              "current": {
+                "games": 50,
+                "alive": 31
+              },
+              "reference": {
+                "games": 50,
+                "alive": 32
+              }
+            },
+            "hachi": {
+              "current": {
+                "games": 20,
+                "alive": 10
+              },
+              "reference": {
+                "games": 20,
+                "alive": 13
+              }
+            },
+            "uldian": {
+              "current": {
+                "games": 30,
+                "alive": 4
+              },
+              "reference": {
+                "games": 30,
+                "alive": 2
+              }
+            },
+            "ulpian": {
+              "current": {
+                "games": 30,
+                "alive": 15
+              },
+              "reference": {
+                "games": 30,
+                "alive": 19
+              }
+            },
+            "seirow": {
+              "current": {
+                "games": 20,
+                "alive": 12
+              },
+              "reference": {
+                "games": 20,
+                "alive": 14
+              }
+            }
+          },
+          "minutes": {
+            "median": 8.18,
+            "p90": 12.11,
+            "max": 72.41
+          },
+          "unfinished": [],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 0.25
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 0.5
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 0
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 0.25
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 0
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 0.25
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 0.5
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 0
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 0.25
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 0
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 0.25
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0.25
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 0.25
+            }
+          ]
+        },
+        "acceptedClaims": 500,
+        "trueClaims": 500,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 477,
+            "targets": 3957,
+            "weightedBrier": 0.7742990754390788,
+            "neutralBrier": 0.8660004556811499
+          },
+          "3": {
+            "sampledGames": 100,
+            "observers": 441,
+            "targets": 2930,
+            "weightedBrier": 0.6945014669853999,
+            "neutralBrier": 0.8165082445999947
+          },
+          "6": {
+            "sampledGames": 74,
+            "observers": 223,
+            "targets": 1014,
+            "weightedBrier": 0.506738497863141,
+            "neutralBrier": 0.6894207627179545
+          }
+        }
+      },
+      "bluff": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 90,
+            "reference": 8,
+            "unfinished": 2
+          },
+          "sideWins": {
+            "1": 46,
+            "2": 52
+          },
+          "currentScore": 0.91,
+          "seedBootstrap95": [
+            0.85,
+            0.96
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 44,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 46,
+              "unfinished": 2
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 45,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 45,
+              "unfinished": 2
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 5545,
+              "accepted": 5545,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            },
+            "reference": {
+              "attempted": 7279,
+              "accepted": 7279,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            }
+          },
+          "survival": {
+            "satoshi": {
+              "current": {
+                "games": 50,
+                "alive": 38
+              },
+              "reference": {
+                "games": 50,
+                "alive": 2
+              }
+            },
+            "deka": {
+              "current": {
+                "games": 50,
+                "alive": 48
+              },
+              "reference": {
+                "games": 50,
+                "alive": 6
+              }
+            },
+            "tokra": {
+              "current": {
+                "games": 50,
+                "alive": 40
+              },
+              "reference": {
+                "games": 50,
+                "alive": 12
+              }
+            },
+            "neonis": {
+              "current": {
+                "games": 50,
+                "alive": 23
+              },
+              "reference": {
+                "games": 50,
+                "alive": 20
+              }
+            },
+            "kanulla": {
+              "current": {
+                "games": 50,
+                "alive": 25
+              },
+              "reference": {
+                "games": 50,
+                "alive": 17
+              }
+            },
+            "zwinra": {
+              "current": {
+                "games": 50,
+                "alive": 41
+              },
+              "reference": {
+                "games": 50,
+                "alive": 2
+              }
+            },
+            "chis": {
+              "current": {
+                "games": 50,
+                "alive": 50
+              },
+              "reference": {
+                "games": 50,
+                "alive": 42
+              }
+            },
+            "kazrow": {
+              "current": {
+                "games": 50,
+                "alive": 50
+              },
+              "reference": {
+                "games": 50,
+                "alive": 29
+              }
+            },
+            "hachi": {
+              "current": {
+                "games": 20,
+                "alive": 20
+              },
+              "reference": {
+                "games": 20,
+                "alive": 6
+              }
+            },
+            "uldian": {
+              "current": {
+                "games": 30,
+                "alive": 3
+              },
+              "reference": {
+                "games": 30,
+                "alive": 10
+              }
+            },
+            "ulpian": {
+              "current": {
+                "games": 30,
+                "alive": 22
+              },
+              "reference": {
+                "games": 30,
+                "alive": 15
+              }
+            },
+            "seirow": {
+              "current": {
+                "games": 20,
+                "alive": 20
+              },
+              "reference": {
+                "games": 20,
+                "alive": 11
+              }
+            }
+          },
+          "minutes": {
+            "median": 17.1,
+            "p90": 26.38,
+            "max": 90
+          },
+          "unfinished": [
+            {
+              "mode": "troll",
+              "seed": 7001,
+              "count": 9,
+              "reversed": true,
+              "currentSide": 2
+            },
+            {
+              "mode": "troll",
+              "seed": 7011,
+              "count": 9,
+              "reversed": true,
+              "currentSide": 2
+            }
+          ],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 0.625
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 1
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 0.875
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 1
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 0.75
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 1
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0.75
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 1
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 0.75
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 1
+            }
+          ]
+        },
+        "acceptedClaims": 4508,
+        "trueClaims": 0,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 471,
+            "targets": 4033,
+            "weightedBrier": 0.8389613360844566,
+            "neutralBrier": 0.8702513808221096
+          },
+          "3": {
+            "sampledGames": 100,
+            "observers": 426,
+            "targets": 3197,
+            "weightedBrier": 0.8167889781089103,
+            "neutralBrier": 0.8368732162901819
+          },
+          "6": {
+            "sampledGames": 94,
+            "observers": 373,
+            "targets": 2225,
+            "weightedBrier": 0.7376771777320101,
+            "neutralBrier": 0.7657710939671272
+          }
+        }
+      },
+      "skill-aware-bluff": {
+        "league": {
+          "games": 100,
+          "seeds": 25,
+          "wins": {
+            "current": 53,
+            "reference": 47,
+            "unfinished": 0
+          },
+          "sideWins": {
+            "1": 75,
+            "2": 25
+          },
+          "currentScore": 0.53,
+          "seedBootstrap95": [
+            0.45,
+            0.62
+          ],
+          "byCurrentSide": {
+            "1": {
+              "games": 50,
+              "wins": 39,
+              "unfinished": 0
+            },
+            "2": {
+              "games": 50,
+              "wins": 14,
+              "unfinished": 0
+            }
+          },
+          "byOrder": {
+            "forward": {
+              "games": 50,
+              "wins": 23,
+              "unfinished": 0
+            },
+            "reversed": {
+              "games": 50,
+              "wins": 30,
+              "unfinished": 0
+            }
+          },
+          "stats": {
+            "current": {
+              "attempted": 4322,
+              "accepted": 4322,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            },
+            "reference": {
+              "attempted": 4258,
+              "accepted": 4258,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            }
+          },
+          "survival": {
+            "satoshi": {
+              "current": {
+                "games": 50,
+                "alive": 32
+              },
+              "reference": {
+                "games": 50,
+                "alive": 42
+              }
+            },
+            "deka": {
+              "current": {
+                "games": 50,
+                "alive": 14
+              },
+              "reference": {
+                "games": 50,
+                "alive": 11
+              }
+            },
+            "tokra": {
+              "current": {
+                "games": 50,
+                "alive": 34
+              },
+              "reference": {
+                "games": 50,
+                "alive": 48
+              }
+            },
+            "neonis": {
+              "current": {
+                "games": 50,
+                "alive": 17
+              },
+              "reference": {
+                "games": 50,
+                "alive": 33
+              }
+            },
+            "kanulla": {
+              "current": {
+                "games": 50,
+                "alive": 10
+              },
+              "reference": {
+                "games": 50,
+                "alive": 2
+              }
+            },
+            "zwinra": {
+              "current": {
+                "games": 50,
+                "alive": 29
+              },
+              "reference": {
+                "games": 50,
+                "alive": 18
+              }
+            },
+            "chis": {
+              "current": {
+                "games": 50,
+                "alive": 49
+              },
+              "reference": {
+                "games": 50,
+                "alive": 44
+              }
+            },
+            "kazrow": {
+              "current": {
+                "games": 50,
+                "alive": 43
+              },
+              "reference": {
+                "games": 50,
+                "alive": 12
+              }
+            },
+            "hachi": {
+              "current": {
+                "games": 20,
+                "alive": 14
+              },
+              "reference": {
+                "games": 20,
+                "alive": 5
+              }
+            },
+            "uldian": {
+              "current": {
+                "games": 30,
+                "alive": 3
+              },
+              "reference": {
+                "games": 30,
+                "alive": 1
+              }
+            },
+            "ulpian": {
+              "current": {
+                "games": 30,
+                "alive": 20
+              },
+              "reference": {
+                "games": 30,
+                "alive": 29
+              }
+            },
+            "seirow": {
+              "current": {
+                "games": 20,
+                "alive": 17
+              },
+              "reference": {
+                "games": 20,
+                "alive": 5
+              }
+            }
+          },
+          "minutes": {
+            "median": 10.93,
+            "p90": 16.69,
+            "max": 31.37
+          },
+          "unfinished": [],
+          "pairedScores": [
+            {
+              "seed": 7000,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7001,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7002,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7003,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7004,
+              "count": 12,
+              "score": 0.5
+            },
+            {
+              "seed": 7005,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7006,
+              "count": 9,
+              "score": 0.5
+            },
+            {
+              "seed": 7007,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7008,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7009,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7010,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7011,
+              "count": 9,
+              "score": 0.25
+            },
+            {
+              "seed": 7012,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7013,
+              "count": 11,
+              "score": 0.5
+            },
+            {
+              "seed": 7014,
+              "count": 12,
+              "score": 0.75
+            },
+            {
+              "seed": 7015,
+              "count": 8,
+              "score": 0.5
+            },
+            {
+              "seed": 7016,
+              "count": 9,
+              "score": 1
+            },
+            {
+              "seed": 7017,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7018,
+              "count": 11,
+              "score": 0.25
+            },
+            {
+              "seed": 7019,
+              "count": 12,
+              "score": 0.5
+            },
+            {
+              "seed": 7020,
+              "count": 8,
+              "score": 0.75
+            },
+            {
+              "seed": 7021,
+              "count": 9,
+              "score": 0.25
+            },
+            {
+              "seed": 7022,
+              "count": 10,
+              "score": 0.5
+            },
+            {
+              "seed": 7023,
+              "count": 11,
+              "score": 1
+            },
+            {
+              "seed": 7024,
+              "count": 12,
+              "score": 0.25
+            }
+          ]
+        },
+        "acceptedClaims": 934,
+        "trueClaims": 269,
+        "calibration": {
+          "1": {
+            "sampledGames": 100,
+            "observers": 480,
+            "targets": 4040,
+            "weightedBrier": 0.7976836028919762,
+            "neutralBrier": 0.8683462294859018
+          },
+          "3": {
+            "sampledGames": 100,
+            "observers": 441,
+            "targets": 3079,
+            "weightedBrier": 0.7571329847273144,
+            "neutralBrier": 0.8267608949833015
+          },
+          "6": {
+            "sampledGames": 89,
+            "observers": 315,
+            "targets": 1604,
+            "weightedBrier": 0.6176493959135619,
+            "neutralBrier": 0.7196340588536722
+          }
+        }
+      }
+    }
+  }
+}

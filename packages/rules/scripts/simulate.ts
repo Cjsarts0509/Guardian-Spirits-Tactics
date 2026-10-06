@@ -1,12 +1,14 @@
 // 봇 시뮬레이션: pnpm sim -- [판수] [인원] [smart|random] [모드]
 // 서버와 같은 조건(250ms 틱, 봇 행동 확률 0.012)으로 돌려 판 길이 분포를 본다
-import { advance, applyAction, createBotMemory, createGame, randomBotAction, smartBotAction } from '../src/index.js';
+import { advance, applyAction, assignmentBelief, beliefBrier, botKnowledge, createBotMemory, createGame, randomBotAction, smartBotAction, viewFor } from '../src/index.js';
 
 const args = process.argv.slice(2).filter((a) => a !== '--');
 const games = Number(args[0] ?? 200);
 const count = Number(args[1] ?? 0);
 const kind = args[2] ?? 'smart';
 const mode = (args[3] ?? 'civil_war') as 'civil_war' | 'primordial' | 'lidellut' | 'troll';
+const evaluateBelief = args.includes('--belief');
+const brier = new Map<number, { sum: number; targets: number; inconsistent: number }>();
 const TICK = 250;
 const ACTIVITY = 0.012;
 const LIMIT = 90 * 60 * 1000;
@@ -26,6 +28,24 @@ for (let i = 0; i < games; i++) {
   while (state.phase === 'running' && now < LIMIT) {
     now += TICK;
     advance(state, now);
+    // 결정 전에, 살아 있는 봇이 아직 정체를 확정하지 못한 대상만 별도 메모리로 채점.
+    // 실제 정체는 평가 함수에만 전달하고 봇의 입력·기억에는 절대 넣지 않는다.
+    if (evaluateBelief && state.phase === 'running' && [2, 4, 8, 12].some((m) => now === m * 60_000)) {
+      const minute = now / 60_000;
+      const stats = brier.get(minute) ?? { sum: 0, targets: 0, inconsistent: 0 };
+      const truths = new Map(state.players.map((p) => [p.id, p.character]));
+      for (const p of state.players.filter((p) => p.alive)) {
+        const mem = createBotMemory(0);
+        const view = viewFor(state, p.id);
+        const k = botKnowledge(state, p.id, view, mem);
+        const belief = assignmentBelief(view, k, mem);
+        const targets = view.players.filter((t) => t.alive && t.id !== p.id && !k.known.has(t.id)).map((t) => t.id);
+        const score = beliefBrier(belief, truths, targets);
+        if (!belief.consistent) stats.inconsistent++;
+        if (score !== null) { stats.sum += score * targets.length; stats.targets += targets.length; }
+      }
+      brier.set(minute, stats);
+    }
     for (const p of state.players) {
       const mem = memories.get(p.id)!;
       const a = kind === 'random' ? randomBotAction(state, p.id, mem, { activity: ACTIVITY }) : smartBotAction(state, p.id, mem, { activity: ACTIVITY });
@@ -46,5 +66,7 @@ for (let i = 0; i < games; i++) {
 minutes.sort((a, b) => a - b);
 const q = (x: number) => +minutes[Math.min(minutes.length - 1, Math.floor(x * minutes.length))]!.toFixed(1);
 console.log(
-  JSON.stringify({ mode, kind, games, wins, unfinishedSeeds, minutes: { p10: q(0.1), median: q(0.5), p90: q(0.9), max: q(0.999) }, failedAttacksFirst4min: failedAttacksEarly, reasons: Object.fromEntries(reasons), ms: Date.now() - t0 }, null, 1),
+  JSON.stringify({ mode, kind, games, wins, unfinishedSeeds, minutes: { p10: q(0.1), median: q(0.5), p90: q(0.9), max: q(0.999) }, failedAttacksFirst4min: failedAttacksEarly,
+    ...(evaluateBelief ? { brier: Object.fromEntries([...brier].map(([minute, s]) => [minute, { score: s.targets ? s.sum / s.targets : null, targets: s.targets, inconsistent: s.inconsistent }])) } : {}),
+    reasons: Object.fromEntries(reasons), ms: Date.now() - t0 }, null, 1),
 );

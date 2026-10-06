@@ -137,7 +137,7 @@ describe('게임 서버', () => {
 describe('자리 비움 · 재입장', () => {
   it('잠시 나가기 → 봇이 대신 움직이고 방 목록에 재입장 표시 → 재입장하면 같은 자리로', async () => {
     // 공용 서버는 60배속이라 판이 몇 초 만에 끝난다 — 이 테스트는 실시간 서버로
-    const slowCfg = { ...loadConfig({}), port: 0, host: '127.0.0.1', tickMs: 50, botActivity: 0.08, reconnectGraceSeconds: 1, timeScale: 1 };
+    const slowCfg = { ...loadConfig({}), port: 0, host: '127.0.0.1', tickMs: 50, botActivity: 1, reconnectGraceSeconds: 1, timeScale: 1 };
     const slow = createGameServer(slowCfg, () => {});
     const slowPort = await slow.listen();
     const c = client(slowPort);
@@ -151,6 +151,8 @@ describe('자리 비움 · 재입장', () => {
     if ('spectator' in first.view) throw new Error('플레이어 뷰여야 함');
     const roomId = (c.inbox.find((m) => m.type === 'room' && !!m.room) as Extract<ServerMessage, { type: 'room' }>).room!.id;
 
+    const liveRoom = slow.rooms.rooms.get(roomId)!;
+    const beforeAway = liveRoom.actions.length;
     c.send({ type: 'room.leave', mode: 'away' });
     await c.wait((m) => m.type === 'room' && m.room === null);
     c.send({ type: 'room.list' });
@@ -159,16 +161,14 @@ describe('자리 비움 · 재입장', () => {
     expect(mine?.status).toBe('playing');
     expect(mine?.rejoinable).toBe(true);
 
-    // 비운 동안 봇이 내 자리로 행동한다 (공표는 거의 바로 한다)
-    await new Promise((r) => setTimeout(r, 1500));
+    // 공표·스킬 중 무엇을 먼저 선택하든, 비운 자리에서 승인된 행동이 있어야 한다.
+    await expect.poll(() => liveRoom.actions.slice(beforeAway).some((a) => a.player === welcome.userId && a.ok), { timeout: 3000 }).toBe(true);
     c.send({ type: 'room.join', roomId });
     const back = await c.wait<Extract<ServerMessage, { type: 'game' }>>((m) => m.type === 'game' && m.serverTime > first.serverTime, 15000, 'back');
     if ('spectator' in back.view) throw new Error('플레이어 뷰여야 함');
     expect(back.view.me.id).toBe(welcome.userId);
     expect(back.view.me.character).toBe(first.view.me.character);
     expect(back.view.me.alive).toBe(true);
-    const myActs = back.events.filter((e) => e.kind === 'publish' && e.data?.player === welcome.userId);
-    expect(myActs.length).toBeGreaterThan(0);
     const detail = await c.wait<Extract<ServerMessage, { type: 'room' }>>((m) => m.type === 'room' && !!m.room && !m.room.members.find((x) => x.id === welcome.userId)?.away, 15000, 'detail');
     expect(detail.room!.members.find((x) => x.id === welcome.userId)?.away).toBeUndefined();
 

@@ -1,25 +1,20 @@
+// 평가 전용 고정 정책: 73295e1:packages/rules/src/bot.ts (본문 변경 없음).
 // 봇 두 종류
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
 //   상대 정체를 모르면 공격하지 않고 확인부터 한다. 시간이 지나면 후보가 좁혀진 대상에게 추측 공격을 시작한다.
-import { randomInt, nextRandom } from './rng.js';
-import type { Action, CharKey, GameState, PlayerId } from './types.js';
-import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
-import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from './bot-memory.js';
-import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
-import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
-import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
-export type { BotMemory, Knowledge } from './bot-memory.js';
+import { randomInt, nextRandom } from '../../src/rng.js';
+import type { Action, CharKey, GameState, PlayerId } from '../../src/types.js';
+import { eventsFor, viewFor, type PlayerView, type SkillView } from '../../src/engine/view.js';
+import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from '../../src/bot-memory.js';
+import { assignmentBelief, checkInformation, probabilityOf } from '../../src/bot-belief.js';
+import { claimCheckSucceeds, wantsTrueName } from '../../src/bot-claims.js';
+import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from '../../src/bot-tactics.js';
+export type { BotMemory, Knowledge } from '../../src/bot-memory.js';
 
 export interface BotOptions {
   /** 행동 확률 (0~1). 호출될 때마다 이 확률로만 행동 */
   activity?: number;
-  /** 태초 정책 비교용. 조기 공표·무작위 리더쉽 대상을 유지한다. */
-  primordialLeadership?: 'early' | 'after-six-minutes';
-  primordialPriorities?: boolean;
-  primordialSlash?: 'early' | 'finish-or-revealed';
-  /** 공표 전략 비교. 기본은 진명이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
-  claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders';
 }
 
 export function randomBotAction(state: GameState, playerId: PlayerId, rng: { rng: number }, opts: BotOptions = {}): Action | null {
@@ -134,7 +129,7 @@ const STRIKES = ['kane_wolfs_slash'] as const;
 const DISRUPT = ['shadow_jail', 'nightmare', 'confusion', 'burning_magic', 'eoril_flame_shackle', 'drakan_black_spell', 'distortion', 'troll_venom'] as const;
 const INFO = ['warrior_scent', 'oracle', 'shadow_eye', 'curse', 'hermilly_seeing_libido', 'battle_sense', 'spirit_hex'] as const;
 /** 아군(같은 편 이름 공표자)에게 거는 지원 */
-const SUPPORT = ['sasint_support', 'nukelius_chakra_magic', 'rune_protection', 'soul_recovery', 'dawn_mist', 'diplomacy', 'support'] as const;
+const SUPPORT = ['sasint_support', 'nukelius_chakra_magic', 'rune_protection', 'soul_recovery', 'dawn_mist', 'diplomacy', 'support', 'chaos_hex'] as const;
 /** 자기도 죽는 즉사기 (무모한 돌진): 정체를 아는 적 지휘관에게만 */
 const SUICIDES = ['reckless_charge'] as const;
 /** 진명 공표 등 조건만 맞으면 바로 쓰는 자기 대상 스킬 */
@@ -175,9 +170,6 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const enemy = (c: CharKey) => sideOf.get(c) !== me.side;
   const attackable = (c: CharKey) => enemy(c) && !guards[c]?.some((gd) => !deadChars.has(gd));
   const act = (s: SkillView, target?: PlayerId, name?: CharKey): Action => {
-    const strategy = opts.claimStrategy ?? (opts.primordialLeadership === 'after-six-minutes' ? 'current' : 'truthful');
-    if (s.key === 'publish' && (strategy === 'truthful' ||
-      (strategy === 'truthful-noncommanders' && !me.commander)) && s.nameOptions?.includes(me.character)) name = me.character;
     const a: Action = { type: 'skill', skill: s.key };
     if (target) a.target = target;
     if (name) a.name = name;
@@ -207,9 +199,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
 
   // 필요한 진명 스킬을 공표로 열어 둔다. 지휘관도 역할상 필요하면 예외다.
   const publish = usable.get('publish');
-  const waitLeadership = view.mode === 'primordial' && opts.primordialLeadership === 'after-six-minutes' &&
-    ['rael', 'eltas'].includes(me.character);
-  if (publish && !me.trueName && ((!waitLeadership && wantsTrueName(view)) || mem.perception!.trueNameUntil > elapsed) && publish.nameOptions?.includes(me.character)) {
+  if (publish && !me.trueName && (wantsTrueName(view) || mem.perception!.trueNameUntil > elapsed) && publish.nameOptions?.includes(me.character)) {
     return act(publish, undefined, me.character);
   }
 
@@ -234,8 +224,6 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     }
     for (const k of STRIKES) {
       const s = usable.get(k);
-      if (k === 'kane_wolfs_slash' && (opts.primordialSlash ?? 'finish-or-revealed') === 'finish-or-revealed' &&
-        !view.players.find((p) => p.id === me.id)?.revealed && estimatedHits(view, battle, c, false) > 1) continue;
       if (s && (isCommander.get(c) || elapsed > 6 * MIN)) return act(s, p.id);
     }
     for (const k of SUICIDES) {
@@ -365,9 +353,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   for (const s of usable.values()) {
     if (s.target !== 'none' || !s.nameOptions || s.key === 'publish') continue;
     const unknownNames = s.nameOptions.filter((n) => ![...known.values()].includes(n));
-    const priority = view.mode === 'primordial' && opts.primordialPriorities && s.key.includes('leadership')
-      ? me.character === 'rael' ? ['eoril', 'kumarin', 'tachin', 'nukelius'] : ['consume', 'sasint', 'kilder', 'hermilly', 'drakan'] : [];
-    const n = priority.find((n) => unknownNames.includes(n)) ?? pick(unknownNames.length ? unknownNames : s.nameOptions);
+    const n = pick(unknownNames.length ? unknownNames : s.nameOptions);
     if (n) return act(s, undefined, n);
   }
   // 행동 불능인 아군 풀어주기
@@ -402,20 +388,11 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     }
   }
 
-  // 3) 진실의 보석: 지휘관 재통보만 남는 대상보다 새 정보를 줄 대상을 우선한다.
+  // 3) 진실의 보석: 모르는 사람 중 적 이름을 공표한 사람 우선
   const gem = usable.get('truth_gem');
   if (gem && unknown.length) {
-    // 교환 리그로 검증한 트롤에 적용한다. 다른 모드의 전투 우선순위는 별도 검증 전 유지한다.
-    const pool = view.mode === 'troll' ? unknown.filter((p) => !mem.perception!.commanders.has(p.id) &&
-      (!belief.consistent || checkInformation(view, belief, p.id, 'truth_gem') > 0)) : unknown;
-    const t = pool.find((p) => claimsSide(p, me.side === 1 ? 2 : 1)) ?? pick(pool);
+    const t = unknown.find((p) => claimsSide(p, me.side === 1 ? 2 : 1)) ?? pick(unknown);
     if (t) return act(gem, t.id);
-  }
-  // 혼돈의 주술은 단순 지원이 아니라 반란자의 정체를 확인하는 지연 정보 스킬이다.
-  const chaos = usable.get('chaos_hex');
-  if (chaos && unknown.length) {
-    const t = belief.consistent ? bestCheck('chaos_hex', unknown) : pick(unknown);
-    if (t && (!belief.consistent || checkInformation(view, belief, t.id, 'chaos_hex') > 0)) return act(chaos, t.id);
   }
 
   // 4) 정보 수집
@@ -487,9 +464,6 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const guessLimit = elapsed > 30 * MIN ? 7 : elapsed > 20 * MIN ? 4 : elapsed > 12 * MIN ? 3 : elapsed > 8 * MIN ? 2 : elapsed > 4 * MIN ? 1 : 0;
   const guessChance = elapsed > 20 * MIN ? 0.7 : 0.4;
   if (guessLimit > 0 && nextRandom(mem) < guessChance) {
-    const supreme = usable.get('supreme_attack');
-    const safeExplore = view.mode === 'troll' && !!supreme && me.mana >= 100 && elapsed > 12 * MIN;
-    const oldestNameFailure = (id: PlayerId, names: CharKey[]) => Math.min(...names.map((n) => mem.perception!.lastAttackNameFailure.get(id)?.get(n) ?? -1));
     const targets = alive
       .map((p) => {
         const all = candidates.get(p.id) ?? [];
@@ -497,20 +471,12 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
         // 적일 가능성: 후보 중 공격 가능한 적의 비율. 아군일 가능성이 높으면 건드리지 않는다
         return { p, all, c, enemyRatio: c.reduce((sum, k) => sum + massOf(p.id, k), 0) };
       })
-      .filter((x) => x.c.length > 0 && x.all.length <= guessLimit && (x.enemyRatio >= 0.5 ||
-        // 최상급 공격은 오답으로 죽지 않는다. 장기 정체·여유 마나일 때 안전한 이름 후보를 시도한다.
-        (view.mode === 'troll' && usable.has('supreme_attack') && me.mana >= 100 && elapsed > 12 * MIN && x.enemyRatio > 0)));
-    targets.sort((a, b) => (safeExplore ? oldestNameFailure(a.p.id, a.c) - oldestNameFailure(b.p.id, b.c) : 0) || a.all.length - b.all.length ||
-      (Math.abs(b.enemyRatio - a.enemyRatio) > 1e-9 ? b.enemyRatio - a.enemyRatio : 0) ||
-      (lastAttackFailure.get(a.p.id) ?? -1) - (lastAttackFailure.get(b.p.id) ?? -1));
+      .filter((x) => x.c.length > 0 && x.enemyRatio >= 0.5 && x.all.length <= guessLimit);
+    targets.sort((a, b) => a.all.length - b.all.length || b.enemyRatio - a.enemyRatio || (lastAttackFailure.get(a.p.id) ?? -1) - (lastAttackFailure.get(b.p.id) ?? -1));
     const t = targets[0];
     if (t) {
-      // 실패 사망이 없는 최상급 공격만 미시도/오래전에 실패한 이름을 순환한다.
-      // 실패를 정체 배제 증거로 쓰지 않으며 일반·상급 공격은 기존 확률 판단을 유지한다.
-      const failures = mem.perception!.lastAttackNameFailure.get(t.p.id);
-      const name = safeExplore
-        ? t.c.slice().sort((a, b) => (failures?.get(a) ?? -1) - (failures?.get(b) ?? -1) || massOf(t.p.id, b) - massOf(t.p.id, a))[0]!
-        : likelyName(t.p.id, t.c)!;
+      const name = likelyName(t.p.id, t.c)!;
+      const supreme = usable.get('supreme_attack');
       if (supreme?.nameOptions?.includes(name)) return act(supreme, t.p.id, name);
       // 자기 진영의 패배 조건에 들어가는 캐릭터(트롤 사토시·즈윈라·울디안, 황야 기사단)는 후보가 좁을 때만 건다
       const careful = (PRECIOUS[view.mode] ?? []).includes(me.character);
@@ -521,8 +487,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     }
   }
   // 8) 즉사기: 오래 끌리면 적 지휘관일 가능성이 가장 높은 사람에게
-  const reaver = [...EXECUTES, ...STRIKES].filter((k) => k !== 'kane_wolfs_slash' || (opts.primordialSlash ?? 'finish-or-revealed') !== 'finish-or-revealed' ||
-    view.players.find((p) => p.id === me.id)?.revealed).map((k) => usable.get(k)).find((s) => s);
+  const reaver = [...EXECUTES, ...STRIKES].map((k) => usable.get(k)).find((s) => s);
   if (reaver && elapsed > 15 * MIN && nextRandom(mem) < 0.3) {
     const pool = alive
       .map((p) => ({ p, all: candidates.get(p.id) ?? [] }))

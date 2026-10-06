@@ -13,3 +13,7 @@ export { randomBotAction, smartBotAction, botKnowledge } from './bot.js';
 export type { BotMemory, Knowledge } from './bot.js';
 export { createBotMemory, updateBotKnowledge } from './bot-memory.js';
 export type { BotPerception } from './bot-memory.js';
+export { assignmentBelief, probabilityOf, checkInformation, beliefBrier } from './bot-belief.js';
+export type { AssignmentBelief } from './bot-belief.js';
+export { roleSkills, skillTiming, estimatedHits, neutralizedSkill, roleThreat } from './bot-tactics.js';
+export type { BattleMemory, SkillTiming, SkillPlan } from './bot-tactics.js';
