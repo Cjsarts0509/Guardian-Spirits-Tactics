@@ -25,6 +25,8 @@ export interface BotOptions {
   sequenceSearch?: boolean;
   /** 인물별 액티브·지원 후속 후보. sequenceSearch와 함께 쓰는 별도 실험. */
   sequenceSkills?: boolean;
+  /** 성장·희생과 30초 이내의 관측 가능한 다음 턴을 포함한다. 기본 비활성화. */
+  sequenceExtended?: boolean;
   /** 기본 스킬·교체 관계와 관찰에 기반한 상대 대응을 포함한 탐색 실험. */
   attackResponse?: boolean;
   /** 상대 즉사기·행동 불능기를 추가하는 별도 실험. attackResponse가 필요하다. */
@@ -232,7 +234,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
 
   // 필요한 진명 스킬을 공표로 열어 둔다. 지휘관도 역할상 필요하면 예외다.
   const sequence = (baseline: Action): Action => opts.sequenceSearch
-    ? boundedSequenceSearch(view, knowledge, mem, baseline, opts.sequenceSkills ?? false)?.action ?? baseline : baseline;
+    ? boundedSequenceSearch(view, knowledge, mem, baseline, opts.sequenceSkills ?? false, opts.sequenceExtended ?? false)?.action ?? baseline : baseline;
   const publish = usable.get('publish');
   const waitLeadership = view.mode === 'primordial' && opts.primordialLeadership === 'after-six-minutes' &&
     ['rael', 'eltas'].includes(me.character);
@@ -241,6 +243,10 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   }
 
   // 1) 확실한 처치: 정체를 아는 적 (지휘관 우선)
+  if (opts.sequenceSearch && opts.sequenceExtended) {
+    const plan = boundedSequenceSearch(view, knowledge, mem, undefined, true, true);
+    if (plan) return plan.action;
+  }
   knownEnemies.sort((a, b) => Number(!!isCommander.get(known.get(b.id)!)) - Number(!!isCommander.get(known.get(a.id)!)) ||
     threat(b.id) - threat(a.id) || estimatedHits(view, battle, known.get(a.id)!) - estimatedHits(view, battle, known.get(b.id)!));
   for (const p of knownEnemies) {
@@ -471,7 +477,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     if (confirmation) return sequence(confirmation);
   }
   if (opts.sequenceSearch) {
-    const plan = boundedSequenceSearch(view, knowledge, mem, undefined, opts.sequenceSkills ?? false);
+    const plan = boundedSequenceSearch(view, knowledge, mem, undefined, opts.sequenceSkills ?? false, opts.sequenceExtended ?? false);
     if (plan) return plan.action;
   }
   const roll = nextRandom(mem);
