@@ -2,6 +2,7 @@ import type { CharKey, PlayerId } from './types.js';
 import type { PlayerView } from './engine/view.js';
 import type { BotMemory, Knowledge } from './bot-memory.js';
 import { claimWeight, claimCheckSucceeds } from './bot-claims.js';
+import { nextRandom } from './rng.js';
 
 export interface AssignmentBelief {
   probabilities: Map<PlayerId, Map<CharKey, number>>;
@@ -9,15 +10,29 @@ export interface AssignmentBelief {
   consistent: boolean;
 }
 
+interface SamplingModel {
+  players: PlayerId[];
+  roles: CharKey[];
+  weights: number[][];
+  suffix: Float64Array;
+}
+// 믿음 캐시와 함께 수명이 끝난다. 서버 상태나 실제 배정은 보관하지 않는다.
+const samplingModels = new WeakMap<AssignmentBelief, SamplingModel>();
+
 /** 최대 12명: 부분집합 DP로 전체 순열의 가중합을 정확 계산한다 (O(n² 2ⁿ)).
  * 파티클의 표본 누락 없이 역할 중복 금지를 반영한다. 진짜 배정은 입력하지 않는다.
  */
 export function assignmentBelief(view: PlayerView, knowledge: Knowledge, memory: BotMemory): AssignmentBelief {
+  return computeAssignmentBelief(view, knowledge, memory, false);
+}
+
+function computeAssignmentBelief(view: PlayerView, knowledge: Knowledge, memory: BotMemory, retainSampling: boolean): AssignmentBelief {
   const rows = view.players.filter((p) => p.id !== view.me.id);
   const roles = view.roster.filter((r) => r.inGame && r.key !== view.me.character).map((r) => r.key);
   const signature = JSON.stringify([view.mode, view.me.id, view.me.character, Math.floor(view.elapsedMs / 60_000),
     rows.map((p) => [p.id, p.published, memory.perception?.automaticClaims.has(p.id), knowledge.candidates.get(p.id)])]);
-  if (memory.beliefCache?.signature === signature) return memory.beliefCache.value;
+  const cached = memory.beliefCache?.signature === signature ? memory.beliefCache.value : undefined;
+  if (cached && (!retainSampling || samplingModels.has(cached))) return cached;
   const probabilities = new Map<PlayerId, Map<CharKey, number>>([[view.me.id, new Map([[view.me.character, 1]])]]);
   const n = rows.length;
   if (n !== roles.length || n > 12) return { probabilities, consistent: false };
@@ -33,6 +48,10 @@ export function assignmentBelief(view: PlayerView, knowledge: Knowledge, memory:
     for (let j = 0; j < n; j++) if (!(mask & (1 << j))) suffix[mask]! += weights[i]![j]! * suffix[mask | (1 << j)]!;
   }
   const total = suffix[0]!;
+  if (cached) {
+    if (total > 0) samplingModels.set(cached, { players: rows.map((p) => p.id), roles, weights, suffix });
+    return cached;
+  }
   if (total > 0) {
     const prefix = new Float64Array(size);
     prefix[0] = 1;
@@ -50,8 +69,43 @@ export function assignmentBelief(view: PlayerView, knowledge: Knowledge, memory:
     rows.forEach((p, i) => probabilities.set(p.id, new Map(roles.map((c, j) => [c, marginal[i]![j]!]))));
   }
   const value = { probabilities, consistent: total > 0 };
+  if (retainSampling && total > 0) samplingModels.set(value, { players: rows.map((p) => p.id), roles, weights, suffix });
   memory.beliefCache = { signature, value };
   return value;
+}
+
+/** 전체 배정의 조건부 가중치를 차례로 표본화한다. 주변 확률을 독립으로 뽑지 않는다.
+ * 반환 배정은 가설이며 확인 사실로 메모리에 넣어서는 안 된다. 탐색 전용 RNG를 요구한다.
+ */
+export function sampleAssignments(view: PlayerView, knowledge: Knowledge, memory: BotMemory,
+  rng: { rng: number }, count = 32): Map<PlayerId, CharKey>[] {
+  if (!Number.isSafeInteger(count) || count < 0 || count > 256) throw new RangeError('배정 표본 수는 0~256 정수여야 합니다.');
+  if (rng === memory) throw new Error('배정 표본은 행동 RNG와 분리해야 합니다.');
+  if (count === 0) return [];
+  const belief = computeAssignmentBelief(view, knowledge, memory, true);
+  const model = samplingModels.get(belief);
+  if (!belief.consistent || !model) return [];
+  const worlds: Map<PlayerId, CharKey>[] = [];
+  for (let sample = 0; sample < count; sample++) {
+    const world = new Map<PlayerId, CharKey>([[view.me.id, view.me.character]]);
+    let mask = 0;
+    for (let i = 0; i < model.players.length; i++) {
+      const draw = nextRandom(rng) * model.suffix[mask]!;
+      let cumulative = 0, selected = -1;
+      for (let j = 0; j < model.roles.length; j++) if (!(mask & (1 << j))) {
+        const mass = model.weights[i]![j]! * model.suffix[mask | (1 << j)]!;
+        if (mass <= 0) continue;
+        selected = j; // 부동소수점 끝점에서는 마지막 양수 분기를 선택한다.
+        cumulative += mass;
+        if (draw < cumulative) break;
+      }
+      if (selected < 0) throw new Error('일관된 배정의 조건부 분기가 없습니다.');
+      world.set(model.players[i]!, model.roles[selected]!);
+      mask |= 1 << selected;
+    }
+    worlds.push(world);
+  }
+  return worlds;
 }
 
 export function probabilityOf(belief: AssignmentBelief, player: PlayerId, character: CharKey): number {
