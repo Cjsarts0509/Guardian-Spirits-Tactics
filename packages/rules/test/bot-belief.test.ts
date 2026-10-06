@@ -4,6 +4,27 @@ import { claimCheckSucceeds, claimWeight, TRUE_NAME_SKILLS, wantsTrueName } from
 import { CIVIL_ORDER, LIDELLUT_ORDER, PRIMORDIAL_ORDER, TROLL_ORDER, civilTable, fill, modeTable } from './helpers.js';
 
 describe('전체 배정 믿음', () => {
+  it('지휘관끼리의 불확실성은 보석으로 구별할 수 없고 일반 역할과는 구별된다', () => {
+    const t = civilTable();
+    const view = viewFor(t.state, t.id.sephy!);
+    const probabilities = new Map([[t.id.kai!, new Map([['kai', 0.5], ['dantes', 0.5]])]]);
+    expect(checkInformation(view, { probabilities, consistent: true }, t.id.kai!, 'truth_gem')).toBe(0);
+    probabilities.set(t.id.kai!, new Map([['kai', 0.25], ['dantes', 0.25], ['arin', 0.5]]));
+    expect(checkInformation(view, { probabilities, consistent: true }, t.id.kai!, 'truth_gem')).toBeCloseTo(1);
+  });
+
+  it('혼돈의 주술은 확정 반란자나 얼음 부족만 남으면 새 정체 정보를 주지 않는다', () => {
+    const t = modeTable('troll', TROLL_ORDER);
+    const view = viewFor(t.state, t.id.kanulla!);
+    const probabilities = new Map([[t.id.kazrow!, new Map([['kazrow', 1]])]]);
+    const belief = { probabilities, consistent: true };
+    expect(checkInformation(view, belief, t.id.kazrow!, 'chaos_hex')).toBe(0);
+    probabilities.set(t.id.kazrow!, new Map([['chis', 0.5], ['satoshi', 0.5]]));
+    expect(checkInformation(view, belief, t.id.kazrow!, 'chaos_hex')).toBe(0);
+    probabilities.set(t.id.kazrow!, new Map([['deka', 0.5], ['neonis', 0.5]]));
+    expect(checkInformation(view, belief, t.id.kazrow!, 'chaos_hex')).toBeCloseTo(1);
+  });
+
   it('각 사람·각 역할의 확률 합은 1이며 관찰이 없으면 균등하다', () => {
     const t = civilTable();
     const view = viewFor(t.state, t.id.kai!);

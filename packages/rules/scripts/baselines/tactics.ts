@@ -1,15 +1,16 @@
+// 평가 전용 고정 정책: 73295e1:packages/rules/src/bot.ts (본문 변경 없음).
 // 봇 두 종류
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
 //   상대 정체를 모르면 공격하지 않고 확인부터 한다. 시간이 지나면 후보가 좁혀진 대상에게 추측 공격을 시작한다.
-import { randomInt, nextRandom } from './rng.js';
-import type { Action, CharKey, GameState, PlayerId } from './types.js';
-import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
-import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from './bot-memory.js';
-import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
-import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
-import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
-export type { BotMemory, Knowledge } from './bot-memory.js';
+import { randomInt, nextRandom } from '../../src/rng.js';
+import type { Action, CharKey, GameState, PlayerId } from '../../src/types.js';
+import { eventsFor, viewFor, type PlayerView, type SkillView } from '../../src/engine/view.js';
+import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from '../../src/bot-memory.js';
+import { assignmentBelief, checkInformation, probabilityOf } from '../../src/bot-belief.js';
+import { claimCheckSucceeds, wantsTrueName } from '../../src/bot-claims.js';
+import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from '../../src/bot-tactics.js';
+export type { BotMemory, Knowledge } from '../../src/bot-memory.js';
 
 export interface BotOptions {
   /** 행동 확률 (0~1). 호출될 때마다 이 확률로만 행동 */
@@ -128,7 +129,7 @@ const STRIKES = ['kane_wolfs_slash'] as const;
 const DISRUPT = ['shadow_jail', 'nightmare', 'confusion', 'burning_magic', 'eoril_flame_shackle', 'drakan_black_spell', 'distortion', 'troll_venom'] as const;
 const INFO = ['warrior_scent', 'oracle', 'shadow_eye', 'curse', 'hermilly_seeing_libido', 'battle_sense', 'spirit_hex'] as const;
 /** 아군(같은 편 이름 공표자)에게 거는 지원 */
-const SUPPORT = ['sasint_support', 'nukelius_chakra_magic', 'rune_protection', 'soul_recovery', 'dawn_mist', 'diplomacy', 'support'] as const;
+const SUPPORT = ['sasint_support', 'nukelius_chakra_magic', 'rune_protection', 'soul_recovery', 'dawn_mist', 'diplomacy', 'support', 'chaos_hex'] as const;
 /** 자기도 죽는 즉사기 (무모한 돌진): 정체를 아는 적 지휘관에게만 */
 const SUICIDES = ['reckless_charge'] as const;
 /** 진명 공표 등 조건만 맞으면 바로 쓰는 자기 대상 스킬 */
@@ -387,20 +388,11 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     }
   }
 
-  // 3) 진실의 보석: 지휘관 재통보만 남는 대상보다 새 정보를 줄 대상을 우선한다.
+  // 3) 진실의 보석: 모르는 사람 중 적 이름을 공표한 사람 우선
   const gem = usable.get('truth_gem');
   if (gem && unknown.length) {
-    // 교환 리그로 검증한 트롤에 적용한다. 다른 모드의 전투 우선순위는 별도 검증 전 유지한다.
-    const pool = view.mode === 'troll' ? unknown.filter((p) => !mem.perception!.commanders.has(p.id) &&
-      (!belief.consistent || checkInformation(view, belief, p.id, 'truth_gem') > 0)) : unknown;
-    const t = pool.find((p) => claimsSide(p, me.side === 1 ? 2 : 1)) ?? pick(pool);
+    const t = unknown.find((p) => claimsSide(p, me.side === 1 ? 2 : 1)) ?? pick(unknown);
     if (t) return act(gem, t.id);
-  }
-  // 혼돈의 주술은 단순 지원이 아니라 반란자의 정체를 확인하는 지연 정보 스킬이다.
-  const chaos = usable.get('chaos_hex');
-  if (chaos && unknown.length) {
-    const t = belief.consistent ? bestCheck('chaos_hex', unknown) : pick(unknown);
-    if (t && (!belief.consistent || checkInformation(view, belief, t.id, 'chaos_hex') > 0)) return act(chaos, t.id);
   }
 
   // 4) 정보 수집
@@ -479,12 +471,8 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
         // 적일 가능성: 후보 중 공격 가능한 적의 비율. 아군일 가능성이 높으면 건드리지 않는다
         return { p, all, c, enemyRatio: c.reduce((sum, k) => sum + massOf(p.id, k), 0) };
       })
-      .filter((x) => x.c.length > 0 && x.all.length <= guessLimit && (x.enemyRatio >= 0.5 ||
-        // 최상급 공격은 오답으로 죽지 않는다. 장기 정체·여유 마나일 때 안전한 이름 후보를 시도한다.
-        (view.mode === 'troll' && usable.has('supreme_attack') && me.mana >= 100 && elapsed > 12 * MIN && x.enemyRatio > 0)));
-    targets.sort((a, b) => a.all.length - b.all.length ||
-      (Math.abs(b.enemyRatio - a.enemyRatio) > 1e-9 ? b.enemyRatio - a.enemyRatio : 0) ||
-      (lastAttackFailure.get(a.p.id) ?? -1) - (lastAttackFailure.get(b.p.id) ?? -1));
+      .filter((x) => x.c.length > 0 && x.enemyRatio >= 0.5 && x.all.length <= guessLimit);
+    targets.sort((a, b) => a.all.length - b.all.length || b.enemyRatio - a.enemyRatio || (lastAttackFailure.get(a.p.id) ?? -1) - (lastAttackFailure.get(b.p.id) ?? -1));
     const t = targets[0];
     if (t) {
       const name = likelyName(t.p.id, t.c)!;

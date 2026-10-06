@@ -1,0 +1,2842 @@
+{
+  "format": 1,
+  "reference": "foundation",
+  "startSeed": 3000,
+  "seedCount": 100,
+  "settings": {
+    "tickMs": 250,
+    "activity": 0.012,
+    "limitMs": 5400000
+  },
+  "baselineSource": {
+    "foundation": "b9b802b:packages/rules/src/bot.ts",
+    "belief": "77c592f:packages/rules/src/bot.ts",
+    "tactics": "73295e1:packages/rules/src/bot.ts"
+  },
+  "policySha256": {
+    "../src/bot.ts": "2dfd7902738205d57debca6289ce414b213c529cf80bf4a7b57ae1c7fa88a33d",
+    "./baselines/foundation.ts": "3a253055680af9c7d7089e3f9a7aca9a01951ee7034517ec85ca9b85bdb5969a",
+    "./baselines/belief.ts": "baa2b6834e493ff7f1ab103d7306f5a400b499f3421df9f23690e1d1a008abe0",
+    "./baselines/tactics.ts": "c21187cb76e51276639b2c464421b74c88b94a7c1e8e9d34cdc93d47f56683f8"
+  },
+  "modes": {
+    "civil_war": {
+      "games": 400,
+      "seeds": 100,
+      "wins": {
+        "current": 258,
+        "reference": 142,
+        "unfinished": 0
+      },
+      "sideWins": {
+        "1": 250,
+        "2": 150
+      },
+      "currentScore": 0.645,
+      "seedBootstrap95": [
+        0.605,
+        0.6875
+      ],
+      "byCurrentSide": {
+        "1": {
+          "games": 200,
+          "wins": 154,
+          "unfinished": 0
+        },
+        "2": {
+          "games": 200,
+          "wins": 104,
+          "unfinished": 0
+        }
+      },
+      "byOrder": {
+        "forward": {
+          "games": 200,
+          "wins": 127,
+          "unfinished": 0
+        },
+        "reversed": {
+          "games": 200,
+          "wins": 131,
+          "unfinished": 0
+        }
+      },
+      "stats": {
+        "current": {
+          "attempted": 17131,
+          "accepted": 16980,
+          "rejected": 151,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {
+            "kelhu_loyal": 12,
+            "enemy_check": 31,
+            "shadow_jail": 13,
+            "truth_gem": 42,
+            "warrior_scent": 6,
+            "mertz_spouse": 1,
+            "scan": 13,
+            "reindila_spouse": 1,
+            "oracle": 5,
+            "ally": 2,
+            "advanced_attack": 6,
+            "advanced_scan": 9,
+            "dantes_command": 1,
+            "backstab": 3,
+            "burning_magic": 4,
+            "ally_check": 2
+          }
+        },
+        "reference": {
+          "attempted": 20845,
+          "accepted": 20470,
+          "rejected": 375,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {
+            "ally": 46,
+            "warrior_scent": 186,
+            "truth_gem": 18,
+            "enemy_check": 11,
+            "shadow_jail": 1,
+            "attack": 6,
+            "kai_loyal": 10,
+            "ally_check": 51,
+            "advanced_scan": 29,
+            "scan": 1,
+            "soul_reaver": 3,
+            "dantes_command": 2,
+            "advanced_attack": 5,
+            "oracle": 2,
+            "kelhu_loyal": 4
+          }
+        }
+      },
+      "survival": {
+        "soen": {
+          "current": {
+            "games": 200,
+            "alive": 39
+          },
+          "reference": {
+            "games": 200,
+            "alive": 95
+          }
+        },
+        "kai": {
+          "current": {
+            "games": 200,
+            "alive": 104
+          },
+          "reference": {
+            "games": 200,
+            "alive": 46
+          }
+        },
+        "arin": {
+          "current": {
+            "games": 200,
+            "alive": 76
+          },
+          "reference": {
+            "games": 200,
+            "alive": 50
+          }
+        },
+        "kelhu": {
+          "current": {
+            "games": 200,
+            "alive": 154
+          },
+          "reference": {
+            "games": 200,
+            "alive": 113
+          }
+        },
+        "mertz": {
+          "current": {
+            "games": 200,
+            "alive": 90
+          },
+          "reference": {
+            "games": 200,
+            "alive": 68
+          }
+        },
+        "krate": {
+          "current": {
+            "games": 200,
+            "alive": 98
+          },
+          "reference": {
+            "games": 200,
+            "alive": 66
+          }
+        },
+        "freya": {
+          "current": {
+            "games": 200,
+            "alive": 101
+          },
+          "reference": {
+            "games": 200,
+            "alive": 92
+          }
+        },
+        "dantes": {
+          "current": {
+            "games": 200,
+            "alive": 147
+          },
+          "reference": {
+            "games": 200,
+            "alive": 87
+          }
+        },
+        "tuma": {
+          "current": {
+            "games": 160,
+            "alive": 91
+          },
+          "reference": {
+            "games": 160,
+            "alive": 65
+          }
+        },
+        "reindila": {
+          "current": {
+            "games": 120,
+            "alive": 59
+          },
+          "reference": {
+            "games": 120,
+            "alive": 20
+          }
+        },
+        "kaspa": {
+          "current": {
+            "games": 80,
+            "alive": 41
+          },
+          "reference": {
+            "games": 80,
+            "alive": 36
+          }
+        },
+        "sephy": {
+          "current": {
+            "games": 40,
+            "alive": 15
+          },
+          "reference": {
+            "games": 40,
+            "alive": 2
+          }
+        }
+      },
+      "minutes": {
+        "median": 9.94,
+        "p90": 14.29,
+        "max": 21.64
+      },
+      "unfinished": [],
+      "pairedScores": [
+        {
+          "seed": 3000,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3001,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3002,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3003,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3004,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3005,
+          "count": 8,
+          "score": 1
+        },
+        {
+          "seed": 3006,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3007,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3008,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3009,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3010,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3011,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3012,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3013,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3014,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3015,
+          "count": 8,
+          "score": 0.25
+        },
+        {
+          "seed": 3016,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3017,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3018,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3019,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3020,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3021,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3022,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3023,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3024,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3025,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3026,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3027,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3028,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3029,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3030,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3031,
+          "count": 9,
+          "score": 0.25
+        },
+        {
+          "seed": 3032,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3033,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3034,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3035,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3036,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3037,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3038,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3039,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3040,
+          "count": 8,
+          "score": 0.25
+        },
+        {
+          "seed": 3041,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3042,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3043,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3044,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3045,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3046,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3047,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3048,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3049,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3050,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3051,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3052,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3053,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3054,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3055,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3056,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3057,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3058,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3059,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3060,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3061,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3062,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3063,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3064,
+          "count": 12,
+          "score": 0.25
+        },
+        {
+          "seed": 3065,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3066,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3067,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3068,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3069,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3070,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3071,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3072,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3073,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3074,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3075,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3076,
+          "count": 9,
+          "score": 0.25
+        },
+        {
+          "seed": 3077,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3078,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3079,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3080,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3081,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3082,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3083,
+          "count": 11,
+          "score": 0.25
+        },
+        {
+          "seed": 3084,
+          "count": 12,
+          "score": 0.25
+        },
+        {
+          "seed": 3085,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3086,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3087,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3088,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3089,
+          "count": 12,
+          "score": 0.25
+        },
+        {
+          "seed": 3090,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3091,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3092,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3093,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3094,
+          "count": 12,
+          "score": 0.25
+        },
+        {
+          "seed": 3095,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3096,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3097,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3098,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3099,
+          "count": 12,
+          "score": 0.5
+        }
+      ]
+    },
+    "primordial": {
+      "games": 400,
+      "seeds": 100,
+      "wins": {
+        "current": 301,
+        "reference": 99,
+        "unfinished": 0
+      },
+      "sideWins": {
+        "1": 223,
+        "2": 177
+      },
+      "currentScore": 0.7525,
+      "seedBootstrap95": [
+        0.7125,
+        0.7925
+      ],
+      "byCurrentSide": {
+        "1": {
+          "games": 200,
+          "wins": 162,
+          "unfinished": 0
+        },
+        "2": {
+          "games": 200,
+          "wins": 139,
+          "unfinished": 0
+        }
+      },
+      "byOrder": {
+        "forward": {
+          "games": 200,
+          "wins": 155,
+          "unfinished": 0
+        },
+        "reversed": {
+          "games": 200,
+          "wins": 146,
+          "unfinished": 0
+        }
+      },
+      "stats": {
+        "current": {
+          "attempted": 16447,
+          "accepted": 16447,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        },
+        "reference": {
+          "attempted": 17142,
+          "accepted": 17142,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        }
+      },
+      "survival": {
+        "eltas": {
+          "current": {
+            "games": 200,
+            "alive": 139
+          },
+          "reference": {
+            "games": 200,
+            "alive": 38
+          }
+        },
+        "kilder": {
+          "current": {
+            "games": 200,
+            "alive": 90
+          },
+          "reference": {
+            "games": 200,
+            "alive": 36
+          }
+        },
+        "drakan": {
+          "current": {
+            "games": 200,
+            "alive": 100
+          },
+          "reference": {
+            "games": 200,
+            "alive": 37
+          }
+        },
+        "eoril": {
+          "current": {
+            "games": 200,
+            "alive": 74
+          },
+          "reference": {
+            "games": 200,
+            "alive": 79
+          }
+        },
+        "kane": {
+          "current": {
+            "games": 200,
+            "alive": 141
+          },
+          "reference": {
+            "games": 200,
+            "alive": 39
+          }
+        },
+        "hermilly": {
+          "current": {
+            "games": 160,
+            "alive": 85
+          },
+          "reference": {
+            "games": 160,
+            "alive": 39
+          }
+        },
+        "nukelius": {
+          "current": {
+            "games": 200,
+            "alive": 2
+          },
+          "reference": {
+            "games": 200,
+            "alive": 13
+          }
+        },
+        "rael": {
+          "current": {
+            "games": 200,
+            "alive": 148
+          },
+          "reference": {
+            "games": 200,
+            "alive": 45
+          }
+        },
+        "sasint": {
+          "current": {
+            "games": 160,
+            "alive": 73
+          },
+          "reference": {
+            "games": 160,
+            "alive": 28
+          }
+        },
+        "tachin": {
+          "current": {
+            "games": 160,
+            "alive": 123
+          },
+          "reference": {
+            "games": 160,
+            "alive": 103
+          }
+        },
+        "kumarin": {
+          "current": {
+            "games": 80,
+            "alive": 65
+          },
+          "reference": {
+            "games": 80,
+            "alive": 51
+          }
+        },
+        "consume": {
+          "current": {
+            "games": 40,
+            "alive": 20
+          },
+          "reference": {
+            "games": 40,
+            "alive": 10
+          }
+        }
+      },
+      "minutes": {
+        "median": 10.54,
+        "p90": 15.57,
+        "max": 20.26
+      },
+      "unfinished": [],
+      "pairedScores": [
+        {
+          "seed": 3000,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3001,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3002,
+          "count": 10,
+          "score": 0.25
+        },
+        {
+          "seed": 3003,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3004,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3005,
+          "count": 8,
+          "score": 1
+        },
+        {
+          "seed": 3006,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3007,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3008,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3009,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3010,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3011,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3012,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3013,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3014,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3015,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3016,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3017,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3018,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3019,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3020,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3021,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3022,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3023,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3024,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3025,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3026,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3027,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3028,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3029,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3030,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3031,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3032,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3033,
+          "count": 11,
+          "score": 0.25
+        },
+        {
+          "seed": 3034,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3035,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3036,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3037,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3038,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3039,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3040,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3041,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3042,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3043,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3044,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3045,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3046,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3047,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3048,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3049,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3050,
+          "count": 8,
+          "score": 0.25
+        },
+        {
+          "seed": 3051,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3052,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3053,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3054,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3055,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3056,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3057,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3058,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3059,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3060,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3061,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3062,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3063,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3064,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3065,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3066,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3067,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3068,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3069,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3070,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3071,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3072,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3073,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3074,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3075,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3076,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3077,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3078,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3079,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3080,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3081,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3082,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3083,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3084,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3085,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3086,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3087,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3088,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3089,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3090,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3091,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3092,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3093,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3094,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3095,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3096,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3097,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3098,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3099,
+          "count": 12,
+          "score": 0.75
+        }
+      ]
+    },
+    "lidellut": {
+      "games": 400,
+      "seeds": 100,
+      "wins": {
+        "current": 213,
+        "reference": 187,
+        "unfinished": 0
+      },
+      "sideWins": {
+        "1": 181,
+        "2": 219
+      },
+      "currentScore": 0.5325,
+      "seedBootstrap95": [
+        0.4925,
+        0.5725
+      ],
+      "byCurrentSide": {
+        "1": {
+          "games": 200,
+          "wins": 97,
+          "unfinished": 0
+        },
+        "2": {
+          "games": 200,
+          "wins": 116,
+          "unfinished": 0
+        }
+      },
+      "byOrder": {
+        "forward": {
+          "games": 200,
+          "wins": 107,
+          "unfinished": 0
+        },
+        "reversed": {
+          "games": 200,
+          "wins": 106,
+          "unfinished": 0
+        }
+      },
+      "stats": {
+        "current": {
+          "attempted": 15914,
+          "accepted": 15758,
+          "rejected": 156,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {
+            "kinship_chizuko": 10,
+            "enemy_scan": 40,
+            "kinship_shining": 3,
+            "ally": 9,
+            "attack": 15,
+            "scan": 14,
+            "advanced_scan": 6,
+            "truth_gem": 31,
+            "loyal_servant": 5,
+            "battle_sense": 2,
+            "enemy_check": 11,
+            "burning_magic": 2,
+            "ally_check": 3,
+            "commander_search": 3,
+            "great_will": 1,
+            "dawn_mist": 1
+          }
+        },
+        "reference": {
+          "attempted": 17475,
+          "accepted": 17287,
+          "rejected": 188,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {
+            "ally": 59,
+            "truth_gem": 13,
+            "ally_check": 59,
+            "great_will": 6,
+            "loyal_servant": 13,
+            "advanced_scan": 6,
+            "dawn_mist": 15,
+            "scan": 1,
+            "kinship_chizuko": 3,
+            "charge_sense": 4,
+            "commander_search": 2,
+            "soul_reaver": 1,
+            "attack": 1,
+            "enemy_check": 4,
+            "ally_scan": 1
+          }
+        }
+      },
+      "survival": {
+        "shining": {
+          "current": {
+            "games": 200,
+            "alive": 102
+          },
+          "reference": {
+            "games": 200,
+            "alive": 73
+          }
+        },
+        "chizuko": {
+          "current": {
+            "games": 200,
+            "alive": 67
+          },
+          "reference": {
+            "games": 200,
+            "alive": 96
+          }
+        },
+        "yui": {
+          "current": {
+            "games": 200,
+            "alive": 71
+          },
+          "reference": {
+            "games": 200,
+            "alive": 67
+          }
+        },
+        "kaspa": {
+          "current": {
+            "games": 200,
+            "alive": 90
+          },
+          "reference": {
+            "games": 200,
+            "alive": 52
+          }
+        },
+        "arin": {
+          "current": {
+            "games": 200,
+            "alive": 78
+          },
+          "reference": {
+            "games": 200,
+            "alive": 67
+          }
+        },
+        "supra": {
+          "current": {
+            "games": 200,
+            "alive": 82
+          },
+          "reference": {
+            "games": 200,
+            "alive": 65
+          }
+        },
+        "freia": {
+          "current": {
+            "games": 200,
+            "alive": 85
+          },
+          "reference": {
+            "games": 200,
+            "alive": 43
+          }
+        },
+        "kai": {
+          "current": {
+            "games": 200,
+            "alive": 97
+          },
+          "reference": {
+            "games": 200,
+            "alive": 84
+          }
+        },
+        "loneris": {
+          "current": {
+            "games": 160,
+            "alive": 58
+          },
+          "reference": {
+            "games": 160,
+            "alive": 51
+          }
+        },
+        "tuma": {
+          "current": {
+            "games": 120,
+            "alive": 63
+          },
+          "reference": {
+            "games": 120,
+            "alive": 52
+          }
+        },
+        "kamikaze": {
+          "current": {
+            "games": 80,
+            "alive": 37
+          },
+          "reference": {
+            "games": 80,
+            "alive": 35
+          }
+        },
+        "sepi": {
+          "current": {
+            "games": 40,
+            "alive": 23
+          },
+          "reference": {
+            "games": 40,
+            "alive": 13
+          }
+        }
+      },
+      "minutes": {
+        "median": 8.66,
+        "p90": 12.32,
+        "max": 17.96
+      },
+      "unfinished": [],
+      "pairedScores": [
+        {
+          "seed": 3000,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3001,
+          "count": 9,
+          "score": 0.25
+        },
+        {
+          "seed": 3002,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3003,
+          "count": 11,
+          "score": 0.25
+        },
+        {
+          "seed": 3004,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3005,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3006,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3007,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3008,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3009,
+          "count": 12,
+          "score": 0.25
+        },
+        {
+          "seed": 3010,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3011,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3012,
+          "count": 10,
+          "score": 0
+        },
+        {
+          "seed": 3013,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3014,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3015,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3016,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3017,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3018,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3019,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3020,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3021,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3022,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3023,
+          "count": 11,
+          "score": 0
+        },
+        {
+          "seed": 3024,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3025,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3026,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3027,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3028,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3029,
+          "count": 12,
+          "score": 0.25
+        },
+        {
+          "seed": 3030,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3031,
+          "count": 9,
+          "score": 0.25
+        },
+        {
+          "seed": 3032,
+          "count": 10,
+          "score": 0.25
+        },
+        {
+          "seed": 3033,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3034,
+          "count": 12,
+          "score": 0.25
+        },
+        {
+          "seed": 3035,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3036,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3037,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3038,
+          "count": 11,
+          "score": 0.25
+        },
+        {
+          "seed": 3039,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3040,
+          "count": 8,
+          "score": 0.25
+        },
+        {
+          "seed": 3041,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3042,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3043,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3044,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3045,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3046,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3047,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3048,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3049,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3050,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3051,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3052,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3053,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3054,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3055,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3056,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3057,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3058,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3059,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3060,
+          "count": 8,
+          "score": 0.25
+        },
+        {
+          "seed": 3061,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3062,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3063,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3064,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3065,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3066,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3067,
+          "count": 10,
+          "score": 0.25
+        },
+        {
+          "seed": 3068,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3069,
+          "count": 12,
+          "score": 0.25
+        },
+        {
+          "seed": 3070,
+          "count": 8,
+          "score": 0.25
+        },
+        {
+          "seed": 3071,
+          "count": 9,
+          "score": 0.25
+        },
+        {
+          "seed": 3072,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3073,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3074,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3075,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3076,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3077,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3078,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3079,
+          "count": 12,
+          "score": 0.25
+        },
+        {
+          "seed": 3080,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3081,
+          "count": 9,
+          "score": 0.25
+        },
+        {
+          "seed": 3082,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3083,
+          "count": 11,
+          "score": 0.25
+        },
+        {
+          "seed": 3084,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3085,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3086,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3087,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3088,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3089,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3090,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3091,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3092,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3093,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3094,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3095,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3096,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3097,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3098,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3099,
+          "count": 12,
+          "score": 0.5
+        }
+      ]
+    },
+    "troll": {
+      "games": 400,
+      "seeds": 100,
+      "wins": {
+        "current": 245,
+        "reference": 155,
+        "unfinished": 0
+      },
+      "sideWins": {
+        "1": 163,
+        "2": 237
+      },
+      "currentScore": 0.6125,
+      "seedBootstrap95": [
+        0.57,
+        0.65
+      ],
+      "byCurrentSide": {
+        "1": {
+          "games": 200,
+          "wins": 104,
+          "unfinished": 0
+        },
+        "2": {
+          "games": 200,
+          "wins": 141,
+          "unfinished": 0
+        }
+      },
+      "byOrder": {
+        "forward": {
+          "games": 200,
+          "wins": 119,
+          "unfinished": 0
+        },
+        "reversed": {
+          "games": 200,
+          "wins": 126,
+          "unfinished": 0
+        }
+      },
+      "stats": {
+        "current": {
+          "attempted": 15710,
+          "accepted": 15710,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        },
+        "reference": {
+          "attempted": 20438,
+          "accepted": 20438,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        }
+      },
+      "survival": {
+        "deka": {
+          "current": {
+            "games": 200,
+            "alive": 141
+          },
+          "reference": {
+            "games": 200,
+            "alive": 96
+          }
+        },
+        "neonis": {
+          "current": {
+            "games": 200,
+            "alive": 89
+          },
+          "reference": {
+            "games": 200,
+            "alive": 135
+          }
+        },
+        "kanulla": {
+          "current": {
+            "games": 200,
+            "alive": 62
+          },
+          "reference": {
+            "games": 200,
+            "alive": 56
+          }
+        },
+        "zwinra": {
+          "current": {
+            "games": 200,
+            "alive": 89
+          },
+          "reference": {
+            "games": 200,
+            "alive": 38
+          }
+        },
+        "satoshi": {
+          "current": {
+            "games": 200,
+            "alive": 92
+          },
+          "reference": {
+            "games": 200,
+            "alive": 50
+          }
+        },
+        "kazrow": {
+          "current": {
+            "games": 200,
+            "alive": 130
+          },
+          "reference": {
+            "games": 200,
+            "alive": 130
+          }
+        },
+        "tokra": {
+          "current": {
+            "games": 200,
+            "alive": 92
+          },
+          "reference": {
+            "games": 200,
+            "alive": 91
+          }
+        },
+        "chis": {
+          "current": {
+            "games": 200,
+            "alive": 175
+          },
+          "reference": {
+            "games": 200,
+            "alive": 190
+          }
+        },
+        "hachi": {
+          "current": {
+            "games": 80,
+            "alive": 56
+          },
+          "reference": {
+            "games": 80,
+            "alive": 44
+          }
+        },
+        "uldian": {
+          "current": {
+            "games": 120,
+            "alive": 58
+          },
+          "reference": {
+            "games": 120,
+            "alive": 21
+          }
+        },
+        "ulpian": {
+          "current": {
+            "games": 120,
+            "alive": 55
+          },
+          "reference": {
+            "games": 120,
+            "alive": 55
+          }
+        },
+        "seirow": {
+          "current": {
+            "games": 80,
+            "alive": 47
+          },
+          "reference": {
+            "games": 80,
+            "alive": 52
+          }
+        }
+      },
+      "minutes": {
+        "median": 9.3,
+        "p90": 15.32,
+        "max": 31.09
+      },
+      "unfinished": [],
+      "pairedScores": [
+        {
+          "seed": 3000,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3001,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3002,
+          "count": 10,
+          "score": 0.25
+        },
+        {
+          "seed": 3003,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3004,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3005,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3006,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3007,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3008,
+          "count": 11,
+          "score": 1
+        },
+        {
+          "seed": 3009,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3010,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3011,
+          "count": 9,
+          "score": 0.25
+        },
+        {
+          "seed": 3012,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3013,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3014,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3015,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3016,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3017,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3018,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3019,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3020,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3021,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3022,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3023,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3024,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3025,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3026,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3027,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3028,
+          "count": 11,
+          "score": 0.25
+        },
+        {
+          "seed": 3029,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3030,
+          "count": 8,
+          "score": 0.25
+        },
+        {
+          "seed": 3031,
+          "count": 9,
+          "score": 0.25
+        },
+        {
+          "seed": 3032,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3033,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3034,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3035,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3036,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3037,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3038,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3039,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3040,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3041,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3042,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3043,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3044,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3045,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3046,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3047,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3048,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3049,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3050,
+          "count": 8,
+          "score": 0.25
+        },
+        {
+          "seed": 3051,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3052,
+          "count": 10,
+          "score": 0.25
+        },
+        {
+          "seed": 3053,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3054,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3055,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3056,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3057,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3058,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3059,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3060,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3061,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3062,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3063,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3064,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3065,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3066,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3067,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3068,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3069,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3070,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3071,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3072,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3073,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3074,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3075,
+          "count": 8,
+          "score": 0.5
+        },
+        {
+          "seed": 3076,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3077,
+          "count": 10,
+          "score": 1
+        },
+        {
+          "seed": 3078,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3079,
+          "count": 12,
+          "score": 0.75
+        },
+        {
+          "seed": 3080,
+          "count": 8,
+          "score": 1
+        },
+        {
+          "seed": 3081,
+          "count": 9,
+          "score": 1
+        },
+        {
+          "seed": 3082,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3083,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3084,
+          "count": 12,
+          "score": 0.25
+        },
+        {
+          "seed": 3085,
+          "count": 8,
+          "score": 0.25
+        },
+        {
+          "seed": 3086,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3087,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3088,
+          "count": 11,
+          "score": 0
+        },
+        {
+          "seed": 3089,
+          "count": 12,
+          "score": 1
+        },
+        {
+          "seed": 3090,
+          "count": 8,
+          "score": 0.25
+        },
+        {
+          "seed": 3091,
+          "count": 9,
+          "score": 0.75
+        },
+        {
+          "seed": 3092,
+          "count": 10,
+          "score": 0.5
+        },
+        {
+          "seed": 3093,
+          "count": 11,
+          "score": 0.5
+        },
+        {
+          "seed": 3094,
+          "count": 12,
+          "score": 0.5
+        },
+        {
+          "seed": 3095,
+          "count": 8,
+          "score": 0.75
+        },
+        {
+          "seed": 3096,
+          "count": 9,
+          "score": 0.5
+        },
+        {
+          "seed": 3097,
+          "count": 10,
+          "score": 0.75
+        },
+        {
+          "seed": 3098,
+          "count": 11,
+          "score": 0.75
+        },
+        {
+          "seed": 3099,
+          "count": 12,
+          "score": 1
+        }
+      ]
+    }
+  }
+}

@@ -62,6 +62,16 @@ export function probabilityOf(belief: AssignmentBelief, player: PlayerId, charac
  * 성공 때 여러 변장 후보가 남는 경우도 세계별 성공 조건에 포함한다.
  */
 export function checkInformation(view: PlayerView, belief: AssignmentBelief, player: PlayerId, skill: string, name?: CharKey): number {
+  // 보석은 지휘관 둘을 구별하지 않는다. 혼돈의 주술은 살아 있는 반란자만 정체를 준다.
+  if (skill === 'truth_gem' || skill === 'chaos_hex') {
+    const outcomes = new Map<string, number>();
+    for (const [c, mass] of belief.probabilities.get(player) ?? []) {
+      const role = view.roster.find((r) => r.key === c)!;
+      const outcome = skill === 'truth_gem' ? role.commander ? '#commander' : c : role.side === 2 ? c : '#no-result';
+      outcomes.set(outcome, (outcomes.get(outcome) ?? 0) + mass);
+    }
+    return [...outcomes.values()].reduce((h, mass) => h + (mass > 1e-12 && mass < 1 - 1e-12 ? -mass * Math.log2(mass) : 0), 0);
+  }
   const target = view.players.find((p) => p.id === player)!;
   let success = 0;
   for (const [c, mass] of belief.probabilities.get(player) ?? []) {
