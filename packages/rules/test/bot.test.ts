@@ -1,12 +1,12 @@
 // 똑똑한 봇: 아는 정보만 쓰고, 판을 끝까지 끌고 가며, 초반에 자살 공격을 하지 않는다
 import { describe, expect, it } from 'vitest';
-import { advance, applyAction, botKnowledge, createGame, eventsFor, smartBotAction, viewFor } from '../src/index.js';
+import { advance, applyAction, botKnowledge, createBotMemory, createGame, smartBotAction, viewFor } from '../src/index.js';
 
 const MODES = ['civil_war', 'primordial', 'lidellut', 'troll'] as const;
 function play(seed: number, n: number, mode: (typeof MODES)[number] = 'civil_war') {
   const players = Array.from({ length: n }, (_, k) => ({ id: `p${k + 1}`, nickname: `봇${k + 1}` }));
   const { state } = createGame({ mode, players, seed, now: 0 });
-  const mem = { rng: seed * 7 };
+  const memories = new Map(players.map((p, k) => [p.id, createBotMemory(seed * 7 + k * 997)]));
   let now = 0;
   let rejected = 0;
   let actions = 0;
@@ -14,7 +14,7 @@ function play(seed: number, n: number, mode: (typeof MODES)[number] = 'civil_war
     now += 250;
     advance(state, now);
     for (const p of state.players) {
-      const a = smartBotAction(state, p.id, mem, { activity: 0.012 });
+      const a = smartBotAction(state, p.id, memories.get(p.id)!, { activity: 0.012 });
       if (!a) continue;
       actions++;
       if (!applyAction(state, p.id, a, now).ok) rejected++;
@@ -50,25 +50,26 @@ describe('똑똑한 봇', () => {
   it('봇의 지식은 자기가 볼 수 있는 이벤트와 공개 정보로만 이루어진다', () => {
     const players = Array.from({ length: 10 }, (_, k) => ({ id: `p${k + 1}`, nickname: `봇${k + 1}` }));
     const { state } = createGame({ mode: 'civil_war', players, seed: 31, now: 0 });
-    const mem = { rng: 3 };
+    const memories = new Map(players.map((p, k) => [p.id, createBotMemory(3 + k * 997)]));
     let now = 0;
     while (state.phase === 'running' && now < 20 * 60 * 1000) {
       now += 250;
       advance(state, now);
       for (const p of state.players) {
-        const a = smartBotAction(state, p.id, mem, { activity: 0.03 });
+        const a = smartBotAction(state, p.id, memories.get(p.id)!, { activity: 0.03 });
         if (a) applyAction(state, p.id, a, now);
       }
       if (now % 30000 === 0) {
         for (const p of state.players) {
           const view = viewFor(state, p.id);
-          const k = botKnowledge(state, p.id, view);
-          const visible = eventsFor(state, p.id);
+          const k = botKnowledge(state, p.id, view, memories.get(p.id)!);
+          expect(k).toEqual(botKnowledge(state, p.id, view)); // 증분 기억과 전체 관찰 재계산 일치
           for (const [id, c] of k.known) {
             const target = state.players.find((x) => x.id === id)!;
             expect(c, `${p.id} thinks ${id} is ${c}`).toBe(target.character);
-            const justified = view.players.some((v) => v.id === id && v.revealed === c) || visible.some((e) => e.facts?.some((f) => f.player === id && f.character === c));
-            expect(justified, `${p.id} knows ${id}=${c} without evidence`).toBe(true);
+          }
+          for (const [id, candidates] of k.candidates) {
+            expect(candidates, `${p.id} excluded actual identity of ${id}`).toContain(state.players.find((x) => x.id === id)!.character);
           }
         }
       }
