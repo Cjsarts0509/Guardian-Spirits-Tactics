@@ -6,6 +6,8 @@ import { randomInt, nextRandom } from './rng.js';
 import type { Action, CharKey, GameState, PlayerId } from './types.js';
 import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
 import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from './bot-memory.js';
+import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
+import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
 export type { BotMemory, Knowledge } from './bot-memory.js';
 
 export interface BotOptions {
@@ -107,7 +109,7 @@ const PROBES: Record<string, CharKey> = {
   neviathan_avatar: 'kanulla',
 };
 /** 이 이름을 공표한 대상에게는 쓸 수 없는 탐색 (황야 돌격 감각) */
-const PROBE_EXCLUDES_PUBLISHED: Record<string, CharKey[]> = { charge_sense: ['tuma', 'kamikaze'] };
+const PROBE_EXCLUDES_PUBLISHED: Record<string, CharKey[]> = { charge_sense: ['tuma', 'kamikaze'], kilder_casanova: ['kilder'], warrior_scent: ['tuma', 'kelhu'] };
 /** 천사의 세례 대상 (기사) */
 const KNIGHTS: CharKey[] = ['yui', 'loneris', 'supra'];
 /** 죽으면 자기 진영이 패배 조건에 가까워지는 캐릭터: 추측 공격을 더 조심한다 */
@@ -148,7 +150,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   if (nextRandom(mem) > (opts.activity ?? 0.5)) return null;
 
   const view = viewFor(state, playerId);
-  const { known, candidates } = botKnowledge(state, playerId, view, mem);
+  const knowledge = botKnowledge(state, playerId, view, mem);
+  const { known, candidates } = knowledge;
+  const belief = assignmentBelief(view, knowledge, mem);
   const me = view.me;
   const elapsed = view.elapsedMs;
   const sideOf = new Map(view.roster.map((r) => [r.key, r.side]));
@@ -176,6 +180,19 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   });
   const unknown = alive.filter((p) => !known.has(p.id));
   const claimsSide = (p: { published: CharKey | null }, side: number) => p.published !== null && sideOf.get(p.published) === side;
+  const massOf = (id: PlayerId, c: CharKey) => belief.consistent ? probabilityOf(belief, id, c) :
+    candidates.get(id)?.includes(c) ? 1 / candidates.get(id)!.length : 0;
+  const sideMass = (id: PlayerId, side: number) => (candidates.get(id) ?? []).filter((c) => sideOf.get(c) === side).reduce((sum, c) => sum + massOf(id, c), 0);
+  const likelyName = (id: PlayerId, names: CharKey[]) => names.slice().sort((a, b) => massOf(id, b) - massOf(id, a))[0];
+  const bestCheck = (skill: string, pool: typeof unknown) => pool.slice().sort((a, b) =>
+    checkInformation(view, belief, b.id, skill) - checkInformation(view, belief, a.id, skill),
+  )[0];
+
+  // 필요한 진명 스킬을 공표로 열어 둔다. 지휘관도 역할상 필요하면 예외다.
+  const publish = usable.get('publish');
+  if (publish && !me.trueName && (wantsTrueName(view) || mem.perception!.trueNameUntil > elapsed) && publish.nameOptions?.includes(me.character)) {
+    return act(publish, undefined, me.character);
+  }
 
   // 1) 확실한 처치: 정체를 아는 적 (지휘관 우선)
   knownEnemies.sort((a, b) => Number(!!isCommander.get(known.get(b.id)!)) - Number(!!isCommander.get(known.get(a.id)!)));
@@ -214,7 +231,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   // 백스탭: 나에게 동맹을 건 적 (또는 적 진영 이름을 공표한 사람)
   const backstab = usable.get('backstab');
   if (backstab) {
-    const t = alive.find((p) => me.alliedBy.includes(p.id) && (known.has(p.id) ? enemy(known.get(p.id)!) : claimsSide(p, me.side === 1 ? 2 : 1)));
+    const t = alive.find((p) => me.alliedBy.includes(p.id) && (known.has(p.id) ? enemy(known.get(p.id)!) : sideMass(p.id, me.side) <= 0.25));
     if (t) return act(backstab, t.id);
   }
   // 아군에게 거는 조건부 스킬: 정체를 알거나, 그 이름을 공표한 사람이 있으면 (적 이름을 공표한 사람은 제외)
@@ -246,7 +263,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   if (chivalry && nextRandom(mem) < 0.5) {
     const knightClaim = (p: { published: CharKey | null }) => p.published !== null && KNIGHTS.includes(p.published);
     const t =
-      alive.find((p) => KNIGHTS.includes(known.get(p.id)!) && (me.trueName || knightClaim(p))) ??
+      alive.find((p) => KNIGHTS.includes(known.get(p.id)!) && claimCheckSucceeds(view, 'chivalry', known.get(p.id)!, p.published)) ??
       alive.find((p) => !known.has(p.id) && knightClaim(p) && (candidates.get(p.id) ?? []).includes(p.published!));
     if (t) return act(chivalry, t.id);
   }
@@ -306,20 +323,21 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     const s = usable.get(k);
     if (!s || nextRandom(mem) > 0.25) continue;
     const cmd = alive.find((p) => p.revealed && !enemy(p.revealed) && isCommander.get(p.revealed));
-    const t = cmd ?? pick(alive.filter((p) => (known.has(p.id) ? !enemy(known.get(p.id)!) : claimsSide(p, me.side))));
+    const t = cmd ?? pick(alive.filter((p) => (known.has(p.id) ? !enemy(known.get(p.id)!) : sideMass(p.id, me.side) >= 0.75)));
     if (t) return act(s, t.id);
   }
 
   // 2) 공표. 지휘관은 진명을 숨기고, 나머지는 대체로 진명(턴 마나·진실의 조각). 가짜로 시작했어도 나중에 진명으로 바꾼다
-  const publish = usable.get('publish');
   if (publish) {
     const commander = !!isCommander.get(me.character);
     const own = view.roster.filter((r) => r.inGame && r.side === me.side && !r.commander && r.key !== me.character).map((r) => r.key);
     if (me.published === null) {
-      const honest = !commander && nextRandom(mem) < 0.75;
-      const name = honest ? me.character : (pick(own) ?? me.character);
+      const disguise = me.skills.some((s) => s.key === 'disguise');
+      const honest = !commander && !disguise && nextRandom(mem) < 0.75;
+      const decoys = disguise ? view.roster.filter((r) => r.inGame && r.side !== me.side && !r.commander).map((r) => r.key) : own;
+      const name = honest ? me.character : (pick(decoys) ?? me.character);
       if (publish.nameOptions?.includes(name)) return act(publish, undefined, name);
-    } else if (!commander && !me.trueName && elapsed > 3 * MIN && nextRandom(mem) < 0.15 && publish.nameOptions?.includes(me.character)) {
+    } else if (!commander && !me.trueName && !me.skills.some((s) => s.key === 'disguise') && elapsed > 3 * MIN && nextRandom(mem) < 0.15 && publish.nameOptions?.includes(me.character)) {
       return act(publish, undefined, me.character);
     }
   }
@@ -338,13 +356,13 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     const enemyClaim = unknown.filter((p) => claimsSide(p, me.side === 1 ? 2 : 1));
     for (const k of ['advanced_ally_check', 'ally_check'] as const) {
       const s = usable.get(k);
-      const t = s && pick(allyClaim);
-      if (s && t) return act(s, t.id);
+      const t = s && bestCheck(k, allyClaim);
+      if (s && t && checkInformation(view, belief, t.id, k) > 0) return act(s, t.id);
     }
     for (const k of ['advanced_enemy_check', 'enemy_check'] as const) {
       const s = usable.get(k);
-      const t = s && pick(enemyClaim);
-      if (s && t) return act(s, t.id);
+      const t = s && bestCheck(k, enemyClaim);
+      if (s && t && checkInformation(view, belief, t.id, k) > 0) return act(s, t.id);
     }
     for (const [k, want] of Object.entries(PROBES)) {
       const s = usable.get(k);
@@ -357,14 +375,16 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     for (const k of ['advanced_scan', 'scan', 'ally_scan', 'enemy_scan', 'troll_scan', 'troll_ally_scan', 'troll_enemy_scan'] as const) {
       const s = usable.get(k);
       if (!s?.nameOptions) continue;
-      const t = pick(unknown);
-      const options = t ? (candidates.get(t.id) ?? []).filter((c) => s.nameOptions!.includes(c)) : [];
-      const name = t && (t.published && options.includes(t.published) ? t.published : pick(options));
-      if (t && name) return act(s, t.id, name);
+      const choices = unknown.flatMap((p) => (candidates.get(p.id) ?? []).filter((c) => s.nameOptions!.includes(c))
+        .map((name) => ({ p, name, information: checkInformation(view, belief, p.id, k, name) })));
+      choices.sort((a, b) => b.information - a.information);
+      const choice = choices[0];
+      if (choice && choice.information > 0) return act(s, choice.p.id, choice.name);
     }
     for (const k of INFO) {
       const s = usable.get(k);
-      const t = s && pick(unknown);
+      const excludes = PROBE_EXCLUDES_PUBLISHED[k];
+      const t = s && pick(unknown.filter((p) => !p.published || !excludes?.includes(p.published)));
       if (s && t) return act(s, t.id);
     }
     const lp = usable.get('libido_priestess');
@@ -387,7 +407,8 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const toBreak = breakAlly && alive.find((p) => me.allies.includes(p.id) && known.has(p.id) && enemy(known.get(p.id)!));
   if (breakAlly && toBreak) return act(breakAlly, toBreak.id);
   if (ally && roll >= 0.85) {
-    const friends = alive.filter((p) => !me.allies.includes(p.id) && (known.has(p.id) ? !enemy(known.get(p.id)!) : claimsSide(p, me.side)));
+    const friends = alive.filter((p) => !me.allies.includes(p.id) && (known.has(p.id) ? !enemy(known.get(p.id)!) :
+      sideMass(p.id, me.side) >= 0.75 && (view.mode !== 'civil_war' || massOf(p.id, 'soen') <= 0.05)));
     const t = pick(friends);
     if (t) return act(ally, t.id);
   }
@@ -401,13 +422,13 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
         const all = candidates.get(p.id) ?? [];
         const c = all.filter((k) => attackable(k));
         // 적일 가능성: 후보 중 공격 가능한 적의 비율. 아군일 가능성이 높으면 건드리지 않는다
-        return { p, all, c, enemyRatio: all.length ? c.length / all.length : 0 };
+        return { p, all, c, enemyRatio: c.reduce((sum, k) => sum + massOf(p.id, k), 0) };
       })
       .filter((x) => x.c.length > 0 && x.enemyRatio >= 0.5 && x.all.length <= guessLimit);
     targets.sort((a, b) => a.all.length - b.all.length || b.enemyRatio - a.enemyRatio || (lastAttackFailure.get(a.p.id) ?? -1) - (lastAttackFailure.get(b.p.id) ?? -1));
     const t = targets[0];
     if (t) {
-      const name = t.p.published && t.c.includes(t.p.published) ? t.p.published : pick(t.c)!;
+      const name = likelyName(t.p.id, t.c)!;
       const supreme = usable.get('supreme_attack');
       if (supreme?.nameOptions?.includes(name)) return act(supreme, t.p.id, name);
       // 자기 진영의 패배 조건에 들어가는 캐릭터(트롤 사토시·즈윈라·울디안, 황야 기사단)는 후보가 좁을 때만 건다

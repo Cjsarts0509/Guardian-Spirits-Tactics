@@ -1,5 +1,6 @@
 import type { CharKey, GameEvent, PlayerId } from './types.js';
 import type { PlayerView } from './engine/view.js';
+import type { AssignmentBelief } from './bot-belief.js';
 
 export interface Knowledge {
   /** 확정 정체. 변장 가능한 확인 결과는 포함하지 않는다. */
@@ -21,12 +22,15 @@ export interface BotPerception {
   chiefProtected: boolean;
   madnessPurged: boolean;
   lastAttackFailure: Map<PlayerId, number>;
+  automaticClaims: Set<PlayerId>;
+  trueNameUntil: number;
 }
 
 /** 한 판의 한 플레이어 전용. 서버 상태나 다른 봇의 기억을 보관하지 않는다. */
 export interface BotMemory {
   rng: number;
   perception?: BotPerception;
+  beliefCache?: { signature: string; value: AssignmentBelief };
 }
 
 export function createBotMemory(seed: number): BotMemory {
@@ -42,6 +46,7 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
       lastElapsedMs: view.elapsedMs, lastSeq: 0,
       known: new Map(), excluded: new Map(), alternatives: new Map(), commanders: new Set(),
       baptized: new Set(), chiefProtected: false, madnessPurged: false, lastAttackFailure: new Map(),
+      automaticClaims: new Set(), trueNameUntil: 0,
     };
   }
   for (const e of events) {
@@ -65,6 +70,12 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
     if (e.kind === 'skill.holy_binding.purge') p.madnessPurged = true;
     if (e.kind === 'skill.destroyer_guidance.madness') p.madnessPurged = false;
     if (e.kind === 'attack.fail.self' && typeof e.data?.target === 'string') p.lastAttackFailure.set(e.data.target, e.at);
+    if ((e.kind === 'publish' || e.kind === 'publish.auto') && typeof e.data?.player === 'string') {
+      if (e.kind === 'publish.auto') p.automaticClaims.add(e.data.player);
+      else p.automaticClaims.delete(e.data.player);
+    }
+    // 재접속 때도 안전하게 유지하도록 관찰 시점부터 최소 20초를 확보한다.
+    if (e.kind === 'skill.wild_path.self') p.trueNameUntil = view.elapsedMs + 20_000;
     p.lastSeq = e.seq;
   }
   p.lastElapsedMs = view.elapsedMs;
