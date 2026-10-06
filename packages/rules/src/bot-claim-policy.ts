@@ -39,3 +39,16 @@ export function adaptiveClaimName(view: PlayerView, knowledge: Knowledge, memory
   if (protectResources && !maintaining && preserveClaimResources(view)) return me.character;
   return decoys.includes(me.published ?? '') ? me.published! : decoys[0] ?? me.character;
 }
+
+/** 다음 턴 전에 진명 복귀를 시도할 시간을 남긴다. 호출 지연으로 복귀 성공을 보장하지는 않는다. */
+export function turnAwareClaimName(view: PlayerView, knowledge: Knowledge, memory: BotMemory): string {
+  const desired = adaptiveClaimName(view, knowledge, memory, 'entry-only');
+  if (desired === view.me.character) return desired;
+  const publish = view.me.skills.find((s) => s.key === 'publish');
+  if (!publish) return view.me.character;
+  const cooldownMs = publish.cooldown * 1000;
+  const maintaining = view.me.published === desired && memory.perception?.manualClaims.get(view.me.id)?.name === desired;
+  // 진입은 가명 유지와 진명 복귀 두 공표 구간을 확보했을 때만 한다.
+  if (view.nextTurnInMs <= cooldownMs * (maintaining ? 1 : 2)) return view.me.character;
+  return desired;
+}

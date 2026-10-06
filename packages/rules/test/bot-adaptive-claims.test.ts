@@ -2,10 +2,31 @@ import { describe, expect, it } from 'vitest';
 import { advance, botKnowledge, createBotMemory, smartBotAction, viewFor } from '../src/index.js';
 import { smartBotAction as previous } from '../scripts/baselines/pre-adaptive.js';
 import { fixtures, prepareMatch } from '../scripts/league-runner.js';
-import { adaptiveClaimName, observedClaimStyle, preserveClaimResources } from '../src/bot-claim-policy.js';
+import { adaptiveClaimName, observedClaimStyle, preserveClaimResources, turnAwareClaimName } from '../src/bot-claim-policy.js';
 import { civilTable, modeTable, PRIMORDIAL_ORDER } from './helpers.js';
 
 describe('관찰된 상대 공표 성향', () => {
+  it('턴 시점 정책은 공표 쿨다운 두 구간이 남을 때만 가명에 진입한다', () => {
+    const t = civilTable(); t.publish('kai', 'dantes'); t.publish('arin', 'kelhu');
+    t.state.revealed[t.id.kai!] = 'kai'; t.state.revealed[t.id.arin!] = 'arin';
+    const m = createBotMemory(10), v = viewFor(t.state, t.id.dantes!);
+    const k = botKnowledge(t.state, t.id.dantes!, v, m);
+    v.me.gem = 3; v.me.mana = v.me.maxMana;
+    const cooldown = v.me.skills.find((s) => s.key === 'publish')!.cooldown * 1000;
+    v.nextTurnInMs = cooldown * 2;
+    expect(turnAwareClaimName(v, k, m)).toBe('dantes');
+    v.nextTurnInMs++;
+    expect(turnAwareClaimName(v, k, m)).not.toBe('dantes');
+    v.me.published = 'mertz';
+    m.perception!.manualClaims.set(v.me.id, { name: 'mertz', at: v.elapsedMs });
+    v.nextTurnInMs = cooldown + 1;
+    expect(turnAwareClaimName(v, k, m)).toBe('mertz');
+    v.nextTurnInMs--;
+    expect(turnAwareClaimName(v, k, m)).toBe('dantes');
+    // 60초 턴에서는 40초 구간 두 개를 확보할 수 없다.
+    v.me.published = 'dantes'; v.nextTurnInMs = 60_000;
+    expect(turnAwareClaimName(v, k, m)).toBe('dantes');
+  });
   it('가명 진입 이후의 마나 하락만으로 공표를 왕복하지 않는다', () => {
     const t = civilTable(); t.publish('kai', 'dantes'); t.publish('arin', 'kelhu');
     t.state.revealed[t.id.kai!] = 'kai'; t.state.revealed[t.id.arin!] = 'arin';
