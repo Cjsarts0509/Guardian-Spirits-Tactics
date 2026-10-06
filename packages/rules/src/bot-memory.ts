@@ -1,6 +1,7 @@
 import type { CharKey, GameEvent, PlayerId } from './types.js';
 import type { PlayerView } from './engine/view.js';
 import type { AssignmentBelief } from './bot-belief.js';
+import { createBattleMemory, observeBattle, type BattleMemory, type SkillPlan } from './bot-tactics.js';
 
 export interface Knowledge {
   /** 확정 정체. 변장 가능한 확인 결과는 포함하지 않는다. */
@@ -24,6 +25,8 @@ export interface BotPerception {
   lastAttackFailure: Map<PlayerId, number>;
   automaticClaims: Set<PlayerId>;
   trueNameUntil: number;
+  battle: BattleMemory;
+  lastBurn?: { target: PlayerId; at: number };
 }
 
 /** 한 판의 한 플레이어 전용. 서버 상태나 다른 봇의 기억을 보관하지 않는다. */
@@ -31,6 +34,7 @@ export interface BotMemory {
   rng: number;
   perception?: BotPerception;
   beliefCache?: { signature: string; value: AssignmentBelief };
+  plan?: SkillPlan;
 }
 
 export function createBotMemory(seed: number): BotMemory {
@@ -41,16 +45,20 @@ export function createBotMemory(seed: number): BotMemory {
 export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[], memory: BotMemory): Knowledge {
   let p = memory.perception;
   if (!p || p.playerId !== view.me.id || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs) {
+    memory.plan = undefined;
     p = memory.perception = {
       playerId: view.me.id, mode: view.mode, character: view.me.character,
       lastElapsedMs: view.elapsedMs, lastSeq: 0,
       known: new Map(), excluded: new Map(), alternatives: new Map(), commanders: new Set(),
       baptized: new Set(), chiefProtected: false, madnessPurged: false, lastAttackFailure: new Map(),
       automaticClaims: new Set(), trueNameUntil: 0,
+      battle: createBattleMemory(),
     };
   }
   for (const e of events) {
     if (e.seq <= p.lastSeq || !(e.vis.to === 'all' || (e.vis.to === 'players' && e.vis.ids.includes(view.me.id)))) continue;
+    observeBattle(view, e, p.battle);
+    if (e.kind === 'skill.burning_magic.self' && typeof e.data?.target === 'string') p.lastBurn = { target: e.data.target, at: e.at };
     for (const f of e.facts ?? []) {
       if (f.player === view.me.id) continue;
       if (f.character) p.known.set(f.player, f.character);

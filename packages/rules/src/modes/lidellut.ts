@@ -273,6 +273,7 @@ const skills: Record<string, SkillDef> = {
       const tg = t(c);
       g.addMana(tg, -50);
       g.toAll('skill.burning_magic', '-세피가 누군가에게 버닝 매직을 시전하였습니다.');
+      g.toPlayer(c.actor, 'skill.burning_magic.self', '-비공개: 버닝 매직을 시전했습니다.', { target: tg.id });
       g.toPlayer(tg, 'skill.burning_magic.target', '-비공개: 버닝 매직으로 인하여 마나가 50 감소하였습니다.');
     },
   },

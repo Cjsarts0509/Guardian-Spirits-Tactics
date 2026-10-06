@@ -8,6 +8,7 @@ import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/vi
 import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from './bot-memory.js';
 import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
 import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
+import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
 export type { BotMemory, Knowledge } from './bot-memory.js';
 
 export interface BotOptions {
@@ -159,7 +160,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const isCommander = new Map(view.roster.map((r) => [r.key, r.commander]));
   const guards = GUARDS[view.mode] ?? {};
   const needs: Record<string, Need> = { ...NEEDS_COMMON, ...(NEEDS_MODE[view.mode] ?? {}) };
-  const { baptized, chiefProtected, madnessPurged, lastAttackFailure } = mem.perception!;
+  const { baptized, chiefProtected, madnessPurged, lastAttackFailure, battle } = mem.perception!;
   const deadChars = new Set(view.players.filter((p) => !p.alive && p.revealed).map((p) => p.revealed!));
   const living = view.players.filter((p) => p.alive && p.id !== playerId);
   const alive = living.filter((p) => !p.statuses.some((s) => s.kind === 'invulnerable'));
@@ -178,6 +179,12 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     const c = known.get(p.id);
     return c !== undefined && enemy(c);
   });
+  // 곧 돌아오는 확정 공격의 마나를 관계없는 확인·지원에 먼저 쓰지 않는다.
+  const reserve = Math.max(0, ...me.skills.filter((s) => NAME_ATTACKS.includes(s.key) &&
+    s.cooldownRemainingMs > 0 && s.cooldownRemainingMs <= 20_000 && me.mana >= s.mana &&
+    knownEnemies.some((p) => attackable(known.get(p.id)!) && s.nameOptions?.includes(known.get(p.id)!)),
+  ).map((s) => s.mana));
+  if (reserve) for (const [key, s] of usable) if (!NAME_ATTACKS.includes(key) && s.mana > me.mana - reserve) usable.delete(key);
   const unknown = alive.filter((p) => !known.has(p.id));
   const claimsSide = (p: { published: CharKey | null }, side: number) => p.published !== null && sideOf.get(p.published) === side;
   const massOf = (id: PlayerId, c: CharKey) => belief.consistent ? probabilityOf(belief, id, c) :
@@ -187,6 +194,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const bestCheck = (skill: string, pool: typeof unknown) => pool.slice().sort((a, b) =>
     checkInformation(view, belief, b.id, skill) - checkInformation(view, belief, a.id, skill),
   )[0];
+  const threat = (id: PlayerId) => (candidates.get(id) ?? []).reduce((sum, c) => sum + massOf(id, c) * roleThreat(view, battle, c), 0);
 
   // 필요한 진명 스킬을 공표로 열어 둔다. 지휘관도 역할상 필요하면 예외다.
   const publish = usable.get('publish');
@@ -195,16 +203,23 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   }
 
   // 1) 확실한 처치: 정체를 아는 적 (지휘관 우선)
-  knownEnemies.sort((a, b) => Number(!!isCommander.get(known.get(b.id)!)) - Number(!!isCommander.get(known.get(a.id)!)));
+  knownEnemies.sort((a, b) => Number(!!isCommander.get(known.get(b.id)!)) - Number(!!isCommander.get(known.get(a.id)!)) ||
+    threat(b.id) - threat(a.id) || estimatedHits(view, battle, known.get(a.id)!) - estimatedHits(view, battle, known.get(b.id)!));
   for (const p of knownEnemies) {
     const c = known.get(p.id)!;
+    // 흡수 계열 패시브가 있으면 처치 가능한 일반 공격으로 마나를 회수하고 1회 즉사기를 남긴다.
+    if (estimatedHits(view, battle, c) === 1 && attackable(c) && me.skills.some((s) =>
+      s.passive && ['essence_absorb', 'essence_drain', 'kilder_vampiric', 'eltas_bloody_heart'].includes(s.key))) {
+      const s = ATTACKS.map((k) => usable.get(k)).find((s) => s?.nameOptions?.includes(c));
+      if (s) return act(s, p.id, c);
+    }
     for (const [k, need] of Object.entries(needs)) {
       const s = usable.get(k);
-      if (s && !need.friendly && need.want.includes(c)) return act(s, p.id);
+      if (s && !need.friendly && need.want.includes(c) && !neutralizedSkill(view, battle, k, c)) return act(s, p.id);
     }
     for (const k of EXECUTES) {
       const s = usable.get(k);
-      if (s && (isCommander.get(c) || elapsed > 6 * MIN || s.usesLeft === null)) return act(s, p.id);
+      if (s && (isCommander.get(c) || estimatedHits(view, battle, c) > 1 || elapsed > 6 * MIN || s.usesLeft === null)) return act(s, p.id);
     }
     for (const k of STRIKES) {
       const s = usable.get(k);
@@ -226,6 +241,33 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     for (const k of ATTACKS) {
       const s = usable.get(k);
       if (s && s.nameOptions?.includes(c)) return act(s, p.id, c);
+    }
+  }
+  // 자기 시전 영수증이 제안한 대상·시점과 일치한 경우만 저주 연계를 이어 간다.
+  if (mem.plan) {
+    const plan = mem.plan;
+    const burn = mem.perception!.lastBurn;
+    if (plan.expires <= elapsed || !alive.some((p) => p.id === plan.target) || known.has(plan.target) ||
+      (plan.awaitingBurn && (!burn || burn.at < plan.startedAt || burn.target !== plan.target))) mem.plan = undefined;
+    else {
+      plan.awaitingBurn = false;
+      const curse = usable.get('curse');
+      if (curse) { mem.plan = undefined; return act(curse, plan.target); }
+      // 1차 연계에 남겨 둔 마나를 다른 스킬로 소모하지 않고 다음 결정까지 기다린다.
+      if (me.skills.some((s) => s.key === 'curse' && s.cooldownRemainingMs <= 10_000)) return null;
+      mem.plan = undefined;
+    }
+  }
+  const burning = usable.get('burning_magic');
+  const curse = me.skills.find((s) => s.key === 'curse');
+  if (burning && curse && !curse.passive && curse.cooldownRemainingMs <= 10_000 &&
+    me.mana >= burning.mana + curse.mana && (view.mode !== 'civil_war' || me.trueName)) {
+    // 저주는 지휘관의 진명 대신 지휘관 여부만 준다. 이미 안 지휘관을 재확인하지 않는다.
+    const target = unknown.filter((p) => !mem.perception!.commanders.has(p.id) && sideMass(p.id, me.side) <= 0.5)
+      .sort((a, b) => threat(b.id) - threat(a.id))[0];
+    if (target) {
+      mem.plan = { kind: 'burn_curse', target: target.id, expires: elapsed + 40_000, awaitingBurn: true, startedAt: elapsed };
+      return act(burning, target.id);
     }
   }
   // 백스탭: 나에게 동맹을 건 적 (또는 적 진영 이름을 공표한 사람)
@@ -273,11 +315,11 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       const s = usable.get(k);
       if (!s || need.friendly || need.knownOnly) continue;
       const t =
-        alive.find((p) => !known.has(p.id) && p.published !== null && need.want.includes(p.published) && (candidates.get(p.id) ?? []).includes(p.published)) ??
+        alive.find((p) => !known.has(p.id) && p.published !== null && need.want.includes(p.published) && !neutralizedSkill(view, battle, k, p.published) && (candidates.get(p.id) ?? []).includes(p.published)) ??
         (elapsed > 12 * MIN
           ? alive.find((p) => {
               const c = candidates.get(p.id) ?? [];
-              return !known.has(p.id) && c.length <= 2 && c.some((x) => need.want.includes(x));
+              return !known.has(p.id) && c.length <= 2 && c.some((x) => need.want.includes(x) && !neutralizedSkill(view, battle, k, x));
             })
           : undefined);
       if (t && nextRandom(mem) < 0.3) return act(s, t.id);
@@ -304,7 +346,8 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   }
   // 카즈로우 광폭화: 쿨다운 중인 스킬이 있을 때
   const berserk = usable.get('berserk_kazrow');
-  if (berserk && elapsed > 5 * MIN && me.skills.some((x) => x.cooldownRemainingMs > 0)) return act(berserk);
+  if (berserk && me.skills.some((x) => !x.passive && x.key !== 'truth_gem' &&
+    (NAME_ATTACKS.includes(x.key) || x.key === 'battle_sense') && x.cooldownRemainingMs > 20_000)) return act(berserk);
   // 이름만 고르는 정보 스킬 (리더쉽): 모르는 아군 이름 하나
   for (const s of usable.values()) {
     if (s.target !== 'none' || !s.nameOptions || s.key === 'publish') continue;
@@ -323,7 +366,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     const s = usable.get(k);
     if (!s || nextRandom(mem) > 0.25) continue;
     const cmd = alive.find((p) => p.revealed && !enemy(p.revealed) && isCommander.get(p.revealed));
-    const t = cmd ?? pick(alive.filter((p) => (known.has(p.id) ? !enemy(known.get(p.id)!) : sideMass(p.id, me.side) >= 0.75)));
+    const friends = alive.filter((p) => (known.has(p.id) ? !enemy(known.get(p.id)!) : sideMass(p.id, me.side) >= 0.75));
+    const t = cmd ?? (['support', 'sasint_support', 'nukelius_chakra_magic'].includes(k)
+      ? friends.sort((a, b) => threat(b.id) - threat(a.id))[0] : pick(friends));
     if (t) return act(s, t.id);
   }
 
@@ -393,10 +438,11 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
 
   // 5) 방해: 아는 적 또는 적 이름을 공표한 사람
   if (roll >= 0.75 && roll < 0.85) {
-    const pool = knownEnemies.length ? knownEnemies : alive.filter((p) => !known.has(p.id) && claimsSide(p, me.side === 1 ? 2 : 1));
+    const pool = (knownEnemies.length ? knownEnemies : alive.filter((p) => !known.has(p.id) && claimsSide(p, me.side === 1 ? 2 : 1)))
+      .sort((a, b) => threat(b.id) - threat(a.id));
     for (const k of DISRUPT) {
       const s = usable.get(k);
-      const t = s && pick(pool);
+      const t = s && pool.find((p) => !p.statuses.some((st) => st.kind === 'incapacitated') && threat(p.id) > 0);
       if (s && t) return act(s, t.id);
     }
   }
