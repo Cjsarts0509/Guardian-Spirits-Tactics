@@ -1,0 +1,53 @@
+{
+  "format": 1,
+  "startSeed": 33000,
+  "seeds": 20,
+  "manaLevels": [
+    60,
+    100,
+    150
+  ],
+  "modes": {
+    "civil_war": {
+      "positions": 600,
+      "attack": 372,
+      "wait": 0,
+      "unavailable": 228,
+      "maxSimulations": 128
+    },
+    "primordial": {
+      "positions": 600,
+      "attack": 372,
+      "wait": 0,
+      "unavailable": 228,
+      "maxSimulations": 128
+    },
+    "lidellut": {
+      "positions": 600,
+      "attack": 408,
+      "wait": 0,
+      "unavailable": 192,
+      "maxSimulations": 128
+    },
+    "troll": {
+      "positions": 600,
+      "attack": 294,
+      "wait": 42,
+      "unavailable": 264,
+      "maxSimulations": 128
+    }
+  },
+  "scope": "synthetic all-identities-public positions; local runtime, not VM or live-game latency",
+  "latencyMs": {
+    "samples": 2400,
+    "median": 15.149063000000751,
+    "p95": 28.135941999997158,
+    "max": 37.08823000000007
+  },
+  "hashes": {
+    "../src/bot-rollout.ts": "fddf726b77ce55ac703515ffb3b3fb6786edd0d9fec14d9cccf0d0edd90f1a8f",
+    "../src/bot-response.ts": "9fb5281a5d5947c60b69e8e56ec24e5f2e765c1340cdcf67102e656b8522988b",
+    "../src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "./response-active-audit.ts": "60e3353bd25d966a4babb19a9fd7b2e5c9669313deb5c6a3e31cc1fa75d4c385"
+  }
+}
