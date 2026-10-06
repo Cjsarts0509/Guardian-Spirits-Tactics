@@ -54,3 +54,8 @@ export function SmallLogo({ text }: { text?: string }) {
     </span>
   );
 }
+
+/** 서브 엠블럼 (세로형 압축 로고) — 로딩·역할 배분·결과 화면용 */
+export function SubLogo({ className = '' }: { className?: string }) {
+  return <Img name="logo_sub.webp" className={`sublogo ${className}`} alt="GUARDIAN SPIRITS TACTICS" />;
+}

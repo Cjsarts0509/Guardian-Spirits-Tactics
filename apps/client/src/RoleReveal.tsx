@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import type { PlayerView } from '@gst/rules';
 import { portrait } from './icons.js';
+import { SubLogo } from './Logo.js';
 
 const SHUFFLE_MS = 2200;
 const AUTO_CLOSE_MS = 14000;
@@ -33,6 +34,7 @@ export function RoleReveal({ view, onClose }: { view: PlayerView; onClose: () =>
   return (
     <div className={`reveal ${phase}`} onClick={phase === 'reveal' ? onClose : undefined}>
       <div className="reveal-body" onClick={(e) => e.stopPropagation()}>
+        <SubLogo className="reveal-logo" />
         <div className="reveal-kicker">{phase === 'shuffle' ? '역할을 배분하는 중…' : `당신의 역할 · ${view.sideNames[me.side]}`}</div>
         <div className={`reveal-face s${phase === 'reveal' ? me.side : 0}`}>{src ? <img src={src} alt="" /> : <span>?</span>}</div>
         {phase === 'shuffle' ? (
