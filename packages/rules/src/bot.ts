@@ -5,6 +5,8 @@
 import { randomInt, nextRandom } from './rng.js';
 import type { Action, CharKey, GameState, PlayerId } from './types.js';
 import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
+import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from './bot-memory.js';
+export type { BotMemory, Knowledge } from './bot-memory.js';
 
 export interface BotOptions {
   /** 행동 확률 (0~1). 호출될 때마다 이 확률로만 행동 */
@@ -24,7 +26,7 @@ export function randomBotAction(state: GameState, playerId: PlayerId, rng: { rng
   // 공표는 진명/가짜를 섞는다
   const skill = usable[randomInt(rng, usable.length)];
   if (!skill) return null;
-  const others = view.players.filter((p) => p.id !== playerId && p.alive);
+  const others = view.players.filter((p) => p.id !== playerId && p.alive && (skill.ignoresInvulnerable || !p.statuses.some((st) => st.kind === 'invulnerable')));
   const target = skill.target === 'none' ? undefined : others[randomInt(rng, others.length)]?.id;
   if (skill.target !== 'none' && !target) return null;
 
@@ -132,50 +134,11 @@ const SELF_SKILLS = ['ancient_sorcery', 'religious_alliance', 'ancient_hex_hachi
 const DISPEL = ['tachin_neutralize'] as const;
 const MIN = 60_000;
 
-export interface Knowledge {
-  /** 정체를 아는 플레이어 */
-  known: Map<PlayerId, CharKey>;
-  /** 이 플레이어의 정체 후보 (아는 경우 1개) */
-  candidates: Map<PlayerId, CharKey[]>;
-}
-
 /** 봇이 정당하게 아는 정보만으로 각 플레이어의 정체 후보를 계산한다 */
-export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerView = viewFor(state, playerId)): Knowledge {
-  const known = new Map<PlayerId, CharKey>();
-  const not = new Map<PlayerId, Set<CharKey>>();
-  const commander = new Set<PlayerId>();
-  for (const e of eventsFor(state, playerId)) {
-    for (const f of e.facts ?? []) {
-      if (f.player === playerId) continue;
-      if (f.character) known.set(f.player, f.character);
-      if (f.not) (not.get(f.player) ?? not.set(f.player, new Set()).get(f.player)!).add(f.not);
-      if (f.commander) commander.add(f.player);
-    }
-  }
-  for (const p of view.players) if (p.revealed && p.id !== playerId) known.set(p.id, p.revealed);
-  const roster = view.roster.filter((r) => r.inGame);
-  const taken = new Set<CharKey>([view.me.character, ...known.values()]);
-  const candidates = new Map<PlayerId, CharKey[]>();
-  for (const p of view.players) {
-    if (p.id === playerId) continue;
-    const k = known.get(p.id);
-    if (k) {
-      candidates.set(p.id, [k]);
-      continue;
-    }
-    const nots = not.get(p.id);
-    let c = roster.filter((r) => !taken.has(r.key) && !nots?.has(r.key));
-    if (commander.has(p.id)) c = c.filter((r) => r.commander);
-    candidates.set(
-      p.id,
-      c.map((r) => r.key),
-    );
-  }
-  return { known, candidates };
-}
-
-export interface BotMemory {
-  rng: number;
+export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerView = viewFor(state, playerId), memory: BotMemory = createBotMemory(0)): Knowledge {
+  const p = memory.perception;
+  if (p && (p.playerId !== playerId || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs || state.seq < p.lastSeq)) memory.perception = undefined;
+  return updateBotKnowledge(view, eventsFor(state, playerId, memory.perception?.lastSeq ?? 0), memory);
 }
 
 export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions = {}): Action | null {
@@ -185,24 +148,17 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   if (nextRandom(mem) > (opts.activity ?? 0.5)) return null;
 
   const view = viewFor(state, playerId);
-  const { known, candidates } = botKnowledge(state, playerId, view);
+  const { known, candidates } = botKnowledge(state, playerId, view, mem);
   const me = view.me;
   const elapsed = view.elapsedMs;
   const sideOf = new Map(view.roster.map((r) => [r.key, r.side]));
   const isCommander = new Map(view.roster.map((r) => [r.key, r.commander]));
   const guards = GUARDS[view.mode] ?? {};
   const needs: Record<string, Need> = { ...NEEDS_COMMON, ...(NEEDS_MODE[view.mode] ?? {}) };
-  const baptized = new Set<CharKey>();
-  let chiefProtected = false;
-  let madnessPurged = false;
-  for (const e of eventsFor(state, playerId)) {
-    if (e.kind === 'skill.angel_baptism' && typeof e.data?.character === 'string') baptized.add(e.data.character as CharKey);
-    if (e.kind === 'skill.chief_protection') chiefProtected = true;
-    if (e.kind === 'skill.holy_binding.purge') madnessPurged = true;
-    if (e.kind === 'skill.destroyer_guidance.madness') madnessPurged = false;
-  }
+  const { baptized, chiefProtected, madnessPurged, lastAttackFailure } = mem.perception!;
   const deadChars = new Set(view.players.filter((p) => !p.alive && p.revealed).map((p) => p.revealed!));
-  const alive = view.players.filter((p) => p.alive && p.id !== playerId && !p.statuses.some((s) => s.kind === 'invulnerable'));
+  const living = view.players.filter((p) => p.alive && p.id !== playerId);
+  const alive = living.filter((p) => !p.statuses.some((s) => s.kind === 'invulnerable'));
   const usable = new Map(me.skills.filter((s) => !s.passive && s.blocked === null).map((s) => [s.key, s]));
   const pick = <T,>(xs: T[]): T | undefined => xs[randomInt(mem, xs.length)];
   const enemy = (c: CharKey) => sideOf.get(c) !== me.side;
@@ -342,7 +298,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   // 행동 불능인 아군 풀어주기
   for (const k of DISPEL) {
     const s = usable.get(k);
-    const t = s && alive.find((p) => p.statuses.some((st) => st.kind === 'incapacitated') && (known.has(p.id) ? !enemy(known.get(p.id)!) : claimsSide(p, me.side)));
+    const t = s && (s.ignoresInvulnerable ? living : alive).find((p) => p.statuses.some((st) => st.kind === 'incapacitated') && (known.has(p.id) ? !enemy(known.get(p.id)!) : claimsSide(p, me.side)));
     if (s && t) return act(s, t.id);
   }
   // 아군 지원·보호: 정체가 드러난 아군 지휘관 우선, 아니면 같은 편 이름 공표자
@@ -448,7 +404,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
         return { p, all, c, enemyRatio: all.length ? c.length / all.length : 0 };
       })
       .filter((x) => x.c.length > 0 && x.enemyRatio >= 0.5 && x.all.length <= guessLimit);
-    targets.sort((a, b) => a.all.length - b.all.length || b.enemyRatio - a.enemyRatio);
+    targets.sort((a, b) => a.all.length - b.all.length || b.enemyRatio - a.enemyRatio || (lastAttackFailure.get(a.p.id) ?? -1) - (lastAttackFailure.get(b.p.id) ?? -1));
     const t = targets[0];
     if (t) {
       const name = t.p.published && t.c.includes(t.p.published) ? t.p.published : pick(t.c)!;

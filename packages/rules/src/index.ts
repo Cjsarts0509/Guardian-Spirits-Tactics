@@ -11,3 +11,5 @@ export type { ModeDef, CharacterDef, SkillDef, SkillCtx, TargetKind } from './mo
 export { skillRegistry } from './skills/registry.js';
 export { randomBotAction, smartBotAction, botKnowledge } from './bot.js';
 export type { BotMemory, Knowledge } from './bot.js';
+export { createBotMemory, updateBotKnowledge } from './bot-memory.js';
+export type { BotPerception } from './bot-memory.js';

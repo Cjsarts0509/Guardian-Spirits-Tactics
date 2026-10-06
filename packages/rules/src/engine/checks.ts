@@ -1,6 +1,6 @@
 import { josa } from '../text.js';
 import type { SkillCtx } from '../modes/types.js';
-import type { CharKey, PlayerState } from '../types.js';
+import type { CharKey, Fact, PlayerState } from '../types.js';
 import type { Game } from './game.js';
 
 /** 확인·스캔 시전 시 전체 공지 (대상 플레이어 공개, 시전자 비공개) */
@@ -24,8 +24,17 @@ function hidden(g: Game, key: CharKey): boolean {
   return g.mode.hiddenFromChecks.includes(key);
 }
 
-function successFact(target: PlayerState, character: CharKey) {
-  return [{ player: target.id, character }];
+function successFacts(g: Game, actor: PlayerState, target: PlayerState, character: CharKey, canBeFooled = false): Fact[] {
+  // 실제 변장 여부가 아니라 수신자가 볼 수 있는 조건으로 후보를 만든다.
+  // 진명 성공에도 같은 제약을 붙여야 메타데이터로 변장을 간파할 수 없다.
+  const alternatives = canBeFooled && target.published === character
+    ? g.mode.disguises.filter((r) =>
+      r.fooledSide === actor.side && g.charDef(character).side === actor.side &&
+      g.charDef(r.character).side !== actor.side && g.charInGame(r.character),
+    ).map((r) => r.character)
+    : [];
+  const oneOf = [...new Set([character, ...alternatives])];
+  return oneOf.length > 1 ? [{ player: target.id, character: null, oneOf }] : [{ player: target.id, character }];
 }
 
 /** 아군 확인 / 상급 아군 확인 (원본 Ca) */
@@ -41,7 +50,7 @@ export function resolveAllyCheck(c: SkillCtx): void {
       'inspect.result',
       `확인에 성공했습니다. ${josa(g.label(target), '은/는')} ${josa(g.charName(shown), '이다/다')}.`,
       { target: target.id, success: true, character: shown },
-      successFact(target, shown),
+      successFacts(g, actor, target, shown, true),
     );
     return;
   }
@@ -53,7 +62,7 @@ export function resolveAllyCheck(c: SkillCtx): void {
       'inspect.result',
       `확인에 성공했습니다. ${josa(g.label(target), '은/는')} ${josa(g.charName(target.character), '이다/다')}.`,
       { target: target.id, success: true, character: target.character },
-      successFact(target, target.character),
+      successFacts(g, actor, target, target.character, true),
     );
     return;
   }
@@ -74,7 +83,7 @@ export function resolveEnemyCheck(c: SkillCtx): void {
       'inspect.result',
       `확인에 성공했습니다. ${josa(g.label(target), '은/는')} ${josa(g.charName(target.character), '이다/다')}.`,
       { target: target.id, success: true, character: target.character },
-      successFact(target, target.character),
+      successFacts(g, actor, target, target.character),
     );
     return;
   }
@@ -104,7 +113,7 @@ export function resolveScan(c: SkillCtx): void {
       'inspect.result',
       `스캔에 성공했습니다. ${josa(g.label(target), '은/는')} ${josa(g.charName(name), '이다/다')}.`,
       { target: target.id, success: true, character: name },
-      successFact(target, name),
+      successFacts(g, actor, target, name, true),
     );
     return;
   }
@@ -114,7 +123,7 @@ export function resolveScan(c: SkillCtx): void {
       'inspect.result',
       `스캔에 성공했습니다. ${josa(g.label(target), '은/는')} ${josa(g.charName(name), '이다/다')}.`,
       { target: target.id, success: true, character: name },
-      successFact(target, name),
+      successFacts(g, actor, target, name, true),
     );
     return;
   }

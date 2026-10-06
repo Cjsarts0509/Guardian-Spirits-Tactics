@@ -17,6 +17,8 @@ export interface SkillView {
   usesLeft: number | null;
   level: number;
   target: TargetKind;
+  /** 무적 대상 지정이 허용되는 해제 계열 */
+  ignoresInvulnerable: boolean;
   nameOptions: CharKey[] | null;
   /** 지금 쓸 수 없는 이유 (null 이면 사용 가능) */
   blocked: string | null;
@@ -86,7 +88,14 @@ export function canSee(state: GameState, ev: GameEvent, playerId: PlayerId): boo
 
 /** 이 플레이어가 볼 수 있는 이벤트 (afterSeq 이후) */
 export function eventsFor(state: GameState, playerId: PlayerId, afterSeq = 0): GameEvent[] {
-  return state.log.filter((e) => e.seq > afterSeq && canSee(state, e, playerId));
+  let lo = 0;
+  let hi = state.log.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >>> 1;
+    if (state.log[mid]!.seq <= afterSeq) lo = mid + 1;
+    else hi = mid;
+  }
+  return state.log.slice(lo).filter((e) => canSee(state, e, playerId));
 }
 
 export function viewFor(state: GameState, playerId: PlayerId): PlayerView {
@@ -112,6 +121,7 @@ export function viewFor(state: GameState, playerId: PlayerId): PlayerView {
       usesLeft: inst ? inst.usesLeft : d.item ? (me.gem === 2 ? 1 : null) : null,
       level: inst?.level ?? 1,
       target: d.target,
+      ignoresInvulnerable: !!d.ignoresInvulnerable,
       nameOptions: d.nameOptions ? d.nameOptions(g, me) : null,
       blocked: d.passive ? null : skillBlocker(g, me, key),
     });

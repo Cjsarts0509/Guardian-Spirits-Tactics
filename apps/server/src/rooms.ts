@@ -5,6 +5,7 @@ import {
   advance,
   applyAction,
   createGame,
+  createBotMemory,
   eventsFor,
   getMode,
   modes,
@@ -16,6 +17,7 @@ import {
   spectatorView,
   type Action,
   type GameState,
+  type BotMemory,
 } from '@gst/rules';
 import type { RoomDetail, RoomSummary, ServerMessage } from '@gst/protocol';
 import type { ServerConfig } from './config.js';
@@ -52,7 +54,7 @@ export class Room {
   members: Member[] = [];
   state: GameState | null = null;
   endedAt = 0;
-  private botRng = { rng: Math.floor(Math.random() * 2 ** 31) };
+  private botMemories = new Map<string, BotMemory>();
   private botSeq = 0;
 
   constructor(
@@ -218,6 +220,7 @@ export class Room {
       turnSeconds: this.turnSeconds,
     });
     this.state = state;
+    this.botMemories = new Map(state.players.map((p) => [p.id, createBotMemory(randomBytes(4).readInt32LE(0))]));
     this.status = 'playing';
     this.aiOnly = aiOnly;
     this.actions = [];
@@ -245,7 +248,9 @@ export class Room {
       if (!m.bot && !((m.away || m.left) && !m.conn)) continue;
       if (m.spectator) continue;
       const bot = this.cfg.botKind === 'random' ? randomBotAction : smartBotAction;
-      const a = bot(this.state, m.id, this.botRng, { activity: this.cfg.botActivity });
+      const memory = this.botMemories.get(m.id);
+      if (!memory) continue;
+      const a = bot(this.state, m.id, memory, { activity: this.cfg.botActivity });
       if (a) {
         const r = applyAction(this.state, m.id, a, now);
         this.record(m.id, a, now, r.ok, r.error);

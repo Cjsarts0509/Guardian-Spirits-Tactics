@@ -64,12 +64,14 @@ export type Visibility =
   | { to: 'players'; ids: PlayerId[] }
   | { to: 'dead' };
 
-/** 개인 로그 자동 정리용 확정 정보: "player 는 character 다" */
+/** 개인 로그 자동 정리용 확정 제약. 변장에 속을 수 있는 관찰은 oneOf 로 표현한다. */
 export interface Fact {
   player: PlayerId;
   character: CharKey | null;
   /** character 가 null 이면 '이 캐릭터가 아니다' 같은 부정 정보 */
   not?: CharKey;
+  /** 이 이름들 중 하나. 관찰만으로 진명과 변장을 구별할 수 없는 경우 */
+  oneOf?: CharKey[];
   /** 지휘관 여부만 확정된 경우 */
   commander?: boolean;
 }

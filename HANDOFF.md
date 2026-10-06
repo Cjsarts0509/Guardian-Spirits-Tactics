@@ -22,7 +22,7 @@
 ## 1. 저장소 구조
 
 ```
-packages/rules      규칙 엔진 (순수 TS, 결정적·시드 기반). 4개 모드, 봇, 테스트 178개
+packages/rules      규칙 엔진 (순수 TS, 결정적·시드 기반). 4개 모드, 봇, 테스트 190개
 packages/protocol   클라↔서버 WebSocket 메시지 (zod)
 apps/server         권한 서버 (ws + 정적 파일). 방·재접속·자리비움·봇 대행·판 기록. 테스트 19개
 apps/client         React/Vite 클라이언트 (현재 플레이테스트 UI, 카드형 정식 UI 로 교체 예정)
@@ -51,7 +51,7 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
 - **상태(GameState)** 는 순수 데이터, `Game` 클래스가 조작 헬퍼. 모든 시간은 ms, 시드 RNG → 리플레이 재현.
 - `createGame` → `applyAction(state, playerId, action, now)` → `advance(state, now)` (예약 작업 큐: 턴·해금·효과 종료·지연 공개·모드 작업).
 - **이벤트**: `g.toAll / g.toPlayer / g.toPlayers` → `vis` 로 수신자 지정. `eventsFor(state, id)` 가 그 사람이 볼 수 있는 것만 돌려줌.
-- **facts**: 비공개 이벤트에 붙는 확정 정보 `{player, character|null, not?, commander?}`. 클라 추리 카드·봇 지식의 유일한 근거.
+- **facts**: 비공개 이벤트에 붙는 확정 제약 `{player, character|null, not?, oneOf?, commander?}`. 변장 가능한 성공은 `oneOf` 후보로 표현하고, 구별 불가능한 공격 실패 원인은 보내지 않는다.
 - **뷰**: `viewFor(state, id)` = 내 시점(남의 정체·마나·슬롯 없음). `spectatorView` 는 AI 전용 판 관전자만.
 - **공격 판정** (`engine/attack.ts`): 이름 틀림 → 실패 / `isAbsolutelyGuarded`(절대 보디가드) → 실패 / `chargedGuard`(횟수제 보디가드·블러디 매드니스) → 막힘 / 목숨 감소 / 살해. 상급 공격은 1회 유예, 최상급은 페널티 없음.
 - **확인·스캔** (`engine/checks.ts`): 변장(`disguises`)·하이드(`hiddenFromChecks`)·`beforeEnemyCheck`(미명의 안개) 훅.
@@ -70,8 +70,9 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
 
 ### 봇 (`src/bot.ts`)
 - `randomBotAction`: 퍼즈 테스트용.
+- `bot-memory.ts`: 플레이어별 관찰 기억, seq 기반 증분 갱신, 후보 1개일 때 정체 추론, 공격 실패 이력. 갱신 입력은 자기 뷰와 수신 가능한 이벤트뿐이다. 서버·시뮬레이터도 봇별 난수·기억을 분리한다.
 - `smartBotAction`: **자기가 정당하게 아는 것만** 사용(`botKnowledge` = facts + 공개 정체 → 후보 소거). 모드별 표(`GUARDS`, `NEEDS_COMMON/NEEDS_MODE`, `PROBES`, `EXECUTES`, `SUICIDES`, `DISRUPT`, `INFO`, `SUPPORT`, `SELF_SKILLS`, `PRECIOUS`)로 규칙 기반 판단, 시간 지날수록 추측 공격 범위 확대.
-- 지표(300판): 내전 39/61·12분 / 태초 46/54·13분 / 황야 49/51·10분 / 트롤 35/65·13분, 초반 4분 자살 0건.
+- 지표(기반 정비 후 각 300판): 내전 158/142·10.3분 / 태초 171/129·12.7분 / 황야 139/161·9.2분 / 트롤 87/212·12분(미종료 1판, seed 1201). 초반 4분 공격 실패 0건. 상세와 남은 정체 사례: `docs/BOT_FOUNDATION.md`.
 - 테스트: `bot.test.ts`(4모드 80판 완주·거절률<2%·초반 자살 0·지식 정당성), `leak.test.ts`(공개 data 로 미공개 정체 추론 불가).
 
 ### 정보 은닉 원칙 (중요)
@@ -159,7 +160,7 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
    - 플레이어: 미확인 = 모드별 카드 뒷면 → 확인·공개 시 진영 프레임 + 반신상(지휘관은 지휘관 프레임). 선택 = 선택 테두리.
    - 로비 모드 선택 = 모드 카드, 로그인 = 로그인 패널, 패널·모달·버튼·입력 = UI 키트 9-slice.
 2. **스킬 아이콘 2차** 시트(S6~S14) 오면 `split_sheets.py` + `build_web_icons.py`.
-3. **봇 AI 고도화** (사용자와 합의한 방향, 아직 시작 안 함):
+3. **봇 AI 고도화** (관찰 오류 수정·봇별 증분 기억 기반 정비 완료, 확률 믿음 엔진은 다음 단계):
    - 1단계 믿음 엔진: 확정 사실에 맞는 배정 샘플링(파티클) + 판 기록에서 학습한 약한 증거(공표 성향·동맹·확인 대상 선택) 가중치. Brier 점수로 보정 측정.
    - 2단계 결정화 시뮬레이션(ISMCTS류): 믿음에서 세계 30~50개 샘플 → 현 봇을 롤아웃 정책으로 행동별 승률. 워커 스레드.
    - 3단계 공표 전략만 작게 추상화해서 regret matching(CFR 경량)으로 블러핑 비율 학습.
