@@ -2,10 +2,92 @@ import { describe, expect, it } from 'vitest';
 import { advance, botKnowledge, createBotMemory, smartBotAction, viewFor } from '../src/index.js';
 import { smartBotAction as previous } from '../scripts/baselines/pre-adaptive.js';
 import { fixtures, prepareMatch } from '../scripts/league-runner.js';
-import { adaptiveClaimName, observedClaimStyle } from '../src/bot-claim-policy.js';
+import { adaptiveClaimName, observedClaimStyle, preserveClaimResources, turnAwareClaimName } from '../src/bot-claim-policy.js';
 import { civilTable, modeTable, PRIMORDIAL_ORDER } from './helpers.js';
 
 describe('관찰된 상대 공표 성향', () => {
+  it('턴 시점 정책은 공표 쿨다운 두 구간이 남을 때만 가명에 진입한다', () => {
+    const t = civilTable(); t.publish('kai', 'dantes'); t.publish('arin', 'kelhu');
+    t.state.revealed[t.id.kai!] = 'kai'; t.state.revealed[t.id.arin!] = 'arin';
+    const m = createBotMemory(10), v = viewFor(t.state, t.id.dantes!);
+    const k = botKnowledge(t.state, t.id.dantes!, v, m);
+    v.me.gem = 3; v.me.mana = v.me.maxMana;
+    const cooldown = v.me.skills.find((s) => s.key === 'publish')!.cooldown * 1000;
+    v.nextTurnInMs = cooldown * 2;
+    expect(turnAwareClaimName(v, k, m)).toBe('dantes');
+    v.nextTurnInMs++;
+    expect(turnAwareClaimName(v, k, m)).not.toBe('dantes');
+    v.me.published = 'mertz';
+    m.perception!.manualClaims.set(v.me.id, { name: 'mertz', at: v.elapsedMs });
+    v.nextTurnInMs = cooldown + 1;
+    expect(turnAwareClaimName(v, k, m)).toBe('mertz');
+    v.nextTurnInMs--;
+    expect(turnAwareClaimName(v, k, m)).toBe('dantes');
+    // 60초 턴에서는 40초 구간 두 개를 확보할 수 없다.
+    v.me.published = 'dantes'; v.nextTurnInMs = 60_000;
+    expect(turnAwareClaimName(v, k, m)).toBe('dantes');
+  });
+  it('가명 진입 이후의 마나 하락만으로 공표를 왕복하지 않는다', () => {
+    const t = civilTable(); t.publish('kai', 'dantes'); t.publish('arin', 'kelhu');
+    t.state.revealed[t.id.kai!] = 'kai'; t.state.revealed[t.id.arin!] = 'arin';
+    const m = createBotMemory(8), v = viewFor(t.state, t.id.dantes!);
+    const k = botKnowledge(t.state, t.id.dantes!, v, m);
+    v.me.gem = 3; v.me.mana = 0;
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('dantes');
+    v.me.published = 'mertz';
+    // 자동 가명은 유지 근거가 아니다.
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('dantes');
+    m.perception!.manualClaims.set(v.me.id, { name: 'mertz', at: v.elapsedMs });
+    expect(adaptiveClaimName(v, k, m, true)).toBe('dantes');
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('mertz');
+    // 보석 훼손은 여전히 복구 사유다.
+    v.me.gem = 2;
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('dantes');
+  });
+
+  it('가명 유지 중에도 진명 효과와 성향 증거 소멸은 즉시 복구를 요구한다', () => {
+    const t = civilTable(); t.publish('kai', 'dantes'); t.publish('arin', 'kelhu');
+    t.state.revealed[t.id.kai!] = 'kai'; t.state.revealed[t.id.arin!] = 'arin';
+    const m = createBotMemory(9), v = viewFor(t.state, t.id.dantes!);
+    const k = botKnowledge(t.state, t.id.dantes!, v, m);
+    v.me.gem = 3; v.me.mana = 0; v.me.published = 'mertz';
+    m.perception!.manualClaims.set(v.me.id, { name: 'mertz', at: v.elapsedMs });
+    m.perception!.trueNameUntil = v.elapsedMs + 1;
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('dantes');
+    m.perception!.trueNameUntil = 0;
+    m.perception!.manualClaims.delete(t.id.kai!);
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('dantes');
+  });
+  it('자원 보호 옵션은 완성 전 보석과 다음 턴까지 돌아오는 공격 마나를 지킨다', () => {
+    const t = modeTable('primordial', PRIMORDIAL_ORDER);
+    const v = viewFor(t.state, t.id.kane!);
+    v.me.gem = 2;
+    expect(preserveClaimResources(v)).toBe(true);
+    v.me.gem = 3;
+    const attack = v.me.skills.find((s) => s.key === 'attack')!;
+    const publish = v.me.skills.find((s) => s.key === 'publish')!;
+    v.me.mana = attack.mana + publish.mana - 1;
+    expect(preserveClaimResources(v)).toBe(true);
+    v.me.mana++;
+    expect(preserveClaimResources(v)).toBe(false);
+    v.me.mana = 0;
+    attack.cooldownRemainingMs = v.nextTurnInMs + 1;
+    expect(preserveClaimResources(v)).toBe(false);
+    attack.cooldownRemainingMs = 0;
+    attack.usesLeft = 0;
+    expect(preserveClaimResources(v)).toBe(false);
+  });
+
+  it('성향 증거가 있어도 자원 보호는 진명을 유지하고 충족되면 가명을 허용한다', () => {
+    const t = civilTable(); t.publish('kai', 'dantes'); t.publish('arin', 'kelhu');
+    t.state.revealed[t.id.kai!] = 'kai'; t.state.revealed[t.id.arin!] = 'arin';
+    const m = createBotMemory(7), v = viewFor(t.state, t.id.dantes!);
+    const k = botKnowledge(t.state, t.id.dantes!, v, m);
+    expect(adaptiveClaimName(v, k, m)).not.toBe('dantes');
+    expect(adaptiveClaimName(v, k, m, true)).toBe('dantes');
+    v.me.gem = 3; v.me.mana = v.me.maxMana;
+    expect(adaptiveClaimName(v, k, m, true)).not.toBe('dantes');
+  });
   it('블러핑 증거가 없으면 기존 정책과 행동·난수 경로가 같다', () => {
     for (const mode of ['civil_war', 'primordial', 'lidellut', 'troll'] as const) {
       const { state } = prepareMatch(fixtures(mode, 13, 12)[0]!);

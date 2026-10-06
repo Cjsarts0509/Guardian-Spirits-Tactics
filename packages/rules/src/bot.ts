@@ -8,7 +8,7 @@ import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/vi
 import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from './bot-memory.js';
 import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
 import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
-import { adaptiveClaimName } from './bot-claim-policy.js';
+import { adaptiveClaimName, turnAwareClaimName } from './bot-claim-policy.js';
 import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
 export type { BotMemory, Knowledge } from './bot-memory.js';
 
@@ -18,9 +18,11 @@ export interface BotOptions {
   /** 태초 정책 비교용. 조기 공표·무작위 리더쉽 대상을 유지한다. */
   primordialLeadership?: 'early' | 'after-six-minutes';
   primordialPriorities?: boolean;
+  /** 전체 성능 비교용 정보 대상 선택. 기본 정책은 검증 후에만 변경한다. */
+  informationTargets?: 'entropy' | 'enemy-entropy' | 'probability' | 'balanced';
   primordialSlash?: 'early' | 'finish-or-revealed';
   /** 공표 전략 비교. 기본은 진명이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
-  claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders' | 'adaptive';
+  claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders' | 'adaptive' | 'adaptive-resources' | 'adaptive-stable' | 'adaptive-turn';
 }
 
 export function randomBotAction(state: GameState, playerId: PlayerId, rng: { rng: number }, opts: BotOptions = {}): Action | null {
@@ -162,6 +164,8 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const { known, candidates } = knowledge;
   const belief = assignmentBelief(view, knowledge, mem);
   const me = view.me;
+  const informationTargets = opts.informationTargets === 'balanced'
+    ? view.mode === 'troll' ? undefined : 'enemy-entropy' : opts.informationTargets;
   const elapsed = view.elapsedMs;
   const sideOf = new Map(view.roster.map((r) => [r.key, r.side]));
   const isCommander = new Map(view.roster.map((r) => [r.key, r.commander]));
@@ -177,7 +181,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const attackable = (c: CharKey) => enemy(c) && !guards[c]?.some((gd) => !deadChars.has(gd));
   const act = (s: SkillView, target?: PlayerId, name?: CharKey): Action => {
     const strategy = opts.claimStrategy ?? (opts.primordialLeadership === 'after-six-minutes' ? 'current' : 'truthful');
-    if (s.key === 'publish' && strategy === 'adaptive') name = adaptiveClaimName(view, knowledge, mem);
+    if (s.key === 'publish' && strategy === 'adaptive-turn') name = turnAwareClaimName(view, knowledge, mem);
+    if (s.key === 'publish' && (strategy === 'adaptive' || strategy === 'adaptive-resources' || strategy === 'adaptive-stable'))
+      name = adaptiveClaimName(view, knowledge, mem, strategy === 'adaptive-stable' ? 'entry-only' : strategy === 'adaptive-resources');
     if (s.key === 'publish' && (strategy === 'truthful' ||
       (strategy === 'truthful-noncommanders' && !me.commander)) && s.nameOptions?.includes(me.character)) name = me.character;
     const a: Action = { type: 'skill', skill: s.key };
@@ -391,8 +397,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
 
   // 2) 공표. 지휘관은 진명을 숨기고, 나머지는 대체로 진명(턴 마나·진실의 조각). 가짜로 시작했어도 나중에 진명으로 바꾼다
   if (publish) {
-    if (opts.claimStrategy === 'adaptive') {
-      const desired = adaptiveClaimName(view, knowledge, mem);
+    if (opts.claimStrategy === 'adaptive' || opts.claimStrategy === 'adaptive-resources' || opts.claimStrategy === 'adaptive-stable' || opts.claimStrategy === 'adaptive-turn') {
+      const desired = opts.claimStrategy === 'adaptive-turn' ? turnAwareClaimName(view, knowledge, mem) :
+        adaptiveClaimName(view, knowledge, mem, opts.claimStrategy === 'adaptive-stable' ? 'entry-only' : opts.claimStrategy === 'adaptive-resources');
       // 최초 공표는 기존 난수·후보 선택 경로를 유지해 비교를 성향 전환 효과에 한정한다.
       // 자동 가짜 공표의 진명 복구 시점도 기존 정책과 같게 두고, 자기 수동 위장만 되돌린다.
       const ownManual = mem.perception!.manualClaims.get(me.id);
@@ -418,7 +425,10 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     // 교환 리그로 검증한 트롤에 적용한다. 다른 모드의 전투 우선순위는 별도 검증 전 유지한다.
     const pool = view.mode === 'troll' ? unknown.filter((p) => !mem.perception!.commanders.has(p.id) &&
       (!belief.consistent || checkInformation(view, belief, p.id, 'truth_gem') > 0)) : unknown;
-    const t = pool.find((p) => claimsSide(p, me.side === 1 ? 2 : 1)) ?? pick(pool);
+    const scored = informationTargets && belief.consistent ? pool.map((p) => ({ p, score: checkInformation(view, belief, p.id, 'truth_gem') *
+      (informationTargets === 'enemy-entropy' ? 1 + sideMass(p.id, me.side === 1 ? 2 : 1) : 1) })).filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score)[0]?.p : undefined;
+    const t = informationTargets && belief.consistent ? scored : pool.find((p) => claimsSide(p, me.side === 1 ? 2 : 1)) ?? pick(pool);
     if (t) return act(gem, t.id);
   }
   // 혼돈의 주술은 단순 지원이 아니라 반란자의 정체를 확인하는 지연 정보 스킬이다.
@@ -448,7 +458,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       if (!s) continue;
       const ex = PROBE_EXCLUDES_PUBLISHED[k];
       const pool = unknown.filter((p) => candidates.get(p.id)?.includes(want) && !(ex && p.published !== null && ex.includes(p.published)));
-      const t = pool.find((p) => p.published === want) ?? pick(pool);
+      const t = informationTargets === 'probability' && belief.consistent
+        ? pool.slice().sort((a, b) => massOf(b.id, want) - massOf(a.id, want))[0]
+        : pool.find((p) => p.published === want) ?? pick(pool);
       if (t) return act(s, t.id);
     }
     for (const k of ['advanced_scan', 'scan', 'ally_scan', 'enemy_scan', 'troll_scan', 'troll_ally_scan', 'troll_enemy_scan'] as const) {
