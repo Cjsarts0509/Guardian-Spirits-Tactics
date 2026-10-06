@@ -44,12 +44,13 @@ input, select {
 
 .main { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(360px, 460px); background: #07080c; }
 .main-art { position: relative; overflow: hidden; background: radial-gradient(ellipse at 40% 40%, #2a1e3d 0%, #0d0f18 55%, #07080c 100%); }
-.main-art img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.main-art img { width: 100%; height: 100%; object-fit: cover; object-position: 42% center; display: block; }
 .main-art-fade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,8,12,0) 60%, rgba(7,8,12,0.95) 100%), linear-gradient(0deg, rgba(7,8,12,0.9) 0%, rgba(7,8,12,0) 30%); pointer-events: none; }
+.main-title { text-align: center; }
 .main-panel { display: grid; align-content: center; gap: 18px; padding: 40px 36px; border-left: 1px solid #1b1e2b; }
-.biglogo { display: grid; justify-items: start; gap: 6px; }
+.biglogo { display: grid; justify-items: center; gap: 0; }
 .biglogo-emblem { width: 96px; height: 96px; filter: drop-shadow(0 0 18px rgba(201, 168, 92, 0.35)); }
-.biglogo-wordmark { max-width: 100%; width: 360px; height: auto; }
+.biglogo-wordmark { width: 100%; max-width: 460px; height: auto; margin: -24px 0 -18px; filter: drop-shadow(0 0 24px rgba(120, 40, 60, 0.35)); }
 .biglogo-wordmark-text { display: grid; line-height: 1; font-family: 'Cinzel', 'Times New Roman', serif; color: #d9c08a; letter-spacing: 0.18em; text-transform: uppercase; }
 .biglogo-wordmark-text span { font-size: 26px; font-weight: 700; }
 .biglogo-wordmark-text small { font-size: 12px; font-weight: 500; letter-spacing: 0.5em; color: #9c8a5c; margin-top: 4px; }
@@ -59,7 +60,7 @@ input, select {
 .bgm.compact input[type='range'] { width: 70px; }
 .bgm-name { white-space: nowrap; }
 .biglogo-title { font-family: 'Noto Serif KR', 'Nanum Myeongjo', serif; font-weight: 900; font-size: 30px; margin: 2px 0 4px; letter-spacing: -0.01em; color: #efe6cf; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
-.biglogo-wordmark + .biglogo-title { font-size: 20px; font-weight: 700; color: #cfc6ae; }
+.biglogo-wordmark + .biglogo-title { font-size: 18px; font-weight: 700; color: #cfc6ae; letter-spacing: 0.12em; }
 .smalllogo { display: inline-flex; align-items: center; gap: 8px; }
 .smalllogo .logo-emblem { width: 24px; height: 24px; }
 .topbar-left { display: flex; align-items: center; gap: 8px; }

@@ -29,7 +29,6 @@ export function Emblem({ size = 24, className = '' }: { size?: number; className
 export function BigLogo() {
   return (
     <div className="biglogo">
-      <Emblem size={512} className="biglogo-emblem" />
       <Img
         name="logo_wordmark.webp"
         className="biglogo-wordmark"
