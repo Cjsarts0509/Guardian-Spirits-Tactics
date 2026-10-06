@@ -18,6 +18,8 @@ export interface BotOptions {
   /** 태초 정책 비교용. 조기 공표·무작위 리더쉽 대상을 유지한다. */
   primordialLeadership?: 'early' | 'after-six-minutes';
   primordialPriorities?: boolean;
+  /** 전체 성능 비교용 정보 대상 선택. 기본 정책은 검증 후에만 변경한다. */
+  informationTargets?: 'entropy' | 'enemy-entropy' | 'probability' | 'balanced';
   primordialSlash?: 'early' | 'finish-or-revealed';
   /** 공표 전략 비교. 기본은 진명이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
   claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders' | 'adaptive' | 'adaptive-resources' | 'adaptive-stable' | 'adaptive-turn';
@@ -162,6 +164,8 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const { known, candidates } = knowledge;
   const belief = assignmentBelief(view, knowledge, mem);
   const me = view.me;
+  const informationTargets = opts.informationTargets === 'balanced'
+    ? view.mode === 'troll' ? undefined : 'enemy-entropy' : opts.informationTargets;
   const elapsed = view.elapsedMs;
   const sideOf = new Map(view.roster.map((r) => [r.key, r.side]));
   const isCommander = new Map(view.roster.map((r) => [r.key, r.commander]));
@@ -421,7 +425,10 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     // 교환 리그로 검증한 트롤에 적용한다. 다른 모드의 전투 우선순위는 별도 검증 전 유지한다.
     const pool = view.mode === 'troll' ? unknown.filter((p) => !mem.perception!.commanders.has(p.id) &&
       (!belief.consistent || checkInformation(view, belief, p.id, 'truth_gem') > 0)) : unknown;
-    const t = pool.find((p) => claimsSide(p, me.side === 1 ? 2 : 1)) ?? pick(pool);
+    const scored = informationTargets && belief.consistent ? pool.map((p) => ({ p, score: checkInformation(view, belief, p.id, 'truth_gem') *
+      (informationTargets === 'enemy-entropy' ? 1 + sideMass(p.id, me.side === 1 ? 2 : 1) : 1) })).filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score)[0]?.p : undefined;
+    const t = informationTargets && belief.consistent ? scored : pool.find((p) => claimsSide(p, me.side === 1 ? 2 : 1)) ?? pick(pool);
     if (t) return act(gem, t.id);
   }
   // 혼돈의 주술은 단순 지원이 아니라 반란자의 정체를 확인하는 지연 정보 스킬이다.
@@ -451,7 +458,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       if (!s) continue;
       const ex = PROBE_EXCLUDES_PUBLISHED[k];
       const pool = unknown.filter((p) => candidates.get(p.id)?.includes(want) && !(ex && p.published !== null && ex.includes(p.published)));
-      const t = pool.find((p) => p.published === want) ?? pick(pool);
+      const t = informationTargets === 'probability' && belief.consistent
+        ? pool.slice().sort((a, b) => massOf(b.id, want) - massOf(a.id, want))[0]
+        : pool.find((p) => p.published === want) ?? pick(pool);
       if (t) return act(s, t.id);
     }
     for (const k of ['advanced_scan', 'scan', 'ally_scan', 'enemy_scan', 'troll_scan', 'troll_ally_scan', 'troll_enemy_scan'] as const) {
