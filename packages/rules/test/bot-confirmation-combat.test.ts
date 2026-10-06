@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { viewFor } from '../src/index.js';
+import { advance, createBotMemory, smartBotAction, viewFor } from '../src/index.js';
 import type { AssignmentBelief } from '../src/bot-belief.js';
 import { confirmedAttackValue, confirmationCombatValue } from '../src/bot-confirmation-combat.js';
 import { bestGemTarget } from '../src/bot-information.js';
 import { createBattleMemory, roleSkills, NAME_ATTACKS } from '../src/bot-tactics.js';
 import { civilTable, fill } from './helpers.js';
+import { fixtures, prepareMatch } from '../scripts/league-runner.js';
 
 function ready() {
   const t = civilTable(); fill(t, 'dantes');
@@ -16,6 +17,21 @@ function ready() {
 }
 
 describe('확인 결과의 후속 공격 가치', () => {
+  it('황야 한정 후보는 다른 세 모드의 행동과 난수 경로를 유지한다', () => {
+    for (const mode of ['civil_war', 'primordial', 'troll'] as const) {
+      const { state } = prepareMatch(fixtures(mode, 25100, 12)[0]!);
+      const current = createBotMemory(99), reference = createBotMemory(99);
+      for (const at of [0, 240_000, 720_000]) {
+        advance(state, at);
+        for (let i = 0; i < 30; i++) {
+          expect(smartBotAction(state, 'p1', current, { activity: 1, confirmationSearch: 'combat-lidellut' })).toEqual(
+            smartBotAction(state, 'p1', reference, { activity: 1, confirmationSearch: false }));
+          expect(current.rng).toBe(reference.rng);
+        }
+      }
+    }
+  });
+
   it('준비된 공격·남은 마나와 영구 보디가드를 검사한다', () => {
     const { t, view, battle } = ready();
     expect(confirmedAttackValue(view, battle, 'krate', 150)).toBeGreaterThan(0);

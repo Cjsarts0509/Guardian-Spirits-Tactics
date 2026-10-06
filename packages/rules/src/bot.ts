@@ -23,7 +23,7 @@ export interface BotOptions {
   /** 비교용으로 기존 보석 대상 선택을 지정할 수 있다. */
   gemTargets?: 'legacy';
   /** 확인 후보의 정보량·자원 비교 실험. */
-  confirmationSearch?: boolean | 'combat' | 'combat-gem';
+  confirmationSearch?: boolean | 'combat' | 'combat-gem' | 'combat-lidellut';
   primordialSlash?: 'early' | 'finish-or-revealed';
   /** 공표 전략 비교. 기본은 진명이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
   claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders' | 'adaptive';
@@ -166,7 +166,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const view = viewFor(state, playerId);
   const knowledge = botKnowledge(state, playerId, view, mem);
   const { known, candidates } = knowledge;
-  const combatInformation = opts.confirmationSearch === 'combat' || opts.confirmationSearch === 'combat-gem';
+  const confirmationStrategy = opts.confirmationSearch === 'combat-lidellut'
+    ? view.mode === 'lidellut' ? 'combat' : false : opts.confirmationSearch;
+  const combatInformation = confirmationStrategy === 'combat' || confirmationStrategy === 'combat-gem';
   const belief = assignmentBelief(view, knowledge, mem);
   const me = view.me;
   const elapsed = view.elapsedMs;
@@ -440,8 +442,8 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   }
 
   // 4) 정보 수집
-  if (opts.confirmationSearch && opts.confirmationSearch !== 'combat-gem') {
-    const confirmation = bestConfirmation(view, belief, unknown, [...usable.values()], opts.confirmationSearch === 'combat' ? battle : undefined);
+  if (confirmationStrategy && confirmationStrategy !== 'combat-gem') {
+    const confirmation = bestConfirmation(view, belief, unknown, [...usable.values()], confirmationStrategy === 'combat' ? battle : undefined);
     if (confirmation) return confirmation;
   }
   const roll = nextRandom(mem);

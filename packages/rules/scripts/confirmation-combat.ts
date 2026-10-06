@@ -6,7 +6,7 @@ import { smartBotAction as production } from './baselines/b95a326.js';
 import { fixtures, playMatch, summarize, pairedInterval, DEFAULT_SETTINGS } from './league-runner.js';
 const seeds = Number(process.argv[2] ?? 100), startSeed = Number(process.argv[3] ?? 23000);
 if (!Number.isSafeInteger(seeds) || seeds <= 0 || !Number.isSafeInteger(startSeed)) throw new Error('설정 오류');
-const variant = process.argv[5] === 'gem' ? 'combat-gem' : 'combat';
+const variant = process.argv[5] === 'gem' ? 'combat-gem' : process.argv[5] === 'lidellut' ? 'combat-lidellut' : 'combat';
 const referenceSearch = process.argv[4] === 'search';
 const modes: Record<string, ReturnType<typeof summarize>> = {};
 for (const mode of ['civil_war', 'primordial', 'lidellut', 'troll'] as const) {
