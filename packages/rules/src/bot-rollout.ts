@@ -55,7 +55,12 @@ function positionScore(initial: GameState, state: GameState, self: string): numb
     if (!before.alive) continue;
     const sign = p.side === me.side ? -1 : 1;
     if (!p.alive) score += sign * (mode.characters.find((r) => r.key === p.character)!.commander ? 20 : 4);
-    else score += sign * (before.extraLives - p.extraLives + (Number(before.flags.guardCharges ?? 0) - Number(p.flags.guardCharges ?? 0)) * 0.5);
+    else {
+      score += sign * (before.extraLives - p.extraLives + (Number(before.flags.guardCharges ?? 0) - Number(p.flags.guardCharges ?? 0)) * 0.5);
+      // 데카의 방어는 목숨/횟수가 아니라 마나를 소모한다. 이를 빼면 탐색이
+      // 공격 비용만 보고 반복 대기하며 방어 자원을 소진시키지 않는다.
+      if (before.skills.some((s) => s.key === 'bloody_madness')) score += sign * Math.max(0, before.mana - p.mana) * 0.04;
+    }
   }
   return score;
 }

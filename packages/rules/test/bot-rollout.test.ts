@@ -2,9 +2,18 @@ import { describe, expect, it } from 'vitest';
 import { botKnowledge, createBotMemory, sampleAssignments, viewFor } from '../src/index.js';
 import { boundedAttackSearch, rolloutState } from '../src/bot-rollout.js';
 import { hypothesisScenarios, hypothesisWorld } from '../src/bot-hypothesis.js';
-import { civilTable, fill } from './helpers.js';
+import { civilTable, fill, modeTable, TROLL_ORDER } from './helpers.js';
 
 describe('제한 공격 엔진 탐색', () => {
+  it('데카가 마나를 소모해 버티는 공격도 방어 자원 소진으로 평가한다', () => {
+    const t = modeTable('troll', TROLL_ORDER);
+    t.p('satoshi').mana = 85; t.state.revealed[t.id.deka!] = 'deka';
+    const view = viewFor(t.state, t.id.satoshi!), memory = createBotMemory(7);
+    const knowledge = botKnowledge(t.state, view.me.id, view, memory);
+    expect(boundedAttackSearch(view, knowledge, memory)!.action).toMatchObject({
+      type: 'skill', skill: 'advanced_attack', target: t.id.deka, name: 'deka',
+    });
+  });
   it('정체 정보 없이는 후보 공격을 만들지 않는다', () => {
     const t = civilTable(), view = viewFor(t.state, t.id.dantes!), memory = createBotMemory(7);
     const knowledge = botKnowledge(t.state, view.me.id, view, memory);
