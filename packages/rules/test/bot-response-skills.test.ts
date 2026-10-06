@@ -1,8 +1,27 @@
 import { describe, expect, it } from 'vitest';
 import { respondToKnownEnemies } from '../src/bot-response.js';
+import { combatScenario } from '../src/bot-rollout.js';
+import { botKnowledge, createBotMemory, hypothesisScenarios, hypothesisWorld, viewFor } from '../src/index.js';
 import { civilTable, fill, modeTable, PRIMORDIAL_ORDER } from './helpers.js';
 
 describe('가설 상대 액티브 대응', () => {
+  it('흡수 보상과 지연 획득의 불가능한 가설을 제거한다', () => {
+    const t = modeTable('primordial', PRIMORDIAL_ORDER), memory = createBotMemory(9);
+    const build = () => {
+      const view = viewFor(t.state, t.id.kane!), knowledge = botKnowledge(t.state, view.me.id, view, memory);
+      const world = hypothesisWorld(view, knowledge, memory.perception!.battle,
+        new Map(t.state.players.map((p) => [p.id, p.character])));
+      return hypothesisScenarios(world, view.me.id).map((s) => combatScenario(view, s, memory, true));
+    };
+    for (const s of build()) {
+      expect(s.players.get(t.id.kilder!)!.skills.find((k) => k.key === 'kilder_master_power')!.present).toBe(false);
+      expect(s.players.get(t.id.rael!)!.skills.find((k) => k.key === 'rael_master_power')!.present).toBe(false);
+    }
+    t.tick(60_000); t.p('eoril').alive = false; t.state.revealed[t.id.eoril!] = 'eoril';
+    const scenarios = build();
+    expect(scenarios.some((s) => s.players.get(t.id.kilder!)!.skills.find((k) => k.key === 'kilder_master_power')!.present)).toBe(true);
+    expect(scenarios.some((s) => s.players.get(t.id.rael!)!.skills.find((k) => k.key === 'rael_master_power')!.present)).toBe(true);
+  });
   it('이름 공격이 없는 상대의 행동 불능기도 확인된 대상에게만 사용한다', () => {
     const t = civilTable();
     for (const p of t.state.players) p.mana = 0;

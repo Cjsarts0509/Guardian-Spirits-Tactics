@@ -47,13 +47,21 @@ export function rolloutState(view: PlayerView, world: HypothesisWorld, scenario:
 }
 
 /** 공격/방어에 필요한 기본 보유와 교체 관계만 복원한다. 전체 도달 가능성 증명은 아니다. */
-export function combatScenario(view: PlayerView, scenario: HypothesisScenario, memory: BotMemory): HypothesisScenario {
+export function combatScenario(view: PlayerView, scenario: HypothesisScenario, memory: BotMemory, tactical = false): HypothesisScenario {
   const result = structuredClone(scenario), mode = getMode(view.mode as ModeId);
   for (const [id, p] of result.players) {
     if (id === view.me.id) continue;
     const def = mode.characters.find((r) => r.key === p.character)!;
     const base = new Set([...def.skills, ...(def.unlocks ?? []).filter((u) => u.at * 1000 <= view.elapsedMs).map((u) => u.skill)]);
     for (const skill of p.skills) if (base.has(skill.key)) skill.present = true;
+    if (tactical && view.mode === 'primordial') {
+      const impossible = new Set<string>();
+      if (p.character === 'kilder' && [...result.players.values()].some((q) => q.character === 'eoril' && q.alive)) impossible.add('kilder_master_power');
+      if (p.character === 'rael' && view.elapsedMs < 60_000) {
+        impossible.add('rael_eoril_test'); impossible.add('rael_master_power');
+      }
+      for (const skill of p.skills) if (impossible.has(skill.key)) skill.present = false;
+    }
     const replacements: [string, string[]][] = [
       ['advanced_attack', ['attack']], ['supreme_attack', ['advanced_attack', 'attack']],
       ['advanced_scan', ['scan']], ['greater_mass_teleport', ['mass_teleport']],
@@ -135,7 +143,7 @@ export function boundedAttackSearch(view: PlayerView, knowledge: Knowledge, memo
   const states = worlds.flatMap((assignment) => {
     const world = hypothesisWorld(view, knowledge, memory.perception!.battle, assignment);
     return hypothesisScenarios(world, view.me.id).map((scenario) => rolloutState(view, world,
-      responses ? combatScenario(view, scenario, memory) : scenario));
+      responses ? combatScenario(view, scenario, memory, tactical) : scenario));
   });
   const horizon = Math.min(10_000, responses ? Math.max(0, view.nextTurnInMs - 1) : view.nextTurnInMs);
   let best: { action: Action | null; score: number } | undefined, simulations = 0;
