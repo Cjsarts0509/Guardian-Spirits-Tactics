@@ -41,7 +41,7 @@ const same = (a: Action, b: Action) => a.type === 'skill' && b.type === 'skill' 
  * 배정별 자원/대응 최악값을 평균한다. 끝점에 확률을 부여하지 않는다.
  */
 export function boundedSequenceSearch(view: PlayerView, knowledge: Knowledge, memory: BotMemory, baseline?: Action):
-  { action: Action; score: number; simulations: number } | undefined {
+  { action: Action; score: number; simulations: number; followupEvaluations: number; followupCacheHits: number } | undefined {
   if (!memory.perception || view.phase !== 'running' || !view.me.alive || view.me.effects.length) return undefined;
   const belief = assignmentBelief(view, knowledge, memory);
   const ranked = confirmationCandidates(view, belief, view.players.filter((p) => !knowledge.known.has(p.id)), view.me.skills);
@@ -67,6 +67,10 @@ export function boundedSequenceSearch(view: PlayerView, knowledge: Knowledge, me
     });
   });
   const horizon = Math.min(10_000, Math.max(0, view.nextTurnInMs - 1));
+  // 같은 자기 뷰와 수신 이벤트는 같은 기존 기억에서 같은 후속 선택을 만든다.
+  // 가설의 숨은 배정/자원은 캐시 키와 후속 정책 입력에 넣지 않는다.
+  const followups = new Map<string, ReturnType<typeof sequenceFollowup>>();
+  let followupEvaluations = 0, followupCacheHits = 0;
   let best: { action: Action; score: number } | undefined, simulations = 0;
   for (const candidate of candidates) {
     let total = 0;
@@ -74,14 +78,23 @@ export function boundedSequenceSearch(view: PlayerView, knowledge: Knowledge, me
       let worst = Infinity;
       for (const initial of states) for (const response of [false, true]) {
         simulations++;
-        const state = structuredClone(initial), modeledMemory = structuredClone(memory);
+        const state = structuredClone(initial);
         if (!applyAction(state, view.me.id, candidate.action, state.now).ok) { worst = -Infinity; continue; }
         if (response) respondToKnownEnemies(state, view.me.id, true);
         advance(state, view.elapsedMs + horizon);
         let information = 0;
         if (state.phase === 'running' && state.players.find((p) => p.id === view.me.id)!.alive) {
-          const observed = observeSequence(state, view.me.id, modeledMemory);
-          const followup = sequenceFollowup(viewFor(state, view.me.id), observed, modeledMemory);
+          const modeledView = viewFor(state, view.me.id);
+          const received = eventsFor(state, view.me.id, memory.perception.lastSeq);
+          const key = JSON.stringify([modeledView, received]);
+          let followup: ReturnType<typeof sequenceFollowup>;
+          if (followups.has(key)) { followup = followups.get(key); followupCacheHits++; }
+          else {
+            const modeledMemory = structuredClone(memory);
+            const observed = updateBotKnowledge(modeledView, received, modeledMemory);
+            followup = sequenceFollowup(modeledView, observed, modeledMemory);
+            followups.set(key, followup); followupEvaluations++;
+          }
           if (followup && applyAction(state, view.me.id, followup.action, state.now).ok) information = followup.information;
           if (response && state.phase === 'running') respondToKnownEnemies(state, view.me.id, true);
         }
@@ -92,5 +105,5 @@ export function boundedSequenceSearch(view: PlayerView, knowledge: Knowledge, me
     const score = total / worlds.length;
     if (!best || score > best.score) best = { action: candidate.action, score };
   }
-  return best && Number.isFinite(best.score) ? { ...best, simulations } : undefined;
+  return best && Number.isFinite(best.score) ? { ...best, simulations, followupEvaluations, followupCacheHits } : undefined;
 }
