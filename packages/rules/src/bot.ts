@@ -10,6 +10,7 @@ import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.
 import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
 import { adaptiveClaimName } from './bot-claim-policy.js';
 import { hasIdentityEvidence, bestConfirmation } from './bot-confirmation.js';
+import { boundedAttackSearch } from './bot-rollout.js';
 import { bestGemTarget } from './bot-information.js';
 import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
 export type { BotMemory, Knowledge } from './bot-memory.js';
@@ -17,6 +18,8 @@ export type { BotMemory, Knowledge } from './bot-memory.js';
 export interface BotOptions {
   /** 행동 확률 (0~1). 호출될 때마다 이 확률로만 행동 */
   activity?: number;
+  /** 확인된 적에 대한 제한 엔진 탐색 실험. 기본은 비활성화. */
+  attackSearch?: boolean;
   /** 태초 정책 비교용. 조기 공표·무작위 리더쉽 대상을 유지한다. */
   primordialLeadership?: 'early' | 'after-six-minutes';
   primordialPriorities?: boolean;
@@ -266,7 +269,13 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     if (venom && c === 'deka') return act(venom, p.id);
     for (const k of ATTACKS) {
       const s = usable.get(k);
-      if (s && s.nameOptions?.includes(c)) return act(s, p.id, c);
+      if (s && s.nameOptions?.includes(c)) {
+        if (opts.attackSearch) {
+          const plan = boundedAttackSearch(view, knowledge, mem);
+          if (plan) return plan.action;
+        }
+        return act(s, p.id, c);
+      }
     }
   }
   // 자기 시전 영수증이 제안한 대상·시점과 일치한 경우만 저주 연계를 이어 간다.
