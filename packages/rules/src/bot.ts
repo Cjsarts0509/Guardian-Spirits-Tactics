@@ -23,6 +23,8 @@ export interface BotOptions {
   attackSearch?: boolean;
   /** 확인/공표 후 관찰에 따른 후속 행동 탐색. 기본 비활성화. */
   sequenceSearch?: boolean;
+  /** 인물별 액티브·지원 후속 후보. sequenceSearch와 함께 쓰는 별도 실험. */
+  sequenceSkills?: boolean;
   /** 기본 스킬·교체 관계와 관찰에 기반한 상대 대응을 포함한 탐색 실험. */
   attackResponse?: boolean;
   /** 상대 즉사기·행동 불능기를 추가하는 별도 실험. attackResponse가 필요하다. */
@@ -230,7 +232,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
 
   // 필요한 진명 스킬을 공표로 열어 둔다. 지휘관도 역할상 필요하면 예외다.
   const sequence = (baseline: Action): Action => opts.sequenceSearch
-    ? boundedSequenceSearch(view, knowledge, mem, baseline)?.action ?? baseline : baseline;
+    ? boundedSequenceSearch(view, knowledge, mem, baseline, opts.sequenceSkills ?? false)?.action ?? baseline : baseline;
   const publish = usable.get('publish');
   const waitLeadership = view.mode === 'primordial' && opts.primordialLeadership === 'after-six-minutes' &&
     ['rael', 'eltas'].includes(me.character);
@@ -469,7 +471,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     if (confirmation) return sequence(confirmation);
   }
   if (opts.sequenceSearch) {
-    const plan = boundedSequenceSearch(view, knowledge, mem);
+    const plan = boundedSequenceSearch(view, knowledge, mem, undefined, opts.sequenceSkills ?? false);
     if (plan) return plan.action;
   }
   const roll = nextRandom(mem);

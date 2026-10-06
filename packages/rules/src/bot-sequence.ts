@@ -9,10 +9,13 @@ import { NAME_ATTACKS } from './bot-tactics.js';
 import { hypothesisScenarios, hypothesisWorld } from './bot-hypothesis.js';
 import { combatScenario, positionScore, rolloutState } from './bot-rollout.js';
 import { respondToKnownEnemies } from './bot-response.js';
+import { ROLE_INFORMATION, roleFollowup, roleInformationGain, rolePositionValue } from './bot-followup.js';
 
 /** 후속 정책의 입력도 자기 관찰과 수신 가능한 사건뿐이다. 가설 배정은 받지 않는다. */
-export function sequenceFollowup(view: PlayerView, knowledge: Knowledge, memory: BotMemory): { action: Action; information: number } | undefined {
+export function sequenceFollowup(view: PlayerView, knowledge: Knowledge, memory: BotMemory, skills = false): { action: Action; information: number } | undefined {
   if (view.phase !== 'running' || !view.me.alive || !memory.perception) return undefined;
+  const priority = skills && roleFollowup(view, knowledge, memory, true);
+  if (priority) return { action: priority, information: 0 };
   const attacks = view.players.filter((p) => p.alive && !p.statuses.some((s) => s.kind === 'invulnerable')).flatMap((p) => {
     const name = knowledge.known.get(p.id);
     if (!name) return [];
@@ -23,6 +26,8 @@ export function sequenceFollowup(view: PlayerView, knowledge: Knowledge, memory:
       .map((s) => ({ action: { type: 'skill', skill: s.key, target: p.id, name } as Action, value }));
   }).sort((a, b) => b.value - a.value);
   if (attacks[0]) return { action: attacks[0].action, information: 0 };
+  const role = skills && roleFollowup(view, knowledge, memory);
+  if (role) return { action: role, information: 0 };
   const belief = assignmentBelief(view, knowledge, memory);
   const check = confirmationCandidates(view, belief, view.players.filter((p) => !knowledge.known.has(p.id)), view.me.skills)[0];
   return check && { action: check.action, information: check.score };
@@ -40,7 +45,7 @@ const same = (a: Action, b: Action) => a.type === 'skill' && b.type === 'skill' 
  * 8개 배정 × 자원 끝점 2개 × 대응 유무 2개 × 첫 후보 최대 4개 = 최대 128 수순.
  * 배정별 자원/대응 최악값을 평균한다. 끝점에 확률을 부여하지 않는다.
  */
-export function boundedSequenceSearch(view: PlayerView, knowledge: Knowledge, memory: BotMemory, baseline?: Action):
+export function boundedSequenceSearch(view: PlayerView, knowledge: Knowledge, memory: BotMemory, baseline?: Action, skills = false):
   { action: Action; score: number; simulations: number; followupEvaluations: number; followupCacheHits: number } | undefined {
   if (!memory.perception || view.phase !== 'running' || !view.me.alive || view.me.effects.length) return undefined;
   const belief = assignmentBelief(view, knowledge, memory);
@@ -70,6 +75,7 @@ export function boundedSequenceSearch(view: PlayerView, knowledge: Knowledge, me
   // 같은 자기 뷰와 수신 이벤트는 같은 기존 기억에서 같은 후속 선택을 만든다.
   // 가설의 숨은 배정/자원은 캐시 키와 후속 정책 입력에 넣지 않는다.
   const followups = new Map<string, ReturnType<typeof sequenceFollowup>>();
+  const informationGains = new Map<string, number>();
   let followupEvaluations = 0, followupCacheHits = 0;
   let best: { action: Action; score: number } | undefined, simulations = 0;
   for (const candidate of candidates) {
@@ -92,13 +98,28 @@ export function boundedSequenceSearch(view: PlayerView, knowledge: Knowledge, me
           else {
             const modeledMemory = structuredClone(memory);
             const observed = updateBotKnowledge(modeledView, received, modeledMemory);
-            followup = sequenceFollowup(modeledView, observed, modeledMemory);
+            followup = sequenceFollowup(modeledView, observed, modeledMemory, skills);
             followups.set(key, followup); followupEvaluations++;
           }
-          if (followup && applyAction(state, view.me.id, followup.action, state.now).ok) information = followup.information;
+          if (followup && applyAction(state, view.me.id, followup.action, state.now).ok) {
+            information = followup.information;
+            if (skills && followup.action.type === 'skill' && ROLE_INFORMATION.has(followup.action.skill)) {
+              const after = viewFor(state, view.me.id), last = eventsFor(state, view.me.id, memory.perception.lastSeq);
+              const resultKey = JSON.stringify([modeledView, received, after, last]);
+              let gain = informationGains.get(resultKey);
+              if (gain === undefined) {
+                gain = roleInformationGain(modeledView, received, after, last, memory);
+                const cost = modeledView.me.skills.find((s) => followup.action.type === 'skill' && s.key === followup.action.skill)!;
+                gain /= 1 + cost.mana / 50 + cost.cooldown / 60;
+                informationGains.set(resultKey, gain);
+              }
+              information += gain;
+            }
+          }
           if (response && state.phase === 'running') respondToKnownEnemies(state, view.me.id, true);
         }
-        worst = Math.min(worst, positionScore(initial, state, view.me.id) + candidate.score + information);
+        worst = Math.min(worst, positionScore(initial, state, view.me.id) + candidate.score + information +
+          (skills ? rolePositionValue(initial, state, view.me.id) : 0));
       }
       total += worst;
     }
