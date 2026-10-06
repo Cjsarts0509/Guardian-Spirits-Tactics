@@ -10,6 +10,7 @@ import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.
 import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
 import { adaptiveClaimName } from './bot-claim-policy.js';
 import { hasIdentityEvidence, bestConfirmation } from './bot-confirmation.js';
+import { boundedSequenceSearch } from './bot-sequence.js';
 import { boundedAttackSearch } from './bot-rollout.js';
 import { bestGemTarget } from './bot-information.js';
 import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
@@ -20,6 +21,8 @@ export interface BotOptions {
   activity?: number;
   /** 확인된 적에 대한 제한 엔진 탐색 실험. 기본은 비활성화. */
   attackSearch?: boolean;
+  /** 확인/공표 후 관찰에 따른 후속 행동 탐색. 기본 비활성화. */
+  sequenceSearch?: boolean;
   /** 기본 스킬·교체 관계와 관찰에 기반한 상대 대응을 포함한 탐색 실험. */
   attackResponse?: boolean;
   /** 상대 즉사기·행동 불능기를 추가하는 별도 실험. attackResponse가 필요하다. */
@@ -226,11 +229,13 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const threat = (id: PlayerId) => (candidates.get(id) ?? []).reduce((sum, c) => sum + massOf(id, c) * roleThreat(view, battle, c), 0);
 
   // 필요한 진명 스킬을 공표로 열어 둔다. 지휘관도 역할상 필요하면 예외다.
+  const sequence = (baseline: Action): Action => opts.sequenceSearch
+    ? boundedSequenceSearch(view, knowledge, mem, baseline)?.action ?? baseline : baseline;
   const publish = usable.get('publish');
   const waitLeadership = view.mode === 'primordial' && opts.primordialLeadership === 'after-six-minutes' &&
     ['rael', 'eltas'].includes(me.character);
   if (publish && !me.trueName && ((!waitLeadership && wantsTrueName(view)) || mem.perception!.trueNameUntil > elapsed) && publish.nameOptions?.includes(me.character)) {
-    return act(publish, undefined, me.character);
+    return sequence(act(publish, undefined, me.character));
   }
 
   // 1) 확실한 처치: 정체를 아는 적 (지휘관 우선)
@@ -424,7 +429,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       // 자동 가짜 공표의 진명 복구 시점도 기존 정책과 같게 두고, 자기 수동 위장만 되돌린다.
       const ownManual = mem.perception!.manualClaims.get(me.id);
       if (me.published !== null && desired !== me.published && (desired !== me.character || ownManual?.name === me.published) &&
-        publish.nameOptions?.includes(desired)) return act(publish, undefined, desired);
+        publish.nameOptions?.includes(desired)) return sequence(act(publish, undefined, desired));
     }
     const commander = !!isCommander.get(me.character);
     const own = view.roster.filter((r) => r.inGame && r.side === me.side && !r.commander && r.key !== me.character).map((r) => r.key);
@@ -433,9 +438,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       const honest = !commander && !disguise && nextRandom(mem) < 0.75;
       const decoys = disguise ? view.roster.filter((r) => r.inGame && r.side !== me.side && !r.commander).map((r) => r.key) : own;
       const name = honest ? me.character : (pick(decoys) ?? me.character);
-      if (publish.nameOptions?.includes(name)) return act(publish, undefined, name);
+      if (publish.nameOptions?.includes(name)) return sequence(act(publish, undefined, name));
     } else if (!commander && !me.trueName && !me.skills.some((s) => s.key === 'disguise') && elapsed > 3 * MIN && nextRandom(mem) < 0.15 && publish.nameOptions?.includes(me.character)) {
-      return act(publish, undefined, me.character);
+      return sequence(act(publish, undefined, me.character));
     }
   }
 
@@ -461,7 +466,11 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   // 4) 정보 수집
   if (confirmationStrategy && confirmationStrategy !== 'combat-gem') {
     const confirmation = bestConfirmation(view, belief, unknown, [...usable.values()], confirmationStrategy === 'combat' ? battle : undefined);
-    if (confirmation) return confirmation;
+    if (confirmation) return sequence(confirmation);
+  }
+  if (opts.sequenceSearch) {
+    const plan = boundedSequenceSearch(view, knowledge, mem);
+    if (plan) return plan.action;
   }
   const roll = nextRandom(mem);
   if (unknown.length && roll < 0.75) {

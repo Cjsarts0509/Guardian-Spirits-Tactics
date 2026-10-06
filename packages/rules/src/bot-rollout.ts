@@ -97,7 +97,7 @@ function remainingEffort(state: GameState, player: GameState['players'][number])
   return effort;
 }
 
-function positionScore(initial: GameState, state: GameState, self: string): number {
+export function positionScore(initial: GameState, state: GameState, self: string): number {
   const me = state.players.find((p) => p.id === self)!;
   if (state.winner !== null) return state.winner === me.side ? 1000 : -1000;
   if (!me.alive) return -100;
