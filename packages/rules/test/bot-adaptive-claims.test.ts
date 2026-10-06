@@ -6,6 +6,37 @@ import { adaptiveClaimName, observedClaimStyle, preserveClaimResources } from '.
 import { civilTable, modeTable, PRIMORDIAL_ORDER } from './helpers.js';
 
 describe('관찰된 상대 공표 성향', () => {
+  it('가명 진입 이후의 마나 하락만으로 공표를 왕복하지 않는다', () => {
+    const t = civilTable(); t.publish('kai', 'dantes'); t.publish('arin', 'kelhu');
+    t.state.revealed[t.id.kai!] = 'kai'; t.state.revealed[t.id.arin!] = 'arin';
+    const m = createBotMemory(8), v = viewFor(t.state, t.id.dantes!);
+    const k = botKnowledge(t.state, t.id.dantes!, v, m);
+    v.me.gem = 3; v.me.mana = 0;
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('dantes');
+    v.me.published = 'mertz';
+    // 자동 가명은 유지 근거가 아니다.
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('dantes');
+    m.perception!.manualClaims.set(v.me.id, { name: 'mertz', at: v.elapsedMs });
+    expect(adaptiveClaimName(v, k, m, true)).toBe('dantes');
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('mertz');
+    // 보석 훼손은 여전히 복구 사유다.
+    v.me.gem = 2;
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('dantes');
+  });
+
+  it('가명 유지 중에도 진명 효과와 성향 증거 소멸은 즉시 복구를 요구한다', () => {
+    const t = civilTable(); t.publish('kai', 'dantes'); t.publish('arin', 'kelhu');
+    t.state.revealed[t.id.kai!] = 'kai'; t.state.revealed[t.id.arin!] = 'arin';
+    const m = createBotMemory(9), v = viewFor(t.state, t.id.dantes!);
+    const k = botKnowledge(t.state, t.id.dantes!, v, m);
+    v.me.gem = 3; v.me.mana = 0; v.me.published = 'mertz';
+    m.perception!.manualClaims.set(v.me.id, { name: 'mertz', at: v.elapsedMs });
+    m.perception!.trueNameUntil = v.elapsedMs + 1;
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('dantes');
+    m.perception!.trueNameUntil = 0;
+    m.perception!.manualClaims.delete(t.id.kai!);
+    expect(adaptiveClaimName(v, k, m, 'entry-only')).toBe('dantes');
+  });
   it('자원 보호 옵션은 완성 전 보석과 다음 턴까지 돌아오는 공격 마나를 지킨다', () => {
     const t = modeTable('primordial', PRIMORDIAL_ORDER);
     const v = viewFor(t.state, t.id.kane!);
