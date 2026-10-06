@@ -22,7 +22,7 @@ export interface BotOptions {
   primordialPriorities?: boolean;
   /** 비교용으로 기존 보석 대상 선택을 지정할 수 있다. */
   gemTargets?: 'legacy';
-  /** 확인 후보의 정보량·자원 비교 실험. */
+  /** 기본은 검증한 황야 한정 확인 탐색. false는 기존 확인 선택 비교용. */
   confirmationSearch?: boolean | 'combat' | 'combat-gem' | 'combat-lidellut';
   primordialSlash?: 'early' | 'finish-or-revealed';
   /** 공표 전략 비교. 기본은 진명이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
@@ -166,8 +166,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const view = viewFor(state, playerId);
   const knowledge = botKnowledge(state, playerId, view, mem);
   const { known, candidates } = knowledge;
-  const confirmationStrategy = opts.confirmationSearch === 'combat-lidellut'
-    ? view.mode === 'lidellut' ? 'combat' : false : opts.confirmationSearch;
+  const requestedConfirmation = opts.confirmationSearch ?? 'combat-lidellut';
+  const confirmationStrategy = requestedConfirmation === 'combat-lidellut'
+    ? view.mode === 'lidellut' ? 'combat' : false : requestedConfirmation;
   const combatInformation = confirmationStrategy === 'combat' || confirmationStrategy === 'combat-gem';
   const belief = assignmentBelief(view, knowledge, mem);
   const me = view.me;

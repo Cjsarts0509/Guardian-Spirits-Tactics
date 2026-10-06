@@ -17,6 +17,21 @@ function ready() {
 }
 
 describe('확인 결과의 후속 공격 가치', () => {
+  it('기본 정책은 검증한 황야 한정 후보와 행동 및 난수 경로가 같다', () => {
+    for (const mode of ['civil_war', 'primordial', 'lidellut', 'troll'] as const) {
+      const { state } = prepareMatch(fixtures(mode, 26100, 12)[0]!);
+      const current = createBotMemory(99), selected = createBotMemory(99);
+      for (const at of [0, 240_000, 720_000]) {
+        advance(state, at);
+        for (let i = 0; i < 30; i++) {
+          expect(smartBotAction(state, 'p1', current, { activity: 1 })).toEqual(
+            smartBotAction(state, 'p1', selected, { activity: 1, confirmationSearch: 'combat-lidellut' }));
+          expect(current.rng).toBe(selected.rng);
+        }
+      }
+    }
+  });
+
   it('황야 한정 후보는 다른 세 모드의 행동과 난수 경로를 유지한다', () => {
     for (const mode of ['civil_war', 'primordial', 'troll'] as const) {
       const { state } = prepareMatch(fixtures(mode, 25100, 12)[0]!);

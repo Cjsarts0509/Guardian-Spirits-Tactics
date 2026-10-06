@@ -6,13 +6,13 @@ import { smartBotAction as production } from './baselines/b95a326.js';
 import { fixtures, playMatch, summarize, pairedInterval, DEFAULT_SETTINGS } from './league-runner.js';
 const seeds = Number(process.argv[2] ?? 100), startSeed = Number(process.argv[3] ?? 23000);
 if (!Number.isSafeInteger(seeds) || seeds <= 0 || !Number.isSafeInteger(startSeed)) throw new Error('설정 오류');
-const variant = process.argv[5] === 'gem' ? 'combat-gem' : process.argv[5] === 'lidellut' ? 'combat-lidellut' : 'combat';
+const variant = process.argv[5] === 'default' ? 'default' : process.argv[5] === 'gem' ? 'combat-gem' : process.argv[5] === 'lidellut' ? 'combat-lidellut' : 'combat';
 const referenceSearch = process.argv[4] === 'search';
 const modes: Record<string, ReturnType<typeof summarize>> = {};
 for (const mode of ['civil_war', 'primordial', 'lidellut', 'troll'] as const) {
   const games = [];
   for (let i = 0; i < seeds; i++) for (const f of fixtures(mode, startSeed + i, 8 + i % 5)) {
-    games.push(playMatch(f, { current: (s, id, m, o) => smartBotAction(s, id, m, { ...o, confirmationSearch: variant }), reference: (s, id, m, o) => referenceSearch ? smartBotAction(s, id, m, { ...o, confirmationSearch: true }) : production(s, id, m, { activity: o.activity }) }, DEFAULT_SETTINGS));
+    games.push(playMatch(f, { current: (s, id, m, o) => smartBotAction(s, id, m, { ...o, confirmationSearch: variant === 'default' ? undefined : variant }), reference: (s, id, m, o) => referenceSearch ? smartBotAction(s, id, m, { ...o, confirmationSearch: true }) : production(s, id, m, { activity: o.activity }) }, DEFAULT_SETTINGS));
   }
   modes[mode] = summarize(games);
   process.stderr.write(`[confirmation-combat] ${mode}: ${seeds} 시드\n`);
