@@ -1,18 +1,18 @@
+// 평가 전용: 운영 b95a326의 고정 의사결정 본문.
 // 봇 두 종류
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
 //   상대 정체를 모르면 공격하지 않고 확인부터 한다. 시간이 지나면 후보가 좁혀진 대상에게 추측 공격을 시작한다.
-import { randomInt, nextRandom } from './rng.js';
-import type { Action, CharKey, GameState, PlayerId } from './types.js';
-import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
-import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from './bot-memory.js';
-import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
-import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
-import { adaptiveClaimName } from './bot-claim-policy.js';
-import { hasIdentityEvidence, bestConfirmation } from './bot-confirmation.js';
-import { bestGemTarget } from './bot-information.js';
-import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
-export type { BotMemory, Knowledge } from './bot-memory.js';
+import { randomInt, nextRandom } from '../../src/rng.js';
+import type { Action, CharKey, GameState, PlayerId } from '../../src/types.js';
+import { eventsFor, viewFor, type PlayerView, type SkillView } from '../../src/engine/view.js';
+import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from '../../src/bot-memory.js';
+import { assignmentBelief, checkInformation, probabilityOf } from '../../src/bot-belief.js';
+import { claimCheckSucceeds, wantsTrueName } from '../../src/bot-claims.js';
+import { adaptiveClaimName } from '../../src/bot-claim-policy.js';
+import { bestGemTarget } from '../../src/bot-information.js';
+import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from '../../src/bot-tactics.js';
+export type { BotMemory, Knowledge } from '../../src/bot-memory.js';
 
 export interface BotOptions {
   /** 행동 확률 (0~1). 호출될 때마다 이 확률로만 행동 */
@@ -22,8 +22,6 @@ export interface BotOptions {
   primordialPriorities?: boolean;
   /** 비교용으로 기존 보석 대상 선택을 지정할 수 있다. */
   gemTargets?: 'legacy';
-  /** 확인 후보의 정보량·자원 비교 실험. */
-  confirmationSearch?: boolean;
   primordialSlash?: 'early' | 'finish-or-revealed';
   /** 공표 전략 비교. 기본은 진명이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
   claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders' | 'adaptive';
@@ -203,7 +201,6 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   ).map((s) => s.mana));
   if (reserve) for (const [key, s] of usable) if (!NAME_ATTACKS.includes(key) && s.mana > me.mana - reserve) usable.delete(key);
   const unknown = alive.filter((p) => !known.has(p.id));
-  const informed = (id: PlayerId) => hasIdentityEvidence(view, knowledge, mem, id);
   const claimsSide = (p: { published: CharKey | null }, side: number) => p.published !== null && sideOf.get(p.published) === side;
   const massOf = (id: PlayerId, c: CharKey) => belief.consistent ? probabilityOf(belief, id, c) :
     candidates.get(id)?.includes(c) ? 1 / candidates.get(id)!.length : 0;
@@ -295,7 +292,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   // 백스탭: 나에게 동맹을 건 적 (또는 적 진영 이름을 공표한 사람)
   const backstab = usable.get('backstab');
   if (backstab) {
-    const t = alive.find((p) => me.alliedBy.includes(p.id) && (known.has(p.id) ? enemy(known.get(p.id)!) : informed(p.id) && sideMass(p.id, me.side) <= 0.25));
+    const t = alive.find((p) => me.alliedBy.includes(p.id) && (known.has(p.id) ? enemy(known.get(p.id)!) : sideMass(p.id, me.side) <= 0.25));
     if (t) return act(backstab, t.id);
   }
   // 아군에게 거는 조건부 스킬: 정체를 알거나, 그 이름을 공표한 사람이 있으면 (적 이름을 공표한 사람은 제외)
@@ -337,11 +334,11 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       const s = usable.get(k);
       if (!s || need.friendly || need.knownOnly) continue;
       const t =
-        alive.find((p) => !known.has(p.id) && informed(p.id) && p.published !== null && need.want.includes(p.published) && !neutralizedSkill(view, battle, k, p.published) && (candidates.get(p.id) ?? []).includes(p.published)) ??
+        alive.find((p) => !known.has(p.id) && p.published !== null && need.want.includes(p.published) && !neutralizedSkill(view, battle, k, p.published) && (candidates.get(p.id) ?? []).includes(p.published)) ??
         (elapsed > 12 * MIN
           ? alive.find((p) => {
               const c = candidates.get(p.id) ?? [];
-              return !known.has(p.id) && informed(p.id) && c.length <= 2 && c.some((x) => need.want.includes(x) && !neutralizedSkill(view, battle, k, x));
+              return !known.has(p.id) && c.length <= 2 && c.some((x) => need.want.includes(x) && !neutralizedSkill(view, battle, k, x));
             })
           : undefined);
       if (t && nextRandom(mem) < 0.3) return act(s, t.id);
@@ -351,7 +348,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     if (mark && elapsed > 12 * MIN && nextRandom(mem) < 0.3) {
       const t = alive.find((p) => {
         const c = candidates.get(p.id) ?? [];
-        return !known.has(p.id) && informed(p.id) && c.length > 0 && c.length <= 2 && c.every((x) => REBELS.includes(x));
+        return !known.has(p.id) && c.length > 0 && c.length <= 2 && c.every((x) => REBELS.includes(x));
       });
       if (t) return act(mark, t.id, pick(candidates.get(t.id)!)!);
     }
@@ -439,10 +436,6 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   }
 
   // 4) 정보 수집
-  if (opts.confirmationSearch) {
-    const confirmation = bestConfirmation(view, belief, unknown, [...usable.values()]);
-    if (confirmation) return confirmation;
-  }
   const roll = nextRandom(mem);
   if (unknown.length && roll < 0.75) {
     const allyClaim = unknown.filter((p) => claimsSide(p, me.side));
@@ -521,7 +514,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
         // 적일 가능성: 후보 중 공격 가능한 적의 비율. 아군일 가능성이 높으면 건드리지 않는다
         return { p, all, c, enemyRatio: c.reduce((sum, k) => sum + massOf(p.id, k), 0) };
       })
-      .filter((x) => informed(x.p.id) && x.c.length > 0 && x.all.length <= guessLimit && (x.enemyRatio >= 0.5 ||
+      .filter((x) => x.c.length > 0 && x.all.length <= guessLimit && (x.enemyRatio >= 0.5 ||
         // 최상급 공격은 오답으로 죽지 않는다. 장기 정체·여유 마나일 때 안전한 이름 후보를 시도한다.
         (view.mode === 'troll' && usable.has('supreme_attack') && me.mana >= 100 && elapsed > 12 * MIN && x.enemyRatio > 0)));
     targets.sort((a, b) => (safeExplore ? oldestNameFailure(a.p.id, a.c) - oldestNameFailure(b.p.id, b.c) : 0) || a.all.length - b.all.length ||
@@ -550,7 +543,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   if (reaver && elapsed > 15 * MIN && nextRandom(mem) < 0.3) {
     const pool = alive
       .map((p) => ({ p, all: candidates.get(p.id) ?? [] }))
-      .filter((x) => informed(x.p.id) && x.all.some((c) => isCommander.get(c) && enemy(c)))
+      .filter((x) => x.all.some((c) => isCommander.get(c) && enemy(c)))
       .sort((a, b) => a.all.length - b.all.length);
     const t = pool[0];
     if (t && (t.all.length <= 3 || elapsed > 30 * MIN)) return act(reaver, t.p.id);
