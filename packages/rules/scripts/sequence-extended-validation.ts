@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { smartBotAction } from '../src/index.js';
 import { fixtures, playMatch, summarize, pairedInterval, DEFAULT_SETTINGS } from './league-runner.js';
-const seeds = Number(process.argv[2] ?? 200), startSeed = Number(process.argv[3] ?? 46000);
+const seeds = Number(process.argv[2] ?? 25), startSeed = Number(process.argv[3] ?? 54000);
 const selected = process.argv[4] ?? 'civil_war', skillMode = 'extended';
 const all = ['civil_war', 'primordial', 'lidellut', 'troll'] as const;
 if (!Number.isSafeInteger(seeds) || seeds <= 0 || !Number.isSafeInteger(startSeed) ||

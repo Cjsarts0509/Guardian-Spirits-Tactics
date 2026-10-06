@@ -74,7 +74,8 @@ export function extendedPositionScore(initial: GameState, state: GameState, self
 const same = (a: Action, b: Action) => a.type === 'skill' && b.type === 'skill' &&
   a.skill === b.skill && a.target === b.target && a.name === b.name;
 
-/** 첫 행동은 확인/공표, 두 번째는 관찰 결과에 따른 고정 정책. 실제 서버 상태는 입력하지 않는다.
+/** 기본 첫 행동은 확인/공표, 확장은 관측된 성장/희생 후보도 비교한다.
+ * 후속 행동은 자기 관찰 정책으로만 고른다. 실제 서버 상태는 입력하지 않는다.
  * 8개 배정 × 자원 끝점 2개 × 대응 유무 2개 × 첫 후보 최대 4개 = 최대 128 수순.
  * 배정별 자원/대응 최악값을 평균한다. 끝점에 확률을 부여하지 않는다.
  */
@@ -141,6 +142,10 @@ export function boundedSequenceSearch(view: PlayerView, knowledge: Knowledge, me
         simulations++;
         const state = structuredClone(initial);
         if (!applyAction(state, view.me.id, candidate.action, state.now).ok) { worst = -Infinity; continue; }
+        // 첫 공표로 마지막 미공표자가 없어지는 경우도 턴 보너스를 평가한다.
+        if (extended && state.phase === 'running' && !state.queue.some((t) => t.kind === 'turn'))
+          scheduleObservedTurn(state, viewFor(state, view.me.id));
+        const projectedTurn = extended && state.queue.some((t) => t.kind === 'turn');
         if (response) respondToKnownEnemies(state, view.me.id, true);
         advance(state, view.elapsedMs + horizon);
         let information = 0;
@@ -165,7 +170,7 @@ export function boundedSequenceSearch(view: PlayerView, knowledge: Knowledge, me
           }
           if (response && state.phase === 'running') respondToKnownEnemies(state, view.me.id, true);
         }
-        if (extended && initial.queue.some((t) => t.kind === 'turn') && state.phase === 'running') {
+        if (projectedTurn && state.phase === 'running') {
           advance(state, initial.nextTurnAt);
           if (response) respondToKnownEnemies(state, view.me.id, true);
           if (state.phase === 'running' && state.players.find((p) => p.id === view.me.id)!.alive) {

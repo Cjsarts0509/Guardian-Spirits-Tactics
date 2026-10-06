@@ -78,6 +78,18 @@ describe('성장·희생·관측된 다음 턴', () => {
     expect(state.queue).toEqual([]);
   });
 
+  it('자신의 첫 공표가 마지막 미공표를 해소하면 다음 턴 보너스를 평가한다', () => {
+    const t = civilTable(); for (const p of t.state.players) p.published = p.character;
+    t.p('dantes').published = null; t.tick(t.state.nextTurnAt - 1000);
+    const o = observe(t, 'dantes'), state = structuredClone(t.state); state.queue = [];
+    expect(scheduleObservedTurn(state, o.view)).toBe(false);
+    expect(applyAction(state, o.view.me.id, { type: 'skill', skill: 'publish', name: 'dantes' }, state.now).ok).toBe(true);
+    expect(scheduleObservedTurn(state, viewFor(state, o.view.me.id))).toBe(true);
+    const mana = state.players.find((p) => p.id === o.view.me.id)!.mana;
+    advance(state, state.nextTurnAt);
+    expect(viewFor(state, o.view.me.id).me.mana).toBe(Math.min(150, mana + 30));
+  });
+
   it('사망 희생을 개인 생존만으로 평가하지 않고 팀 손실로 평가한다', () => {
     const t = civilTable(); fill(t, 'reindila');
     const initial = structuredClone(t.state);
