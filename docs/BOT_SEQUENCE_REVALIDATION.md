@@ -1,5 +1,7 @@
 # 내전 재검증·탐색 최적화·인물별 후속 스킬
 
+후속 성장·희생·다음 턴 평가와 최종 검증은 [BOT_SEQUENCE_EXTENDED.md](BOT_SEQUENCE_EXTENDED.md)를 참조한다.
+
 기존 확인/공표 탐색의 내전 개선 재현성, 판단을 보존하는 계산 최적화, 인물별 후속 후보 확장을 각각 구분해 검증했다. 스킬 확장은 `sequenceSearch: true, sequenceSkills: true`일 때만 사용한다. 기본값은 둘 다 비활성화다.
 
 ## 내전 독립 재검증

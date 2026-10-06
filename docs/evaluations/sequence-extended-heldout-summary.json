@@ -1,0 +1,194 @@
+{
+  "format": 1,
+  "policyRemoteCommit": "936c5f439254e209ea4b0c2ee5bea1a57a336266",
+  "comparator": "b7c56ee 25-role sequence policy, extended option disabled",
+  "startSeed": 54000,
+  "seeds": 25,
+  "modes": {
+    "civil_war": {
+      "source": "../../../docs/evaluations/sequence-extended-heldout-civil_war-25.json",
+      "games": 100,
+      "wins": {
+        "current": 48,
+        "reference": 52,
+        "unfinished": 0
+      },
+      "score": 0.48,
+      "seedBootstrap95": [
+        0.44,
+        0.52
+      ],
+      "stats": {
+        "current": {
+          "attempted": 2948,
+          "accepted": 2943,
+          "rejected": 5,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {
+            "dantes_command": 3,
+            "truth_gem": 2
+          }
+        },
+        "reference": {
+          "attempted": 2979,
+          "accepted": 2969,
+          "rejected": 10,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {
+            "dantes_command": 3,
+            "truth_gem": 7
+          }
+        }
+      }
+    },
+    "primordial": {
+      "source": "../../../docs/evaluations/sequence-extended-heldout-primordial-25.json",
+      "games": 100,
+      "wins": {
+        "current": 50,
+        "reference": 50,
+        "unfinished": 0
+      },
+      "score": 0.5,
+      "seedBootstrap95": [
+        0.47,
+        0.53
+      ],
+      "stats": {
+        "current": {
+          "attempted": 3602,
+          "accepted": 3602,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        },
+        "reference": {
+          "attempted": 3696,
+          "accepted": 3696,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        }
+      }
+    },
+    "lidellut": {
+      "source": "../../../docs/evaluations/sequence-extended-heldout-lidellut-25.json",
+      "games": 100,
+      "wins": {
+        "current": 46,
+        "reference": 54,
+        "unfinished": 0
+      },
+      "score": 0.46,
+      "seedBootstrap95": [
+        0.39,
+        0.52
+      ],
+      "stats": {
+        "current": {
+          "attempted": 2987,
+          "accepted": 2983,
+          "rejected": 4,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {
+            "loyal_servant": 2,
+            "truth_gem": 2
+          }
+        },
+        "reference": {
+          "attempted": 2982,
+          "accepted": 2978,
+          "rejected": 4,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {
+            "ally": 2,
+            "loyal_servant": 2
+          }
+        }
+      }
+    },
+    "troll": {
+      "source": "../../../docs/evaluations/sequence-extended-heldout-troll-25.json",
+      "games": 100,
+      "wins": {
+        "current": 46,
+        "reference": 54,
+        "unfinished": 0
+      },
+      "score": 0.46,
+      "seedBootstrap95": [
+        0.4,
+        0.52
+      ],
+      "stats": {
+        "current": {
+          "attempted": 3388,
+          "accepted": 3388,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        },
+        "reference": {
+          "attempted": 3456,
+          "accepted": 3456,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        }
+      }
+    }
+  },
+  "overall": {
+    "games": 400,
+    "wins": 190,
+    "losses": 210,
+    "unfinished": 0,
+    "score": 0.475,
+    "seedBootstrap95": [
+      0.45,
+      0.4975
+    ],
+    "seedScores": [
+      0.5625,
+      0.5,
+      0.5625,
+      0.4375,
+      0.5,
+      0.5,
+      0.375,
+      0.5,
+      0.625,
+      0.4375,
+      0.5,
+      0.4375,
+      0.375,
+      0.4375,
+      0.4375,
+      0.5,
+      0.4375,
+      0.5,
+      0.5625,
+      0.4375,
+      0.5,
+      0.5,
+      0.5,
+      0.375,
+      0.375
+    ]
+  },
+  "hashes": {
+    "../src/bot.ts": "5fe1d2f02715d37848eb40126d66ff3963906b6b32518f5a700a2af19cb600eb",
+    "../src/bot-sequence.ts": "62b2c204a1edd14e515346946a1ee8925005dadabfae52b70d0433466857f7c3",
+    "../src/bot-followup.ts": "a076800c1e2da5d59a6f02fab1e7fd1106b72b2df75b601dcc82325603e795a2",
+    "../src/bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "../src/bot-rollout.ts": "ac1dd1f0bfacad7dce1302645b42a8097abe3a1fb0c22163f71fbc7744192376",
+    "../src/bot-response.ts": "9fb5281a5d5947c60b69e8e56ec24e5f2e765c1340cdcf67102e656b8522988b",
+    "../src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "../src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "../src/bot-information.ts": "ff68dfded8ab02a184050a4402945719de4284b2b8dfb543ce04010b77414724",
+    "../src/bot-belief.ts": "a7d9c12c1c0ede88ef9be92d72ce9ce1ef3b0a46bdcfd6bf6cef8fd6ef912dd3",
+    "../src/bot-memory.ts": "97e08a4a2f4552d7a79f948236dab5c2d9771e7faed4e520fccb9d2c0b45dd8b",
+    "./sequence-extended-validation.ts": "b25d79c1d5b8086f2957a757010b823e059d25d276688d1a1efd5cdbb84da4d7",
+    "./league-runner.ts": "f06567dbb2fbdff690cdbe99bf8b7bd953c6ba7b6fb57ef276e6e185eb9bc4d8"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "format": 1,
+  "scope": "paired synthetic 400-position local audit; next turn in 10s, truth claims and private identities; not VM latency",
+  "positions": 400,
+  "changedActions": 25,
+  "baseline": "b7c56ee 25-role sequence policy",
+  "extended": true,
+  "evaluations": 2082,
+  "cacheHits": 35792,
+  "maxSimulations": 96,
+  "latencyMs": {
+    "prior": {
+      "samples": 400,
+      "median": 26.17119199999979,
+      "p95": 42.72954899999968,
+      "max": 64.98471299999983
+    },
+    "extended": {
+      "samples": 400,
+      "median": 29.773443000000043,
+      "p95": 53.021208999999544,
+      "max": 97.32820100000026
+    }
+  },
+  "hashes": {
+    "baselineSource": "dadea3f6f58ba671fe3a1b0dd909801be3dc1aea57713b36d3f3282b57d04789",
+    "../src/bot-sequence.ts": "62b2c204a1edd14e515346946a1ee8925005dadabfae52b70d0433466857f7c3",
+    "../src/bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "../src/bot.ts": "5fe1d2f02715d37848eb40126d66ff3963906b6b32518f5a700a2af19cb600eb",
+    "./sequence-extended-cost-audit.ts": "3615618e2d886ef186df478203b85938aab83bba2c8f0a17059907a40215eed4"
+  }
+}
