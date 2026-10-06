@@ -79,4 +79,12 @@ describe('가설 상대의 관찰 기반 대응', () => {
     const unknown = { ...baseline, target: t.id.kelhu!, name: 'arin' };
     expect(boundedAttackSearch(view, knowledge, memory, true, unknown)!.action).not.toEqual(unknown);
   });
+
+  it('지휘관의 횟수 방어 소모를 일반 적 처치보다 낮게 평가하지 않는다', () => {
+    const t = modeTable('primordial', PRIMORDIAL_ORDER); fill(t, 'kane');
+    t.state.revealed[t.id.eltas!] = 'eltas'; t.state.revealed[t.id.drakan!] = 'drakan';
+    const view = viewFor(t.state, t.id.kane!), memory = createBotMemory(9);
+    const knowledge = botKnowledge(t.state, view.me.id, view, memory);
+    expect(boundedAttackSearch(view, knowledge, memory, true)!.action).toMatchObject({ target: t.id.eltas });
+  });
 });

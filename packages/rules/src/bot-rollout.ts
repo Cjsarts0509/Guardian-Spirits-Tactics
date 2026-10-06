@@ -77,6 +77,18 @@ export function combatScenario(view: PlayerView, scenario: HypothesisScenario, m
   return result;
 }
 
+function remainingEffort(state: GameState, player: GameState['players'][number]): number {
+  let effort = player.extraLives + 1;
+  if (state.mode === 'primordial') {
+    const guard = player.character === 'rael' ? ['kumarin', 'kumarin_bodyguard'] :
+      player.character === 'eltas' ? ['consume', 'consume_bodyguard'] : undefined;
+    const guardian = guard && state.players.find((p) => p.character === guard[0] && p.alive);
+    if (guardian && guardian.skills.some((s) => s.key === guard![1])) effort += Number(guardian.flags.guardCharges ?? 0);
+  }
+  if (state.mode === 'troll' && player.skills.some((s) => s.key === 'bloody_madness')) effort += Math.floor(player.mana / 25);
+  return effort;
+}
+
 function positionScore(initial: GameState, state: GameState, self: string): number {
   const me = state.players.find((p) => p.id === self)!;
   if (state.winner !== null) return state.winner === me.side ? 1000 : -1000;
@@ -87,12 +99,13 @@ function positionScore(initial: GameState, state: GameState, self: string): numb
     const before = initial.players.find((q) => q.id === p.id)!;
     if (!before.alive) continue;
     const sign = p.side === me.side ? -1 : 1;
-    if (!p.alive) score += sign * (mode.characters.find((r) => r.key === p.character)!.commander ? 20 : 4);
+    const value = mode.characters.find((r) => r.key === p.character)!.commander ? 20 : 4;
+    if (!p.alive) score += sign * value;
     else {
-      score += sign * (before.extraLives - p.extraLives + (Number(before.flags.guardCharges ?? 0) - Number(p.flags.guardCharges ?? 0)) * 0.5);
-      // 데카의 방어는 목숨/횟수가 아니라 마나를 소모한다. 이를 빼면 탐색이
-      // 공격 비용만 보고 반복 대기하며 방어 자원을 소진시키지 않는다.
-      if (before.skills.some((s) => s.key === 'bloody_madness')) score += sign * Math.max(0, before.mana - p.mana) * 0.04;
+      // 방어 자원은 보호받는 대상의 가치와 남은 공격 횟수에 따라 평가한다.
+      // 지휘관의 보호막 한 회를 일반 병사의 보호막과 같은 점수로 두지 않는다.
+      const effort = remainingEffort(initial, before);
+      score += sign * value * (effort - remainingEffort(state, p)) / effort;
     }
   }
   return score;
