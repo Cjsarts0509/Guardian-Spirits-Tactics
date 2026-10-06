@@ -49,7 +49,7 @@ for (const mode of ['civil_war', 'primordial', 'lidellut', 'troll'] as const) {
   }
   modes[mode] = summarize(games);
 }
-console.log(JSON.stringify({ format: 1, sourcePolicy: '68de00c / local 85038b9', startSeed: 55000, seeds: 2,
+console.log(JSON.stringify({ format: 1, sourcePolicy: process.argv[2] ?? 'tactical priority revision', startSeed: 55000, seeds: 2,
   scope: '32 development diagnostic games; same-position shadow decisions, not causal attribution of individual losses or independent performance evidence',
   calls, actions, switches, attackDelayed, delayedWithoutGrowth, growthOverridesAttack, changes, followupChanges, examples, matches, modes,
   hashes: Object.fromEntries(['../src/bot.ts', '../src/bot-sequence.ts', '../src/bot-growth.ts', '../src/bot-followup.ts',

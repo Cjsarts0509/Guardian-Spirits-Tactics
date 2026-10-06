@@ -17,9 +17,6 @@ import type { ModeId } from './types.js';
 /** 후속 정책의 입력도 자기 관찰과 수신 가능한 사건뿐이다. 가설 배정은 받지 않는다. */
 export function sequenceFollowup(view: PlayerView, knowledge: Knowledge, memory: BotMemory, skills = false, extended = false): { action: Action; information: number } | undefined {
   if (view.phase !== 'running' || !view.me.alive || !memory.perception) return undefined;
-  const growth = extended && growthCandidates(view, knowledge, memory).find((a) => a.type === 'skill' &&
-    !['reckless_charge', 'soul_wall', 'destroyer_guidance'].includes(a.skill));
-  if (growth) return { action: growth, information: 0 };
   const priority = skills && roleFollowup(view, knowledge, memory, true);
   if (priority) return { action: priority, information: 0 };
   const attacks = view.players.filter((p) => p.alive && !p.statuses.some((s) => s.kind === 'invulnerable')).flatMap((p) => {
@@ -32,6 +29,10 @@ export function sequenceFollowup(view: PlayerView, knowledge: Knowledge, memory:
       .map((s) => ({ action: { type: 'skill', skill: s.key, target: p.id, name } as Action, value }));
   }).sort((a, b) => b.value - a.value);
   if (attacks[0]) return { action: attacks[0].action, information: 0 };
+  // 성장으로 당장 가능한 확정 공격·처치 또는 긴급 해제를 미루지 않는다.
+  const growth = extended && growthCandidates(view, knowledge, memory).find((a) => a.type === 'skill' &&
+    !['reckless_charge', 'soul_wall', 'destroyer_guidance'].includes(a.skill));
+  if (growth) return { action: growth, information: 0 };
   const role = skills && roleFollowup(view, knowledge, memory);
   if (role) return { action: role, information: 0 };
   const belief = assignmentBelief(view, knowledge, memory);
@@ -85,13 +86,18 @@ export function boundedSequenceSearch(view: PlayerView, knowledge: Knowledge, me
   const belief = assignmentBelief(view, knowledge, memory);
   const ranked = confirmationCandidates(view, belief, view.players.filter((p) => !knowledge.known.has(p.id)), view.me.skills);
   const growth = extended ? growthCandidates(view, knowledge, memory) : [];
+  const nearObservedTurn = view.nextTurnInMs <= 30_000 && view.players.every((p) => !p.alive || p.published !== null ||
+    (p.id === view.me.id && view.me.skills.some((s) => s.key === 'publish' && !s.passive && s.blocked === null &&
+      s.nameOptions?.includes(view.me.character))));
+  // 성장도 예측 가능한 턴도 없으면 이전 25종 정책과 같은 후보·비용으로 판단한다.
+  extended = extended && (growth.length > 0 || nearObservedTurn);
   if (!ranked.length && !growth.length) return undefined;
   const original = baseline && ranked.find((c) => same(c.action, baseline));
   const baselinePublish = baseline?.type === 'skill' && baseline.skill === 'publish' &&
     view.me.skills.some((s) => s.key === 'publish' && !s.passive && s.blocked === null && !!baseline.name && s.nameOptions?.includes(baseline.name));
   const candidates = original ? [original] : baseline && baselinePublish ? [{ action: baseline, score: 0 }] : [];
   for (const c of ranked) if (!candidates.some((p) => same(p.action, c.action)) && candidates.length < 3) candidates.push(c);
-  if (extended) {
+  if (extended && growth.length) {
     // 동일한 네 후보 예산 안에서 확인 2개와 성장/희생 2개를 비교한다.
     candidates.splice(2);
     for (const action of growth.slice(0, 2)) if (!candidates.some((p) => same(p.action, action))) candidates.push({ action, score: 0 });

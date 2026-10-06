@@ -243,10 +243,6 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   }
 
   // 1) 확실한 처치: 정체를 아는 적 (지휘관 우선)
-  if (opts.sequenceSearch && opts.sequenceExtended) {
-    const plan = boundedSequenceSearch(view, knowledge, mem, undefined, true, true);
-    if (plan) return plan.action;
-  }
   knownEnemies.sort((a, b) => Number(!!isCommander.get(known.get(b.id)!)) - Number(!!isCommander.get(known.get(a.id)!)) ||
     threat(b.id) - threat(a.id) || estimatedHits(view, battle, known.get(a.id)!) - estimatedHits(view, battle, known.get(b.id)!));
   for (const p of knownEnemies) {
