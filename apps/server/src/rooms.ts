@@ -19,7 +19,7 @@ import {
   type Action,
   type GameState,
   type BotMemory,
-  encodeHostSnapshot, decodeHostSnapshot, type HostSnapshot,
+  encodeHostSnapshot, readHostWire, type HostWireSnapshot,
 } from '@gst/rules';
 import type { RoomDetail, RoomSummary, ServerMessage, HostCommand, HostMember } from '@gst/protocol';
 import type { ServerConfig } from './config.js';
@@ -62,6 +62,7 @@ export class Room {
   private hostEpoch = 0;
   private hostFrame = 0;
   private hostCheckpoint = '';
+  private hostWire: HostWireSnapshot | null = null;
   private hostSeenAt = 0;
   private hostVacantAt = 0;
   private failedHosts = new Map<string, number>();
@@ -345,6 +346,7 @@ export class Room {
   }
 
   private grantHost(member: Member): void {
+    if (!this.hostCheckpoint && this.hostWire) this.hostCheckpoint = JSON.stringify(this.hostWire);
     if (!member.conn || !this.hostCheckpoint) return;
     this.hostId = member.id; this.hostEpoch++; this.hostFrame = 0;
     this.hostSeenAt = Date.now(); this.hostVacantAt = 0;
@@ -380,10 +382,11 @@ export class Room {
     if (this.hosting !== 'player' || this.status !== 'playing' || userId !== this.hostId || epoch !== this.hostEpoch)
       return '현재 방장 권한이 아닙니다.';
     if (frame !== this.hostFrame + 1) return '호스트 프레임 순서가 다릅니다.';
-    let snapshot: HostSnapshot;
+    let snapshot: HostWireSnapshot;
     try {
-      snapshot = decodeHostSnapshot(checkpoint);
-      if (!hostStateSchema.safeParse(snapshot.state).success) throw Error('상태 형식 불일치');
+      const wire = readHostWire(checkpoint, { state: this.state!, records: this.actions });
+      snapshot = wire.snapshot;
+      if (!hostStateSchema.safeParse(wire.validationState).success) throw Error('상태 형식 불일치');
       const state = snapshot.state, prior = this.state!;
       if (state.mode !== this.mode || state.seed !== prior.seed || state.startedAt !== prior.startedAt
         || !Number.isFinite(state.now) || state.now < prior.now || !Number.isSafeInteger(state.seq) || state.seq < prior.seq
@@ -399,7 +402,7 @@ export class Room {
       if (results.length !== expected.length || results.some((r,i) => r.id !== expected[i]?.id || r.player !== expected[i]?.player || r.ref !== expected[i]?.ref || typeof r.ok !== 'boolean'))
         throw Error('행동 확인 누락');
     } catch { return '잘못된 호스트 체크포인트입니다.'; }
-    this.state = snapshot.state; this.hostCheckpoint = checkpoint; this.hostFrame = frame; this.hostSeenAt = Date.now();
+    this.state = snapshot.state; this.hostWire = snapshot; this.hostCheckpoint = ''; this.hostFrame = frame; this.hostSeenAt = Date.now();
     this.actions = snapshot.records;
     for (const result of snapshot.results) if (result.id > this.handled)
       this.member(result.player)?.conn?.send({ type: 'action.result', ok: result.ok, error: result.error, ref: result.ref });

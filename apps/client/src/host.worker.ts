@@ -1,4 +1,4 @@
-import { decodeHostSnapshot, encodeHostSnapshot, applyHostInputs, tickHost } from '@gst/rules';
+import { decodeHostSnapshot, encodeHostDelta, applyHostInputs, tickHost } from '@gst/rules';
 import type { HostSnapshot } from '@gst/rules';
 import type { ClientMessage, ServerMessage, HostCommand, HostMember } from '@gst/protocol';
 
@@ -10,7 +10,7 @@ let snapshot: HostSnapshot;
 let grant: Extract<ServerMessage, { type: 'host.grant' }>;
 let members: HostMember[] = [], commands: HostCommand[] = [];
 let frame = 0, awaiting = false, timer: ReturnType<typeof setInterval>;
-let origin = 0, gameOrigin = 0;
+let origin = 0, gameOrigin = 0, logBase = 0, recordBase = 0, sentLogCount = 0, sentRecordCount = 0;
 const now = () => Math.round(gameOrigin + (performance.now() - origin) * grant.timeScale);
 
 function publish(): void {
@@ -22,7 +22,8 @@ function publish(): void {
     tickHost(snapshot, members, t, grant);
     // 행동이 없는 틱도 시간·RNG·기억을 확정해 이탈 시 같은 상태로 이어간다.
     snapshot.state.now = Math.max(snapshot.state.now, t);
-    const checkpoint = encodeHostSnapshot(snapshot);
+    const checkpoint = encodeHostDelta(snapshot, logBase, recordBase);
+    sentLogCount = snapshot.state.log.length; sentRecordCount = snapshot.records.length;
     if (checkpoint.length > 8 * 1024 * 1024) throw Error('게임 상태가 호스팅 한도를 넘었습니다.');
     awaiting = true;
     scope.postMessage({ type: 'host.frame', epoch: grant.epoch, frame: ++frame, checkpoint });
@@ -36,7 +37,7 @@ scope.onmessage = ({ data }) => {
   if (data.type === 'host.grant') {
     grant = data; frame = data.frame; members = data.members; commands = data.commands;
     snapshot = decodeHostSnapshot(data.checkpoint);
-    snapshot.results = [];
+    snapshot.results = []; logBase = snapshot.state.log.length; recordBase = snapshot.records.length;
     origin = performance.now(); gameOrigin = snapshot.state.now; awaiting = false;
     clearInterval(timer); timer = setInterval(publish, data.tickMs);
     publish();
@@ -44,7 +45,7 @@ scope.onmessage = ({ data }) => {
     if (data.type === 'host.members') members = data.members;
     if (data.type === 'host.command') commands.push(data.command);
     if (data.type === 'host.ack' && data.frame === frame) {
-      snapshot.results = []; awaiting = false;
+      snapshot.results = []; logBase = sentLogCount; recordBase = sentRecordCount; awaiting = false;
     }
   }
 };

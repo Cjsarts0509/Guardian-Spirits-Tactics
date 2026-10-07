@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { applyHostInputs, decodeHostSnapshot, encodeHostSnapshot, tickHost } from '@gst/rules';
+import { applyHostInputs, decodeHostSnapshot, encodeHostSnapshot, encodeHostDelta, tickHost } from '@gst/rules';
 import type { ServerMessage } from '@gst/protocol';
 import { Room } from '../src/rooms.js';
 import { loadConfig } from '../src/config.js';
@@ -19,6 +19,24 @@ function setup() {
 const grant = (messages: ServerMessage[]) => messages.filter((m): m is Extract<ServerMessage,{type:'host.grant'}> => m.type==='host.grant').at(-1)!;
 
 describe('방장 계산·호스트 이전', () => {
+  it('추가 기록만 확정하고 기준 오류는 보존·다음 호스트는 전체 기록 복원', () => {
+    const {room,a,b}=setup(), first=grant(a), snapshot=decodeHostSnapshot(first.checkpoint);
+    let logBase=snapshot.state.log.length, recordBase=snapshot.records.length;
+    for(let frame=1;frame<=2;frame++) {
+      expect(room.act('b',{type:'chat',channel:'all',text:`기록${frame}`},1000+frame*100,frame).pending).toBe(true);
+      const commands=[a.filter((m):m is Extract<ServerMessage,{type:'host.command'}>=>m.type==='host.command').at(-1)!.command];
+      snapshot.results=[];applyHostInputs(snapshot,commands,1000+frame*100);
+      const delta=encodeHostDelta(snapshot,logBase,recordBase), frozen=structuredClone(room.state);
+      expect(room.commitHost('a',first.epoch,frame,encodeHostDelta(snapshot,logBase+1,recordBase))).toContain('잘못된');
+      expect(room.state).toEqual(frozen);
+      expect(room.commitHost('a',first.epoch,frame,delta)).toBeNull();
+      logBase=snapshot.state.log.length;recordBase=snapshot.records.length;
+    }
+    room.disconnected('a');
+    const restored=decodeHostSnapshot(grant(b).checkpoint);
+    expect(restored.state).toEqual(snapshot.state);expect(restored.records).toEqual(snapshot.records);
+    expect(b.filter(m=>m.type==='action.result')).toHaveLength(2);
+  });
   it('서버는 진행/AI를 계산하지 않고 비공개 체크포인트는 지정 방장에게만 전달', () => {
     const {room,a,b,old}=setup(), state=structuredClone(room.state);
     room.tick(500000);

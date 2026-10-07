@@ -1,7 +1,21 @@
 import { describe, expect, it } from 'vitest';
-import { createGame, createBotMemory, encodeHostSnapshot, decodeHostSnapshot, applyHostInputs, tickHost, type HostSnapshot } from '../src/index.js';
+import { createGame, createBotMemory, encodeHostSnapshot, decodeHostSnapshot, encodeHostDelta, readHostWire, applyHostInputs, tickHost, type HostSnapshot } from '../src/index.js';
 
 describe('호스트 상태 복원', () => {
+  it('기록 추가분을 합쳐 전체 복구하고 잘못된 기준은 거절', () => {
+    const { state } = createGame({ mode: 'civil_war', players: Array.from({length:8}, (_,i)=>({id:`p${i}`,nickname:`P${i}`})), seed: 1, now: 1000 });
+    const snapshot: HostSnapshot = { version: 1, state, memories: new Map([['p0', createBotMemory(1)]]), handled: 0, records: [], results: [] };
+    applyHostInputs(snapshot, [{id:1,kind:'action',player:'p0',action:{type:'chat',channel:'all',text:'기존'}}],1100);
+    const prior = structuredClone(snapshot), logBase=state.log.length, recordBase=snapshot.records.length;
+    snapshot.results=[];
+    applyHostInputs(snapshot, [{id:2,kind:'action',player:'p0',action:{type:'chat',channel:'all',text:'추가'}}],1200);
+    const delta=encodeHostDelta(snapshot,logBase,recordBase), wire=readHostWire(delta,prior);
+    expect(wire.validationState.log).toEqual(snapshot.state.log.slice(logBase));
+    expect(decodeHostSnapshot(JSON.stringify(wire.snapshot))).toEqual(decodeHostSnapshot(encodeHostSnapshot(snapshot)));
+    expect(() => readHostWire(delta,{state: snapshot.state,records: snapshot.records})).toThrow('기준 불일치');
+    expect(() => readHostWire(delta)).toThrow('기준 불일치');
+    expect(prior.state.log).toHaveLength(logBase);
+  });
   for (const mode of ['civil_war', 'primordial', 'lidellut', 'troll'] as const) it(`${mode}: 이전 후 RNG·상태·스킬 기억과 다음 행동 일치`, () => {
     const { state } = createGame({ mode, players: Array.from({ length: 12 }, (_, i) => ({ id: `p${i}`, nickname: `P${i}` })), seed: 123, now: 1000 });
     const snapshot: HostSnapshot = { version: 1, state, memories: new Map(state.players.map((p,i) => [p.id, createBotMemory(i+1)])), handled: 0, records: [], results: [] };

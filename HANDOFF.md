@@ -181,7 +181,7 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
 - 변경 후: `pnpm typecheck && pnpm test`, UI 변경은 Playwright 스크린샷으로 확인(Chromium: `/opt/pw-browsers/chromium`).
 # 최근 AI 오류 점검
 
-방장 호스팅 기능 초안 구현: `feat/player-host-migration`, `docs/PLAYER_HOSTING.md`. 새 웹 화면은 player 방을 만들며 브라우저 Web Worker가 게임/기본AI 계산. 서버는 초기배정·대기실·입력번호·체크포인트·뷰필터·중계/기록을 맡고 해당방의 서버틱은 계산하지 않음. 직접WebRTC P2P는 구현하지 않았음. 끊김즉시/8초무응답시 다음지원접속자로 이전, epoch로이전호스트차단, 미확정사람입력재전송/중복방지, Map/Set AI기억·RNG·시간복원. 호스트없으면정지, 10분후정리. 현재367테스트(337+30)·타입·서버/클라이언트빌드 통과. 실제WS+브라우저워커번들의Node어댑터 통합검증 완료. Chromium다운로드가빈/손상ZIP으로실패해 실브라우저2프로필·UI캡처·ARM/장기통신량검증은 남아있음. casual 신뢰호스트모델이며 서버를우회하지않고 서버재시작복구도미지원. main/운영VM변경없음. AI PR9과변경분리를위해 해당브랜치기준의별도PR초안으로올림.
+방장 호스팅 실브라우저 검증 및 전송 개선 완료: `feat/player-host-migration`, PR10(AI PR9 기준의 별도 초안), `docs/PLAYER_HOSTING.md`, `docs/PLAYER_HOSTING_VALIDATION.md`. Chromium153 headless 독립2프로필에서 실제 웹 빌드/Worker로 새로고침·탭 종료·자리 비움·전체 이탈 후 복구·채팅1회 확정·AI 관전자 호스팅7검사/오류0, 두 화면 캡처 검토. 전체369테스트(338+31)·타입·서버/클라이언트 빌드 통과. 초기 부하에서 전체 기록/AI 캐시 전송 및 서버의 Map/Set 복원 비용 발견, ACK 기준 로그/행동 기록 추가분 전송·파생 믿음 캐시 제외·AI 기억 JSON 보관·이전 때만 전체 체크포인트 생성으로 수정. 잘못된 기준 거절/전체 기록 이전 회귀2개 추가. 로컬6조건 CPU/통신량 원자료 전후 별도 보존; 매 조건 무작위 판1회라 동일 부하의 인과 효과나 VM 수용량으로 해석하지 않음. 직접WebRTC P2P는 미구현, 서버 중계/필터 의존·casual 신뢰호스트모델·서버재시작복구 미지원. VM ARM/실제 서로 다른 회선/모바일/백그라운드 제한/장기검증은 다음 단계. main/운영VM변경없음.
 
 VM 반복 비교 실행기 준비 완료: `deploy/compare-bot-load.sh`, `docs/BOT_VM_AUDIT_RUNNER.md`. 고정 전2c48c255/후bf9ed3b6을 AB/BA/AB 세쌍 순차 측정(기본 약9분)해 실행별p95 중앙값·쌍별변화·오류를 집계하며 출처/해시/환경/원자료 일치 검증 실패시 중단한다. 로컬1.5초×3조건×6실행과5가지 변조 거절, 압축/순서/계산 대조·전체355테스트·타입·빌드 통과. 새 정책 변경없음. VM 새 반복 실측과 최초 다운로드 경로는 사용자 실행이 남음.
 

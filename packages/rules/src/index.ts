@@ -19,5 +19,5 @@ export { hypothesisWorld, hypothesisScenarios } from './bot-hypothesis.js';
 export type { HypothesisWorld, HypothesisScenario, HypothesisPlayer, HypothesisSkill, Interval } from './bot-hypothesis.js';
 export { roleSkills, skillTiming, estimatedHits, neutralizedSkill, roleThreat } from './bot-tactics.js';
 export type { BattleMemory, SkillTiming, SkillPlan } from './bot-tactics.js';
-export { encodeHostSnapshot, decodeHostSnapshot, applyHostInputs, tickHost } from './host-runtime.js';
-export type { HostSnapshot, HostSeat, HostInput } from './host-runtime.js';
+export { encodeHostSnapshot, decodeHostSnapshot, encodeHostDelta, readHostWire, applyHostInputs, tickHost } from './host-runtime.js';
+export type { HostSnapshot, HostWireSnapshot, HostSeat, HostInput } from './host-runtime.js';
