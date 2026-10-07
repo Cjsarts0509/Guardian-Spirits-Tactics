@@ -73,10 +73,12 @@ node --import tsx scripts/host-load-audit.ts 15000 > /tmp/gst-host-load.json
 
 ## 운영 반영 전 남은 확인
 
-- Node22 ARM VM에서 실제 서버 CPU·메모리·통신량 및 긴 판의 누적 체크포인트 크기.
+- 수신한 Node22 ARM VM 반복 콘솔의 상세 원자료/해시 대조와 긴 판의 누적 체크포인트 크기.
 - 서로 다른 회선의 두 사람에게 새로고침/종료/복귀와 입력 지연을 확인.
 - 모바일·백그라운드/절전·느린 호스트에서8초 무응답 이전과 게임 진행 확인.
 
 PR10은 AI PR9을 기준으로 한 별도 초안이다. main/운영 릴리즈/VM은 변경하지 않았다. 운영 bootstrap은 이 브랜치를 설치하지 않는다.
 
 VM용 반복 진단 실행기와 결과 명령은 [PLAYER_HOST_VM_AUDIT.md](PLAYER_HOST_VM_AUDIT.md)에 있다. 새 실행기는 같은 소스의 server/player를 AB/BA/AB 순서로 측정하며 기존 표의 숫자를 새 드라이버 측정값으로 바꾸지 않는다.
+
+사용자 ARM VM 콘솔 결과와 해석은 [PLAYER_HOST_VM_AUDIT.md](PLAYER_HOST_VM_AUDIT.md), 체크포인트 구성의 로컬 후속 진단은 [PLAYER_HOST_TRANSPORT_FINDINGS.md](PLAYER_HOST_TRANSPORT_FINDINGS.md)에 있다.

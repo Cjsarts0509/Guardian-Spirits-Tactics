@@ -35,11 +35,11 @@
 
 추가로 Chromium 153 headless의 독립 브라우저 프로필 두 개에서 실제 웹 빌드·Worker·WebSocket을 실행했다. 새로고침·탭 종료·자리 비움 때 이전, 기존 정체로 복귀, 채팅1회 확정, 모든 호스트 이탈 뒤 재입장, AI 전용 관전자 호스팅의7개 검사를 통과했고 수집한 페이지/서버 오류는0건이다. 방장 표시와 관전 화면도 캡처로 확인했다. 표준 Playwright 다운로드 실패 후 별도 Chromium 실행 파일과 한글 글꼴로 시험을 완료했다.
 
-별도 프로세스에서 호스트 Worker를 실행하는 로컬6조건 부하 진단도 추가했다. CPU·프레임 확정 비용·통신량을 함께 기록하며 서버 틱 시간만으로 개선을 판단하지 않는다. 결과와 재현 방법은 [PLAYER_HOSTING_VALIDATION.md](PLAYER_HOSTING_VALIDATION.md)에 있다. VM 반복 진단 명령은 [PLAYER_HOST_VM_AUDIT.md](PLAYER_HOST_VM_AUDIT.md)에 있다. 직접 P2P·VM ARM·모바일·실제 백그라운드 제한·원격 회선·장기 수용량은 미검증이다.
+별도 프로세스에서 호스트 Worker를 실행하는 로컬6조건 부하 진단도 추가했다. CPU·프레임 확정 비용·통신량을 함께 기록하며 서버 틱 시간만으로 개선을 판단하지 않는다. 결과와 재현 방법은 [PLAYER_HOSTING_VALIDATION.md](PLAYER_HOSTING_VALIDATION.md)에 있다. VM 반복 진단 명령은 [PLAYER_HOST_VM_AUDIT.md](PLAYER_HOST_VM_AUDIT.md)에 있다. Node22.23.3 ARM VM 반복3회 완료 콘솔을 수신했다. 상세 원자료/해시는 아직 대조하지 않았다. 직접 P2P·모바일·실제 백그라운드 제한·원격 회선·장기 수용량은 미검증이다.
 
 ## 배포 전 확인
 
-별도 `feat/player-host-migration` 브랜치이며 AI PR의 브랜치를 기준으로 변경을 분리한다. main과 운영 VM은 아직 변경하지 않았다. 로컬 브라우저 시험은 완료했다. VM ARM 및 실제 서로 다른 회선에서 부하·이전·백그라운드 제한을 확인한 뒤 운영 반영한다. 운영 bootstrap은 이 브랜치 초안을 설치하지 않는다.
+별도 `feat/player-host-migration` 브랜치이며 AI PR의 브랜치를 기준으로 변경을 분리한다. main과 운영 VM은 아직 변경하지 않았다. 로컬 브라우저 시험은 완료했다. VM 반복 원자료 대조와 실제 서로 다른 회선에서 이전·백그라운드 제한을 확인한 뒤 운영 반영한다. 운영 bootstrap은 이 브랜치 초안을 설치하지 않는다.
 
 로컬에서 의존성 설치 후 루트의 `pnpm build`를 실행하고 아래처럼 시작한다. 운영 비밀키 없이 개발용 게스트 서버이며 실행 폴더의 다른 서비스와 겹치지 않는 포트를 쓴다.
 

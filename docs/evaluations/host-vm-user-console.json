@@ -1,0 +1,96 @@
+{
+  "format": 1,
+  "evidence": "사용자가 채팅으로 제공한 VM 콘솔 요약. 압축 원자료 미수신으로 실행별 값·결과/소스 SHA256을 독립 대조하지 않음.",
+  "sourceCommitReported": "1c7e8782fc6a980990389e3d1cb3d7fc66a250e4",
+  "runtimeReported": {
+    "node": "v22.23.3",
+    "arch": "arm64"
+  },
+  "runsReported": 3,
+  "durationMsReported": 30000,
+  "orderReported": [
+    "server-first",
+    "player-first",
+    "server-first"
+  ],
+  "dirtySourceReported": false,
+  "preparationReported": {
+    "curlGitCheckoutAndPnpmInstallCompleted": true,
+    "pnpm": "10.28.0",
+    "packages": 109,
+    "downloadedPackages": 0,
+    "ignoredBuildScripts": [
+      "esbuild@0.21.5",
+      "esbuild@0.24.2",
+      "esbuild@0.28.2"
+    ]
+  },
+  "rawArtifactOnUserVm": "/tmp/gst-host-audit.gP9Ggh/gst-host-audit-results.tar.gz",
+  "rawArtifactReceived": false,
+  "scope": "실제 Node22 ARM 반복3회 콘솔 중앙값. 새 무작위 판·같은VM의호스트자식·timeScale60 합성 부하, 실행별 원자료 미확인. 전체VM CPU·원격회선·수용량·통계적 유의성 결과 아님. RSS는 드라이버 포함 메인만, 자식RSS 콘솔에 없음.",
+  "cases": [
+    {
+      "name": "one-room-default",
+      "server": {
+        "mainCpuPercentMedian": 2.56,
+        "tickP95MsMedian": 6.26,
+        "uploadKiBpsMedian": 0,
+        "mainRssMaxMiBMedian": 111.64
+      },
+      "player": {
+        "mainCpuPercentMedian": 1.92,
+        "tickP95MsMedian": 0.05,
+        "commitP95MsMedian": 2.14,
+        "uploadKiBpsMedian": 92.36,
+        "mainRssMaxMiBMedian": 109.52
+      },
+      "reportedErrors": {
+        "http": 0,
+        "host": 0,
+        "process": 0
+      }
+    },
+    {
+      "name": "four-rooms-default",
+      "server": {
+        "mainCpuPercentMedian": 2.7,
+        "tickP95MsMedian": 6.07,
+        "uploadKiBpsMedian": 0,
+        "mainRssMaxMiBMedian": 118.9
+      },
+      "player": {
+        "mainCpuPercentMedian": 3.57,
+        "tickP95MsMedian": 0.05,
+        "commitP95MsMedian": 1.31,
+        "uploadKiBpsMedian": 436.23,
+        "mainRssMaxMiBMedian": 131.89
+      },
+      "reportedErrors": {
+        "http": 0,
+        "host": 0,
+        "process": 0
+      }
+    },
+    {
+      "name": "four-rooms-high-activity",
+      "server": {
+        "mainCpuPercentMedian": 13.43,
+        "tickP95MsMedian": 31.29,
+        "uploadKiBpsMedian": 0.08,
+        "mainRssMaxMiBMedian": 224.44
+      },
+      "player": {
+        "mainCpuPercentMedian": 13.05,
+        "tickP95MsMedian": 0.05,
+        "commitP95MsMedian": 6.72,
+        "uploadKiBpsMedian": 4033.64,
+        "mainRssMaxMiBMedian": 238.75
+      },
+      "reportedErrors": {
+        "http": 0,
+        "host": 0,
+        "process": 0
+      }
+    }
+  ]
+}
