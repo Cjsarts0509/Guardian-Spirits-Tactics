@@ -1,0 +1,81 @@
+{
+  "format": 1,
+  "evidence": "사용자 콘솔 전사. 압축 원자료 미수신으로 실행별 수치/해시 독립 대조 미완료.",
+  "sourceCommitReported": "395e761cb8313c2dc6c15e5efb535493eb2b1a10",
+  "runtimeReported": {
+    "node": "v22.23.3",
+    "arch": "arm64"
+  },
+  "runsReported": 3,
+  "durationMsReported": 30000,
+  "orderReported": [
+    "server-first",
+    "player-first",
+    "server-first"
+  ],
+  "dirtySourceReported": false,
+  "rawArtifactOnUserVm": "/tmp/gst-host-audit.kWmAdn/gst-host-audit-results.tar.gz",
+  "rawArtifactReceived": false,
+  "cases": [
+    {
+      "name": "one-room-default",
+      "server": {
+        "mainCpuPercentMedian": 2.52,
+        "tickP95MsMedian": 6.66,
+        "mainRssMaxMiBMedian": 109.83
+      },
+      "player": {
+        "mainCpuPercentMedian": 1.86,
+        "tickP95MsMedian": 0.04,
+        "commitP95MsMedian": 2.17,
+        "uploadKiBpsMedian": 51.31,
+        "mainRssMaxMiBMedian": 109.53
+      },
+      "reportedErrors": {
+        "http": 0,
+        "host": 0,
+        "process": 0
+      }
+    },
+    {
+      "name": "four-rooms-default",
+      "server": {
+        "mainCpuPercentMedian": 2.24,
+        "tickP95MsMedian": 4.96,
+        "mainRssMaxMiBMedian": 126.41
+      },
+      "player": {
+        "mainCpuPercentMedian": 3.54,
+        "tickP95MsMedian": 0.05,
+        "commitP95MsMedian": 1.18,
+        "uploadKiBpsMedian": 210.04,
+        "mainRssMaxMiBMedian": 131.65
+      },
+      "reportedErrors": {
+        "http": 0,
+        "host": 0,
+        "process": 0
+      }
+    },
+    {
+      "name": "four-rooms-high-activity",
+      "server": {
+        "mainCpuPercentMedian": 13.66,
+        "tickP95MsMedian": 29.27,
+        "mainRssMaxMiBMedian": 222.33
+      },
+      "player": {
+        "mainCpuPercentMedian": 5.48,
+        "tickP95MsMedian": 0.05,
+        "commitP95MsMedian": 6.1,
+        "uploadKiBpsMedian": 600.56,
+        "mainRssMaxMiBMedian": 218.55
+      },
+      "reportedErrors": {
+        "http": 0,
+        "host": 0,
+        "process": 0
+      }
+    }
+  ]
+}

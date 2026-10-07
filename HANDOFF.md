@@ -181,6 +181,8 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
 - 변경 후: `pnpm typecheck && pnpm test`, UI 변경은 Playwright 스크린샷으로 확인(Chromium: `/opt/pw-browsers/chromium`).
 # 최근 AI 오류 점검
 
+후속 ARM 콘솔395e761 수신: 고빈도 player 메인CPU5.48%·업로드600.56KiB/s, 이전 대비58.0/85.1% 감소 관측; 기본4방server/player2.24/3.54%로 부담 잔존. 18조건오류0 보고, 원자료 미수신. docs/evaluations/host-vm-memory-delta-console.json. WS/Worker 통합시험에 프레임 보류·ACK누락을 추가해 실제8초무응답 이전/미확정입력1회확정/구호스트지연프레임거절 확인. 실제외부회선/절전은 미검증. deploy/preview-player-host.sh와 docs/PLAYER_HOST_REMOTE_CHECK.md로 격리된 localhost 게스트서버+두PC SSH터널 시험 준비.
+
 AI 기억 변경분 전송 완료: docs/PLAYER_HOST_MEMORY_DELTA.md. ACK 프레임 기준 순수 JSON 변경 적용·전체 기억 fallback·최근64관측 seq 이동 재사용, 정책/기억 유지. 같은1920프레임 복구 일치·고빈도 전송 JSON79.7–87.3% 감소, 호스트 인코딩 비용 증가. 역사적 인코더40프레임 대조, 네 모드 다음 행동/RNG/기억 일치, 실제 브라우저8검사 오류0. 원자료 코드해시 일치. 로컬 새15초6조건 main CPU server/player 기본4방2.42/3.30%, 고빈도4방10.36/4.94%, 업로드약631KiB/s; 무작위판1회로 인과/ARM결과 아님. 전체402테스트·타입·빌드 확인. 다음은 새SHA ARM 반복 진단, 외부회선/실제백그라운드/장기시험. 운영main/VM변경없음.
 
 호스트 전송 구성 후속 로컬 진단: docs/PLAYER_HOST_TRANSPORT_FINDINGS.md, host-payload-audit.ts. 4모드×2activity×고정2시드 각120틱/1920프레임에서 추가분 로그/행동 복구 대조. 고빈도8조건 AI 기억92.4–95.4%/체크포인트, 그 기억 내부 battle.ambiguous 71.2–77.5%. 로컬 직렬화 구성이고 VM 실제프레임/CPU 병목을 직접측정한 것은 아님. 다음은 기억을 삭제하지 않고 ACK기준 변경분만전송하는 방식 검토/복구·실브라우저·새VM측정. 현재AI정책/지속기억/호스트프로토콜 변경없음.

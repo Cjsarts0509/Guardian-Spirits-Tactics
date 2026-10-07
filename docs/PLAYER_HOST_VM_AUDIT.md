@@ -55,3 +55,7 @@ GST_HOST_AUDIT_REF=feat/player-host-migration bash "$gst_host_audit_script"
 로컬 전송 구성의 후속 진단은 [PLAYER_HOST_TRANSPORT_FINDINGS.md](PLAYER_HOST_TRANSPORT_FINDINGS.md)에 있다. VM의 실제 프레임 구성과 같은 것으로 해석하지 않는다.
 
 후속으로 AI 기억 변경분 전송을 구현했다. 위 ARM 콘솔은1c7e878의 변경 전 결과이며 새 소스의 VM 성능 결과가 아니다. [변경분 전송 검증](PLAYER_HOST_MEMORY_DELTA.md)을 참고하고 재측정 시 실행기 URL과 `GST_HOST_AUDIT_REF`를 같은 새 커밋 SHA로 고정한다.
+
+## 변경분 적용 후 ARM 콘솔
+
+395e761, Node22.23.3 arm64, 30초×6조건×3회, dirtySource=false, 오류0 보고. [콘솔 전사](evaluations/host-vm-memory-delta-console.json). 고빈도4방 메인 CPU server/player13.66/5.48%, player 업로드600.56KiB/s. 이전 player13.05%/4033.64KiB/s 대비 각각58.0%/85.1% 감소 관측. 기본4방은 server/player2.24/3.54%로 중계 비용이 더 높다. 메인CPU는 자식 호스트 계산을 제외하며 무작위판 간 비교다. 전체VM/브라우저CPU·수용량·통계적 유의성 보장이 아니다. 새 원자료는 사용자VM `/tmp/gst-host-audit.kWmAdn/gst-host-audit-results.tar.gz`에 있으며 독립 대조 미완료.
