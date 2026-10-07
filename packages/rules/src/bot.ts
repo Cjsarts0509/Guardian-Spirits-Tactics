@@ -17,6 +17,8 @@ import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot
 export type { BotMemory, Knowledge } from './bot-memory.js';
 
 export interface BotOptions {
+  /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
+  claimEvidenceScale?: number;
   /** 행동 확률 (0~1). 호출될 때마다 이 확률로만 행동 */
   activity?: number;
   /** 확인된 적에 대한 제한 엔진 탐색 실험. 기본은 비활성화. */
@@ -184,7 +186,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const confirmationStrategy = requestedConfirmation === 'combat-lidellut'
     ? view.mode === 'lidellut' ? 'combat' : false : requestedConfirmation;
   const combatInformation = confirmationStrategy === 'combat' || confirmationStrategy === 'combat-gem';
-  const belief = assignmentBelief(view, knowledge, mem);
+  const belief = assignmentBelief(view, knowledge, mem, opts.claimEvidenceScale);
   const me = view.me;
   const elapsed = view.elapsedMs;
   const sideOf = new Map(view.roster.map((r) => [r.key, r.side]));

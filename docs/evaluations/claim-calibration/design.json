@@ -1,0 +1,56 @@
+{
+  "format": 1,
+  "baselineRemote": "f3bae28ef0b00e9823f3e007811a9c037feb6a4b",
+  "scales": [
+    0,
+    0.25,
+    0.5,
+    1,
+    2,
+    4
+  ],
+  "splits": [
+    {
+      "name": "train",
+      "start": 80000,
+      "count": 6
+    },
+    {
+      "name": "development",
+      "start": 81000,
+      "count": 3
+    },
+    {
+      "name": "test",
+      "start": 82000,
+      "count": 6
+    }
+  ],
+  "league": {
+    "start": 83000,
+    "count": 8
+  },
+  "modes": [
+    "civil_war",
+    "primordial",
+    "lidellut",
+    "troll"
+  ],
+  "styles": [
+    "truthful",
+    "bluff",
+    "skill-aware-bluff"
+  ],
+  "selection": "훈련 게임 평균 Brier 최소, 동률은 기존1과 가까운 값. 개발/검증 결과로 재선택하지 않음.",
+  "sampling": "한 게임 p1/p2의60/120/180/240초 관찰; 살아있는 미확정 대상만 채점; 게임별 평균 동등 가중.",
+  "scope": "합성 봇 혼합 분포의 단일 배율 학습. 인간/온라인 학습 아님. 주 판단만 보정하며 확장 탐색 비활성.",
+  "hashes": {
+    "src/bot.ts": "5e7611a7481c6a4e5d4c32c7b7b5c8694fcdcb0a05f1098ad584b8ff57a8967a",
+    "src/bot-belief.ts": "e217d10ae82af61e0453f7843ca83995e6632ac70171f0d5790fcdcf1137d527",
+    "src/bot-claims.ts": "8b4a70a2b81c531c42b4b55dc97f657e817cfb714c9ad2a544983ffefc60dd04",
+    "src/bot-memory.ts": "5590699536295c96bf57f1758072d76a2d65a127b89c435174cffc445007b424",
+    "scripts/claim-calibration.ts": "8a6f9d26a99e8f6e56e894a6ef7c3ddaec684e198b3f94027353e54a114172e2",
+    "scripts/claim-opponents.ts": "56b70de28ec2c24d9165f909b6065e99a24bbbd6d334ebd6f4cd1a8d3cd395ef",
+    "scripts/league-runner.ts": "f06567dbb2fbdff690cdbe99bf8b7bd953c6ba7b6fb57ef276e6e185eb9bc4d8"
+  }
+}

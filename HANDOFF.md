@@ -181,6 +181,8 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
 - 변경 후: `pnpm typecheck && pnpm test`, UI 변경은 Playwright 스크린샷으로 확인(Chromium: `/opt/pw-browsers/chromium`).
 # 최근 AI 오류 점검
 
+AI 공표 가중치 오프라인 학습1차: feat/ai-claim-calibration, docs/BOT_CLAIM_CALIBRATION.md. 180합성판1237관찰을 train72/dev36/test72로 시드분리, 기존가중치w^alpha의 alpha=4 선택. test Brier0.78933→0.65140 개선이나 새768대전(후보384/기존384) 혼합상대 승리점수70.83→66.67%, 차이−4.17%p(시드bootstrap95%−6.77~−1.30). 모두종료·초반공격실패0, 후보행동거절87/13963 vs27/13807. 모델 미채택·기본scale1·확장탐색OFF 유지. 관찰자료 수집판16미종료도 초기관찰 포함, 숨기지않음. 다음은 변경된행동 진단/새최종시드 예약. model/result/design/압축원자료·해시대조 보존.
+
 현재 작업 우선순위 정리(2026-10-07): 호스팅 수동 두PC/외부회선/절전 시험은 사용자 결정으로 생략하며 필수 게이트로 요구하지 않는다. 미검증으로 기록. PR9(main 기준 AI 연구 초안)→PR10(PR9 기준 호스팅 초안) 의존 관계 유지, 병합/배포 미실행. AI 고도화는 아직 완료가 아니다. 기억/배정추론/수순탐색·독립리그는 구현, 탐색옵션은 기본OFF, 데이터 기반 가중치 자동학습·게임간 학습은 미구현. 다음 AI 재개 지점과 근거는 docs/AI_PROGRESS.md.
 
 후속 ARM 콘솔395e761 수신: 고빈도 player 메인CPU5.48%·업로드600.56KiB/s, 이전 대비58.0/85.1% 감소 관측; 기본4방server/player2.24/3.54%로 부담 잔존. 18조건오류0 보고, 원자료 미수신. docs/evaluations/host-vm-memory-delta-console.json. WS/Worker 통합시험에 프레임 보류·ACK누락을 추가해 실제8초무응답 이전/미확정입력1회확정/구호스트지연프레임거절 확인. 실제외부회선/절전은 미검증. deploy/preview-player-host.sh와 docs/PLAYER_HOST_REMOTE_CHECK.md로 격리된 localhost 게스트서버+두PC SSH터널 시험 준비.

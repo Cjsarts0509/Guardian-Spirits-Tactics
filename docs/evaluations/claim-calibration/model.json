@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "kind": "claim-weight-power",
+  "scale": 4,
+  "trainedOn": {
+    "name": "train",
+    "start": 80000,
+    "count": 6
+  },
+  "objective": "게임 평균 Brier",
+  "trainingScores": [
+    {
+      "scale": 0,
+      "brier": 0.846676917234588
+    },
+    {
+      "scale": 0.25,
+      "brier": 0.8366367068299059
+    },
+    {
+      "scale": 0.5,
+      "brier": 0.8259697379517931
+    },
+    {
+      "scale": 1,
+      "brier": 0.8029345065875001
+    },
+    {
+      "scale": 2,
+      "brier": 0.7527474870774413
+    },
+    {
+      "scale": 4,
+      "brier": 0.6690491961654862
+    }
+  ]
+}
