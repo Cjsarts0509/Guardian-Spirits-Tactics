@@ -33,6 +33,11 @@ ws.on('message',data=>{
     if(message.epoch===epoch)worker?.postMessage(message);
   }else if(message.type==='error')errors++;
 });
-const report = () => process.send?.({ roomId,sentBytes,receivedBytes,frames,errors });
-const timer=setInterval(report,250);
-process.on('message',m=>{if(m==='stop'){report();clearInterval(timer);stop();ws.terminate();process.exit(0);}});
+const report = (sampleId?:number) => process.send?.({ roomId,sentBytes,receivedBytes,frames,errors,rssBytes:process.memoryUsage.rss(),sampleId });
+const timer=setInterval(()=>report(),250);
+process.on('message',m=>{
+  if(m&&typeof m==='object'&&'sampleId' in m&&typeof m.sampleId==='number')report(m.sampleId);
+  if(m==='stop'){report();clearInterval(timer);stop();ws.terminate();process.exit(0);}
+});
+// 진단 부모가 중단되면 임시 호스트/Worker도 남기지 않는다.
+process.on('disconnect',()=>{clearInterval(timer);stop();ws.terminate();process.exit(0);});

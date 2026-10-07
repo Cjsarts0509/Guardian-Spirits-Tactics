@@ -1,0 +1,88 @@
+{
+  "format": 1,
+  "scope": "로컬 Node24 x64 기능 검증, 조건별1.5초×6조건×3회. 성능·VM ARM 결과로 해석하지 않음. sourceCommit은 로컬 Git SHA이며 공개 PR의 커밋 메타데이터와 다를 수 있다. 진단 코드 파일의 sourceHashes로 일치 대조.",
+  "sourceCommit": "836a1a885c627705fc0bf56f60cf19dfe4e4f302",
+  "sourceTree": "1e42f117b81d18722ec6fe9b632d16dff25035b9",
+  "runtime": {
+    "node": "v24.19.0",
+    "arch": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "runs": 3,
+  "durationMs": 1500,
+  "order": [
+    "server-first",
+    "player-first",
+    "server-first"
+  ],
+  "summarySha256": "703bf7f75e7be7729c44083063cd28b10ce84c58008fe8be00d51b1bf2a496cc",
+  "runnerSha256": "e61f16ca5172f0100b3d92f1791d53acf74592f0e060d609cd5695ed1fe0881a",
+  "sourceHashes": {
+    "apps/server/src/rooms.ts": "75fd73dcecca73ca2b4870f31878e9fb744035c0ba483099f62768d6634b3329",
+    "apps/server/src/server.ts": "64fd0975dfba98bbf144aa55967639ac1889a233fedbc1e187bce607f51d6e0a",
+    "apps/server/src/host-state.ts": "9179835f44dafb40b45e5116ecedd0463938cc07eae56994e7485e9f4bee4682",
+    "packages/rules/src/host-runtime.ts": "8c5e45d2e9c3e5baf5b4477093d3b18fef828f32efbd7ef8e1d6a614ec6cb338",
+    "apps/client/src/host.worker.ts": "48dca18b5005c46b2185f20b457f4a77e98afbc0d615b5e11a80982cfadcc10a",
+    "apps/server/scripts/host-load-audit.ts": "34aab268a6d96f714262c5e0eab7be22f9674f1115029fe3752b0cf81a6f9cca",
+    "apps/server/scripts/host-load-client.ts": "2db30a112ffb51a677f178c0db43f6926520f55ff3b54749a661f0aeab71aa89"
+  },
+  "shellRejections": [
+    "반복 범위",
+    "기간 범위",
+    "ref 형식",
+    "dirty 소스",
+    "HEAD 불일치"
+  ],
+  "regressionTests": {
+    "normalAggregation": 1,
+    "rejectMismatches": 11,
+    "totalProjectTests": 382,
+    "parentIpcDisconnectIntegration": 1
+  },
+  "archiveMembers": [
+    "summary.json",
+    "runs",
+    "runs/2",
+    "runs/2/results.json",
+    "runs/2/console.log",
+    "runs/1",
+    "runs/1/results.json",
+    "runs/1/console.log",
+    "runs/3",
+    "runs/3/results.json",
+    "runs/3/console.log"
+  ],
+  "files": [
+    {
+      "path": "docs/evaluations/host-vm-runner-check/summary.json",
+      "sha256": "703bf7f75e7be7729c44083063cd28b10ce84c58008fe8be00d51b1bf2a496cc"
+    },
+    {
+      "path": "docs/evaluations/host-vm-runner-check/runs/1/results.json",
+      "sha256": "9e4e932abdd288824e823f6dcc9de3d4320ad56c4667405e9407eba252561a30"
+    },
+    {
+      "path": "docs/evaluations/host-vm-runner-check/runs/1/console.txt",
+      "sha256": "74cc27bba70068f0ce662113b068e86d88e3b9593cb9d5d0d74bcf2c4e230c26"
+    },
+    {
+      "path": "docs/evaluations/host-vm-runner-check/runs/2/results.json",
+      "sha256": "87db84a0da73d7a3d14f9e4a73608ac6313a18ba348b61de4c42c0cea5786c8d"
+    },
+    {
+      "path": "docs/evaluations/host-vm-runner-check/runs/2/console.txt",
+      "sha256": "7cfe9f85a37aaa0fd49b57a6d0e39b9b9e7d0aef04b3d5e21a61686ac77a1440"
+    },
+    {
+      "path": "docs/evaluations/host-vm-runner-check/runs/3/results.json",
+      "sha256": "38b903a9382e557ad3ddedc81eee4e9b6a4b9564275d2a64e780388a992b9e7f"
+    },
+    {
+      "path": "docs/evaluations/host-vm-runner-check/runs/3/console.txt",
+      "sha256": "74cc27bba70068f0ce662113b068e86d88e3b9593cb9d5d0d74bcf2c4e230c26"
+    }
+  ],
+  "downloadAndInstallPathVerified": false,
+  "vmArmMeasured": false,
+  "parentIpcDisconnectExitCode": 0
+}
