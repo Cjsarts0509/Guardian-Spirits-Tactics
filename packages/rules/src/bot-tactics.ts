@@ -66,13 +66,20 @@ export function observeBattle(view: PlayerView, event: GameEvent, battle: Battle
   // GameEvent.at과 view.elapsedMs는 모두 게임 시작 기준이며 서버 벽시계와 무관하다.
   const at = event.at;
   const mode = getMode(view.mode as ModeId);
-  const defs = { ...skillRegistry, ...mode.skills };
-  const owners = (skill: string) => view.roster.filter((r) => r.inGame && roleSkills(view, battle, r.key, true).includes(skill))
-    .map((r) => ({ character: r.key, skill }));
+  const definition = (skill: string) => mode.skills[skill] ?? skillRegistry[skill];
+  // 하나의 이벤트가 여러 확인/스캔 후보를 가진 경우에도 역할 목록은 한 번만 만든다.
+  // 이벤트 처리 후 grants/removals가 바뀔 수 있으므로 다음 이벤트와는 공유하지 않는다.
+  let roleLists: { character: CharKey; skills: string[] }[] | undefined;
+  const owners = (skill: string) => {
+    roleLists ??= view.roster.filter((r) => r.inGame)
+      .map((r) => ({ character: r.key, skills: roleSkills(view, battle, r.key, true) }));
+    return roleLists.filter((r) => r.skills.includes(skill)).map((r) => ({ character: r.character, skill }));
+  };
   let options: { character: string; skill: string }[] = [];
   let delay = 0;
   if (event.kind === 'inspect') {
-    options = Object.keys(defs).filter((s) => s.endsWith('_check') || s.includes('scan')).flatMap(owners);
+    options = [...new Set([...Object.keys(skillRegistry), ...Object.keys(mode.skills)])]
+      .filter((s) => s.endsWith('_check') || s.includes('scan')).flatMap(owners);
   } else if (/^skill\.(rune_protection|soul_recovery)\.(self|target)$/.test(event.kind)) {
     options = owners(event.kind.split('.')[1]!);
   } else if (event.kind === 'status.incapacitated') {
@@ -93,7 +100,7 @@ export function observeBattle(view: PlayerView, event: GameEvent, battle: Battle
     const match = /^skill\.([a-z_]+)(?:\.fail|\.blocked)?$/.exec(event.kind);
     let key = match?.[1];
     if (key === 'ancient_hex') key = 'ancient_hex_hachi';
-    if (key && defs[key] && !defs[key]!.passive && key !== 'religious_alliance') {
+    if (key && definition(key) && !definition(key)!.passive && key !== 'religious_alliance') {
       options = owners(key);
       if (key === 'chaos_hex') delay = 60_000;
       if (key === 'kilder_casanova') delay = 8_000;
@@ -106,7 +113,7 @@ export function observeBattle(view: PlayerView, event: GameEvent, battle: Battle
       if (battle.ambiguous.length > 64) battle.ambiguous.shift();
     }
     for (const o of options) {
-      const def = defs[o.skill];
+      const def = definition(o.skill);
       if (!def || def.passive) continue;
       const key = timingKey(o.character, o.skill);
       const old = battle.timings.get(key) ?? { readyEarliest: 0, readyLatest: 0, usedMin: 0, usedMax: 0 };

@@ -3,6 +3,36 @@ import { botKnowledge, createBotMemory, eventsFor, smartBotAction, updateBotKnow
 import { CIVIL_ORDER, PRIMORDIAL_ORDER, TROLL_ORDER, civilTable, fill, modeTable } from './helpers.js';
 
 describe('변장 가능한 관찰', () => {
+  it('일회성 전투 이력 생략도 변장·개인 facts·공표의 정체 지식을 그대로 반영한다', () => {
+    const t = civilTable(), full = createBotMemory(3), once = createBotMemory(3);
+    t.publish('soen', 'arin');
+    t.skill('kai', 'ally_check', 'soen');
+    const compare = () => {
+      const view = viewFor(t.state, t.id.kai!);
+      const normal = updateBotKnowledge(view, t.state.log, full);
+      const lightweight = updateBotKnowledge(view, t.state.log, once, { recordBattle: false });
+      expect(lightweight).toEqual(normal);
+      const { battle: fullBattle, ...fullPerception } = full.perception!;
+      const { battle: onceBattle, ...oncePerception } = once.perception!;
+      expect(oncePerception).toEqual(fullPerception);
+      expect(onceBattle.timings.size).toBe(0);
+      expect(fullBattle.timings.size).toBeGreaterThan(0);
+      return lightweight;
+    };
+    expect(compare().candidates.get(t.id.soen!)).toEqual(['soen', 'arin']);
+    t.p('kai').gem = 2; fill(t, 'kai');
+    t.skill('kai', 'truth_gem', 'soen');
+    expect(compare().known.get(t.id.soen!)).toBe('soen');
+  });
+
+  it('일회성 기억에도 남의 비공개 정체 facts는 들어오지 않는다', () => {
+    const t = civilTable(); t.publish('soen', 'arin'); t.skill('kai', 'ally_check', 'soen');
+    const memory = createBotMemory(3);
+    const knowledge = updateBotKnowledge(viewFor(t.state, t.id.dantes!), t.state.log, memory, { recordBattle: false });
+    expect(knowledge.known.has(t.id.soen!)).toBe(false);
+    expect(knowledge.candidates.get(t.id.soen!)!.length).toBeGreaterThan(2);
+  });
+
   it.each(['ally_check', 'advanced_scan'])('%s: 진명과 변장의 수신 이벤트가 같고, 정체를 확정하지 않는다', (skill) => {
     const fake = civilTable();
     const genuine = civilTable(CIVIL_ORDER.map((c) => c === 'soen' ? 'arin' : c === 'arin' ? 'soen' : c));

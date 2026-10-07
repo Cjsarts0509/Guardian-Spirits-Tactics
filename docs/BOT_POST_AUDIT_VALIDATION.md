@@ -1,5 +1,7 @@
 # 오류 수정 후 AI 독립 평가
 
+후속 비용 개선과 의미 보존 검증은 `docs/BOT_LATENCY_OPTIMIZATION.md`에 기록했다. 아래 승률·비용은 당시 고정 정책의 결과다.
+
 정책 소스는 로컬 `1b83ade` / 원격 `b1925aba87889aaf38f65a9fb470cb223c878c17`에 고정했다. 평가 결과를 본 뒤 가중치나 후보를 바꾸지 않았다. 기본 설정은 그대로 두고 `sequenceSearch`, `sequenceSkills`, `sequenceExtended`를 켠 실험 정책을 평가했다.
 
 ## 비교 설계

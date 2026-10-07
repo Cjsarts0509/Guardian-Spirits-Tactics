@@ -1,0 +1,264 @@
+{
+  "format": 1,
+  "positions": 800,
+  "rounds": 3,
+  "decisionChecks": 2400,
+  "fullSearchChecks": 800,
+  "exactMatch": true,
+  "baselineLocalCommit": "34398ab",
+  "baselineRemoteCommit": "778a6f8e36f869176ba5fdd51d8b7cea4da64b04",
+  "runtime": "v24.19.0",
+  "startSeed": 65000,
+  "seeds": 5,
+  "scope": "idle local paired full-policy timings with alternating order, three rounds of the same 800 synthetic positions; no excluded warmup; not VM/live load; internal results checked after timing",
+  "groups": {
+    "identities-private/turn-in-50s": {
+      "positions": 200,
+      "rounds": [
+        {
+          "prior": {
+            "median": 0.3825749999996333,
+            "p95": 35.32352499999979,
+            "max": 61.038257999999985
+          },
+          "current": {
+            "median": 0.3677430000007007,
+            "p95": 24.460317000000032,
+            "max": 52.43810399999984
+          }
+        },
+        {
+          "prior": {
+            "median": 0.36670199999934994,
+            "p95": 30.73117900000034,
+            "max": 43.07497400000102
+          },
+          "current": {
+            "median": 0.34303599999839207,
+            "p95": 20.256234999998924,
+            "max": 32.556415000000925
+          }
+        },
+        {
+          "prior": {
+            "median": 0.37234999999782303,
+            "p95": 31.231160000003,
+            "max": 44.01318299999912
+          },
+          "current": {
+            "median": 0.3502870000011171,
+            "p95": 20.665139000000636,
+            "max": 32.66597700000057
+          }
+        }
+      ],
+      "pooled": {
+        "prior": {
+          "median": 0.37161900000137393,
+          "p95": 31.968157999999676,
+          "max": 61.038257999999985
+        },
+        "current": {
+          "median": 0.3516589999999269,
+          "p95": 21.347795999998198,
+          "max": 52.43810399999984
+        }
+      }
+    },
+    "identities-public/turn-in-50s": {
+      "positions": 200,
+      "rounds": [
+        {
+          "prior": {
+            "median": 0.17053699999996752,
+            "p95": 0.36044200000014825,
+            "max": 14.603192000000035
+          },
+          "current": {
+            "median": 0.15998099999978876,
+            "p95": 0.3224150000000918,
+            "max": 13.135325000000194
+          }
+        },
+        {
+          "prior": {
+            "median": 0.15518300000076124,
+            "p95": 0.30674099999851023,
+            "max": 11.557942999999796
+          },
+          "current": {
+            "median": 0.14099200000055134,
+            "p95": 0.2835869999980787,
+            "max": 10.696506999998746
+          }
+        },
+        {
+          "prior": {
+            "median": 0.15559399999983725,
+            "p95": 0.2905270000010205,
+            "max": 11.789640999999392
+          },
+          "current": {
+            "median": 0.13755699999819626,
+            "p95": 0.2784590000010212,
+            "max": 10.704609000000346
+          }
+        }
+      ],
+      "pooled": {
+        "prior": {
+          "median": 0.1573870000001989,
+          "p95": 0.3150840000016615,
+          "max": 14.603192000000035
+        },
+        "current": {
+          "median": 0.14645099999688682,
+          "p95": 0.2911579999999958,
+          "max": 13.135325000000194
+        }
+      }
+    },
+    "identities-private/turn-in-10s": {
+      "positions": 200,
+      "rounds": [
+        {
+          "prior": {
+            "median": 0.3676930000001448,
+            "p95": 54.17225300000064,
+            "max": 95.62180099999932
+          },
+          "current": {
+            "median": 0.35076700000036,
+            "p95": 32.36271199999919,
+            "max": 45.69395200000008
+          }
+        },
+        {
+          "prior": {
+            "median": 0.3548640000008163,
+            "p95": 50.772031000000425,
+            "max": 69.85141399999884
+          },
+          "current": {
+            "median": 0.3504370000009658,
+            "p95": 29.28914100000111,
+            "max": 43.566923999998835
+          }
+        },
+        {
+          "prior": {
+            "median": 0.34748300000137533,
+            "p95": 49.483390000001236,
+            "max": 66.45884099999967
+          },
+          "current": {
+            "median": 0.34562000000005355,
+            "p95": 29.50116799999887,
+            "max": 49.34653400000025
+          }
+        }
+      ],
+      "pooled": {
+        "prior": {
+          "median": 0.35891999999876134,
+          "p95": 51.53377499999988,
+          "max": 95.62180099999932
+        },
+        "current": {
+          "median": 0.3480130000002646,
+          "p95": 29.968669999999975,
+          "max": 49.34653400000025
+        }
+      }
+    },
+    "identities-public/turn-in-10s": {
+      "positions": 200,
+      "rounds": [
+        {
+          "prior": {
+            "median": 0.1620839999995951,
+            "p95": 0.3479629999999361,
+            "max": 13.756598999999824
+          },
+          "current": {
+            "median": 0.1620839999995951,
+            "p95": 0.36225500000000466,
+            "max": 13.286862999999812
+          }
+        },
+        {
+          "prior": {
+            "median": 0.15650599999935366,
+            "p95": 0.30405700000119396,
+            "max": 12.3296130000017
+          },
+          "current": {
+            "median": 0.14743199999975332,
+            "p95": 0.27359100000103354,
+            "max": 11.226474999999482
+          }
+        },
+        {
+          "prior": {
+            "median": 0.14693099999931292,
+            "p95": 0.36279600000125356,
+            "max": 14.76976300000024
+          },
+          "current": {
+            "median": 0.13607499999852735,
+            "p95": 0.3474129999995057,
+            "max": 11.99467899999945
+          }
+        }
+      ],
+      "pooled": {
+        "prior": {
+          "median": 0.15693599999940488,
+          "p95": 0.33382200000050943,
+          "max": 14.76976300000024
+        },
+        "current": {
+          "median": 0.14552800000092248,
+          "p95": 0.33867899999995643,
+          "max": 13.286862999999812
+        }
+      }
+    }
+  },
+  "baselineHashes": {
+    "bot-belief.ts": "a7d9c12c1c0ede88ef9be92d72ce9ce1ef3b0a46bdcfd6bf6cef8fd6ef912dd3",
+    "bot-claim-policy.ts": "419d58ac4b182adde8df1532145f984e9712978b41e9a85696095931d7d1db62",
+    "bot-claims.ts": "8b4a70a2b81c531c42b4b55dc97f657e817cfb714c9ad2a544983ffefc60dd04",
+    "bot-confirmation-combat.ts": "877c29851874365fca469a482714f6d3e7db1fddd7f819a17e1bc24cd164c7e1",
+    "bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "bot-followup.ts": "624c444dc161c31efabd937ff5f8888dd086997ba4fdfd9137bbedf7a4057c25",
+    "bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "bot-information.ts": "ff68dfded8ab02a184050a4402945719de4284b2b8dfb543ce04010b77414724",
+    "bot-memory.ts": "97e08a4a2f4552d7a79f948236dab5c2d9771e7faed4e520fccb9d2c0b45dd8b",
+    "bot-response.ts": "9fb5281a5d5947c60b69e8e56ec24e5f2e765c1340cdcf67102e656b8522988b",
+    "bot-rollout.ts": "804d45192914975407e36dd0c5df63ca2f246dd2453087db5f2f6106e391d3df",
+    "bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+    "bot-tactics.ts": "15858021a45a2f4dcdfdc6a65ecef44b560028f2ed8dcaa541edbda864c13a94",
+    "bot.ts": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96"
+  },
+  "hashes": {
+    "../src/bot-belief.ts": "a7d9c12c1c0ede88ef9be92d72ce9ce1ef3b0a46bdcfd6bf6cef8fd6ef912dd3",
+    "../src/bot-claim-policy.ts": "419d58ac4b182adde8df1532145f984e9712978b41e9a85696095931d7d1db62",
+    "../src/bot-claims.ts": "8b4a70a2b81c531c42b4b55dc97f657e817cfb714c9ad2a544983ffefc60dd04",
+    "../src/bot-confirmation-combat.ts": "877c29851874365fca469a482714f6d3e7db1fddd7f819a17e1bc24cd164c7e1",
+    "../src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "../src/bot-followup.ts": "624c444dc161c31efabd937ff5f8888dd086997ba4fdfd9137bbedf7a4057c25",
+    "../src/bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "../src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "../src/bot-information.ts": "ff68dfded8ab02a184050a4402945719de4284b2b8dfb543ce04010b77414724",
+    "../src/bot-memory.ts": "5590699536295c96bf57f1758072d76a2d65a127b89c435174cffc445007b424",
+    "../src/bot-response.ts": "0a7d792d2f3b2262f22155466014d5a0bc309ee1ddba93aa98158b0107a7b521",
+    "../src/bot-rollout.ts": "804d45192914975407e36dd0c5df63ca2f246dd2453087db5f2f6106e391d3df",
+    "../src/bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+    "../src/bot-tactics.ts": "ea8d2f8122efb603155b5aab75851b41abcbf0555b42eac9e4678115f9af3d87",
+    "../src/bot.ts": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96",
+    "sequence-latency-cost.ts": "c5bed3c7be12472eff21f3d9713c5b15613c7a379727bf9834c02cce51e23696",
+    "league-runner.ts": "f06567dbb2fbdff690cdbe99bf8b7bd953c6ba7b6fb57ef276e6e185eb9bc4d8"
+  }
+}

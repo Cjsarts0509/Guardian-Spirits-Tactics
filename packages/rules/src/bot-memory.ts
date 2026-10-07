@@ -44,8 +44,12 @@ export function createBotMemory(seed: number): BotMemory {
   return { rng: seed | 0 };
 }
 
-/** 시점 뷰와 해당 플레이어에게 보이는 이벤트만 받는 기억 갱신 경계 */
-export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[], memory: BotMemory): Knowledge {
+/** 시점 뷰와 해당 플레이어에게 보이는 이벤트만 받는 기억 갱신 경계.
+ * 일회성 가설 대응은 반환 정체 지식만 쓰므로 사용하지 않는 전투 이력을 생략할 수 있다.
+ * 지속되는 실제 봇 기억은 기본값으로 모든 관측 스킬/쿨다운을 기록한다.
+ */
+export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[], memory: BotMemory,
+  options: { recordBattle?: boolean } = {}): Knowledge {
   let p = memory.perception;
   if (!p || p.playerId !== view.me.id || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs) {
     memory.plan = undefined;
@@ -60,7 +64,7 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
   }
   for (const e of events) {
     if (e.seq <= p.lastSeq || !(e.vis.to === 'all' || (e.vis.to === 'players' && e.vis.ids.includes(view.me.id)))) continue;
-    observeBattle(view, e, p.battle);
+    if (options.recordBattle !== false) observeBattle(view, e, p.battle);
     if (e.kind === 'skill.burning_magic.self' && typeof e.data?.target === 'string') p.lastBurn = { target: e.data.target, at: e.at };
     for (const f of e.facts ?? []) {
       if (f.player === view.me.id) continue;

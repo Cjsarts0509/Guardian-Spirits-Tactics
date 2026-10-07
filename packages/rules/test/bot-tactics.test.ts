@@ -10,6 +10,21 @@ function comboTable() {
 }
 
 describe('관찰 가능한 상대 스킬 시간', () => {
+  it('이벤트 사이의 공격 획득·제거 이후에는 교체된 스킬의 쿨다운을 기록한다', () => {
+    const t = modeTable('primordial', PRIMORDIAL_ORDER); t.tick(180_001); fill(t, 'sasint');
+    const memory = createBotMemory(3);
+    botKnowledge(t.state, t.id.rael!, undefined, memory);
+    expect(t.skill('sasint', 'sasint_battle_mastery').ok).toBe(true);
+    botKnowledge(t.state, t.id.rael!, undefined, memory);
+    fill(t, 'sasint');
+    expect(t.skill('sasint', 'advanced_attack', 'kane', 'kane').ok).toBe(true);
+    botKnowledge(t.state, t.id.rael!, undefined, memory);
+    const battle = memory.perception!.battle;
+    expect(battle.removals.get('sasint')?.has('attack')).toBe(true);
+    expect(skillTiming(battle, 'sasint', 'advanced_attack')).toMatchObject({ usedMin: 1 });
+    expect(skillTiming(battle, 'sasint', 'attack')).toBeUndefined();
+  });
+
   it('이름이 공개된 스킬 사용은 역할 단위로만 쿨다운을 기록한다', () => {
     const t = civilTable();
     t.tick(15_000);

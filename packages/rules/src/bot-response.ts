@@ -23,7 +23,9 @@ export function respondToKnownEnemies(state: GameState, self: string, tactical =
     if (!player.skills.some((s) => skills.includes(s.key) && s.cooldownUntil <= state.now &&
       (s.usesLeft === null || s.usesLeft > 0))) continue;
     const view = viewFor(state, player.id);
-    const knowledge = updateBotKnowledge(view, eventsFor(state, player.id), createBotMemory(0));
+    // 이 호출의 기억은 버린다. 대응은 자기 슬롯의 쿨다운/횟수와 엔진 판정을 쓰므로
+    // 정체 facts는 모두 반영하되 사용하지 않는 상대 전투 이력은 만들지 않는다.
+    const knowledge = updateBotKnowledge(view, eventsFor(state, player.id), createBotMemory(0), { recordBattle: false });
     const roles = new Map(view.roster.map((r) => [r.key, r]));
     const targets = view.players.filter((p) => p.alive && knowledge.known.has(p.id) &&
       roles.get(knowledge.known.get(p.id)!)?.side !== view.me.side &&
