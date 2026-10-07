@@ -1,5 +1,7 @@
 # 성장·희생·다음 턴 수순 평가
 
+후속 우선순위 복구와 독립 검증은 [BOT_TACTICAL_PRIORITY.md](BOT_TACTICAL_PRIORITY.md)를 참조한다. 이 문서는 수정 전 확장의 기록이다.
+
 운영 기본 정책은 변경하지 않았다. `sequenceSearch: true`, `sequenceSkills: true`, `sequenceExtended: true`를 함께 지정하는 실험이다. 최종 정책은 원격 `936c5f439254e209ea4b0c2ee5bea1a57a336266`, 로컬 `ceda7ad`, 트리 `6ab7ffdcd0dbc2bf0718637af796235c2cab4887`로 고정했다. 이전 25종 후속 스킬 정책(`b7c56ee`)을 직접 비교 상대로 사용한다.
 
 ## 구현 범위

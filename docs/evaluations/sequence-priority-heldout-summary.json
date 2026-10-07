@@ -1,0 +1,587 @@
+{
+  "format": 1,
+  "policyRemoteCommit": "890edc85e6d88ba35fe4e33dd5fa92c13d4a4211",
+  "comparisons": {
+    "extended": {
+      "seeds": 100,
+      "startSeed": 57000,
+      "modes": {
+        "civil_war": {
+          "source": "../../../docs/evaluations/sequence-priority-heldout-extended-civil_war-100.json",
+          "games": 400,
+          "wins": {
+            "current": 182,
+            "reference": 218,
+            "unfinished": 0
+          },
+          "score": 0.455,
+          "seedBootstrap95": [
+            0.4175,
+            0.4925
+          ],
+          "stats": {
+            "current": {
+              "attempted": 12274,
+              "accepted": 12232,
+              "rejected": 42,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "truth_gem": 11,
+                "kai_loyal": 22,
+                "warrior_scent": 3,
+                "oracle": 3,
+                "ally": 3
+              }
+            },
+            "reference": {
+              "attempted": 12219,
+              "accepted": 12190,
+              "rejected": 29,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "truth_gem": 12,
+                "kai_loyal": 8,
+                "oracle": 3,
+                "advanced_scan": 4,
+                "ally": 2
+              }
+            }
+          }
+        },
+        "primordial": {
+          "source": "../../../docs/evaluations/sequence-priority-heldout-extended-primordial-100.json",
+          "games": 400,
+          "wins": {
+            "current": 204,
+            "reference": 196,
+            "unfinished": 0
+          },
+          "score": 0.51,
+          "seedBootstrap95": [
+            0.4875,
+            0.5325
+          ],
+          "stats": {
+            "current": {
+              "attempted": 14667,
+              "accepted": 14667,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            },
+            "reference": {
+              "attempted": 14139,
+              "accepted": 14139,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            }
+          }
+        },
+        "lidellut": {
+          "source": "../../../docs/evaluations/sequence-priority-heldout-extended-lidellut-100.json",
+          "games": 400,
+          "wins": {
+            "current": 207,
+            "reference": 193,
+            "unfinished": 0
+          },
+          "score": 0.5175,
+          "seedBootstrap95": [
+            0.4725,
+            0.5625
+          ],
+          "stats": {
+            "current": {
+              "attempted": 11945,
+              "accepted": 11915,
+              "rejected": 30,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "charge_sense": 2,
+                "truth_gem": 9,
+                "curse": 1,
+                "ally": 10,
+                "enemy_scan": 2,
+                "loyal_servant": 3,
+                "ally_check": 2,
+                "dawn_mist": 1
+              }
+            },
+            "reference": {
+              "attempted": 11930,
+              "accepted": 11892,
+              "rejected": 38,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "charge_sense": 2,
+                "advanced_attack": 1,
+                "truth_gem": 9,
+                "great_will": 3,
+                "battle_sense": 5,
+                "loyal_servant": 2,
+                "ally_check": 8,
+                "enemy_check": 3,
+                "advanced_scan": 4,
+                "ally": 1
+              }
+            }
+          }
+        },
+        "troll": {
+          "source": "../../../docs/evaluations/sequence-priority-heldout-extended-troll-100.json",
+          "games": 400,
+          "wins": {
+            "current": 215,
+            "reference": 185,
+            "unfinished": 0
+          },
+          "score": 0.5375,
+          "seedBootstrap95": [
+            0.5075,
+            0.5675
+          ],
+          "stats": {
+            "current": {
+              "attempted": 13008,
+              "accepted": 13008,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            },
+            "reference": {
+              "attempted": 13175,
+              "accepted": 13175,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            }
+          }
+        }
+      },
+      "overall": {
+        "games": 1600,
+        "wins": 808,
+        "losses": 792,
+        "unfinished": 0,
+        "score": 0.505,
+        "seedBootstrap95": [
+          0.486875,
+          0.52375
+        ],
+        "seedScores": [
+          0.625,
+          0.5,
+          0.375,
+          0.4375,
+          0.4375,
+          0.4375,
+          0.4375,
+          0.5,
+          0.375,
+          0.6875,
+          0.6875,
+          0.375,
+          0.5625,
+          0.5,
+          0.625,
+          0.5,
+          0.4375,
+          0.4375,
+          0.5,
+          0.625,
+          0.5,
+          0.4375,
+          0.6875,
+          0.625,
+          0.3125,
+          0.5,
+          0.375,
+          0.625,
+          0.5,
+          0.375,
+          0.5,
+          0.4375,
+          0.5,
+          0.5,
+          0.5625,
+          0.625,
+          0.3125,
+          0.5,
+          0.6875,
+          0.4375,
+          0.5625,
+          0.375,
+          0.4375,
+          0.5625,
+          0.4375,
+          0.625,
+          0.5,
+          0.5,
+          0.4375,
+          0.3125,
+          0.625,
+          0.5625,
+          0.4375,
+          0.4375,
+          0.5625,
+          0.4375,
+          0.5625,
+          0.625,
+          0.5,
+          0.5625,
+          0.5,
+          0.5,
+          0.5,
+          0.4375,
+          0.5,
+          0.625,
+          0.5,
+          0.5625,
+          0.5625,
+          0.3125,
+          0.5,
+          0.375,
+          0.375,
+          0.8125,
+          0.625,
+          0.625,
+          0.5625,
+          0.5,
+          0.625,
+          0.4375,
+          0.6875,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.4375,
+          0.5625,
+          0.375,
+          0.5,
+          0.375,
+          0.5625,
+          0.5,
+          0.625,
+          0.4375,
+          0.375,
+          0.4375,
+          0.5,
+          0.4375,
+          0.5625,
+          0.5625
+        ]
+      },
+      "hashes": {
+        "frozenBaselineBot": "5fe1d2f02715d37848eb40126d66ff3963906b6b32518f5a700a2af19cb600eb",
+        "../src/bot.ts": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96",
+        "../src/bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+        "../src/bot-followup.ts": "a076800c1e2da5d59a6f02fab1e7fd1106b72b2df75b601dcc82325603e795a2",
+        "../src/bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+        "../src/bot-rollout.ts": "ac1dd1f0bfacad7dce1302645b42a8097abe3a1fb0c22163f71fbc7744192376",
+        "../src/bot-response.ts": "9fb5281a5d5947c60b69e8e56ec24e5f2e765c1340cdcf67102e656b8522988b",
+        "../src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+        "../src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+        "../src/bot-information.ts": "ff68dfded8ab02a184050a4402945719de4284b2b8dfb543ce04010b77414724",
+        "../src/bot-belief.ts": "a7d9c12c1c0ede88ef9be92d72ce9ce1ef3b0a46bdcfd6bf6cef8fd6ef912dd3",
+        "../src/bot-memory.ts": "97e08a4a2f4552d7a79f948236dab5c2d9771e7faed4e520fccb9d2c0b45dd8b",
+        "./sequence-priority-validation.ts": "cef08917a77b05481e5b952651adadb8409c8a8dad68136425c42938ac9c2fe0",
+        "./league-runner.ts": "f06567dbb2fbdff690cdbe99bf8b7bd953c6ba7b6fb57ef276e6e185eb9bc4d8"
+      }
+    },
+    "roles": {
+      "seeds": 100,
+      "startSeed": 58000,
+      "modes": {
+        "civil_war": {
+          "source": "../../../docs/evaluations/sequence-priority-heldout-roles-civil_war-100.json",
+          "games": 400,
+          "wins": {
+            "current": 200,
+            "reference": 200,
+            "unfinished": 0
+          },
+          "score": 0.5,
+          "seedBootstrap95": [
+            0.49,
+            0.51
+          ],
+          "stats": {
+            "current": {
+              "attempted": 12044,
+              "accepted": 12014,
+              "rejected": 30,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "dantes_command": 1,
+                "warrior_scent": 1,
+                "advanced_scan": 6,
+                "truth_gem": 9,
+                "ally": 7,
+                "oracle": 2,
+                "kai_loyal": 4
+              }
+            },
+            "reference": {
+              "attempted": 11985,
+              "accepted": 11957,
+              "rejected": 28,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "dantes_command": 1,
+                "warrior_scent": 1,
+                "advanced_scan": 6,
+                "truth_gem": 7,
+                "ally": 7,
+                "oracle": 2,
+                "kai_loyal": 4
+              }
+            }
+          }
+        },
+        "primordial": {
+          "source": "../../../docs/evaluations/sequence-priority-heldout-roles-primordial-100.json",
+          "games": 400,
+          "wins": {
+            "current": 200,
+            "reference": 200,
+            "unfinished": 0
+          },
+          "score": 0.5,
+          "seedBootstrap95": [
+            0.49,
+            0.51
+          ],
+          "stats": {
+            "current": {
+              "attempted": 14094,
+              "accepted": 14094,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            },
+            "reference": {
+              "attempted": 13927,
+              "accepted": 13927,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            }
+          }
+        },
+        "lidellut": {
+          "source": "../../../docs/evaluations/sequence-priority-heldout-roles-lidellut-100.json",
+          "games": 400,
+          "wins": {
+            "current": 207,
+            "reference": 193,
+            "unfinished": 0
+          },
+          "score": 0.5175,
+          "seedBootstrap95": [
+            0.5,
+            0.5375
+          ],
+          "stats": {
+            "current": {
+              "attempted": 12254,
+              "accepted": 12178,
+              "rejected": 76,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "attack": 6,
+                "truth_gem": 28,
+                "great_will": 7,
+                "enemy_scan": 1,
+                "dawn_mist": 4,
+                "ally": 13,
+                "advanced_scan": 2,
+                "loyal_servant": 13,
+                "charge_sense": 1,
+                "ally_check": 1
+              }
+            },
+            "reference": {
+              "attempted": 12191,
+              "accepted": 12110,
+              "rejected": 81,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {
+                "attack": 7,
+                "truth_gem": 30,
+                "great_will": 7,
+                "enemy_scan": 1,
+                "dawn_mist": 4,
+                "ally": 13,
+                "advanced_scan": 3,
+                "loyal_servant": 13,
+                "charge_sense": 1,
+                "battle_sense": 1,
+                "ally_check": 1
+              }
+            }
+          }
+        },
+        "troll": {
+          "source": "../../../docs/evaluations/sequence-priority-heldout-roles-troll-100.json",
+          "games": 400,
+          "wins": {
+            "current": 199,
+            "reference": 201,
+            "unfinished": 0
+          },
+          "score": 0.4975,
+          "seedBootstrap95": [
+            0.4875,
+            0.5075
+          ],
+          "stats": {
+            "current": {
+              "attempted": 13300,
+              "accepted": 13300,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            },
+            "reference": {
+              "attempted": 13270,
+              "accepted": 13270,
+              "rejected": 0,
+              "earlyAttackFailures": 0,
+              "rejectedSkills": {}
+            }
+          }
+        }
+      },
+      "overall": {
+        "games": 1600,
+        "wins": 806,
+        "losses": 794,
+        "unfinished": 0,
+        "score": 0.50375,
+        "seedBootstrap95": [
+          0.4975,
+          0.51
+        ],
+        "seedScores": [
+          0.5,
+          0.5625,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5625,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5625,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5625,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.4375,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.625,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.4375,
+          0.4375,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5625,
+          0.5625,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5625,
+          0.5,
+          0.5625,
+          0.5,
+          0.5,
+          0.5,
+          0.5625,
+          0.5,
+          0.5,
+          0.375,
+          0.5,
+          0.5625,
+          0.5,
+          0.5,
+          0.5,
+          0.4375,
+          0.5,
+          0.4375,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5625,
+          0.5,
+          0.5,
+          0.5625,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5625,
+          0.5,
+          0.4375,
+          0.4375,
+          0.5,
+          0.5
+        ]
+      },
+      "hashes": {
+        "../src/bot.ts": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96",
+        "../src/bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+        "../src/bot-followup.ts": "a076800c1e2da5d59a6f02fab1e7fd1106b72b2df75b601dcc82325603e795a2",
+        "../src/bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+        "../src/bot-rollout.ts": "ac1dd1f0bfacad7dce1302645b42a8097abe3a1fb0c22163f71fbc7744192376",
+        "../src/bot-response.ts": "9fb5281a5d5947c60b69e8e56ec24e5f2e765c1340cdcf67102e656b8522988b",
+        "../src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+        "../src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+        "../src/bot-information.ts": "ff68dfded8ab02a184050a4402945719de4284b2b8dfb543ce04010b77414724",
+        "../src/bot-belief.ts": "a7d9c12c1c0ede88ef9be92d72ce9ce1ef3b0a46bdcfd6bf6cef8fd6ef912dd3",
+        "../src/bot-memory.ts": "97e08a4a2f4552d7a79f948236dab5c2d9771e7faed4e520fccb9d2c0b45dd8b",
+        "./sequence-priority-validation.ts": "cef08917a77b05481e5b952651adadb8409c8a8dad68136425c42938ac9c2fe0",
+        "./league-runner.ts": "f06567dbb2fbdff690cdbe99bf8b7bd953c6ba7b6fb57ef276e6e185eb9bc4d8"
+      }
+    }
+  },
+  "scope": "two separately seeded independent comparisons; development seeds excluded; not human skill rating"
+}
