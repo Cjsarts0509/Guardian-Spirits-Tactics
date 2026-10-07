@@ -109,6 +109,7 @@ export function App() {
   return (
     <div className="app">
       {status !== 'open' && me && <div className="banner">서버 연결이 끊겼습니다. 재연결 중…</div>}
+      {room?.hosting === 'player' && room.status === 'playing' && <div className="banner">{room.hostPaused ? '방장 연결을 기다리고 있습니다. 게임은 잠시 멈춥니다.' : `방장: ${room.members.find(m => m.id === room.hostId)?.nickname ?? '연결 중'}`}</div>}
       {body}
       <div className="toasts">
         {toasts.map((t) => (

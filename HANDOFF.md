@@ -181,6 +181,8 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
 - 변경 후: `pnpm typecheck && pnpm test`, UI 변경은 Playwright 스크린샷으로 확인(Chromium: `/opt/pw-browsers/chromium`).
 # 최근 AI 오류 점검
 
+방장 호스팅 기능 초안 구현: `feat/player-host-migration`, `docs/PLAYER_HOSTING.md`. 새 웹 화면은 player 방을 만들며 브라우저 Web Worker가 게임/기본AI 계산. 서버는 초기배정·대기실·입력번호·체크포인트·뷰필터·중계/기록을 맡고 해당방의 서버틱은 계산하지 않음. 직접WebRTC P2P는 구현하지 않았음. 끊김즉시/8초무응답시 다음지원접속자로 이전, epoch로이전호스트차단, 미확정사람입력재전송/중복방지, Map/Set AI기억·RNG·시간복원. 호스트없으면정지, 10분후정리. 현재367테스트(337+30)·타입·서버/클라이언트빌드 통과. 실제WS+브라우저워커번들의Node어댑터 통합검증 완료. Chromium다운로드가빈/손상ZIP으로실패해 실브라우저2프로필·UI캡처·ARM/장기통신량검증은 남아있음. casual 신뢰호스트모델이며 서버를우회하지않고 서버재시작복구도미지원. main/운영VM변경없음. AI PR9과변경분리를위해 해당브랜치기준의별도PR초안으로올림.
+
 VM 반복 비교 실행기 준비 완료: `deploy/compare-bot-load.sh`, `docs/BOT_VM_AUDIT_RUNNER.md`. 고정 전2c48c255/후bf9ed3b6을 AB/BA/AB 세쌍 순차 측정(기본 약9분)해 실행별p95 중앙값·쌍별변화·오류를 집계하며 출처/해시/환경/원자료 일치 검증 실패시 중단한다. 로컬1.5초×3조건×6실행과5가지 변조 거절, 압축/순서/계산 대조·전체355테스트·타입·빌드 통과. 새 정책 변경없음. VM 새 반복 실측과 최초 다운로드 경로는 사용자 실행이 남음.
 
 두 번째 VM 사용자 콘솔 수신: 각120틱, 기본1/4방·고빈도4방 틱p95 6.61/6.69/34.09ms, 최대10.73/19.27/75.78ms, 루프최대16.64/30.82/83.76ms, 처리250ms초과/HTTP/WS오류0. 고빈도는 개선됐지만 기본4방 증가, 최장고빈도 구간 scheduler wait28.41ms. 소스SHA 첫줄·압축 원자료는 미수신. 코드 효과 확정은 보류하고 반복 비교 진행. 원자료 위치 사용자출력 `/tmp/gst-audit.AIBAO1/gst-audit-results.tar.gz`.

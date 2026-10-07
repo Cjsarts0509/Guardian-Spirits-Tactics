@@ -44,7 +44,7 @@ export function Lobby({ rooms }: { rooms: RoomSummary[] }) {
             <option value={90}>턴 90초 (원본)</option>
             <option value={120}>턴 120초</option>
           </select>
-          <button onClick={() => net.send({ type: 'room.create', name: name.trim() || '가택', mode, turnSeconds: turn })}>만들기</button>
+          <button onClick={() => net.send({ type: 'room.create', name: name.trim() || '가택', mode, turnSeconds: turn, hosting: 'player' })}>만들기</button>
         </div>
       </section>
       <section className="card">
