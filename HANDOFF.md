@@ -181,6 +181,20 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
 - 변경 후: `pnpm typecheck && pnpm test`, UI 변경은 Playwright 스크린샷으로 확인(Chromium: `/opt/pw-browsers/chromium`).
 # 최근 AI 오류 점검
 
+현재 작업 우선순위 정리(2026-10-07): 호스팅 수동 두PC/외부회선/절전 시험은 사용자 결정으로 생략하며 필수 게이트로 요구하지 않는다. 미검증으로 기록. PR9(main 기준 AI 연구 초안)→PR10(PR9 기준 호스팅 초안) 의존 관계 유지, 병합/배포 미실행. AI 고도화는 아직 완료가 아니다. 기억/배정추론/수순탐색·독립리그는 구현, 탐색옵션은 기본OFF, 데이터 기반 가중치 자동학습·게임간 학습은 미구현. 다음 AI 재개 지점과 근거는 docs/AI_PROGRESS.md.
+
+후속 ARM 콘솔395e761 수신: 고빈도 player 메인CPU5.48%·업로드600.56KiB/s, 이전 대비58.0/85.1% 감소 관측; 기본4방server/player2.24/3.54%로 부담 잔존. 18조건오류0 보고, 원자료 미수신. docs/evaluations/host-vm-memory-delta-console.json. WS/Worker 통합시험에 프레임 보류·ACK누락을 추가해 실제8초무응답 이전/미확정입력1회확정/구호스트지연프레임거절 확인. 실제외부회선/절전은 미검증. deploy/preview-player-host.sh와 docs/PLAYER_HOST_REMOTE_CHECK.md로 격리된 localhost 게스트서버+두PC SSH터널 시험 준비.
+
+AI 기억 변경분 전송 완료: docs/PLAYER_HOST_MEMORY_DELTA.md. ACK 프레임 기준 순수 JSON 변경 적용·전체 기억 fallback·최근64관측 seq 이동 재사용, 정책/기억 유지. 같은1920프레임 복구 일치·고빈도 전송 JSON79.7–87.3% 감소, 호스트 인코딩 비용 증가. 역사적 인코더40프레임 대조, 네 모드 다음 행동/RNG/기억 일치, 실제 브라우저8검사 오류0. 원자료 코드해시 일치. 로컬 새15초6조건 main CPU server/player 기본4방2.42/3.30%, 고빈도4방10.36/4.94%, 업로드약631KiB/s; 무작위판1회로 인과/ARM결과 아님. 전체402테스트·타입·빌드 확인. 다음은 새SHA ARM 반복 진단, 외부회선/실제백그라운드/장기시험. 운영main/VM변경없음.
+
+호스트 전송 구성 후속 로컬 진단: docs/PLAYER_HOST_TRANSPORT_FINDINGS.md, host-payload-audit.ts. 4모드×2activity×고정2시드 각120틱/1920프레임에서 추가분 로그/행동 복구 대조. 고빈도8조건 AI 기억92.4–95.4%/체크포인트, 그 기억 내부 battle.ambiguous 71.2–77.5%. 로컬 직렬화 구성이고 VM 실제프레임/CPU 병목을 직접측정한 것은 아님. 다음은 기억을 삭제하지 않고 ACK기준 변경분만전송하는 방식 검토/복구·실브라우저·새VM측정. 현재AI정책/지속기억/호스트프로토콜 변경없음.
+
+VM 호스팅 ARM 사용자 콘솔 수신: source1c7e878, Node22.23.3 arm64, 30초×6조건×3회/ABBAAB, dirtySource=false·HTTP/host/process오류0 보고. 메인 CPU server/player 기본1방2.56/1.92%, 기본4방2.70/3.57%, 고빈도4방13.43/13.05%; player 확정p95 2.14/1.31/6.72ms, 업로드92.36/436.23/4033.64KiB/s. 기본4방/고빈도4방 메인RSS 증가, 전체CPU/안정성개선으로해석하지않음. 준비/설치는109패키지 캐시재사용으로완료, esbuild scripts경고 후18조건정상완료. docs/evaluations/host-vm-user-console.json 전사. 사용자VM압축경로 /tmp/gst-host-audit.gP9Ggh/gst-host-audit-results.tar.gz, 원자료 미수신이라 실행별값·해시·자식RSS 등 독립대조미완료. 운영main/VM업데이트없음.
+
+VM 호스팅 반복 진단 준비: `deploy/audit-player-host.sh`, `docs/PLAYER_HOST_VM_AUDIT.md`. 같은 소스에서 server/player 3조건×기본3회(AB/BA/AB), 조건별30초로 약9분. 운영서비스·방화벽·비밀키를 읽거나 변경하지 않고 임시 체크아웃/임의 로컬 포트. 메인 CPU·프레임 확정·통신량에 RSS 250ms 표본(진단 드라이버 포함 메인/Worker 포함 자식 합)을 추가했고 비정상 자식 종료는 성공처리하지 않음. 결과는 커밋·소스해시·실행순서·환경·조건·기간·오류·CPU 계산·활성표본을 검증한 뒤 실행별 중앙값 집계, 압축은 원자료/요약/콘솔만. 새 집계 회귀12개 및 부모IPC끊김 시 실제호스트/Worker 정상종료 통합 회귀1개 추가, 전체382테스트(338+44). 로컬1.5초×6조건×3회/18조건 오류0·순서/해시/압축 구성 검증 완료, docs/evaluations/host-vm-runner-check.json 및 하위 폴더에 원자료 보존. 이 짧은 숫자는 성능 판단에 사용하지 않음. 기존15초 로컬 표는201d080 측정 당시 자료로 보존하며 드라이버 확장 후 새 성능결과로 해석하지 않음. 실제 Node22 ARM 반복 결과 및 최초다운로드/설치·원격회선/백그라운드 시험은 사용자 실행 대기. main/운영VM변경없음.
+
+방장 호스팅 실브라우저 검증 및 전송 개선 완료: `feat/player-host-migration`, PR10(AI PR9 기준의 별도 초안), `docs/PLAYER_HOSTING.md`, `docs/PLAYER_HOSTING_VALIDATION.md`. Chromium153 headless 독립2프로필에서 실제 웹 빌드/Worker로 새로고침·탭 종료·자리 비움·전체 이탈 후 복구·채팅1회 확정·AI 관전자 호스팅7검사/오류0, 두 화면 캡처 검토. 전체369테스트(338+31)·타입·서버/클라이언트 빌드 통과. 초기 부하에서 전체 기록/AI 캐시 전송 및 서버의 Map/Set 복원 비용 발견, ACK 기준 로그/행동 기록 추가분 전송·파생 믿음 캐시 제외·AI 기억 JSON 보관·이전 때만 전체 체크포인트 생성으로 수정. 잘못된 기준 거절/전체 기록 이전 회귀2개 추가. 로컬6조건 CPU/통신량 원자료 전후 별도 보존; 매 조건 무작위 판1회라 동일 부하의 인과 효과나 VM 수용량으로 해석하지 않음. 직접WebRTC P2P는 미구현, 서버 중계/필터 의존·casual 신뢰호스트모델·서버재시작복구 미지원. VM ARM/실제 서로 다른 회선/모바일/백그라운드 제한/장기검증은 다음 단계. main/운영VM변경없음.
+
 VM 반복 비교 실행기 준비 완료: `deploy/compare-bot-load.sh`, `docs/BOT_VM_AUDIT_RUNNER.md`. 고정 전2c48c255/후bf9ed3b6을 AB/BA/AB 세쌍 순차 측정(기본 약9분)해 실행별p95 중앙값·쌍별변화·오류를 집계하며 출처/해시/환경/원자료 일치 검증 실패시 중단한다. 로컬1.5초×3조건×6실행과5가지 변조 거절, 압축/순서/계산 대조·전체355테스트·타입·빌드 통과. 새 정책 변경없음. VM 새 반복 실측과 최초 다운로드 경로는 사용자 실행이 남음.
 
 두 번째 VM 사용자 콘솔 수신: 각120틱, 기본1/4방·고빈도4방 틱p95 6.61/6.69/34.09ms, 최대10.73/19.27/75.78ms, 루프최대16.64/30.82/83.76ms, 처리250ms초과/HTTP/WS오류0. 고빈도는 개선됐지만 기본4방 증가, 최장고빈도 구간 scheduler wait28.41ms. 소스SHA 첫줄·압축 원자료는 미수신. 코드 효과 확정은 보류하고 반복 비교 진행. 원자료 위치 사용자출력 `/tmp/gst-audit.AIBAO1/gst-audit-results.tar.gz`.

@@ -40,7 +40,7 @@ export function SpectatorScreen({ view, events, room }: { view: SpectatorView; e
     lastView.current = view;
     receivedAt.current = Date.now();
   }
-  const sinceView = Math.max(0, now - receivedAt.current);
+  const sinceView = room.hostPaused ? 0 : Math.max(0, now - receivedAt.current);
   const box = useRef<HTMLDivElement>(null);
   useEffect(() => {
     box.current?.scrollTo({ top: box.current.scrollHeight });
@@ -144,7 +144,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
     lastView.current = view;
     receivedAt.current = Date.now();
   }
-  const sinceView = Math.max(0, now - receivedAt.current);
+  const sinceView = room.hostPaused ? 0 : Math.max(0, now - receivedAt.current);
 
   const [target, setTarget] = useState<string | null>(null);
   const [picking, setPicking] = useState<SkillView | null>(null);

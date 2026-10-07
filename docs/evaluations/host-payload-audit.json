@@ -1,0 +1,737 @@
+{
+  "format": 1,
+  "runtime": {
+    "node": "v24.19.0",
+    "arch": "x64"
+  },
+  "scope": "로컬 고정2시드×4모드×2activity, 각120틱. 논리 틱15000ms(timeScale60×250ms), 종료 시 새 판. 실제 서버/VM/회선/CPU 측정이 아니며 VM 전송 구성의 직접 증거가 아니다. 각 필드 값 JSON 바이트로 키/구분자 제외. ambiguous 비율은 외부 이스케이프 전 AI 기억 내부 바이트 기준. 전체 로그/행동 기록의 증분 복구를 매 틱 대조.",
+  "results": [
+    {
+      "mode": "civil_war",
+      "activity": 0.012,
+      "seed": 123,
+      "gamesStarted": 2,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 15800.55,
+        "max": 39298
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 19089.35,
+        "max": 48861
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 6545.05,
+          "max": 28485
+        },
+        "state": {
+          "samples": 120,
+          "mean": 9132.575,
+          "max": 13903
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 14.325,
+          "max": 221
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.4142292515133967,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 5687.05,
+        "max": 24647
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 1335.6333333333334,
+        "max": 10361
+      },
+      "ambiguousShareOfInnerMemory": 0.23485521198746862
+    },
+    {
+      "mode": "civil_war",
+      "activity": 0.012,
+      "seed": 456,
+      "gamesStarted": 1,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 19581.475,
+        "max": 39137
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 23831.616666666665,
+        "max": 48211
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 10342.5,
+          "max": 27070
+        },
+        "state": {
+          "samples": 120,
+          "mean": 9114.816666666668,
+          "max": 13746
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 15.116666666666667,
+          "max": 129
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.5281777802744686,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 8998.65,
+        "max": 23516
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 1874.6333333333334,
+        "max": 8192
+      },
+      "ambiguousShareOfInnerMemory": 0.2083238411687679
+    },
+    {
+      "mode": "civil_war",
+      "activity": 1,
+      "seed": 123,
+      "gamesStarted": 6,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 163007.53333333333,
+        "max": 234571
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 209594.08333333334,
+        "max": 302745
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 151724.60833333334,
+          "max": 223761
+        },
+        "state": {
+          "samples": 120,
+          "mean": 10760.291666666666,
+          "max": 17656
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 413.0833333333333,
+          "max": 1178
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.930782800222321,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 129376.175,
+        "max": 190603
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 99279.06666666667,
+        "max": 154551
+      },
+      "ambiguousShareOfInnerMemory": 0.7673674590137378
+    },
+    {
+      "mode": "civil_war",
+      "activity": 1,
+      "seed": 456,
+      "gamesStarted": 5,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 175837.73333333334,
+        "max": 262417
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 226158.50833333333,
+        "max": 338887
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 164823.61666666667,
+          "max": 250983
+        },
+        "state": {
+          "samples": 120,
+          "mean": 10541.541666666666,
+          "max": 17505
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 362.90833333333336,
+          "max": 1182
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.9373620413669269,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 140584.71666666667,
+        "max": 213734
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 107918.275,
+        "max": 175950
+      },
+      "ambiguousShareOfInnerMemory": 0.7676387416697619
+    },
+    {
+      "mode": "primordial",
+      "activity": 0.012,
+      "seed": 123,
+      "gamesStarted": 1,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 19340.158333333333,
+        "max": 43746
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 23427.941666666666,
+        "max": 53892
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 9909.266666666666,
+          "max": 32325
+        },
+        "state": {
+          "samples": 120,
+          "mean": 9305.75,
+          "max": 14123
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 16.308333333333334,
+          "max": 225
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.5123674013354769,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 8651.866666666667,
+        "max": 28171
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 1745.95,
+        "max": 9193
+      },
+      "ambiguousShareOfInnerMemory": 0.2018003821911264
+    },
+    {
+      "mode": "primordial",
+      "activity": 0.012,
+      "seed": 456,
+      "gamesStarted": 1,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 23617.491666666665,
+        "max": 43045
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 28910.625,
+        "max": 53326
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 14199.716666666667,
+          "max": 31578
+        },
+        "state": {
+          "samples": 120,
+          "mean": 9295.133333333333,
+          "max": 14292
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 13.65,
+          "max": 228
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.6012372891702089,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 12338.5,
+        "max": 27366
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 4438.491666666667,
+        "max": 13061
+      },
+      "ambiguousShareOfInnerMemory": 0.3597270062541368
+    },
+    {
+      "mode": "primordial",
+      "activity": 1,
+      "seed": 123,
+      "gamesStarted": 4,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 248120,
+        "max": 331572
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 317458.025,
+        "max": 424462
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 236772.825,
+          "max": 319801
+        },
+        "state": {
+          "samples": 120,
+          "mean": 10848.358333333334,
+          "max": 17726
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 388.80833333333334,
+          "max": 1191
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.9542673907786555,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 203039.69166666668,
+        "max": 274219
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 154083.04166666666,
+        "max": 212879
+      },
+      "ambiguousShareOfInnerMemory": 0.7588813812800067
+    },
+    {
+      "mode": "primordial",
+      "activity": 1,
+      "seed": 456,
+      "gamesStarted": 4,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 236202.94166666668,
+        "max": 308582
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 302022.375,
+        "max": 394486
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 224919.46666666667,
+          "max": 296285
+        },
+        "state": {
+          "samples": 120,
+          "mean": 10790.983333333334,
+          "max": 18413
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 382.45,
+          "max": 1191
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.9522297439634625,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 192940.8,
+        "max": 254245
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 144636.61666666667,
+        "max": 194662
+      },
+      "ambiguousShareOfInnerMemory": 0.7496424637332626
+    },
+    {
+      "mode": "lidellut",
+      "activity": 0.012,
+      "seed": 123,
+      "gamesStarted": 1,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 22416.183333333334,
+        "max": 57486
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 27420.416666666668,
+        "max": 71845
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 12882.891666666666,
+          "max": 45683
+        },
+        "state": {
+          "samples": 120,
+          "mean": 9407.85,
+          "max": 13879
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 16.591666666666665,
+          "max": 228
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.5747138785892038,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 11189.125,
+        "max": 39451
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 3166.233333333333,
+        "max": 17385
+      },
+      "ambiguousShareOfInnerMemory": 0.28297416762555905
+    },
+    {
+      "mode": "lidellut",
+      "activity": 0.012,
+      "seed": 456,
+      "gamesStarted": 1,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 23219.416666666668,
+        "max": 43243
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 28434.041666666668,
+        "max": 53567
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 13637.116666666667,
+          "max": 31735
+        },
+        "state": {
+          "samples": 120,
+          "mean": 9459.083333333334,
+          "max": 14051
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 14.225,
+          "max": 224
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.587315213919385,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 11840.9,
+        "max": 27513
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 3394.9666666666667,
+        "max": 10179
+      },
+      "ambiguousShareOfInnerMemory": 0.2867152553156151
+    },
+    {
+      "mode": "lidellut",
+      "activity": 1,
+      "seed": 123,
+      "gamesStarted": 4,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 213949.41666666666,
+        "max": 294974
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 276285.0916666667,
+        "max": 381706
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 202922.50833333333,
+          "max": 282073
+        },
+        "state": {
+          "samples": 120,
+          "mean": 10551.641666666666,
+          "max": 16130
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 365.34166666666664,
+          "max": 1191
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.9484602084682789,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 172678.85833333334,
+        "max": 239655
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 133821.43333333332,
+        "max": 195457
+      },
+      "ambiguousShareOfInnerMemory": 0.7749728868082336
+    },
+    {
+      "mode": "lidellut",
+      "activity": 1,
+      "seed": 456,
+      "gamesStarted": 7,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 178031.84166666667,
+        "max": 293067
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 229441.30833333332,
+        "max": 379807
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 166263.35833333334,
+          "max": 282055
+        },
+        "state": {
+          "samples": 120,
+          "mean": 11149.85,
+          "max": 16322
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 509.0416666666667,
+          "max": 1259
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.9338967500242583,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 141546.025,
+        "max": 239647
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 106224,
+        "max": 195547
+      },
+      "ambiguousShareOfInnerMemory": 0.7504555497054757
+    },
+    {
+      "mode": "troll",
+      "activity": 0.012,
+      "seed": 123,
+      "gamesStarted": 1,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 15952.066666666668,
+        "max": 36525
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 19229.066666666666,
+        "max": 44670
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 6346.625,
+          "max": 24406
+        },
+        "state": {
+          "samples": 120,
+          "mean": 9479.116666666667,
+          "max": 14133
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 17.491666666666667,
+          "max": 215
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.39785597268483497,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 5512.108333333334,
+        "max": 21282
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 569.3333333333334,
+        "max": 5141
+      },
+      "ambiguousShareOfInnerMemory": 0.10328776194226952
+    },
+    {
+      "mode": "troll",
+      "activity": 0.012,
+      "seed": 456,
+      "gamesStarted": 1,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 19197.125,
+        "max": 34850
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 23279.308333333334,
+        "max": 42558
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 9607.566666666668,
+          "max": 22535
+        },
+        "state": {
+          "samples": 120,
+          "mean": 9466.591666666667,
+          "max": 14309
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 13.933333333333334,
+          "max": 116
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.5004690372473308,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 8367.283333333333,
+        "max": 19647
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 1831.0833333333333,
+        "max": 6368
+      },
+      "ambiguousShareOfInnerMemory": 0.21883845214595737
+    },
+    {
+      "mode": "troll",
+      "activity": 1,
+      "seed": 123,
+      "gamesStarted": 4,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 146201.58333333334,
+        "max": 239366
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 185437.55833333332,
+        "max": 304632
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 135118.28333333333,
+          "max": 225441
+        },
+        "state": {
+          "samples": 120,
+          "mean": 10659.6,
+          "max": 16722
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 313.9,
+          "max": 1187
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.9241916554711275,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 116417.45,
+        "max": 193911
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 83067.175,
+        "max": 154048
+      },
+      "ambiguousShareOfInnerMemory": 0.7135285560712763
+    },
+    {
+      "mode": "troll",
+      "activity": 1,
+      "seed": 456,
+      "gamesStarted": 4,
+      "checkpointBytes": {
+        "samples": 120,
+        "mean": 144747.4,
+        "max": 211773
+      },
+      "transportJsonBytes": {
+        "samples": 120,
+        "mean": 183580.85833333334,
+        "max": 269273
+      },
+      "fieldValueBytes": {
+        "memories": {
+          "samples": 120,
+          "mean": 133674.96666666667,
+          "max": 197913
+        },
+        "state": {
+          "samples": 120,
+          "mean": 10646.75,
+          "max": 16086
+        },
+        "newRecords": {
+          "samples": 120,
+          "mean": 315.975,
+          "max": 1187
+        }
+      },
+      "memoryValueShareOfCheckpoint": 0.923505131468107,
+      "innerMemoryBytes": {
+        "samples": 120,
+        "mean": 115175,
+        "max": 170239
+      },
+      "innerAmbiguousBytes": {
+        "samples": 120,
+        "mean": 82039.575,
+        "max": 133487
+      },
+      "ambiguousShareOfInnerMemory": 0.7123036683308009
+    }
+  ],
+  "hashes": {
+    "apps/server/scripts/host-payload-audit.ts": "ed8c9e5a1182f737d7f8a499c736a4e9530a94d23ba9925f311a44d7ec6b90d8",
+    "packages/rules/src/host-runtime.ts": "8c5e45d2e9c3e5baf5b4477093d3b18fef828f32efbd7ef8e1d6a614ec6cb338",
+    "packages/rules/src/bot-memory.ts": "5590699536295c96bf57f1758072d76a2d65a127b89c435174cffc445007b424",
+    "packages/rules/src/bot-tactics.ts": "ea8d2f8122efb603155b5aab75851b41abcbf0555b42eac9e4678115f9af3d87",
+    "packages/rules/src/bot.ts": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96"
+  }
+}

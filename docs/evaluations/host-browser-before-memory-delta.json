@@ -1,0 +1,40 @@
+{
+  "format": 1,
+  "runtime": {
+    "node": "v24.19.0",
+    "browser": "153.0.8010.0",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "scope": "실제 Chromium headless 독립2프로필·웹 빌드·로컬 서버. 모바일/네트워크 지연/실제 백그라운드 탭 제한/VM ARM 검증 아님.",
+  "checks": [
+    "초기 방장 워커 확정과 일반 참가자 체크포인트 미전달",
+    "방장 새로고침→후임 이전·원래 정체로 재접속·호스트 탈환 없음",
+    "이전 후 채팅1회 확정 및 상대 전달",
+    "후임 탭 종료→접속 중인 원래 사용자에게 이전",
+    "방장 자리 비움→후임 이전",
+    "모든 호스트 이탈 뒤 재입장·체크포인트 시계에서 재개",
+    "새 AI 전용 판 관전자 브라우저 호스팅"
+  ],
+  "errors": [],
+  "captures": [
+    {
+      "name": "after-migration",
+      "path": "/tmp/gst-host-browser.Q4aDwC/after-migration.png",
+      "sha256": "38e7263ca112a525652b40259acb71a9497a5e2ab35c1d00a59c9be76a7406e6"
+    },
+    {
+      "name": "ai-spectator",
+      "path": "/tmp/gst-host-browser.Q4aDwC/ai-spectator.png",
+      "sha256": "2e948176df48b9a4526358f5f57b00cef25c728eccc90b3dc84f1a13dce1929c"
+    }
+  ],
+  "hashes": {
+    "apps/client/src/net.ts": "e38bbf5cf816187982ecced68d07ac7709d3a0f39cd01fae339316d76ab733fa",
+    "apps/client/src/Game.tsx": "6e34179e3d8b2d8de360a1cba8f0475ffde5edf368c70abb646f929e5c740acd",
+    "apps/client/src/host.worker.ts": "48dca18b5005c46b2185f20b457f4a77e98afbc0d615b5e11a80982cfadcc10a",
+    "apps/server/src/rooms.ts": "75fd73dcecca73ca2b4870f31878e9fb744035c0ba483099f62768d6634b3329",
+    "apps/server/src/server.ts": "64fd0975dfba98bbf144aa55967639ac1889a233fedbc1e187bce607f51d6e0a",
+    "apps/server/scripts/host-browser-audit.mjs": "52a8d0d84bd5ed6d8cf70e56b27e69c096f3cd71136dd0ca90b799cb439d1249"
+  }
+}

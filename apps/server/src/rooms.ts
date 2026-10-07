@@ -1,3 +1,4 @@
+import { hostStateSchema } from './host-state.js';
 import { randomBytes } from 'node:crypto';
 import {
   MAX_PLAYERS,
@@ -18,8 +19,9 @@ import {
   type Action,
   type GameState,
   type BotMemory,
+  encodeHostSnapshot, readHostWire, type HostWireSnapshot,
 } from '@gst/rules';
-import type { RoomDetail, RoomSummary, ServerMessage } from '@gst/protocol';
+import type { RoomDetail, RoomSummary, ServerMessage, HostCommand, HostMember } from '@gst/protocol';
 import type { ServerConfig } from './config.js';
 import type { ActionRecord } from './records.js';
 
@@ -31,6 +33,7 @@ interface Member {
   id: string;
   nickname: string;
   bot: boolean;
+  hostCapable: boolean;
   /** 봇만 돌리는 판의 관전자 */
   spectator?: boolean;
   /** 로그인 사용자의 auth id (게스트·봇은 null) */
@@ -56,6 +59,16 @@ export class Room {
   endedAt = 0;
   private botMemories = new Map<string, BotMemory>();
   private botSeq = 0;
+  private hostEpoch = 0;
+  private hostFrame = 0;
+  private hostCheckpoint = '';
+  private hostWire: HostWireSnapshot | null = null;
+  private hostSeenAt = 0;
+  private hostVacantAt = 0;
+  private failedHosts = new Map<string, number>();
+  private commands: HostCommand[] = [];
+  private commandSeq = 0;
+  private handled = 0;
 
   constructor(
     readonly cfg: ServerConfig,
@@ -65,6 +78,7 @@ export class Room {
     readonly turnSeconds: number,
     private readonly onEnd: (room: Room) => void,
     private readonly clock: () => number = Date.now,
+    readonly hosting: 'server' | 'player' = 'server',
   ) {}
 
   summary(): RoomSummary {
@@ -83,6 +97,9 @@ export class Room {
     return {
       ...this.summary(),
       hostId: this.hostId,
+      hosting: this.hosting,
+      hostEpoch: this.hostEpoch,
+      hostPaused: this.hosting === 'player' && this.status === 'playing' && !this.hostId,
       turnSeconds: this.turnSeconds,
       members: this.members.map((m) => ({ id: m.id, nickname: m.nickname, bot: m.bot, connected: m.bot || !!m.conn, ...(m.spectator ? { spectator: true } : {}), ...(m.away || m.left ? { away: true } : {}) })),
       minPlayers: MIN_PLAYERS,
@@ -99,10 +116,10 @@ export class Room {
   }
 
   /** 입장 또는 재접속 */
-  join(userId: string, nickname: string, authId: string | null, conn: Conn): string | null {
+  join(userId: string, nickname: string, authId: string | null, conn: Conn, hostCapable = false): string | null {
     const existing = this.member(userId);
     if (existing) {
-      existing.conn = conn;
+      existing.conn = conn; existing.hostCapable = hostCapable;
       existing.lastSeq = 0; // 재접속 시 전체 로그 다시 전송
       if (existing.graceTimer) clearTimeout(existing.graceTimer);
       existing.graceTimer = null;
@@ -110,11 +127,15 @@ export class Room {
       existing.left = false;
       this.broadcastRoom();
       this.syncGame([existing]);
+      if (this.hosting === 'player' && this.status === 'playing') {
+        if (this.hostId === userId) this.grantHost(existing);
+        else this.ensureHost();
+      }
       return null;
     }
     if (this.status !== 'lobby') return '이미 시작된 방입니다.';
     if (this.members.length >= MAX_PLAYERS) return '방이 가득 찼습니다.';
-    this.members.push({ id: userId, nickname, bot: false, authId, conn, lastSeq: 0, graceTimer: null });
+    this.members.push({ id: userId, nickname, bot: false, hostCapable, authId, conn, lastSeq: 0, graceTimer: null });
     this.broadcastRoom();
     return null;
   }
@@ -126,6 +147,15 @@ export class Room {
     if (this.status === 'lobby' || this.status === 'ended') {
       this.members = this.members.filter((x) => x.id !== userId);
       if (this.hostId === userId) this.hostId = this.humans()[0]?.id ?? '';
+    } else if (this.hosting === 'player' && this.state) {
+      if (m.graceTimer) clearTimeout(m.graceTimer);
+      m.graceTimer = null; m.conn = null;
+      if (mode === 'away' && !m.spectator) m.left = true;
+      else {
+        if (!m.spectator) this.queueCommand({ kind: 'quit', player: userId });
+        this.members = this.members.filter(x => x.id !== userId);
+      }
+      this.ensureHost();
     } else if (m.spectator) {
       this.members = this.members.filter((x) => x.id !== userId);
     } else if (this.state) {
@@ -172,6 +202,7 @@ export class Room {
         }
       }, this.cfg.reconnectGraceSeconds * 1000);
     }
+    if (this.hosting === 'player') this.ensureHost();
     this.broadcastRoom();
   }
 
@@ -182,7 +213,7 @@ export class Room {
     const n = Math.min(count, MAX_PLAYERS - this.members.filter((m) => !m.spectator).length);
     for (let i = 0; i < n; i++) {
       const bid = `bot-${this.id}-${++this.botSeq}`;
-      this.members.push({ id: bid, nickname: `봇${this.botSeq}`, bot: true, authId: null, conn: null, lastSeq: 0, graceTimer: null });
+      this.members.push({ id: bid, nickname: `봇${this.botSeq}`, bot: true, hostCapable: false, authId: null, conn: null, lastSeq: 0, graceTimer: null });
     }
     this.broadcastRoom();
     return null;
@@ -199,6 +230,7 @@ export class Room {
   start(byUser: string, now: number, aiOnly = false): string | null {
     if (byUser !== this.hostId) return '방장만 시작할 수 있습니다.';
     if (this.status !== 'lobby') return '이미 시작되었습니다.';
+    if (this.hosting === 'player' && !this.member(byUser)?.hostCapable) return '방장 호스팅을 지원하는 화면으로 다시 접속하세요.';
     if (aiOnly) {
       if (!this.cfg.allowBots) return '봇이 허용되지 않은 서버입니다.';
       for (const m of this.members) if (!m.bot) m.spectator = true;
@@ -226,12 +258,23 @@ export class Room {
     this.actions = [];
     this.broadcastRoom();
     this.syncGame();
+    if (this.hosting === 'player') {
+      this.hostCheckpoint = encodeHostSnapshot({ version: 1, state, memories: this.botMemories, handled: 0, records: [], results: [] });
+      this.hostWire = readHostWire(this.hostCheckpoint).snapshot;
+      this.grantHost(this.member(byUser)!);
+    }
     return null;
   }
 
-  act(userId: string, action: Action, now: number): { ok: boolean; error?: string } {
+  act(userId: string, action: Action, now: number, ref?: number): { ok: boolean; error?: string; pending?: boolean } {
     if (!this.state || this.status !== 'playing') return { ok: false, error: '진행 중인 게임이 없습니다.' };
     if (this.member(userId)?.spectator) return { ok: false, error: '관전 중에는 행동할 수 없습니다.' };
+    if (this.hosting === 'player') {
+      if (!this.hostId) return { ok: false, error: '방장 연결을 기다리고 있습니다.' };
+      if (this.commands.length >= 256) return { ok: false, error: '처리 대기 중입니다. 잠시 후 다시 시도하세요.' };
+      this.queueCommand({ kind: 'action', player: userId, action, ref });
+      return { ok: true, pending: true };
+    }
     const r = applyAction(this.state, userId, action, now);
     this.record(userId, action, now, r.ok, r.error);
     this.afterChange();
@@ -241,6 +284,14 @@ export class Room {
   /** 서버 틱: 시간 진행 + 봇 행동 */
   tick(now: number): void {
     if (!this.state || this.status !== 'playing') return;
+    if (this.hosting === 'player') {
+      if (this.hostId && Date.now() - this.hostSeenAt > 8_000) {
+        this.failedHosts.set(this.hostId, Date.now() + 30_000);
+        this.hostId = '';
+      }
+      this.ensureHost();
+      return;
+    }
     const before = this.state.seq;
     advance(this.state, now);
     for (const m of this.members) {
@@ -277,9 +328,9 @@ export class Room {
     for (const m of only ?? this.members) {
       if (m.bot || !m.conn) continue;
       if (m.spectator) {
-        m.conn.send({ type: 'game', view: spectatorView(st), events: st.log.filter((e) => e.seq > m.lastSeq), serverTime: this.clock() });
+        m.conn.send({ type: 'game', view: spectatorView(st), events: st.log.filter((e) => e.seq > m.lastSeq), serverTime: this.hosting === 'player' ? st.now : this.clock() });
       } else {
-        m.conn.send({ type: 'game', view: viewFor(st, m.id), events: eventsFor(st, m.id, m.lastSeq), serverTime: this.clock() });
+        m.conn.send({ type: 'game', view: viewFor(st, m.id), events: eventsFor(st, m.id, m.lastSeq), serverTime: this.hosting === 'player' ? st.now : this.clock() });
       }
       m.lastSeq = st.seq;
     }
@@ -288,7 +339,82 @@ export class Room {
   broadcastRoom(): void {
     const detail = this.detail();
     for (const m of this.members) m.conn?.send({ type: 'room', room: detail });
+    if (this.hosting === 'player' && this.status === 'playing') this.member(this.hostId)?.conn?.send({ type: 'host.members', epoch: this.hostEpoch, members: this.hostMembers() });
   }
+
+  private hostMembers(): HostMember[] {
+    return this.members.map(m => ({ id: m.id, bot: m.bot, spectator: m.spectator, automate: m.bot || !!((m.away || m.left) && !m.conn) }));
+  }
+
+  private grantHost(member: Member): void {
+    if (!this.hostCheckpoint && this.hostWire) this.hostCheckpoint = JSON.stringify(this.hostWire);
+    if (!member.conn || !this.hostCheckpoint) return;
+    this.hostId = member.id; this.hostEpoch++; this.hostFrame = 0;
+    this.hostSeenAt = Date.now(); this.hostVacantAt = 0;
+    this.broadcastRoom();
+    member.conn.send({ type: 'host.grant', epoch: this.hostEpoch, frame: 0, checkpoint: this.hostCheckpoint,
+      members: this.hostMembers(), commands: this.commands, tickMs: Math.max(100, this.cfg.tickMs),
+      activity: this.cfg.botActivity, botKind: this.cfg.botKind, timeScale: this.cfg.timeScale });
+  }
+
+  private ensureHost(): void {
+    if (this.hosting !== 'player' || this.status !== 'playing') return;
+    const active = this.member(this.hostId);
+    if (active?.conn && active.hostCapable && !active.left && !active.away && (this.failedHosts.get(active.id) ?? 0) <= Date.now()) return;
+    const next = this.humans().find(m => m.conn && m.hostCapable && !m.left && !m.away && (this.failedHosts.get(m.id) ?? 0) <= Date.now());
+    if (next) this.grantHost(next);
+    else if (this.hostId || !this.hostVacantAt) {
+      this.hostId = ''; this.hostEpoch++; this.hostVacantAt = Date.now(); this.broadcastRoom();
+    }
+  }
+
+  private queueCommand(input: Omit<Extract<HostCommand, { kind: 'action' }>, 'id'> | Omit<Extract<HostCommand, { kind: 'quit' }>, 'id'>): void {
+    const command = { ...input, id: ++this.commandSeq } as HostCommand;
+    this.commands.push(command);
+    this.member(this.hostId)?.conn?.send({ type: 'host.command', epoch: this.hostEpoch, command });
+  }
+
+  releaseHost(userId: string, epoch: number): void {
+    if (this.hosting !== 'player' || this.hostId !== userId || epoch !== this.hostEpoch) return;
+    this.failedHosts.set(userId, Date.now() + 30_000); this.hostId = ''; this.ensureHost();
+  }
+
+  commitHost(userId: string, epoch: number, frame: number, checkpoint: string): string | null {
+    if (this.hosting !== 'player' || this.status !== 'playing' || userId !== this.hostId || epoch !== this.hostEpoch)
+      return '현재 방장 권한이 아닙니다.';
+    if (frame !== this.hostFrame + 1) return '호스트 프레임 순서가 다릅니다.';
+    let snapshot: HostWireSnapshot;
+    try {
+      const wire = readHostWire(checkpoint, { state: this.state!, records: this.actions, memories: this.hostWire?.memories, frame: this.hostFrame });
+      snapshot = wire.snapshot;
+      if (!hostStateSchema.safeParse(wire.validationState).success) throw Error('상태 형식 불일치');
+      const state = snapshot.state, prior = this.state!;
+      if (state.mode !== this.mode || state.seed !== prior.seed || state.startedAt !== prior.startedAt
+        || !Number.isFinite(state.now) || state.now < prior.now || !Number.isSafeInteger(state.seq) || state.seq < prior.seq
+        || snapshot.handled < this.handled || snapshot.handled > this.commandSeq
+        || state.players.length !== prior.players.length || state.players.some((p, i) => p.id !== prior.players[i]?.id || p.character !== prior.players[i]?.character)
+        || !['running', 'ended'].includes(state.phase)) throw Error('호스트 상태 경계 불일치');
+      // 수신자별 뷰를 먼저 만들어 잘못된 상태가 현재 체크포인트를 덮지 않게 한다.
+      for (const m of this.humans()) {
+        if (m.spectator) spectatorView(state); else { viewFor(state, m.id); eventsFor(state, m.id, m.lastSeq); }
+      }
+      const expected = this.commands.filter(c => c.id <= snapshot.handled && c.kind === 'action');
+      const results = snapshot.results.filter(r => r.id > this.handled);
+      if (results.length !== expected.length || results.some((r,i) => r.id !== expected[i]?.id || r.player !== expected[i]?.player || r.ref !== expected[i]?.ref || typeof r.ok !== 'boolean'))
+        throw Error('행동 확인 누락');
+    } catch { return '잘못된 호스트 체크포인트입니다.'; }
+    this.state = snapshot.state; this.hostWire = snapshot; this.hostCheckpoint = ''; this.hostFrame = frame; this.hostSeenAt = Date.now();
+    this.actions = snapshot.records;
+    for (const result of snapshot.results) if (result.id > this.handled)
+      this.member(result.player)?.conn?.send({ type: 'action.result', ok: result.ok, error: result.error, ref: result.ref });
+    this.handled = snapshot.handled;
+    this.commands = this.commands.filter(c => c.id > this.handled);
+    this.member(userId)?.conn?.send({ type: 'host.ack', epoch, frame });
+    this.afterChange();
+    return null;
+  }
+
+  hostExpired(): boolean { return this.hosting === 'player' && !!this.hostVacantAt && Date.now() - this.hostVacantAt > 10 * 60_000; }
 
   private record(player: string, action: Action, now: number, ok: boolean, error?: string): void {
     if (!this.state) return;
@@ -317,8 +443,8 @@ export class RoomManager {
     private readonly clock: () => number = Date.now,
   ) {}
 
-  create(name: string, mode: ModeId, hostId: string, turnSeconds: number): Room {
-    const room = new Room(this.cfg, name, mode, hostId, turnSeconds, this.onEnd, this.clock);
+  create(name: string, mode: ModeId, hostId: string, turnSeconds: number, hosting: 'server' | 'player' = 'server'): Room {
+    const room = new Room(this.cfg, name, mode, hostId, turnSeconds, this.onEnd, this.clock, hosting);
     this.rooms.set(room.id, room);
     return room;
   }
@@ -345,7 +471,7 @@ export class RoomManager {
       r.tick(now);
       const idle = r.humans().length === 0 || r.humans().every((m) => !m.conn);
       const stale = r.status === 'ended' && now - r.endedAt > 10 * 60_000;
-      if ((r.status === 'lobby' && r.humans().length === 0) || stale || (r.status === 'ended' && idle)) {
+      if ((r.status === 'lobby' && r.humans().length === 0) || stale || (r.status === 'ended' && idle) || r.hostExpired()) {
         r.dispose();
         this.rooms.delete(r.id);
       }
