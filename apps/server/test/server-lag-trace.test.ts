@@ -17,11 +17,12 @@ describe('VM의 OS 카운터 호환성', () => {
       paths.push(path);
       if (path === '/proc/self/cgroup') return '0::/user.slice/session.scope\n';
       if (path === '/sys/fs/cgroup/user.slice/session.scope/cpu.stat') return 'nr_throttled 7\n';
-      if (path === '/proc/self/schedstat') return 'invalid\n';
+      if (path === '/proc/self/schedstat') return '\n';
       throw new Error('wrong group');
     });
     expect(result).toMatchObject({ throttleCount: 7, throttledUs: null, runNs: null, waitNs: null });
     expect(paths).not.toContain('/sys/fs/cgroup/cpu.stat');
+    expect(readOsCounters(() => 'invalid')).toMatchObject({ runNs: null, waitNs: null });
   });
 });
 

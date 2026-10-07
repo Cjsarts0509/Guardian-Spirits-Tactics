@@ -6,7 +6,7 @@ interface Span { name: string; start: number; end: number; wallMs: number; cpuMs
 const cpuMs = (u: NodeJS.CpuUsage) => (u.user + u.system) / 1000;
 export const readOsCounters = (read: (path: string) => string = (path) => readFileSync(path, 'utf8')) => {
   const number = (value: string | undefined): number | null => {
-    if (value === undefined) return null;
+    if (value === undefined || value.trim() === '') return null;
     const parsed = Number(value);
     return Number.isFinite(parsed) && parsed >= 0 ? parsed : null;
   };
