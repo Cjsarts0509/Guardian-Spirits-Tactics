@@ -53,3 +53,5 @@ GST_HOST_AUDIT_REF=feat/player-host-migration bash "$gst_host_audit_script"
 [콘솔 전사](evaluations/host-vm-user-console.json)에 수치를 보존했다. `/tmp/gst-host-audit.gP9Ggh/gst-host-audit-results.tar.gz`는 사용자의 VM 경로이며 이 환경에서 읽은 파일이 아니다. 실행별 값/결과·소스 해시/자식 RSS/루프/활성 봇 수를 독립 대조하려면 원자료가 필요하다. 다음 확인은 전송 구성의 로컬 진단과 실제 원격 브라우저/백그라운드 시험이다.
 
 로컬 전송 구성의 후속 진단은 [PLAYER_HOST_TRANSPORT_FINDINGS.md](PLAYER_HOST_TRANSPORT_FINDINGS.md)에 있다. VM의 실제 프레임 구성과 같은 것으로 해석하지 않는다.
+
+후속으로 AI 기억 변경분 전송을 구현했다. 위 ARM 콘솔은1c7e878의 변경 전 결과이며 새 소스의 VM 성능 결과가 아니다. [변경분 전송 검증](PLAYER_HOST_MEMORY_DELTA.md)을 참고하고 재측정 시 실행기 URL과 `GST_HOST_AUDIT_REF`를 같은 새 커밋 SHA로 고정한다.

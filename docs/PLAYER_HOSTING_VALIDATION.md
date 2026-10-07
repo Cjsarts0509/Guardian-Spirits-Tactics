@@ -41,7 +41,7 @@ Chromium153.0.8010.0 headless, Linux x64/Node24.19.0, 독립 영구 프로필 �
 
 ### 기록 전송 수정 후
 
-[현재 원자료](evaluations/host-load-audit.json). 측정 당시 소스 커밋은 `201d080cf88d46b687588f38e5bedbb7e845f85d`이며 당시 파일과 원자료의 소스 해시를 대조했다. 이후 진단 드라이버에 반복 순서·RSS 표본·프로세스 실패 검사를 추가했으므로 두 진단 파일의 해시는 현재와 다르다. 게임/호스팅 실행 코드는 유지했다.6조건 모두 HTTP/호스트 오류0이다.
+[기록 증분 전송 수정 직후 원자료](evaluations/host-load-audit.json). 측정 당시 소스 커밋은 `201d080cf88d46b687588f38e5bedbb7e845f85d`이며 당시 파일과 원자료의 소스 해시를 대조했다. 이후 진단 드라이버에 반복 순서·RSS 표본·프로세스 실패 검사를 추가했으므로 두 진단 파일의 해시는 현재와 다르다. 게임/호스팅 실행 코드는 유지했다.6조건 모두 HTTP/호스트 오류0이다.
 
 | 조건 | 계산 위치 | 메인 CPU % | 서버 틱 p95 ms | 프레임 확정 p95 ms | 루프 최대 ms | 업로드 KiB/s | 생존 봇 중앙값 |
 |---|---|---:|---:|---:|---:|---:|---:|
@@ -82,3 +82,5 @@ PR10은 AI PR9을 기준으로 한 별도 초안이다. main/운영 릴리즈/VM
 VM용 반복 진단 실행기와 결과 명령은 [PLAYER_HOST_VM_AUDIT.md](PLAYER_HOST_VM_AUDIT.md)에 있다. 새 실행기는 같은 소스의 server/player를 AB/BA/AB 순서로 측정하며 기존 표의 숫자를 새 드라이버 측정값으로 바꾸지 않는다.
 
 사용자 ARM VM 콘솔 결과와 해석은 [PLAYER_HOST_VM_AUDIT.md](PLAYER_HOST_VM_AUDIT.md), 체크포인트 구성의 로컬 후속 진단은 [PLAYER_HOST_TRANSPORT_FINDINGS.md](PLAYER_HOST_TRANSPORT_FINDINGS.md)에 있다.
+
+AI 기억의 변경분 전송은 이후 구현됐다. 이 문서의15초 표는201d080의 전체 기억 전송 방식이며 현재 구현의 성능표가 아니다. 최신 검증은 [PLAYER_HOST_MEMORY_DELTA.md](PLAYER_HOST_MEMORY_DELTA.md)에 있다.

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { applyHostInputs, decodeHostSnapshot, encodeHostSnapshot, encodeHostDelta, tickHost } from '@gst/rules';
+import { applyHostInputs, decodeHostSnapshot, encodeHostSnapshot, encodeHostDelta, encodeHostFrame, serializeHostMemories, tickHost } from '@gst/rules';
 import type { ServerMessage } from '@gst/protocol';
 import { Room } from '../src/rooms.js';
 import { loadConfig } from '../src/config.js';
@@ -19,6 +19,25 @@ function setup() {
 const grant = (messages: ServerMessage[]) => messages.filter((m): m is Extract<ServerMessage,{type:'host.grant'}> => m.type==='host.grant').at(-1)!;
 
 describe('방장 계산·호스트 이전', () => {
+  it('기억 변경분 기준/형식 오류 거절 후 이전·프레임 기준 초기화·후속 확정',()=>{
+    const {room,a,b}=setup(),first=grant(a),snapshot=decodeHostSnapshot(first.checkpoint);
+    let base=serializeHostMemories(snapshot.memories),deltas=0;
+    for(let frame=1;frame<=3;frame++) {
+      tickHost(snapshot,first.members,1000+frame*250,{...first,activity:1});
+      const sent=encodeHostFrame(snapshot,room.state!.log.length,room.actions.length,base,frame-1),raw=JSON.parse(sent.checkpoint),frozen=structuredClone(room.state);
+      if('memoryDelta' in raw)deltas++;
+      expect(room.commitHost('a',first.epoch,frame,JSON.stringify({...raw,memories:undefined,memoryDelta:null,memoryBase:frame+99}))).toContain('잘못된');
+      expect(room.commitHost('a',first.epoch,frame,JSON.stringify({...raw,memories:undefined,memoryDelta:{op:'array',length:0,changes:[]},memoryBase:frame-1}))).toContain('잘못된');
+      expect(room.state).toEqual(frozen);
+      expect(room.commitHost('a',first.epoch,frame,sent.checkpoint)).toBeNull();base=sent.memories;
+    }
+    expect(deltas).toBeGreaterThan(0);room.disconnected('a');const next=grant(b),restored=decodeHostSnapshot(next.checkpoint);
+    expect(restored.state).toEqual(snapshot.state);expect(restored.memories).toEqual(decodeHostSnapshot(encodeHostSnapshot(snapshot)).memories);
+    const logBase=restored.state.log.length,recordBase=restored.records.length; base=serializeHostMemories(restored.memories);
+    tickHost(restored,next.members,2000,{...next,activity:1});
+    const sent=encodeHostFrame(restored,logBase,recordBase,base,0);
+    expect(room.commitHost('b',next.epoch,1,sent.checkpoint)).toBeNull();
+  });
   it('추가 기록만 확정하고 기준 오류는 보존·다음 호스트는 전체 기록 복원', () => {
     const {room,a,b}=setup(), first=grant(a), snapshot=decodeHostSnapshot(first.checkpoint);
     let logBase=snapshot.state.log.length, recordBase=snapshot.records.length;

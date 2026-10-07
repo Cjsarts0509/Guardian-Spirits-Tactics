@@ -260,6 +260,7 @@ export class Room {
     this.syncGame();
     if (this.hosting === 'player') {
       this.hostCheckpoint = encodeHostSnapshot({ version: 1, state, memories: this.botMemories, handled: 0, records: [], results: [] });
+      this.hostWire = readHostWire(this.hostCheckpoint).snapshot;
       this.grantHost(this.member(byUser)!);
     }
     return null;
@@ -384,7 +385,7 @@ export class Room {
     if (frame !== this.hostFrame + 1) return '호스트 프레임 순서가 다릅니다.';
     let snapshot: HostWireSnapshot;
     try {
-      const wire = readHostWire(checkpoint, { state: this.state!, records: this.actions });
+      const wire = readHostWire(checkpoint, { state: this.state!, records: this.actions, memories: this.hostWire?.memories, frame: this.hostFrame });
       snapshot = wire.snapshot;
       if (!hostStateSchema.safeParse(wire.validationState).success) throw Error('상태 형식 불일치');
       const state = snapshot.state, prior = this.state!;

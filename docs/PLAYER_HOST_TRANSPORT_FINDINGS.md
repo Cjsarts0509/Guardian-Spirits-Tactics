@@ -41,3 +41,5 @@
 cd apps/server
 node --import tsx scripts/host-payload-audit.ts > /tmp/gst-host-payload.json
 ```
+
+이 진단은17f8073 시점의 전체 기억 문자열 전송 방식이다. 후속으로 [AI 기억 변경분 전송](PLAYER_HOST_MEMORY_DELTA.md)을 구현했으며 기존 표/원자료를 새 방식 측정값으로 교체하지 않았다.

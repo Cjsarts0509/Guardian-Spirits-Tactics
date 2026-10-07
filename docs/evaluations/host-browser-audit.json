@@ -6,9 +6,10 @@
     "platform": "linux",
     "arch": "x64"
   },
-  "scope": "실제 Chromium headless 독립2프로필·웹 빌드·로컬 서버. 모바일/네트워크 지연/실제 백그라운드 탭 제한/VM ARM 검증 아님.",
+  "scope": "실제 Chromium headless 독립2프로필·웹 빌드·로컬 서버, botActivity1로 변경분 제출을 확인. 모바일/네트워크 지연/실제 백그라운드 탭 제한/VM ARM 검증 아님.",
   "checks": [
     "초기 방장 워커 확정과 일반 참가자 체크포인트 미전달",
+    "기억 변경분 WebSocket 제출·해당 프레임 ACK 확인",
     "방장 새로고침→후임 이전·원래 정체로 재접속·호스트 탈환 없음",
     "이전 후 채팅1회 확정 및 상대 전달",
     "후임 탭 종료→접속 중인 원래 사용자에게 이전",
@@ -20,21 +21,23 @@
   "captures": [
     {
       "name": "after-migration",
-      "path": "/tmp/gst-host-browser.Q4aDwC/after-migration.png",
-      "sha256": "38e7263ca112a525652b40259acb71a9497a5e2ab35c1d00a59c9be76a7406e6"
+      "path": "/tmp/gst-host-browser.C1iYsu/after-migration.png",
+      "sha256": "fe0f8717985a55c18294e7f5a42caf64e7a202a86d1eb02ebe4cc1bacdcb379c"
     },
     {
       "name": "ai-spectator",
-      "path": "/tmp/gst-host-browser.Q4aDwC/ai-spectator.png",
-      "sha256": "2e948176df48b9a4526358f5f57b00cef25c728eccc90b3dc84f1a13dce1929c"
+      "path": "/tmp/gst-host-browser.C1iYsu/ai-spectator.png",
+      "sha256": "dbf4cee219f7575d3a0057c96b9821a45dbd190d0eaf0f6127fc9f37c0de5805"
     }
   ],
   "hashes": {
     "apps/client/src/net.ts": "e38bbf5cf816187982ecced68d07ac7709d3a0f39cd01fae339316d76ab733fa",
     "apps/client/src/Game.tsx": "6e34179e3d8b2d8de360a1cba8f0475ffde5edf368c70abb646f929e5c740acd",
-    "apps/client/src/host.worker.ts": "48dca18b5005c46b2185f20b457f4a77e98afbc0d615b5e11a80982cfadcc10a",
-    "apps/server/src/rooms.ts": "75fd73dcecca73ca2b4870f31878e9fb744035c0ba483099f62768d6634b3329",
+    "apps/client/src/host.worker.ts": "6685a1f4b186f08506797acd05cfbe4986dfefb36c1dba0545c5609ebcdd1893",
+    "apps/server/src/rooms.ts": "47831ef6b1f63e07825e37267499bc872204a6e77f4398b0679ccad60255618e",
     "apps/server/src/server.ts": "64fd0975dfba98bbf144aa55967639ac1889a233fedbc1e187bce607f51d6e0a",
-    "apps/server/scripts/host-browser-audit.mjs": "52a8d0d84bd5ed6d8cf70e56b27e69c096f3cd71136dd0ca90b799cb439d1249"
+    "packages/rules/src/host-runtime.ts": "759988d18ab00f64dcc5bf5bddae63979922cc294c9b45baebb27fa6ec181b4e",
+    "packages/rules/src/host-memory.ts": "afe791a3bc8909bb62d07f98dfa5acb872decb3384c32decdf5e728d2ef27c86",
+    "apps/server/scripts/host-browser-audit.mjs": "dde809475b55e405c4a03b3b0963a7025ce53e7291c3bc89ce258b023e4a82f9"
   }
 }

@@ -87,7 +87,7 @@ for(const scenario of scenarios)for(const hosting of hostingOrder){
     await server.close();
   }
 }
-const paths=['apps/server/src/rooms.ts','apps/server/src/server.ts','apps/server/src/host-state.ts','packages/rules/src/host-runtime.ts','apps/client/src/host.worker.ts','apps/server/scripts/host-load-audit.ts','apps/server/scripts/host-load-client.ts'];
+const paths=['apps/server/src/rooms.ts','apps/server/src/server.ts','apps/server/src/host-state.ts','packages/rules/src/host-runtime.ts','packages/rules/src/host-memory.ts','apps/client/src/host.worker.ts','apps/server/scripts/host-load-audit.ts','apps/server/scripts/host-load-client.ts'];
 console.log(JSON.stringify({format:1,order,sourceCommit:process.env.GST_HOST_AUDIT_COMMIT??null,runtime:{node:process.version,arch:process.arch,cpu:cpus()[0]?.model},
   scope:'순차 server/player 각3조건. 매 조건 새 무작위 판으로 행동·부하가 같지 않음. AI 호스트는 별도 자식 프로세스여서 main CPU에 제외되지만 같은 머신의 CPU 경합은 포함. 실제 브라우저/원격 네트워크/수용량 보장 아님. 준비는 측정 밖. 통신/오류 계수는 시작·종료 IPC 응답으로 확인하며 경계는 IPC 응답 지연만큼 어긋날 수 있음. main RSS는 진단 드라이버 포함, clients RSS는 Worker 포함 자식 프로세스 RSS 합이며 공유 페이지를 중복 계산할 수 있음. RSS 최대는 250ms 표본 최대이며 순간 최대·장기 누수 판정 아님.',
   results,hashes:Object.fromEntries(await Promise.all(paths.map(async p=>[p,createHash('sha256').update(await readFile(`${root}/${p}`)).digest('hex')])))},null,2));

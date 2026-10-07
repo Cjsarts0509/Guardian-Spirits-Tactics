@@ -9,7 +9,7 @@ const root = resolve(import.meta.dirname, '../../..');
 const { chromium } = await import(process.env.GST_PLAYWRIGHT_MODULE ?? 'playwright');
 const output = await mkdtemp(`${tmpdir()}/gst-host-browser.`);
 const server = spawn(process.execPath, ['apps/server/dist/index.js'], { cwd: root,
-  env: { PATH: process.env.PATH, PORT: '0', HOST: '127.0.0.1', STATIC_DIR: `${root}/apps/client/dist` }, stdio: ['ignore','pipe','pipe'] });
+  env: { PATH: process.env.PATH, PORT: '0', HOST: '127.0.0.1', BOT_ACTIVITY:'1', STATIC_DIR: `${root}/apps/client/dist` }, stdio: ['ignore','pipe','pipe'] });
 let browser; const browsers = [];
 const errors = [], checks = [], captures = [];
 const pause = ms => new Promise(r=>setTimeout(r,ms));
@@ -29,13 +29,13 @@ try {
   console.error('[browser-audit] 독립 영구 프로필 두 개 시작');
   for(const context of contexts) { context.setDefaultTimeout(15000); context.setDefaultNavigationTimeout(15000); }
   async function page(context) {
-    const p=await context.newPage(), messages=[];
+    const p=await context.newPage(), messages=[], sent=[];
     p.on('pageerror',e=>errors.push(e.message));
-    p.on('websocket',ws=>ws.on('framereceived',({payload})=>{try{
+    p.on('websocket',ws=>{ws.on('framesent',({payload})=>{try{sent.push(JSON.parse(String(payload)));}catch{}});ws.on('framereceived',({payload})=>{try{
       const message=JSON.parse(String(payload));messages.push(message);
       if(message.type==='error'||message.type==='action.result'&&!message.ok)errors.push(message.message??message.error??'action failed');
-    }catch{}}));
-    await p.goto(url);return {p,messages};
+    }catch{}});});
+    await p.goto(url);return {p,messages,sent};
   }
   const a=await page(contexts[0]),b=await page(contexts[1]);
   console.error('[browser-audit] 두 프로필 화면 로드');
@@ -59,6 +59,11 @@ try {
   const first=a.messages.find(m=>m.type==='host.grant');
   const identity=a.messages.findLast(m=>m.type==='game').view.me.character;
   assert(!b.messages.some(m=>m.type==='host.grant'));checks.push('초기 방장 워커 확정과 일반 참가자 체크포인트 미전달');
+  await wait(()=>{
+    const delta=a.sent.find(m=>m.type==='host.frame'&&Object.hasOwn(JSON.parse(m.checkpoint),'memoryDelta'));
+    return delta&&a.messages.some(m=>m.type==='host.ack'&&m.epoch===delta.epoch&&m.frame===delta.frame);
+  },'실제 브라우저 기억 변경분 확정');
+  checks.push('기억 변경분 WebSocket 제출·해당 프레임 ACK 확인');
   console.error('[browser-audit] 첫 게임 확정');
   await a.p.reload();
   await wait(()=>b.messages.some(m=>m.type==='host.grant'&&m.epoch>first.epoch),'새로고침 호스트 이전');
@@ -103,9 +108,9 @@ try {
   checks.push('새 AI 전용 판 관전자 브라우저 호스팅');
   await capture(a.p,'ai-spectator');
   assert.deepEqual(errors,[]);
-  const files=['apps/client/src/net.ts','apps/client/src/Game.tsx','apps/client/src/host.worker.ts','apps/server/src/rooms.ts','apps/server/src/server.ts','apps/server/scripts/host-browser-audit.mjs'];
+  const files=['apps/client/src/net.ts','apps/client/src/Game.tsx','apps/client/src/host.worker.ts','apps/server/src/rooms.ts','apps/server/src/server.ts','packages/rules/src/host-runtime.ts','packages/rules/src/host-memory.ts','apps/server/scripts/host-browser-audit.mjs'];
   const result={format:1,runtime:{node:process.version,browser:browser.version(),platform:process.platform,arch:process.arch},
-    scope:'실제 Chromium headless 독립2프로필·웹 빌드·로컬 서버. 모바일/네트워크 지연/실제 백그라운드 탭 제한/VM ARM 검증 아님.',checks,errors,captures,
+    scope:'실제 Chromium headless 독립2프로필·웹 빌드·로컬 서버, botActivity1로 변경분 제출을 확인. 모바일/네트워크 지연/실제 백그라운드 탭 제한/VM ARM 검증 아님.',checks,errors,captures,
     hashes:Object.fromEntries(await Promise.all(files.map(async p=>[p,createHash('sha256').update(await readFile(`${root}/${p}`)).digest('hex')])))};
   await writeFile(`${output}/result.json`,JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result,null,2));
 } finally { await Promise.all(browsers.map(b=>b.close()));server.kill('SIGTERM'); }

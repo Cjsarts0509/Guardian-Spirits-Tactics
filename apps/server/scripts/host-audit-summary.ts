@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export const HOST_AUDIT_PATHS = ['apps/server/src/rooms.ts', 'apps/server/src/server.ts', 'apps/server/src/host-state.ts',
-  'packages/rules/src/host-runtime.ts', 'apps/client/src/host.worker.ts',
+  'packages/rules/src/host-runtime.ts', 'packages/rules/src/host-memory.ts', 'apps/client/src/host.worker.ts',
   'apps/server/scripts/host-load-audit.ts', 'apps/server/scripts/host-load-client.ts'];
 const names = ['one-room-default', 'four-rooms-default', 'four-rooms-high-activity'];
 const median = (values: number[]) => { const v = [...values].sort((a,b)=>a-b), i = Math.floor(v.length/2); return v.length%2 ? v[i]! : (v[i-1]!+v[i]!)/2; };

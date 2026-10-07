@@ -25,8 +25,8 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as const)for(con
     if(JSON.stringify(wire.snapshot.state)!==JSON.stringify(snapshot!.state)||JSON.stringify(wire.snapshot.records)!==JSON.stringify(snapshot!.records))throw Error('기록 증분 복구 불일치');
     checkpoint.push(Buffer.byteLength(encoded));transport.push(bytes({type:'host.frame',epoch:1,frame:sample+1,checkpoint:encoded}));
     memory.push(bytes(raw.memories));state.push(bytes(raw.state));records.push(bytes(raw.records));
-    const memories=JSON.parse(raw.memories).$gstMap;
-    allMemoryInner.push(Buffer.byteLength(raw.memories));
+    const memories=(typeof raw.memories==='string'?JSON.parse(raw.memories):raw.memories).$gstMap;
+    allMemoryInner.push(typeof raw.memories==='string'?Buffer.byteLength(raw.memories):bytes(raw.memories));
     ambiguous.push(memories.reduce((n:number,p:any[])=>n+bytes(p[1].perception?.battle?.ambiguous??[]),0));
   }
   const total=checkpoint.reduce((a,b)=>a+b,0);
