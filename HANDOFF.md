@@ -181,6 +181,8 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
 - 변경 후: `pnpm typecheck && pnpm test`, UI 변경은 Playwright 스크린샷으로 확인(Chromium: `/opt/pw-browsers/chromium`).
 # 최근 AI 오류 점검
 
+VM 진단 실행 준비 완료: `docs/BOT_VM_AUDIT_RUNNER.md`, `deploy/audit-bot-load.sh`. sudo 없이 임시 체크아웃/임의 로컬 포트에서3조건 각30초 trace와 짧은 콘솔 요약/결과압축 제공. cgroup 미지원시 /proc 기록까지 버리던 호환 문제 수정, 본인v2경로/누락null 회귀2개 추가. 전체355테스트·타입·빌드 및Node24 x64 3조건 기능smoke·해시·압축 구성 확인. VM 직접접속도구없어실측은사용자실행대기, 운영서비스·릴리즈변경없음.
+
 긴 이벤트루프 원인 추적 완료: `docs/BOT_SERVER_LAG_CAUSES.md`. 각30초 새 계측에서 기본4방145.47ms 간격 중 메인스레드 런큐 대기121.47ms/CPU0.08ms/GC0/throttling0 확인. 별도 기본1방은GC154.39ms, 고빈도는전체틱67.79ms와 겹침. 틱 실제 발화 간격도 기록(기본4방 최대328.38ms). 원래192.94ms는발생시각이없어단일원인소급확정불가. 별도CPU프로파일의큰게임함수computeAssignmentBelief 확인. 선택적trace와CPU/비CPU양성대조2회귀 추가, 전체353테스트·타입·빌드 통과. 정책·운영번들변경없음, VM실측/GC할당원인은미완료. PR9 반영.
 
 실제 서버 부하 점검 완료: `docs/BOT_SERVER_LOAD_AUDIT.md`. 기본옵션 12봇1방/12봇씩4방/고빈도4방 각20초, 종료판은 새판으로 이어감. 틱 p95 4.30/6.45/35.67ms, 250ms 초과0·HTTP/WS 오류0. 기본4방 이벤트루프 최대192.94ms는 원인 미특정으로 남김. Node24 x64 로컬 자료이며 VM ARM·장기메모리·활성 실험수순·인간12연결은 범위 밖. 351테스트·타입·빌드 통과. PR9에 측정드라이버/원자료/VM 별도 측정 명령 반영, 운영 정책·릴리즈·VM은 유지.
