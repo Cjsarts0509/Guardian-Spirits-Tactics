@@ -1,0 +1,390 @@
+{
+  "format": 1,
+  "baselineLocalCommit": "f1c64e9",
+  "baselineRemoteCommit": "56f9ca5e21bfbbc1f4f194a7757bb5d4ee4e5869",
+  "settings": {
+    "tickMs": 250,
+    "activity": 0.012,
+    "limitMs": 5400000
+  },
+  "defaultCompatibility": {
+    "pairedConditions": 32,
+    "engineRuns": 64,
+    "exactMatch": true
+  },
+  "extendedSmoke": [
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 59100,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "winner": 1,
+      "winnerPolicy": "current",
+      "elapsedMs": 240250,
+      "reason": "단테스측이 승리했습니다.",
+      "stats": {
+        "current": {
+          "attempted": 35,
+          "accepted": 35,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        },
+        "reference": {
+          "attempted": 21,
+          "accepted": 21,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        }
+      },
+      "survivors": [
+        {
+          "character": "dantes",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "freya",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "soen",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "kai",
+          "controller": "reference",
+          "alive": false
+        },
+        {
+          "character": "reindila",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "kelhu",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "kaspa",
+          "controller": "reference",
+          "alive": false
+        },
+        {
+          "character": "krate",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "tuma",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "mertz",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "sephy",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "arin",
+          "controller": "reference",
+          "alive": false
+        }
+      ]
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 59100,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "winner": 2,
+      "winnerPolicy": "reference",
+      "elapsedMs": 647750,
+      "reason": "다크니스측이 승리했습니다.",
+      "stats": {
+        "current": {
+          "attempted": 51,
+          "accepted": 51,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        },
+        "reference": {
+          "attempted": 51,
+          "accepted": 51,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        }
+      },
+      "survivors": [
+        {
+          "character": "rael",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "nukelius",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "tachin",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "sasint",
+          "controller": "reference",
+          "alive": false
+        },
+        {
+          "character": "kumarin",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "eoril",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "consume",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "hermilly",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "drakan",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "kane",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "eltas",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "kilder",
+          "controller": "reference",
+          "alive": false
+        }
+      ]
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 59100,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "winner": 1,
+      "winnerPolicy": "current",
+      "elapsedMs": 451500,
+      "reason": "다크니스측이 승리했습니다.",
+      "stats": {
+        "current": {
+          "attempted": 48,
+          "accepted": 48,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        },
+        "reference": {
+          "attempted": 34,
+          "accepted": 34,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        }
+      },
+      "survivors": [
+        {
+          "character": "kai",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "freia",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "tuma",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "chizuko",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "sepi",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "kaspa",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "kamikaze",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "supra",
+          "controller": "reference",
+          "alive": false
+        },
+        {
+          "character": "loneris",
+          "controller": "reference",
+          "alive": false
+        },
+        {
+          "character": "arin",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "shining",
+          "controller": "reference",
+          "alive": false
+        },
+        {
+          "character": "yui",
+          "controller": "reference",
+          "alive": false
+        }
+      ]
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 59100,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "winner": 2,
+      "winnerPolicy": "reference",
+      "elapsedMs": 242000,
+      "reason": "트롤 반란자측이 승리했습니다.",
+      "stats": {
+        "current": {
+          "attempted": 30,
+          "accepted": 30,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        },
+        "reference": {
+          "attempted": 26,
+          "accepted": 26,
+          "rejected": 0,
+          "earlyAttackFailures": 0,
+          "rejectedSkills": {}
+        }
+      },
+      "survivors": [
+        {
+          "character": "chis",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "hachi",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "tokra",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "deka",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "uldian",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "zwinra",
+          "controller": "current",
+          "alive": false
+        },
+        {
+          "character": "seirow",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "kazrow",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "kanulla",
+          "controller": "reference",
+          "alive": true
+        },
+        {
+          "character": "satoshi",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "ulpian",
+          "controller": "current",
+          "alive": true
+        },
+        {
+          "character": "neonis",
+          "controller": "reference",
+          "alive": true
+        }
+      ]
+    }
+  ],
+  "scope": "오류 점검과 기본 정책 호환성. 승률·지연 개선 증거가 아님.",
+  "hashes": {
+    "baselineBot": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96",
+    "../src/bot.ts": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96",
+    "../src/bot-followup.ts": "624c444dc161c31efabd937ff5f8888dd086997ba4fdfd9137bbedf7a4057c25",
+    "../src/bot-rollout.ts": "804d45192914975407e36dd0c5df63ca2f246dd2453087db5f2f6106e391d3df",
+    "./sequence-error-audit.ts": "88fbfc1eca04fe77324731f0316d643da4defc673e7cc6f751e01966d5801f31",
+    "./league-runner.ts": "f06567dbb2fbdff690cdbe99bf8b7bd953c6ba7b6fb57ef276e6e185eb9bc4d8"
+  }
+}

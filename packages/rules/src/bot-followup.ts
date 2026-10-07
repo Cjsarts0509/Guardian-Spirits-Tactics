@@ -20,7 +20,8 @@ export function roleFollowup(view: PlayerView, knowledge: Knowledge, memory: Bot
   const skills = new Map(view.me.skills.filter((s) => usable(view, s)).map((s) => [s.key, s]));
   const roles = new Map(view.roster.map((r) => [r.key, r]));
   const known = new Map(knowledge.known); known.set(view.me.id, view.me.character);
-  const living = view.players.filter((p) => p.alive && known.has(p.id));
+  // 엔진의 모든 대상 지정 스킬은 자기 자신을 대상으로 삼을 수 없다.
+  const living = view.players.filter((p) => p.alive && p.id !== view.me.id && known.has(p.id));
   const order = (a: typeof living[number], b: typeof living[number]) =>
     Number(roles.get(known.get(b.id)!)!.commander) - Number(roles.get(known.get(a.id)!)!.commander) ||
     roleThreat(view, memory.perception!.battle, known.get(b.id)!) - roleThreat(view, memory.perception!.battle, known.get(a.id)!) || a.seat - b.seat;
@@ -55,8 +56,7 @@ export function roleFollowup(view: PlayerView, knowledge: Knowledge, memory: Bot
     const p = friends.find((p) => allowed(s, p) &&
       (key !== 'drakan_enchant_muscle' || known.get(p.id) === 'consume') &&
       (key !== 'angel_baptism' || (KNIGHTS.includes(known.get(p.id)!) && !memory.perception!.baptized.has(known.get(p.id)!))) &&
-      (key !== 'rune_protection' || !p.statuses.some((e) => e.kind === 'invulnerable')) &&
-      (p.id !== view.me.id || !['support', 'sasint_support', 'nukelius_chakra_magic'].includes(key) || view.me.mana < view.me.maxMana));
+      (key !== 'rune_protection' || !p.statuses.some((e) => e.kind === 'invulnerable')));
     if (p) return act(s, p.id, s.nameOptions ? known.get(p.id)! : undefined);
   }
   for (const key of ['rael_leadership', 'eltas_leadership']) {

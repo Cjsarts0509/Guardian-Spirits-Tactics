@@ -2,9 +2,45 @@ import { describe, expect, it } from 'vitest';
 import { applyAction, botKnowledge, createBotMemory, eventsFor, viewFor } from '../src/index.js';
 import { roleFollowup, roleInformationGain, rolePositionValue } from '../src/bot-followup.js';
 import { sequenceFollowup, boundedSequenceSearch } from '../src/bot-sequence.js';
+import { growthCandidates } from '../src/bot-growth.js';
+import { CIVIL_ORDER } from './helpers.js';
 import { civilTable, fill, modeTable, PRIMORDIAL_ORDER, LIDELLUT_ORDER, TROLL_ORDER } from './helpers.js';
 
 describe('인물별 관찰 기반 후속 스킬', () => {
+  it('4개 모드 48인물의 초기·해금 이후 후보가 실제 엔진에서 허용된다', () => {
+    for (const [mode, order] of [['civil_war', CIVIL_ORDER], ['primordial', PRIMORDIAL_ORDER],
+      ['lidellut', LIDELLUT_ORDER], ['troll', TROLL_ORDER]] as const) {
+      for (const at of [0, 60_001, 180_001, 360_001]) for (const character of order) {
+        const t = modeTable(mode, [...order]);
+        for (const p of t.state.players) t.publish(p.character, p.character);
+        t.tick(at);
+        fill(t, character);
+        for (const p of t.state.players) t.state.revealed[p.id] = p.character;
+        const view = viewFor(t.state, t.id[character]!), memory = createBotMemory(7);
+        const knowledge = botKnowledge(t.state, view.me.id, view, memory);
+        const role = roleFollowup(view, knowledge, memory);
+        for (const action of [...(role ? [role] : []), ...growthCandidates(view, knowledge, memory)]) {
+          const result = applyAction(structuredClone(t.state), view.me.id, action, t.now);
+          expect(result.ok, `${mode}/${character}/${at}/${JSON.stringify(action)}: ${result.events.map((e) => e.text).join(' ')}`).toBe(true);
+        }
+      }
+    }
+  });
+
+  it('확인된 아군이 자신뿐이면 자기 대상 지원을 선택하지 않는다', () => {
+    const t = modeTable('troll', TROLL_ORDER);
+    t.p('tokra').mana = 100;
+    const memory = createBotMemory(7), view = viewFor(t.state, t.id.tokra!);
+    const knowledge = botKnowledge(t.state, view.me.id, view, memory);
+    expect(roleFollowup(view, knowledge, memory)).toBeUndefined();
+    t.state.revealed[t.id.chis!] = 'chis';
+    const updated = viewFor(t.state, view.me.id);
+    const known = botKnowledge(t.state, view.me.id, updated, memory);
+    const action = roleFollowup(updated, known, memory)!;
+    expect(action).toMatchObject({ skill: 'support', target: t.id.chis });
+    expect(applyAction(t.state, view.me.id, action, t.now).ok).toBe(true);
+  });
+
   it('진명 공표로 열린 리더쉽을 고르고 실제 개인 결과만 정보 이득으로 평가한다', () => {
     const t = modeTable('primordial', PRIMORDIAL_ORDER); fill(t, 'rael');
     const memory = createBotMemory(7), initial = viewFor(t.state, t.id.rael!);

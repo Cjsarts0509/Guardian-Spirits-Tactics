@@ -5,6 +5,23 @@ import { hypothesisScenarios, hypothesisWorld } from '../src/bot-hypothesis.js';
 import { civilTable, fill, modeTable, TROLL_ORDER } from './helpers.js';
 
 describe('제한 공격 엔진 탐색', () => {
+  it('자신만 관찰한 효과를 상대에게 공개하지 않고 공개 효과는 유지한다', () => {
+    const t = civilTable(); fill(t, 'arin');
+    expect(t.skill('arin', 'rune_protection', 'dantes').ok).toBe(true);
+    const self = t.id.dantes!, other = t.id.krate!;
+    for (const announced of [false, true]) {
+      t.p('dantes').effects[0]!.announced = announced;
+      const view = viewFor(t.state, self), memory = createBotMemory(7);
+      const knowledge = botKnowledge(t.state, self, view, memory);
+      const assignment = sampleAssignments(view, knowledge, memory, { rng: 1 }, 1)[0]!;
+      const world = hypothesisWorld(view, knowledge, memory.perception!.battle, assignment);
+      const state = rolloutState(view, world, hypothesisScenarios(world, self)[0]!);
+      expect(viewFor(state, self).me.effects).toEqual(view.me.effects);
+      expect(viewFor(state, other).players.find((p) => p.id === self)!.statuses)
+        .toEqual(view.players.find((p) => p.id === self)!.statuses);
+    }
+  });
+
   it('데카가 마나를 소모해 버티는 공격도 방어 자원 소진으로 평가한다', () => {
     const t = modeTable('troll', TROLL_ORDER);
     t.p('satoshi').mana = 85; t.state.revealed[t.id.deka!] = 'deka';

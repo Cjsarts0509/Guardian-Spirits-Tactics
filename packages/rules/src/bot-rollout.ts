@@ -30,10 +30,13 @@ export function rolloutState(view: PlayerView, world: HypothesisWorld, scenario:
       key: s.key, cooldownUntil: state.now + s.cooldownRemainingMs, usesLeft: s.usesLeft,
       level: p.id === view.me.id ? view.me.skills.find((q) => q.key === s.key)!.level : 1,
     }));
-    p.effects = hypothesis.statuses.filter((s) => s.kind === 'incapacitated' || s.kind === 'invulnerable').map((s) => ({
-      id: ++state.effectSeq, kind: s.kind as 'incapacitated' | 'invulnerable', source: s.source,
-      until: state.now + s.remainingMs, announced: true,
-    }));
+    const publicEffects = [...observed.statuses];
+    p.effects = hypothesis.statuses.filter((s) => s.kind === 'incapacitated' || s.kind === 'invulnerable').map((s) => {
+      const index = publicEffects.findIndex((e) => e.kind === s.kind && e.source === s.source && e.remainingMs === s.remainingMs);
+      if (index >= 0) publicEffects.splice(index, 1);
+      return { id: ++state.effectSeq, kind: s.kind as 'incapacitated' | 'invulnerable', source: s.source,
+        until: state.now + s.remainingMs, announced: index >= 0 };
+    });
     if (observed.revealed) state.revealed[p.id] = observed.revealed;
     if (p.id === view.me.id) {
       p.allies = [...view.me.allies]; p.gem = view.me.gem;

@@ -179,3 +179,6 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
 - 파일을 줄 땐 일부가 아니라 전체 세트로.
 - 커밋: `git -c user.name=4rumarts -c user.email=4rumarts@gmail.com commit`, 메시지 끝에 세션 지시의 Co-Authored-By / Claude-Session 줄.
 - 변경 후: `pnpm typecheck && pnpm test`, UI 변경은 Playwright 스크린샷으로 확인(Chromium: `/opt/pw-browsers/chromium`).
+# 최근 AI 오류 점검
+
+후속 스킬의 자기 대상 선택과 가설 복원에서 비공개 효과의 공개 전환을 수정했다. 상세는 `docs/BOT_ERROR_AUDIT.md`, 재현/대전 원자료는 `docs/evaluations/sequence-error-audit.json`. 전체 348개 테스트와 빌드 통과. 이전 승률 자료는 수정 전 고정 정책의 역사적 결과다. 탐색 기본값과 운영 릴리즈는 그대로이며 PR #9 초안에 반영한다.
