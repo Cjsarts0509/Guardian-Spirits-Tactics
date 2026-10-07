@@ -181,6 +181,10 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
 - 변경 후: `pnpm typecheck && pnpm test`, UI 변경은 Playwright 스크린샷으로 확인(Chromium: `/opt/pw-browsers/chromium`).
 # 최근 AI 오류 점검
 
+정체 배정 DP 비용 개선 완료: `docs/BOT_BELIEF_OPTIMIZATION.md`. 양의 후보 비트만 순회하고 크기별 순수 조합표만 공유하며 유효 항 덧셈 순서·공표 가중치·관찰 경계를 유지했다. 차가운 배정 p95 약49–69% 감소, 기본 전체 정책 p95 약25–42% 감소(로컬 Node24 x64 합성). 비공개 확장 p95는 약4–6% 감소에 그쳤고 일부 최대값 증가를 보고했다. 확률/기억3000회·표본/RNG1000위치·전체 행동/기억4800회·내부수순800위치·전체대전320실행/10060행동 일치, 전체355테스트·타입·빌드 통과. 기본 옵션·main·운영릴리즈 그대로. 최신 변경의 VM 재측정이 다음 단계다.
+
+VM 사용자 실행 요약 수신: Node22.23.3 arm64 기본1/4방·고빈도4방 틱p95 6.59/5.07/35.94ms, 최대10.93/10.78/82.03ms, 처리250ms초과/HTTP/WS오류0. 고빈도 루프최대90.77ms. CPU활동과 겹치며 throttling unknown. 사용자 콘솔만 확인했고 원자료압축/소스SHA 직접대조는 하지 않았다. 이전 “VM 실행대기”는 runner 준비 당시의 역사적 상태다. 새 최적화의 VM실측은 아직 없다.
+
 VM 진단 실행 준비 완료: `docs/BOT_VM_AUDIT_RUNNER.md`, `deploy/audit-bot-load.sh`. sudo 없이 임시 체크아웃/임의 로컬 포트에서3조건 각30초 trace와 짧은 콘솔 요약/결과압축 제공. cgroup 미지원시 /proc 기록까지 버리던 호환 문제 수정, 본인v2경로/누락null 회귀2개 추가. 전체355테스트·타입·빌드 및Node24 x64 3조건 기능smoke·해시·압축 구성 확인. VM 직접접속도구없어실측은사용자실행대기, 운영서비스·릴리즈변경없음.
 
 긴 이벤트루프 원인 추적 완료: `docs/BOT_SERVER_LAG_CAUSES.md`. 각30초 새 계측에서 기본4방145.47ms 간격 중 메인스레드 런큐 대기121.47ms/CPU0.08ms/GC0/throttling0 확인. 별도 기본1방은GC154.39ms, 고빈도는전체틱67.79ms와 겹침. 틱 실제 발화 간격도 기록(기본4방 최대328.38ms). 원래192.94ms는발생시각이없어단일원인소급확정불가. 별도CPU프로파일의큰게임함수computeAssignmentBelief 확인. 선택적trace와CPU/비CPU양성대조2회귀 추가, 전체353테스트·타입·빌드 통과. 정책·운영번들변경없음, VM실측/GC할당원인은미완료. PR9 반영.
