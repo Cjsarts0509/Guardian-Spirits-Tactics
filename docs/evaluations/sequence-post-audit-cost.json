@@ -1,0 +1,96 @@
+{
+  "format": 1,
+  "total": 800,
+  "startSeed": 62000,
+  "seeds": 5,
+  "runtime": "v24.19.0",
+  "baselineRemoteCommit": "56f9ca5e21bfbbc1f4f194a7757bb5d4ee4e5869",
+  "currentRemoteCommit": "b1925aba87889aaf38f65a9fb470cb223c878c17",
+  "scope": "paired full-policy synthetic local timings, alternating execution order; not VM/live latency distribution; no warmup excluded",
+  "groups": {
+    "identities-private/turn-in-50s": {
+      "positions": 200,
+      "changed": 0,
+      "prior": {
+        "median": 0.3772900000003574,
+        "p95": 34.34337599999981,
+        "max": 60.0075039999997
+      },
+      "current": {
+        "median": 0.3781510000007984,
+        "p95": 34.08483499999966,
+        "max": 58.280043000000205
+      }
+    },
+    "identities-public/turn-in-50s": {
+      "positions": 200,
+      "changed": 0,
+      "prior": {
+        "median": 0.16625099999964732,
+        "p95": 0.3519209999999475,
+        "max": 15.293353000000025
+      },
+      "current": {
+        "median": 0.1622850000003382,
+        "p95": 0.35172200000033627,
+        "max": 14.670933000000332
+      }
+    },
+    "identities-private/turn-in-10s": {
+      "positions": 200,
+      "changed": 0,
+      "prior": {
+        "median": 0.4042810000000827,
+        "p95": 55.52321699999993,
+        "max": 71.91311900000073
+      },
+      "current": {
+        "median": 0.35606800000095973,
+        "p95": 54.403535999999804,
+        "max": 75.66775299999972
+      }
+    },
+    "identities-public/turn-in-10s": {
+      "positions": 200,
+      "changed": 0,
+      "prior": {
+        "median": 0.1599420000002283,
+        "p95": 0.3455320000011852,
+        "max": 15.758696999999756
+      },
+      "current": {
+        "median": 0.15787899999850197,
+        "p95": 0.30456000000049244,
+        "max": 15.571745000000192
+      }
+    }
+  },
+  "baselineHashes": {
+    "bot.ts": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96",
+    "bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+    "bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "bot-followup.ts": "a076800c1e2da5d59a6f02fab1e7fd1106b72b2df75b601dcc82325603e795a2",
+    "bot-rollout.ts": "ac1dd1f0bfacad7dce1302645b42a8097abe3a1fb0c22163f71fbc7744192376",
+    "bot-response.ts": "9fb5281a5d5947c60b69e8e56ec24e5f2e765c1340cdcf67102e656b8522988b",
+    "bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "bot-information.ts": "ff68dfded8ab02a184050a4402945719de4284b2b8dfb543ce04010b77414724",
+    "bot-belief.ts": "a7d9c12c1c0ede88ef9be92d72ce9ce1ef3b0a46bdcfd6bf6cef8fd6ef912dd3",
+    "bot-memory.ts": "97e08a4a2f4552d7a79f948236dab5c2d9771e7faed4e520fccb9d2c0b45dd8b"
+  },
+  "hashes": {
+    "../src/bot.ts": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96",
+    "../src/bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+    "../src/bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "../src/bot-followup.ts": "624c444dc161c31efabd937ff5f8888dd086997ba4fdfd9137bbedf7a4057c25",
+    "../src/bot-rollout.ts": "804d45192914975407e36dd0c5df63ca2f246dd2453087db5f2f6106e391d3df",
+    "../src/bot-response.ts": "9fb5281a5d5947c60b69e8e56ec24e5f2e765c1340cdcf67102e656b8522988b",
+    "../src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "../src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "../src/bot-information.ts": "ff68dfded8ab02a184050a4402945719de4284b2b8dfb543ce04010b77414724",
+    "../src/bot-belief.ts": "a7d9c12c1c0ede88ef9be92d72ce9ce1ef3b0a46bdcfd6bf6cef8fd6ef912dd3",
+    "../src/bot-memory.ts": "97e08a4a2f4552d7a79f948236dab5c2d9771e7faed4e520fccb9d2c0b45dd8b",
+    "sequence-post-audit-cost.ts": "082044bbd89a0442450decf68a9bb822720fc075d43c6a0e3f9ab991b5474c91",
+    "league-runner.ts": "f06567dbb2fbdff690cdbe99bf8b7bd953c6ba7b6fb57ef276e6e185eb9bc4d8"
+  }
+}

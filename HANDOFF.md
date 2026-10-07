@@ -181,4 +181,6 @@ pnpm --filter @gst/rules exec tsx scripts/simulate.ts 300 0 smart troll   # 봇 
 - 변경 후: `pnpm typecheck && pnpm test`, UI 변경은 Playwright 스크린샷으로 확인(Chromium: `/opt/pw-browsers/chromium`).
 # 최근 AI 오류 점검
 
+후속 독립 평가도 완료: `docs/BOT_POST_AUDIT_VALIDATION.md`. 수정 전 AI와 새 800판 50%(95% 49–51%), 운영 설정 AI와 별도 새 800판 53.125%(50.875–55.25%). 1,600판 전부 종료·초반 공격 실패 0. 운영 소스 기본 정책과 32조건/2,218회 행동 기록 일치. 로컬 합성 800위치 비용은 대체로 비슷하고 정체 비공개·턴 직전 p95 54.40ms, 최대 75.67ms의 꼬리 지연이 남는다. 정책은 `1b83ade`에 고정했고 기본 활성화·릴리즈·VM 반영은 하지 않았다.
+
 후속 스킬의 자기 대상 선택과 가설 복원에서 비공개 효과의 공개 전환을 수정했다. 상세는 `docs/BOT_ERROR_AUDIT.md`, 재현/대전 원자료는 `docs/evaluations/sequence-error-audit.json`. 전체 348개 테스트와 빌드 통과. 이전 승률 자료는 수정 전 고정 정책의 역사적 결과다. 탐색 기본값과 운영 릴리즈는 그대로이며 PR #9 초안에 반영한다.
