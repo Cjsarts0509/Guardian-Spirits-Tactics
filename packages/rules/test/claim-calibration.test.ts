@@ -1,8 +1,26 @@
 import {describe,it,expect} from 'vitest';
 import {assignmentBelief,botKnowledge,createBotMemory,viewFor,smartBotAction,sampleAssignments} from '../src/index.js';
-import {civilTable} from './helpers.js';
+import {civilTable,modeTable,LIDELLUT_ORDER} from './helpers.js';
 
 describe('공표 가중치 학습 실험 경계',()=>{
+ it('정보 전용 보정은 동맹만 가능한 상황의 기존 행동/RNG를 유지',()=>{
+  const t=modeTable('lidellut',LIDELLUT_ORDER);for(const p of t.state.players){p.mana=150;t.publish(p.character,p.character);}
+  const self=t.p('shining');self.mana=150;self.skills=self.skills.filter(s=>s.key==='ally');self.gem=0;
+  let changed=0;
+  for(let seed=1;seed<=128;seed++){
+   const a=createBotMemory(seed*8191),b=createBotMemory(seed*8191),c=createBotMemory(seed*8191);
+   const baseline=smartBotAction(t.state,self.id,a,{activity:1});
+   expect(smartBotAction(t.state,self.id,b,{activity:1,claimEvidenceScale:4,claimEvidenceScope:'information'})).toEqual(baseline);
+   expect(b.rng).toBe(a.rng);
+   if(JSON.stringify(smartBotAction(t.state,self.id,c,{activity:1,claimEvidenceScale:4}))!==JSON.stringify(baseline))changed++;
+  }
+  expect(changed).toBeGreaterThan(0);
+ });
+ it('배율1에서는 정보 전용 옵션도 기본 행동·기억과 동일',()=>{
+  const t=civilTable();t.publish('soen','arin');const a=createBotMemory(5),b=createBotMemory(5);
+  expect(smartBotAction(t.state,t.id.kai!,a,{activity:1})).toEqual(smartBotAction(t.state,t.id.kai!,b,{activity:1,claimEvidenceScale:1,claimEvidenceScope:'information'}));
+  expect(a).toEqual(b);
+ });
  it('기본/명시1 행동·난수·기억 동일',()=>{
   const t=civilTable();t.publish('soen','arin');
   const a=createBotMemory(22),b=createBotMemory(22);

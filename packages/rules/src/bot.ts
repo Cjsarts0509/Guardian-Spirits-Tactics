@@ -19,6 +19,8 @@ export type { BotMemory, Knowledge } from './bot-memory.js';
 export interface BotOptions {
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
   claimEvidenceScale?: number;
+  /** 정보 대상 선택만 보정하고 지원·동맹·공격 위험 판단은 기존 확률을 유지하는 실험. */
+  claimEvidenceScope?: 'all' | 'information';
   /** 행동 확률 (0~1). 호출될 때마다 이 확률로만 행동 */
   activity?: number;
   /** 확인된 적에 대한 제한 엔진 탐색 실험. 기본은 비활성화. */
@@ -187,6 +189,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     ? view.mode === 'lidellut' ? 'combat' : false : requestedConfirmation;
   const combatInformation = confirmationStrategy === 'combat' || confirmationStrategy === 'combat-gem';
   const belief = assignmentBelief(view, knowledge, mem, opts.claimEvidenceScale);
+  const decisionBelief = opts.claimEvidenceScope === 'information' ? assignmentBelief(view, knowledge, mem) : belief;
   const me = view.me;
   const elapsed = view.elapsedMs;
   const sideOf = new Map(view.roster.map((r) => [r.key, r.side]));
@@ -225,7 +228,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const unknown = alive.filter((p) => !known.has(p.id));
   const informed = (id: PlayerId) => hasIdentityEvidence(view, knowledge, mem, id);
   const claimsSide = (p: { published: CharKey | null }, side: number) => p.published !== null && sideOf.get(p.published) === side;
-  const massOf = (id: PlayerId, c: CharKey) => belief.consistent ? probabilityOf(belief, id, c) :
+  const massOf = (id: PlayerId, c: CharKey) => decisionBelief.consistent ? probabilityOf(decisionBelief, id, c) :
     candidates.get(id)?.includes(c) ? 1 / candidates.get(id)!.length : 0;
   const sideMass = (id: PlayerId, side: number) => (candidates.get(id) ?? []).filter((c) => sideOf.get(c) === side).reduce((sum, c) => sum + massOf(id, c), 0);
   const likelyName = (id: PlayerId, names: CharKey[]) => names.slice().sort((a, b) => massOf(id, b) - massOf(id, a))[0];

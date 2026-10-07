@@ -1,0 +1,15 @@
+{
+  "candidate": {
+    "claimEvidenceScale": 4,
+    "claimEvidenceScope": "information"
+  },
+  "development": {
+    "start": 84000,
+    "count": 8
+  },
+  "holdout": {
+    "start": 85000,
+    "count": 16
+  },
+  "gate": "개발 평균 점수 차이>0, 미종료/초반공격실패 증가없음이면 고정후 holdout 실행. 결과별 모드 선택 없음."
+}
