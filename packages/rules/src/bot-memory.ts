@@ -38,6 +38,8 @@ export interface BotMemory {
   perception?: BotPerception;
   beliefCache?: { signature: string; value: AssignmentBelief };
   plan?: SkillPlan;
+  /** 실험 활성 시 자신의 보호 거절 응답만 저장한다. */
+  protectionRetries?: { key: string; at: number }[];
 }
 
 export function createBotMemory(seed: number): BotMemory {
@@ -53,6 +55,7 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
   let p = memory.perception;
   if (!p || p.playerId !== view.me.id || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs) {
     memory.plan = undefined;
+    delete memory.protectionRetries;
     p = memory.perception = {
       playerId: view.me.id, mode: view.mode, character: view.me.character,
       lastElapsedMs: view.elapsedMs, lastSeq: 0,

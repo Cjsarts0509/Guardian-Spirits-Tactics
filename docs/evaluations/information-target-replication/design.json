@@ -1,0 +1,24 @@
+{
+  "start": 99000,
+  "seeds": 32,
+  "modes": [
+    "civil_war",
+    "primordial",
+    "lidellut",
+    "troll"
+  ],
+  "styles": [
+    "truthful",
+    "bluff",
+    "skill-aware-bluff"
+  ],
+  "scope": "한 판의 current 진영 첫 적격 정보수집 대상만 한번 강제교체. 학습모델 적용이 아닌 대안 보상신호 진단. 이후 전원 기본 정책.",
+  "arms": [
+    "original target",
+    "alternative target"
+  ],
+  "primary": "모든 고정 fixture의 최종 진영 점수차이, 시드블록95% bootstrap",
+  "secondary": "개입 장면만의 대응결과·즉시 마나·대상 재방문·다음 행동 차이·배우 생존",
+  "limit": "새 정책 학습/배포 실험이 아닌 단일 선택의 결정론적 대응 진단. RNG를 소비하는 행동 변경의 후속 난수 소비 차이도 총효과에 포함.",
+  "modelSha256": "f356098828f4111ab90e039f047fe49e936b4b3031f9fe6f436220813649957f"
+}

@@ -33,22 +33,26 @@ function countsFor(n: number): Uint8Array {
 /** 최대 12명: 부분집합 DP로 전체 순열의 가중합을 정확 계산한다 (O(n² 2ⁿ)).
  * 파티클의 표본 누락 없이 역할 중복 금지를 반영한다. 진짜 배정은 입력하지 않는다.
  */
-export function assignmentBelief(view: PlayerView, knowledge: Knowledge, memory: BotMemory): AssignmentBelief {
-  return computeAssignmentBelief(view, knowledge, memory, false);
+export function assignmentBelief(view: PlayerView, knowledge: Knowledge, memory: BotMemory, claimScale = 1): AssignmentBelief {
+  return computeAssignmentBelief(view, knowledge, memory, false, claimScale);
 }
 
-function computeAssignmentBelief(view: PlayerView, knowledge: Knowledge, memory: BotMemory, retainSampling: boolean): AssignmentBelief {
+function computeAssignmentBelief(view: PlayerView, knowledge: Knowledge, memory: BotMemory, retainSampling: boolean, claimScale = 1): AssignmentBelief {
+  if (!Number.isFinite(claimScale) || claimScale < 0 || claimScale > 4) throw new RangeError('공표 가중치 배율은 0~4입니다.');
   const rows = view.players.filter((p) => p.id !== view.me.id);
   const roles = view.roster.filter((r) => r.inGame && r.key !== view.me.character).map((r) => r.key);
-  const signature = JSON.stringify([view.mode, view.me.id, view.me.character, Math.floor(view.elapsedMs / 60_000),
+  const signature = JSON.stringify([claimScale, view.mode, view.me.id, view.me.character, Math.floor(view.elapsedMs / 60_000),
     rows.map((p) => [p.id, p.published, memory.perception?.automaticClaims.has(p.id), knowledge.candidates.get(p.id)])]);
   const cached = memory.beliefCache?.signature === signature ? memory.beliefCache.value : undefined;
   if (cached && (!retainSampling || samplingModels.has(cached))) return cached;
   const probabilities = new Map<PlayerId, Map<CharKey, number>>([[view.me.id, new Map([[view.me.character, 1]])]]);
   const n = rows.length;
   if (n !== roles.length || n > 12) return { probabilities, consistent: false };
-  const weights = rows.map((p) => roles.map((c) => knowledge.candidates.get(p.id)?.includes(c)
-    ? claimWeight(view, c, memory.perception?.automaticClaims.has(p.id) ? null : p.published) : 0));
+  const weights = rows.map((p) => roles.map((c) => {
+    if (!knowledge.candidates.get(p.id)?.includes(c)) return 0;
+    const weight = claimWeight(view, c, memory.perception?.automaticClaims.has(p.id) ? null : p.published);
+    return claimScale === 1 ? weight : weight ** claimScale;
+  }));
   const size = 1 << n;
   const counts = countsFor(n);
   const allowed = weights.map((row) => row.reduce((mask, weight, j) => weight > 0 ? mask | (1 << j) : mask, 0));

@@ -1,0 +1,73 @@
+{
+  "pairs": 768,
+  "games": 1536,
+  "intervened": 763,
+  "preInterventionHashMatches": 763,
+  "unchangedWithoutIntervention": 5,
+  "baseline": {
+    "wins": 529,
+    "unfinished": 0,
+    "rejected": 94,
+    "earlyFailures": 0,
+    "interventionAccepted": 763,
+    "interventionMana": 13475,
+    "actorSurvived": 423,
+    "originalTargetEventually": 763
+  },
+  "candidate": {
+    "wins": 539,
+    "unfinished": 0,
+    "rejected": 96,
+    "earlyFailures": 0,
+    "interventionAccepted": 762,
+    "interventionMana": 13455,
+    "actorSurvived": 439,
+    "originalTargetEventually": 549
+  },
+  "delta": 0.013020833333333332,
+  "seedDifferences": [
+    0,
+    0.041666666666666664,
+    -0.020833333333333332,
+    0.041666666666666664,
+    0,
+    0,
+    0,
+    -0.020833333333333332,
+    0,
+    0.020833333333333332,
+    0,
+    0.041666666666666664,
+    0,
+    0.020833333333333332,
+    0.020833333333333332,
+    0.0625
+  ],
+  "seedBootstrap95": [
+    0.0026041666666665186,
+    0.02473958333333326
+  ],
+  "allOutcomes": {
+    "same": 750,
+    "improved": 14,
+    "worsened": 4
+  },
+  "intervenedOutcomes": {
+    "same": 745,
+    "improved": 14,
+    "worsened": 4
+  },
+  "nextActionDifferent": 499,
+  "originalTargetDelay": {
+    "observed": 549,
+    "medianMs": 60000,
+    "p90Ms": 149750
+  },
+  "hashes": {
+    "scripts/information-target-pairs.ts": "6d50c3b52e23891f7fa1fba4d8a7f384f3fac2594da6de5f56e84d207d243c48",
+    "scripts/information-target-model.ts": "2f5b5533ef190b00550c057ddaae31bf474be3eb80de225513e4004b4834043f",
+    "scripts/league-runner.ts": "a44566a360a1ddfa9d66d8fc7085021973905d286e8ac88a06007649696f7585",
+    "scripts/claim-opponents.ts": "56b70de28ec2c24d9165f909b6065e99a24bbbd6d334ebd6f4cd1a8d3cd395ef",
+    "src/bot.ts": "a317ffcde3e1a41b923f69ccbdd99a3467d26d4eeb2c44126545cf4e2414077c"
+  }
+}

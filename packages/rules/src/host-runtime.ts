@@ -1,3 +1,4 @@
+import { observeBotActionResult } from './bot-retry.js';
 import { advance, applyAction, playerLeft } from './engine/actions.js';
 import { randomBotAction, smartBotAction } from './bot.js';
 import type { BotMemory } from './bot-memory.js';
@@ -112,6 +113,7 @@ export function tickHost(snapshot: HostSnapshot, members: readonly HostSeat[], n
     const action = (options.botKind === 'random' ? randomBotAction : smartBotAction)(snapshot.state, member.id, memory, { activity: options.activity });
     if (action) {
       const result = applyAction(snapshot.state, member.id, action, now);
+      observeBotActionResult(memory, action, result, now - snapshot.state.startedAt);
       snapshot.records.push({ t: now - snapshot.state.startedAt, player: member.id, action, ok: result.ok, error: result.error });
     }
   }
