@@ -1,0 +1,25 @@
+{
+  "status": "closed-not-adopted",
+  "productionPolicyChanged": false,
+  "additionalTuningPlanned": false,
+  "replicationSeeds": [
+    99000,
+    99031
+  ],
+  "developmentSeeds": [
+    100000,
+    100031
+  ],
+  "holdoutSeeds": [
+    101000,
+    101031
+  ],
+  "totalExecutions": 9216,
+  "finalDelta": 0.0013020833333333341,
+  "finalSeedBootstrap95": [
+    -0.01627604166666674,
+    0.017578125
+  ],
+  "criterion": "Holdout lower 95% bound > 0 and no increase in unfinished/early failures",
+  "criterionPassed": false
+}
