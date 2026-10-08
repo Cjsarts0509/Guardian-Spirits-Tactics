@@ -1,0 +1,203 @@
+{
+  "pairs": 768,
+  "preInterventionMatches": 221,
+  "noInterventionResultMatches": 547,
+  "sourceHashesMatch": {
+    "scripts/ally-single-intervention.ts": true,
+    "scripts/ally-context-model.ts": true,
+    "scripts/league-runner.ts": true,
+    "scripts/claim-opponents.ts": true,
+    "src/bot.ts": true
+  },
+  "frozenModelMatches": true,
+  "summaryAndIntervalsMatch": true,
+  "nextActionChoiceDifferent": 175,
+  "nextActionTimingDifferent": 141,
+  "flipped": [
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 94007,
+        "count": 10,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "style": "truthful",
+      "delta": 1,
+      "player": "p7",
+      "at": 178750,
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p1"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p9"
+      },
+      "manaDelta": 5
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 94004,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "truthful",
+      "delta": -1,
+      "player": "p7",
+      "at": 145000,
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p9"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p11"
+      },
+      "manaDelta": 5
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 94009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "style": "truthful",
+      "delta": -1,
+      "player": "p2",
+      "at": 197500,
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p1"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p5"
+      },
+      "manaDelta": 5
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 94007,
+        "count": 10,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "truthful",
+      "delta": -1,
+      "player": "p6",
+      "at": 102750,
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p5"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "advanced_ally_check",
+        "target": "p10"
+      },
+      "manaDelta": 5
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 94014,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "style": "truthful",
+      "delta": -1,
+      "player": "p9",
+      "at": 114250,
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "troll_scan",
+        "target": "p1",
+        "name": "satoshi"
+      },
+      "manaDelta": 10
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 94000,
+        "count": 8,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "style": "bluff",
+      "delta": -1,
+      "player": "p8",
+      "at": 229750,
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p6"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "troll_ally_scan",
+        "target": "p4",
+        "name": "zwinra"
+      },
+      "manaDelta": 10
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 94007,
+        "count": 10,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "delta": -1,
+      "player": "p6",
+      "at": 102750,
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p5"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "advanced_ally_check",
+        "target": "p10"
+      },
+      "manaDelta": 5
+    }
+  ],
+  "unfinished": [
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 94009,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "baseline": null,
+      "candidate": null,
+      "intervened": false
+    }
+  ]
+}
