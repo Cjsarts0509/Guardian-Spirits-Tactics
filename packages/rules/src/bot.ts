@@ -2,6 +2,7 @@
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
 //   상대 정체를 모르면 공격하지 않고 확인부터 한다. 시간이 지나면 후보가 좁혀진 대상에게 추측 공격을 시작한다.
+import { filterProtectionRetry } from './bot-retry.js';
 import { randomInt, nextRandom } from './rng.js';
 import type { Action, CharKey, GameState, PlayerId } from './types.js';
 import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
@@ -17,6 +18,8 @@ import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot
 export type { BotMemory, Knowledge } from './bot-memory.js';
 
 export interface BotOptions {
+  /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
+  protectionRetryBackoff?: boolean;
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
   claimEvidenceScale?: number;
   /** 정보 대상 선택만 보정하고 지원·동맹·공격 위험 판단은 기존 확률을 유지하는 실험. */
@@ -176,6 +179,12 @@ export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerV
 }
 
 export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions = {}): Action | null {
+  const action = chooseSmartBotAction(state, playerId, mem, opts);
+  if (!opts.protectionRetryBackoff) { delete mem.protectionRetries; return action; }
+  return filterProtectionRetry(mem, action, state.now - state.startedAt);
+}
+
+function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions): Action | null {
   if (state.phase !== 'running') return null;
   const self = state.players.find((p) => p.id === playerId);
   if (!self || !self.alive) return null;

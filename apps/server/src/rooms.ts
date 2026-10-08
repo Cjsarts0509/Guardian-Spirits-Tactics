@@ -14,6 +14,7 @@ import {
   playerLeft,
   randomBotAction,
   smartBotAction,
+  observeBotActionResult,
   viewFor,
   spectatorView,
   type Action,
@@ -304,6 +305,7 @@ export class Room {
       const a = bot(this.state, m.id, memory, { activity: this.cfg.botActivity });
       if (a) {
         const r = applyAction(this.state, m.id, a, now);
+        observeBotActionResult(memory, a, r, now - this.state.startedAt);
         this.record(m.id, a, now, r.ok, r.error);
       }
     }

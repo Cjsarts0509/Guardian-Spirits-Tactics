@@ -1,0 +1,14 @@
+{
+  "candidate": {
+    "protectionRetryBackoff": true
+  },
+  "development": {
+    "start": 86000,
+    "count": 8
+  },
+  "holdout": {
+    "start": 87000,
+    "count": 16
+  },
+  "gate": "개발 평균 점수 차이>=0 및 거절 감소, 미종료/초반공격실패 증가없음이면 고정후 holdout 실행. 결과별 모드 선택 없음."
+}

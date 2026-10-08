@@ -1,3 +1,4 @@
+import { observeBotActionResult } from '../src/bot-retry.js';
 // 평가 전용. 배정·진영 조회는 참가 정책을 정하는 주최자에서만 하고 봇 메모리에 넣지 않는다.
 import { advance, applyAction, createBotMemory, createGame, type Action, type ActionResult, type BotMemory, type GameState, type ModeId } from '../src/index.js';
 import { nextRandom } from '../src/rng.js';
@@ -57,6 +58,7 @@ export function playMatch(fixture: Fixture, policies: Record<Controller, Policy>
       const action = policies[controller](state, p.id, memories.get(p.id)!, { activity: settings.activity });
       if (!action) continue;
       const result = applyAction(state, p.id, action, now);
+      observeBotActionResult(memories.get(p.id)!, action, result, now - state.startedAt);
       // 합성 판 평가 전용 관측자. 반환값은 의사결정·봇 메모리에 전달하지 않는다.
       onAction?.(state, p.id, action, result);
       const s = stats[controller];

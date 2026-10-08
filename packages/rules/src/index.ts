@@ -23,3 +23,5 @@ export { encodeHostSnapshot, decodeHostSnapshot, encodeHostDelta, encodeHostFram
 export type { HostSnapshot, HostWireSnapshot, HostSeat, HostInput } from './host-runtime.js';
 export { diffHostMemory, applyHostMemoryPatch } from './host-memory.js';
 export type { HostMemoryWire, HostMemoryPatch, HostJson } from './host-memory.js';
+
+export { observeBotActionResult } from './bot-retry.js';
