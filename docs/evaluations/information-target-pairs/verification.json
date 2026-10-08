@@ -1,0 +1,459 @@
+{
+  "pairs": 768,
+  "preInterventionMatches": 763,
+  "noInterventionResultMatches": 5,
+  "sourceHashesMatch": {
+    "scripts/information-target-pairs.ts": true,
+    "scripts/information-target-model.ts": true,
+    "scripts/league-runner.ts": true,
+    "scripts/claim-opponents.ts": true,
+    "src/bot.ts": true
+  },
+  "frozenModelMatches": true,
+  "summaryAndIntervalsMatch": true,
+  "nextActionChoiceDifferent": 495,
+  "nextActionTimingDifferent": 123,
+  "flipped": [
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 98007,
+        "count": 10,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "style": "truthful",
+      "delta": -1,
+      "player": "p8",
+      "at": 19250,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p7"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p5"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 98014,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "style": "truthful",
+      "delta": 1,
+      "player": "p6",
+      "at": 48000,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p12"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p10"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 98001,
+        "count": 9,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "delta": 1,
+      "player": "p7",
+      "at": 31250,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p8"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p9"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 98003,
+        "count": 11,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "delta": 1,
+      "player": "p2",
+      "at": 20500,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p10"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p6"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 98003,
+        "count": 11,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "delta": -1,
+      "player": "p2",
+      "at": 20500,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p10"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p9"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 98011,
+        "count": 9,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "delta": 1,
+      "player": "p3",
+      "at": 13250,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p8"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p5"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 98015,
+        "count": 8,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "delta": 1,
+      "player": "p5",
+      "at": 28750,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p4"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p1"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 98001,
+        "count": 9,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "skill-aware-bluff",
+      "delta": 1,
+      "player": "p7",
+      "at": 31250,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p8"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p9"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 98003,
+        "count": 11,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "skill-aware-bluff",
+      "delta": 1,
+      "player": "p2",
+      "at": 20500,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p10"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p9"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 98011,
+        "count": 9,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "skill-aware-bluff",
+      "delta": 1,
+      "player": "p3",
+      "at": 13250,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p8"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p5"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 98015,
+        "count": 8,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "skill-aware-bluff",
+      "delta": 1,
+      "player": "p5",
+      "at": 28750,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p4"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p1"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 98014,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "style": "truthful",
+      "delta": -1,
+      "player": "p8",
+      "at": 19750,
+      "original": {
+        "type": "skill",
+        "skill": "scan",
+        "target": "p3",
+        "name": "tachin"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "scan",
+        "target": "p1",
+        "name": "tachin"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 98015,
+        "count": 8,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "truthful",
+      "delta": 1,
+      "player": "p5",
+      "at": 54750,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p1"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p4"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 98014,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "style": "bluff",
+      "delta": 1,
+      "player": "p8",
+      "at": 19750,
+      "original": {
+        "type": "skill",
+        "skill": "scan",
+        "target": "p3",
+        "name": "tachin"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "scan",
+        "target": "p2",
+        "name": "tachin"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 98003,
+        "count": 11,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "style": "truthful",
+      "delta": 1,
+      "player": "p6",
+      "at": 28000,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p9"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p8"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 98009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "truthful",
+      "delta": 1,
+      "player": "p5",
+      "at": 32250,
+      "original": {
+        "type": "skill",
+        "skill": "ally_scan",
+        "target": "p6",
+        "name": "supra"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_scan",
+        "target": "p4",
+        "name": "supra"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 98013,
+        "count": 11,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "truthful",
+      "delta": 1,
+      "player": "p1",
+      "at": 17750,
+      "original": {
+        "type": "skill",
+        "skill": "ally_scan",
+        "target": "p10",
+        "name": "yui"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_scan",
+        "target": "p8",
+        "name": "yui"
+      },
+      "manaDelta": 0
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 98002,
+        "count": 10,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "style": "skill-aware-bluff",
+      "delta": -1,
+      "player": "p1",
+      "at": 20000,
+      "original": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p7"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally_check",
+        "target": "p2"
+      },
+      "manaDelta": 0
+    }
+  ],
+  "unfinished": []
+}
