@@ -39,7 +39,7 @@ jobs:
           TIME_SCALE: '1'
         run: |
           mkdir -p ui-artifacts
-          STATIC_DIR="$PWD/apps/client/dist" node apps/server/dist/index.js > ui-artifacts/server.log 2>&1 &
+          UI_SMOKE_FIXTURE=1 STATIC_DIR="$PWD/apps/client/dist" apps/server/node_modules/.bin/tsx apps/server/scripts/ui-smoke-server.ts > ui-artifacts/server.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           for attempt in $(seq 1 30); do

@@ -87,6 +87,36 @@ mkdirSync(output, { recursive: true });
       await shot(page, `${index}-mobile`);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 2);
       assert(!overflow, `${mode}: mobile horizontal overflow`);
+      // The isolated fixture ends the match through normal forfeiture handling.
+      // Results, replay requests and controls still use real browser/server transport.
+      await page.setViewportSize({ width: 1440, height: 1000 });
+      const finish = await fetch('http://127.0.0.1:8800/finish', { method: 'POST' });
+      assert(finish.ok, `fixture finish failed: ${await finish.text()}`);
+      await page.getByRole('heading', { name: '전장의 복기', exact: true }).waitFor();
+      await page.waitForFunction(() => document.querySelectorAll('.replay-roster .character-frame').length === 8);
+      assert.equal(await page.getByAltText('정체 미공개', { exact: true }).count(), 0, 'Replay must show all identities');
+      assert(await page.locator('.replay-events').innerText(), 'Replay log must contain events');
+      await shot(page, `${index}-results`);
+      const timeline = page.getByLabel('복기 시간', { exact: true });
+      const end = Number(await timeline.getAttribute('max'));
+      assert(end > 0, 'Replay needs a nonzero duration');
+      await page.getByRole('button', { name: '처음', exact: true }).click();
+      assert.equal(await timeline.inputValue(), '0');
+      await page.getByLabel('재생 속도', { exact: true }).selectOption('16');
+      await page.getByRole('button', { name: '재생', exact: true }).click();
+      await page.waitForFunction(() => Number(document.querySelector('[aria-label="복기 시간"]').value) > 0);
+      await page.getByRole('button', { name: '재생', exact: true }).waitFor({ timeout: 10000 });
+      assert.equal(Number(await timeline.inputValue()), end, 'Playback must stop at the final frame');
+      await page.getByLabel('로그 종류', { exact: true }).selectOption('attack');
+      assert(await page.locator('.replay-events .replay-event').count() > 0, 'Forfeits must appear in death filter');
+      await page.getByLabel('로그 종류', { exact: true }).selectOption('all');
+      await timeline.fill('0');
+      await shot(page, `${index}-replay-start`);
+      await page.setViewportSize({ width: 390, height: 844 });
+      await shot(page, `${index}-results-mobile`);
+      assert(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 2), `${mode}: results mobile horizontal overflow`);
+      await page.getByRole('button', { name: '대기실로', exact: true }).click();
+      await page.getByRole('heading', { name: '대기실', exact: true }).waitFor();
       await context.close();
     }
     assert.deepEqual(errors, [], 'Browser runtime errors');
