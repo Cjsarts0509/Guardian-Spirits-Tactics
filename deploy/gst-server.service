@@ -15,6 +15,8 @@ RestartSec=3
 # 진행 중인 판은 메모리에만 있어서 재시작하면 사라진다. 배포는 빈 시간에.
 NoNewPrivileges=true
 ProtectSystem=strict
+# Match records and the durable retry outbox must survive restarts.
+ReadWritePaths=/opt/gst/records
 ProtectHome=true
 PrivateTmp=true
 PrivateDevices=true
