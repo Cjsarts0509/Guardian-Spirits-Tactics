@@ -2,6 +2,7 @@
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
 //   상대 정체를 모르면 공격하지 않고 확인부터 한다. 시간이 지나면 후보가 좁혀진 대상에게 추측 공격을 시작한다.
+import { filterProtectionRetry } from './bot-retry.js';
 import { randomInt, nextRandom } from './rng.js';
 import type { Action, CharKey, GameState, PlayerId } from './types.js';
 import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
@@ -10,13 +11,33 @@ import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.
 import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
 import { adaptiveClaimName } from './bot-claim-policy.js';
 import { hasIdentityEvidence, bestConfirmation } from './bot-confirmation.js';
+import { boundedSequenceSearch } from './bot-sequence.js';
+import { boundedAttackSearch } from './bot-rollout.js';
 import { bestGemTarget } from './bot-information.js';
 import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
 export type { BotMemory, Knowledge } from './bot-memory.js';
 
 export interface BotOptions {
+  /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
+  protectionRetryBackoff?: boolean;
+  /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
+  claimEvidenceScale?: number;
+  /** 정보 대상 선택만 보정하고 지원·동맹·공격 위험 판단은 기존 확률을 유지하는 실험. */
+  claimEvidenceScope?: 'all' | 'information';
   /** 행동 확률 (0~1). 호출될 때마다 이 확률로만 행동 */
   activity?: number;
+  /** 확인된 적에 대한 제한 엔진 탐색 실험. 기본은 비활성화. */
+  attackSearch?: boolean;
+  /** 확인/공표 후 관찰에 따른 후속 행동 탐색. 기본 비활성화. */
+  sequenceSearch?: boolean;
+  /** 인물별 액티브·지원 후속 후보. sequenceSearch와 함께 쓰는 별도 실험. */
+  sequenceSkills?: boolean;
+  /** 성장·희생과 30초 이내의 관측 가능한 다음 턴을 포함한다. 기본 비활성화. */
+  sequenceExtended?: boolean;
+  /** 기본 스킬·교체 관계와 관찰에 기반한 상대 대응을 포함한 탐색 실험. */
+  attackResponse?: boolean;
+  /** 상대 즉사기·행동 불능기를 추가하는 별도 실험. attackResponse가 필요하다. */
+  attackResponseSkills?: boolean;
   /** 태초 정책 비교용. 조기 공표·무작위 리더쉽 대상을 유지한다. */
   primordialLeadership?: 'early' | 'after-six-minutes';
   primordialPriorities?: boolean;
@@ -158,6 +179,12 @@ export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerV
 }
 
 export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions = {}): Action | null {
+  const action = chooseSmartBotAction(state, playerId, mem, opts);
+  if (!opts.protectionRetryBackoff) { delete mem.protectionRetries; return action; }
+  return filterProtectionRetry(mem, action, state.now - state.startedAt);
+}
+
+function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions): Action | null {
   if (state.phase !== 'running') return null;
   const self = state.players.find((p) => p.id === playerId);
   if (!self || !self.alive) return null;
@@ -170,7 +197,8 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const confirmationStrategy = requestedConfirmation === 'combat-lidellut'
     ? view.mode === 'lidellut' ? 'combat' : false : requestedConfirmation;
   const combatInformation = confirmationStrategy === 'combat' || confirmationStrategy === 'combat-gem';
-  const belief = assignmentBelief(view, knowledge, mem);
+  const belief = assignmentBelief(view, knowledge, mem, opts.claimEvidenceScale);
+  const decisionBelief = opts.claimEvidenceScope === 'information' ? assignmentBelief(view, knowledge, mem) : belief;
   const me = view.me;
   const elapsed = view.elapsedMs;
   const sideOf = new Map(view.roster.map((r) => [r.key, r.side]));
@@ -209,7 +237,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const unknown = alive.filter((p) => !known.has(p.id));
   const informed = (id: PlayerId) => hasIdentityEvidence(view, knowledge, mem, id);
   const claimsSide = (p: { published: CharKey | null }, side: number) => p.published !== null && sideOf.get(p.published) === side;
-  const massOf = (id: PlayerId, c: CharKey) => belief.consistent ? probabilityOf(belief, id, c) :
+  const massOf = (id: PlayerId, c: CharKey) => decisionBelief.consistent ? probabilityOf(decisionBelief, id, c) :
     candidates.get(id)?.includes(c) ? 1 / candidates.get(id)!.length : 0;
   const sideMass = (id: PlayerId, side: number) => (candidates.get(id) ?? []).filter((c) => sideOf.get(c) === side).reduce((sum, c) => sum + massOf(id, c), 0);
   const likelyName = (id: PlayerId, names: CharKey[]) => names.slice().sort((a, b) => massOf(id, b) - massOf(id, a))[0];
@@ -219,11 +247,13 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   const threat = (id: PlayerId) => (candidates.get(id) ?? []).reduce((sum, c) => sum + massOf(id, c) * roleThreat(view, battle, c), 0);
 
   // 필요한 진명 스킬을 공표로 열어 둔다. 지휘관도 역할상 필요하면 예외다.
+  const sequence = (baseline: Action): Action => opts.sequenceSearch
+    ? boundedSequenceSearch(view, knowledge, mem, baseline, opts.sequenceSkills ?? false, opts.sequenceExtended ?? false)?.action ?? baseline : baseline;
   const publish = usable.get('publish');
   const waitLeadership = view.mode === 'primordial' && opts.primordialLeadership === 'after-six-minutes' &&
     ['rael', 'eltas'].includes(me.character);
   if (publish && !me.trueName && ((!waitLeadership && wantsTrueName(view)) || mem.perception!.trueNameUntil > elapsed) && publish.nameOptions?.includes(me.character)) {
-    return act(publish, undefined, me.character);
+    return sequence(act(publish, undefined, me.character));
   }
 
   // 1) 확실한 처치: 정체를 아는 적 (지휘관 우선)
@@ -266,7 +296,16 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
     if (venom && c === 'deka') return act(venom, p.id);
     for (const k of ATTACKS) {
       const s = usable.get(k);
-      if (s && s.nameOptions?.includes(c)) return act(s, p.id, c);
+      if (s && s.nameOptions?.includes(c)) {
+        if (opts.attackSearch) {
+          const plan = boundedAttackSearch(view, knowledge, mem, opts.attackResponse ?? false,
+            opts.attackResponse ? act(s, p.id, c) : undefined, opts.attackResponseSkills ?? false);
+          // 상대 대응 실험은 기존 공격의 순위를 보완한다. 불완전한 가설의
+          // 대기 선택으로 기존 공격을 반복 취소하지 않는다.
+          if (plan && (!opts.attackResponse || plan.action)) return plan.action;
+        }
+        return act(s, p.id, c);
+      }
     }
   }
   // 자기 시전 영수증이 제안한 대상·시점과 일치한 경우만 저주 연계를 이어 간다.
@@ -408,7 +447,7 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       // 자동 가짜 공표의 진명 복구 시점도 기존 정책과 같게 두고, 자기 수동 위장만 되돌린다.
       const ownManual = mem.perception!.manualClaims.get(me.id);
       if (me.published !== null && desired !== me.published && (desired !== me.character || ownManual?.name === me.published) &&
-        publish.nameOptions?.includes(desired)) return act(publish, undefined, desired);
+        publish.nameOptions?.includes(desired)) return sequence(act(publish, undefined, desired));
     }
     const commander = !!isCommander.get(me.character);
     const own = view.roster.filter((r) => r.inGame && r.side === me.side && !r.commander && r.key !== me.character).map((r) => r.key);
@@ -417,9 +456,9 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       const honest = !commander && !disguise && nextRandom(mem) < 0.75;
       const decoys = disguise ? view.roster.filter((r) => r.inGame && r.side !== me.side && !r.commander).map((r) => r.key) : own;
       const name = honest ? me.character : (pick(decoys) ?? me.character);
-      if (publish.nameOptions?.includes(name)) return act(publish, undefined, name);
+      if (publish.nameOptions?.includes(name)) return sequence(act(publish, undefined, name));
     } else if (!commander && !me.trueName && !me.skills.some((s) => s.key === 'disguise') && elapsed > 3 * MIN && nextRandom(mem) < 0.15 && publish.nameOptions?.includes(me.character)) {
-      return act(publish, undefined, me.character);
+      return sequence(act(publish, undefined, me.character));
     }
   }
 
@@ -445,7 +484,11 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
   // 4) 정보 수집
   if (confirmationStrategy && confirmationStrategy !== 'combat-gem') {
     const confirmation = bestConfirmation(view, belief, unknown, [...usable.values()], confirmationStrategy === 'combat' ? battle : undefined);
-    if (confirmation) return confirmation;
+    if (confirmation) return sequence(confirmation);
+  }
+  if (opts.sequenceSearch) {
+    const plan = boundedSequenceSearch(view, knowledge, mem, undefined, opts.sequenceSkills ?? false, opts.sequenceExtended ?? false);
+    if (plan) return plan.action;
   }
   const roll = nextRandom(mem);
   if (unknown.length && roll < 0.75) {

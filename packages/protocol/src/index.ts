@@ -1,6 +1,6 @@
 // 클라이언트 ↔ 게임 서버 메시지 (JSON over WebSocket)
 import { z } from 'zod';
-import type { GameEvent, ModeId, PlayerView, SpectatorView } from '@gst/rules';
+import type { GameEvent, ModeId, PlayerView, SpectatorView, Action } from '@gst/rules';
 
 export const MODE_IDS = ['civil_war', 'primordial', 'lidellut', 'troll'] as const;
 
@@ -27,6 +27,7 @@ export const clientMessage = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('hello'),
     protocol: z.literal(PROTOCOL_VERSION),
+    hostCapable: z.boolean().optional(),
     /** Supabase access token (로그인 사용자) */
     token: z.string().max(4096).optional(),
     /** 게스트 닉네임 (서버가 게스트 허용일 때) */
@@ -35,10 +36,21 @@ export const clientMessage = z.discriminatedUnion('type', [
     resume: z.string().max(128).optional(),
   }),
   z.object({ type: z.literal('room.list') }),
+  z.object({ type: z.literal('room.ready'), ready: z.boolean() }),
+  z.object({ type: z.literal('room.capacity'), capacity: z.number().int().min(8).max(12) }),
+  z.object({ type: z.literal('room.slot'), slot: z.number().int().min(0).max(11), kind: z.enum(['ai', 'player']) }),
+  z.object({ type: z.literal('room.kick'), userId: z.string().max(64) }),
+  z.object({ type: z.literal('room.chat'), text: z.string().trim().min(1).max(200) }),
+  z.object({ type: z.literal('game.assign') }),
+  z.object({ type: z.literal('game.begin') }),
+  z.object({ type: z.literal('profile.get') }),
+  z.object({ type: z.literal('replay.get') }),
   z.object({
     type: z.literal('room.create'),
     name: z.string().min(1).max(30),
+    capacity: z.number().int().min(8).max(12).optional(),
     mode: z.enum(MODE_IDS),
+    hosting: z.enum(['server', 'player']).default('server'),
     turnSeconds: z.union([z.literal(60), z.literal(90), z.literal(120)]).default(90),
   }),
   z.object({ type: z.literal('room.join'), roomId: z.string().max(32) }),
@@ -49,6 +61,8 @@ export const clientMessage = z.discriminatedUnion('type', [
   /** aiOnly: 사람은 모두 관전, 봇만으로 판을 돌린다 (테스트용) */
   z.object({ type: z.literal('room.start'), aiOnly: z.boolean().optional() }),
   z.object({ type: z.literal('game.action'), action: actionSchema, ref: z.number().int().optional() }),
+  z.object({ type: z.literal('host.frame'), epoch: z.number().int().positive(), frame: z.number().int().positive(), checkpoint: z.string().min(1).max(8 * 1024 * 1024) }),
+  z.object({ type: z.literal('host.release'), epoch: z.number().int().positive() }),
   z.object({ type: z.literal('ping'), t: z.number() }),
 ]);
 
@@ -63,6 +77,9 @@ export interface RoomSummary {
   mode: ModeId;
   modeName: string;
   players: number;
+  hostName?: string;
+  humans?: number;
+  bots?: number;
   maxPlayers: number;
   status: 'lobby' | 'playing' | 'ended';
   /** 요청한 사람이 이 방의 자리를 비운 상태 (재입장 가능) */
@@ -73,6 +90,8 @@ export interface RoomMember {
   id: string;
   nickname: string;
   bot: boolean;
+  ready?: boolean;
+  slot?: number;
   connected: boolean;
   /** 자리 비움 (봇이 대신 플레이 중) */
   away?: boolean;
@@ -82,19 +101,37 @@ export interface RoomMember {
 
 export interface RoomDetail extends RoomSummary {
   hostId: string;
+  hosting?: 'server' | 'player';
+  hostEpoch?: number;
+  hostPaused?: boolean;
   turnSeconds: number;
   members: RoomMember[];
   minPlayers: number;
   botsAllowed: boolean;
+  stage?: 'waiting' | 'countdown' | 'assignment' | 'briefing' | 'battleCountdown' | 'running';
+  countdownEndsAt?: number;
+  serverWallTime?: number;
+  slots?: ('player' | 'ai')[];
+  chat?: { seq: number; nickname: string; text: string }[];
+  allowedCapacities?: number[];
 }
 
+export interface ModeRecord { mode: string; played: number; won: number; lost: number; }
+export interface ProfileData { nickname: string; guest: boolean; modes: ModeRecord[]; }
+export interface ReplayData { frames: { at: number; view: SpectatorView }[]; events: GameEvent[]; }
 export type ServerMessage =
+  | { type: 'profile'; profile: ProfileData }
+  | { type: 'replay'; replay: ReplayData }
   | { type: 'welcome'; userId: string; nickname: string; session: string; guest: boolean }
   | { type: 'error'; message: string; ref?: number }
   | { type: 'rooms'; rooms: RoomSummary[] }
   | { type: 'room'; room: RoomDetail | null }
   | { type: 'game'; view: PlayerView | SpectatorView; events: GameEvent[]; serverTime: number }
   | { type: 'action.result'; ok: boolean; error?: string; ref?: number }
+  | { type: 'host.grant'; epoch: number; frame: number; checkpoint: string; members: HostMember[]; commands: HostCommand[]; tickMs: number; activity: number; botKind: 'smart' | 'random'; timeScale: number }
+  | { type: 'host.members'; epoch: number; members: HostMember[] }
+  | { type: 'host.command'; epoch: number; command: HostCommand }
+  | { type: 'host.ack'; epoch: number; frame: number }
   | { type: 'pong'; t: number; serverTime: number };
 
 export function parseClientMessage(raw: string): ClientMessage | { error: string } {
@@ -108,3 +145,8 @@ export function parseClientMessage(raw: string): ClientMessage | { error: string
   if (!r.success) return { error: `잘못된 메시지: ${r.error.issues[0]?.message ?? 'invalid'}` };
   return r.data;
 }
+
+export interface HostMember { id: string; bot: boolean; spectator?: boolean; automate: boolean }
+export type HostCommand = { id: number; player: string; ref?: number } & (
+  { kind: 'action'; action: Action } | { kind: 'quit' }
+);

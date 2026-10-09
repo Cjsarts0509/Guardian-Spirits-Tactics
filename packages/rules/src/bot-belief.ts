@@ -18,34 +18,52 @@ interface SamplingModel {
 }
 // 믿음 캐시와 함께 수명이 끝난다. 서버 상태나 실제 배정은 보관하지 않는다.
 const samplingModels = new WeakMap<AssignmentBelief, SamplingModel>();
+// 크기별 불변 조합 정보만 공유한다. 관찰·확률·실제 정체를 보관하지 않는다.
+const subsetCounts = new Map<number, Uint8Array>();
+function countsFor(n: number): Uint8Array {
+  let counts = subsetCounts.get(n);
+  if (!counts) {
+    counts = new Uint8Array(1 << n);
+    for (let mask = 1; mask < counts.length; mask++) counts[mask] = counts[mask >>> 1]! + (mask & 1);
+    subsetCounts.set(n, counts);
+  }
+  return counts;
+}
 
 /** 최대 12명: 부분집합 DP로 전체 순열의 가중합을 정확 계산한다 (O(n² 2ⁿ)).
  * 파티클의 표본 누락 없이 역할 중복 금지를 반영한다. 진짜 배정은 입력하지 않는다.
  */
-export function assignmentBelief(view: PlayerView, knowledge: Knowledge, memory: BotMemory): AssignmentBelief {
-  return computeAssignmentBelief(view, knowledge, memory, false);
+export function assignmentBelief(view: PlayerView, knowledge: Knowledge, memory: BotMemory, claimScale = 1): AssignmentBelief {
+  return computeAssignmentBelief(view, knowledge, memory, false, claimScale);
 }
 
-function computeAssignmentBelief(view: PlayerView, knowledge: Knowledge, memory: BotMemory, retainSampling: boolean): AssignmentBelief {
+function computeAssignmentBelief(view: PlayerView, knowledge: Knowledge, memory: BotMemory, retainSampling: boolean, claimScale = 1): AssignmentBelief {
+  if (!Number.isFinite(claimScale) || claimScale < 0 || claimScale > 4) throw new RangeError('공표 가중치 배율은 0~4입니다.');
   const rows = view.players.filter((p) => p.id !== view.me.id);
   const roles = view.roster.filter((r) => r.inGame && r.key !== view.me.character).map((r) => r.key);
-  const signature = JSON.stringify([view.mode, view.me.id, view.me.character, Math.floor(view.elapsedMs / 60_000),
+  const signature = JSON.stringify([claimScale, view.mode, view.me.id, view.me.character, Math.floor(view.elapsedMs / 60_000),
     rows.map((p) => [p.id, p.published, memory.perception?.automaticClaims.has(p.id), knowledge.candidates.get(p.id)])]);
   const cached = memory.beliefCache?.signature === signature ? memory.beliefCache.value : undefined;
   if (cached && (!retainSampling || samplingModels.has(cached))) return cached;
   const probabilities = new Map<PlayerId, Map<CharKey, number>>([[view.me.id, new Map([[view.me.character, 1]])]]);
   const n = rows.length;
   if (n !== roles.length || n > 12) return { probabilities, consistent: false };
-  const weights = rows.map((p) => roles.map((c) => knowledge.candidates.get(p.id)?.includes(c)
-    ? claimWeight(view, c, memory.perception?.automaticClaims.has(p.id) ? null : p.published) : 0));
+  const weights = rows.map((p) => roles.map((c) => {
+    if (!knowledge.candidates.get(p.id)?.includes(c)) return 0;
+    const weight = claimWeight(view, c, memory.perception?.automaticClaims.has(p.id) ? null : p.published);
+    return claimScale === 1 ? weight : weight ** claimScale;
+  }));
   const size = 1 << n;
-  const counts = new Uint8Array(size);
-  for (let mask = 1; mask < size; mask++) counts[mask] = counts[mask >>> 1]! + (mask & 1);
+  const counts = countsFor(n);
+  const allowed = weights.map((row) => row.reduce((mask, weight, j) => weight > 0 ? mask | (1 << j) : mask, 0));
   const suffix = new Float64Array(size);
   suffix[size - 1] = 1;
   for (let mask = size - 2; mask >= 0; mask--) {
     const i = counts[mask]!;
-    for (let j = 0; j < n; j++) if (!(mask & (1 << j))) suffix[mask]! += weights[i]![j]! * suffix[mask | (1 << j)]!;
+    for (let choices = allowed[i]! & ~mask; choices; choices &= choices - 1) {
+      const bit = choices & -choices, j = 31 - Math.clz32(bit);
+      suffix[mask]! += weights[i]![j]! * suffix[mask | bit]!;
+    }
   }
   const total = suffix[0]!;
   if (cached) {
@@ -59,8 +77,9 @@ function computeAssignmentBelief(view: PlayerView, knowledge: Knowledge, memory:
     for (let mask = 0; mask < size - 1; mask++) {
       const i = counts[mask]!;
       if (!prefix[mask]) continue;
-      for (let j = 0; j < n; j++) if (!(mask & (1 << j))) {
-        const next = mask | (1 << j);
+      for (let choices = allowed[i]! & ~mask; choices; choices &= choices - 1) {
+        const bit = choices & -choices, j = 31 - Math.clz32(bit);
+        const next = mask | bit;
         const mass = prefix[mask]! * weights[i]![j]!;
         prefix[next]! += mass;
         marginal[i]![j]! += mass * suffix[next]! / total;

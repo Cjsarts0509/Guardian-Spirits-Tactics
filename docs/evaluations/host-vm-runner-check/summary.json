@@ -1,0 +1,974 @@
+{
+  "format": 1,
+  "commit": "836a1a885c627705fc0bf56f60cf19dfe4e4f302",
+  "runs": 3,
+  "durationMs": 1500,
+  "runtime": {
+    "node": "v24.19.0",
+    "arch": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "runnerSha256": "e61f16ca5172f0100b3d92f1791d53acf74592f0e060d609cd5695ed1fe0881a",
+  "sourceHashes": {
+    "apps/server/src/rooms.ts": "75fd73dcecca73ca2b4870f31878e9fb744035c0ba483099f62768d6634b3329",
+    "apps/server/src/server.ts": "64fd0975dfba98bbf144aa55967639ac1889a233fedbc1e187bce607f51d6e0a",
+    "apps/server/src/host-state.ts": "9179835f44dafb40b45e5116ecedd0463938cc07eae56994e7485e9f4bee4682",
+    "packages/rules/src/host-runtime.ts": "8c5e45d2e9c3e5baf5b4477093d3b18fef828f32efbd7ef8e1d6a614ec6cb338",
+    "apps/client/src/host.worker.ts": "48dca18b5005c46b2185f20b457f4a77e98afbc0d615b5e11a80982cfadcc10a",
+    "apps/server/scripts/host-load-audit.ts": "34aab268a6d96f714262c5e0eab7be22f9674f1115029fe3752b0cf81a6f9cca",
+    "apps/server/scripts/host-load-client.ts": "2db30a112ffb51a677f178c0db43f6926520f55ff3b54749a661f0aeab71aa89"
+  },
+  "cases": [
+    {
+      "name": "one-room-default",
+      "byHosting": {
+        "server": {
+          "cpuPercent": {
+            "values": [
+              6.07937425025706,
+              2.8575053579707745,
+              4.709636820740299
+            ],
+            "median": 4.709636820740299
+          },
+          "tickP95Ms": {
+            "values": [
+              8.164798999999903,
+              6.500934000000143,
+              1.2840229999999337
+            ],
+            "median": 6.500934000000143
+          },
+          "tickMaxMs": {
+            "values": [
+              8.164798999999903,
+              6.500934000000143,
+              1.2840229999999337
+            ],
+            "median": 6.500934000000143
+          },
+          "commitP95Ms": {
+            "values": [
+              null,
+              null,
+              null
+            ],
+            "median": null
+          },
+          "loopMaxMs": {
+            "values": [
+              16.187391,
+              10.862591,
+              15.212543
+            ],
+            "median": 15.212543
+          },
+          "healthP95Ms": {
+            "values": [
+              16.146051000000057,
+              2.7754980000004252,
+              13.311214000000064
+            ],
+            "median": 13.311214000000064
+          },
+          "uploadKiBps": {
+            "values": [
+              0,
+              0,
+              0
+            ],
+            "median": 0
+          },
+          "downloadKiBps": {
+            "values": [
+              20.110339721080464,
+              28.355527086286163,
+              11.64701945733551
+            ],
+            "median": 20.110339721080464
+          },
+          "checkpointMaxKiB": {
+            "values": [
+              null,
+              null,
+              null
+            ],
+            "median": null
+          },
+          "activeBotsMedian": {
+            "values": [
+              12,
+              12,
+              12
+            ],
+            "median": 12
+          },
+          "mainRssMaxMiB": {
+            "values": [
+              97.17578125,
+              81.12890625,
+              75.0078125
+            ],
+            "median": 81.12890625
+          },
+          "clientsRssMaxMiB": {
+            "values": [
+              38.875,
+              38.875,
+              38.625
+            ],
+            "median": 38.875
+          }
+        },
+        "player": {
+          "cpuPercent": {
+            "values": [
+              2.664780060892499,
+              6.430442305467305,
+              2.5860220661243734
+            ],
+            "median": 2.664780060892499
+          },
+          "tickP95Ms": {
+            "values": [
+              0.04312399999980698,
+              0.06610900000009678,
+              0.05301000000008571
+            ],
+            "median": 0.05301000000008571
+          },
+          "tickMaxMs": {
+            "values": [
+              0.04312399999980698,
+              0.06610900000009678,
+              0.05301000000008571
+            ],
+            "median": 0.05301000000008571
+          },
+          "commitP95Ms": {
+            "values": [
+              1.2331159999998818,
+              1.5506840000000466,
+              1.6131980000000112
+            ],
+            "median": 1.5506840000000466
+          },
+          "loopMaxMs": {
+            "values": [
+              10.969087,
+              15.335423,
+              12.058623
+            ],
+            "median": 12.058623
+          },
+          "healthP95Ms": {
+            "values": [
+              3.208798999999999,
+              14.244073000000071,
+              2.801496000000043
+            ],
+            "median": 3.208798999999999
+          },
+          "uploadKiBps": {
+            "values": [
+              48.80123257908539,
+              46.916937794501294,
+              50.86772348621727
+            ],
+            "median": 48.80123257908539
+          },
+          "downloadKiBps": {
+            "values": [
+              52.721847263217796,
+              52.70072718076287,
+              52.99920548558213
+            ],
+            "median": 52.721847263217796
+          },
+          "checkpointMaxKiB": {
+            "values": [
+              14.9150390625,
+              14.3623046875,
+              15.3203125
+            ],
+            "median": 14.9150390625
+          },
+          "activeBotsMedian": {
+            "values": [
+              12,
+              12,
+              12
+            ],
+            "median": 12
+          },
+          "mainRssMaxMiB": {
+            "values": [
+              99.55078125,
+              76.37890625,
+              79.1328125
+            ],
+            "median": 79.1328125
+          },
+          "clientsRssMaxMiB": {
+            "values": [
+              66.6640625,
+              63.90625,
+              66.7265625
+            ],
+            "median": 66.6640625
+          }
+        }
+      }
+    },
+    {
+      "name": "four-rooms-default",
+      "byHosting": {
+        "server": {
+          "cpuPercent": {
+            "values": [
+              2.5623026584062045,
+              1.6639131679260348,
+              2.9133675064402085
+            ],
+            "median": 2.5623026584062045
+          },
+          "tickP95Ms": {
+            "values": [
+              5.471434999999474,
+              1.7916569999997591,
+              6.552701999999954
+            ],
+            "median": 5.471434999999474
+          },
+          "tickMaxMs": {
+            "values": [
+              5.471434999999474,
+              1.7916569999997591,
+              6.552701999999954
+            ],
+            "median": 5.471434999999474
+          },
+          "commitP95Ms": {
+            "values": [
+              null,
+              null,
+              null
+            ],
+            "median": null
+          },
+          "loopMaxMs": {
+            "values": [
+              10.993663,
+              10.821631,
+              13.975551
+            ],
+            "median": 10.993663
+          },
+          "healthP95Ms": {
+            "values": [
+              2.4675240000005942,
+              2.490589,
+              2.4605729999993855
+            ],
+            "median": 2.4675240000005942
+          },
+          "uploadKiBps": {
+            "values": [
+              0,
+              0,
+              0
+            ],
+            "median": 0
+          },
+          "downloadKiBps": {
+            "values": [
+              82.10479105514887,
+              72.68449102596855,
+              64.7498392016534
+            ],
+            "median": 72.68449102596855
+          },
+          "checkpointMaxKiB": {
+            "values": [
+              null,
+              null,
+              null
+            ],
+            "median": null
+          },
+          "activeBotsMedian": {
+            "values": [
+              48,
+              48,
+              48
+            ],
+            "median": 48
+          },
+          "mainRssMaxMiB": {
+            "values": [
+              103.55078125,
+              86.00390625,
+              81.0078125
+            ],
+            "median": 86.00390625
+          },
+          "clientsRssMaxMiB": {
+            "values": [
+              155.625,
+              156,
+              155.75
+            ],
+            "median": 155.75
+          }
+        },
+        "player": {
+          "cpuPercent": {
+            "values": [
+              4.148363011413988,
+              4.109698573055676,
+              4.084986857209299
+            ],
+            "median": 4.109698573055676
+          },
+          "tickP95Ms": {
+            "values": [
+              0.10423699999955716,
+              0.07855799999924784,
+              0.12295499999981985
+            ],
+            "median": 0.10423699999955716
+          },
+          "tickMaxMs": {
+            "values": [
+              0.10423699999955716,
+              0.07855799999924784,
+              0.12295499999981985
+            ],
+            "median": 0.10423699999955716
+          },
+          "commitP95Ms": {
+            "values": [
+              1.1786940000001778,
+              1.3795810000001438,
+              1.2566820000001826
+            ],
+            "median": 1.2566820000001826
+          },
+          "loopMaxMs": {
+            "values": [
+              14.680063,
+              11.083775,
+              12.976127
+            ],
+            "median": 12.976127
+          },
+          "healthP95Ms": {
+            "values": [
+              2.6417959999998857,
+              2.2363159999995332,
+              2.1673319999999876
+            ],
+            "median": 2.2363159999995332
+          },
+          "uploadKiBps": {
+            "values": [
+              210.03093171692123,
+              197.78110866812406,
+              205.39747020147522
+            ],
+            "median": 205.39747020147522
+          },
+          "downloadKiBps": {
+            "values": [
+              216.25428735926155,
+              216.2738865028019,
+              216.01756995939098
+            ],
+            "median": 216.25428735926155
+          },
+          "checkpointMaxKiB": {
+            "values": [
+              16.458984375,
+              16.583984375,
+              17.4501953125
+            ],
+            "median": 16.583984375
+          },
+          "activeBotsMedian": {
+            "values": [
+              48,
+              48,
+              48
+            ],
+            "median": 48
+          },
+          "mainRssMaxMiB": {
+            "values": [
+              105.42578125,
+              85.62890625,
+              85.7578125
+            ],
+            "median": 85.7578125
+          },
+          "clientsRssMaxMiB": {
+            "values": [
+              268.578125,
+              261.4296875,
+              264.70703125
+            ],
+            "median": 264.70703125
+          }
+        }
+      }
+    },
+    {
+      "name": "four-rooms-high-activity",
+      "byHosting": {
+        "server": {
+          "cpuPercent": {
+            "values": [
+              25.025247165863053,
+              27.269869602290683,
+              31.643533780176213
+            ],
+            "median": 27.269869602290683
+          },
+          "tickP95Ms": {
+            "values": [
+              65.37209000000075,
+              64.21509800000058,
+              65.68030399999952
+            ],
+            "median": 65.37209000000075
+          },
+          "tickMaxMs": {
+            "values": [
+              65.37209000000075,
+              64.21509800000058,
+              65.68030399999952
+            ],
+            "median": 65.37209000000075
+          },
+          "commitP95Ms": {
+            "values": [
+              null,
+              null,
+              null
+            ],
+            "median": null
+          },
+          "loopMaxMs": {
+            "values": [
+              74.907647,
+              74.579967,
+              75.235327
+            ],
+            "median": 74.907647
+          },
+          "healthP95Ms": {
+            "values": [
+              2.6392830000004324,
+              2.4260509999985516,
+              4.401926000000458
+            ],
+            "median": 2.6392830000004324
+          },
+          "uploadKiBps": {
+            "values": [
+              0,
+              0,
+              0
+            ],
+            "median": 0
+          },
+          "downloadKiBps": {
+            "values": [
+              234.4465418811147,
+              243.2282249065965,
+              243.58636141749938
+            ],
+            "median": 243.2282249065965
+          },
+          "checkpointMaxKiB": {
+            "values": [
+              null,
+              null,
+              null
+            ],
+            "median": null
+          },
+          "activeBotsMedian": {
+            "values": [
+              44,
+              43,
+              45
+            ],
+            "median": 44
+          },
+          "mainRssMaxMiB": {
+            "values": [
+              141.05078125,
+              118.9765625,
+              120.8828125
+            ],
+            "median": 120.8828125
+          },
+          "clientsRssMaxMiB": {
+            "values": [
+              157.875,
+              157.5,
+              157.25
+            ],
+            "median": 157.5
+          }
+        },
+        "player": {
+          "cpuPercent": {
+            "values": [
+              5.849908465704739,
+              7.497435472206989,
+              8.8717982951433
+            ],
+            "median": 7.497435472206989
+          },
+          "tickP95Ms": {
+            "values": [
+              0.08310499999970489,
+              0.05593399999997928,
+              0.08484700000008161
+            ],
+            "median": 0.08310499999970489
+          },
+          "tickMaxMs": {
+            "values": [
+              0.08310499999970489,
+              0.05593399999997928,
+              0.08484700000008161
+            ],
+            "median": 0.08310499999970489
+          },
+          "commitP95Ms": {
+            "values": [
+              1.9322679999986576,
+              4.502596000000267,
+              3.0339160000003176
+            ],
+            "median": 3.0339160000003176
+          },
+          "loopMaxMs": {
+            "values": [
+              13.500415,
+              14.180351,
+              16.793599
+            ],
+            "median": 14.180351
+          },
+          "healthP95Ms": {
+            "values": [
+              2.315805000000182,
+              2.1539209999991726,
+              2.2869019999998272
+            ],
+            "median": 2.2869019999998272
+          },
+          "uploadKiBps": {
+            "values": [
+              2018.6548482879161,
+              1987.214796480005,
+              2066.085179510732
+            ],
+            "median": 2018.6548482879161
+          },
+          "downloadKiBps": {
+            "values": [
+              239.56689966276187,
+              244.90125658724597,
+              242.54891645098448
+            ],
+            "median": 242.54891645098448
+          },
+          "checkpointMaxKiB": {
+            "values": [
+              186.236328125,
+              168.556640625,
+              185.1748046875
+            ],
+            "median": 185.1748046875
+          },
+          "activeBotsMedian": {
+            "values": [
+              44,
+              45,
+              45
+            ],
+            "median": 45
+          },
+          "mainRssMaxMiB": {
+            "values": [
+              148.9453125,
+              95.6328125,
+              132.265625
+            ],
+            "median": 132.265625
+          },
+          "clientsRssMaxMiB": {
+            "values": [
+              336.56640625,
+              332.4609375,
+              335.01171875
+            ],
+            "median": 335.01171875
+          }
+        }
+      }
+    }
+  ],
+  "rawRuns": [
+    {
+      "run": 1,
+      "order": "server-first",
+      "resultsSha256": "9e4e932abdd288824e823f6dcc9de3d4320ad56c4667405e9407eba252561a30",
+      "cases": [
+        {
+          "name": "one-room-default",
+          "hosting": "server",
+          "metrics": {
+            "cpuPercent": 6.07937425025706,
+            "tickP95Ms": 8.164798999999903,
+            "tickMaxMs": 8.164798999999903,
+            "commitP95Ms": null,
+            "loopMaxMs": 16.187391,
+            "healthP95Ms": 16.146051000000057,
+            "uploadKiBps": 0,
+            "downloadKiBps": 20.110339721080464,
+            "checkpointMaxKiB": null,
+            "activeBotsMedian": 12,
+            "mainRssMaxMiB": 97.17578125,
+            "clientsRssMaxMiB": 38.875
+          }
+        },
+        {
+          "name": "one-room-default",
+          "hosting": "player",
+          "metrics": {
+            "cpuPercent": 2.664780060892499,
+            "tickP95Ms": 0.04312399999980698,
+            "tickMaxMs": 0.04312399999980698,
+            "commitP95Ms": 1.2331159999998818,
+            "loopMaxMs": 10.969087,
+            "healthP95Ms": 3.208798999999999,
+            "uploadKiBps": 48.80123257908539,
+            "downloadKiBps": 52.721847263217796,
+            "checkpointMaxKiB": 14.9150390625,
+            "activeBotsMedian": 12,
+            "mainRssMaxMiB": 99.55078125,
+            "clientsRssMaxMiB": 66.6640625
+          }
+        },
+        {
+          "name": "four-rooms-default",
+          "hosting": "server",
+          "metrics": {
+            "cpuPercent": 2.5623026584062045,
+            "tickP95Ms": 5.471434999999474,
+            "tickMaxMs": 5.471434999999474,
+            "commitP95Ms": null,
+            "loopMaxMs": 10.993663,
+            "healthP95Ms": 2.4675240000005942,
+            "uploadKiBps": 0,
+            "downloadKiBps": 82.10479105514887,
+            "checkpointMaxKiB": null,
+            "activeBotsMedian": 48,
+            "mainRssMaxMiB": 103.55078125,
+            "clientsRssMaxMiB": 155.625
+          }
+        },
+        {
+          "name": "four-rooms-default",
+          "hosting": "player",
+          "metrics": {
+            "cpuPercent": 4.148363011413988,
+            "tickP95Ms": 0.10423699999955716,
+            "tickMaxMs": 0.10423699999955716,
+            "commitP95Ms": 1.1786940000001778,
+            "loopMaxMs": 14.680063,
+            "healthP95Ms": 2.6417959999998857,
+            "uploadKiBps": 210.03093171692123,
+            "downloadKiBps": 216.25428735926155,
+            "checkpointMaxKiB": 16.458984375,
+            "activeBotsMedian": 48,
+            "mainRssMaxMiB": 105.42578125,
+            "clientsRssMaxMiB": 268.578125
+          }
+        },
+        {
+          "name": "four-rooms-high-activity",
+          "hosting": "server",
+          "metrics": {
+            "cpuPercent": 25.025247165863053,
+            "tickP95Ms": 65.37209000000075,
+            "tickMaxMs": 65.37209000000075,
+            "commitP95Ms": null,
+            "loopMaxMs": 74.907647,
+            "healthP95Ms": 2.6392830000004324,
+            "uploadKiBps": 0,
+            "downloadKiBps": 234.4465418811147,
+            "checkpointMaxKiB": null,
+            "activeBotsMedian": 44,
+            "mainRssMaxMiB": 141.05078125,
+            "clientsRssMaxMiB": 157.875
+          }
+        },
+        {
+          "name": "four-rooms-high-activity",
+          "hosting": "player",
+          "metrics": {
+            "cpuPercent": 5.849908465704739,
+            "tickP95Ms": 0.08310499999970489,
+            "tickMaxMs": 0.08310499999970489,
+            "commitP95Ms": 1.9322679999986576,
+            "loopMaxMs": 13.500415,
+            "healthP95Ms": 2.315805000000182,
+            "uploadKiBps": 2018.6548482879161,
+            "downloadKiBps": 239.56689966276187,
+            "checkpointMaxKiB": 186.236328125,
+            "activeBotsMedian": 44,
+            "mainRssMaxMiB": 148.9453125,
+            "clientsRssMaxMiB": 336.56640625
+          }
+        }
+      ]
+    },
+    {
+      "run": 2,
+      "order": "player-first",
+      "resultsSha256": "87db84a0da73d7a3d14f9e4a73608ac6313a18ba348b61de4c42c0cea5786c8d",
+      "cases": [
+        {
+          "name": "one-room-default",
+          "hosting": "player",
+          "metrics": {
+            "cpuPercent": 6.430442305467305,
+            "tickP95Ms": 0.06610900000009678,
+            "tickMaxMs": 0.06610900000009678,
+            "commitP95Ms": 1.5506840000000466,
+            "loopMaxMs": 15.335423,
+            "healthP95Ms": 14.244073000000071,
+            "uploadKiBps": 46.916937794501294,
+            "downloadKiBps": 52.70072718076287,
+            "checkpointMaxKiB": 14.3623046875,
+            "activeBotsMedian": 12,
+            "mainRssMaxMiB": 76.37890625,
+            "clientsRssMaxMiB": 63.90625
+          }
+        },
+        {
+          "name": "one-room-default",
+          "hosting": "server",
+          "metrics": {
+            "cpuPercent": 2.8575053579707745,
+            "tickP95Ms": 6.500934000000143,
+            "tickMaxMs": 6.500934000000143,
+            "commitP95Ms": null,
+            "loopMaxMs": 10.862591,
+            "healthP95Ms": 2.7754980000004252,
+            "uploadKiBps": 0,
+            "downloadKiBps": 28.355527086286163,
+            "checkpointMaxKiB": null,
+            "activeBotsMedian": 12,
+            "mainRssMaxMiB": 81.12890625,
+            "clientsRssMaxMiB": 38.875
+          }
+        },
+        {
+          "name": "four-rooms-default",
+          "hosting": "player",
+          "metrics": {
+            "cpuPercent": 4.109698573055676,
+            "tickP95Ms": 0.07855799999924784,
+            "tickMaxMs": 0.07855799999924784,
+            "commitP95Ms": 1.3795810000001438,
+            "loopMaxMs": 11.083775,
+            "healthP95Ms": 2.2363159999995332,
+            "uploadKiBps": 197.78110866812406,
+            "downloadKiBps": 216.2738865028019,
+            "checkpointMaxKiB": 16.583984375,
+            "activeBotsMedian": 48,
+            "mainRssMaxMiB": 85.62890625,
+            "clientsRssMaxMiB": 261.4296875
+          }
+        },
+        {
+          "name": "four-rooms-default",
+          "hosting": "server",
+          "metrics": {
+            "cpuPercent": 1.6639131679260348,
+            "tickP95Ms": 1.7916569999997591,
+            "tickMaxMs": 1.7916569999997591,
+            "commitP95Ms": null,
+            "loopMaxMs": 10.821631,
+            "healthP95Ms": 2.490589,
+            "uploadKiBps": 0,
+            "downloadKiBps": 72.68449102596855,
+            "checkpointMaxKiB": null,
+            "activeBotsMedian": 48,
+            "mainRssMaxMiB": 86.00390625,
+            "clientsRssMaxMiB": 156
+          }
+        },
+        {
+          "name": "four-rooms-high-activity",
+          "hosting": "player",
+          "metrics": {
+            "cpuPercent": 7.497435472206989,
+            "tickP95Ms": 0.05593399999997928,
+            "tickMaxMs": 0.05593399999997928,
+            "commitP95Ms": 4.502596000000267,
+            "loopMaxMs": 14.180351,
+            "healthP95Ms": 2.1539209999991726,
+            "uploadKiBps": 1987.214796480005,
+            "downloadKiBps": 244.90125658724597,
+            "checkpointMaxKiB": 168.556640625,
+            "activeBotsMedian": 45,
+            "mainRssMaxMiB": 95.6328125,
+            "clientsRssMaxMiB": 332.4609375
+          }
+        },
+        {
+          "name": "four-rooms-high-activity",
+          "hosting": "server",
+          "metrics": {
+            "cpuPercent": 27.269869602290683,
+            "tickP95Ms": 64.21509800000058,
+            "tickMaxMs": 64.21509800000058,
+            "commitP95Ms": null,
+            "loopMaxMs": 74.579967,
+            "healthP95Ms": 2.4260509999985516,
+            "uploadKiBps": 0,
+            "downloadKiBps": 243.2282249065965,
+            "checkpointMaxKiB": null,
+            "activeBotsMedian": 43,
+            "mainRssMaxMiB": 118.9765625,
+            "clientsRssMaxMiB": 157.5
+          }
+        }
+      ]
+    },
+    {
+      "run": 3,
+      "order": "server-first",
+      "resultsSha256": "38b903a9382e557ad3ddedc81eee4e9b6a4b9564275d2a64e780388a992b9e7f",
+      "cases": [
+        {
+          "name": "one-room-default",
+          "hosting": "server",
+          "metrics": {
+            "cpuPercent": 4.709636820740299,
+            "tickP95Ms": 1.2840229999999337,
+            "tickMaxMs": 1.2840229999999337,
+            "commitP95Ms": null,
+            "loopMaxMs": 15.212543,
+            "healthP95Ms": 13.311214000000064,
+            "uploadKiBps": 0,
+            "downloadKiBps": 11.64701945733551,
+            "checkpointMaxKiB": null,
+            "activeBotsMedian": 12,
+            "mainRssMaxMiB": 75.0078125,
+            "clientsRssMaxMiB": 38.625
+          }
+        },
+        {
+          "name": "one-room-default",
+          "hosting": "player",
+          "metrics": {
+            "cpuPercent": 2.5860220661243734,
+            "tickP95Ms": 0.05301000000008571,
+            "tickMaxMs": 0.05301000000008571,
+            "commitP95Ms": 1.6131980000000112,
+            "loopMaxMs": 12.058623,
+            "healthP95Ms": 2.801496000000043,
+            "uploadKiBps": 50.86772348621727,
+            "downloadKiBps": 52.99920548558213,
+            "checkpointMaxKiB": 15.3203125,
+            "activeBotsMedian": 12,
+            "mainRssMaxMiB": 79.1328125,
+            "clientsRssMaxMiB": 66.7265625
+          }
+        },
+        {
+          "name": "four-rooms-default",
+          "hosting": "server",
+          "metrics": {
+            "cpuPercent": 2.9133675064402085,
+            "tickP95Ms": 6.552701999999954,
+            "tickMaxMs": 6.552701999999954,
+            "commitP95Ms": null,
+            "loopMaxMs": 13.975551,
+            "healthP95Ms": 2.4605729999993855,
+            "uploadKiBps": 0,
+            "downloadKiBps": 64.7498392016534,
+            "checkpointMaxKiB": null,
+            "activeBotsMedian": 48,
+            "mainRssMaxMiB": 81.0078125,
+            "clientsRssMaxMiB": 155.75
+          }
+        },
+        {
+          "name": "four-rooms-default",
+          "hosting": "player",
+          "metrics": {
+            "cpuPercent": 4.084986857209299,
+            "tickP95Ms": 0.12295499999981985,
+            "tickMaxMs": 0.12295499999981985,
+            "commitP95Ms": 1.2566820000001826,
+            "loopMaxMs": 12.976127,
+            "healthP95Ms": 2.1673319999999876,
+            "uploadKiBps": 205.39747020147522,
+            "downloadKiBps": 216.01756995939098,
+            "checkpointMaxKiB": 17.4501953125,
+            "activeBotsMedian": 48,
+            "mainRssMaxMiB": 85.7578125,
+            "clientsRssMaxMiB": 264.70703125
+          }
+        },
+        {
+          "name": "four-rooms-high-activity",
+          "hosting": "server",
+          "metrics": {
+            "cpuPercent": 31.643533780176213,
+            "tickP95Ms": 65.68030399999952,
+            "tickMaxMs": 65.68030399999952,
+            "commitP95Ms": null,
+            "loopMaxMs": 75.235327,
+            "healthP95Ms": 4.401926000000458,
+            "uploadKiBps": 0,
+            "downloadKiBps": 243.58636141749938,
+            "checkpointMaxKiB": null,
+            "activeBotsMedian": 45,
+            "mainRssMaxMiB": 120.8828125,
+            "clientsRssMaxMiB": 157.25
+          }
+        },
+        {
+          "name": "four-rooms-high-activity",
+          "hosting": "player",
+          "metrics": {
+            "cpuPercent": 8.8717982951433,
+            "tickP95Ms": 0.08484700000008161,
+            "tickMaxMs": 0.08484700000008161,
+            "commitP95Ms": 3.0339160000003176,
+            "loopMaxMs": 16.793599,
+            "healthP95Ms": 2.2869019999998272,
+            "uploadKiBps": 2066.085179510732,
+            "downloadKiBps": 242.54891645098448,
+            "checkpointMaxKiB": 185.1748046875,
+            "activeBotsMedian": 45,
+            "mainRssMaxMiB": 132.265625,
+            "clientsRssMaxMiB": 335.01171875
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "같은 소스의 server/player 반복 순차 비교. 실행 순서 AB/BA를 교대하지만 모드 조건 순서는 고정이고 매번 새 무작위 판이다. 실행별 통계의 중앙값으로 통합 p95·동일 행동 비교·통계적 유의성·VM 수용량 보장 아님. 운영 서비스와 호스트 자식 프로세스의 자원 경합 포함. RSS는 250ms 표본 최대이며 main은 진단 드라이버 포함, clients는 공유 페이지 중복 가능한 프로세스 합."
+}

@@ -19,3 +19,9 @@ export { hypothesisWorld, hypothesisScenarios } from './bot-hypothesis.js';
 export type { HypothesisWorld, HypothesisScenario, HypothesisPlayer, HypothesisSkill, Interval } from './bot-hypothesis.js';
 export { roleSkills, skillTiming, estimatedHits, neutralizedSkill, roleThreat } from './bot-tactics.js';
 export type { BattleMemory, SkillTiming, SkillPlan } from './bot-tactics.js';
+export { encodeHostSnapshot, decodeHostSnapshot, encodeHostDelta, encodeHostFrame, serializeHostMemories, readHostWire, applyHostInputs, tickHost } from './host-runtime.js';
+export type { HostSnapshot, HostWireSnapshot, HostSeat, HostInput } from './host-runtime.js';
+export { diffHostMemory, applyHostMemoryPatch } from './host-memory.js';
+export type { HostMemoryWire, HostMemoryPatch, HostJson } from './host-memory.js';
+
+export { observeBotActionResult } from './bot-retry.js';

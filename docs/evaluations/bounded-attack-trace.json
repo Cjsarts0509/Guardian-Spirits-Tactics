@@ -1,0 +1,798 @@
+{
+  "format": 1,
+  "scope": "development seed diagnostics, not independent validation; first 100 divergences",
+  "counts": {
+    "changedTargetOrSkill": 4,
+    "attackToWait": 28,
+    "other": 0
+  },
+  "games": [
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 31002,
+        "count": 10,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "winnerPolicy": "current",
+      "elapsedMs": 648000
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 31002,
+        "count": 10,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 610500
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 31002,
+        "count": 10,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 721750
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 31002,
+        "count": 10,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 610750
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 746750
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 590500
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 753500
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "winnerPolicy": "reference",
+      "elapsedMs": 729750
+    }
+  ],
+  "records": [
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 31002,
+        "count": 10,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "elapsedMs": 271250,
+      "self": "p6",
+      "character": "kane",
+      "mana": 70,
+      "actual": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p3",
+        "name": "drakan"
+      },
+      "baseline": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p10",
+        "name": "eltas"
+      },
+      "kind": "changedTargetOrSkill"
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 31002,
+        "count": 10,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 271250,
+      "self": "p6",
+      "character": "kane",
+      "mana": 70,
+      "actual": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p1",
+        "name": "sasint"
+      },
+      "baseline": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p10",
+        "name": "eltas"
+      },
+      "kind": "changedTargetOrSkill"
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 31002,
+        "count": 10,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 610750,
+      "self": "p6",
+      "character": "kane",
+      "mana": 60,
+      "actual": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p3",
+        "name": "drakan"
+      },
+      "baseline": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p10",
+        "name": "eltas"
+      },
+      "kind": "changedTargetOrSkill"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "elapsedMs": 590500,
+      "self": "p4",
+      "character": "satoshi",
+      "mana": 85,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "elapsedMs": 598250,
+      "self": "p4",
+      "character": "satoshi",
+      "mana": 85,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "elapsedMs": 599500,
+      "self": "p4",
+      "character": "satoshi",
+      "mana": 85,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "elapsedMs": 611500,
+      "self": "p4",
+      "character": "satoshi",
+      "mana": 85,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "elapsedMs": 628750,
+      "self": "p4",
+      "character": "satoshi",
+      "mana": 85,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "elapsedMs": 729750,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 60,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "elapsedMs": 730750,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 60,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "elapsedMs": 734750,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 60,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 361500,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 50,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 408500,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 50,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 439750,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 50,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 441500,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 50,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 444000,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 50,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 480000,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 80,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 544000,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 110,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 575250,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 110,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 581000,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 110,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 603500,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 110,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 605500,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 110,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 629750,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 110,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 657000,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 140,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 688000,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 140,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 705000,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 140,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 705750,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 140,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 713250,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 140,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 737500,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 150,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 738500,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 150,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "elapsedMs": 742500,
+      "self": "p8",
+      "character": "zwinra",
+      "mana": 150,
+      "actual": null,
+      "baseline": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p9",
+        "name": "deka"
+      },
+      "kind": "attackToWait"
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 31019,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "elapsedMs": 649750,
+      "self": "p6",
+      "character": "neonis",
+      "mana": 65,
+      "actual": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p2",
+        "name": "ulpian"
+      },
+      "baseline": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p8",
+        "name": "zwinra"
+      },
+      "kind": "changedTargetOrSkill"
+    }
+  ],
+  "hashes": {
+    "../src/bot.ts": "1479c1460f723912c1ed1c9050cd48e08f5cd7ca6145a778baed78a4b6423ca8",
+    "../src/bot-rollout.ts": "f3d6f091148a8b4529ec7c09cd80819f583aebc18583f2e8b1b2293b670f3aaa",
+    "./bounded-attack-trace.ts": "172645e8fcdb510c6cef01c965c1e8799cc59119e1e64dc5a294bd85a77791c9"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "scope": "각 current 봇의 첫 ally 제안만 즉시 실행 또는 이번 기회 대기. 대기 후 기본 정책 복귀.",
+  "features": {
+    "manaBoundary": 60,
+    "elapsedBoundaryMs": 360000
+  },
+  "training": {
+    "start": 88000,
+    "count": 32,
+    "waitProbability": 0.5
+  },
+  "development": {
+    "start": 89000,
+    "count": 8
+  },
+  "holdout": {
+    "start": 90000,
+    "count": 16
+  },
+  "fit": {
+    "prior": [
+      2,
+      2
+    ],
+    "minPerArm": 32,
+    "margin": 0.03
+  },
+  "gate": "개발 평균 점수차이>0, 미종료/초반공격실패 증가없음일 때 고정 후보로 holdout. 학습된 대기 셀이 없으면 후속 대전 생략.",
+  "promotion": "최종 점수차이 95% 시드 부트스트랩 하한>0 및 안전 게이트 필요. 자동 운영 반영 없음."
+}

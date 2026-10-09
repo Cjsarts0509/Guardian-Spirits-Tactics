@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import type { GameEvent, PlayerView, SpectatorView } from '@gst/rules';
 import type { RoomDetail, RoomSummary, ServerMessage } from '@gst/protocol';
 import { net, type NetStatus } from './net.js';
-import { Lobby, RoomPanel } from './Lobby.js';
+import { Lobby, RoomPanel, StagingScreen } from './Lobby.js';
 import { GameScreen, SpectatorScreen } from './Game.js';
 import { MainScreen, connectAs } from './Welcome.js';
 import { currentToken, loadConfig, savedSession } from './auth.js';
+import { Results } from './Replay.js';
 import { bgm, type TrackId } from './bgm.js';
 
 export interface Toast {
@@ -51,6 +52,7 @@ export function App() {
             break;
           case 'room':
             setRoom(m.room);
+            if (m.room?.status === 'lobby') { setView(null); setEvents([]); }
             if (!m.room) {
               setView(null);
               setEvents([]);
@@ -98,6 +100,10 @@ export function App() {
   let body;
   if (!me) {
     body = <MainScreen status={status} nick={nick} setNick={setNick} />;
+  } else if (view && room?.status === 'ended') {
+    body = <Results view={view} room={room} />;
+  } else if (room?.stage && ['assignment', 'briefing', 'battleCountdown'].includes(room.stage)) {
+    body = <StagingScreen room={room} myId={me.userId} view={view && !('spectator' in view) ? view : null} />;
   } else if (view && room && room.status !== 'lobby') {
     body = 'spectator' in view ? <SpectatorScreen view={view} events={events} room={room} /> : <GameScreen view={view} events={events} room={room} myId={me.userId} />;
   } else if (room) {
@@ -109,6 +115,7 @@ export function App() {
   return (
     <div className="app">
       {status !== 'open' && me && <div className="banner">서버 연결이 끊겼습니다. 재연결 중…</div>}
+      {room?.hosting === 'player' && room.status === 'playing' && <div className="banner">{room.hostPaused ? '방장 연결을 기다리고 있습니다. 게임은 잠시 멈춥니다.' : `방장: ${room.members.find(m => m.id === room.hostId)?.nickname ?? '연결 중'}`}</div>}
       {body}
       <div className="toasts">
         {toasts.map((t) => (

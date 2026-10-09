@@ -1,0 +1,266 @@
+{
+  "records": 246,
+  "sourceHashesMatch": {
+    "scripts/ally-context-diagnosis.ts": true,
+    "scripts/ally-context-model.ts": true,
+    "scripts/league-runner.ts": true,
+    "src/bot.ts": true,
+    "src/bot-memory.ts": true,
+    "src/bot-belief.ts": true
+  },
+  "summaryRecountMatches": true,
+  "uniqueActorsPerMatch": 246,
+  "inputs": {
+    "model.json": "d4038e4dc99339b066778efecc6dcbfd2bc0eca43a0ac7a18e9b67016179b969",
+    "holdout-matches.json.gz": "b965479b60a657130c5c1f86c49a34f0fc44fb2f510147072fcc0d2649958e03"
+  },
+  "identityContext": {
+    "enemyIdentity": 42,
+    "friendlyIdentity": 142,
+    "mixedIdentity": 2
+  },
+  "followupSkillsByIntervention": {
+    "ally": 98,
+    "scan": 37,
+    "dantes_command": 6,
+    "advanced_scan": 12,
+    "truth_gem": 113,
+    "oracle": 10,
+    "nightmare": 2,
+    "soul_reaver": 2,
+    "kai_loyal": 5,
+    "shadow_eye": 4,
+    "attack": 26,
+    "advanced_enemy_check": 2,
+    "ally_check": 52,
+    "dantes_successor": 2,
+    "kilder_casanova": 10,
+    "supreme_attack": 38,
+    "enemy_check": 5,
+    "eoril_flame_shackle": 1,
+    "advanced_ally_check": 12,
+    "rael_master_power": 2,
+    "nukelius_chakra_magic": 5,
+    "kilder_master_power": 3,
+    "sasint_support": 3,
+    "advanced_attack": 2,
+    "troll_scan": 12,
+    "support": 8,
+    "spirit_hex": 2,
+    "troll_ally_scan": 1,
+    "holy_binding": 2,
+    "troll_enemy_scan": 3,
+    "destroyer_guidance": 1
+  },
+  "flippedMatches": [
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 93007,
+        "count": 10,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "skill-aware-bluff",
+      "baseline": "current",
+      "candidate": "reference",
+      "interventions": [
+        {
+          "player": "p2",
+          "at": 190000,
+          "original": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p7"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "advanced_scan",
+            "target": "p10",
+            "name": "mertz"
+          },
+          "manaDelta": 10,
+          "changedTargets": [
+            "p10"
+          ],
+          "firstOriginalAlly": 233500
+        },
+        {
+          "player": "p8",
+          "at": 212750,
+          "original": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p2"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "ally_check",
+            "target": "p4"
+          },
+          "manaDelta": 5,
+          "changedTargets": [
+            "p10",
+            "p9",
+            "p5",
+            "p4",
+            "p3"
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 93004,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "baseline": "current",
+      "candidate": "reference",
+      "interventions": [
+        {
+          "player": "p2",
+          "at": 129500,
+          "original": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p12"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "ally_check",
+            "target": "p11"
+          },
+          "manaDelta": 5,
+          "changedTargets": [
+            "p11",
+            "p10",
+            "p9",
+            "p8",
+            "p5",
+            "p4",
+            "p3",
+            "p1"
+          ]
+        },
+        {
+          "player": "p11",
+          "at": 193000,
+          "original": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p7"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "ally_check",
+            "target": "p10"
+          },
+          "manaDelta": 5,
+          "changedTargets": [],
+          "firstOriginalAlly": 220500
+        }
+      ]
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 93009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "style": "bluff",
+      "baseline": "current",
+      "candidate": "reference",
+      "interventions": [
+        {
+          "player": "p7",
+          "at": 167750,
+          "original": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p11"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "ally_check",
+            "target": "p3"
+          },
+          "manaDelta": 5,
+          "changedTargets": [
+            "p10",
+            "p8",
+            "p6",
+            "p4",
+            "p3",
+            "p2",
+            "p1"
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 93001,
+        "count": 9,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "truthful",
+      "baseline": "reference",
+      "candidate": "current",
+      "interventions": [
+        {
+          "player": "p7",
+          "at": 55250,
+          "original": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p6"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "advanced_ally_check",
+            "target": "p8"
+          },
+          "manaDelta": 5,
+          "changedTargets": [
+            "p9",
+            "p8",
+            "p5",
+            "p4",
+            "p3",
+            "p2",
+            "p1"
+          ]
+        },
+        {
+          "player": "p1",
+          "at": 237750,
+          "original": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p7"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p3"
+          },
+          "manaDelta": 10,
+          "changedTargets": [
+            "p6",
+            "p4",
+            "p3",
+            "p2"
+          ]
+        }
+      ]
+    }
+  ]
+}

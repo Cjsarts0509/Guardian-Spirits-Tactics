@@ -1,0 +1,28 @@
+{
+  "format": 1,
+  "scope": "paired synthetic 400-position local audit; not VM latency",
+  "positions": 400,
+  "allSelectionsAndScoresEqual": true,
+  "evaluations": 1426,
+  "cacheHits": 26350,
+  "maxSimulations": 96,
+  "latencyMs": {
+    "prior": {
+      "samples": 400,
+      "median": 28.61935600000004,
+      "p95": 64.06948900000134,
+      "max": 93.1110779999999
+    },
+    "optimized": {
+      "samples": 400,
+      "median": 24.60008999999991,
+      "p95": 36.887055000000146,
+      "max": 60.12333899999999
+    }
+  },
+  "hashes": {
+    "baselineSource": "9c30d33db7562c99a8ef47afad0b9825ea7b33c357d625bb57fe69ef86c0f593",
+    "../src/bot-sequence.ts": "4281e5bbf35c06924e8412e2bdd7ab519d3233824487aa2d15e5b1e7b9b92292",
+    "./sequence-optimization-audit.ts": "b6df63bd6eaea16c10cb46d7f693c3d2c1f3a8acc572eb56d0363f87c610b19b"
+  }
+}

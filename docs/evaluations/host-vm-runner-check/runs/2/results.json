@@ -1,0 +1,490 @@
+{
+  "format": 1,
+  "order": "player-first",
+  "sourceCommit": "836a1a885c627705fc0bf56f60cf19dfe4e4f302",
+  "runtime": {
+    "node": "v24.19.0",
+    "arch": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "scope": "순차 server/player 각3조건. 매 조건 새 무작위 판으로 행동·부하가 같지 않음. AI 호스트는 별도 자식 프로세스여서 main CPU에 제외되지만 같은 머신의 CPU 경합은 포함. 실제 브라우저/원격 네트워크/수용량 보장 아님. 준비는 측정 밖. 통신/오류 계수는 시작·종료 IPC 응답으로 확인하며 경계는 IPC 응답 지연만큼 어긋날 수 있음. main RSS는 진단 드라이버 포함, clients RSS는 Worker 포함 자식 프로세스 RSS 합이며 공유 페이지를 중복 계산할 수 있음. RSS 최대는 250ms 표본 최대이며 순간 최대·장기 누수 판정 아님.",
+  "results": [
+    {
+      "name": "one-room-default",
+      "hosting": "player",
+      "requestedMs": 1500,
+      "measuredMs": 1499.6791110000001,
+      "rooms": 1,
+      "activity": 0.012,
+      "timeScale": 60,
+      "mainProcessCpuMs": 96.436,
+      "mainProcessCpuOneCorePercent": 6.430442305467305,
+      "managerTickMs": {
+        "samples": 6,
+        "median": 0.047070000000076107,
+        "p95": 0.06610900000009678,
+        "max": 0.06610900000009678
+      },
+      "hostCommitMs": {
+        "samples": 6,
+        "median": 1.5293520000000171,
+        "p95": 1.5506840000000466,
+        "max": 1.5506840000000466
+      },
+      "checkpointBytes": {
+        "samples": 6,
+        "median": 9397,
+        "p95": 14707,
+        "max": 14707
+      },
+      "activeBots": {
+        "samples": 6,
+        "median": 12,
+        "p95": 12,
+        "max": 12
+      },
+      "healthRttMs": {
+        "samples": 5,
+        "median": 3.050170999999864,
+        "p95": 14.244073000000071,
+        "max": 14.244073000000071
+      },
+      "eventLoopMs": {
+        "p95": 10.477567,
+        "max": 15.335423
+      },
+      "healthErrors": 0,
+      "hostErrors": 0,
+      "processErrors": 0,
+      "mainRssBytes": {
+        "samples": 6,
+        "median": 78385152,
+        "p95": 80089088,
+        "max": 80089088
+      },
+      "clientsRssBytes": {
+        "samples": 6,
+        "median": 63602688,
+        "p95": 67010560,
+        "max": 67010560
+      },
+      "traffic": [
+        {
+          "sentBytes": 72049,
+          "receivedBytes": 80931,
+          "frames": 6
+        }
+      ],
+      "completedRooms": 0
+    },
+    {
+      "name": "one-room-default",
+      "hosting": "server",
+      "requestedMs": 1500,
+      "measuredMs": 1501.0645519999998,
+      "rooms": 1,
+      "activity": 0.012,
+      "timeScale": 60,
+      "mainProcessCpuMs": 42.893,
+      "mainProcessCpuOneCorePercent": 2.8575053579707745,
+      "managerTickMs": {
+        "samples": 6,
+        "median": 2.6226870000000417,
+        "p95": 6.500934000000143,
+        "max": 6.500934000000143
+      },
+      "hostCommitMs": {
+        "samples": 0,
+        "median": null,
+        "p95": null,
+        "max": null
+      },
+      "checkpointBytes": {
+        "samples": 0,
+        "median": null,
+        "p95": null,
+        "max": null
+      },
+      "activeBots": {
+        "samples": 6,
+        "median": 12,
+        "p95": 12,
+        "max": 12
+      },
+      "healthRttMs": {
+        "samples": 5,
+        "median": 2.606322000000091,
+        "p95": 2.7754980000004252,
+        "max": 2.7754980000004252
+      },
+      "eventLoopMs": {
+        "p95": 10.354687,
+        "max": 10.862591
+      },
+      "healthErrors": 0,
+      "hostErrors": 0,
+      "processErrors": 0,
+      "mainRssBytes": {
+        "samples": 6,
+        "median": 84676608,
+        "p95": 85069824,
+        "max": 85069824
+      },
+      "clientsRssBytes": {
+        "samples": 6,
+        "median": 40632320,
+        "p95": 40763392,
+        "max": 40763392
+      },
+      "traffic": [
+        {
+          "sentBytes": 0,
+          "receivedBytes": 43585,
+          "frames": 0
+        }
+      ],
+      "completedRooms": 0
+    },
+    {
+      "name": "four-rooms-default",
+      "hosting": "player",
+      "requestedMs": 1500,
+      "measuredMs": 1499.7936929999996,
+      "rooms": 4,
+      "activity": 0.012,
+      "timeScale": 60,
+      "mainProcessCpuMs": 61.637,
+      "mainProcessCpuOneCorePercent": 4.109698573055676,
+      "managerTickMs": {
+        "samples": 6,
+        "median": 0.03534299999955692,
+        "p95": 0.07855799999924784,
+        "max": 0.07855799999924784
+      },
+      "hostCommitMs": {
+        "samples": 24,
+        "median": 0.6560479999998279,
+        "p95": 1.3795810000001438,
+        "max": 2.5968680000005406
+      },
+      "checkpointBytes": {
+        "samples": 24,
+        "median": 9675,
+        "p95": 15962,
+        "max": 16982
+      },
+      "activeBots": {
+        "samples": 6,
+        "median": 48,
+        "p95": 48,
+        "max": 48
+      },
+      "healthRttMs": {
+        "samples": 5,
+        "median": 2.079009000000042,
+        "p95": 2.2363159999995332,
+        "max": 2.2363159999995332
+      },
+      "eventLoopMs": {
+        "p95": 10.493951,
+        "max": 11.083775
+      },
+      "healthErrors": 0,
+      "hostErrors": 0,
+      "processErrors": 0,
+      "mainRssBytes": {
+        "samples": 6,
+        "median": 89133056,
+        "p95": 89788416,
+        "max": 89788416
+      },
+      "clientsRssBytes": {
+        "samples": 6,
+        "median": 264298496,
+        "p95": 274128896,
+        "max": 274128896
+      },
+      "traffic": [
+        {
+          "sentBytes": 72104,
+          "receivedBytes": 80965,
+          "frames": 6
+        },
+        {
+          "sentBytes": 76110,
+          "receivedBytes": 84227,
+          "frames": 6
+        },
+        {
+          "sentBytes": 76219,
+          "receivedBytes": 83650,
+          "frames": 6
+        },
+        {
+          "sentBytes": 79317,
+          "receivedBytes": 83309,
+          "frames": 6
+        }
+      ],
+      "completedRooms": 0
+    },
+    {
+      "name": "four-rooms-default",
+      "hosting": "server",
+      "requestedMs": 1500,
+      "measuredMs": 1499.4171859999997,
+      "rooms": 4,
+      "activity": 0.012,
+      "timeScale": 60,
+      "mainProcessCpuMs": 24.949,
+      "mainProcessCpuOneCorePercent": 1.6639131679260348,
+      "managerTickMs": {
+        "samples": 6,
+        "median": 1.064382000000478,
+        "p95": 1.7916569999997591,
+        "max": 1.7916569999997591
+      },
+      "hostCommitMs": {
+        "samples": 0,
+        "median": null,
+        "p95": null,
+        "max": null
+      },
+      "checkpointBytes": {
+        "samples": 0,
+        "median": null,
+        "p95": null,
+        "max": null
+      },
+      "activeBots": {
+        "samples": 6,
+        "median": 48,
+        "p95": 48,
+        "max": 48
+      },
+      "healthRttMs": {
+        "samples": 5,
+        "median": 2.1884740000004967,
+        "p95": 2.490589,
+        "max": 2.490589
+      },
+      "eventLoopMs": {
+        "p95": 10.362879,
+        "max": 10.821631
+      },
+      "healthErrors": 0,
+      "hostErrors": 0,
+      "processErrors": 0,
+      "mainRssBytes": {
+        "samples": 6,
+        "median": 90050560,
+        "p95": 90181632,
+        "max": 90181632
+      },
+      "clientsRssBytes": {
+        "samples": 6,
+        "median": 163577856,
+        "p95": 163577856,
+        "max": 163577856
+      },
+      "traffic": [
+        {
+          "sentBytes": 0,
+          "receivedBytes": 18319,
+          "frames": 0
+        },
+        {
+          "sentBytes": 0,
+          "receivedBytes": 18255,
+          "frames": 0
+        },
+        {
+          "sentBytes": 0,
+          "receivedBytes": 31707,
+          "frames": 0
+        },
+        {
+          "sentBytes": 0,
+          "receivedBytes": 43319,
+          "frames": 0
+        }
+      ],
+      "completedRooms": 0
+    },
+    {
+      "name": "four-rooms-high-activity",
+      "hosting": "player",
+      "requestedMs": 1500,
+      "measuredMs": 1500.513081,
+      "rooms": 4,
+      "activity": 1,
+      "timeScale": 60,
+      "mainProcessCpuMs": 112.5,
+      "mainProcessCpuOneCorePercent": 7.497435472206989,
+      "managerTickMs": {
+        "samples": 6,
+        "median": 0.03151799999977811,
+        "p95": 0.05593399999997928,
+        "max": 0.05593399999997928
+      },
+      "hostCommitMs": {
+        "samples": 24,
+        "median": 1.670404000000417,
+        "p95": 4.502596000000267,
+        "max": 4.8675659999989875
+      },
+      "checkpointBytes": {
+        "samples": 24,
+        "median": 97971,
+        "p95": 162127,
+        "max": 172602
+      },
+      "activeBots": {
+        "samples": 6,
+        "median": 45,
+        "p95": 48,
+        "max": 48
+      },
+      "healthRttMs": {
+        "samples": 5,
+        "median": 2.034842999999455,
+        "p95": 2.1539209999991726,
+        "max": 2.1539209999991726
+      },
+      "eventLoopMs": {
+        "p95": 10.911743,
+        "max": 14.180351
+      },
+      "healthErrors": 0,
+      "hostErrors": 0,
+      "processErrors": 0,
+      "mainRssBytes": {
+        "samples": 6,
+        "median": 95952896,
+        "p95": 100278272,
+        "max": 100278272
+      },
+      "clientsRssBytes": {
+        "samples": 6,
+        "median": 334565376,
+        "p95": 348610560,
+        "max": 348610560
+      },
+      "traffic": [
+        {
+          "sentBytes": 832824,
+          "receivedBytes": 96455,
+          "frames": 6
+        },
+        {
+          "sentBytes": 813671,
+          "receivedBytes": 96240,
+          "frames": 6
+        },
+        {
+          "sentBytes": 638816,
+          "receivedBytes": 91672,
+          "frames": 6
+        },
+        {
+          "sentBytes": 768095,
+          "receivedBytes": 91930,
+          "frames": 6
+        }
+      ],
+      "completedRooms": 0
+    },
+    {
+      "name": "four-rooms-high-activity",
+      "hosting": "server",
+      "requestedMs": 1500,
+      "measuredMs": 1500.1061829999999,
+      "rooms": 4,
+      "activity": 1,
+      "timeScale": 60,
+      "mainProcessCpuMs": 409.077,
+      "mainProcessCpuOneCorePercent": 27.269869602290683,
+      "managerTickMs": {
+        "samples": 6,
+        "median": 20.570169999999052,
+        "p95": 64.21509800000058,
+        "max": 64.21509800000058
+      },
+      "hostCommitMs": {
+        "samples": 0,
+        "median": null,
+        "p95": null,
+        "max": null
+      },
+      "checkpointBytes": {
+        "samples": 0,
+        "median": null,
+        "p95": null,
+        "max": null
+      },
+      "activeBots": {
+        "samples": 6,
+        "median": 43,
+        "p95": 48,
+        "max": 48
+      },
+      "healthRttMs": {
+        "samples": 5,
+        "median": 2.091128000000026,
+        "p95": 2.4260509999985516,
+        "max": 2.4260509999985516
+      },
+      "eventLoopMs": {
+        "p95": 10.772479,
+        "max": 74.579967
+      },
+      "healthErrors": 0,
+      "hostErrors": 0,
+      "processErrors": 0,
+      "mainRssBytes": {
+        "samples": 6,
+        "median": 124624896,
+        "p95": 124755968,
+        "max": 124755968
+      },
+      "clientsRssBytes": {
+        "samples": 6,
+        "median": 164888576,
+        "p95": 165150720,
+        "max": 165150720
+      },
+      "traffic": [
+        {
+          "sentBytes": 0,
+          "receivedBytes": 90976,
+          "frames": 0
+        },
+        {
+          "sentBytes": 0,
+          "receivedBytes": 96207,
+          "frames": 0
+        },
+        {
+          "sentBytes": 0,
+          "receivedBytes": 95488,
+          "frames": 0
+        },
+        {
+          "sentBytes": 0,
+          "receivedBytes": 90954,
+          "frames": 0
+        }
+      ],
+      "completedRooms": 0
+    }
+  ],
+  "hashes": {
+    "apps/server/src/rooms.ts": "75fd73dcecca73ca2b4870f31878e9fb744035c0ba483099f62768d6634b3329",
+    "apps/server/src/server.ts": "64fd0975dfba98bbf144aa55967639ac1889a233fedbc1e187bce607f51d6e0a",
+    "apps/server/src/host-state.ts": "9179835f44dafb40b45e5116ecedd0463938cc07eae56994e7485e9f4bee4682",
+    "packages/rules/src/host-runtime.ts": "8c5e45d2e9c3e5baf5b4477093d3b18fef828f32efbd7ef8e1d6a614ec6cb338",
+    "apps/client/src/host.worker.ts": "48dca18b5005c46b2185f20b457f4a77e98afbc0d615b5e11a80982cfadcc10a",
+    "apps/server/scripts/host-load-audit.ts": "34aab268a6d96f714262c5e0eab7be22f9674f1115029fe3752b0cf81a6f9cca",
+    "apps/server/scripts/host-load-client.ts": "2db30a112ffb51a677f178c0db43f6926520f55ff3b54749a661f0aeab71aa89"
+  }
+}

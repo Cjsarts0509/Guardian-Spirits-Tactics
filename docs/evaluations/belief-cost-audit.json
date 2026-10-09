@@ -1,0 +1,120 @@
+{
+  "format": 1,
+  "baselineLocalCommit": "73a7e26",
+  "baselineRemoteCommit": "2c48c2552da872a0804a99ac28d453d5fa02f7f2",
+  "runtime": "v24.19.0",
+  "positions": 1000,
+  "rounds": 3,
+  "beliefChecks": 3000,
+  "samplingChecks": 1000,
+  "policyChecks": 400,
+  "scope": "같은 합성 위치의 차가운 배정 확률 계산, 3회 순서 교차. 후보 제한은 평가용 합성 관찰. VM/전체 틱 비용/승률 자료 아님.",
+  "groups": {
+    "broad-unpublished": {
+      "old": {
+        "samples": 600,
+        "median": 0.13550099999997656,
+        "p95": 0.6062559999999166,
+        "max": 2.5673260000000937
+      },
+      "current": {
+        "samples": 600,
+        "median": 0.06562899999994443,
+        "p95": 0.3093149999999696,
+        "max": 3.0045579999999745
+      }
+    },
+    "broad-published": {
+      "old": {
+        "samples": 600,
+        "median": 0.14226000000007843,
+        "p95": 0.6153269999999793,
+        "max": 3.5799710000000005
+      },
+      "current": {
+        "samples": 600,
+        "median": 0.06479600000000119,
+        "p95": 0.2938599999999951,
+        "max": 2.396476000000007
+      }
+    },
+    "half-confirmed": {
+      "old": {
+        "samples": 600,
+        "median": 0.089095000000043,
+        "p95": 0.28131599999994705,
+        "max": 2.7331049999999095
+      },
+      "current": {
+        "samples": 600,
+        "median": 0.03738100000009581,
+        "p95": 0.1288680000000113,
+        "max": 1.4381359999999859
+      }
+    },
+    "all-confirmed": {
+      "old": {
+        "samples": 600,
+        "median": 0.08998799999994844,
+        "p95": 0.30904499999996915,
+        "max": 1.6793339999999262
+      },
+      "current": {
+        "samples": 600,
+        "median": 0.02984100000003309,
+        "p95": 0.09471900000005462,
+        "max": 0.3318370000000641
+      }
+    },
+    "contradictory": {
+      "old": {
+        "samples": 600,
+        "median": 0.06178599999998369,
+        "p95": 0.26281199999993987,
+        "max": 1.2160049999999956
+      },
+      "current": {
+        "samples": 600,
+        "median": 0.026924000000008164,
+        "p95": 0.1224650000000338,
+        "max": 1.9468120000000226
+      }
+    }
+  },
+  "baselineHashes": {
+    "bot-belief.ts": "a7d9c12c1c0ede88ef9be92d72ce9ce1ef3b0a46bdcfd6bf6cef8fd6ef912dd3",
+    "bot-claim-policy.ts": "419d58ac4b182adde8df1532145f984e9712978b41e9a85696095931d7d1db62",
+    "bot-claims.ts": "8b4a70a2b81c531c42b4b55dc97f657e817cfb714c9ad2a544983ffefc60dd04",
+    "bot-confirmation-combat.ts": "877c29851874365fca469a482714f6d3e7db1fddd7f819a17e1bc24cd164c7e1",
+    "bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "bot-followup.ts": "624c444dc161c31efabd937ff5f8888dd086997ba4fdfd9137bbedf7a4057c25",
+    "bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "bot-information.ts": "ff68dfded8ab02a184050a4402945719de4284b2b8dfb543ce04010b77414724",
+    "bot-memory.ts": "5590699536295c96bf57f1758072d76a2d65a127b89c435174cffc445007b424",
+    "bot-response.ts": "0a7d792d2f3b2262f22155466014d5a0bc309ee1ddba93aa98158b0107a7b521",
+    "bot-rollout.ts": "804d45192914975407e36dd0c5df63ca2f246dd2453087db5f2f6106e391d3df",
+    "bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+    "bot-tactics.ts": "ea8d2f8122efb603155b5aab75851b41abcbf0555b42eac9e4678115f9af3d87",
+    "bot.ts": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96"
+  },
+  "hashes": {
+    "../src/bot-belief.ts": "d722c2a4ae5d6da8eee039912cdc76c426b36d4d2d64ca1d2b2a4ab66ab3157c",
+    "../src/bot-claim-policy.ts": "419d58ac4b182adde8df1532145f984e9712978b41e9a85696095931d7d1db62",
+    "../src/bot-claims.ts": "8b4a70a2b81c531c42b4b55dc97f657e817cfb714c9ad2a544983ffefc60dd04",
+    "../src/bot-confirmation-combat.ts": "877c29851874365fca469a482714f6d3e7db1fddd7f819a17e1bc24cd164c7e1",
+    "../src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "../src/bot-followup.ts": "624c444dc161c31efabd937ff5f8888dd086997ba4fdfd9137bbedf7a4057c25",
+    "../src/bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "../src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "../src/bot-information.ts": "ff68dfded8ab02a184050a4402945719de4284b2b8dfb543ce04010b77414724",
+    "../src/bot-memory.ts": "5590699536295c96bf57f1758072d76a2d65a127b89c435174cffc445007b424",
+    "../src/bot-response.ts": "0a7d792d2f3b2262f22155466014d5a0bc309ee1ddba93aa98158b0107a7b521",
+    "../src/bot-rollout.ts": "804d45192914975407e36dd0c5df63ca2f246dd2453087db5f2f6106e391d3df",
+    "../src/bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+    "../src/bot-tactics.ts": "ea8d2f8122efb603155b5aab75851b41abcbf0555b42eac9e4678115f9af3d87",
+    "../src/bot.ts": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96",
+    "belief-cost-audit.ts": "b7c9f51a15935cc53a0b71a0cdca0f3397e133b1e73fcbb9383429c07df04d3b",
+    "league-runner.ts": "f06567dbb2fbdff690cdbe99bf8b7bd953c6ba7b6fb57ef276e6e185eb9bc4d8"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "pairs": 1536,
+  "games": 3072,
+  "intervened": 1524,
+  "preInterventionHashMatches": 1524,
+  "unchangedWithoutIntervention": 12,
+  "baseline": {
+    "wins": 1082,
+    "unfinished": 0,
+    "rejected": 224,
+    "earlyFailures": 0,
+    "interventionAccepted": 1524,
+    "interventionMana": 27075,
+    "actorSurvived": 902,
+    "originalTargetEventually": 1524
+  },
+  "candidate": {
+    "wins": 1086,
+    "unfinished": 0,
+    "rejected": 206,
+    "earlyFailures": 0,
+    "interventionAccepted": 1524,
+    "interventionMana": 27075,
+    "actorSurvived": 924,
+    "originalTargetEventually": 1081
+  },
+  "delta": 0.0026041666666666665,
+  "seedDifferences": [
+    0,
+    -0.041666666666666664,
+    0.020833333333333332,
+    -0.041666666666666664,
+    -0.020833333333333332,
+    0,
+    0.041666666666666664,
+    0,
+    0,
+    0.0625,
+    0.020833333333333332,
+    -0.020833333333333332,
+    -0.020833333333333332,
+    -0.020833333333333332,
+    0,
+    0,
+    0,
+    0.041666666666666664,
+    0,
+    0,
+    0,
+    -0.020833333333333332,
+    0,
+    0,
+    0.020833333333333332,
+    0.020833333333333332,
+    0.020833333333333332,
+    -0.041666666666666664,
+    0.020833333333333332,
+    0.020833333333333332,
+    0,
+    0.020833333333333332
+  ],
+  "seedBootstrap95": [
+    -0.005859374999999889,
+    0.010416666666666519
+  ],
+  "allOutcomes": {
+    "same": 1494,
+    "improved": 23,
+    "worsened": 19
+  },
+  "intervenedOutcomes": {
+    "same": 1482,
+    "improved": 23,
+    "worsened": 19
+  },
+  "nextActionDifferent": 941,
+  "originalTargetDelay": {
+    "observed": 1081,
+    "medianMs": 62000,
+    "p90Ms": 147000
+  },
+  "hashes": {
+    "scripts/information-target-replication.ts": "e98cd309005865b391ad1b29dff0cd852f3e0c821bdb31fef3d2ecfd3d571625",
+    "scripts/information-target-model.ts": "2f5b5533ef190b00550c057ddaae31bf474be3eb80de225513e4004b4834043f",
+    "scripts/league-runner.ts": "a44566a360a1ddfa9d66d8fc7085021973905d286e8ac88a06007649696f7585",
+    "scripts/claim-opponents.ts": "56b70de28ec2c24d9165f909b6065e99a24bbbd6d334ebd6f4cd1a8d3cd395ef",
+    "src/bot.ts": "a317ffcde3e1a41b923f69ccbdd99a3467d26d4eeb2c44126545cf4e2414077c"
+  }
+}

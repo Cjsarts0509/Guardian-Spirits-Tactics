@@ -1,0 +1,70 @@
+{
+  "format": 1,
+  "total": 800,
+  "scope": "paired full-policy synthetic local timings, alternating execution order; not VM/live latency distribution",
+  "groups": {
+    "identities-private/turn-in-50s": {
+      "positions": 200,
+      "changed": 89,
+      "prior": {
+        "median": 19.77294500000005,
+        "p95": 33.87256800000068,
+        "max": 55.5457320000005
+      },
+      "current": {
+        "median": 0.4162269999997079,
+        "p95": 40.75995400000011,
+        "max": 64.11853400000018
+      }
+    },
+    "identities-public/turn-in-50s": {
+      "positions": 200,
+      "changed": 5,
+      "prior": {
+        "median": 0.20606100000077276,
+        "p95": 7.896147000000383,
+        "max": 19.989309999999932
+      },
+      "current": {
+        "median": 0.18186400000013236,
+        "p95": 0.45225200000004406,
+        "max": 15.07895899999994
+      }
+    },
+    "identities-private/turn-in-10s": {
+      "positions": 200,
+      "changed": 91,
+      "prior": {
+        "median": 29.092853999999534,
+        "p95": 49.39931299999989,
+        "max": 65.12587200000053
+      },
+      "current": {
+        "median": 0.39156099999991056,
+        "p95": 61.03036499999962,
+        "max": 89.30664699999943
+      }
+    },
+    "identities-public/turn-in-10s": {
+      "positions": 200,
+      "changed": 5,
+      "prior": {
+        "median": 0.21792900000036752,
+        "p95": 8.048350999999457,
+        "max": 26.142275000000154
+      },
+      "current": {
+        "median": 0.180562000000009,
+        "p95": 0.349236000000019,
+        "max": 14.790103999999701
+      }
+    }
+  },
+  "hashes": {
+    "frozenBaselineBot": "5fe1d2f02715d37848eb40126d66ff3963906b6b32518f5a700a2af19cb600eb",
+    "../src/bot.ts": "dd02506f270a25990372316b8c5ccadd2ac4fcea7761e79709009f09f26b5c96",
+    "../src/bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+    "../src/bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "./sequence-priority-cost.ts": "248f0f2cfd894b0ff7f4d2b5bfd4b81e5cfa3668f40b4d1caa4ee44bc7842a8c"
+  }
+}

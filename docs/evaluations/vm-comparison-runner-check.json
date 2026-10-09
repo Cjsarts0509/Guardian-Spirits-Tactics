@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "scope": "Node24 x64 local functional smoke only; 1500ms per scenario, not VM performance evidence; existing prepared local checkouts, no GitHub/npm download verification",
+  "refs": {
+    "baseline": "73a7e26e6c979582f0b529953d3877a166c1224a",
+    "current": "0024f9124f616bba9591fce5550895e1ebdcca01"
+  },
+  "runtime": {
+    "node": "v24.19.0",
+    "arch": "x64",
+    "platform": "linux",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "logicalCpus": 9
+  },
+  "pairs": 3,
+  "runs": 6,
+  "order": [
+    [
+      "baseline",
+      "current"
+    ],
+    [
+      "current",
+      "baseline"
+    ],
+    [
+      "baseline",
+      "current"
+    ]
+  ],
+  "durationMs": 1500,
+  "allCases": [
+    "one-room-default",
+    "four-rooms-default",
+    "four-rooms-high-activity"
+  ],
+  "hashesVerified": true,
+  "archiveLayoutVerified": true,
+  "summaryMathVerified": true,
+  "invalidInputs": [
+    {
+      "case": "commit-mismatch",
+      "rejected": true
+    },
+    {
+      "case": "dirty-source",
+      "rejected": true
+    },
+    {
+      "case": "results-hash-mismatch",
+      "rejected": true
+    },
+    {
+      "case": "runtime-mismatch",
+      "rejected": true
+    },
+    {
+      "case": "summary-metric-mismatch",
+      "rejected": true
+    }
+  ],
+  "runnerSha256": "00e0b117b40535cab4c5ebb90b1d1f6a054b8bbc30e9921d8b35ef4c3a5f3556"
+}

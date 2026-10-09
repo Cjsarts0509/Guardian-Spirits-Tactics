@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ChatChannel, GameEvent, PlayerView, SkillView, SpectatorView } from '@gst/rules';
 import type { ClientAction, RoomDetail } from '@gst/protocol';
 import { net } from './net.js';
+import { CharacterCard } from './art.js';
+import { CombatCinema } from './CombatCinema.js';
 import { Feed } from './Feed.js';
 import { RoleReveal } from './RoleReveal.js';
 import { SmallLogo } from './Logo.js';
@@ -29,7 +31,9 @@ const fmt = (ms: number) => {
 
 let refSeq = 0;
 function act(action: ClientAction) {
-  net.send({ type: 'game.action', action, ref: ++refSeq });
+  const ref = ++refSeq;
+  net.send({ type: 'game.action', action, ref });
+  return ref;
 }
 
 export function SpectatorScreen({ view, events, room }: { view: SpectatorView; events: GameEvent[]; room: RoomDetail }) {
@@ -40,7 +44,7 @@ export function SpectatorScreen({ view, events, room }: { view: SpectatorView; e
     lastView.current = view;
     receivedAt.current = Date.now();
   }
-  const sinceView = Math.max(0, now - receivedAt.current);
+  const sinceView = room.hostPaused ? 0 : Math.max(0, now - receivedAt.current);
   const box = useRef<HTMLDivElement>(null);
   useEffect(() => {
     box.current?.scrollTo({ top: box.current.scrollHeight });
@@ -50,7 +54,7 @@ export function SpectatorScreen({ view, events, room }: { view: SpectatorView; e
     return p ? `[${p.seat}]` : id;
   };
   return (
-    <div className="game">
+    <div className={`game game-board mode-${view.mode}`}>
       <header className="topbar">
         <div>
           <b>{view.modeName}</b> <span className="muted">· {room.name} · 관전 (AI 전용)</span>
@@ -144,15 +148,27 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
     lastView.current = view;
     receivedAt.current = Date.now();
   }
-  const sinceView = Math.max(0, now - receivedAt.current);
+  const sinceView = room.hostPaused ? 0 : Math.max(0, now - receivedAt.current);
 
   const [target, setTarget] = useState<string | null>(null);
   const [picking, setPicking] = useState<SkillView | null>(null);
   const roster = view.roster;
-  const lastAction = useRef<{ skill: string; target?: string; at: number } | null>(null);
+  const pendingSkills = useRef(new Map<number, { skill: string; target?: string }>());
+  const [cast, setCast] = useState<GameEvent | null>(null);
+  useEffect(() => net.on(message => {
+    if (message.type !== 'action.result' || message.ref === undefined) return;
+    const pending = pendingSkills.current.get(message.ref);
+    if (!pending) return;
+    pendingSkills.current.delete(message.ref);
+    if (!message.ok) return;
+    const skill = view.me.skills.find(s => s.key === pending.skill);
+    setCast({ seq: -message.ref, at: view.elapsedMs, kind: 'skill.cast', vis: { to: 'players', ids: [myId] },
+      text: `${skill?.name ?? pending.skill} 사용`, data: { actor: myId, target: pending.target ?? myId, skill: pending.skill } });
+  }), [view.me.skills, view.elapsedMs, myId]);
   const sendSkill = (skill: string, t?: string, name?: string) => {
-    lastAction.current = { skill, ...(t ? { target: t } : {}), at: Date.now() };
-    act({ type: 'skill', skill, ...(t ? { target: t } : {}), ...(name ? { name } : {}) });
+    const ref = act({ type: 'skill', skill, ...(t ? { target: t } : {}), ...(name ? { name } : {}) });
+    pendingSkills.current.set(ref, { skill, target: t });
+    if (pendingSkills.current.size > 50) pendingSkills.current.delete(pendingSkills.current.keys().next().value!);
   };
   const nameOf = (k: string | null) => (k ? (roster.find((r) => r.key === k)?.name ?? k) : '—');
   const sideOf = (k: string | null) => (k ? roster.find((r) => r.key === k)?.side : undefined);
@@ -191,7 +207,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
     } catch {
       /* ignore */
     }
-    return view.phase === 'running' && view.elapsedMs < 60_000;
+    return !room.stage && view.phase === 'running' && view.elapsedMs < 60_000;
   });
   const closeReveal = useCallback(() => setReveal(false), []);
   const [leaving, setLeaving] = useState(false);
@@ -251,7 +267,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
   }, [me.skills, hotkeyOf, picking]);
 
   return (
-    <div className="game">
+    <div className={`game game-board mode-${view.mode}`}>
       <header className="topbar">
         <div className="topbar-left">
           <SmallLogo />
@@ -277,7 +293,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
       <div className="layout">
         <aside className="me card">
           <div className="me-head">
-            <Face character={me.character} size="lg" dead={!me.alive} />
+            <CharacterCard character={me.character} name={me.characterName} title={me.title} dead={!me.alive} />
             <div className="me-title">
               <div className={`side s${me.side}`}>{view.sideNames[me.side]}</div>
               <div className="muted title">{me.title}</div>
@@ -329,7 +345,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
 
         <main>
           <section className="players-wrap">
-          <FxLayer fx={fx} />
+          <CombatCinema events={events} view={view} known={knowledge} cast={cast} />
           <section className="players" style={{ gridTemplateColumns: `repeat(${Math.ceil(view.players.length / 2)}, minmax(0, 1fr))` }}>
             {view.players.map((p) => {
               const k = knowledge.get(p.id);
@@ -344,6 +360,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                   role="button"
                   tabIndex={0}
                   className={`pcard ${!p.alive ? 'dead' : ''} ${target === p.id ? 'selected' : ''} ${isMe ? 'mine' : ''} ${glow ? `hit hit-${glow.color} ${hit?.big ? 'big' : ''}` : ''}`}
+                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!isMe) setTarget(target === p.id ? null : p.id); } }}
                   onClick={() => !isMe && setTarget(target === p.id ? null : p.id)}
                 >
                   {hit?.label && <span className={`fx-label c-${hit.color}`} key={hit.id}>{hit.label}</span>}
@@ -357,7 +374,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                       ))}
                     </span>
                   )}
-                  <Face character={p.revealed ?? k?.character ?? null} size="sm" dead={!p.alive} />
+                  <CharacterCard character={isMe ? me.character : p.revealed ?? k?.character ?? null} name={isMe ? me.characterName : (p.revealed || k?.character) ? nameOf(p.revealed ?? k?.character ?? null) : undefined} title={roster.find(r => r.key === (isMe ? me.character : p.revealed ?? k?.character))?.title} dead={!p.alive} />
                   <div className="pc-body">
                   <div className="pc-top">
                     <span className="seat">[{p.seat}]</span> {p.nickname} {isMe && <span className="tag">나</span>}
@@ -488,36 +505,6 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
             setPicking(null);
           }}
         />
-      )}
-    </div>
-  );
-}
-
-/** 중앙 배너 (공격·사망·게임 종료 같은 전체 공지) */
-function FxLayer({ fx }: { fx: Fx[] }) {
-  const banners = fx.filter((f): f is Extract<Fx, { type: 'banner' }> => f.type === 'banner');
-  const small = banners.filter((b) => !b.big);
-  const big = banners.filter((b) => b.big);
-  return (
-    <div className="fx-layer">
-      {small.map((b, i) => (
-        <div key={b.id} className={`fx-banner c-${b.color}`} style={{ top: `${12 + i * 56}px` }}>
-          {b.left && <img src={b.left} alt="" />}
-          <span>{b.text}</span>
-          {b.right && <img src={b.right} alt="" />}
-        </div>
-      ))}
-      {/* 사망·살해·게임 종료: 가운데에 크게 */}
-      {big.length > 0 && (
-        <div className="fx-big-wrap">
-          {big.map((b) => (
-            <div key={b.id} className={`fx-banner big c-${b.color}`}>
-              {b.left && <img src={b.left} alt="" />}
-              <span>{b.text}</span>
-              {b.right && <img src={b.right} alt="" />}
-            </div>
-          ))}
-        </div>
       )}
     </div>
   );

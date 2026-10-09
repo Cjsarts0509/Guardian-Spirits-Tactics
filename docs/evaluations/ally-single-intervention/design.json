@@ -1,0 +1,24 @@
+{
+  "start": 94000,
+  "seeds": 16,
+  "modes": [
+    "civil_war",
+    "primordial",
+    "lidellut",
+    "troll"
+  ],
+  "styles": [
+    "truthful",
+    "bluff",
+    "skill-aware-bluff"
+  ],
+  "scope": "한 판의 current 진영 전체에서 고정 모델이 information을 고를 첫 장면 하나만 변경. 개별 봇의 첫 ally 제안만 자격 있음. 이후 전원 기본 정책.",
+  "arms": [
+    "original ally",
+    "information"
+  ],
+  "primary": "모든 고정 fixture의 최종 진영 점수차이, 시드블록95% bootstrap",
+  "secondary": "개입 장면만의 대응결과·즉시 마나·동맹 지연·다음 행동 차이·배우 생존",
+  "limit": "새 정책 학습/배포 실험이 아닌 단일 선택의 결정론적 대응 진단. RNG를 소비하는 행동 변경의 후속 난수 소비 차이도 총효과에 포함.",
+  "modelSha256": "d4038e4dc99339b066778efecc6dcbfd2bc0eca43a0ac7a18e9b67016179b969"
+}
