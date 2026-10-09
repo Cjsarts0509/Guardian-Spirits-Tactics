@@ -10,6 +10,7 @@ mkdirSync(output, { recursive: true });
   const browser = await chromium.launch({ headless: true });
   const errors = [];
   const checks = [];
+  let activePage;
   async function shot(page, name) {
     await page.evaluate(() => document.fonts.ready);
     await page.waitForFunction(() => [...document.images].every(i => i.complete));
@@ -23,6 +24,7 @@ mkdirSync(output, { recursive: true });
       const index = checks.filter(n => n.endsWith('-battle')).length;
       const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
       const page = await context.newPage();
+      activePage = page;
       page.on('pageerror', e => errors.push(String(e)));
       await page.goto(base);
       await page.getByRole('button', { name: '게스트로 입장', exact: true }).waitFor();
@@ -74,6 +76,12 @@ mkdirSync(output, { recursive: true });
       await context.close();
     }
     assert.deepEqual(errors, [], 'Browser runtime errors');
+  } catch (error) {
+    if (activePage && !activePage.isClosed()) {
+      await activePage.screenshot({ path: `${output}/failure.png`, fullPage: true });
+      writeFileSync(`${output}/failure.html`, await activePage.content());
+    }
+    throw error;
   } finally {
     writeFileSync(`${output}/checks.json`, JSON.stringify({ checks, errors }, null, 2));
     await browser.close();
