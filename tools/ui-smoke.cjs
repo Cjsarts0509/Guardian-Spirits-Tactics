@@ -1,6 +1,6 @@
 // Run against an isolated local server, never the production game.
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
-const { mkdirSync, writeFileSync } = require('node:fs');
+const { mkdirSync, writeFileSync, readdirSync } = require('node:fs');
 const assert = require('node:assert/strict');
 const output = process.env.UI_ARTIFACT_DIR || 'ui-artifacts';
 const base = 'http://127.0.0.1:8799';
@@ -28,7 +28,21 @@ mkdirSync(output, { recursive: true });
       page.on('pageerror', e => errors.push(String(e)));
       await page.goto(base);
       await page.getByRole('button', { name: '게스트로 입장', exact: true }).waitFor();
-      if (!index) await shot(page, 'login');
+      if (!index) {
+        // Decode all shipped UI images, including rarely used skills and result banners.
+        const assets = readdirSync('apps/client/public/ui', { recursive: true }).filter(p => /\.(png|webp)$/.test(p));
+        for (let i = 0; i < assets.length; i += 8) {
+          const bad = await page.evaluate(async paths => {
+            const results = await Promise.all(paths.map(async path => {
+              const image = new Image(); image.src = '/ui/' + path;
+              try { await image.decode(); return null; } catch { return path; }
+            }));
+            return results.filter(Boolean);
+          }, assets.slice(i, i + 8));
+          assert.deepEqual(bad, [], 'All UI assets must decode in Chromium');
+        }
+        await shot(page, 'login');
+      }
       await page.getByPlaceholder('닉네임', { exact: true }).fill(`UI검증${index}`);
       await page.getByRole('button', { name: '게스트로 입장', exact: true }).click();
       await page.getByRole('heading', { name: '대기실', exact: true }).waitFor();

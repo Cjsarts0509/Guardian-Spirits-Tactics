@@ -1,7 +1,7 @@
 # HANDOFF — 가디언 스피리츠 택틱스 웹 리메이크 (세션 인계 문서)
 
 새 세션은 이 파일 → `CLAUDE.md` → `docs/spec/DECISIONS.md` 순서로 읽으면 바로 이어서 작업할 수 있다.
-최종 갱신: 2026-10-08 · 기준 커밋: 이 파일을 추가한 커밋 (`git log -1 -- HANDOFF.md`)
+최종 갱신: 2026-10-09 · 기준 커밋: 이 파일을 추가한 커밋 (`git log -1 -- HANDOFF.md`)
 
 ---
 
@@ -18,7 +18,7 @@
 | 저장소 | https://github.com/Cjsarts0509/Guardian-Spirits-Tactics (public) |
 | 운영 주소 | http://168.110.104.214:8787 (오라클 ARM 서버 `bookpulse-arm-2`, 도메인 없음) |
 | 운영자 | 4rumarts (4rumarts@gmail.com) — 원작 4rum 제작진 |
-| Supabase | 프로젝트 `mnejsqmtgwosbjpnfgho` (사용자의 별도 계정 — MCP 로는 접근 불가, SQL 은 사용자가 대시보드에서 실행) |
+| Supabase | 프로젝트 `mnejsqmtgwosbjpnfgho` (2026-10-09 MCP 접근 확인, 운영 스키마/집계/롤백 저장 검증 완료) |
 | 건드리면 안 되는 것 | Supabase `owakkzcksskilgzamvnq` (사용자의 다른 운영 서비스 벼리/WBS) |
 
 ---
