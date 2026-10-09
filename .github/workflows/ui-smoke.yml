@@ -1,0 +1,55 @@
+name: Card UI browser check
+
+on:
+  pull_request:
+    paths:
+      - 'apps/**'
+      - 'packages/protocol/**'
+      - 'tools/ui-smoke.cjs'
+      - '.github/workflows/ui-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @gst/server build
+      - run: pnpm --filter @gst/client build
+      - name: Install isolated browser test dependency
+        run: |
+          npm install --prefix "$RUNNER_TEMP/gst-browser" playwright@1.62.1
+          "$RUNNER_TEMP/gst-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Start disposable game server and verify UI
+        env:
+          PORT: '8799'
+          HOST: '127.0.0.1'
+          ALLOW_GUESTS: 'true'
+          ALLOW_BOTS: 'true'
+          BOT_ACTIVITY: '0'
+          TIME_SCALE: '1'
+        run: |
+          mkdir -p ui-artifacts
+          STATIC_DIR="$PWD/apps/client/dist" node apps/server/dist/index.js > ui-artifacts/server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8799/health; then break; fi
+            sleep 1
+          done
+          PLAYWRIGHT_MODULE="$RUNNER_TEMP/gst-browser/node_modules/playwright" node tools/ui-smoke.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: card-ui-browser-check
+          path: ui-artifacts/
+          retention-days: 14
