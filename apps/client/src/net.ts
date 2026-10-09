@@ -25,6 +25,7 @@ export class Net {
   status: NetStatus = 'idle';
   /** 서버 시각 - 로컬 시각 */
   clockOffset = 0;
+  wallClockOffset = 0;
 
   savedNickname(): string {
     try {
@@ -92,6 +93,7 @@ export class Net {
         }
       }
       this.hostMessage(m);
+      if (m.type === 'room' && m.room?.serverWallTime !== undefined) this.wallClockOffset = m.room.serverWallTime - Date.now();
       if (m.type === 'game' || m.type === 'pong') this.clockOffset = m.serverTime - Date.now();
       for (const l of this.listeners) l(m);
     };

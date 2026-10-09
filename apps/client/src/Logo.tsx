@@ -10,7 +10,7 @@ function Img({ name, className, alt, fallback = null }: { name: string; classNam
   return (
     <img
       className={className}
-      src={`${BASE}art/${name}`}
+      src={`${BASE}ui/login/branding/${name}`}
       alt={alt}
       onError={() => {
         missing.add(name);

@@ -1,13 +1,14 @@
 import { createServer as createHttpServer, type IncomingMessage, type Server } from 'node:http';
-import { randomBytes } from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
 import { createStatic } from './static.js';
 import { WebSocketServer, type WebSocket } from 'ws';
 import { parseClientMessage, type ServerMessage } from '@gst/protocol';
 import type { Action } from '@gst/rules';
 import { createVerifier } from './auth.js';
 import type { ServerConfig } from './config.js';
-import { saveMatch } from './persist.js';
+import { loadModeRecords } from './persist.js';
 import { buildRecord, saveRecord } from './records.js';
+import { matchDelivery } from './match-delivery.js';
 import { RoomManager, type Conn, type Room } from './rooms.js';
 import { modes } from '@gst/rules';
 
@@ -48,9 +49,10 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
   const sessionsByToken = new Map<string, Session>();
   const sessionsByUser = new Map<string, Session>();
 
+  const delivery = matchDelivery(cfg, log);
   const onEnd = (room: Room) => {
     if (!room.state) return;
-    saveMatch(cfg, room.state, room.authIds()).catch((e) => log('[persist] 실패', String(e)));
+    void delivery.enqueue({ id: randomUUID(), state: structuredClone(room.state), authIds: room.authIds() }).catch(e => log('[persist] 보관 실패', String(e)));
     if (cfg.recordsDir) {
       const rec = buildRecord({ roomId: room.id, roomName: room.name, turnSeconds: room.turnSeconds, botKind: cfg.botKind, aiOnly: room.aiOnly, bots: room.botIds(), state: room.state, actions: room.actions });
       saveRecord(cfg.recordsDir, rec)
@@ -111,6 +113,9 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
     }
   }, cfg.heartbeatMs);
   heartbeat.unref();
+  const deliveryTimer = setInterval(() => { void delivery.flush().catch(e => log('[persist]', String(e))); }, 30000);
+  deliveryTimer.unref();
+  void delivery.flush().catch(e => log('[persist]', String(e)));
 
   wss.on('connection', (ws: WebSocket) => {
     alive.set(ws, true);
@@ -160,6 +165,10 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
       const reply = (error: string | null) => error && send({ type: 'error', message: error });
 
       switch (msg.type) {
+        case 'profile.get':
+          try { send({ type: 'profile', profile: { nickname: s.nickname, guest: !s.authId, modes: s.authId ? await loadModeRecords(cfg, s.authId) : [] } }); }
+          catch { reply('전적을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.'); }
+          return;
         case 'room.list':
           return send({ type: 'rooms', rooms: rooms.list(s.userId) });
         case 'room.create': {
@@ -167,7 +176,8 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
           if (!modes[msg.mode]) return reply('아직 준비되지 않은 모드입니다.');
           // 자리를 비워 둔 다른 판이 있으면 그 판에서는 완전히 나간 것으로 (사망 처리)
           for (const r of rooms.awayRoomsOf(s.userId)) r.leave(s.userId, gameNow, 'quit');
-          const room = rooms.create(msg.name, msg.mode, s.userId, msg.turnSeconds, msg.hosting);
+          const room = rooms.create(msg.name, msg.mode, s.userId, msg.turnSeconds, msg.capacity ? 'server' : msg.hosting)
+          if (msg.capacity) room.configure(msg.capacity);
           return reply(room.join(s.userId, s.nickname, s.authId, conn, s.hostCapable));
         }
         case 'room.join': {
@@ -184,8 +194,18 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
           return reply(current ? current.addBots(s.userId, msg.count) : '방에 없습니다.');
         case 'room.removeBots':
           return reply(current ? current.removeBots(s.userId) : '방에 없습니다.');
+        case 'room.ready': return reply(current ? current.ready(s.userId, msg.ready) : '방에 없습니다.');
+        case 'room.capacity': return reply(current ? current.setCapacity(s.userId, msg.capacity) : '방에 없습니다.');
+        case 'room.slot': return reply(current ? current.setSlot(s.userId, msg.slot, msg.kind) : '방에 없습니다.');
+        case 'room.kick': return reply(current ? current.kick(s.userId, msg.userId) : '방에 없습니다.');
+        case 'room.chat': return reply(current ? current.say(s.userId, msg.text) : '방에 없습니다.');
+        case 'game.assign': return reply(current ? current.assign(s.userId, gameNow) : '방에 없습니다.');
+        case 'game.begin': return reply(current ? current.begin(s.userId) : '방에 없습니다.');
+        case 'replay.get':
+          if (!current?.state || current.status !== 'ended') return reply('게임 종료 후에만 복기할 수 있습니다.');
+          return send({ type: 'replay', replay: { frames: current.replayFrames, events: current.state.log } });
         case 'room.start':
-          return reply(current ? current.start(s.userId, gameNow, !!msg.aiOnly) : '방에 없습니다.');
+          return reply(current ? (current.staged ? current.requestStart(s.userId) : current.start(s.userId, gameNow, !!msg.aiOnly)) : '방에 없습니다.');
         case 'host.release':
           current?.releaseHost(s.userId, msg.epoch);
           return;
@@ -274,6 +294,7 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
       new Promise((resolve) => {
         if (timer) clearInterval(timer);
         clearInterval(heartbeat);
+        clearInterval(deliveryTimer);
         for (const r of rooms.rooms.values()) r.dispose();
         for (const c of wss.clients) c.terminate();
         wss.close();

@@ -1,0 +1,28 @@
+// Shared visual language by effect family. Skill names, costs and descriptions remain distinct.
+const groups: Record<string, string> = {};
+const register = (family: string, keys: string) => keys.split(/\s+/).filter(Boolean).forEach(key => { groups[key] = family; });
+register('attack', 'attack advanced_attack supreme_attack backstab soen_chain_murder valiant_charge reckless_charge kane_wolfs_slash consume_slaughter');
+register('inspect', 'ally_check enemy_check advanced_ally_check advanced_enemy_check commander_search warrior_scent battle_sense shadow_eye eoril_queens_eye dead_check chief_search hunters_mark oracle advice charge_sense');
+register('scan', 'scan advanced_scan ally_scan enemy_scan troll_scan troll_ally_scan troll_enemy_scan');
+register('ally', 'ally join brothers kinship_chizuko kinship_shining tachin_union kumarin_union wild_bond religious_alliance diplomacy assault_bond');
+register('break', 'break_ally tachin_neutralize distortion');
+register('publish', 'publish global_chat memo');
+register('guard', 'defend bodyguard bodyguard_arin bodyguard_kelhu bodyguard_chief hard_skin dark_skin rune_protection kai_loyal kelhu_loyal loyal_servant calmness consume_bodyguard consume_master_guard consume_iron_skin consume_resistance kumarin_bodyguard kumarin_commander_guard chief_protection kane_moon_protection hermilly_libido_protection eltas_shield dawn_mist');
+register('fire', 'burning_magic flame_source eoril_phoenix_flame eoril_flame_shackle');
+register('curse', 'curse confusion nightmare shadow_jail holy_binding kumarin_binding chaos_hex troll_venom drakan_black_spell hermilly_seeing_libido libido_priestess');
+register('heal', 'soul_recovery troll_regeneration tachin_troll_regen wild_blessing');
+register('mana', 'essence_absorb essence_drain nukelius_chakra_magic wild_essence');
+register('stealth', 'hide disguise');
+register('crown', 'dantes_command dantes_successor successor rael_leadership rael_adv_leadership rael_master_power eltas_leadership eltas_adv_leadership kilder_master_power destroyer_guidance');
+register('holy', 'angel_baptism chivalry great_will order_founding order_inquisition heresy_judgment');
+register('wild', 'ancient_sorcery ancient_hex_hachi spirit_hex purify_hex neviathan_avatar wild_path');
+register('berserk', 'berserk_deka berserk_kazrow berserk_seirow sasint_training sasint_battle_mastery drakan_enchant_muscle consume_final_evolution');
+register('soul', 'soul_reaver soul_wall consume_slave_instinct');
+register('teleport', 'mass_teleport greater_mass_teleport');
+register('gem', 'truth_gem');
+register('blood', 'bloody_madness eltas_bloody_heart kilder_vampiric kilder_casanova mertz_spouse reindila_spouse');
+register('holy', 'support sasint_support');
+register('inspect', 'eoril_trial rael_eoril_test');
+export const SKILL_ART = groups;
+export const skillFamily = (key: string) => groups[key] ?? 'wild';
+export const skillArt = (key: string) => `${import.meta.env.BASE_URL}ui/icon-${skillFamily(key)}.webp`;

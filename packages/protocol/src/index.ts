@@ -36,9 +36,19 @@ export const clientMessage = z.discriminatedUnion('type', [
     resume: z.string().max(128).optional(),
   }),
   z.object({ type: z.literal('room.list') }),
+  z.object({ type: z.literal('room.ready'), ready: z.boolean() }),
+  z.object({ type: z.literal('room.capacity'), capacity: z.number().int().min(8).max(12) }),
+  z.object({ type: z.literal('room.slot'), slot: z.number().int().min(0).max(11), kind: z.enum(['ai', 'player']) }),
+  z.object({ type: z.literal('room.kick'), userId: z.string().max(64) }),
+  z.object({ type: z.literal('room.chat'), text: z.string().trim().min(1).max(200) }),
+  z.object({ type: z.literal('game.assign') }),
+  z.object({ type: z.literal('game.begin') }),
+  z.object({ type: z.literal('profile.get') }),
+  z.object({ type: z.literal('replay.get') }),
   z.object({
     type: z.literal('room.create'),
     name: z.string().min(1).max(30),
+    capacity: z.number().int().min(8).max(12).optional(),
     mode: z.enum(MODE_IDS),
     hosting: z.enum(['server', 'player']).default('server'),
     turnSeconds: z.union([z.literal(60), z.literal(90), z.literal(120)]).default(90),
@@ -67,6 +77,9 @@ export interface RoomSummary {
   mode: ModeId;
   modeName: string;
   players: number;
+  hostName?: string;
+  humans?: number;
+  bots?: number;
   maxPlayers: number;
   status: 'lobby' | 'playing' | 'ended';
   /** 요청한 사람이 이 방의 자리를 비운 상태 (재입장 가능) */
@@ -77,6 +90,8 @@ export interface RoomMember {
   id: string;
   nickname: string;
   bot: boolean;
+  ready?: boolean;
+  slot?: number;
   connected: boolean;
   /** 자리 비움 (봇이 대신 플레이 중) */
   away?: boolean;
@@ -93,9 +108,20 @@ export interface RoomDetail extends RoomSummary {
   members: RoomMember[];
   minPlayers: number;
   botsAllowed: boolean;
+  stage?: 'waiting' | 'countdown' | 'assignment' | 'briefing' | 'battleCountdown' | 'running';
+  countdownEndsAt?: number;
+  serverWallTime?: number;
+  slots?: ('player' | 'ai')[];
+  chat?: { seq: number; nickname: string; text: string }[];
+  allowedCapacities?: number[];
 }
 
+export interface ModeRecord { mode: string; played: number; won: number; lost: number; }
+export interface ProfileData { nickname: string; guest: boolean; modes: ModeRecord[]; }
+export interface ReplayData { frames: { at: number; view: SpectatorView }[]; events: GameEvent[]; }
 export type ServerMessage =
+  | { type: 'profile'; profile: ProfileData }
+  | { type: 'replay'; replay: ReplayData }
   | { type: 'welcome'; userId: string; nickname: string; session: string; guest: boolean }
   | { type: 'error'; message: string; ref?: number }
   | { type: 'rooms'; rooms: RoomSummary[] }

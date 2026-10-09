@@ -85,7 +85,7 @@ export function MainScreen({ status, nick, setNick }: { status: NetStatus; nick:
   return (
     <div className="main">
       <div className="main-art">
-        {art && <img src={`${BASE}art/key_visual.webp`} alt="" onError={() => setArt(false)} />}
+        {art && <img src={`${BASE}ui/login/main/GST_LOGIN_KEYVISUAL_LEFT_FINAL.webp`} alt="" onError={() => setArt(false)} />}
         <div className="main-art-fade" />
       </div>
       <div className="main-panel">

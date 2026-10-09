@@ -2,14 +2,16 @@
 import type { GameState } from '@gst/rules';
 import type { ServerConfig } from './config.js';
 
-export async function saveMatch(cfg: ServerConfig, state: GameState, userIds: Record<string, string | null>): Promise<void> {
+export async function saveMatch(cfg: ServerConfig, state: GameState, userIds: Record<string, string | null>, matchId?: string): Promise<void> {
   if (!cfg.supabaseUrl || !cfg.supabaseSecretKey) return;
   const base = `${cfg.supabaseUrl.replace(/\/$/, '')}/rest/v1`;
-  const headers = { ...authHeaders(cfg.supabaseSecretKey), 'Content-Type': 'application/json', Prefer: 'return=representation' };
+  const headers = { ...authHeaders(cfg.supabaseSecretKey), 'Content-Type': 'application/json', Prefer: matchId ? 'resolution=merge-duplicates,return=representation' : 'return=representation' };
   const res = await fetch(`${base}/matches`, {
     method: 'POST',
+    signal: AbortSignal.timeout(10000),
     headers,
     body: JSON.stringify({
+      ...(matchId ? { id: matchId } : {}),
       mode: state.mode,
       player_count: state.players.length,
       winner_side: state.winner,
@@ -34,7 +36,7 @@ export async function saveMatch(cfg: ServerConfig, state: GameState, userIds: Re
     died_at_ms: p.diedAt === null ? null : p.diedAt - state.startedAt,
     won: state.winner === p.side,
   }));
-  const r2 = await fetch(`${base}/match_players`, { method: 'POST', headers, body: JSON.stringify(players) });
+  const r2 = await fetch(`${base}/match_players`, { method: 'POST', signal: AbortSignal.timeout(10000), headers, body: JSON.stringify(players) });
   if (!r2.ok) throw new Error(`match_players insert ${r2.status}: ${await r2.text()}`);
 
   // 이벤트 로그는 500건 단위로 나눠 저장 (리플레이용). 채팅은 비공개 테이블로 분리
@@ -60,9 +62,27 @@ export function splitLog(matchId: string, state: GameState) {
 }
 
 async function insertBatches(url: string, headers: Record<string, string>, rows: unknown[], label: string): Promise<void> {
-  const h = { ...headers, Prefer: 'return=minimal' };
+  const h = { ...headers, Prefer: headers.Prefer?.includes('merge-duplicates') ? 'resolution=merge-duplicates,return=minimal' : 'return=minimal' };
   for (let i = 0; i < rows.length; i += 500) {
-    const r = await fetch(url, { method: 'POST', headers: h, body: JSON.stringify(rows.slice(i, i + 500)) });
+    const r = await fetch(url, { method: 'POST', signal: AbortSignal.timeout(10000), headers: h, body: JSON.stringify(rows.slice(i, i + 500)) });
     if (!r.ok) throw new Error(`${label} insert ${r.status}: ${await r.text()}`);
+  }
+}
+
+/** Auth id is supplied by the verified server session, never by the client request. */
+export async function loadModeRecords(cfg: ServerConfig, userId: string): Promise<import('@gst/protocol').ModeRecord[]> {
+  if (!cfg.supabaseUrl || !cfg.supabaseSecretKey) throw new Error('전적 저장 서버가 설정되지 않았습니다.');
+  const records = new Map<string, import('@gst/protocol').ModeRecord>();
+  for (let offset = 0; ; offset += 500) {
+    const query = new URLSearchParams({ select: 'won,matches!inner(mode)', user_id: `eq.${userId}`, order: 'match_id.asc,seat.asc', limit: '500', offset: String(offset) });
+    const res = await fetch(`${cfg.supabaseUrl.replace(/\/$/, '')}/rest/v1/match_players?${query}`, { headers: authHeaders(cfg.supabaseSecretKey), signal: AbortSignal.timeout(10000) });
+    if (!res.ok) throw new Error(`전적 조회 실패 (${res.status})`);
+    const rows = await res.json() as { won: boolean; matches: { mode: string } }[];
+    for (const row of rows) {
+      const mode = row.matches.mode;
+      const r = records.get(mode) ?? { mode, played: 0, won: 0, lost: 0 };
+      r.played++; if (row.won) r.won++; else r.lost++; records.set(mode, r);
+    }
+    if (rows.length < 500) return [...records.values()];
   }
 }

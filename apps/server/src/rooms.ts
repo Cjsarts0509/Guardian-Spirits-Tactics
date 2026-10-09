@@ -35,6 +35,8 @@ interface Member {
   nickname: string;
   bot: boolean;
   hostCapable: boolean;
+  ready?: boolean;
+  slot?: number;
   /** 봇만 돌리는 판의 관전자 */
   spectator?: boolean;
   /** 로그인 사용자의 auth id (게스트·봇은 null) */
@@ -53,6 +55,86 @@ export class Room {
   /** 이번 판의 모든 행동 (거절 포함) — 판 기록용 */
   actions: ActionRecord[] = [];
   aiOnly = false;
+  capacity = MAX_PLAYERS;
+  staged = false;
+  stage: NonNullable<RoomDetail['stage']> = 'waiting';
+  countdownEndsAt = 0;
+  slots: ('player' | 'ai')[] = Array(MAX_PLAYERS).fill('player');
+  chat: NonNullable<RoomDetail['chat']> = [];
+  replayFrames: { at: number; view: ReturnType<typeof spectatorView> }[] = [];
+  private matchAuthIds: Record<string, string | null> = {};
+
+  configure(capacity: number): void {
+    this.staged = true; this.capacity = capacity; this.slots = Array(capacity).fill('player');
+  }
+
+  private resetReady(): void {
+    this.countdownEndsAt = 0; this.stage = 'waiting';
+    for (const m of this.members) m.ready = m.bot;
+  }
+
+  ready(by: string, ready: boolean): string | null {
+    if (this.status !== 'lobby') return '대기실에서만 준비할 수 있습니다.';
+    const m = this.member(by); if (!m || m.bot) return '참가자가 아닙니다.';
+    if (!ready && this.stage === 'countdown') { this.stage = 'waiting'; this.countdownEndsAt = 0; }
+    m.ready = ready; this.broadcastRoom(); return null;
+  }
+
+  setCapacity(by: string, capacity: number): string | null {
+    if (by !== this.hostId || this.status !== 'lobby') return '대기실의 방장만 변경할 수 있습니다.';
+    if (!getMode(this.mode).masks[capacity] || capacity < MIN_PLAYERS || capacity > MAX_PLAYERS) return '모드의 인원 범위를 벗어났습니다.';
+    if (this.members.some(m => !m.bot && (m.slot ?? 0) >= capacity)) return '줄일 슬롯에 플레이어가 있습니다.';
+    this.members = this.members.filter(m => (m.slot ?? 0) < capacity);
+    this.slots = Array.from({ length: capacity }, (_, i) => this.slots[i] ?? 'player');
+    this.capacity = capacity; this.resetReady(); this.broadcastRoom(); return null;
+  }
+
+  setSlot(by: string, slot: number, kind: 'ai' | 'player'): string | null {
+    if (by !== this.hostId || this.status !== 'lobby') return '대기실의 방장만 변경할 수 있습니다.';
+    if (slot >= this.capacity) return '없는 슬롯입니다.';
+    const member = this.members.find(m => m.slot === slot);
+    if (member && !member.bot) return '플레이어가 있는 슬롯은 먼저 비워 주세요.';
+    if (kind === 'ai' && !this.cfg.allowBots) return 'AI가 허용되지 않습니다.';
+    this.members = this.members.filter(m => m.slot !== slot);
+    this.slots[slot] = kind;
+    if (kind === 'ai') this.members.push({ id: `bot-${this.id}-${++this.botSeq}`, nickname: `AI ${this.botSeq}`, bot: true, ready: true, slot, hostCapable: false, authId: null, conn: null, lastSeq: 0, graceTimer: null });
+    this.resetReady(); this.broadcastRoom(); return null;
+  }
+
+  kick(by: string, target: string): string | null {
+    if (by !== this.hostId || this.status !== 'lobby' || by === target) return '대기실에서 다른 참가자만 강퇴할 수 있습니다.';
+    const m = this.member(target); if (!m) return '참가자가 없습니다.';
+    m.conn?.send({ type: 'room', room: null });
+    m.conn?.send({ type: 'error', message: '방장에 의해 퇴장했습니다.' });
+    this.leave(target, this.clock()); return null;
+  }
+
+  say(by: string, text: string): string | null {
+    const m = this.member(by); if (!m || (this.status !== 'lobby' && this.stage !== 'assignment' && this.stage !== 'briefing' && this.stage !== 'battleCountdown')) return '준비 중에만 사용할 수 있습니다.';
+    this.chat.push({ seq: (this.chat.at(-1)?.seq ?? 0) + 1, nickname: m.nickname, text });
+    this.chat = this.chat.slice(-100); this.broadcastRoom(); return null;
+  }
+
+  requestStart(by: string): string | null {
+    if (by !== this.hostId || this.status !== 'lobby' || this.stage !== 'waiting') return '방장만 대기실에서 시작할 수 있습니다.';
+    if (this.members.length !== this.capacity || this.members.some(m => !m.bot && (!m.ready || !m.conn))) return '빈 슬롯을 채우고 모든 플레이어가 준비해야 합니다.';
+    this.stage = 'countdown'; this.countdownEndsAt = Date.now() + 5000; this.broadcastRoom(); return null;
+  }
+
+  assign(by: string, now: number): string | null {
+    if (by !== this.hostId || this.stage !== 'assignment') return '방장만 역할을 한 번 배분할 수 있습니다.';
+    this.status = 'lobby';
+    const error = this.start(by, now);
+    if (error) { this.status = 'playing'; return error; }
+    this.stage = 'briefing'; this.broadcastRoom(); return null;
+  }
+
+  begin(by: string): string | null {
+    if (by !== this.hostId || this.stage !== 'briefing') return '역할 배분 후 방장만 전투를 시작할 수 있습니다.';
+    if (this.humans().some(m => !m.conn)) return '모든 플레이어가 연결되어야 합니다.';
+    this.stage = 'battleCountdown'; this.countdownEndsAt = Date.now() + 5000; this.broadcastRoom(); return null;
+  }
+
   readonly id = id(6);
   status: 'lobby' | 'playing' | 'ended' = 'lobby';
   members: Member[] = [];
@@ -89,7 +171,9 @@ export class Room {
       mode: this.mode,
       modeName: getMode(this.mode).displayName,
       players: this.members.length,
-      maxPlayers: MAX_PLAYERS,
+      maxPlayers: this.capacity,
+      hostName: this.member(this.hostId)?.nickname ?? '—',
+      humans: this.humans().length, bots: this.members.filter(m => m.bot).length,
       status: this.status,
     };
   }
@@ -102,9 +186,12 @@ export class Room {
       hostEpoch: this.hostEpoch,
       hostPaused: this.hosting === 'player' && this.status === 'playing' && !this.hostId,
       turnSeconds: this.turnSeconds,
-      members: this.members.map((m) => ({ id: m.id, nickname: m.nickname, bot: m.bot, connected: m.bot || !!m.conn, ...(m.spectator ? { spectator: true } : {}), ...(m.away || m.left ? { away: true } : {}) })),
+      members: this.members.map((m) => ({ id: m.id, nickname: m.nickname, bot: m.bot, ready: m.bot || !!m.ready, slot: m.slot, connected: m.bot || !!m.conn, ...(m.spectator ? { spectator: true } : {}), ...(m.away || m.left ? { away: true } : {}) })),
       minPlayers: MIN_PLAYERS,
       botsAllowed: this.cfg.allowBots,
+      stage: this.staged ? this.stage : undefined, countdownEndsAt: this.countdownEndsAt, serverWallTime: Date.now(),
+      slots: this.staged ? this.slots : undefined, chat: this.chat,
+      allowedCapacities: Object.keys(getMode(this.mode).masks).map(Number).filter(n => n >= MIN_PLAYERS && n <= MAX_PLAYERS),
     };
   }
 
@@ -135,8 +222,11 @@ export class Room {
       return null;
     }
     if (this.status !== 'lobby') return '이미 시작된 방입니다.';
-    if (this.members.length >= MAX_PLAYERS) return '방이 가득 찼습니다.';
-    this.members.push({ id: userId, nickname, bot: false, hostCapable, authId, conn, lastSeq: 0, graceTimer: null });
+    if (this.members.length >= this.capacity) return '방이 가득 찼습니다.';
+    const slot = this.slots.findIndex((kind, i) => kind === 'player' && !this.members.some(m => m.slot === i));
+    if (this.staged && slot < 0) return '빈 플레이어 슬롯이 없습니다.';
+    if (this.staged) this.resetReady();
+    this.members.push({ id: userId, nickname, slot, ready: false, bot: false, hostCapable, authId, conn, lastSeq: 0, graceTimer: null });
     this.broadcastRoom();
     return null;
   }
@@ -146,7 +236,12 @@ export class Room {
     const m = this.member(userId);
     if (!m) return;
     if (this.status === 'lobby' || this.status === 'ended') {
+      if (this.staged && this.status === 'lobby') this.resetReady();
       this.members = this.members.filter((x) => x.id !== userId);
+      if (this.hostId === userId) this.hostId = this.humans()[0]?.id ?? '';
+    } else if (this.staged && this.stage !== 'running') {
+      this.members = this.members.filter(x => x.id !== userId);
+      this.state = null; this.status = 'lobby'; this.resetReady();
       if (this.hostId === userId) this.hostId = this.humans()[0]?.id ?? '';
     } else if (this.hosting === 'player' && this.state) {
       if (m.graceTimer) clearTimeout(m.graceTimer);
@@ -189,7 +284,7 @@ export class Room {
     const m = this.member(userId);
     if (!m) return;
     m.conn = null;
-    if (this.status === 'lobby') {
+    if (this.status === 'lobby' || (this.staged && this.stage !== 'running')) {
       this.leave(userId, this.clock());
       return;
     }
@@ -208,6 +303,7 @@ export class Room {
   }
 
   addBots(byUser: string, count: number): string | null {
+    if (this.staged) return '슬롯별 AI 설정을 이용하세요.';
     if (!this.cfg.allowBots) return '봇이 허용되지 않은 서버입니다.';
     if (byUser !== this.hostId) return '방장만 할 수 있습니다.';
     if (this.status !== 'lobby') return '대기 중인 방에서만 가능합니다.';
@@ -221,6 +317,7 @@ export class Room {
   }
 
   removeBots(byUser: string): string | null {
+    if (this.staged) return '슬롯별 AI 설정을 이용하세요.';
     if (byUser !== this.hostId) return '방장만 할 수 있습니다.';
     if (this.status !== 'lobby') return '대기 중인 방에서만 가능합니다.';
     this.members = this.members.filter((m) => !m.bot);
@@ -245,6 +342,7 @@ export class Room {
       players = this.members.filter((m) => !m.spectator);
     }
     if (players.length < MIN_PLAYERS) return `${MIN_PLAYERS}명 이상이어야 시작할 수 있습니다.`;
+    if (this.staged) players.sort((a, b) => (a.slot ?? 0) - (b.slot ?? 0));
     const { state } = createGame({
       mode: this.mode,
       players: players.map((m) => ({ id: m.id, nickname: m.nickname })),
@@ -253,6 +351,8 @@ export class Room {
       turnSeconds: this.turnSeconds,
     });
     this.state = state;
+    this.matchAuthIds = Object.fromEntries(this.members.map(m => [m.id, m.authId]));
+    this.replayFrames = [{ at: 0, view: spectatorView(state) }];
     this.botMemories = new Map(state.players.map((p) => [p.id, createBotMemory(randomBytes(4).readInt32LE(0))]));
     this.status = 'playing';
     this.aiOnly = aiOnly;
@@ -269,6 +369,7 @@ export class Room {
 
   act(userId: string, action: Action, now: number, ref?: number): { ok: boolean; error?: string; pending?: boolean } {
     if (!this.state || this.status !== 'playing') return { ok: false, error: '진행 중인 게임이 없습니다.' };
+    if (this.staged && this.stage !== 'running') return { ok: false, error: '전투 시작을 기다려 주세요.' };
     if (this.member(userId)?.spectator) return { ok: false, error: '관전 중에는 행동할 수 없습니다.' };
     if (this.hosting === 'player') {
       if (!this.hostId) return { ok: false, error: '방장 연결을 기다리고 있습니다.' };
@@ -284,6 +385,19 @@ export class Room {
 
   /** 서버 틱: 시간 진행 + 봇 행동 */
   tick(now: number): void {
+    if (this.staged) {
+      if (this.stage === 'countdown' && Date.now() >= this.countdownEndsAt) {
+        this.stage = 'assignment'; this.status = 'playing'; this.countdownEndsAt = 0; this.broadcastRoom();
+      }
+      if (this.stage === 'battleCountdown' && Date.now() >= this.countdownEndsAt && this.state) {
+        const delta = now - this.state.now;
+        this.state.startedAt += delta; this.state.now = now; this.state.nextTurnAt += delta;
+        for (const task of this.state.queue) task.at += delta;
+        this.stage = 'running'; this.countdownEndsAt = 0;
+        this.broadcastRoom(); this.syncGame();
+      }
+      if (this.stage !== 'running') return;
+    }
     if (!this.state || this.status !== 'playing') return;
     if (this.hosting === 'player') {
       if (this.hostId && Date.now() - this.hostSeenAt > 8_000) {
@@ -313,6 +427,15 @@ export class Room {
   }
 
   private afterChange(): void {
+    if (this.state && this.staged) {
+      const at = this.state.now - this.state.startedAt;
+      const view = spectatorView(this.state);
+      for (const p of view.players) p.skills = [];
+      const frame = { at, view };
+      if (this.replayFrames.length > 1 && Math.floor(at / 1000) === Math.floor((this.replayFrames.at(-1)?.at ?? -1000) / 1000)) this.replayFrames[this.replayFrames.length - 1] = frame;
+      else this.replayFrames.push(frame);
+      if (this.replayFrames.length > 1200) this.replayFrames = this.replayFrames.filter((_, i) => i % 2 === 0 || i === this.replayFrames.length - 1);
+    }
     if (this.state && this.state.phase === 'ended' && this.status === 'playing') {
       this.status = 'ended';
       this.endedAt = this.clock();
@@ -332,7 +455,7 @@ export class Room {
       if (m.spectator) {
         m.conn.send({ type: 'game', view: spectatorView(st), events: st.log.filter((e) => e.seq > m.lastSeq), serverTime: this.hosting === 'player' ? st.now : this.clock() });
       } else {
-        m.conn.send({ type: 'game', view: viewFor(st, m.id), events: eventsFor(st, m.id, m.lastSeq), serverTime: this.hosting === 'player' ? st.now : this.clock() });
+        m.conn.send({ type: 'game', view: viewFor(st, m.id), events: eventsFor(st, m.id, st.phase === 'ended' ? 0 : m.lastSeq), serverTime: this.hosting === 'player' ? st.now : this.clock() });
       }
       m.lastSeq = st.seq;
     }
@@ -428,7 +551,7 @@ export class Room {
   }
 
   authIds(): Record<string, string | null> {
-    return Object.fromEntries(this.members.map((m) => [m.id, m.authId]));
+    return { ...this.matchAuthIds, ...Object.fromEntries(this.members.map((m) => [m.id, m.authId])) };
   }
 
   dispose(): void {
