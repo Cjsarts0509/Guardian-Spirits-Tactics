@@ -27,7 +27,7 @@ describe('카드 UI 방 생명주기',()=>{
   expect(room.assign('host',Date.now())).not.toBeNull();expect(room.stage).toBe('briefing');
   const before=JSON.stringify(room.state);vi.setSystemTime(180000);room.tick(Date.now());expect(JSON.stringify(room.state)).toBe(before);
   expect(room.say('guest','안녕하세요')).toBeNull();expect(room.act('host',{type:'skill',skill:'publish',name:'dantes'},Date.now()).ok).toBe(false);
-  expect(room.begin('guest')).not.toBeNull();expect(room.begin('host')).toBeNull();
+  expect(room.begin('guest')).not.toBeNull();expect(room.begin('host')).toBeNull();expect(room.stage).toBe('battleWaiting');expect(room.enterBattle('host')).toBeNull();expect(room.stage).toBe('battleWaiting');const frozen=JSON.stringify(room.state);vi.setSystemTime(180999);room.tick(Date.now());expect(JSON.stringify(room.state)).toBe(frozen);expect(room.say('guest','전투 입장 대화')).toBeNull();vi.setSystemTime(180000);expect(room.enterBattle('unknown')).not.toBeNull();expect(room.enterBattle('guest')).toBeNull();expect(room.stage).toBe('battleCountdown');
   vi.setSystemTime(185000);room.tick(Date.now());expect(room.stage).toBe('running');expect(room.state!.startedAt).toBe(185000);expect(room.state!.nextTurnAt).toBe(275000);
   const views=inbox.filter((m):m is Extract<ServerMessage,{type:'game'}>=>m.type==='game');
   for(const m of views){expect('spectator' in m.view).toBe(false);expect(m.view.players.every(p=>p.revealed===null)).toBe(true);expect(m.events.filter(e=>e.kind==='role')).toHaveLength(m===views[0]?1:0);}

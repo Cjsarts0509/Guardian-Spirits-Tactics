@@ -79,6 +79,8 @@ it('검증된 계정 → 준비/배분/전투 → 종료 복기 → 본인·상�
     expect((await host.wait('error')).message).toContain('종료 후');
     expect(host.inbox.some(m => m.type === 'replay')).toBe(false);
     host.send({ type: 'game.begin' });
+    await host.wait('room',m=>m.room?.stage==='battleWaiting');
+    host.send({type:'game.enter'});
     await host.wait('room', m => m.room?.stage === 'running');
     host.send({ type: 'game.action', ref: 77, action: { type: 'chat', channel: 'whisper', to: room.state!.players.find(p => p.id !== account)!.id, text: '비공개 검증 대화' } });
     expect((await host.wait('action.result', m => m.ref === 77)).ok).toBe(true);

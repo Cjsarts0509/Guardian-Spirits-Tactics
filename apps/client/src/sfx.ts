@@ -14,8 +14,8 @@ const supplied=Object.fromEntries(__GST_SFX_FILES__.map(file=>[`/public/sfx/${fi
 class Effects {
  volume=.5; muted=false; choices:Partial<Record<SoundId,string>>={};
  constructor(){try{const data=JSON.parse(localStorage.getItem('gst.sfx')??'{}');this.volume=Math.max(0,Math.min(1,data.volume??.5));this.muted=!!data.muted;this.choices=data.choices??{};}catch{}}
- save(){localStorage.setItem('gst.sfx',JSON.stringify({volume:this.volume,muted:this.muted,choices:this.choices}));}
+ save(){localStorage.setItem('gst.sfx',JSON.stringify({volume:this.volume,muted:this.muted,choices:this.choices}));window.dispatchEvent(new Event('gst.sound.changed'));}
  preview(file:string){const a=new Audio(`${BASE}sfx/candidates/${file}`);a.volume=this.volume;void a.play().catch(()=>{});}
- play(id:SoundId|string){if(this.muted||!this.volume)return;const file=supplied[`/public/sfx/${id}.mp3`]??(id in SOUND_OPTIONS&&this.choices[id as SoundId]?`${BASE}sfx/candidates/${this.choices[id as SoundId]}`:null);if(!file)return;const a=new Audio(file);a.volume=this.volume;void a.play().catch(()=>{});}
+ play(id:SoundId|string){if(this.muted||!this.volume)return;const file=supplied[`/public/sfx/${id}.mp3`]??null;if(!file)return;const a=new Audio(file);a.volume=this.volume;void a.play().catch(()=>{});}
 }
 export const sfx=new Effects();

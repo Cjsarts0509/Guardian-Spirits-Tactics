@@ -29,17 +29,6 @@ export function Emblem({ size = 24, className = '' }: { size?: number; className
 export function BigLogo() {
   return (
     <div className="biglogo"><Emblem size={512} className="biglogo-emblem"/>
-      <Img
-        name="logo_wordmark.webp"
-        className="biglogo-wordmark"
-        alt="GUARDIAN SPIRITS TACTICS"
-        fallback={
-          <span className="biglogo-wordmark-text">
-            <span>Guardian Spirits</span>
-            <small>Tactics</small>
-          </span>
-        }
-      />
       <h1 className="biglogo-title">가디언 스피리츠 택틱스</h1>
     </div>
   );

@@ -108,7 +108,7 @@ export function App() {
     body = <MainScreen status={status} nick={nick} setNick={setNick} />;
   } else if (view && room?.status === 'ended') {
     body = resultReady?<Results view={view} room={room} />:<ResultCinema view={view}/>;
-  } else if (room?.stage && ['assignment', 'briefing', 'battleCountdown'].includes(room.stage)) {
+  } else if (room?.stage && ['assignment', 'briefing'].includes(room.stage)) {
     body = <StagingScreen room={room} myId={myId} view={view && !('spectator' in view) ? view : null} />;
   } else if (view && room && room.status !== 'lobby') {
     body = 'spectator' in view ? <SpectatorScreen view={view} events={events} room={room} /> : <GameScreen view={view} events={events} room={room} myId={myId} />;
