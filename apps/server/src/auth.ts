@@ -1,3 +1,4 @@
+import {limitNickname} from '@gst/protocol';
 // Supabase 액세스 토큰 검증.
 // - SUPABASE_URL 이 있으면 JWKS(비대칭 서명 키, 신규 프로젝트 기본)로 검증
 // - 아니면 SUPABASE_JWT_SECRET(HS256 레거시)로 검증
@@ -28,5 +29,5 @@ function toUser(p: JWTPayload): AuthUser {
   if (!p.sub) throw new Error('sub 없음');
   const meta = (p as { user_metadata?: Record<string, unknown> }).user_metadata ?? {};
   const nick = (meta.nickname ?? meta.name ?? meta.full_name ?? null) as string | null;
-  return { userId: p.sub, nickname: nick ? String(nick).slice(0, 16) : null };
+  return { userId: p.sub, nickname: nick ? limitNickname(String(nick)) : null };
 }

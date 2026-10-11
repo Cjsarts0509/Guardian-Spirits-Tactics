@@ -31,3 +31,12 @@ it('계정별 모드 전적은 서버 계정 필터와 페이지네이션으로 
  expect(new URL(urls[0]!).searchParams.get('user_id')).toBe('eq.verified-account');expect(new URL(urls[1]!).searchParams.get('offset')).toBe('500');
  expect(records).toEqual([{mode:'civil_war',played:500,won:500,lost:0},{mode:'troll',played:1,won:0,lost:1}]);
 });
+it('복기 대화 재저장은 동일 경기 ID로 직렬 처리해 최신 로그를 잃지 않는다',async()=>{
+ const cfg={...loadConfig({}),supabaseUrl:'https://example.test',supabaseSecretKey:'sb_secret_test'};
+ const {state}=createGame({mode:'civil_war',players:Array.from({length:8},(_,i)=>({id:`p${i}`,nickname:`P${i}`})),seed:42,now:0});state.phase='ended';
+ const ids:string[]=[];const chats:string[]=[];
+ vi.stubGlobal('fetch',vi.fn(async(url:string,init:RequestInit)=>{if(url.endsWith('/matches')){const body=JSON.parse(init.body as string);ids.push(body.id);await new Promise(r=>setTimeout(r,5));return new Response(JSON.stringify([{id:body.id}]),{status:201});}if(url.endsWith('/match_chat'))chats.push(...JSON.parse(init.body as string).map((r:{payload:{text:string}})=>r.payload.text));return new Response('',{status:201});}));
+ const latest=structuredClone(state);latest.log.push({seq:++latest.seq,at:1,kind:'chat.room',vis:{to:'all'},text:'종료 후 대화'});const delivery=matchDelivery(cfg,()=>{});
+ await Promise.all([delivery.enqueue({id:'same-match',state,authIds:{}}),delivery.enqueue({id:'same-match',state:latest,authIds:{}})]);
+ expect(ids).toEqual(['same-match','same-match']);expect(chats).toContain('종료 후 대화');
+});

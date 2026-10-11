@@ -86,3 +86,29 @@ export async function loadModeRecords(cfg: ServerConfig, userId: string): Promis
     if (rows.length < 500) return [...records.values()];
   }
 }
+
+/** Derive head-to-head records from durable match seats; only opposite sides count. */
+export async function loadOpponentRecords(cfg: ServerConfig, userId:string):Promise<import('@gst/protocol').OpponentRecord[]> {
+  if(!cfg.supabaseUrl||!cfg.supabaseSecretKey)return [];
+  const base=`${cfg.supabaseUrl.replace(/\/$/,'')}/rest/v1`;
+  async function query(params:Record<string,string>) {
+    const result: {match_id:string;user_id:string|null;nickname:string;side:number;won:boolean;matches:{mode:string}}[]=[];
+    for(let offset=0;;offset+=500){
+      const url=new URLSearchParams({...params,select:'match_id,user_id,nickname,side,won,matches!inner(mode)',order:'match_id.asc,seat.asc',limit:'500',offset:String(offset)});
+      const res=await fetch(`${base}/match_players?${url}`,{headers:authHeaders(cfg.supabaseSecretKey!),signal:AbortSignal.timeout(10000)});
+      if(!res.ok)throw new Error('상대 전적 조회 실패');
+      const rows=await res.json() as typeof result;result.push(...rows);if(rows.length<500)return result;
+    }
+  }
+  const own=await query({user_id:`eq.${userId}`});const seats=new Map(own.map(r=>[r.match_id,r]));
+  const records=new Map<string,import('@gst/protocol').OpponentRecord>();
+  const ids=[...seats.keys()];
+  for(let i=0;i<ids.length;i+=100){
+    const others=await query({match_id:`in.(${ids.slice(i,i+100).join(',')})`,user_id:`neq.${userId}`});
+    for(const row of others){const me=seats.get(row.match_id);if(!me||!row.user_id||row.side===me.side)continue;
+      const key=`${row.user_id}:${row.matches.mode}`;const record=records.get(key)??{userId:row.user_id,nickname:row.nickname,mode:row.matches.mode,played:0,won:0,lost:0};
+      record.played++;if(me.won)record.won++;else record.lost++;records.set(key,record);
+    }
+  }
+  return [...records.values()];
+}

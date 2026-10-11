@@ -9,7 +9,7 @@ import type { ServerMessage } from '@gst/protocol';
 import { loadConfig } from '../src/config.js';
 import { createGameServer } from '../src/server.js';
 
-it('검증된 계정 → 준비/배분/전투 → 종료 복기 → 본인 전적만 조회', async () => {
+it('검증된 계정 → 준비/배분/전투 → 종료 복기 → 본인·상대 전적 조회와 비참가자 복기 차단', async () => {
   const keys = await generateKeyPair('RS256');
   const publicKey = { ...await exportJWK(keys.publicKey), kid: 'local-test', alg: 'RS256', use: 'sig' };
   const account = 'b3738fc5-564c-48d2-bbee-1cbd83c85b37';
@@ -33,7 +33,7 @@ it('검증된 계정 → 준비/배분/전투 → 종료 복기 → 본인 전�
     } else if (table === 'match_players') {
       const id = url.searchParams.get('user_id'); queries.push(id!);
       const matches = rows.get('matches') ?? [];
-      res.end(JSON.stringify((rows.get(table) ?? []).filter(p => `eq.${p.user_id}` === id).map(p => ({ won: p.won, matches: { mode: matches.find(m => m.id === p.match_id)?.mode } }))));
+      res.end(JSON.stringify((rows.get(table) ?? []).filter(p => id?.startsWith('neq.')?`neq.${p.user_id}`!==id:`eq.${p.user_id}`===id).map(p => ({ ...p, won: p.won, matches: { mode: matches.find(m => m.id === p.match_id)?.mode } }))));
     } else { res.statusCode = 404; res.end('{}'); }
   });
   backend.listen(0, '127.0.0.1'); await once(backend, 'listening');
@@ -96,15 +96,16 @@ it('검증된 계정 → 준비/배분/전투 → 종료 복기 → 본인 전�
     await expect.poll(() => rows.get('match_chat')?.length).toBeGreaterThan(0);
     expect(rows.get('match_events')?.some(e => (e.payload as {kind:string}).kind.startsWith('chat.'))).toBe(false);
     expect(rows.get('match_players')?.filter(p => p.user_id)).toEqual([expect.objectContaining({ user_id: account, won: true })]);
-    host.send({ type: 'profile.get', userId: other });
+    host.send({ type: 'profile.get' });
     expect((await host.wait('profile')).profile.modes).toEqual([{ mode: 'civil_war', played: 1, won: 1, lost: 0 }]);
     const outsider = await connect(other); await outsider.wait('welcome');
     outsider.send({ type: 'profile.get', userId: account });
-    expect((await outsider.wait('profile')).profile.modes).toEqual([]);
+    expect((await outsider.wait('profile')).profile.modes).toEqual([{mode:'civil_war',played:1,won:1,lost:0}]);
+    expect((await outsider.wait('profile')).profile.opponents).toEqual([]);
     outsider.send({ type: 'replay.get' });
     await outsider.wait('error');
     expect(outsider.inbox.some(m => m.type === 'replay')).toBe(false);
-    expect(queries).toEqual([`eq.${account}`, `eq.${other}`]);
+    expect(queries).toContain(`eq.${account}`);expect(queries).toContain(`eq.${other}`);
     expect(rows.get('matches')).toHaveLength(1);
   } finally {
     for (const socket of sockets) socket.terminate();

@@ -2,6 +2,10 @@
 import { z } from 'zod';
 import type { GameEvent, ModeId, PlayerView, SpectatorView, Action } from '@gst/rules';
 
+export function validNickname(name: string): boolean { return !!name.trim() && !/[\r\n\t]/.test(name) && Array.from(name.trim()).reduce((n,c)=>n+(c.charCodeAt(0)<128?1:2.5),0)<=20; }
+
+export function limitNickname(name:string):string {let out='';for(const c of name.trim().replace(/[\r\n\t]/g,'')){if(!validNickname(out+c))break;out+=c;}return out||'플레이어';}
+
 export const MODE_IDS = ['civil_war', 'primordial', 'lidellut', 'troll'] as const;
 
 export const PROTOCOL_VERSION = 1;
@@ -18,7 +22,7 @@ const actionSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('chat'),
     channel: z.enum(['all', 'ally', 'whisper', 'global', 'dead']),
-    text: z.string().min(1).max(200),
+    text: z.string().trim().min(1).max(100).refine(t => Array.from(t).length <= 50, "채팅은 최대 50자입니다."),
     to: z.string().max(64).optional(),
   }),
 ]);
@@ -31,7 +35,7 @@ export const clientMessage = z.discriminatedUnion('type', [
     /** Supabase access token (로그인 사용자) */
     token: z.string().max(4096).optional(),
     /** 게스트 닉네임 (서버가 게스트 허용일 때) */
-    nickname: z.string().min(1).max(16).optional(),
+    nickname: z.string().trim().min(1).max(20).refine(validNickname, "닉네임은 영어 20자·한글 8자 이내입니다.").optional(),
     /** 재접속용 세션 토큰 */
     resume: z.string().max(128).optional(),
   }),
@@ -40,10 +44,13 @@ export const clientMessage = z.discriminatedUnion('type', [
   z.object({ type: z.literal('room.capacity'), capacity: z.number().int().min(8).max(12) }),
   z.object({ type: z.literal('room.slot'), slot: z.number().int().min(0).max(11), kind: z.enum(['ai', 'player']) }),
   z.object({ type: z.literal('room.kick'), userId: z.string().max(64) }),
-  z.object({ type: z.literal('room.chat'), text: z.string().trim().min(1).max(200) }),
+  z.object({ type: z.literal('room.chat'), text: z.string().trim().min(1).max(100).refine(t => Array.from(t).length <= 50, "채팅은 최대 50자입니다.") }),
   z.object({ type: z.literal('game.assign') }),
   z.object({ type: z.literal('game.begin') }),
-  z.object({ type: z.literal('profile.get') }),
+  z.object({ type: z.literal('profile.get'), userId:z.string().max(64).optional() }),
+  z.object({ type:z.literal('lobby.chat'),text:z.string().trim().min(1).max(100).refine(t=>Array.from(t).length<=50) }),
+  z.object({ type:z.literal('lobby.chat.get') }),
+  z.object({ type:z.literal('room.anonymous'),enabled:z.boolean() }),
   z.object({ type: z.literal('replay.get') }),
   z.object({
     type: z.literal('room.create'),
@@ -78,6 +85,7 @@ export interface RoomSummary {
   modeName: string;
   players: number;
   hostName?: string;
+  hostUserId?: string;
   humans?: number;
   bots?: number;
   maxPlayers: number;
@@ -111,15 +119,20 @@ export interface RoomDetail extends RoomSummary {
   stage?: 'waiting' | 'countdown' | 'assignment' | 'briefing' | 'battleCountdown' | 'running';
   countdownEndsAt?: number;
   serverWallTime?: number;
+  anonymous?: boolean;
+  selfId?: string;
   slots?: ('player' | 'ai')[];
   chat?: { seq: number; nickname: string; text: string }[];
   allowedCapacities?: number[];
 }
 
 export interface ModeRecord { mode: string; played: number; won: number; lost: number; }
-export interface ProfileData { nickname: string; guest: boolean; modes: ModeRecord[]; }
+export interface OpponentRecord extends ModeRecord { userId: string; nickname: string; }
+export interface ProfileData { nickname: string; guest: boolean; modes: ModeRecord[]; opponents?: OpponentRecord[]; targetId?: string; }
+export interface LobbyChatLine { seq:number; userId:string; nickname:string; text:string; at:number; }
 export interface ReplayData { frames: { at: number; view: SpectatorView }[]; events: GameEvent[]; }
 export type ServerMessage =
+  | { type: 'lobby.chat'; lines: LobbyChatLine[] }
   | { type: 'profile'; profile: ProfileData }
   | { type: 'replay'; replay: ReplayData }
   | { type: 'welcome'; userId: string; nickname: string; session: string; guest: boolean }

@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ChatChannel, GameEvent, PlayerView, SkillView, SpectatorView } from '@gst/rules';
 import type { ClientAction, RoomDetail } from '@gst/protocol';
+import {sfx} from './sfx.js';
 import { net } from './net.js';
 import { CharacterCard } from './art.js';
 import { CombatCinema } from './CombatCinema.js';
 import { Feed } from './Feed.js';
 import { RoleReveal } from './RoleReveal.js';
 import { SmallLogo } from './Logo.js';
-import { BgmControl } from './BgmControl.js';
+import {Tooltip} from './Tooltip.js';
 import { gemIcon, portrait, skillIcon } from './icons.js';
 import { FX_TTL, fxFor, type Fx } from './fx.js';
 
@@ -95,7 +96,7 @@ export function SpectatorScreen({ view, events, room }: { view: SpectatorView; e
           <Feed view={view} events={events} />
         </section>
         <main>
-          <section className="players" style={{ gridTemplateColumns: `repeat(${Math.ceil(view.players.length / 2)}, minmax(0, 1fr))` }}>
+          <section className="players" style={{ gridTemplateColumns: `repeat(6, minmax(0, 1fr))` }}>
             {view.players.map((p) => (
               <div key={p.id} className={`pcard spec ${!p.alive ? 'dead' : ''}`}>
                 <Face character={p.character} size="sm" dead={!p.alive} />
@@ -150,7 +151,13 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
   }
   const sinceView = room.hostPaused ? 0 : Math.max(0, now - receivedAt.current);
 
+  const audioSeq=useRef(events.at(-1)?.seq??0);
+  useEffect(()=>{const fresh=events.filter(e=>e.seq>audioSeq.current);audioSeq.current=events.at(-1)?.seq??audioSeq.current;if(fresh.length>20)return;for(const e of fresh){if(e.kind==='death')sfx.play('death');else if(e.kind==='attack.hit')sfx.play('attack_hit');else if(/^attack\.(fail|guarded)/.test(e.kind))sfx.play('attack_fail');}},[events]);
   const [target, setTarget] = useState<string | null>(null);
+  const [menu,setMenu]=useState<{id:string;x:number;y:number}|null>(null);
+  const contextBox=useRef<HTMLDivElement>(null);
+  useEffect(()=>{if(!menu)return;const close=(e:KeyboardEvent)=>{if(e.key==='Escape')setMenu(null);};window.addEventListener('keydown',close);return()=>window.removeEventListener('keydown',close);},[!!menu]);
+  useEffect(()=>{if(!menu||!contextBox.current)return;const b=contextBox.current.getBoundingClientRect();const x=Math.max(8,Math.min(menu.x,innerWidth-b.width-8)),y=Math.max(8,Math.min(menu.y,innerHeight-b.height-8));if(x!==menu.x||y!==menu.y)setMenu({...menu,x,y});},[menu]);
   const [picking, setPicking] = useState<SkillView | null>(null);
   const roster = view.roster;
   const pendingSkills = useRef(new Map<number, { skill: string; target?: string }>());
@@ -202,6 +209,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
   const revealKey = `gst.reveal.${room.id}`;
   const [reveal, setReveal] = useState<boolean>(() => {
     try {
+      if(room.stage)return !sessionStorage.getItem(`gst.confirm.${room.id}`);
       if (sessionStorage.getItem(revealKey)) return false;
       sessionStorage.setItem(revealKey, '1');
     } catch {
@@ -209,12 +217,13 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
     }
     return !room.stage && view.phase === 'running' && view.elapsedMs < 60_000;
   });
-  const closeReveal = useCallback(() => setReveal(false), []);
+  const closeReveal = useCallback(() => {sessionStorage.setItem(`gst.confirm.${room.id}`,'1');setReveal(false);}, [room.id]);
   const [leaving, setLeaving] = useState(false);
 
   // 화면 효과: 새 이벤트마다 fx 를 만들고 잠시 뒤 지운다
   const [fx, setFx] = useState<Fx[]>([]);
   const fxSeq = useRef(0);
+  useEffect(()=>{if(!cast)return;const to=typeof cast.data?.target==='string'?cast.data.target:myId;const key=typeof cast.data?.skill==='string'?cast.data.skill:'';const item:Fx={id:Date.now()+Math.random(),type:'mark',to,icon:skillIcon(key,me.gem),color:'teal',label:cast.text};setFx(cur=>[...cur,item]);const t=setTimeout(()=>setFx(cur=>cur.filter(x=>x.id!==item.id)),2500);return()=>{clearTimeout(t);setFx(cur=>cur.filter(x=>x.id!==item.id));};},[cast]);
   useEffect(() => {
     const fresh = events.filter((e) => e.seq > fxSeq.current);
     if (fresh.length === 0) return;
@@ -232,11 +241,11 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
     for (const i of items) setTimeout(() => setFx((cur) => cur.filter((x) => x.id !== i.id)), FX_TTL[i.type]);
   }, [events, view, knowledge, me.character, myId]);
 
-  const useSkill = (s: SkillView) => {
+  const useSkill = (s: SkillView, selected: string|null = target) => {
     if (s.passive || s.blocked) return;
-    if (s.target !== 'none' && !target) return alertToast('먼저 대상 플레이어를 선택하세요.');
-    if (s.nameOptions) return setPicking(s);
-    sendSkill(s.key, s.target !== 'none' && target ? target : undefined);
+    if (s.target !== 'none' && !selected) return alertToast('먼저 대상 플레이어를 선택하세요.');
+    if (s.nameOptions) {setTarget(selected);return setPicking(s);}
+    sendSkill(s.key, s.target !== 'none' && selected ? selected : undefined);
   };
   // 단축키: 카드 순서대로 Q W E / A S D / Z X C / R F V / T G B (패시브 제외)
   const hotkeyOf = useMemo(() => {
@@ -267,7 +276,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
   }, [me.skills, hotkeyOf, picking]);
 
   return (
-    <div className={`game game-board mode-${view.mode}`}>
+    <div className={`game game-board mode-${view.mode} ${reveal?'role-pending':''}`}>
       <header className="topbar">
         <div className="topbar-left">
           <SmallLogo />
@@ -283,7 +292,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
           </div>
         )}
         <span className="row">
-          <BgmControl compact />
+
           <button className="ghost" onClick={() => setLeaving(true)}>
             나가기
           </button>
@@ -308,6 +317,46 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
               마나 {me.mana}/{me.maxMana}
             </span>
           </div>
+            <div className="my-skill-grid">
+              {me.skills.map((s) => {
+                const cd = Math.max(0, s.cooldownRemainingMs - sinceView);
+                const icon = skillIcon(s.key, me.gem);
+                return (
+                  <Tooltip key={s.key} content={<><strong>{s.name}</strong><p>{s.description}</p><p>{s.passive?'패시브':`마나 ${s.mana} · 재사용 ${s.cooldown}초 · ${s.usesLeft??'무제한'}회`}</p>{s.blocked&&<p>{s.blocked}</p>}</>}><button aria-label={s.name}
+                    key={s.key}
+                    className={`skill ${s.passive ? 'passive' : ''}`}
+                    disabled={!s.passive && (!!s.blocked && !(s.blocked.startsWith('재사용') && cd <= 0))}
+                    onClick={() => useSkill(s)}
+                  >
+                    <span className="sk-icon">
+                      {icon ? <img src={icon} alt="" /> : <span className="sk-noicon">{s.name.slice(0, 1)}</span>}
+                      {cd > 0 && s.cooldown > 0 && (
+                        <span className="sk-cd" style={{ ['--p' as string]: `${Math.min(1, cd / (s.cooldown * 1000)) * 360}deg` }}>
+                          {Math.ceil(cd / 1000)}
+                        </span>
+                      )}
+                    </span>
+                    <span className="sk-name">
+                      {hotkeyOf.get(s.key) && <kbd>{hotkeyOf.get(s.key)}</kbd>} {s.name}
+                      {s.key === 'advanced_attack' && s.level === 2 && <span className="tag warn">경고</span>}
+                    </span>
+                    <span className="sk-meta">
+                      {s.passive ? (
+                        <span className="sk-stat">패시브</span>
+                      ) : (
+                        <>
+                          <span className="sk-stat">마나 {s.mana}</span>
+                          <span className="sk-stat">쿨 {s.cooldown > 0 ? `${s.cooldown}초` : '없음'}</span>
+                          <span className="sk-stat">{s.usesLeft !== null ? `${s.usesLeft}회` : '무한'}</span>
+                        </>
+                      )}
+                    </span>
+                    <span className="sk-desc">{s.description}</span>
+                    <span className="sk-blocked">{s.blocked?.startsWith('재사용') ? (cd > 0 ? `재사용 대기 중 (${Math.ceil(cd / 1000)}초)` : '') : (s.blocked ?? '')}</span>
+                  </button></Tooltip>
+                );
+              })}
+            </div>
           <dl>
             <dt>공표</dt>
             <dd className={me.trueName ? 'truename' : ''}>
@@ -346,7 +395,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
         <main>
           <section className="players-wrap">
           <CombatCinema events={events} view={view} known={knowledge} cast={cast} />
-          <section className="players" style={{ gridTemplateColumns: `repeat(${Math.ceil(view.players.length / 2)}, minmax(0, 1fr))` }}>
+          <section className="players" style={{ gridTemplateColumns: `repeat(6, minmax(0, 1fr))` }}>
             {view.players.map((p) => {
               const k = knowledge.get(p.id);
               const isMe = p.id === myId;
@@ -360,6 +409,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                   role="button"
                   tabIndex={0}
                   className={`pcard ${!p.alive ? 'dead' : ''} ${target === p.id ? 'selected' : ''} ${isMe ? 'mine' : ''} ${glow ? `hit hit-${glow.color} ${hit?.big ? 'big' : ''}` : ''}`}
+                  onContextMenu={e=>{e.preventDefault();setTarget(p.id);setMenu({id:p.id,x:e.clientX,y:e.clientY});}}
                   onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!isMe) setTarget(target === p.id ? null : p.id); } }}
                   onClick={() => !isMe && setTarget(target === p.id ? null : p.id)}
                 >
@@ -420,61 +470,18 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                 </div>
               );
             })}
+            {Array.from({length:Math.max(0,12-view.players.length)},(_,i)=><div className="pcard empty-slot" key={`empty-${i}`}><img src={`${import.meta.env.BASE_URL}ui/card-empty-v3.webp`} alt="빈 플레이어 슬롯"/><span>빈 슬롯</span></div>)}
           </section>
           </section>
 
-          <section className="skills card">
-            <div className="muted small">
-              대상: <b>{targetPlayer ? `[${targetPlayer.seat}] ${targetPlayer.nickname}` : '없음'}</b> (카드를 눌러 선택)
-            </div>
-            <div className="skillbar">
-              {me.skills.map((s) => {
-                const cd = Math.max(0, s.cooldownRemainingMs - sinceView);
-                const icon = skillIcon(s.key, me.gem);
-                return (
-                  <button
-                    key={s.key}
-                    className={`skill ${s.passive ? 'passive' : ''}`}
-                    disabled={!s.passive && (!!s.blocked && !(s.blocked.startsWith('재사용') && cd <= 0))}
-                    onClick={() => useSkill(s)}
-                  >
-                    <span className="sk-icon">
-                      {icon ? <img src={icon} alt="" /> : <span className="sk-noicon">{s.name.slice(0, 1)}</span>}
-                      {cd > 0 && s.cooldown > 0 && (
-                        <span className="sk-cd" style={{ ['--p' as string]: `${Math.min(1, cd / (s.cooldown * 1000)) * 360}deg` }}>
-                          {Math.ceil(cd / 1000)}
-                        </span>
-                      )}
-                    </span>
-                    <span className="sk-name">
-                      {hotkeyOf.get(s.key) && <kbd>{hotkeyOf.get(s.key)}</kbd>} {s.name}
-                      {s.key === 'advanced_attack' && s.level === 2 && <span className="tag warn">경고</span>}
-                    </span>
-                    <span className="sk-meta">
-                      {s.passive ? (
-                        <span className="sk-stat">패시브</span>
-                      ) : (
-                        <>
-                          <span className="sk-stat">마나 {s.mana}</span>
-                          <span className="sk-stat">쿨 {s.cooldown > 0 ? `${s.cooldown}초` : '없음'}</span>
-                          <span className="sk-stat">{s.usesLeft !== null ? `${s.usesLeft}회` : '무한'}</span>
-                        </>
-                      )}
-                    </span>
-                    <span className="sk-desc">{s.description}</span>
-                    <span className="sk-blocked">{s.blocked?.startsWith('재사용') ? (cd > 0 ? `재사용 대기 중 (${Math.ceil(cd / 1000)}초)` : '') : (s.blocked ?? '')}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </section>
 
         </main>
       </div>
 
+      {menu&&<div className="context-shield" onClick={()=>setMenu(null)} onContextMenu={e=>{e.preventDefault();setMenu(null);}}><div role="menu" aria-label="사용할 스킬" className="skill-context" ref={contextBox} style={{left:menu.x,top:menu.y}} onClick={e=>e.stopPropagation()}>{me.skills.filter(s=>!s.passive).map(s=><Tooltip key={s.key} content={<><b>{s.name}</b><p>{s.description}</p><p>{s.blocked??`마나 ${s.mana} · 재사용 ${s.cooldown}초`}</p></>}><button role="menuitem" disabled={!!s.blocked} onClick={()=>{useSkill(s,menu.id);setMenu(null);}}>{skillIcon(s.key,me.gem)&&<img src={skillIcon(s.key,me.gem)!} alt=""/>}{s.name}</button></Tooltip>)}</div></div>}
       {reveal && <RoleReveal view={view} onClose={closeReveal} />}
       {leaving && (
-        <div className="modal" onClick={() => setLeaving(false)}>
+        <div className="modal">
           <div className="modal-body card leave-body" onClick={(e) => e.stopPropagation()}>
             <h3>나가기</h3>
             {view.phase === 'running' && me.alive ? (
@@ -549,7 +556,7 @@ function NamePicker({
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
   return (
-    <div className="modal" onClick={onClose}>
+    <div className="modal">
       <div className="modal-body card" onClick={(e) => e.stopPropagation()}>
         <h3>
           {skill.name} {targetLabel && <span className="muted">→ {targetLabel}</span>}
@@ -576,7 +583,7 @@ function NamePicker({
 function Log({ events }: { events: GameEvent[]; myId: string }) {
   // 채팅 전용. 스킬·시스템 알림은 오른쪽 알림 카드로
   const box = useRef<HTMLDivElement>(null);
-  const chats = events.filter((e) => e.kind.startsWith('chat.'));
+  const chats = events.filter((e) => e.kind.startsWith('chat.')).slice(-50);
   useEffect(() => {
     box.current?.scrollTo({ top: box.current.scrollHeight });
   }, [chats.length]);
@@ -624,8 +631,8 @@ function Chat({ view, target }: { view: PlayerView; target: string | null }) {
         {canGlobal && <option value="global">전체 방송(마나 35)</option>}
         {!view.me.alive && <option value="dead">사망자</option>}
       </select>
-      <input value={text} maxLength={200} onChange={(e) => setText(e.target.value)} placeholder="메시지" />
-      <button>보내기</button>
+      <input value={text} onChange={(e) => setText(Array.from(e.target.value).slice(0,50).join(''))} placeholder="메시지" />
+      <button aria-label="전송">↵</button>
     </form>
   );
 }

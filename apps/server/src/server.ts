@@ -6,7 +6,9 @@ import { parseClientMessage, type ServerMessage } from '@gst/protocol';
 import type { Action } from '@gst/rules';
 import { createVerifier } from './auth.js';
 import type { ServerConfig } from './config.js';
-import { loadModeRecords } from './persist.js';
+import { ChatPolicy } from './chat-policy.js';
+import { validNickname, limitNickname } from '@gst/protocol';
+import { loadOpponentRecords, loadModeRecords } from './persist.js';
 import { buildRecord, saveRecord } from './records.js';
 import { matchDelivery } from './match-delivery.js';
 import { RoomManager, type Conn, type Room } from './rooms.js';
@@ -20,6 +22,7 @@ interface Session {
   conn: Conn | null;
   socket: WebSocket | null;
   hostCapable: boolean;
+  chatPolicy: ChatPolicy;
 }
 
 export interface GameServer {
@@ -46,13 +49,17 @@ export function originAllowed(cfg: Pick<ServerConfig, 'allowedOrigins' | 'strict
 
 export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => void = console.log): GameServer {
   const verify = createVerifier(cfg);
+  const lobbyChat: import('@gst/protocol').LobbyChatLine[] = [];
+  let lobbyChatSeq = 0;
   const sessionsByToken = new Map<string, Session>();
   const sessionsByUser = new Map<string, Session>();
 
   const delivery = matchDelivery(cfg, log);
+  const matchIds = new Map<string,string>();
   const onEnd = (room: Room) => {
     if (!room.state) return;
-    void delivery.enqueue({ id: randomUUID(), state: structuredClone(room.state), authIds: room.authIds() }).catch(e => log('[persist] 보관 실패', String(e)));
+    const stored=room.recordState()!;
+    void delivery.enqueue({ id: matchIds.get(room.id) ?? (()=>{const id=randomUUID();matchIds.set(room.id,id);return id;})(), state: stored, authIds: room.authIds() }).catch(e => log('[persist] 보관 실패', String(e)));
     if (cfg.recordsDir) {
       const rec = buildRecord({ roomId: room.id, roomName: room.name, turnSeconds: room.turnSeconds, botKind: cfg.botKind, aiOnly: room.aiOnly, bots: room.botIds(), state: room.state, actions: room.actions });
       saveRecord(cfg.recordsDir, rec)
@@ -165,8 +172,24 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
       const reply = (error: string | null) => error && send({ type: 'error', message: error });
 
       switch (msg.type) {
+        case 'lobby.chat.get': return send({type:'lobby.chat',lines:lobbyChat});
+        case 'lobby.chat': {
+          if(current) return reply('대기실에서만 대화할 수 있습니다.');
+          const error=s.chatPolicy.accept(msg.text); if(error)return reply(error);
+          lobbyChat.push({seq:++lobbyChatSeq,userId:s.userId,nickname:s.nickname,text:msg.text,at:Date.now()});
+          if(lobbyChat.length>50)lobbyChat.shift();
+          for(const peer of sessionsByUser.values()) if(peer.conn&&!rooms.roomOf(peer.userId))peer.conn.send({type:'lobby.chat',lines:lobbyChat});
+          return;
+        }
+        case 'room.anonymous': return reply(current?current.setAnonymous(s.userId,msg.enabled):'방에 없습니다.');
         case 'profile.get':
-          try { send({ type: 'profile', profile: { nickname: s.nickname, guest: !s.authId, modes: s.authId ? await loadModeRecords(cfg, s.authId) : [] } }); }
+          if(current?.anonymous && msg.userId && msg.userId!==s.userId) return reply('익명 플레이에서는 상대 전적을 조회할 수 없습니다.');
+          try {
+            const target=msg.userId ? sessionsByUser.get(msg.userId) : s;
+            if(!target || (msg.userId && target.userId!==s.userId && rooms.roomOf(target.userId)?.anonymous)) return reply('조회할 수 없는 플레이어입니다.');
+            const opponents=s.authId?await loadOpponentRecords(cfg,s.authId):[];
+            send({ type: 'profile', profile: { nickname: target.nickname, guest: !target.authId, targetId:msg.userId, modes: target.authId ? await loadModeRecords(cfg, target.authId) : [], opponents:msg.userId?opponents.filter(r=>r.userId===target.authId):opponents } });
+          }
           catch { reply('전적을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.'); }
           return;
         case 'room.list':
@@ -198,12 +221,12 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
         case 'room.capacity': return reply(current ? current.setCapacity(s.userId, msg.capacity) : '방에 없습니다.');
         case 'room.slot': return reply(current ? current.setSlot(s.userId, msg.slot, msg.kind) : '방에 없습니다.');
         case 'room.kick': return reply(current ? current.kick(s.userId, msg.userId) : '방에 없습니다.');
-        case 'room.chat': return reply(current ? current.say(s.userId, msg.text) : '방에 없습니다.');
+        case 'room.chat': { const error=s.chatPolicy.accept(msg.text);if(error)return reply(error);return reply(current ? current.say(s.userId, msg.text) : '방에 없습니다.'); }
         case 'game.assign': return reply(current ? current.assign(s.userId, gameNow) : '방에 없습니다.');
         case 'game.begin': return reply(current ? current.begin(s.userId) : '방에 없습니다.');
         case 'replay.get':
           if (!current?.state || current.status !== 'ended') return reply('게임 종료 후에만 복기할 수 있습니다.');
-          return send({ type: 'replay', replay: { frames: current.replayFrames, events: current.state.log } });
+          return send(current.wire({ type: 'replay' as const, replay: { frames: current.replayFrames, events: current.state.log } }));
         case 'room.start':
           return reply(current ? (current.staged ? current.requestStart(s.userId) : current.start(s.userId, gameNow, !!msg.aiOnly)) : '방에 없습니다.');
         case 'host.release':
@@ -213,7 +236,9 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
           return reply(current ? current.commitHost(s.userId, msg.epoch, msg.frame, msg.checkpoint) : '방에 없습니다.');
         case 'game.action': {
           if (!current) return send({ type: 'action.result', ok: false, error: '방에 없습니다.', ref: msg.ref });
-          const r = current.act(s.userId, msg.action as Action, gameNow, msg.ref);
+          if(msg.action.type==='chat'){const error=s.chatPolicy.accept(msg.action.text);if(error)return send({type:'action.result',ok:false,error,ref:msg.ref});}
+          const action = current.decodeAction(msg.action as Action);
+          const r = current.act(s.userId, action, gameNow, msg.ref);
           if (r.pending) return;
           return send({ type: 'action.result', ok: r.ok, error: r.error, ref: msg.ref });
         }
@@ -247,7 +272,7 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
         const u = await verify(msg.token);
         s = sessionsByUser.get(u.userId);
         if (!s) {
-          s = { userId: u.userId, nickname: (msg.nickname ?? u.nickname ?? '플레이어').slice(0, 16), authId: u.userId, token: randomBytes(24).toString('hex'), conn: null, socket: null, hostCapable: false };
+          s = { userId: u.userId, nickname: limitNickname(u.nickname??msg.nickname??'플레이어'), authId: u.userId, token: randomBytes(24).toString('hex'), conn: null, socket: null, hostCapable: false, chatPolicy: new ChatPolicy() };
         }
       } catch {
         return fail('로그인 토큰이 유효하지 않습니다.');
@@ -256,9 +281,9 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
 
     if (!s) {
       if (!cfg.allowGuests) return fail('로그인이 필요합니다.');
-      if (!msg.nickname) return fail('닉네임이 필요합니다.');
+      if (!msg.nickname || !validNickname(msg.nickname)) return fail('닉네임은 영어 20자·한글 8자 이내입니다.');
       const userId = `g_${randomBytes(6).toString('hex')}`;
-      s = { userId, nickname: msg.nickname.slice(0, 16), authId: null, token: randomBytes(24).toString('hex'), conn: null, socket: null, hostCapable: false };
+      s = { userId, nickname: msg.nickname, authId: null, token: randomBytes(24).toString('hex'), conn: null, socket: null, hostCapable: false, chatPolicy: new ChatPolicy() };
     }
 
     // 기존 연결이 있으면 닫고 이 연결로 교체

@@ -5,9 +5,9 @@ import {CharacterCard} from './art.js';
 export function CombatCinema({events,view,known,cast}:{events:GameEvent[];view:PlayerView;known:Map<string,{character:string|null}>;cast:GameEvent|null}) {
  const seen=useRef(events.at(-1)?.seq??0);const queue=useRef<GameEvent[]>([]);const [event,setEvent]=useState<GameEvent|null>(null);
  const seenCast=useRef<number|null>(null);
- useEffect(()=>{if(cast&&cast.seq!==seenCast.current){seenCast.current=cast.seq;queue.current.unshift(cast);}
+ useEffect(()=>{if(cast&&cast.seq!==seenCast.current){seenCast.current=cast.seq;/* Nonlethal casts remain on their target card. */}
  const fresh=events.filter(e=>e.seq>seen.current);seen.current=events.at(-1)?.seq??seen.current;
- if(fresh.length<30)queue.current.push(...fresh.filter(e=>/^(attack\.|death$|inspect\.result|gem\.use|skill\.|status\.)/.test(e.kind)).slice(-8));
+ if(fresh.length<30)queue.current.push(...fresh.filter(e=>e.kind==='death').map(e=>{const kill=fresh.find(k=>k.kind==='attack.kill'&&(k.data?.target===e.data?.character||k.data?.target===e.data?.player));return kill?{...e,text:kill.text,data:{...kill.data,...e.data,target:e.data?.player??kill.data?.target}}:e;}).slice(-8));
  queue.current=queue.current.slice(-12);
  if(!event)setEvent(queue.current.shift()??null);
  },[events,event,cast]);
@@ -21,5 +21,5 @@ export function CombatCinema({events,view,known,cast}:{events:GameEvent[];view:P
  const family=typeof d.skill==='string'?skillFamily(d.skill):null;
  const effect=lethal?'shatter':failed?'shield':(/inspect|gem|scan/.test(event.kind)||['inspect','scan','gem','publish'].includes(family??''))?'reveal':(/incapacitated|jail|curse/.test(event.kind)||family==='curse')?'curse':['guard','heal','ally','holy','mana'].includes(family??'')?'shield':'strike';
  const card=(p:NonNullable<ReturnType<typeof resolve>>)=>{const c=view.roster.find(c=>c.key===p.character);return <CharacterCard character={p.character} name={c?.name} title={c?.title}/>;};
- return <div key={event.seq} className={`combat-cinema ${lethal?'lethal':''}`} aria-live="polite">{source&&card(source)}<div className={`combat-caption effect-${effect}`}><img className="combat-effect" src={`${import.meta.env.BASE_URL}ui/effect-${effect}.webp`} alt="" onError={e=>{e.currentTarget.style.display='none';}}/><p>{event.text}</p>{target?.nickname&&<small>{target.nickname}</small>}</div>{target&&card(target)}</div>;
+ return <div key={event.seq} className={`combat-cinema ${lethal?'lethal':''}`} aria-live="polite">{source&&card(source)}<div className={`combat-caption effect-${effect}`}><img className="combat-effect" src={`${import.meta.env.BASE_URL}ui/effect-${effect}.webp`} alt="" onError={e=>{e.currentTarget.style.display='none';}}/><p>{event.text}</p>{target?.nickname&&<small>{target.nickname}</small>}</div>{target&&<div className="torn-card"><div className="tear-left">{card(target)}</div><div className="tear-right">{card(target)}</div></div>}</div>;
 }

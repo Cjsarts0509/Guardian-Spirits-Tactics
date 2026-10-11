@@ -167,27 +167,16 @@ export function Feed({ view, events, myId }: { view: AnyView; events: GameEvent[
         {cards.length === 0 && <div className="muted small">{tab === 'mine' ? '아직 받은 비공개 정보가 없습니다.' : '아직 공개된 행동이 없습니다.'}</div>}
         {cards.map((c) => (
           <div key={c.seq} className={`ncard t-${c.tone} ${tab === 'mine' ? 'mine' : ''} ${c.replay ? 'replay' : ''}`}>
-            <span className="n-icon">{c.icon ? <img src={c.icon} alt="" /> : <span className="n-noicon">{c.title.slice(0, 1)}</span>}</span>
+
             <div className="n-body">
               <div className="n-top">
                 <b>{c.title}</b>
                 <span className="n-time">{fmt(c.at)}</span>
               </div>
               <div className="n-text">
-                {c.replay && <span className="tag">복기</span>} {c.text}
+                {c.replay && <span className="tag">복기</span>} {coloredText(c.text,view.players.map(p=>p.nickname))}
               </div>
-              {c.faces.length > 0 && (
-                <div className="n-faces">
-                  {c.faces.map((k) => {
-                    const p = portrait(k);
-                    return (
-                      <span key={k} className="n-face" title={charName(k)}>
-                        {p ? <img src={p} alt="" /> : null} {charName(k)}
-                      </span>
-                    );
-                  })}
-                </div>
-              )}
+
             </div>
           </div>
         ))}
@@ -195,3 +184,5 @@ export function Feed({ view, events, myId }: { view: AnyView; events: GameEvent[
     </section>
   );
 }
+
+function coloredText(text:string,names:string[]) {const sorted=[...new Set(names)].sort((a,b)=>b.length-a.length);const out:React.ReactNode[]=[];let rest=text;while(rest){let index=rest.length,found='';for(const name of sorted){const n=rest.indexOf(name);if(name&&n>=0&&n<index){index=n;found=name;}}if(!found){out.push(rest);break;}if(index)out.push(rest.slice(0,index));const i=names.indexOf(found);out.push(<b key={out.length} style={{color:['#e78c86','#e8b26d','#e7d783','#bed787','#89c7a0','#87cac7','#9dc9e8','#9caee7','#b9a0de','#d9a6c4','#d4d8df','#a9a9b4'][i%12]}}>{found}</b>);rest=rest.slice(index+found.length);}return out;}

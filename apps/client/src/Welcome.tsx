@@ -3,7 +3,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { currentToken, loadConfig, savedSession, signIn, signOut, signUp, type AuthSession, type ClientConfig } from './auth.js';
 import { net, type NetStatus } from './net.js';
 import { BigLogo } from './Logo.js';
-import { BgmControl } from './BgmControl.js';
+import { validNickname } from '@gst/protocol';
 
 const BASE = (import.meta.env.BASE_URL as string | undefined) ?? '/';
 type Tab = 'guest' | 'login' | 'signup';
@@ -39,7 +39,7 @@ export function MainScreen({ status, nick, setNick }: { status: NetStatus; nick:
 
   const guest = (e: FormEvent) => {
     e.preventDefault();
-    if (nick.trim()) net.connect(nick.trim());
+    if (validNickname(nick.trim())) net.connect(nick.trim()); else setMsg({kind:'err',text:'닉네임은 영문 20자 또는 한글 8자까지입니다.'});
   };
 
   const login = async (e: FormEvent) => {
@@ -62,7 +62,7 @@ export function MainScreen({ status, nick, setNick }: { status: NetStatus; nick:
     e.preventDefault();
     if (!auth || !cfg) return;
     const n = nickname.trim();
-    if (n.length < 1 || n.length > 16) return setMsg({ kind: 'err', text: '닉네임은 1~16자입니다.' });
+    if (!validNickname(n)) return setMsg({ kind: 'err', text: '닉네임은 영문 20자 또는 한글 8자까지입니다.' });
     if (password.length < 6) return setMsg({ kind: 'err', text: '비밀번호는 6자 이상이어야 합니다.' });
     setBusy(true);
     setMsg(null);
@@ -131,7 +131,7 @@ export function MainScreen({ status, nick, setNick }: { status: NetStatus; nick:
             )}
             {(!auth || tab === 'guest') && (
               <form onSubmit={guest}>
-                <input value={nick} maxLength={16} placeholder="닉네임" onChange={(e) => setNick(e.target.value)} autoFocus />
+                <input value={nick} maxLength={20} placeholder="닉네임" onChange={(e) => setNick(e.target.value)} autoFocus />
                 <button disabled={!nick.trim() || connecting}>{connecting ? '연결 중…' : '게스트로 입장'}</button>
                 {auth && <p className="muted small">게스트는 전적이 남지 않습니다.</p>}
               </form>
@@ -145,7 +145,7 @@ export function MainScreen({ status, nick, setNick }: { status: NetStatus; nick:
             )}
             {auth && tab === 'signup' && (
               <form onSubmit={signup}>
-                <input value={nickname} maxLength={16} placeholder="닉네임 (게임에서 보이는 이름)" onChange={(e) => setNickname(e.target.value)} autoFocus />
+                <input value={nickname} maxLength={20} placeholder="닉네임 (게임에서 보이는 이름)" onChange={(e) => setNickname(e.target.value)} autoFocus />
                 <input type="email" value={email} placeholder="이메일" autoComplete="email" onChange={(e) => setEmail(e.target.value)} />
                 <input type="password" value={password} placeholder="비밀번호 (6자 이상)" autoComplete="new-password" onChange={(e) => setPassword(e.target.value)} />
                 <button disabled={busy || connecting || !email || !password || !nickname.trim()}>{busy ? '가입 중…' : '가입하고 입장'}</button>
@@ -155,8 +155,8 @@ export function MainScreen({ status, nick, setNick }: { status: NetStatus; nick:
           </div>
         )}
         <div className="main-foot row spread">
-          <span className="muted small">4rum · 워크래프트3 유즈맵 리메이크 · 플레이테스트</span>
-          <BgmControl compact />
+          <span className="muted small">워크래프트3 유즈맵 리메이크 · 4rum Present</span>
+
         </div>
       </div>
     </div>

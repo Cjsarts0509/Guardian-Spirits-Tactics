@@ -4,13 +4,17 @@ const BASE = (import.meta.env.BASE_URL as string | undefined) ?? '/';
 const KEY = 'gst.bgm';
 const FADE = 2.0;
 
-export type TrackId = 'main' | 'civil_war' | 'primordial' | 'lidellut' | 'troll';
+type ModeTrack = 'civil_war' | 'primordial' | 'lidellut' | 'troll';
+export type TrackId = 'main' | ModeTrack | `${ModeTrack}_${'win'|'loss'}`;
+declare const __GST_BGM_FILES__:string[];
+export const hasTrack=(id:TrackId)=>__GST_BGM_FILES__.includes(`${id}.mp3`);
 export const TRACK_NAMES: Record<TrackId, string> = {
   main: '메인 테마',
   civil_war: '왕자들의 내전',
   primordial: '태초의 전쟁',
   lidellut: '리델루트 황야',
   troll: '트롤 부족의 반란',
+  civil_war_win:'내전 · 승리',civil_war_loss:'내전 · 패배',primordial_win:'태초 · 승리',primordial_loss:'태초 · 패배',lidellut_win:'황야 · 승리',lidellut_loss:'황야 · 패배',troll_win:'트롤 · 승리',troll_loss:'트롤 · 패배',
 };
 
 interface Playing {

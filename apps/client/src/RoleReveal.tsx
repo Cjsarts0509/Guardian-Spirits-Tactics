@@ -5,7 +5,7 @@ import { CharacterCard } from './art.js';
 import { SubLogo } from './Logo.js';
 
 const SHUFFLE_MS = 2200;
-const AUTO_CLOSE_MS = 14000;
+
 
 export function RoleReveal({ view, onClose }: { view: PlayerView; onClose: () => void }) {
   const me = view.me;
@@ -23,16 +23,12 @@ export function RoleReveal({ view, onClose }: { view: PlayerView; onClose: () =>
     }, 90);
     return () => clearInterval(tick);
   }, [roster.length]);
-  useEffect(() => {
-    if (phase !== 'reveal') return;
-    const t = setTimeout(onClose, AUTO_CLOSE_MS);
-    return () => clearTimeout(t);
-  }, [phase, onClose]);
+
 
   void idx;
   const backs: Record<string,string> = {civil_war:'MODE01_CIVIL_WAR',primordial:'MODE02_WAR_OF_BEGINNING',lidellut:'MODE03_LIDELLUT_WASTES',troll:'MODE04_TROLL_REBELLION'};
   return (
-    <div className={`reveal ${phase}`} onClick={phase === 'reveal' ? onClose : undefined}>
+    <div className={`reveal ${phase}`}>
       <div className="reveal-body" onClick={(e) => e.stopPropagation()}>
         <SubLogo className="reveal-logo" />
         <div className="reveal-kicker">{phase === 'shuffle' ? '역할을 배분하는 중…' : `당신의 역할 · ${view.sideNames[me.side]}`}</div>
@@ -54,7 +50,7 @@ export function RoleReveal({ view, onClose }: { view: PlayerView; onClose: () =>
                 ))}
             </div>
             <button onClick={onClose}>역할 확인</button>
-            <div className="muted small">클릭하거나 잠시 뒤 자동으로 닫힙니다 · 역할은 왼쪽 패널에서 언제든 다시 볼 수 있습니다</div>
+            <div className="muted small">역할 확인을 누르면 전투 준비 화면으로 돌아갑니다</div>
           </>
         )}
       </div>

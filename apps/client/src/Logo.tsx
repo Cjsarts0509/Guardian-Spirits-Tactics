@@ -28,7 +28,7 @@ export function Emblem({ size = 24, className = '' }: { size?: number; className
 /** 메인 화면용 큰 로고: 엠블럼 + 영문 워드마크(그림) + 한글 제목(글자) */
 export function BigLogo() {
   return (
-    <div className="biglogo">
+    <div className="biglogo"><Emblem size={512} className="biglogo-emblem"/>
       <Img
         name="logo_wordmark.webp"
         className="biglogo-wordmark"
@@ -49,7 +49,7 @@ export function BigLogo() {
 export function SmallLogo({ text }: { text?: string }) {
   return (
     <span className="smalllogo">
-      <Emblem size={24} />
+      <Emblem size={64} />
       {text && <b>{text}</b>}
     </span>
   );
