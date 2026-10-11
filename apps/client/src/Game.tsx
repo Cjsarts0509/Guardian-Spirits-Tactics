@@ -143,13 +143,19 @@ export function SpectatorScreen({ view, events, room }: { view: SpectatorView; e
 
 export function GameScreen({ view, events, room, myId }: { view: PlayerView; events: GameEvent[]; room: RoomDetail; myId: string }) {
   const now = useNow();
+  const battleWaiting=room.stage==='battleWaiting'||room.stage==='battleCountdown';
+  const battleSeconds=room.stage==='battleCountdown'?Math.max(0,Math.ceil(((room.countdownEndsAt??0)-now-net.wallClockOffset)/1000)):null;
+  useEffect(()=>{if(battleSeconds!==null&&battleSeconds>0)sfx.play('countdown_tick');},[battleSeconds]);
+  const previousStage=useRef(room.stage);
+  useEffect(()=>{if(previousStage.current==='battleCountdown'&&room.stage==='running')sfx.play('countdown_start');previousStage.current=room.stage;},[room.stage]);
+  useEffect(()=>{if(room.stage==='battleWaiting' && sessionStorage.getItem(`gst.confirm.${room.id}`))net.send({type:'game.enter'});},[room.id,room.stage]);
   const receivedAt = useRef(Date.now());
   const lastView = useRef(view);
   if (lastView.current !== view) {
     lastView.current = view;
     receivedAt.current = Date.now();
   }
-  const sinceView = room.hostPaused ? 0 : Math.max(0, now - receivedAt.current);
+  const sinceView = room.hostPaused || battleWaiting ? 0 : Math.max(0, now - receivedAt.current);
 
   const audioSeq=useRef(events.at(-1)?.seq??0);
   useEffect(()=>{const fresh=events.filter(e=>e.seq>audioSeq.current);audioSeq.current=events.at(-1)?.seq??audioSeq.current;if(fresh.length>20)return;for(const e of fresh){if(e.kind==='death')sfx.play('death');else if(e.kind==='attack.hit')sfx.play('attack_hit');else if(/^attack\.(fail|guarded)/.test(e.kind))sfx.play('attack_fail');}},[events]);
@@ -173,6 +179,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
       text: `${skill?.name ?? pending.skill} 사용`, data: { actor: myId, target: pending.target ?? myId, skill: pending.skill } });
   }), [view.me.skills, view.elapsedMs, myId]);
   const sendSkill = (skill: string, t?: string, name?: string) => {
+    if(battleWaiting)return;
     const ref = act({ type: 'skill', skill, ...(t ? { target: t } : {}), ...(name ? { name } : {}) });
     pendingSkills.current.set(ref, { skill, target: t });
     if (pendingSkills.current.size > 50) pendingSkills.current.delete(pendingSkills.current.keys().next().value!);
@@ -217,7 +224,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
     }
     return !room.stage && view.phase === 'running' && view.elapsedMs < 60_000;
   });
-  const closeReveal = useCallback(() => {sessionStorage.setItem(`gst.confirm.${room.id}`,'1');setReveal(false);}, [room.id]);
+  const closeReveal = useCallback(() => {if(room.stage==='battleWaiting')net.send({type:'game.enter'});sessionStorage.setItem(`gst.confirm.${room.id}`,'1');setReveal(false);}, [room.id,room.stage]);
   const [leaving, setLeaving] = useState(false);
 
   // 화면 효과: 새 이벤트마다 fx 를 만들고 잠시 뒤 지운다
@@ -387,7 +394,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
         <section className="center">
           <div className="center-chat">
             <Log events={events} myId={myId} />
-            <Chat view={view} target={target} />
+            <Chat view={view} target={target} waiting={battleWaiting} />
           </div>
           <Feed view={view} events={events} myId={myId} />
         </section>
@@ -408,11 +415,12 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
                   data-player={p.id}
                   role="button"
                   tabIndex={0}
-                  className={`pcard ${!p.alive ? 'dead' : ''} ${target === p.id ? 'selected' : ''} ${isMe ? 'mine' : ''} ${glow ? `hit hit-${glow.color} ${hit?.big ? 'big' : ''}` : ''}`}
+                  className={`pcard ${!p.alive ? 'dead' : ''} ${battleWaiting&&!room.members.find(m=>m.id===p.id)?.battleReady?'battle-pending':''} ${target === p.id ? 'selected' : ''} ${isMe ? 'mine' : ''} ${glow ? `hit hit-${glow.color} ${hit?.big ? 'big' : ''}` : ''}`}
                   onContextMenu={e=>{e.preventDefault();setTarget(p.id);setMenu({id:p.id,x:e.clientX,y:e.clientY});}}
                   onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!isMe) setTarget(target === p.id ? null : p.id); } }}
                   onClick={() => !isMe && setTarget(target === p.id ? null : p.id)}
                 >
+                  {battleWaiting&&<span className={`battle-entry ${room.members.find(m=>m.id===p.id)?.battleReady?'entered':'pending'}`}>{room.members.find(m=>m.id===p.id)?.battleReady?'전투대기':'전투입장 전'}</span>}
                   {hit?.label && <span className={`fx-label c-${hit.color}`} key={hit.id}>{hit.label}</span>}
                   {marks.length > 0 && (
                     <span className="fx-marks">
@@ -478,6 +486,7 @@ export function GameScreen({ view, events, room, myId }: { view: PlayerView; eve
         </main>
       </div>
 
+      {battleWaiting&&<div className="battle-start-overlay" role="status">{room.stage==='battleCountdown'?<>전투 시작 <strong>{Math.max(0,Math.ceil(((room.countdownEndsAt??0)-now-net.wallClockOffset)/1000))}</strong></>:'모든 플레이어의 전투 입장을 기다립니다'}</div>}
       {menu&&<div className="context-shield" onClick={()=>setMenu(null)} onContextMenu={e=>{e.preventDefault();setMenu(null);}}><div role="menu" aria-label="사용할 스킬" className="skill-context" ref={contextBox} style={{left:menu.x,top:menu.y}} onClick={e=>e.stopPropagation()}>{me.skills.filter(s=>!s.passive).map(s=><Tooltip key={s.key} content={<><b>{s.name}</b><p>{s.description}</p><p>{s.blocked??`마나 ${s.mana} · 재사용 ${s.cooldown}초`}</p></>}><button role="menuitem" disabled={!!s.blocked} onClick={()=>{useSkill(s,menu.id);setMenu(null);}}>{skillIcon(s.key,me.gem)&&<img src={skillIcon(s.key,me.gem)!} alt=""/>}{s.name}</button></Tooltip>)}</div></div>}
       {reveal && <RoleReveal view={view} onClose={closeReveal} />}
       {leaving && (
@@ -608,7 +617,7 @@ function Log({ events }: { events: GameEvent[]; myId: string }) {
   );
 }
 
-function Chat({ view, target }: { view: PlayerView; target: string | null }) {
+function Chat({ view, target,waiting=false }: { view: PlayerView; target: string | null;waiting?:boolean }) {
   const [text, setText] = useState('');
   const canGlobal = view.me.skills.some((s) => s.key === 'global_chat');
   const [channel, setChannel] = useState<ChatChannel>('all');
@@ -619,12 +628,13 @@ function Chat({ view, target }: { view: PlayerView; target: string | null }) {
       onSubmit={(e) => {
         e.preventDefault();
         if (!text.trim()) return;
+        if(waiting){net.send({type:'room.chat',text:text.trim()});setText('');return;}
         if (effective === 'whisper' && !target) return alert('귓속말 대상을 카드에서 선택하세요.');
         act({ type: 'chat', channel: effective, text: text.trim(), ...(effective === 'whisper' && target ? { to: target } : {}) });
         setText('');
       }}
     >
-      <select value={effective} disabled={!view.me.alive} onChange={(e) => setChannel(e.target.value as ChatChannel)}>
+      <select value={effective} disabled={!view.me.alive||waiting} onChange={(e) => setChannel(e.target.value as ChatChannel)}>
         <option value="all">전체</option>
         <option value="ally">동맹</option>
         <option value="whisper">귓속말(선택 대상)</option>

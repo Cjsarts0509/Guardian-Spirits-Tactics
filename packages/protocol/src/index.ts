@@ -47,6 +47,7 @@ export const clientMessage = z.discriminatedUnion('type', [
   z.object({ type: z.literal('room.chat'), text: z.string().trim().min(1).max(100).refine(t => Array.from(t).length <= 50, "채팅은 최대 50자입니다.") }),
   z.object({ type: z.literal('game.assign') }),
   z.object({ type: z.literal('game.begin') }),
+  z.object({ type: z.literal('game.enter') }),
   z.object({ type: z.literal('profile.get'), userId:z.string().max(64).optional() }),
   z.object({ type:z.literal('lobby.chat'),text:z.string().trim().min(1).max(100).refine(t=>Array.from(t).length<=50) }),
   z.object({ type:z.literal('lobby.chat.get') }),
@@ -101,6 +102,7 @@ export interface RoomMember {
   ready?: boolean;
   slot?: number;
   connected: boolean;
+  battleReady?: boolean;
   /** 자리 비움 (봇이 대신 플레이 중) */
   away?: boolean;
   /** 봇만 돌리는 판의 관전자 */
@@ -116,7 +118,7 @@ export interface RoomDetail extends RoomSummary {
   members: RoomMember[];
   minPlayers: number;
   botsAllowed: boolean;
-  stage?: 'waiting' | 'countdown' | 'assignment' | 'briefing' | 'battleCountdown' | 'running';
+  stage?: 'waiting' | 'countdown' | 'assignment' | 'briefing' | 'battleWaiting' | 'battleCountdown' | 'running';
   countdownEndsAt?: number;
   serverWallTime?: number;
   anonymous?: boolean;

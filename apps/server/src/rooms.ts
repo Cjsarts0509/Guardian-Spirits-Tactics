@@ -63,6 +63,7 @@ export class Room {
   private chatArchive: {nickname:string;text:string;at:number}[] = [];
   stage: NonNullable<RoomDetail['stage']> = 'waiting';
   countdownEndsAt = 0;
+  private battleEntrants = new Set<string>();
   slots: ('player' | 'ai')[] = Array(MAX_PLAYERS).fill('player');
   chat: NonNullable<RoomDetail['chat']> = [];
   replayFrames: { at: number; view: ReturnType<typeof spectatorView> }[] = [];
@@ -130,11 +131,11 @@ export class Room {
   }
 
   say(by: string, text: string): string | null {
-    const m = this.member(by); if (!m || (this.status !== 'lobby' && this.status !== 'ended' && this.stage !== 'assignment' && this.stage !== 'briefing' && this.stage !== 'battleCountdown')) return '준비 또는 복기 화면에서 사용할 수 있습니다.';
+    const m = this.member(by); if (!m || (this.status !== 'lobby' && this.status !== 'ended' && this.stage !== 'assignment' && this.stage !== 'briefing' && this.stage !== 'battleWaiting' && this.stage !== 'battleCountdown')) return '준비 또는 복기 화면에서 사용할 수 있습니다.';
     this.chat.push({ seq: (this.chat.at(-1)?.seq ?? 0) + 1, nickname: this.names.get(m.id)??m.nickname, text });
     this.chatArchive.push({nickname:this.names.get(m.id)??m.nickname,text,at:Date.now()});
     if(this.state){this.state.log.push({seq:++this.state.seq,at:this.status==='ended'?this.state.now-this.state.startedAt+Math.max(0,this.clock()-this.endedAt):0,kind:'chat.room',vis:{to:'all'},text:`${this.names.get(m.id)??m.nickname}: ${text}`,data:{wallTime:Date.now()}});if(this.status==='ended')this.onEnd(this);}
-    this.chat = this.chat.slice(-50); this.broadcastRoom(); return null;
+    this.chat = this.chat.slice(-50); this.broadcastRoom(); if(this.stage==='battleWaiting'||this.stage==='battleCountdown')this.syncGame(); return null;
   }
 
   requestStart(by: string): string | null {
@@ -154,7 +155,15 @@ export class Room {
   begin(by: string): string | null {
     if (by !== this.hostId || this.stage !== 'briefing') return '역할 배분 후 방장만 전투를 시작할 수 있습니다.';
     if (this.humans().some(m => !m.conn)) return '모든 플레이어가 연결되어야 합니다.';
-    this.stage = 'battleCountdown'; this.countdownEndsAt = Date.now() + 5000; this.broadcastRoom(); return null;
+    this.battleEntrants.clear(); this.stage = this.humans().some(m=>!m.spectator)?'battleWaiting':'battleCountdown'; this.countdownEndsAt = this.stage==='battleCountdown'?Date.now()+5000:0; this.broadcastRoom(); return null;
+  }
+
+  enterBattle(by: string): string | null {
+    if (!['battleWaiting','battleCountdown'].includes(this.stage)) return '전투 입장 대기 중이 아닙니다.';
+    const m=this.member(by); if(!m?.conn || m.bot || m.spectator) return '참가 플레이어만 입장할 수 있습니다.';
+    this.battleEntrants.add(by);
+    if(this.stage==='battleWaiting' && this.humans().filter(m=>!m.spectator).every(m=>!!m.conn && this.battleEntrants.has(m.id))) {this.stage='battleCountdown';this.countdownEndsAt=Date.now()+5000;}
+    this.broadcastRoom(); return null;
   }
 
   readonly id = id(6);
@@ -208,7 +217,7 @@ export class Room {
       hostEpoch: this.hostEpoch,
       hostPaused: this.hosting === 'player' && this.status === 'playing' && !this.hostId,
       turnSeconds: this.turnSeconds,
-      members: this.members.map((m) => ({ id: m.id, nickname: m.nickname, bot: m.bot, ready: m.bot || !!m.ready, slot: m.slot, connected: m.bot || !!m.conn, ...(m.spectator ? { spectator: true } : {}), ...(m.away || m.left ? { away: true } : {}) })),
+      members: this.members.map((m) => ({ id: m.id, nickname: m.nickname, bot: m.bot, ready: m.bot || !!m.ready, slot: m.slot, connected: m.bot || !!m.conn, battleReady: m.bot || this.battleEntrants.has(m.id), ...(m.spectator ? { spectator: true } : {}), ...(m.away || m.left ? { away: true } : {}) })),
       minPlayers: MIN_PLAYERS,
       botsAllowed: this.cfg.allowBots,
       stage: this.staged ? this.stage : undefined, countdownEndsAt: this.countdownEndsAt, serverWallTime: Date.now(),

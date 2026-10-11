@@ -224,6 +224,7 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
         case 'room.chat': { const error=s.chatPolicy.accept(msg.text);if(error)return reply(error);return reply(current ? current.say(s.userId, msg.text) : '방에 없습니다.'); }
         case 'game.assign': return reply(current ? current.assign(s.userId, gameNow) : '방에 없습니다.');
         case 'game.begin': return reply(current ? current.begin(s.userId) : '방에 없습니다.');
+        case 'game.enter': return reply(current ? current.enterBattle(s.userId) : '방에 없습니다.');
         case 'replay.get':
           if (!current?.state || current.status !== 'ended') return reply('게임 종료 후에만 복기할 수 있습니다.');
           return send(current.wire({ type: 'replay' as const, replay: { frames: current.replayFrames, events: current.state.log } }));

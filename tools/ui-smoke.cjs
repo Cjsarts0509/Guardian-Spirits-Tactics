@@ -52,7 +52,7 @@ mkdirSync(output, { recursive: true });
         await shot(page, 'lobby');
         await page.getByRole('button', { name: '내 정보 · 설정' }).click();
         await page.getByText('게스트의 계정 전적은 저장되지 않습니다.', { exact: false }).waitFor();
-        await shot(page, 'guest-profile');await page.getByRole('button',{name:'소리 설정',exact:true}).click();await page.getByLabel('버튼 효과음',{exact:true}).selectOption('interface/click_001.ogg');await page.getByRole('button',{name:'버튼 클릭 1 듣기',exact:true}).click();assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('gst.sfx')).choices.ui_click))==='interface/click_001.ogg','sound selection persistence');await shot(page,'sound-settings');
+        await shot(page, 'guest-profile');await page.getByRole('button',{name:'소리 설정',exact:true}).click();await page.getByLabel('효과음 볼륨',{exact:true}).fill('0.3');assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('gst.sfx')).volume))===0.3,'sound volume persistence');await shot(page,'sound-settings');
         await page.getByRole('button', { name: '닫기', exact: true }).click();
         await page.clock.install();await page.clock.fastForward(30*60*1000+16000);await page.getByRole('button',{name:'게스트로 입장',exact:true}).waitFor();await page.clock.resume();await page.getByPlaceholder('닉네임',{exact:true}).fill(`UI검증${index}`);await page.getByRole('button',{name:'게스트로 입장',exact:true}).click();await page.getByRole('heading',{name:'대기실',exact:true}).waitFor();
       }
@@ -83,8 +83,9 @@ mkdirSync(output, { recursive: true });
       await page.getByLabel('채팅 메시지', { exact: true }).fill('역할 배분 후 대화 확인');
       await page.getByRole('button', { name: '전송', exact: true }).click();
       await page.getByText('역할 배분 후 대화 확인', { exact: false }).waitFor();
-      await page.getByRole('button', { name: '전투 시작', exact: true }).click();
+      await page.getByRole('button', { name: '전투 준비', exact: true }).click();
       await page.locator('.game .my-skill-grid').waitFor({ timeout: 10000 });
+      await page.locator('.battle-start-overlay').waitFor({state:'detached',timeout:10000});
       await page.waitForFunction(() => document.querySelectorAll('.players .character-frame').length === 8);
       assert(await page.getByAltText('정체 미공개', { exact: true }).count() >= 7, 'Opponent identities must remain hidden');
       assert.equal(await page.locator('.players>.pcard').count(),12,'battle always has 12 slots');
@@ -112,7 +113,7 @@ mkdirSync(output, { recursive: true });
       await page.waitForFunction(() => document.querySelectorAll('.replay-roster .character-frame').length === 8);
       assert.equal(await page.getByAltText('정체 미공개', { exact: true }).count(), 0, 'Replay must show all identities');
       assert(await page.locator('.replay-events').innerText(), 'Replay log must contain events');
-      if(!index){await page.getByRole('button',{name:'채팅',exact:true}).click();await page.getByLabel('채팅 메시지',{exact:true}).fill('복기 중 대화');await page.getByRole('button',{name:'전송',exact:true}).click();await page.getByText('복기 중 대화',{exact:false}).waitFor();await page.getByLabel('채팅창 불투명도',{exact:true}).fill('0.5');const header=page.locator('.replay-chat-handle');const h=await header.boundingBox();await page.mouse.move(h.x+30,h.y+20);await page.mouse.down();await page.mouse.move(h.x-150,h.y-100);await page.mouse.up();await shot(page,'replay-chat');await header.getByRole('button').click();}
+      if(!index){await page.getByLabel('채팅 메시지',{exact:true}).fill('복기 중 대화');await page.getByRole('button',{name:'전송',exact:true}).click();await page.getByText('복기 중 대화',{exact:false}).waitFor();await page.getByLabel('채팅창 불투명도',{exact:true}).fill('0.5');const header=page.locator('.replay-chat-handle');const h=await header.boundingBox();await page.mouse.move(h.x+30,h.y+20);await page.mouse.down();await page.mouse.move(h.x-150,h.y-100);await page.mouse.up();await shot(page,'replay-chat');}
       await shot(page, `${index}-results`);
       const timeline = page.getByLabel('복기 시간', { exact: true });
       const end = Number(await timeline.getAttribute('max'));

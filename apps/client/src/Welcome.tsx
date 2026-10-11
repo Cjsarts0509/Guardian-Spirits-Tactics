@@ -1,3 +1,4 @@
+import {loadAccountSound} from './sound-account.js';
 // 메인 화면: 키 비주얼 + 게스트 입장 / 로그인 / 가입
 import { useEffect, useState, type FormEvent } from 'react';
 import { currentToken, loadConfig, savedSession, signIn, signOut, signUp, type AuthSession, type ClientConfig } from './auth.js';
@@ -10,7 +11,7 @@ type Tab = 'guest' | 'login' | 'signup';
 
 /** 로그인 사용자로 서버에 접속 (토큰은 접속 때마다 갱신해서 보낸다) */
 export function connectAs(cfg: ClientConfig, s: AuthSession): void {
-  net.connect(s.nickname, async () => (await currentToken(cfg.auth))?.accessToken ?? null);
+  void loadAccountSound().catch(()=>window.dispatchEvent(new CustomEvent('gst.sound.status',{detail:'계정 소리 설정을 불러오지 못했습니다.'}))).finally(()=>net.connect(s.nickname, async () => (await currentToken(cfg.auth))?.accessToken ?? null));
 }
 
 export function MainScreen({ status, nick, setNick }: { status: NetStatus; nick: string; setNick: (v: string) => void }) {
@@ -129,7 +130,7 @@ export function MainScreen({ status, nick, setNick }: { status: NetStatus; nick:
                 </button>
               </div>
             )}
-            {(!auth || tab === 'guest') && (
+            <div className="tab-content" key={tab}>{(!auth || tab === 'guest') && (
               <form onSubmit={guest}>
                 <input value={nick} maxLength={20} placeholder="닉네임" onChange={(e) => setNick(e.target.value)} autoFocus />
                 <button disabled={!nick.trim() || connecting}>{connecting ? '연결 중…' : '게스트로 입장'}</button>
@@ -151,10 +152,10 @@ export function MainScreen({ status, nick, setNick }: { status: NetStatus; nick:
                 <button disabled={busy || connecting || !email || !password || !nickname.trim()}>{busy ? '가입 중…' : '가입하고 입장'}</button>
               </form>
             )}
-            {msg && <p className={`main-msg ${msg.kind}`}>{msg.text}</p>}
+            </div>{msg && <p className={`main-msg ${msg.kind}`}>{msg.text}</p>}
           </div>
         )}
-        <div className="main-foot row spread">
+        <div className="main-foot">
           <span className="muted small">워크래프트3 유즈맵 리메이크 · 4rum Present</span>
 
         </div>

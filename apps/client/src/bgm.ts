@@ -153,6 +153,8 @@ class Bgm {
     this.apply();
   }
 
+  restore(volume:number, muted:boolean): void {this.volume=volume;this.muted=muted;this.apply();}
+
   private apply() {
     if (this.master && this.ctx) {
       const now = this.ctx.currentTime;
@@ -165,6 +167,7 @@ class Bgm {
       /* ignore */
     }
     this.emit();
+    window.dispatchEvent(new Event('gst.sound.changed'));
   }
 }
 
