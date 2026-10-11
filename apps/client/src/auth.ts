@@ -1,3 +1,4 @@
+import {limitNickname} from '@gst/protocol';
 // Supabase 이메일/비밀번호 로그인 (GoTrue REST 직접 호출, 별도 SDK 없음).
 // 서버의 /config.json 이 auth 를 주면 켜지고, 없으면 게스트만 가능하다.
 export interface AuthConfig {
@@ -84,7 +85,7 @@ function toSession(d: Record<string, unknown>, fallbackNick: string): AuthSessio
     expiresAt: Date.now() + Number(d.expires_in ?? 3600) * 1000,
     userId: user.id,
     email: user.email ?? '',
-    nickname: (user.user_metadata?.nickname ?? fallbackNick).slice(0, 16),
+    nickname: limitNickname(user.user_metadata?.nickname ?? fallbackNick),
   };
 }
 

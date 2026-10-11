@@ -5,9 +5,10 @@ import { net, type NetStatus } from './net.js';
 import { Lobby, RoomPanel, StagingScreen } from './Lobby.js';
 import { GameScreen, SpectatorScreen } from './Game.js';
 import { MainScreen, connectAs } from './Welcome.js';
-import { currentToken, loadConfig, savedSession } from './auth.js';
+import { currentToken, loadConfig, savedSession, signOut } from './auth.js';
 import { Results } from './Replay.js';
-import { bgm, type TrackId } from './bgm.js';
+import {ResultCinema} from './ResultCinema.js';
+import { bgm, hasTrack, type TrackId } from './bgm.js';
 
 export interface Toast {
   id: number;
@@ -22,6 +23,7 @@ export function App() {
   const [view, setView] = useState<PlayerView | SpectatorView | null>(null);
   const [events, setEvents] = useState<GameEvent[]>([]);
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const [resultReady,setResultReady]=useState(false);
   const [nick, setNick] = useState(net.savedNickname());
 
   useEffect(() => net.onStatus(setStatus), []);
@@ -87,7 +89,8 @@ export function App() {
     const inGame = !!(view && room && room.status !== 'lobby');
     const modes: string[] = ['civil_war', 'primordial', 'lidellut', 'troll'];
     const id: TrackId = inGame && view && modes.includes(view.mode) ? (view.mode as TrackId) : 'main';
-    void bgm.play(id);
+    const resultId=(view&&room?.status==='ended'&&!('spectator' in view))?`${view.mode}_${view.me.side===view.winner?'win':'loss'}` as TrackId:null;
+    void bgm.play(resultId&&hasTrack(resultId)?resultId:id);
   }, [view, room]);
 
   // 방 목록 주기 갱신
@@ -97,17 +100,20 @@ export function App() {
     return () => clearInterval(t);
   }, [me, room]);
 
+  useEffect(()=>{setResultReady(false);if(room?.status!=='ended')return;const t=setTimeout(()=>setResultReady(true),5000);return()=>clearTimeout(t);},[room?.id,room?.status]);
+  useEffect(()=>{if(!me)return;let last=Date.now();const activity=()=>{last=Date.now();};const types=['pointerdown','pointermove','keydown','wheel'] as const;for(const type of types)window.addEventListener(type,activity,{passive:true});const t=setInterval(()=>{if(room?.status==='playing'){last=Date.now();return;}if(Date.now()-last<30*60*1000)return;clearInterval(t);void loadConfig().then(async cfg=>{if(cfg.auth)await signOut(cfg.auth);}).finally(()=>{net.disconnect();location.reload();});},15000);return()=>{clearInterval(t);for(const type of types)window.removeEventListener(type,activity);};},[me?.userId,room?.status]);
+  const myId=room?.selfId??me?.userId??'';
   let body;
   if (!me) {
     body = <MainScreen status={status} nick={nick} setNick={setNick} />;
   } else if (view && room?.status === 'ended') {
-    body = <Results view={view} room={room} />;
+    body = resultReady?<Results view={view} room={room} />:<ResultCinema view={view}/>;
   } else if (room?.stage && ['assignment', 'briefing', 'battleCountdown'].includes(room.stage)) {
-    body = <StagingScreen room={room} myId={me.userId} view={view && !('spectator' in view) ? view : null} />;
+    body = <StagingScreen room={room} myId={myId} view={view && !('spectator' in view) ? view : null} />;
   } else if (view && room && room.status !== 'lobby') {
-    body = 'spectator' in view ? <SpectatorScreen view={view} events={events} room={room} /> : <GameScreen view={view} events={events} room={room} myId={me.userId} />;
+    body = 'spectator' in view ? <SpectatorScreen view={view} events={events} room={room} /> : <GameScreen view={view} events={events} room={room} myId={myId} />;
   } else if (room) {
-    body = <RoomPanel room={room} myId={me.userId} />;
+    body = <RoomPanel room={room} myId={myId} />;
   } else {
     body = <Lobby rooms={rooms} />;
   }

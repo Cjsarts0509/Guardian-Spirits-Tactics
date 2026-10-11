@@ -57,17 +57,37 @@ export class Room {
   aiOnly = false;
   capacity = MAX_PLAYERS;
   staged = false;
+  anonymous = false;
+  private aliases = new Map<string,string>();
+  private names = new Map<string,string>();
+  private chatArchive: {nickname:string;text:string;at:number}[] = [];
   stage: NonNullable<RoomDetail['stage']> = 'waiting';
   countdownEndsAt = 0;
   slots: ('player' | 'ai')[] = Array(MAX_PLAYERS).fill('player');
   chat: NonNullable<RoomDetail['chat']> = [];
   replayFrames: { at: number; view: ReturnType<typeof spectatorView> }[] = [];
+  private matchNicknames:Record<string,string> = {};
   private matchAuthIds: Record<string, string | null> = {};
+
+  recordState():GameState|null {if(!this.state)return null;const stored=structuredClone(this.state);for(const p of stored.players)p.nickname=this.matchNicknames[p.id]??p.nickname;return stored;}
 
   configure(capacity: number): void {
     this.staged = true; this.capacity = capacity; this.slots = Array(capacity).fill('player');
   }
 
+  setAnonymous(by:string,enabled:boolean):string|null {
+    if(by!==this.hostId || this.stage!=='assignment')return '역할 배분 전 방장만 변경할 수 있습니다.';
+    this.anonymous=enabled;this.broadcastRoom();return null;
+  }
+  wire<T>(value:T):T {
+    if(!this.anonymous||!this.aliases.size)return value;
+    return JSON.parse(JSON.stringify(value,(_key,v)=>typeof v==='string'?(this.aliases.get(v)??this.names.get(v)??v):v)) as T;
+  }
+  decodeAction(action:Action):Action {
+    if(!this.anonymous)return action;
+    const decode=(id:string)=>[...this.aliases].find(([,v])=>v===id)?.[0]??id;
+    return action.type==='skill'?{...action,...(action.target?{target:decode(action.target)}:{})}:{...action,...(action.to?{to:decode(action.to)}:{})};
+  }
   private resetReady(): void {
     this.countdownEndsAt = 0; this.stage = 'waiting';
     for (const m of this.members) m.ready = m.bot;
@@ -110,9 +130,11 @@ export class Room {
   }
 
   say(by: string, text: string): string | null {
-    const m = this.member(by); if (!m || (this.status !== 'lobby' && this.stage !== 'assignment' && this.stage !== 'briefing' && this.stage !== 'battleCountdown')) return '준비 중에만 사용할 수 있습니다.';
-    this.chat.push({ seq: (this.chat.at(-1)?.seq ?? 0) + 1, nickname: m.nickname, text });
-    this.chat = this.chat.slice(-100); this.broadcastRoom(); return null;
+    const m = this.member(by); if (!m || (this.status !== 'lobby' && this.status !== 'ended' && this.stage !== 'assignment' && this.stage !== 'briefing' && this.stage !== 'battleCountdown')) return '준비 또는 복기 화면에서 사용할 수 있습니다.';
+    this.chat.push({ seq: (this.chat.at(-1)?.seq ?? 0) + 1, nickname: this.names.get(m.id)??m.nickname, text });
+    this.chatArchive.push({nickname:this.names.get(m.id)??m.nickname,text,at:Date.now()});
+    if(this.state){this.state.log.push({seq:++this.state.seq,at:this.status==='ended'?this.state.now-this.state.startedAt+Math.max(0,this.clock()-this.endedAt):0,kind:'chat.room',vis:{to:'all'},text:`${this.names.get(m.id)??m.nickname}: ${text}`,data:{wallTime:Date.now()}});if(this.status==='ended')this.onEnd(this);}
+    this.chat = this.chat.slice(-50); this.broadcastRoom(); return null;
   }
 
   requestStart(by: string): string | null {
@@ -172,7 +194,7 @@ export class Room {
       modeName: getMode(this.mode).displayName,
       players: this.members.length,
       maxPlayers: this.capacity,
-      hostName: this.member(this.hostId)?.nickname ?? '—',
+      hostName: this.member(this.hostId)?.nickname ?? '—', hostUserId:this.hostId,
       humans: this.humans().length, bots: this.members.filter(m => m.bot).length,
       status: this.status,
     };
@@ -181,7 +203,7 @@ export class Room {
   detail(): RoomDetail {
     return {
       ...this.summary(),
-      hostId: this.hostId,
+      hostId: this.hostId, anonymous:this.anonymous,
       hosting: this.hosting,
       hostEpoch: this.hostEpoch,
       hostPaused: this.hosting === 'player' && this.status === 'playing' && !this.hostId,
@@ -241,7 +263,7 @@ export class Room {
       if (this.hostId === userId) this.hostId = this.humans()[0]?.id ?? '';
     } else if (this.staged && this.stage !== 'running') {
       this.members = this.members.filter(x => x.id !== userId);
-      this.state = null; this.status = 'lobby'; this.resetReady();
+      this.state = null; this.aliases.clear();this.names.clear();this.chatArchive=[];this.chat=[];this.status = 'lobby'; this.resetReady();
       if (this.hostId === userId) this.hostId = this.humans()[0]?.id ?? '';
     } else if (this.hosting === 'player' && this.state) {
       if (m.graceTimer) clearTimeout(m.graceTimer);
@@ -343,14 +365,23 @@ export class Room {
     }
     if (players.length < MIN_PLAYERS) return `${MIN_PLAYERS}명 이상이어야 시작할 수 있습니다.`;
     if (this.staged) players.sort((a, b) => (a.slot ?? 0) - (b.slot ?? 0));
+    if(this.staged&&this.anonymous){
+      const colors=['진홍','주황','황금','연두','초록','청록','하늘','파랑','보라','분홍','은빛','검정'];
+      for(let i=players.length-1;i>0;i--){const j=randomBytes(4).readUInt32LE(0)%(i+1);[players[i],players[j]]=[players[j]!,players[i]!];}
+      players.forEach((m,i)=>{this.aliases.set(m.id,`anon-${randomBytes(12).toString('hex')}`);this.names.set(m.id,colors[i]!);m.slot=i;});
+      this.chat=[];
+    }
     const { state } = createGame({
       mode: this.mode,
-      players: players.map((m) => ({ id: m.id, nickname: m.nickname })),
+      players: players.map((m) => ({ id: m.id, nickname: this.names.get(m.id)??m.nickname })),
       seed: randomBytes(4).readInt32LE(0),
       now,
       turnSeconds: this.turnSeconds,
     });
+    const prepChat=this.chatArchive.map(line=>({seq:0,at:0,kind:'chat.room',vis:{to:'all' as const},text:`${this.anonymous?'참가자':line.nickname}: ${line.text}`,data:{wallTime:line.at}}));
+    state.log=[...prepChat,...state.log];state.log.forEach((e,i)=>e.seq=i+1);state.seq=state.log.length;
     this.state = state;
+    this.matchNicknames=Object.fromEntries(this.members.map(m=>[m.id,m.nickname]));
     this.matchAuthIds = Object.fromEntries(this.members.map(m => [m.id, m.authId]));
     this.replayFrames = [{ at: 0, view: spectatorView(state) }];
     this.botMemories = new Map(state.players.map((p) => [p.id, createBotMemory(randomBytes(4).readInt32LE(0))]));
@@ -453,9 +484,9 @@ export class Room {
     for (const m of only ?? this.members) {
       if (m.bot || !m.conn) continue;
       if (m.spectator) {
-        m.conn.send({ type: 'game', view: spectatorView(st), events: st.log.filter((e) => e.seq > m.lastSeq), serverTime: this.hosting === 'player' ? st.now : this.clock() });
+        m.conn.send(this.wire({ type: 'game' as const, view: spectatorView(st), events: st.log.filter((e) => e.seq > m.lastSeq), serverTime: this.hosting === 'player' ? st.now : this.clock() }));
       } else {
-        m.conn.send({ type: 'game', view: viewFor(st, m.id), events: eventsFor(st, m.id, st.phase === 'ended' ? 0 : m.lastSeq), serverTime: this.hosting === 'player' ? st.now : this.clock() });
+        m.conn.send(this.wire({ type: 'game' as const, view: viewFor(st, m.id), events: eventsFor(st, m.id, st.phase === 'ended' ? 0 : m.lastSeq), serverTime: this.hosting === 'player' ? st.now : this.clock() }));
       }
       m.lastSeq = st.seq;
     }
@@ -463,7 +494,11 @@ export class Room {
 
   broadcastRoom(): void {
     const detail = this.detail();
-    for (const m of this.members) m.conn?.send({ type: 'room', room: detail });
+    for (const m of this.members) {
+      const room=this.wire(detail);
+      if(this.anonymous&&this.aliases.size){room.members=this.members.slice().sort((a,b)=>(a.slot??0)-(b.slot??0)).map(p=>({...room.members.find(x=>x.id===this.aliases.get(p.id))!,nickname:this.names.get(p.id)??p.nickname}));room.hostName=m.id===this.hostId?(this.names.get(m.id)??'방장'):'방장';room.hostUserId=undefined;room.hostId=m.id===this.hostId?this.aliases.get(m.id)!:'hidden-host';}
+      m.conn?.send({ type:'room',room:{...room,selfId:this.aliases.get(m.id)??m.id} });
+    }
     if (this.hosting === 'player' && this.status === 'playing') this.member(this.hostId)?.conn?.send({ type: 'host.members', epoch: this.hostEpoch, members: this.hostMembers() });
   }
 
