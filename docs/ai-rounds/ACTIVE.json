@@ -22,7 +22,20 @@
   "executions": 960,
   "cumulativeExecutions": 10464,
   "decision": "development_gate_failed_no_holdout",
-  "nextAction": "final_report_only_no_new_experiments",
-  "task": "010완료·기본OFF·미승격. 후보67.92/control68.33/main68.75%. 독립121000미사용. 다음은 새 실험 없이 누적 최종 결과만 정리.112000/116000재사용금지.",
+  "nextAction": "stopped_await_explicit_user_request",
+  "finalReport": {
+    "round": 11,
+    "status": "completed",
+    "reportedAt": "2026-10-15T07:06:47+09:00",
+    "path": "docs/ai-rounds/ROUND_011_20261015_0704.md",
+    "newExecutions": 0,
+    "completedExecutions": 10464,
+    "interruptedExecutionsExcluded": 500,
+    "sourceRef": "fb47fe9ab7adf12989a140452554ec588707924d",
+    "sourceCI": "success",
+    "sourceBrowserCheck": "success",
+    "adoptedCandidates": 0
+  },
+  "task": "011최종정리완료·새경기0·누적10464실행.010기본OFF·미승격·독립121000미사용. 새 실험/자동재개없음.112000/116000재사용금지.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }
