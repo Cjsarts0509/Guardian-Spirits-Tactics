@@ -45,13 +45,14 @@ export function prepareMatch(fixture: Fixture) {
 
 export function playMatch(fixture: Fixture, policies: Record<Controller, Policy>, settings: Settings = DEFAULT_SETTINGS,
   onAction?: (state: GameState, player: string, action: Action, result: ActionResult) => void,
-  communications: Partial<Record<Controller, Policy>> = {}): MatchResult {
+  communications: Partial<Record<Controller, Policy>> = {}, onTick?: (state: GameState) => void): MatchResult {
   if (!(settings.tickMs > 0 && settings.limitMs > 0 && settings.activity >= 0 && settings.activity <= 1)) throw new Error('리그 시간·활동 설정 오류');
   const { state, controllers, memories } = prepareMatch(fixture);
   const stats = { current: newStats(), reference: newStats() };
   const byRole = new Map(state.players.map((p) => [p.character, controllers.get(p.id)!]));
   for (let now = settings.tickMs; state.phase === 'running' && now <= settings.limitMs; now += settings.tickMs) {
     advance(state, now);
+    onTick?.(state); // 평가 관측 전용. 이 자료는 참가 정책/봇 기억에 전달하지 않는다.
     for (const p of state.players) {
       if (state.phase !== 'running') break;
       if (!p.alive) continue;

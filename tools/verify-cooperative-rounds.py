@@ -32,7 +32,7 @@ for row in d['rows']:
  for variant,r in row['results'].items():
   games,diags=r['games'],r['diagnostics'];assert len(games)==len(diags)==d['count']*4
   fixtures=set();wins=collections.Counter();paired=collections.defaultdict(list)
-  bucket=out['variants'].setdefault(variant,{}).setdefault(mode,{'games':0,'scoreSum':0,'unfinished':0,'earlyAttackFailures':0,'rejected':0,'economy':collections.Counter(),'gemStageMissed':collections.Counter(),'observations':collections.Counter(),'byRole':{},'survival':{}})
+  bucket=out['variants'].setdefault(variant,{}).setdefault(mode,{'games':0,'scoreSum':0,'unfinished':0,'earlyAttackFailures':0,'rejected':0,'economy':collections.Counter(),'gemStageMissed':collections.Counter(),'observations':collections.Counter(),'byRole':{},'survival':{},'resources':{}})
   for g,diag in zip(games,diags):
    f=g['fixture'];assert f==diag['fixture'] and f['mode']==mode
    assert d['start']<=f['seed']<d['start']+d['count'] and f['count']==8+(f['seed']-d['start'])%5
@@ -60,6 +60,22 @@ for row in d['rows']:
     target=bucket['byRole'].setdefault(role,{'turns':0,'falseNameTurns':0,'gemGrowthMissed':0,'gemStageMissed':collections.Counter()})
     for key in ['turns','falseNameTurns','gemGrowthMissed']:target[key]+=v[key]
     target['gemStageMissed'].update(v['gemStageMissed'])
+   for role,v in diag.get('resources',{}).items():
+    assert 0<=v['trueNameMs']<=v['aliveMs']<=g['elapsedMs']+d['settings']['tickMs']
+    assert type(v['gemCompleted']) is bool and (v['firstCompletedAt'] is not None)==v['gemCompleted']
+    if v['firstCompletedAt'] is not None:assert 0<=v['firstCompletedAt']<=g['elapsedMs']
+    actions=[a for a in diag['reportActions'] if a['role']==role]
+    for kind in ['check','attack']:
+     matched=[a for a in actions if a['kind']==kind]
+     assert v['reportChecks' if kind=='check' else 'reportAttacks']==len(matched)
+     assert v['reportCheckMana' if kind=='check' else 'reportAttackMana']==sum(a['mana'] for a in matched)
+    assert v['reportAttackFailures']==sum(a['failure'] for a in actions)
+    for a in actions:
+     assert a['mana']>=0 and 0<=a['at']<=g['elapsedMs'] and a['reportAt'] is not None and 0<=a['reportAt']<=a['at']
+     if a['kind']=='attack':assert a['skill']=='supreme_attack'
+    target=bucket['resources'].setdefault(role,collections.Counter())
+    target['games']+=1
+    target.update({k:int(x) for k,x in v.items() if k!='firstCompletedAt'})
   assert len(fixtures)==d['count']*4 and all(len(x)==4 for x in paired.values())
   for seed,x in paired.items():scores[variant][seed].append(sum(x)/4)
   s=r['summary'];assert s['games']==len(games) and s['seeds']==d['count']

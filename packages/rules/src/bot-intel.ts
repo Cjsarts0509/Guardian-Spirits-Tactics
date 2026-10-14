@@ -59,6 +59,26 @@ export function trustedIntel(view: PlayerView, knowledge: Knowledge, memory: Bot
 /** 보고는 추론의 약한 가중치로만 사용. 제약이나 후보를 삭제하지 않으며 반복 보고를 누적하지 않는다. */
 export const INTEL_WEIGHT = 8;
 
+/** 개발 전술: 보고는 facts가 아니다. 여유 마나가 있을 때 실패 사망 없는 공격만 허용한다.
+ * 자기 실패 영수증이 있는 이름은 재시도하지 않는다(실패 원인/정체는 확정하지 않는다).
+ */
+export function reportedSupremeAttack(view: PlayerView, knowledge: Knowledge, memory: BotMemory,
+  skills: ReadonlyMap<string, SkillView>, attackable: (name: CharKey) => boolean): Action | null {
+  const skill = skills.get('supreme_attack');
+  if (!skill || skill.blocked !== null || view.elapsedMs < 4 * 60_000 || view.me.mana < Math.max(100, skill.mana)) return null;
+  const reports = [...trustedIntel(view, knowledge, memory)].sort((a,b) =>
+    Number(!!view.roster.find(r=>r.key===b[1])?.commander)-Number(!!view.roster.find(r=>r.key===a[1])?.commander) ||
+    view.players.find(p=>p.id===a[0])!.seat-view.players.find(p=>p.id===b[0])!.seat);
+  for (const [target, name] of reports) {
+    const p = view.players.find(p=>p.id===target)!;
+    if (!attackable(name) || !skill.nameOptions?.includes(name) ||
+        (!skill.ignoresInvulnerable && p.statuses.some(e=>e.kind==='invulnerable')) ||
+        memory.perception?.lastAttackNameFailure.get(target)?.has(name)) continue;
+    return {type:'skill',skill:'supreme_attack',target,name};
+  }
+  return null;
+}
+
 /** 검증 비용을 쓸 정보 교환이 있는지 자기 관찰로 판단한다. 보고 내용은 아직 신뢰하지 않는다. */
 export function hasUsefulIntelExchange(view: PlayerView, knowledge: Knowledge, memory: BotMemory, sender: PlayerId): boolean {
   if(view.players.some(p=>p.alive&&p.id!==view.me.id&&p.id!==sender&&!p.revealed&&knowledge.known.has(p.id)))return true;

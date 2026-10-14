@@ -1,0 +1,4605 @@
+{
+  "format": 1,
+  "phase": "development",
+  "start": 120000,
+  "seeds": 5,
+  "complete": true,
+  "executions": 720,
+  "sourceHashes": {
+    "src/bot-belief.ts": "99e28d211c99ecf514a42bae8242d0fa40fb078b83da4d83e324bcd7a5ff4ee7",
+    "src/bot-claim-policy.ts": "37e8fe4387fcc3bbd9594f6a495208525648625ab299a0d4caf7a9bb35662020",
+    "src/bot-claims.ts": "8b4a70a2b81c531c42b4b55dc97f657e817cfb714c9ad2a544983ffefc60dd04",
+    "src/bot-confirmation-combat.ts": "877c29851874365fca469a482714f6d3e7db1fddd7f819a17e1bc24cd164c7e1",
+    "src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "src/bot-followup.ts": "624c444dc161c31efabd937ff5f8888dd086997ba4fdfd9137bbedf7a4057c25",
+    "src/bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "src/bot-information.ts": "ff68dfded8ab02a184050a4402945719de4284b2b8dfb543ce04010b77414724",
+    "src/bot-intel.ts": "66fbe86ab18e3ae16a349d28516bbe797a2f10387218bbf8e67b828dd41a28c3",
+    "src/bot-memory.ts": "a7bd679f6a0a9a12b1992adb8f95f99b52c5f9121295d5dd8a3b27de6ee83585",
+    "src/bot-response.ts": "0a7d792d2f3b2262f22155466014d5a0bc309ee1ddba93aa98158b0107a7b521",
+    "src/bot-retry.ts": "e6c5fd3f88d0aa225561313197b73ca60eda01e8e99e3867584079271efd82cc",
+    "src/bot-rollout.ts": "804d45192914975407e36dd0c5df63ca2f246dd2453087db5f2f6106e391d3df",
+    "src/bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+    "src/bot-tactics.ts": "ea8d2f8122efb603155b5aab75851b41abcbf0555b42eac9e4678115f9af3d87",
+    "src/bot.ts": "701c0860cd04bb87fe2bcb937951d9b5872841569df65edaf059e8cf0d4757d9",
+    "src/constants.ts": "d8e40237ce482f04e9cc07a25ce9c915d53669022c4f0bca319ce75ba7518eee",
+    "src/engine/actions.ts": "89453200644e1232f9e41a6c6e0add1e35db885d5c78965890474b9089c63708",
+    "src/engine/attack.ts": "bb9e1e2c3771a79029d243f64295ec7a30b8608ba6e3294af7dba22ba61e10c8",
+    "src/engine/checks.ts": "b47ebee3a226d7a8c9cd443989356a1fa953276044341b8c95ca95bde1b7cfa2",
+    "src/engine/create.ts": "00852891bee53689b54451dedbb079455da76fabf4fb0a38c5dbc42ff808e69c",
+    "src/engine/game.ts": "dc1bb4fd293f8391cf889ae5b779132015860a2315566d711d8a094666e2b8b0",
+    "src/engine/time.ts": "0b413b8aeb4b16e78d4aeeefa3fca8732b22053d714711dc428e35c9bc707b47",
+    "src/engine/view.ts": "700e8a4fd5f59578bef21f91b65d050a3f8d79e0e4263fcf5cf4e0d00abc0147",
+    "src/host-memory.ts": "afe791a3bc8909bb62d07f98dfa5acb872decb3384c32decdf5e728d2ef27c86",
+    "src/host-runtime.ts": "ecacf0d0653df8fc79658d0b3a60ad0f7a5f999e7137a4fba5346c65ac5403e1",
+    "src/index.ts": "01bab72662393131174875a250077c5d75d35471d8ba381bd804cb58c9b88296",
+    "src/modes/civil_war.ts": "812d13da2eafec3deb957f976ad2ed9d0c433ef1dc24a95c8b238bc56eb2f70d",
+    "src/modes/index.ts": "d839d60dd3c9bc8a709bda120a9f006fded719e94b12e9837f759b3e81055df5",
+    "src/modes/lidellut.ts": "0d10054d0ba72efedc3508faa5137258b64065012d1d5859629fcd378082f041",
+    "src/modes/primordial.ts": "b69146d17a7dd5c2b5e09bbc514f0556fcef3c03f171b5bfd4294a380a0ab104",
+    "src/modes/troll.ts": "38a6288c06a0bc34a9d3378d5faec07be15f7f1c00fd9189153c28b00dd5d629",
+    "src/modes/types.ts": "c4d3496c6f78e921a4cca3768c9f3412d011f19c036f63fdbef6ca60001dc300",
+    "src/rng.ts": "3c4250a2f7358bd04cd377e72759dd386bb149098dadf1e013649afef1ff9695",
+    "src/skills/common.ts": "47d8463b2d44e64f56ff510653bc59e07eaf36f9c6c72ca678fb7fd9f0b1e4d0",
+    "src/skills/registry.ts": "ae569271530dda73f677e9e771918d8bf622ee6767ea0e3a8619c48ad705873e",
+    "src/text.ts": "ed42a4d871e2a039d255f897391c97757803451afb47cf51a54bd60ca5e9aecd",
+    "src/types.ts": "0f56affb727e1776e5345d5ff932ebe9ced9a9f5c88e09a5b509ed153dd219f3",
+    "scripts/cooperative-rounds.ts": "7589469ec291ed78bdcf2b25a56cbc95eeae8d6ea7558fba98234bf81852961a",
+    "scripts/league-runner.ts": "306938e3c0e5005fb2197b3e59c6e7249f1c0ee160aa41e45b59ce100b4841b7",
+    "scripts/baselines/pre-cooperative.ts": "3fb32af177bcbddfdc15d6cecc12743af1abdc2f837e098ed979e4e03cb2206a",
+    "scripts/claim-opponents.ts": "56b70de28ec2c24d9165f909b6065e99a24bbbd6d334ebd6f4cd1a8d3cd395ef"
+  },
+  "options": {
+    "control": {},
+    "growth": {
+      "claimGemGoal": 3
+    },
+    "budget": {
+      "teamworkBudget": true
+    },
+    "combined": {
+      "claimGemGoal": 3,
+      "teamworkBudget": true
+    },
+    "approach": {
+      "verifyIncomingAllies": true
+    },
+    "coordinated": {
+      "claimGemGoal": 3,
+      "teamworkBudget": true,
+      "verifyIncomingAllies": true
+    },
+    "selective": {
+      "verifyIncomingAllies": "useful-report"
+    },
+    "selectiveCombined": {
+      "claimGemGoal": 3,
+      "teamworkBudget": true,
+      "verifyIncomingAllies": "useful-report"
+    },
+    "shiningGrowth": {
+      "claimGemGoal": 3,
+      "teamworkBudget": true,
+      "claimCommanderGrowth": "shining"
+    },
+    "commanderGrowth": {
+      "claimGemGoal": 3,
+      "teamworkBudget": true,
+      "claimCommanderGrowth": "all"
+    },
+    "reportedSupreme": {
+      "reportedSupreme": true
+    }
+  },
+  "variants": {
+    "baseline": {
+      "civil_war": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 9,
+        "economy": {
+          "allies": 191,
+          "allyMana": 1910,
+          "checkBlocks": 14,
+          "turns": 1038,
+          "falseNameTurns": 18,
+          "gemGrowthMissed": 18,
+          "incomingManaGross": 4750
+        },
+        "gemStageMissed": {
+          "0": 18,
+          "1": 0,
+          "2": 0
+        },
+        "observations": {
+          "trueClaims": 295,
+          "falseClaims": 0,
+          "wrongAllies": 2,
+          "reports": 0,
+          "falseReports": 0
+        },
+        "byRole": {
+          "kelhu": {
+            "turns": 120,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "soen": {
+            "turns": 80,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "dantes": {
+            "turns": 122,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "freya": {
+            "turns": 108,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "mertz": {
+            "turns": 87,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "krate": {
+            "turns": 106,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kai": {
+            "turns": 118,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "arin": {
+            "turns": 108,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "tuma": {
+            "turns": 92,
+            "falseNameTurns": 18,
+            "gemGrowthMissed": 18,
+            "gemStageMissed": {
+              "0": 18,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "reindila": {
+            "turns": 29,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kaspa": {
+            "turns": 43,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "sephy": {
+            "turns": 25,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          }
+        },
+        "survival": {
+          "kelhu": {
+            "games": 30,
+            "alive": 26
+          },
+          "soen": {
+            "games": 30,
+            "alive": 15
+          },
+          "dantes": {
+            "games": 30,
+            "alive": 24
+          },
+          "freya": {
+            "games": 30,
+            "alive": 24
+          },
+          "mertz": {
+            "games": 30,
+            "alive": 17
+          },
+          "krate": {
+            "games": 30,
+            "alive": 23
+          },
+          "kai": {
+            "games": 30,
+            "alive": 22
+          },
+          "arin": {
+            "games": 30,
+            "alive": 26
+          },
+          "tuma": {
+            "games": 24,
+            "alive": 22
+          },
+          "reindila": {
+            "games": 18,
+            "alive": 5
+          },
+          "kaspa": {
+            "games": 12,
+            "alive": 11
+          },
+          "sephy": {
+            "games": 6,
+            "alive": 6
+          }
+        },
+        "resources": {
+          "kelhu": {
+            "games": 30,
+            "aliveMs": 11957250,
+            "trueNameMs": 11066250,
+            "gemCompleted": 10,
+            "partialGemUses": 31,
+            "fullGemUses": 6,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "soen": {
+            "games": 30,
+            "aliveMs": 8276250,
+            "trueNameMs": 7988250,
+            "gemCompleted": 4,
+            "partialGemUses": 28,
+            "fullGemUses": 4,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "dantes": {
+            "games": 30,
+            "aliveMs": 12237000,
+            "trueNameMs": 11227500,
+            "gemCompleted": 16,
+            "partialGemUses": 26,
+            "fullGemUses": 16,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "freya": {
+            "games": 30,
+            "aliveMs": 10983750,
+            "trueNameMs": 10343250,
+            "gemCompleted": 12,
+            "partialGemUses": 25,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "mertz": {
+            "games": 30,
+            "aliveMs": 9163750,
+            "trueNameMs": 8613250,
+            "gemCompleted": 2,
+            "partialGemUses": 29,
+            "fullGemUses": 2,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "krate": {
+            "games": 30,
+            "aliveMs": 10544750,
+            "trueNameMs": 10096250,
+            "gemCompleted": 13,
+            "partialGemUses": 23,
+            "fullGemUses": 2,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kai": {
+            "games": 30,
+            "aliveMs": 11727000,
+            "trueNameMs": 11043000,
+            "gemCompleted": 8,
+            "partialGemUses": 34,
+            "fullGemUses": 6,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "arin": {
+            "games": 30,
+            "aliveMs": 10788500,
+            "trueNameMs": 10662500,
+            "gemCompleted": 16,
+            "partialGemUses": 21,
+            "fullGemUses": 1,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tuma": {
+            "games": 24,
+            "aliveMs": 9252500,
+            "trueNameMs": 7257250,
+            "gemCompleted": 7,
+            "partialGemUses": 22,
+            "fullGemUses": 2,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "reindila": {
+            "games": 18,
+            "aliveMs": 3364500,
+            "trueNameMs": 3010500,
+            "gemCompleted": 2,
+            "partialGemUses": 6,
+            "fullGemUses": 2,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kaspa": {
+            "games": 12,
+            "aliveMs": 4411250,
+            "trueNameMs": 4076750,
+            "gemCompleted": 1,
+            "partialGemUses": 13,
+            "fullGemUses": 1,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "sephy": {
+            "games": 6,
+            "aliveMs": 2412250,
+            "trueNameMs": 2241250,
+            "gemCompleted": 3,
+            "partialGemUses": 6,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.7666666666666667
+      },
+      "primordial": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "economy": {
+          "allies": 266,
+          "allyMana": 2660,
+          "checkBlocks": 5,
+          "turns": 1186,
+          "falseNameTurns": 26,
+          "gemGrowthMissed": 26,
+          "incomingManaGross": 6130
+        },
+        "gemStageMissed": {
+          "0": 26,
+          "1": 0,
+          "2": 0
+        },
+        "observations": {
+          "trueClaims": 298,
+          "falseClaims": 0,
+          "wrongAllies": 0,
+          "reports": 0,
+          "falseReports": 0
+        },
+        "byRole": {
+          "eoril": {
+            "turns": 48,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "rael": {
+            "turns": 158,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "nukelius": {
+            "turns": 47,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kane": {
+            "turns": 150,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "eltas": {
+            "turns": 198,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "hermilly": {
+            "turns": 92,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kilder": {
+            "turns": 89,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "drakan": {
+            "turns": 115,
+            "falseNameTurns": 26,
+            "gemGrowthMissed": 26,
+            "gemStageMissed": {
+              "0": 26,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "tachin": {
+            "turns": 130,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "sasint": {
+            "turns": 66,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kumarin": {
+            "turns": 64,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "consume": {
+            "turns": 29,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          }
+        },
+        "survival": {
+          "eoril": {
+            "games": 30,
+            "alive": 4
+          },
+          "rael": {
+            "games": 30,
+            "alive": 23
+          },
+          "nukelius": {
+            "games": 30,
+            "alive": 2
+          },
+          "kane": {
+            "games": 30,
+            "alive": 23
+          },
+          "eltas": {
+            "games": 30,
+            "alive": 18
+          },
+          "hermilly": {
+            "games": 24,
+            "alive": 9
+          },
+          "kilder": {
+            "games": 30,
+            "alive": 9
+          },
+          "drakan": {
+            "games": 30,
+            "alive": 13
+          },
+          "tachin": {
+            "games": 24,
+            "alive": 15
+          },
+          "sasint": {
+            "games": 24,
+            "alive": 5
+          },
+          "kumarin": {
+            "games": 12,
+            "alive": 7
+          },
+          "consume": {
+            "games": 6,
+            "alive": 3
+          }
+        },
+        "resources": {
+          "eoril": {
+            "games": 30,
+            "aliveMs": 5842750,
+            "trueNameMs": 4951750,
+            "gemCompleted": 0,
+            "partialGemUses": 9,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "rael": {
+            "games": 30,
+            "aliveMs": 14980750,
+            "trueNameMs": 13971250,
+            "gemCompleted": 19,
+            "partialGemUses": 19,
+            "fullGemUses": 15,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "nukelius": {
+            "games": 30,
+            "aliveMs": 5525750,
+            "trueNameMs": 4885250,
+            "gemCompleted": 0,
+            "partialGemUses": 10,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kane": {
+            "games": 30,
+            "aliveMs": 14239500,
+            "trueNameMs": 13689000,
+            "gemCompleted": 24,
+            "partialGemUses": 19,
+            "fullGemUses": 11,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "eltas": {
+            "games": 30,
+            "aliveMs": 18734250,
+            "trueNameMs": 18210750,
+            "gemCompleted": 21,
+            "partialGemUses": 34,
+            "fullGemUses": 17,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "hermilly": {
+            "games": 24,
+            "aliveMs": 9139750,
+            "trueNameMs": 8890750,
+            "gemCompleted": 10,
+            "partialGemUses": 13,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kilder": {
+            "games": 30,
+            "aliveMs": 9271500,
+            "trueNameMs": 9145500,
+            "gemCompleted": 5,
+            "partialGemUses": 23,
+            "fullGemUses": 2,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "drakan": {
+            "games": 30,
+            "aliveMs": 11248750,
+            "trueNameMs": 8531750,
+            "gemCompleted": 7,
+            "partialGemUses": 15,
+            "fullGemUses": 2,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tachin": {
+            "games": 24,
+            "aliveMs": 12267750,
+            "trueNameMs": 11981250,
+            "gemCompleted": 13,
+            "partialGemUses": 23,
+            "fullGemUses": 17,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "sasint": {
+            "games": 24,
+            "aliveMs": 6792500,
+            "trueNameMs": 6240500,
+            "gemCompleted": 5,
+            "partialGemUses": 9,
+            "fullGemUses": 4,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kumarin": {
+            "games": 12,
+            "aliveMs": 6124250,
+            "trueNameMs": 5800250,
+            "gemCompleted": 6,
+            "partialGemUses": 10,
+            "fullGemUses": 6,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "consume": {
+            "games": 6,
+            "aliveMs": 2723750,
+            "trueNameMs": 2588750,
+            "gemCompleted": 2,
+            "partialGemUses": 7,
+            "fullGemUses": 1,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.7
+      },
+      "lidellut": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 21,
+        "economy": {
+          "allies": 211,
+          "allyMana": 2110,
+          "checkBlocks": 11,
+          "turns": 1089,
+          "falseNameTurns": 6,
+          "gemGrowthMissed": 6,
+          "incomingManaGross": 4520
+        },
+        "gemStageMissed": {
+          "0": 6,
+          "1": 0,
+          "2": 0
+        },
+        "observations": {
+          "trueClaims": 300,
+          "falseClaims": 0,
+          "wrongAllies": 0,
+          "reports": 0,
+          "falseReports": 0
+        },
+        "byRole": {
+          "kaspa": {
+            "turns": 82,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kai": {
+            "turns": 130,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "freia": {
+            "turns": 94,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "arin": {
+            "turns": 128,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "shining": {
+            "turns": 130,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "chizuko": {
+            "turns": 132,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "yui": {
+            "turns": 65,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "supra": {
+            "turns": 97,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "loneris": {
+            "turns": 69,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 6,
+            "gemStageMissed": {
+              "0": 6,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "tuma": {
+            "turns": 82,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kamikaze": {
+            "turns": 58,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "sepi": {
+            "turns": 22,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          }
+        },
+        "survival": {
+          "kaspa": {
+            "games": 30,
+            "alive": 15
+          },
+          "kai": {
+            "games": 30,
+            "alive": 19
+          },
+          "freia": {
+            "games": 30,
+            "alive": 16
+          },
+          "arin": {
+            "games": 30,
+            "alive": 27
+          },
+          "shining": {
+            "games": 30,
+            "alive": 24
+          },
+          "supra": {
+            "games": 30,
+            "alive": 17
+          },
+          "chizuko": {
+            "games": 30,
+            "alive": 29
+          },
+          "yui": {
+            "games": 30,
+            "alive": 10
+          },
+          "loneris": {
+            "games": 24,
+            "alive": 10
+          },
+          "tuma": {
+            "games": 18,
+            "alive": 17
+          },
+          "kamikaze": {
+            "games": 12,
+            "alive": 10
+          },
+          "sepi": {
+            "games": 6,
+            "alive": 2
+          }
+        },
+        "resources": {
+          "kaspa": {
+            "games": 30,
+            "aliveMs": 8260750,
+            "trueNameMs": 7369750,
+            "gemCompleted": 7,
+            "partialGemUses": 15,
+            "fullGemUses": 5,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kai": {
+            "games": 30,
+            "aliveMs": 12479500,
+            "trueNameMs": 11470000,
+            "gemCompleted": 14,
+            "partialGemUses": 28,
+            "fullGemUses": 12,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "freia": {
+            "games": 30,
+            "aliveMs": 9396000,
+            "trueNameMs": 8755500,
+            "gemCompleted": 9,
+            "partialGemUses": 21,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "arin": {
+            "games": 30,
+            "aliveMs": 12298750,
+            "trueNameMs": 11748250,
+            "gemCompleted": 17,
+            "partialGemUses": 19,
+            "fullGemUses": 8,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "shining": {
+            "games": 30,
+            "aliveMs": 12348250,
+            "trueNameMs": 11824750,
+            "gemCompleted": 13,
+            "partialGemUses": 25,
+            "fullGemUses": 12,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "supra": {
+            "games": 30,
+            "aliveMs": 9566500,
+            "trueNameMs": 9118000,
+            "gemCompleted": 6,
+            "partialGemUses": 25,
+            "fullGemUses": 4,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "chizuko": {
+            "games": 30,
+            "aliveMs": 12611000,
+            "trueNameMs": 11927000,
+            "gemCompleted": 18,
+            "partialGemUses": 15,
+            "fullGemUses": 2,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "yui": {
+            "games": 30,
+            "aliveMs": 6893000,
+            "trueNameMs": 6767000,
+            "gemCompleted": 8,
+            "partialGemUses": 9,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "loneris": {
+            "games": 24,
+            "aliveMs": 6923000,
+            "trueNameMs": 6137000,
+            "gemCompleted": 5,
+            "partialGemUses": 9,
+            "fullGemUses": 5,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tuma": {
+            "games": 18,
+            "aliveMs": 7862500,
+            "trueNameMs": 7622500,
+            "gemCompleted": 7,
+            "partialGemUses": 19,
+            "fullGemUses": 7,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kamikaze": {
+            "games": 12,
+            "aliveMs": 5340000,
+            "trueNameMs": 5005500,
+            "gemCompleted": 10,
+            "partialGemUses": 11,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "sepi": {
+            "games": 6,
+            "aliveMs": 2111750,
+            "trueNameMs": 1817750,
+            "gemCompleted": 2,
+            "partialGemUses": 6,
+            "fullGemUses": 2,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.75
+      },
+      "troll": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "economy": {
+          "allies": 235,
+          "allyMana": 2350,
+          "checkBlocks": 9,
+          "turns": 1496,
+          "falseNameTurns": 6,
+          "gemGrowthMissed": 6,
+          "incomingManaGross": 10800
+        },
+        "gemStageMissed": {
+          "0": 6,
+          "1": 0,
+          "2": 0
+        },
+        "observations": {
+          "trueClaims": 300,
+          "falseClaims": 0,
+          "wrongAllies": 2,
+          "reports": 0,
+          "falseReports": 0
+        },
+        "byRole": {
+          "zwinra": {
+            "turns": 158,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "chis": {
+            "turns": 213,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "tokra": {
+            "turns": 94,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "satoshi": {
+            "turns": 181,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "deka": {
+            "turns": 183,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kazrow": {
+            "turns": 159,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "neonis": {
+            "turns": 154,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kanulla": {
+            "turns": 82,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 6,
+            "gemStageMissed": {
+              "0": 6,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "hachi": {
+            "turns": 82,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "ulpian": {
+            "turns": 100,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "uldian": {
+            "turns": 13,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "seirow": {
+            "turns": 77,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          }
+        },
+        "survival": {
+          "zwinra": {
+            "games": 30,
+            "alive": 18
+          },
+          "chis": {
+            "games": 30,
+            "alive": 29
+          },
+          "tokra": {
+            "games": 30,
+            "alive": 9
+          },
+          "satoshi": {
+            "games": 30,
+            "alive": 18
+          },
+          "deka": {
+            "games": 30,
+            "alive": 18
+          },
+          "kazrow": {
+            "games": 30,
+            "alive": 26
+          },
+          "neonis": {
+            "games": 30,
+            "alive": 26
+          },
+          "kanulla": {
+            "games": 30,
+            "alive": 8
+          },
+          "hachi": {
+            "games": 12,
+            "alive": 11
+          },
+          "ulpian": {
+            "games": 18,
+            "alive": 12
+          },
+          "uldian": {
+            "games": 18,
+            "alive": 0
+          },
+          "seirow": {
+            "games": 12,
+            "alive": 12
+          }
+        },
+        "resources": {
+          "zwinra": {
+            "games": 30,
+            "aliveMs": 15282000,
+            "trueNameMs": 14391000,
+            "gemCompleted": 17,
+            "partialGemUses": 25,
+            "fullGemUses": 12,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "chis": {
+            "games": 30,
+            "aliveMs": 20215750,
+            "trueNameMs": 19206250,
+            "gemCompleted": 23,
+            "partialGemUses": 24,
+            "fullGemUses": 9,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tokra": {
+            "games": 30,
+            "aliveMs": 9520500,
+            "trueNameMs": 9232500,
+            "gemCompleted": 9,
+            "partialGemUses": 13,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "satoshi": {
+            "games": 30,
+            "aliveMs": 17387500,
+            "trueNameMs": 16837000,
+            "gemCompleted": 14,
+            "partialGemUses": 35,
+            "fullGemUses": 10,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "deka": {
+            "games": 30,
+            "aliveMs": 17823750,
+            "trueNameMs": 17139750,
+            "gemCompleted": 16,
+            "partialGemUses": 43,
+            "fullGemUses": 12,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kazrow": {
+            "games": 30,
+            "aliveMs": 15634250,
+            "trueNameMs": 15185750,
+            "gemCompleted": 12,
+            "partialGemUses": 41,
+            "fullGemUses": 13,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "neonis": {
+            "games": 30,
+            "aliveMs": 15240750,
+            "trueNameMs": 15114750,
+            "gemCompleted": 21,
+            "partialGemUses": 24,
+            "fullGemUses": 16,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kanulla": {
+            "games": 30,
+            "aliveMs": 8859500,
+            "trueNameMs": 7974500,
+            "gemCompleted": 7,
+            "partialGemUses": 11,
+            "fullGemUses": 1,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "hachi": {
+            "games": 12,
+            "aliveMs": 7752500,
+            "trueNameMs": 7364000,
+            "gemCompleted": 11,
+            "partialGemUses": 12,
+            "fullGemUses": 9,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "ulpian": {
+            "games": 18,
+            "aliveMs": 9571750,
+            "trueNameMs": 9288250,
+            "gemCompleted": 9,
+            "partialGemUses": 18,
+            "fullGemUses": 13,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "uldian": {
+            "games": 18,
+            "aliveMs": 2083500,
+            "trueNameMs": 1729500,
+            "gemCompleted": 0,
+            "partialGemUses": 2,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "seirow": {
+            "games": 12,
+            "aliveMs": 7485750,
+            "trueNameMs": 7151250,
+            "gemCompleted": 5,
+            "partialGemUses": 21,
+            "fullGemUses": 2,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.6833333333333333
+      },
+      "aggregateScore": 0.725
+    },
+    "control": {
+      "civil_war": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 10,
+        "economy": {
+          "allies": 463,
+          "allyMana": 4630,
+          "checkBlocks": 7,
+          "turns": 1613,
+          "falseNameTurns": 557,
+          "gemGrowthMissed": 541,
+          "incomingManaGross": 20310
+        },
+        "gemStageMissed": {
+          "0": 495,
+          "1": 0,
+          "2": 46
+        },
+        "observations": {
+          "trueClaims": 253,
+          "falseClaims": 156,
+          "wrongAllies": 0,
+          "reports": 1162,
+          "falseReports": 0
+        },
+        "byRole": {
+          "kelhu": {
+            "turns": 188,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "soen": {
+            "turns": 130,
+            "falseNameTurns": 130,
+            "gemGrowthMissed": 130,
+            "gemStageMissed": {
+              "0": 130,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "dantes": {
+            "turns": 175,
+            "falseNameTurns": 175,
+            "gemGrowthMissed": 175,
+            "gemStageMissed": {
+              "0": 175,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "freya": {
+            "turns": 119,
+            "falseNameTurns": 15,
+            "gemGrowthMissed": 11,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 11
+            }
+          },
+          "mertz": {
+            "turns": 177,
+            "falseNameTurns": 2,
+            "gemGrowthMissed": 2,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 2
+            }
+          },
+          "krate": {
+            "turns": 177,
+            "falseNameTurns": 35,
+            "gemGrowthMissed": 35,
+            "gemStageMissed": {
+              "0": 2,
+              "1": 0,
+              "2": 33
+            }
+          },
+          "kai": {
+            "turns": 182,
+            "falseNameTurns": 182,
+            "gemGrowthMissed": 182,
+            "gemStageMissed": {
+              "0": 182,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "arin": {
+            "turns": 177,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "tuma": {
+            "turns": 110,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 6,
+            "gemStageMissed": {
+              "0": 6,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "reindila": {
+            "turns": 80,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kaspa": {
+            "turns": 53,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "sephy": {
+            "turns": 45,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          }
+        },
+        "survival": {
+          "kelhu": {
+            "games": 30,
+            "alive": 28
+          },
+          "soen": {
+            "games": 30,
+            "alive": 9
+          },
+          "dantes": {
+            "games": 30,
+            "alive": 17
+          },
+          "freya": {
+            "games": 30,
+            "alive": 16
+          },
+          "mertz": {
+            "games": 30,
+            "alive": 22
+          },
+          "krate": {
+            "games": 30,
+            "alive": 27
+          },
+          "kai": {
+            "games": 30,
+            "alive": 20
+          },
+          "arin": {
+            "games": 30,
+            "alive": 27
+          },
+          "tuma": {
+            "games": 24,
+            "alive": 21
+          },
+          "reindila": {
+            "games": 18,
+            "alive": 9
+          },
+          "kaspa": {
+            "games": 12,
+            "alive": 11
+          },
+          "sephy": {
+            "games": 6,
+            "alive": 4
+          }
+        },
+        "resources": {
+          "kelhu": {
+            "games": 30,
+            "aliveMs": 17819000,
+            "trueNameMs": 15884500,
+            "gemCompleted": 19,
+            "partialGemUses": 34,
+            "fullGemUses": 23,
+            "reportChecks": 26,
+            "reportCheckMana": 1650,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "soen": {
+            "games": 30,
+            "aliveMs": 13014250,
+            "trueNameMs": 0,
+            "gemCompleted": 0,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 2,
+            "reportCheckMana": 40,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "dantes": {
+            "games": 30,
+            "aliveMs": 16788000,
+            "trueNameMs": 0,
+            "gemCompleted": 0,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 5,
+            "reportCheckMana": 75,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "freya": {
+            "games": 30,
+            "aliveMs": 11501500,
+            "trueNameMs": 8978750,
+            "gemCompleted": 8,
+            "partialGemUses": 25,
+            "fullGemUses": 6,
+            "reportChecks": 18,
+            "reportCheckMana": 500,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "mertz": {
+            "games": 30,
+            "aliveMs": 16806000,
+            "trueNameMs": 15874250,
+            "gemCompleted": 15,
+            "partialGemUses": 33,
+            "fullGemUses": 24,
+            "reportChecks": 43,
+            "reportCheckMana": 2600,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "krate": {
+            "games": 30,
+            "aliveMs": 17154500,
+            "trueNameMs": 13244750,
+            "gemCompleted": 9,
+            "partialGemUses": 41,
+            "fullGemUses": 2,
+            "reportChecks": 1,
+            "reportCheckMana": 20,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kai": {
+            "games": 30,
+            "aliveMs": 17694500,
+            "trueNameMs": 0,
+            "gemCompleted": 0,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "arin": {
+            "games": 30,
+            "aliveMs": 17140750,
+            "trueNameMs": 17014750,
+            "gemCompleted": 21,
+            "partialGemUses": 24,
+            "fullGemUses": 13,
+            "reportChecks": 2,
+            "reportCheckMana": 150,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tuma": {
+            "games": 24,
+            "aliveMs": 11061750,
+            "trueNameMs": 10275750,
+            "gemCompleted": 7,
+            "partialGemUses": 30,
+            "fullGemUses": 4,
+            "reportChecks": 1,
+            "reportCheckMana": 50,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "reindila": {
+            "games": 18,
+            "aliveMs": 7649250,
+            "trueNameMs": 6332250,
+            "gemCompleted": 6,
+            "partialGemUses": 11,
+            "fullGemUses": 12,
+            "reportChecks": 17,
+            "reportCheckMana": 1050,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kaspa": {
+            "games": 12,
+            "aliveMs": 5279250,
+            "trueNameMs": 4944750,
+            "gemCompleted": 2,
+            "partialGemUses": 19,
+            "fullGemUses": 2,
+            "reportChecks": 2,
+            "reportCheckMana": 65,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "sephy": {
+            "games": 6,
+            "aliveMs": 4158500,
+            "trueNameMs": 3987500,
+            "gemCompleted": 4,
+            "partialGemUses": 6,
+            "fullGemUses": 6,
+            "reportChecks": 8,
+            "reportCheckMana": 430,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.7666666666666667
+      },
+      "primordial": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "economy": {
+          "allies": 526,
+          "allyMana": 5260,
+          "checkBlocks": 3,
+          "turns": 1527,
+          "falseNameTurns": 628,
+          "gemGrowthMissed": 613,
+          "incomingManaGross": 12920
+        },
+        "gemStageMissed": {
+          "0": 234,
+          "1": 348,
+          "2": 31
+        },
+        "observations": {
+          "trueClaims": 350,
+          "falseClaims": 167,
+          "wrongAllies": 0,
+          "reports": 800,
+          "falseReports": 0
+        },
+        "byRole": {
+          "eoril": {
+            "turns": 72,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "rael": {
+            "turns": 223,
+            "falseNameTurns": 166,
+            "gemGrowthMissed": 166,
+            "gemStageMissed": {
+              "0": 20,
+              "1": 144,
+              "2": 2
+            }
+          },
+          "nukelius": {
+            "turns": 59,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kane": {
+            "turns": 233,
+            "falseNameTurns": 200,
+            "gemGrowthMissed": 199,
+            "gemStageMissed": {
+              "0": 194,
+              "1": 1,
+              "2": 4
+            }
+          },
+          "eltas": {
+            "turns": 245,
+            "falseNameTurns": 213,
+            "gemGrowthMissed": 213,
+            "gemStageMissed": {
+              "0": 10,
+              "1": 203,
+              "2": 0
+            }
+          },
+          "hermilly": {
+            "turns": 92,
+            "falseNameTurns": 25,
+            "gemGrowthMissed": 19,
+            "gemStageMissed": {
+              "0": 3,
+              "1": 0,
+              "2": 16
+            }
+          },
+          "kilder": {
+            "turns": 115,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "drakan": {
+            "turns": 92,
+            "falseNameTurns": 23,
+            "gemGrowthMissed": 16,
+            "gemStageMissed": {
+              "0": 7,
+              "1": 0,
+              "2": 9
+            }
+          },
+          "tachin": {
+            "turns": 180,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "sasint": {
+            "turns": 103,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kumarin": {
+            "turns": 80,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "consume": {
+            "turns": 33,
+            "falseNameTurns": 1,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          }
+        },
+        "survival": {
+          "eoril": {
+            "games": 30,
+            "alive": 7
+          },
+          "rael": {
+            "games": 30,
+            "alive": 23
+          },
+          "nukelius": {
+            "games": 30,
+            "alive": 2
+          },
+          "kane": {
+            "games": 30,
+            "alive": 21
+          },
+          "eltas": {
+            "games": 30,
+            "alive": 18
+          },
+          "hermilly": {
+            "games": 24,
+            "alive": 10
+          },
+          "kilder": {
+            "games": 30,
+            "alive": 7
+          },
+          "drakan": {
+            "games": 30,
+            "alive": 9
+          },
+          "tachin": {
+            "games": 24,
+            "alive": 15
+          },
+          "sasint": {
+            "games": 24,
+            "alive": 9
+          },
+          "kumarin": {
+            "games": 12,
+            "alive": 4
+          },
+          "consume": {
+            "games": 6,
+            "alive": 2
+          }
+        },
+        "resources": {
+          "eoril": {
+            "games": 30,
+            "aliveMs": 7818500,
+            "trueNameMs": 6927500,
+            "gemCompleted": 2,
+            "partialGemUses": 14,
+            "fullGemUses": 4,
+            "reportChecks": 7,
+            "reportCheckMana": 245,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "rael": {
+            "games": 30,
+            "aliveMs": 21085250,
+            "trueNameMs": 4639500,
+            "gemCompleted": 2,
+            "partialGemUses": 12,
+            "fullGemUses": 1,
+            "reportChecks": 8,
+            "reportCheckMana": 190,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "nukelius": {
+            "games": 30,
+            "aliveMs": 6927500,
+            "trueNameMs": 6026750,
+            "gemCompleted": 0,
+            "partialGemUses": 18,
+            "fullGemUses": 0,
+            "reportChecks": 16,
+            "reportCheckMana": 410,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kane": {
+            "games": 30,
+            "aliveMs": 21990250,
+            "trueNameMs": 1924000,
+            "gemCompleted": 3,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "eltas": {
+            "games": 30,
+            "aliveMs": 23186250,
+            "trueNameMs": 2951000,
+            "gemCompleted": 0,
+            "partialGemUses": 2,
+            "fullGemUses": 0,
+            "reportChecks": 5,
+            "reportCheckMana": 75,
+            "reportAttacks": 1,
+            "reportAttackMana": 50,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "hermilly": {
+            "games": 24,
+            "aliveMs": 9190500,
+            "trueNameMs": 6087000,
+            "gemCompleted": 5,
+            "partialGemUses": 17,
+            "fullGemUses": 1,
+            "reportChecks": 5,
+            "reportCheckMana": 100,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kilder": {
+            "games": 30,
+            "aliveMs": 11430500,
+            "trueNameMs": 11304500,
+            "gemCompleted": 11,
+            "partialGemUses": 20,
+            "fullGemUses": 10,
+            "reportChecks": 18,
+            "reportCheckMana": 685,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "drakan": {
+            "games": 30,
+            "aliveMs": 9538750,
+            "trueNameMs": 6632250,
+            "gemCompleted": 2,
+            "partialGemUses": 13,
+            "fullGemUses": 3,
+            "reportChecks": 1,
+            "reportCheckMana": 50,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tachin": {
+            "games": 24,
+            "aliveMs": 16965250,
+            "trueNameMs": 16678750,
+            "gemCompleted": 13,
+            "partialGemUses": 22,
+            "fullGemUses": 32,
+            "reportChecks": 11,
+            "reportCheckMana": 600,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "sasint": {
+            "games": 24,
+            "aliveMs": 10176250,
+            "trueNameMs": 9624250,
+            "gemCompleted": 9,
+            "partialGemUses": 13,
+            "fullGemUses": 15,
+            "reportChecks": 9,
+            "reportCheckMana": 410,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kumarin": {
+            "games": 12,
+            "aliveMs": 7553500,
+            "trueNameMs": 7229500,
+            "gemCompleted": 6,
+            "partialGemUses": 13,
+            "fullGemUses": 13,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "consume": {
+            "games": 6,
+            "aliveMs": 3133750,
+            "trueNameMs": 2946000,
+            "gemCompleted": 4,
+            "partialGemUses": 5,
+            "fullGemUses": 3,
+            "reportChecks": 4,
+            "reportCheckMana": 250,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.6833333333333333
+      },
+      "lidellut": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 4,
+        "economy": {
+          "allies": 507,
+          "allyMana": 5070,
+          "checkBlocks": 13,
+          "turns": 1398,
+          "falseNameTurns": 401,
+          "gemGrowthMissed": 363,
+          "incomingManaGross": 16890
+        },
+        "gemStageMissed": {
+          "0": 332,
+          "1": 15,
+          "2": 16
+        },
+        "observations": {
+          "trueClaims": 286,
+          "falseClaims": 118,
+          "wrongAllies": 0,
+          "reports": 1027,
+          "falseReports": 0
+        },
+        "byRole": {
+          "kaspa": {
+            "turns": 95,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kai": {
+            "turns": 171,
+            "falseNameTurns": 171,
+            "gemGrowthMissed": 171,
+            "gemStageMissed": {
+              "0": 171,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "freia": {
+            "turns": 126,
+            "falseNameTurns": 9,
+            "gemGrowthMissed": 7,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 7
+            }
+          },
+          "arin": {
+            "turns": 159,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "shining": {
+            "turns": 200,
+            "falseNameTurns": 172,
+            "gemGrowthMissed": 166,
+            "gemStageMissed": {
+              "0": 151,
+              "1": 15,
+              "2": 0
+            }
+          },
+          "chizuko": {
+            "turns": 165,
+            "falseNameTurns": 40,
+            "gemGrowthMissed": 11,
+            "gemStageMissed": {
+              "0": 3,
+              "1": 0,
+              "2": 8
+            }
+          },
+          "yui": {
+            "turns": 96,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "supra": {
+            "turns": 80,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "loneris": {
+            "turns": 94,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 6,
+            "gemStageMissed": {
+              "0": 6,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "tuma": {
+            "turns": 102,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kamikaze": {
+            "turns": 76,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "sepi": {
+            "turns": 34,
+            "falseNameTurns": 3,
+            "gemGrowthMissed": 2,
+            "gemStageMissed": {
+              "0": 1,
+              "1": 0,
+              "2": 1
+            }
+          }
+        },
+        "survival": {
+          "kaspa": {
+            "games": 30,
+            "alive": 15
+          },
+          "kai": {
+            "games": 30,
+            "alive": 22
+          },
+          "freia": {
+            "games": 30,
+            "alive": 19
+          },
+          "arin": {
+            "games": 30,
+            "alive": 24
+          },
+          "shining": {
+            "games": 30,
+            "alive": 18
+          },
+          "supra": {
+            "games": 30,
+            "alive": 8
+          },
+          "chizuko": {
+            "games": 30,
+            "alive": 21
+          },
+          "yui": {
+            "games": 30,
+            "alive": 11
+          },
+          "loneris": {
+            "games": 24,
+            "alive": 9
+          },
+          "tuma": {
+            "games": 18,
+            "alive": 16
+          },
+          "kamikaze": {
+            "games": 12,
+            "alive": 10
+          },
+          "sepi": {
+            "games": 6,
+            "alive": 2
+          }
+        },
+        "resources": {
+          "kaspa": {
+            "games": 30,
+            "aliveMs": 9760000,
+            "trueNameMs": 8849000,
+            "gemCompleted": 6,
+            "partialGemUses": 20,
+            "fullGemUses": 6,
+            "reportChecks": 14,
+            "reportCheckMana": 720,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kai": {
+            "games": 30,
+            "aliveMs": 16405250,
+            "trueNameMs": 0,
+            "gemCompleted": 0,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 2,
+            "reportCheckMana": 30,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "freia": {
+            "games": 30,
+            "aliveMs": 12454750,
+            "trueNameMs": 10512750,
+            "gemCompleted": 12,
+            "partialGemUses": 17,
+            "fullGemUses": 7,
+            "reportChecks": 17,
+            "reportCheckMana": 400,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "arin": {
+            "games": 30,
+            "aliveMs": 15331750,
+            "trueNameMs": 14713000,
+            "gemCompleted": 28,
+            "partialGemUses": 18,
+            "fullGemUses": 9,
+            "reportChecks": 7,
+            "reportCheckMana": 525,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "shining": {
+            "games": 30,
+            "aliveMs": 19066750,
+            "trueNameMs": 1629250,
+            "gemCompleted": 2,
+            "partialGemUses": 4,
+            "fullGemUses": 4,
+            "reportChecks": 5,
+            "reportCheckMana": 350,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "supra": {
+            "games": 30,
+            "aliveMs": 8476750,
+            "trueNameMs": 7962250,
+            "gemCompleted": 5,
+            "partialGemUses": 19,
+            "fullGemUses": 6,
+            "reportChecks": 7,
+            "reportCheckMana": 425,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "chizuko": {
+            "games": 30,
+            "aliveMs": 15951000,
+            "trueNameMs": 11296750,
+            "gemCompleted": 14,
+            "partialGemUses": 14,
+            "fullGemUses": 12,
+            "reportChecks": 8,
+            "reportCheckMana": 465,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "yui": {
+            "games": 30,
+            "aliveMs": 9889250,
+            "trueNameMs": 9763250,
+            "gemCompleted": 14,
+            "partialGemUses": 10,
+            "fullGemUses": 3,
+            "reportChecks": 8,
+            "reportCheckMana": 160,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "loneris": {
+            "games": 24,
+            "aliveMs": 9187750,
+            "trueNameMs": 8401750,
+            "gemCompleted": 8,
+            "partialGemUses": 15,
+            "fullGemUses": 12,
+            "reportChecks": 13,
+            "reportCheckMana": 700,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tuma": {
+            "games": 18,
+            "aliveMs": 9756750,
+            "trueNameMs": 9516750,
+            "gemCompleted": 9,
+            "partialGemUses": 25,
+            "fullGemUses": 9,
+            "reportChecks": 3,
+            "reportCheckMana": 225,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kamikaze": {
+            "games": 12,
+            "aliveMs": 7064000,
+            "trueNameMs": 6729500,
+            "gemCompleted": 12,
+            "partialGemUses": 11,
+            "fullGemUses": 4,
+            "reportChecks": 9,
+            "reportCheckMana": 135,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "sepi": {
+            "games": 6,
+            "aliveMs": 3158750,
+            "trueNameMs": 2499500,
+            "gemCompleted": 3,
+            "partialGemUses": 7,
+            "fullGemUses": 3,
+            "reportChecks": 5,
+            "reportCheckMana": 170,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.6833333333333333
+      },
+      "troll": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "economy": {
+          "allies": 330,
+          "allyMana": 3300,
+          "checkBlocks": 10,
+          "turns": 1637,
+          "falseNameTurns": 506,
+          "gemGrowthMissed": 497,
+          "incomingManaGross": 15480
+        },
+        "gemStageMissed": {
+          "0": 492,
+          "1": 0,
+          "2": 5
+        },
+        "observations": {
+          "trueClaims": 272,
+          "falseClaims": 124,
+          "wrongAllies": 0,
+          "reports": 683,
+          "falseReports": 0
+        },
+        "byRole": {
+          "zwinra": {
+            "turns": 143,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "chis": {
+            "turns": 180,
+            "falseNameTurns": 66,
+            "gemGrowthMissed": 66,
+            "gemStageMissed": {
+              "0": 66,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "tokra": {
+            "turns": 93,
+            "falseNameTurns": 4,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "satoshi": {
+            "turns": 145,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "deka": {
+            "turns": 281,
+            "falseNameTurns": 260,
+            "gemGrowthMissed": 260,
+            "gemStageMissed": {
+              "0": 260,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kazrow": {
+            "turns": 238,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "neonis": {
+            "turns": 155,
+            "falseNameTurns": 155,
+            "gemGrowthMissed": 155,
+            "gemStageMissed": {
+              "0": 155,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kanulla": {
+            "turns": 120,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 6,
+            "gemStageMissed": {
+              "0": 6,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "hachi": {
+            "turns": 79,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "ulpian": {
+            "turns": 95,
+            "falseNameTurns": 15,
+            "gemGrowthMissed": 10,
+            "gemStageMissed": {
+              "0": 5,
+              "1": 0,
+              "2": 5
+            }
+          },
+          "uldian": {
+            "turns": 15,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "seirow": {
+            "turns": 93,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          }
+        },
+        "survival": {
+          "zwinra": {
+            "games": 30,
+            "alive": 18
+          },
+          "chis": {
+            "games": 30,
+            "alive": 29
+          },
+          "tokra": {
+            "games": 30,
+            "alive": 14
+          },
+          "satoshi": {
+            "games": 30,
+            "alive": 18
+          },
+          "deka": {
+            "games": 30,
+            "alive": 14
+          },
+          "kazrow": {
+            "games": 30,
+            "alive": 23
+          },
+          "neonis": {
+            "games": 30,
+            "alive": 14
+          },
+          "kanulla": {
+            "games": 30,
+            "alive": 8
+          },
+          "hachi": {
+            "games": 12,
+            "alive": 10
+          },
+          "ulpian": {
+            "games": 18,
+            "alive": 14
+          },
+          "uldian": {
+            "games": 18,
+            "alive": 1
+          },
+          "seirow": {
+            "games": 12,
+            "alive": 10
+          }
+        },
+        "resources": {
+          "zwinra": {
+            "games": 30,
+            "aliveMs": 13965750,
+            "trueNameMs": 13074750,
+            "gemCompleted": 16,
+            "partialGemUses": 24,
+            "fullGemUses": 11,
+            "reportChecks": 12,
+            "reportCheckMana": 665,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "chis": {
+            "games": 30,
+            "aliveMs": 17227250,
+            "trueNameMs": 10220750,
+            "gemCompleted": 12,
+            "partialGemUses": 19,
+            "fullGemUses": 1,
+            "reportChecks": 3,
+            "reportCheckMana": 90,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tokra": {
+            "games": 30,
+            "aliveMs": 9501500,
+            "trueNameMs": 8867500,
+            "gemCompleted": 12,
+            "partialGemUses": 13,
+            "fullGemUses": 4,
+            "reportChecks": 3,
+            "reportCheckMana": 60,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "satoshi": {
+            "games": 30,
+            "aliveMs": 14320000,
+            "trueNameMs": 13586250,
+            "gemCompleted": 11,
+            "partialGemUses": 35,
+            "fullGemUses": 5,
+            "reportChecks": 20,
+            "reportCheckMana": 760,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "deka": {
+            "games": 30,
+            "aliveMs": 26489250,
+            "trueNameMs": 1647500,
+            "gemCompleted": 1,
+            "partialGemUses": 5,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 6,
+            "reportAttackMana": 300,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kazrow": {
+            "games": 30,
+            "aliveMs": 22729500,
+            "trueNameMs": 22281000,
+            "gemCompleted": 17,
+            "partialGemUses": 32,
+            "fullGemUses": 44,
+            "reportChecks": 14,
+            "reportCheckMana": 825,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "neonis": {
+            "games": 30,
+            "aliveMs": 14887750,
+            "trueNameMs": 0,
+            "gemCompleted": 0,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kanulla": {
+            "games": 30,
+            "aliveMs": 12313750,
+            "trueNameMs": 11428750,
+            "gemCompleted": 8,
+            "partialGemUses": 11,
+            "fullGemUses": 5,
+            "reportChecks": 5,
+            "reportCheckMana": 155,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "hachi": {
+            "games": 12,
+            "aliveMs": 7512000,
+            "trueNameMs": 7123500,
+            "gemCompleted": 11,
+            "partialGemUses": 12,
+            "fullGemUses": 10,
+            "reportChecks": 1,
+            "reportCheckMana": 75,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "ulpian": {
+            "games": 18,
+            "aliveMs": 9257500,
+            "trueNameMs": 7273000,
+            "gemCompleted": 4,
+            "partialGemUses": 23,
+            "fullGemUses": 6,
+            "reportChecks": 4,
+            "reportCheckMana": 230,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "uldian": {
+            "games": 18,
+            "aliveMs": 2294500,
+            "trueNameMs": 1940500,
+            "gemCompleted": 0,
+            "partialGemUses": 3,
+            "fullGemUses": 0,
+            "reportChecks": 2,
+            "reportCheckMana": 100,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "seirow": {
+            "games": 12,
+            "aliveMs": 8841250,
+            "trueNameMs": 8506750,
+            "gemCompleted": 6,
+            "partialGemUses": 19,
+            "fullGemUses": 12,
+            "reportChecks": 1,
+            "reportCheckMana": 50,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.6
+      },
+      "aggregateScore": 0.6833333333333333
+    },
+    "reportedSupreme": {
+      "civil_war": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 10,
+        "economy": {
+          "allies": 463,
+          "allyMana": 4630,
+          "checkBlocks": 7,
+          "turns": 1613,
+          "falseNameTurns": 557,
+          "gemGrowthMissed": 541,
+          "incomingManaGross": 20310
+        },
+        "gemStageMissed": {
+          "0": 495,
+          "1": 0,
+          "2": 46
+        },
+        "observations": {
+          "trueClaims": 253,
+          "falseClaims": 156,
+          "wrongAllies": 0,
+          "reports": 1162,
+          "falseReports": 0
+        },
+        "byRole": {
+          "kelhu": {
+            "turns": 188,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "soen": {
+            "turns": 130,
+            "falseNameTurns": 130,
+            "gemGrowthMissed": 130,
+            "gemStageMissed": {
+              "0": 130,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "dantes": {
+            "turns": 175,
+            "falseNameTurns": 175,
+            "gemGrowthMissed": 175,
+            "gemStageMissed": {
+              "0": 175,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "freya": {
+            "turns": 119,
+            "falseNameTurns": 15,
+            "gemGrowthMissed": 11,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 11
+            }
+          },
+          "mertz": {
+            "turns": 177,
+            "falseNameTurns": 2,
+            "gemGrowthMissed": 2,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 2
+            }
+          },
+          "krate": {
+            "turns": 177,
+            "falseNameTurns": 35,
+            "gemGrowthMissed": 35,
+            "gemStageMissed": {
+              "0": 2,
+              "1": 0,
+              "2": 33
+            }
+          },
+          "kai": {
+            "turns": 182,
+            "falseNameTurns": 182,
+            "gemGrowthMissed": 182,
+            "gemStageMissed": {
+              "0": 182,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "arin": {
+            "turns": 177,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "tuma": {
+            "turns": 110,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 6,
+            "gemStageMissed": {
+              "0": 6,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "reindila": {
+            "turns": 80,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kaspa": {
+            "turns": 53,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "sephy": {
+            "turns": 45,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          }
+        },
+        "survival": {
+          "kelhu": {
+            "games": 30,
+            "alive": 28
+          },
+          "soen": {
+            "games": 30,
+            "alive": 9
+          },
+          "dantes": {
+            "games": 30,
+            "alive": 17
+          },
+          "freya": {
+            "games": 30,
+            "alive": 16
+          },
+          "mertz": {
+            "games": 30,
+            "alive": 22
+          },
+          "krate": {
+            "games": 30,
+            "alive": 27
+          },
+          "kai": {
+            "games": 30,
+            "alive": 20
+          },
+          "arin": {
+            "games": 30,
+            "alive": 27
+          },
+          "tuma": {
+            "games": 24,
+            "alive": 21
+          },
+          "reindila": {
+            "games": 18,
+            "alive": 9
+          },
+          "kaspa": {
+            "games": 12,
+            "alive": 11
+          },
+          "sephy": {
+            "games": 6,
+            "alive": 4
+          }
+        },
+        "resources": {
+          "kelhu": {
+            "games": 30,
+            "aliveMs": 17819000,
+            "trueNameMs": 15884500,
+            "gemCompleted": 19,
+            "partialGemUses": 34,
+            "fullGemUses": 23,
+            "reportChecks": 26,
+            "reportCheckMana": 1650,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "soen": {
+            "games": 30,
+            "aliveMs": 13014250,
+            "trueNameMs": 0,
+            "gemCompleted": 0,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 2,
+            "reportCheckMana": 40,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "dantes": {
+            "games": 30,
+            "aliveMs": 16788000,
+            "trueNameMs": 0,
+            "gemCompleted": 0,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 5,
+            "reportCheckMana": 75,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "freya": {
+            "games": 30,
+            "aliveMs": 11501500,
+            "trueNameMs": 8978750,
+            "gemCompleted": 8,
+            "partialGemUses": 25,
+            "fullGemUses": 6,
+            "reportChecks": 18,
+            "reportCheckMana": 500,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "mertz": {
+            "games": 30,
+            "aliveMs": 16806000,
+            "trueNameMs": 15874250,
+            "gemCompleted": 15,
+            "partialGemUses": 33,
+            "fullGemUses": 24,
+            "reportChecks": 43,
+            "reportCheckMana": 2600,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "krate": {
+            "games": 30,
+            "aliveMs": 17154500,
+            "trueNameMs": 13244750,
+            "gemCompleted": 9,
+            "partialGemUses": 41,
+            "fullGemUses": 2,
+            "reportChecks": 1,
+            "reportCheckMana": 20,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kai": {
+            "games": 30,
+            "aliveMs": 17694500,
+            "trueNameMs": 0,
+            "gemCompleted": 0,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "arin": {
+            "games": 30,
+            "aliveMs": 17140750,
+            "trueNameMs": 17014750,
+            "gemCompleted": 21,
+            "partialGemUses": 24,
+            "fullGemUses": 13,
+            "reportChecks": 2,
+            "reportCheckMana": 150,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tuma": {
+            "games": 24,
+            "aliveMs": 11061750,
+            "trueNameMs": 10275750,
+            "gemCompleted": 7,
+            "partialGemUses": 30,
+            "fullGemUses": 4,
+            "reportChecks": 1,
+            "reportCheckMana": 50,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "reindila": {
+            "games": 18,
+            "aliveMs": 7649250,
+            "trueNameMs": 6332250,
+            "gemCompleted": 6,
+            "partialGemUses": 11,
+            "fullGemUses": 12,
+            "reportChecks": 17,
+            "reportCheckMana": 1050,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kaspa": {
+            "games": 12,
+            "aliveMs": 5279250,
+            "trueNameMs": 4944750,
+            "gemCompleted": 2,
+            "partialGemUses": 19,
+            "fullGemUses": 2,
+            "reportChecks": 2,
+            "reportCheckMana": 65,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "sephy": {
+            "games": 6,
+            "aliveMs": 4158500,
+            "trueNameMs": 3987500,
+            "gemCompleted": 4,
+            "partialGemUses": 6,
+            "fullGemUses": 6,
+            "reportChecks": 8,
+            "reportCheckMana": 430,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.7666666666666667
+      },
+      "primordial": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "economy": {
+          "allies": 526,
+          "allyMana": 5260,
+          "checkBlocks": 3,
+          "turns": 1527,
+          "falseNameTurns": 628,
+          "gemGrowthMissed": 613,
+          "incomingManaGross": 12920
+        },
+        "gemStageMissed": {
+          "0": 234,
+          "1": 348,
+          "2": 31
+        },
+        "observations": {
+          "trueClaims": 350,
+          "falseClaims": 167,
+          "wrongAllies": 0,
+          "reports": 800,
+          "falseReports": 0
+        },
+        "byRole": {
+          "eoril": {
+            "turns": 72,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "rael": {
+            "turns": 223,
+            "falseNameTurns": 166,
+            "gemGrowthMissed": 166,
+            "gemStageMissed": {
+              "0": 20,
+              "1": 144,
+              "2": 2
+            }
+          },
+          "nukelius": {
+            "turns": 59,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kane": {
+            "turns": 233,
+            "falseNameTurns": 200,
+            "gemGrowthMissed": 199,
+            "gemStageMissed": {
+              "0": 194,
+              "1": 1,
+              "2": 4
+            }
+          },
+          "eltas": {
+            "turns": 245,
+            "falseNameTurns": 213,
+            "gemGrowthMissed": 213,
+            "gemStageMissed": {
+              "0": 10,
+              "1": 203,
+              "2": 0
+            }
+          },
+          "hermilly": {
+            "turns": 92,
+            "falseNameTurns": 25,
+            "gemGrowthMissed": 19,
+            "gemStageMissed": {
+              "0": 3,
+              "1": 0,
+              "2": 16
+            }
+          },
+          "kilder": {
+            "turns": 115,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "drakan": {
+            "turns": 92,
+            "falseNameTurns": 23,
+            "gemGrowthMissed": 16,
+            "gemStageMissed": {
+              "0": 7,
+              "1": 0,
+              "2": 9
+            }
+          },
+          "tachin": {
+            "turns": 180,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "sasint": {
+            "turns": 103,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kumarin": {
+            "turns": 80,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "consume": {
+            "turns": 33,
+            "falseNameTurns": 1,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          }
+        },
+        "survival": {
+          "eoril": {
+            "games": 30,
+            "alive": 7
+          },
+          "rael": {
+            "games": 30,
+            "alive": 23
+          },
+          "nukelius": {
+            "games": 30,
+            "alive": 2
+          },
+          "kane": {
+            "games": 30,
+            "alive": 21
+          },
+          "eltas": {
+            "games": 30,
+            "alive": 18
+          },
+          "hermilly": {
+            "games": 24,
+            "alive": 10
+          },
+          "kilder": {
+            "games": 30,
+            "alive": 7
+          },
+          "drakan": {
+            "games": 30,
+            "alive": 9
+          },
+          "tachin": {
+            "games": 24,
+            "alive": 15
+          },
+          "sasint": {
+            "games": 24,
+            "alive": 9
+          },
+          "kumarin": {
+            "games": 12,
+            "alive": 4
+          },
+          "consume": {
+            "games": 6,
+            "alive": 2
+          }
+        },
+        "resources": {
+          "eoril": {
+            "games": 30,
+            "aliveMs": 7818500,
+            "trueNameMs": 6927500,
+            "gemCompleted": 2,
+            "partialGemUses": 14,
+            "fullGemUses": 4,
+            "reportChecks": 7,
+            "reportCheckMana": 245,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "rael": {
+            "games": 30,
+            "aliveMs": 21085250,
+            "trueNameMs": 4639500,
+            "gemCompleted": 2,
+            "partialGemUses": 12,
+            "fullGemUses": 1,
+            "reportChecks": 8,
+            "reportCheckMana": 190,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "nukelius": {
+            "games": 30,
+            "aliveMs": 6927500,
+            "trueNameMs": 6026750,
+            "gemCompleted": 0,
+            "partialGemUses": 18,
+            "fullGemUses": 0,
+            "reportChecks": 16,
+            "reportCheckMana": 410,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kane": {
+            "games": 30,
+            "aliveMs": 21990250,
+            "trueNameMs": 1924000,
+            "gemCompleted": 3,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "eltas": {
+            "games": 30,
+            "aliveMs": 23186250,
+            "trueNameMs": 2951000,
+            "gemCompleted": 0,
+            "partialGemUses": 2,
+            "fullGemUses": 0,
+            "reportChecks": 5,
+            "reportCheckMana": 75,
+            "reportAttacks": 3,
+            "reportAttackMana": 150,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "hermilly": {
+            "games": 24,
+            "aliveMs": 9190500,
+            "trueNameMs": 6087000,
+            "gemCompleted": 5,
+            "partialGemUses": 17,
+            "fullGemUses": 1,
+            "reportChecks": 5,
+            "reportCheckMana": 100,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kilder": {
+            "games": 30,
+            "aliveMs": 11430500,
+            "trueNameMs": 11304500,
+            "gemCompleted": 11,
+            "partialGemUses": 20,
+            "fullGemUses": 10,
+            "reportChecks": 18,
+            "reportCheckMana": 685,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "drakan": {
+            "games": 30,
+            "aliveMs": 9538750,
+            "trueNameMs": 6632250,
+            "gemCompleted": 2,
+            "partialGemUses": 13,
+            "fullGemUses": 3,
+            "reportChecks": 1,
+            "reportCheckMana": 50,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tachin": {
+            "games": 24,
+            "aliveMs": 16965250,
+            "trueNameMs": 16678750,
+            "gemCompleted": 13,
+            "partialGemUses": 22,
+            "fullGemUses": 32,
+            "reportChecks": 11,
+            "reportCheckMana": 600,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "sasint": {
+            "games": 24,
+            "aliveMs": 10176250,
+            "trueNameMs": 9624250,
+            "gemCompleted": 9,
+            "partialGemUses": 13,
+            "fullGemUses": 15,
+            "reportChecks": 9,
+            "reportCheckMana": 410,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kumarin": {
+            "games": 12,
+            "aliveMs": 7553500,
+            "trueNameMs": 7229500,
+            "gemCompleted": 6,
+            "partialGemUses": 13,
+            "fullGemUses": 13,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "consume": {
+            "games": 6,
+            "aliveMs": 3133750,
+            "trueNameMs": 2946000,
+            "gemCompleted": 4,
+            "partialGemUses": 5,
+            "fullGemUses": 3,
+            "reportChecks": 4,
+            "reportCheckMana": 250,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.6833333333333333
+      },
+      "lidellut": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 4,
+        "economy": {
+          "allies": 507,
+          "allyMana": 5070,
+          "checkBlocks": 13,
+          "turns": 1398,
+          "falseNameTurns": 401,
+          "gemGrowthMissed": 363,
+          "incomingManaGross": 16890
+        },
+        "gemStageMissed": {
+          "0": 332,
+          "1": 15,
+          "2": 16
+        },
+        "observations": {
+          "trueClaims": 286,
+          "falseClaims": 118,
+          "wrongAllies": 0,
+          "reports": 1027,
+          "falseReports": 0
+        },
+        "byRole": {
+          "kaspa": {
+            "turns": 95,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kai": {
+            "turns": 171,
+            "falseNameTurns": 171,
+            "gemGrowthMissed": 171,
+            "gemStageMissed": {
+              "0": 171,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "freia": {
+            "turns": 126,
+            "falseNameTurns": 9,
+            "gemGrowthMissed": 7,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 7
+            }
+          },
+          "arin": {
+            "turns": 159,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "shining": {
+            "turns": 200,
+            "falseNameTurns": 172,
+            "gemGrowthMissed": 166,
+            "gemStageMissed": {
+              "0": 151,
+              "1": 15,
+              "2": 0
+            }
+          },
+          "chizuko": {
+            "turns": 165,
+            "falseNameTurns": 40,
+            "gemGrowthMissed": 11,
+            "gemStageMissed": {
+              "0": 3,
+              "1": 0,
+              "2": 8
+            }
+          },
+          "yui": {
+            "turns": 96,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "supra": {
+            "turns": 80,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "loneris": {
+            "turns": 94,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 6,
+            "gemStageMissed": {
+              "0": 6,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "tuma": {
+            "turns": 102,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kamikaze": {
+            "turns": 76,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "sepi": {
+            "turns": 34,
+            "falseNameTurns": 3,
+            "gemGrowthMissed": 2,
+            "gemStageMissed": {
+              "0": 1,
+              "1": 0,
+              "2": 1
+            }
+          }
+        },
+        "survival": {
+          "kaspa": {
+            "games": 30,
+            "alive": 15
+          },
+          "kai": {
+            "games": 30,
+            "alive": 22
+          },
+          "freia": {
+            "games": 30,
+            "alive": 19
+          },
+          "arin": {
+            "games": 30,
+            "alive": 24
+          },
+          "shining": {
+            "games": 30,
+            "alive": 18
+          },
+          "supra": {
+            "games": 30,
+            "alive": 8
+          },
+          "chizuko": {
+            "games": 30,
+            "alive": 21
+          },
+          "yui": {
+            "games": 30,
+            "alive": 11
+          },
+          "loneris": {
+            "games": 24,
+            "alive": 9
+          },
+          "tuma": {
+            "games": 18,
+            "alive": 16
+          },
+          "kamikaze": {
+            "games": 12,
+            "alive": 10
+          },
+          "sepi": {
+            "games": 6,
+            "alive": 2
+          }
+        },
+        "resources": {
+          "kaspa": {
+            "games": 30,
+            "aliveMs": 9760000,
+            "trueNameMs": 8849000,
+            "gemCompleted": 6,
+            "partialGemUses": 20,
+            "fullGemUses": 6,
+            "reportChecks": 14,
+            "reportCheckMana": 720,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kai": {
+            "games": 30,
+            "aliveMs": 16405250,
+            "trueNameMs": 0,
+            "gemCompleted": 0,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 2,
+            "reportCheckMana": 30,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "freia": {
+            "games": 30,
+            "aliveMs": 12454750,
+            "trueNameMs": 10512750,
+            "gemCompleted": 12,
+            "partialGemUses": 17,
+            "fullGemUses": 7,
+            "reportChecks": 17,
+            "reportCheckMana": 400,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "arin": {
+            "games": 30,
+            "aliveMs": 15331750,
+            "trueNameMs": 14713000,
+            "gemCompleted": 28,
+            "partialGemUses": 18,
+            "fullGemUses": 9,
+            "reportChecks": 7,
+            "reportCheckMana": 525,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "shining": {
+            "games": 30,
+            "aliveMs": 19066750,
+            "trueNameMs": 1629250,
+            "gemCompleted": 2,
+            "partialGemUses": 4,
+            "fullGemUses": 4,
+            "reportChecks": 5,
+            "reportCheckMana": 350,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "supra": {
+            "games": 30,
+            "aliveMs": 8476750,
+            "trueNameMs": 7962250,
+            "gemCompleted": 5,
+            "partialGemUses": 19,
+            "fullGemUses": 6,
+            "reportChecks": 7,
+            "reportCheckMana": 425,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "chizuko": {
+            "games": 30,
+            "aliveMs": 15951000,
+            "trueNameMs": 11296750,
+            "gemCompleted": 14,
+            "partialGemUses": 14,
+            "fullGemUses": 12,
+            "reportChecks": 8,
+            "reportCheckMana": 465,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "yui": {
+            "games": 30,
+            "aliveMs": 9889250,
+            "trueNameMs": 9763250,
+            "gemCompleted": 14,
+            "partialGemUses": 10,
+            "fullGemUses": 3,
+            "reportChecks": 8,
+            "reportCheckMana": 160,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "loneris": {
+            "games": 24,
+            "aliveMs": 9187750,
+            "trueNameMs": 8401750,
+            "gemCompleted": 8,
+            "partialGemUses": 15,
+            "fullGemUses": 12,
+            "reportChecks": 13,
+            "reportCheckMana": 700,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tuma": {
+            "games": 18,
+            "aliveMs": 9756750,
+            "trueNameMs": 9516750,
+            "gemCompleted": 9,
+            "partialGemUses": 25,
+            "fullGemUses": 9,
+            "reportChecks": 3,
+            "reportCheckMana": 225,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kamikaze": {
+            "games": 12,
+            "aliveMs": 7064000,
+            "trueNameMs": 6729500,
+            "gemCompleted": 12,
+            "partialGemUses": 11,
+            "fullGemUses": 4,
+            "reportChecks": 9,
+            "reportCheckMana": 135,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "sepi": {
+            "games": 6,
+            "aliveMs": 3158750,
+            "trueNameMs": 2499500,
+            "gemCompleted": 3,
+            "partialGemUses": 7,
+            "fullGemUses": 3,
+            "reportChecks": 5,
+            "reportCheckMana": 170,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.6833333333333333
+      },
+      "troll": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "economy": {
+          "allies": 327,
+          "allyMana": 3270,
+          "checkBlocks": 10,
+          "turns": 1577,
+          "falseNameTurns": 479,
+          "gemGrowthMissed": 470,
+          "incomingManaGross": 14580
+        },
+        "gemStageMissed": {
+          "0": 465,
+          "1": 0,
+          "2": 5
+        },
+        "observations": {
+          "trueClaims": 271,
+          "falseClaims": 124,
+          "wrongAllies": 0,
+          "reports": 675,
+          "falseReports": 0
+        },
+        "byRole": {
+          "zwinra": {
+            "turns": 143,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "chis": {
+            "turns": 180,
+            "falseNameTurns": 66,
+            "gemGrowthMissed": 66,
+            "gemStageMissed": {
+              "0": 66,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "tokra": {
+            "turns": 93,
+            "falseNameTurns": 4,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "satoshi": {
+            "turns": 145,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "deka": {
+            "turns": 261,
+            "falseNameTurns": 248,
+            "gemGrowthMissed": 248,
+            "gemStageMissed": {
+              "0": 248,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kazrow": {
+            "turns": 225,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "neonis": {
+            "turns": 140,
+            "falseNameTurns": 140,
+            "gemGrowthMissed": 140,
+            "gemStageMissed": {
+              "0": 140,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "kanulla": {
+            "turns": 108,
+            "falseNameTurns": 6,
+            "gemGrowthMissed": 6,
+            "gemStageMissed": {
+              "0": 6,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "hachi": {
+            "turns": 79,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "ulpian": {
+            "turns": 95,
+            "falseNameTurns": 15,
+            "gemGrowthMissed": 10,
+            "gemStageMissed": {
+              "0": 5,
+              "1": 0,
+              "2": 5
+            }
+          },
+          "uldian": {
+            "turns": 15,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          },
+          "seirow": {
+            "turns": 93,
+            "falseNameTurns": 0,
+            "gemGrowthMissed": 0,
+            "gemStageMissed": {
+              "0": 0,
+              "1": 0,
+              "2": 0
+            }
+          }
+        },
+        "survival": {
+          "zwinra": {
+            "games": 30,
+            "alive": 18
+          },
+          "chis": {
+            "games": 30,
+            "alive": 29
+          },
+          "tokra": {
+            "games": 30,
+            "alive": 14
+          },
+          "satoshi": {
+            "games": 30,
+            "alive": 18
+          },
+          "deka": {
+            "games": 30,
+            "alive": 15
+          },
+          "kazrow": {
+            "games": 30,
+            "alive": 23
+          },
+          "neonis": {
+            "games": 30,
+            "alive": 15
+          },
+          "kanulla": {
+            "games": 30,
+            "alive": 9
+          },
+          "hachi": {
+            "games": 12,
+            "alive": 10
+          },
+          "ulpian": {
+            "games": 18,
+            "alive": 14
+          },
+          "uldian": {
+            "games": 18,
+            "alive": 1
+          },
+          "seirow": {
+            "games": 12,
+            "alive": 10
+          }
+        },
+        "resources": {
+          "zwinra": {
+            "games": 30,
+            "aliveMs": 13965750,
+            "trueNameMs": 13074750,
+            "gemCompleted": 16,
+            "partialGemUses": 24,
+            "fullGemUses": 11,
+            "reportChecks": 12,
+            "reportCheckMana": 665,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "chis": {
+            "games": 30,
+            "aliveMs": 17227250,
+            "trueNameMs": 10220750,
+            "gemCompleted": 12,
+            "partialGemUses": 19,
+            "fullGemUses": 1,
+            "reportChecks": 3,
+            "reportCheckMana": 90,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "tokra": {
+            "games": 30,
+            "aliveMs": 9501500,
+            "trueNameMs": 8867500,
+            "gemCompleted": 12,
+            "partialGemUses": 13,
+            "fullGemUses": 4,
+            "reportChecks": 3,
+            "reportCheckMana": 60,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "satoshi": {
+            "games": 30,
+            "aliveMs": 14320000,
+            "trueNameMs": 13586250,
+            "gemCompleted": 11,
+            "partialGemUses": 35,
+            "fullGemUses": 5,
+            "reportChecks": 20,
+            "reportCheckMana": 760,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "deka": {
+            "games": 30,
+            "aliveMs": 24700250,
+            "trueNameMs": 933000,
+            "gemCompleted": 0,
+            "partialGemUses": 3,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 18,
+            "reportAttackMana": 900,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kazrow": {
+            "games": 30,
+            "aliveMs": 21573000,
+            "trueNameMs": 21124500,
+            "gemCompleted": 17,
+            "partialGemUses": 32,
+            "fullGemUses": 39,
+            "reportChecks": 14,
+            "reportCheckMana": 825,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "neonis": {
+            "games": 30,
+            "aliveMs": 13598500,
+            "trueNameMs": 0,
+            "gemCompleted": 0,
+            "partialGemUses": 0,
+            "fullGemUses": 0,
+            "reportChecks": 0,
+            "reportCheckMana": 0,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "kanulla": {
+            "games": 30,
+            "aliveMs": 11208500,
+            "trueNameMs": 10323500,
+            "gemCompleted": 8,
+            "partialGemUses": 11,
+            "fullGemUses": 5,
+            "reportChecks": 5,
+            "reportCheckMana": 155,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "hachi": {
+            "games": 12,
+            "aliveMs": 7512000,
+            "trueNameMs": 7123500,
+            "gemCompleted": 11,
+            "partialGemUses": 12,
+            "fullGemUses": 10,
+            "reportChecks": 1,
+            "reportCheckMana": 75,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "ulpian": {
+            "games": 18,
+            "aliveMs": 9257500,
+            "trueNameMs": 7273000,
+            "gemCompleted": 4,
+            "partialGemUses": 23,
+            "fullGemUses": 6,
+            "reportChecks": 4,
+            "reportCheckMana": 230,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "uldian": {
+            "games": 18,
+            "aliveMs": 2294500,
+            "trueNameMs": 1940500,
+            "gemCompleted": 0,
+            "partialGemUses": 3,
+            "fullGemUses": 0,
+            "reportChecks": 2,
+            "reportCheckMana": 100,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          },
+          "seirow": {
+            "games": 12,
+            "aliveMs": 8841250,
+            "trueNameMs": 8506750,
+            "gemCompleted": 6,
+            "partialGemUses": 19,
+            "fullGemUses": 12,
+            "reportChecks": 1,
+            "reportCheckMana": 50,
+            "reportAttacks": 0,
+            "reportAttackMana": 0,
+            "wrongReportAttackNames": 0,
+            "reportAttackFailures": 0
+          }
+        },
+        "score": 0.6166666666666667
+      },
+      "aggregateScore": 0.6875
+    }
+  },
+  "contrasts": {
+    "control": {
+      "baseline": {
+        "difference": -0.04166666666666667,
+        "seedBootstrap95": [
+          -0.0666666666666667,
+          -0.016666666666666673
+        ],
+        "modes": {
+          "civil_war": 0.0,
+          "primordial": -0.016666666666666607,
+          "lidellut": -0.06666666666666665,
+          "troll": -0.08333333333333337
+        }
+      }
+    },
+    "reportedSupreme": {
+      "baseline": {
+        "difference": -0.0375,
+        "seedBootstrap95": [
+          -0.06250000000000003,
+          -0.016666666666666653
+        ],
+        "modes": {
+          "civil_war": 0.0,
+          "primordial": -0.016666666666666607,
+          "lidellut": -0.06666666666666665,
+          "troll": -0.06666666666666665
+        }
+      },
+      "control": {
+        "difference": 0.004166666666666674,
+        "seedBootstrap95": [
+          0.0,
+          0.012500000000000022
+        ],
+        "modes": {
+          "civil_war": 0.0,
+          "primordial": 0.0,
+          "lidellut": 0.0,
+          "troll": 0.01666666666666672
+        }
+      }
+    }
+  },
+  "design": {
+    "unit": "seed",
+    "adoption": "독립 평가의 전체 차이 95% 하한 양수·각 모드 점수 차이 -2%p 이상·안전 위반 0. 개발 성적은 채택 근거로 삼지 않는다.",
+    "limitations": [
+      "동맹 직후 스킬 마나 차단은 잠재 비용이며 실제 대체 행동의 인과 증거가 아니다.",
+      "단방향 동맹의 수입과 지급을 분리하며 원시 턴 마나는 150 상한 전 값이다.",
+      "개발 후보 다중 비교는 후보 선택용이며 독립 평가를 대체하지 않는다."
+    ]
+  },
+  "safetyClear": true,
+  "promotionEvidence": {
+    "control": false,
+    "reportedSupreme": false
+  }
+}

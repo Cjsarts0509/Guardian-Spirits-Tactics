@@ -1,19 +1,26 @@
 {
   "round": 7,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "automation-round-007",
   "startedAt": "2026-10-15T03:00:43+09:00",
   "leaseUntil": "2026-10-15T03:50:00+09:00",
   "developmentSeeds": {
     "start": 120000,
     "count": 5,
-    "status": "reserved"
+    "status": "completed"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "task": "새 개발 자료에서 보석 재성장·보고 재확인 비용을 분리한다. 단일 후보는 검증된 아군의 일관된 적 보고를 실패 사망 없는 최상급 공격에만 참고. 기본 OFF·facts 승격 없음.",
+  "completedAt": "2026-10-15T03:10:00+09:00",
+  "executions": 720,
+  "candidate": "reportedSupreme",
+  "options": {"reportedSupreme":true},
+  "decision": "development_gate_failed_no_holdout",
+  "nextDevelopmentSeeds": {"start":122000,"count":5,"status":"unused"},
+  "nextHoldoutSeeds": {"start":121000,"count":16,"status":"unused"},
+  "task": "007완료·기본OFF.008회차는 부분보석 반복소비 직전 대체확인/다음턴/마나 조건 진단.112000/116000 최종자료 재튜닝 금지.",
   "adoption": "고정 후 새 holdout 전체 차이 95% 하한>0, 각 모드>=-2pp, 안전 위반0. 개발 악화면 holdout 미사용.112000/116000 재튜닝 금지."
 }
