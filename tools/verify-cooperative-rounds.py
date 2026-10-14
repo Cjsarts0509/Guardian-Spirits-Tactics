@@ -89,7 +89,7 @@ for row in d['rows']:
      c['nearCompletionAlternativeReady']+=int(a['nearCompletion'] and bool(a['alternativeChecks']))
      c['partialWithOtherCheckReady']+=int(a['stage']==2 and bool(a['alternativeChecks']))
      c['commanderAlreadyObserved']+=int(a['targetCommanderObserved'])
-     if d['options'].get(variant,{}).get('preservePartialGem'):assert not a['nearCompletion'],a
+     if d['options'].get(variant,{}).get('preservePartialGem') is True:assert not a['nearCompletion'],a
    if 'rejections' in diag:
     assert len(diag['rejections'])==g['stats']['current']['rejected']
     counted=collections.Counter()
@@ -106,6 +106,7 @@ for row in d['rows']:
     assert a['alternativeExpectedInformation'] is None or a['alternativeExpectedInformation']>=0
     s=bucket['deferralSummary'];s['decisions']+=1;s['gemExpectedInformation']+=a['gemExpectedInformation']
     chosen=a['chosen'];key=chosen['skill'] if chosen and chosen['type']=='skill' else chosen['type'] if chosen else 'wait'
+    if d['options'][variant].get('preservePartialGem')=='when-busy':assert chosen is not None
     assert key!='truth_gem';bucket['deferralSkills'][key]+=1
     if chosen is None:assert a['accepted'] is None and a['nominalMana']==0
     else:

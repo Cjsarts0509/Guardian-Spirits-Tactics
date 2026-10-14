@@ -17,7 +17,8 @@ if(!Number.isSafeInteger(count)||count<1||!Number.isSafeInteger(start)||!['devel
 const options:Record<string,BotOptions>={control:{},growth:{claimGemGoal:3},budget:{teamworkBudget:true},combined:{claimGemGoal:3,teamworkBudget:true},approach:{verifyIncomingAllies:true},coordinated:{claimGemGoal:3,teamworkBudget:true,verifyIncomingAllies:true},selective:{verifyIncomingAllies:'useful-report'},selectiveCombined:{claimGemGoal:3,teamworkBudget:true,verifyIncomingAllies:'useful-report'},shiningGrowth:{claimGemGoal:3,teamworkBudget:true,claimCommanderGrowth:'shining'},commanderGrowth:{claimGemGoal:3,teamworkBudget:true,claimCommanderGrowth:'all'}};
 options.reportedSupreme={reportedSupreme:true};
 options.preservePartialGem={preservePartialGem:true};
-const developmentGroups:Record<string,string[]>={'approach-development':['control','combined','approach','coordinated'],'selective-development':['control','combined','selective','selectiveCombined'],'commander-development':['control','combined','shiningGrowth','commanderGrowth']};
+options.nonIdleGem={preservePartialGem:'when-busy'};
+const developmentGroups:Record<string,string[]>={'approach-development':['control','combined','approach','coordinated'],'selective-development':['control','combined','selective','selectiveCombined'],'commander-development':['control','combined','shiningGrowth','commanderGrowth'],'nonidle-development':['control','preservePartialGem','nonIdleGem']};
 if(selection!=='all'&&!developmentGroups[selection]&&!options[selection])throw Error('후보 이름 오류');
 if(phase==='holdout'&&(selection==='all'||developmentGroups[selection]))throw Error('독립 평가는 사전에 고정한 후보 하나만 지정한다');
 const selected=selection==='all'?Object.keys(options):developmentGroups[selection]??['control',selection].filter((x,i,a)=>a.indexOf(x)===i);

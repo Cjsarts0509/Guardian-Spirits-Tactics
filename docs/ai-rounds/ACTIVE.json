@@ -1,13 +1,13 @@
 {
   "round": 10,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "automation-round-010",
   "startedAt": "2026-10-15T06:02:34+09:00",
   "leaseUntil": "2026-10-15T06:45:00+09:00",
   "developmentSeeds": {
     "start": 124000,
     "count": 5,
-    "status": "reserved"
+    "status": "completed"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -18,6 +18,11 @@
   "options": {
     "preservePartialGem": "when-busy"
   },
-  "task": "보류 정책의 다른 주 행동이 null이면 원래 기억/RNG에서 비보류 판단을 실행하는 단일 후보. 자기 기억만 복제, 다른 봇/숨은 배정 접근 없음. 기본OFF.06:50 이후 새 실험 금지.",
+  "completedAt": "2026-10-15T06:07:08+09:00",
+  "executions": 960,
+  "cumulativeExecutions": 10464,
+  "decision": "development_gate_failed_no_holdout",
+  "nextAction": "final_report_only_no_new_experiments",
+  "task": "010완료·기본OFF·미승격. 후보67.92/control68.33/main68.75%. 독립121000미사용. 다음은 새 실험 없이 누적 최종 결과만 정리.112000/116000재사용금지.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }

@@ -26,7 +26,7 @@ export interface BotOptions {
   /** 개발 비교: 직접 확인된 아군의 일관된 적 보고는 최상급 공격만 참고. 기본 OFF. */
   reportedSupreme?: boolean;
   /** 개발 비교: 다음 턴 완성이 가까운 진명·마나 조건에서만 부분 보석 사용을 보류. 기본 OFF. */
-  preservePartialGem?: boolean;
+  preservePartialGem?: boolean | 'when-busy';
   /** 개발 비교: 미확인 동맹 요청자를 먼저 확인한다. 요청은 정체 사실로 취급하지 않는다. */
   verifyIncomingAllies?: boolean | 'useful-report';
   /** 개발 비교: 일반 인물의 위장 전 보석 목표 단계. 지휘관/변장 노출 예외는 유지한다. */
@@ -195,7 +195,22 @@ export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerV
 
 export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions = {}): Action | null {
   delete mem.communicationAt;
-  const action = chooseSmartBotAction(state, playerId, mem, opts);
+  let action:Action|null;
+  const nonIdle=opts.preservePartialGem==='when-busy';
+  // 복제 대상은 본인 기억뿐이다. 비활동 호출은 원래처럼 행동 RNG를 한 번만 진행한다.
+  if(nonIdle&&state.phase==='running'&&state.players.some(p=>p.id===playerId&&p.alive)&&
+      nextRandom({rng:mem.rng})<=(opts.activity??0.5)&&shouldPreservePartialGem(viewFor(state,playerId))){
+    const trial=structuredClone(mem);
+    const alternative=chooseSmartBotAction(state,playerId,trial,{...opts,preservePartialGem:true});
+    if(alternative!==null){
+      // 다른 주 행동이 있을 때만 보류 판단의 자기 기억/난수를 채택한다.
+      for(const key of Object.keys(mem))if(!(key in trial))Reflect.deleteProperty(mem,key);
+      Object.assign(mem,trial);action=alternative;
+    }else{
+      // 탐색한 복제 기억은 버린다. 원래 RNG·관찰에서 비보류 정책을 정확히 실행한다.
+      action=chooseSmartBotAction(state,playerId,mem,{...opts,preservePartialGem:false});
+    }
+  }else action=chooseSmartBotAction(state,playerId,mem,nonIdle?{...opts,preservePartialGem:false}:opts);
   if (!opts.protectionRetryBackoff) { delete mem.protectionRetries; return action; }
   return filterProtectionRetry(mem, action, state.now - state.startedAt);
 }

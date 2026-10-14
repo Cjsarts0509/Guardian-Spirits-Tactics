@@ -26,7 +26,10 @@ export function diagnoseDeferredGem(state:GameState,id:string,memory:BotMemory,o
   const wouldUse=smartBotAction(state,id,controlMemory,{...options,preservePartialGem:false});
   if(wouldUse?.type!=='skill'||wouldUse.skill!=='truth_gem'||!wouldUse.target)return;
   const chosen=smartBotAction(state,id,candidateMemory,options);
-  if(chosen?.type==='skill'&&chosen.skill==='truth_gem')throw Error('보류 조건에서 보석 소비 제안');
+  if(chosen?.type==='skill'&&chosen.skill==='truth_gem'){
+    if(options.preservePartialGem==='when-busy')return; // 보류하지 않은 정상 fallback은 gemUses에 기록한다.
+    throw Error('보류 조건에서 보석 소비 제안');
+  }
   const knowledge=botKnowledge(state,id,view,controlMemory),belief=assignmentBelief(view,knowledge,controlMemory);
   return {at:state.now,player:id,role:view.me.character,wouldUse,chosen,mana:view.me.mana,nextTurnInMs:view.nextTurnInMs,
     totalCandidatesBefore:totalCandidates(knowledge),knownBefore:knowledge.known.size,
