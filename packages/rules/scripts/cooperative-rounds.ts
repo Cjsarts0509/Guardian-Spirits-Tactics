@@ -18,6 +18,7 @@ const options:Record<string,BotOptions>={control:{},growth:{claimGemGoal:3},budg
 options.reportedSupreme={reportedSupreme:true};
 options.preservePartialGem={preservePartialGem:true};
 options.nonIdleGem={preservePartialGem:'when-busy'};
+options.normalReportVerification={reportVerification:'normal'};
 const developmentGroups:Record<string,string[]>={'approach-development':['control','combined','approach','coordinated'],'selective-development':['control','combined','selective','selectiveCombined'],'commander-development':['control','combined','shiningGrowth','commanderGrowth'],'nonidle-development':['control','preservePartialGem','nonIdleGem']};
 if(selection!=='all'&&!developmentGroups[selection]&&!options[selection])throw Error('후보 이름 오류');
 if(phase==='holdout'&&(selection==='all'||developmentGroups[selection]))throw Error('독립 평가는 사전에 고정한 후보 하나만 지정한다');

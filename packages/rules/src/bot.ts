@@ -25,6 +25,8 @@ export interface BotOptions {
   teamworkBudget?: boolean;
   /** 개발 비교: 직접 확인된 아군의 일관된 적 보고는 최상급 공격만 참고. 기본 OFF. */
   reportedSupreme?: boolean;
+  /** 개발 비교: 보고는 추론에 유지하고 재확인은 일반 정보 수집 순서로 판단한다. 기본 priority. */
+  reportVerification?: 'priority' | 'normal';
   /** 개발 비교: 다음 턴 완성이 가까운 진명·마나 조건에서만 부분 보석 사용을 보류. 기본 OFF. */
   preservePartialGem?: boolean | 'when-busy';
   /** 개발 비교: 미확인 동맹 요청자를 먼저 확인한다. 요청은 정체 사실로 취급하지 않는다. */
@@ -550,7 +552,9 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   if(opts.preservePartialGem&&shouldPreservePartialGem(view))usable.delete('truth_gem');
   if(opts.teamwork !== false){
     if(opts.reportedSupreme){const attack=reportedSupremeAttack(view,knowledge,mem,usable,attackable);if(attack)return attack;}
-    const check=verifyIntel(view,knowledge,mem,usable);if(check)return sequence(check);
+    if(opts.reportVerification!=='normal'){
+      const check=verifyIntel(view,knowledge,mem,usable);if(check)return sequence(check);
+    }
   }
 
   if(opts.teamwork !== false&&opts.verifyIncomingAllies){
