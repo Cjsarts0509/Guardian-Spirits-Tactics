@@ -1,14 +1,19 @@
 {
-  "round": 6,
-  "status": "completed",
-  "owner": "interactive-session",
-  "startedAt": "2026-10-15T02:20:00+09:00",
-  "leaseUntil": "2026-10-15T02:50:00+09:00",
-  "developmentSeeds": {"start": 119000, "count": 5},
-  "holdoutSeeds": {"start": 116000, "count": 16, "status": "completed_not_adopted"},
-  "candidate": "commanderGrowth",
-  "options": {"claimGemGoal":3,"teamworkBudget":true,"claimCommanderGrowth":"all"},
-  "nextDevelopmentSeeds": {"start":120000,"count":5},
-  "nextHoldoutSeeds": {"start":121000,"count":16,"status":"unused"},
-  "task": "006회차2304실행 완료·미채택.3~6시 새 회차,7시 최종 보고.116000 결과로 재튜닝하지 않는다."
+  "round": 7,
+  "status": "in_progress",
+  "owner": "automation-round-007",
+  "startedAt": "2026-10-15T03:00:43+09:00",
+  "leaseUntil": "2026-10-15T03:50:00+09:00",
+  "developmentSeeds": {
+    "start": 120000,
+    "count": 5,
+    "status": "reserved"
+  },
+  "holdoutSeeds": {
+    "start": 121000,
+    "count": 16,
+    "status": "unused"
+  },
+  "task": "새 개발 자료에서 보석 재성장·보고 재확인 비용을 분리한다. 단일 후보는 검증된 아군의 일관된 적 보고를 실패 사망 없는 최상급 공격에만 참고. 기본 OFF·facts 승격 없음.",
+  "adoption": "고정 후 새 holdout 전체 차이 95% 하한>0, 각 모드>=-2pp, 안전 위반0. 개발 악화면 holdout 미사용.112000/116000 재튜닝 금지."
 }
