@@ -1,26 +1,19 @@
 {
-  "round": 8,
-  "status": "completed",
-  "owner": "automation-round-008",
-  "startedAt": "2026-10-15T03:58:54+09:00",
-  "leaseUntil": "2026-10-15T04:50:00+09:00",
+  "round": 9,
+  "status": "in_progress",
+  "owner": "automation-round-009",
+  "startedAt": "2026-10-15T05:02:58+09:00",
+  "leaseUntil": "2026-10-15T05:50:00+09:00",
   "developmentSeeds": {
-    "start": 122000,
+    "start": 123000,
     "count": 5,
-    "status": "completed"
+    "status": "reserved"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "preservePartialGem",
-  "completedAt": "2026-10-15T04:05:02+09:00",
-  "executions": 720,
-  "options": {"preservePartialGem":true},
-  "decision": "development_gate_failed_no_holdout",
-  "nextDevelopmentSeeds": {"start":123000,"count":5,"status":"unused"},
-  "nextHoldoutSeeds": {"start":121000,"count":16,"status":"unused"},
-  "task": "008완료·기본OFF.009회차는 보류 중 실제 대체행동 정보량과 증가한 거절의 자기 수신 사유를 먼저 진단.112000/116000 최종 재튜닝금지.",
-  "adoption": "개발에서 control보다 개선·main 이상·안전 위반0일 때만 후보 고정 후 holdout. 독립 전체차이95%하한>0·모드>=-2pp.112000/116000 재사용금지."
+  "task": "기존 고정 control/부분보석 보류의 새 개발 진단. 자기 거절 사유와 복제 자기 기억의 같은순간 보석 선택/대체행동 정보를 기록. 판단 정책 변경 없음·독립 평가 미사용. 이후 근거가 있으면 새 후보 하나만 개발.",
+  "adoption": "진단 점수는 승격 증거 아님.112000/116000 재사용금지. 새로운 후보는 새 개발 통과·불변 고정 뒤만 holdout 사용."
 }
