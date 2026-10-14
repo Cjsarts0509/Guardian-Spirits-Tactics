@@ -1,24 +1,23 @@
 {
-  "round": 9,
-  "status": "completed",
-  "owner": "automation-round-009",
-  "startedAt": "2026-10-15T05:02:58+09:00",
-  "leaseUntil": "2026-10-15T05:50:00+09:00",
+  "round": 10,
+  "status": "in_progress",
+  "owner": "automation-round-010",
+  "startedAt": "2026-10-15T06:02:34+09:00",
+  "leaseUntil": "2026-10-15T06:45:00+09:00",
   "developmentSeeds": {
-    "start": 123000,
+    "start": 124000,
     "count": 5,
-    "status": "completed"
+    "status": "reserved"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "completedAt": "2026-10-15T05:09:48+09:00",
-  "executions": 720,
-  "decision": "diagnostic_only_no_policy_change_no_holdout",
-  "nextDevelopmentSeeds": {"start":124000,"count":5,"status":"unused"},
-  "nextHoldoutSeeds": {"start":121000,"count":16,"status":"unused"},
-  "task": "009완료.225보석 의도 중150대기, 황야/트롤90/131대기.거절각8보호응답.010은 대기뿐이면 원래 보석 사용을 허용하는 단일 가설.112000/116000 재튜닝 금지.",
-  "adoption": "진단 점수는 승격 증거 아님.112000/116000 재사용금지. 새로운 후보는 새 개발 통과·불변 고정 뒤만 holdout 사용."
+  "candidate": "nonIdleGem",
+  "options": {
+    "preservePartialGem": "when-busy"
+  },
+  "task": "보류 정책의 다른 주 행동이 null이면 원래 기억/RNG에서 비보류 판단을 실행하는 단일 후보. 자기 기억만 복제, 다른 봇/숨은 배정 접근 없음. 기본OFF.06:50 이후 새 실험 금지.",
+  "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }
