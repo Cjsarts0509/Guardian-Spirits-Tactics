@@ -1,26 +1,20 @@
 {
-  "round": 7,
-  "status": "completed",
-  "owner": "automation-round-007",
-  "startedAt": "2026-10-15T03:00:43+09:00",
-  "leaseUntil": "2026-10-15T03:50:00+09:00",
+  "round": 8,
+  "status": "in_progress",
+  "owner": "automation-round-008",
+  "startedAt": "2026-10-15T03:58:54+09:00",
+  "leaseUntil": "2026-10-15T04:50:00+09:00",
   "developmentSeeds": {
-    "start": 120000,
+    "start": 122000,
     "count": 5,
-    "status": "completed"
+    "status": "reserved"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "completedAt": "2026-10-15T03:10:00+09:00",
-  "executions": 720,
-  "candidate": "reportedSupreme",
-  "options": {"reportedSupreme":true},
-  "decision": "development_gate_failed_no_holdout",
-  "nextDevelopmentSeeds": {"start":122000,"count":5,"status":"unused"},
-  "nextHoldoutSeeds": {"start":121000,"count":16,"status":"unused"},
-  "task": "007완료·기본OFF.008회차는 부분보석 반복소비 직전 대체확인/다음턴/마나 조건 진단.112000/116000 최종자료 재튜닝 금지.",
-  "adoption": "고정 후 새 holdout 전체 차이 95% 하한>0, 각 모드>=-2pp, 안전 위반0. 개발 악화면 holdout 미사용.112000/116000 재튜닝 금지."
+  "candidate": "preservePartialGem",
+  "task": "다음 턴이43초 이내이고 진명·충분한 다음턴 마나인 경우만 부분보석을 보존하는 단일 가설. 먼저 기존 소비의 자기뷰 조건을 분리 기록. 다른 행동·공표·보고 규칙은 유지·기본OFF.",
+  "adoption": "개발에서 control보다 개선·main 이상·안전 위반0일 때만 후보 고정 후 holdout. 독립 전체차이95%하한>0·모드>=-2pp.112000/116000 재사용금지."
 }
