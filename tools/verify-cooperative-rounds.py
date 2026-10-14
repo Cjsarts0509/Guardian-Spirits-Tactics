@@ -108,12 +108,14 @@ for row in d['rows']:
     assert priority['type']=='skill' and priority['target']
     assert priority['skill'] in ['advanced_scan','scan','ally_scan','enemy_scan','troll_scan','troll_ally_scan','troll_enemy_scan','truth_gem']
     assert priority['skill']=='truth_gem' or priority['name']==a['reportName']
-    policy='normal' if d['options'][variant].get('reportVerification')=='normal' else 'priority'
-    assert a['actualPolicy']==policy and chosen==(normal if policy=='normal' else priority)
+    policy=d['options'][variant].get('reportVerification','priority')
+    expected=normal if policy=='normal' or policy=='when-busy' and normal is not None else priority
+    assert a['actualPolicy']==policy and chosen==expected
+    if policy=='when-busy':assert chosen is not None
     assert a['changed']==(priority!=normal)
     assert 0<=a['at']<=g['elapsedMs'] and 0<=a['reportAgeMs']<=a['at'] and 0<=a['mana']<=150
     for key in ['priorityMana','normalMana','chosenMana']:assert 0<=a[key]<=a['mana']
-    assert a['chosenMana']==a['normalMana' if policy=='normal' else 'priorityMana']
+    assert a['chosenMana']==a['normalMana' if policy=='normal' or policy=='when-busy' and normal is not None else 'priorityMana']
     assert math.isfinite(a['priorityExpectedInformation']) and a['priorityExpectedInformation']>=0
     assert a['normalExpectedInformation'] is None or math.isfinite(a['normalExpectedInformation']) and a['normalExpectedInformation']>=0
     s=bucket.setdefault('reportDecisionSummary',collections.Counter())

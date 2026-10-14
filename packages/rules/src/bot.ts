@@ -26,7 +26,7 @@ export interface BotOptions {
   /** 개발 비교: 직접 확인된 아군의 일관된 적 보고는 최상급 공격만 참고. 기본 OFF. */
   reportedSupreme?: boolean;
   /** 개발 비교: 보고는 추론에 유지하고 재확인은 일반 정보 수집 순서로 판단한다. 기본 priority. */
-  reportVerification?: 'priority' | 'normal';
+  reportVerification?: 'priority' | 'normal' | 'when-busy';
   /** 개발 비교: 다음 턴 완성이 가까운 진명·마나 조건에서만 부분 보석 사용을 보류. 기본 OFF. */
   preservePartialGem?: boolean | 'when-busy';
   /** 개발 비교: 미확인 동맹 요청자를 먼저 확인한다. 요청은 정체 사실로 취급하지 않는다. */
@@ -197,6 +197,19 @@ export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerV
 
 export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions = {}): Action | null {
   delete mem.communicationAt;
+  const nonIdleReport=opts.reportVerification==='when-busy';
+  if(nonIdleReport&&state.phase==='running'&&state.players.some(p=>p.id===playerId&&p.alive)&&
+      nextRandom({rng:mem.rng})<=(opts.activity??0.5)){
+    const trial=structuredClone(mem);
+    const alternative=smartBotAction(state,playerId,trial,{...opts,reportVerification:'normal'});
+    if(alternative!==null){
+      for(const key of Object.keys(mem))if(!(key in trial))Reflect.deleteProperty(mem,key);
+      Object.assign(mem,trial);return alternative;
+    }
+    // 복제 판단은 버리고 원래 기억/RNG에서 기존 우선검증을 실행한다.
+    return smartBotAction(state,playerId,mem,{...opts,reportVerification:'priority'});
+  }
+  if(nonIdleReport)opts={...opts,reportVerification:'priority'};
   let action:Action|null;
   const nonIdle=opts.preservePartialGem==='when-busy';
   // 복제 대상은 본인 기억뿐이다. 비활동 호출은 원래처럼 행동 RNG를 한 번만 진행한다.

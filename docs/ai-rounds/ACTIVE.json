@@ -21,7 +21,8 @@
   "options": {
     "reportVerification": "when-busy"
   },
-  "checkpoint": "reservation_before_implementation",
+  "checkpoint": "implementation_verified_before_development",
+  "checks": {"tests": 513, "typecheck": "passed", "builds": "passed"},
   "executions": 0,
   "cumulativeExecutions": 11904,
   "decision": "pending",

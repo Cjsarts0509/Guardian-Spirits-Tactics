@@ -9,7 +9,7 @@ import type {BotOptions} from '../src/bot.js';
 import type {Action,ActionResult,GameState} from '../src/types.js';
 
 export interface ReportVerificationDecision {
-  at:number;player:string;role:string;actualPolicy:'priority'|'normal';
+  at:number;player:string;role:string;actualPolicy:'priority'|'normal'|'when-busy';
   priority:Action;normal:Action|null;chosen:Action|null;changed:boolean;
   reportName:string;reportAgeMs:number;mana:number;
   priorityMana:number;normalMana:number;chosenMana:number;
@@ -33,8 +33,8 @@ export function diagnoseReportVerification(state:GameState,id:string,memory:BotM
   const priority=smartBotAction(state,id,structuredClone(memory),{...options,reportVerification:'priority'});
   if(!priority||!same(priority,verification))return; // Earlier combat/alliance/publish decisions are excluded.
   const normal=smartBotAction(state,id,structuredClone(memory),{...options,reportVerification:'normal'});
-  const actualPolicy=options.reportVerification==='normal'?'normal':'priority';
-  const chosen=actualPolicy==='normal'?normal:priority;
+  const actualPolicy=options.reportVerification??'priority';
+  const chosen=actualPolicy==='when-busy'?(normal??priority):actualPolicy==='normal'?normal:priority;
   const reportName=reports.get(verification.target)!;
   const times=[...observationMemory.perception!.intel!.reports.get(verification.target)!]
     .filter(([sender,r])=>r.character===reportName&&view.players.some(p=>p.id===sender&&p.alive)&&
