@@ -21,6 +21,10 @@ export type { BotMemory, Knowledge } from './bot-memory.js';
 export interface BotOptions {
   /** 확정 관계 우선 동맹·파기와 실제 비공개 대화를 통한 정보 공유. false는 이전 정책 비교용. */
   teamwork?: boolean;
+  /** 개발 비교: 동맹 후 즉시 확인·확정 아군 필수 지원의 마나를 보존한다. 기본은 기존 후보. */
+  teamworkBudget?: boolean;
+  /** 개발 비교: 일반 인물의 위장 전 보석 목표 단계. 지휘관/변장 노출 예외는 유지한다. */
+  claimGemGoal?: 2 | 3;
   /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
   protectionRetryBackoff?: boolean;
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
@@ -49,7 +53,7 @@ export interface BotOptions {
   /** 기본은 검증한 황야 한정 확인 탐색. false는 기존 확인 선택 비교용. */
   confirmationSearch?: boolean | 'combat' | 'combat-gem' | 'combat-lidellut';
   primordialSlash?: 'early' | 'finish-or-revealed';
-  /** 공표 전략 비교. 기본은 진명이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
+  /** 공표 전략 비교. 기본은 strategic이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
   claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders' | 'adaptive' | 'strategic';
 }
 
@@ -221,7 +225,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   const claimStrategy=opts.claimStrategy??(opts.primordialLeadership==='after-six-minutes'?'current':'strategic');
   const act = (s: SkillView, target?: PlayerId, name?: CharKey): Action => {
     const strategy = claimStrategy;
-    if (s.key === 'publish' && strategy === 'strategic') name = strategicClaimName(view, knowledge, mem);
+    if (s.key === 'publish' && strategy === 'strategic') name = strategicClaimName(view, knowledge, mem, opts.claimGemGoal);
     if (s.key === 'publish' && strategy === 'adaptive') name = adaptiveClaimName(view, knowledge, mem);
     if (s.key === 'publish' && (strategy === 'truthful' ||
       (strategy === 'truthful-noncommanders' && !me.commander)) && s.nameOptions?.includes(me.character)) name = me.character;
@@ -354,7 +358,37 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
       (ally?.ignoresInvulnerable||!p.statuses.some(e=>e.kind==='invulnerable')));
     friends.sort((a,b)=>Number(me.alliedBy.includes(b.id))-Number(me.alliedBy.includes(a.id))||
       Number(!!isCommander.get(known.get(b.id)!))-Number(!!isCommander.get(known.get(a.id)!))||a.seat-b.seat);
-    if(ally&&friends[0])return act(ally,friends[0].id);
+    if(ally&&friends[0]){
+      let requiredMana=0;
+      if(opts.teamworkBudget){
+        // 하나 이상의 유효한 확인을 남긴다. 가장 비싼 확인을 모두 예약해 동맹을 막지 않는다.
+        const checking: number[]=[];
+        const confirmation=bestConfirmation(view,belief,unknown,[...usable.values()]);
+        if(confirmation?.type==='skill')checking.push(usable.get(confirmation.skill)!.mana);
+        const gem=usable.get('truth_gem');
+        if(gem&&unknown.some(p=>!mem.perception!.commanders.has(p.id)&&checkInformation(view,belief,p.id,'truth_gem')>0))checking.push(gem.mana);
+        for(const key of INFO){
+          const s=usable.get(key),ex=PROBE_EXCLUDES_PUBLISHED[key];
+          if(s&&unknown.some(p=>!p.published||!ex?.includes(p.published)))checking.push(s.mana);
+        }
+        for(const [key,want] of Object.entries(PROBES)){
+          const s=usable.get(key),ex=PROBE_EXCLUDES_PUBLISHED[key];
+          if(s&&unknown.some(p=>candidates.get(p.id)?.includes(want)&&!(p.published&&ex?.includes(p.published))))checking.push(s.mana);
+        }
+        requiredMana=checking.length?Math.min(...checking):0;
+        // 확정된 지원 대상과 상태만 사용한다. 공표/동맹 접근은 아군 증거가 아니다.
+        for(const [key,need] of Object.entries(needs)){
+          const s=usable.get(key);
+          if(s&&need.friendly&&alive.some(p=>need.want.includes(known.get(p.id)!)))requiredMana=Math.max(requiredMana,s.mana);
+        }
+        for(const key of DISPEL){
+          const s=usable.get(key);
+          if(s&&living.some(p=>known.has(p.id)&&!enemy(known.get(p.id)!)&&p.statuses.some(e=>e.kind==='incapacitated')&&
+            (s.ignoresInvulnerable||!p.statuses.some(e=>e.kind==='invulnerable'))))requiredMana=Math.max(requiredMana,s.mana);
+        }
+      }
+      if(me.mana-ally.mana>=requiredMana)return act(ally,friends[0].id);
+    }
   }
 
   // 백스탭: 나에게 동맹을 건 적 (또는 적 진영 이름을 공표한 사람)
@@ -464,7 +498,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   // 2) 공표. 지휘관은 진명을 숨기고, 나머지는 대체로 진명(턴 마나·진실의 조각). 가짜로 시작했어도 나중에 진명으로 바꾼다
   if (publish) {
     if (claimStrategy === 'strategic') {
-      const desired=strategicClaimName(view,knowledge,mem);
+      const desired=strategicClaimName(view,knowledge,mem,opts.claimGemGoal);
       if(me.published!==desired&&publish.nameOptions?.includes(desired))return sequence(act(publish,undefined,desired));
     }
     if (claimStrategy !== 'strategic') {

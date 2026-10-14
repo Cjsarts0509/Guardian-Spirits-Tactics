@@ -1,6 +1,7 @@
 """Recount fixture coverage and economic counters without changing policy inputs."""
-import collections, gzip, hashlib, json, pathlib, re, sys
-path=pathlib.Path(sys.argv[1]);d=json.loads(gzip.decompress(path.read_bytes()) if path.suffix=='.gz' else path.read_text())
+import collections, gzip, hashlib, json, pathlib, re, argparse, subprocess
+parser=argparse.ArgumentParser();parser.add_argument('path',type=pathlib.Path);parser.add_argument('--source-ref');args=parser.parse_args()
+path=args.path;d=json.loads(gzip.decompress(path.read_bytes()) if path.suffix=='.gz' else path.read_text())
 assert d['kind']=='development-diagnostic-only' and len(d['rows'])==6
 seen=set();summary={'start':d['start'],'seeds':d['count'],'executions':0,'modes':{},'sourceHashes':d['sourceHashes'],'limitations':d['limitations']}
 for row in d['rows']:
@@ -28,5 +29,6 @@ for row in d['rows']:
   bucket['stats'].update(stats);summary['executions']+=len(games)
 for name,sha in d['sourceHashes'].items():
  p={'runner':'packages/rules/scripts/league-runner.ts','baseline':'packages/rules/scripts/baselines/pre-cooperative.ts','observer':'packages/rules/scripts/cooperative-economy.ts'}.get(name,'packages/rules/src/'+name)
- assert hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()==sha,name
+ source=subprocess.check_output(['git','show',args.source_ref+':'+p]) if args.source_ref else pathlib.Path(p).read_bytes()
+ assert hashlib.sha256(source).hexdigest()==sha,name
 print(json.dumps(summary,ensure_ascii=False,indent=2))

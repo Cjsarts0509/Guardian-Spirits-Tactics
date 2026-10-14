@@ -27,7 +27,7 @@ export function adaptiveClaimName(view: PlayerView, knowledge: Knowledge, memory
 }
 
 /** 정체 숨김과 자원 이익을 구분. 진명 스킬·공개된 정체는 유지하고 지휘관/변장은 위장한다. */
-export function strategicClaimName(view: PlayerView, knowledge: Knowledge, memory: BotMemory): string {
+export function strategicClaimName(view: PlayerView, knowledge: Knowledge, memory: BotMemory, gemGoal: 2 | 3 = 2): string {
   const me=view.me, names=me.skills.find(s=>s.key==='publish')?.nameOptions??[];
   if(wantsTrueName(view)||(memory.perception?.trueNameUntil??0)>view.elapsedMs||view.players.find(p=>p.id===me.id)?.revealed)return me.character;
   const disguise=me.skills.some(s=>s.key==='disguise');
@@ -36,7 +36,7 @@ export function strategicClaimName(view: PlayerView, knowledge: Knowledge, memor
   const attacks=me.skills.filter(s=>['attack','advanced_attack','supreme_attack'].includes(s.key)&&s.usesLeft!==0);
   const neededMana=attacks.length?Math.max(...attacks.map(s=>s.mana)):30;
   const threatened=view.players.some(p=>p.alive&&p.id!==me.id&&view.roster.some(r=>r.key===knowledge.known.get(p.id)&&r.side!==me.side));
-  if(!disguise && ((!me.commander&&(me.gem<2||me.mana<neededMana+40||!threatened))||
+  if(!disguise && ((!me.commander&&(me.gem<gemGoal||me.mana<neededMana+40||!threatened))||
      (me.commander&&turnWindow&&me.mana<neededMana)))return me.character;
   const decoys=names.filter(n=>n!==me.character&&view.roster.some(r=>r.key===n&&r.inGame&&!r.commander&&
     (disguise?r.side!==me.side:r.side===me.side)));

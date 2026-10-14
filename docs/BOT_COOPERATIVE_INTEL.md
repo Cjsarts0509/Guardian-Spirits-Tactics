@@ -15,7 +15,9 @@ PR #10(호스트 계산)과 #11(과거 AI 연구)은 커밋이 main에 포함되
 - 발신자는 서버가 찍은 data.from, 수신자는 이벤트의 vis로 판정한다. 다른 봇의 메모리·숨은 배정을 공유 저장소에서 읽지 않는다. 확인된 아군에게 내가 동맹을 건 경우만 전송한다. 서로를 아직 확인하지 못했다면 검증이 먼저 필요하다.
 - A가 B를 확인하고, B가 C를 확인해 실제 보고를 보낸 경우 A는 C에 대한 보고를 기억한다. **보고와 직접 확인은 별개**다. 검증된 아군의 일관된 보고만 확률 가중치 8로 반영하며, 보고 이름에 대한 스캔/보석 확인을 우선한다. 적·미확인 발신자, 직접 증거와 모순되는 보고, 아군끼리 상충하는 보고는 신뢰하지 않는다. 동일 보고 반복으로 가중치를 부풀리지 않는다. 직접 확인 전 재전파하지 않아 순환 소문을 막는다.
 - 공격/확인 등 주 행동과 대화는 같은 판단에서 별도로 실행한다. 대화 때문에 AI가 다음 활동 추첨까지 전투 행동을 미루지 않는다. 서버와 방장 Worker에 동일하게 연결했으며 기존 채팅 엔진·기록·복기 경로를 사용한다.
-- 기본 후보 공표는 strategic이다. 지휘관·변장은 위장을 선택하며, 진명 스킬·공개된 자기 정체는 진명을 유지한다. 일반 인물은 보석 완성·충분한 공격/지원 예산·확정 적 존재 시 위장한다. 지휘관도 턴 직전 마나 부족이면 자원을 회복한다. 같은 이름의 불필요한 반복 공표를 피한다. truthful/current/adaptive 옵션과 고정 이전 정책을 비교용으로 보존했다.
+- 기본 후보 공표는 strategic이다. 지휘관·변장은 위장을 선택하며, 진명 스킬·공개된 자기 정체는 진명을 유지한다. 원래 후보는 일반 인물의 보석 **사용 가능 단계2**·충분한 공격/지원 예산·확정 적 존재 시 위장했다. 001회차에서 사용 가능 단계와 완성 단계3의 차이를 확인했고 002회차에 `claimGemGoal:3` 개발 옵션을 추가했다. 지휘관도 턴 직전 마나 부족이면 자원을 회복한다. 같은 이름의 불필요한 반복 공표를 피한다. truthful/current/adaptive 옵션과 고정 이전 정책을 비교용으로 보존했다.
+
+002회차의 `teamworkBudget:true`는 확정 아군에게 동맹을 걸되 하나의 유효한 즉시 확인과 확정 아군의 필수 지원 예산을 보존하는 개발 옵션이다. 두 옵션의 기본값은 이전 후보를 유지하며 성적 개선/승격을 주장하지 않는다. 결과는 `docs/ai-rounds/ROUND_002_20261015_0140.md`에 기록했다.
 
 ## 독립 최종 비교
 
@@ -45,7 +47,7 @@ PR #10(호스트 계산)과 #11(과거 AI 연구)은 커밋이 main에 포함되
 corepack pnpm --filter @gst/rules exec node --import tsx scripts/cooperative-evaluation.ts 16 112000 ../../docs/evaluations/cooperation-holdout.json
 python tools/verify-cooperation.py docs/evaluations/cooperation-holdout.json
 # 보존된 압축 결과 재집계·정책/기준 코드 해시 확인
-python tools/verify-cooperation.py docs/evaluations/cooperation-holdout.json.gz
+python tools/verify-cooperation.py docs/evaluations/cooperation-holdout.json.gz --source-ref 38ed06739bc6dda4db20b42b79f7cb9c9e0cd3d0
 ```
 
 기존 botKnowledge/직접 facts와 별개인 보고 기억을 추가했다. 맵과 집합은 기존 호스트 기억 직렬화/변경분 경로로 보존한다. 스키마·Supabase·배포 설정을 바꾸지 않는다.

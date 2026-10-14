@@ -1,5 +1,8 @@
-import json,collections,random,hashlib,pathlib,gzip,sys
-p=pathlib.Path(sys.argv[1] if len(sys.argv)>1 else 'docs/evaluations/cooperation-holdout.json.gz');d=json.loads(gzip.decompress(p.read_bytes()) if p.suffix=='.gz' else p.read_text());diffs=collections.defaultdict(list)
+import json,collections,random,hashlib,pathlib,gzip,argparse,subprocess
+parser=argparse.ArgumentParser();parser.add_argument('path',nargs='?',default='docs/evaluations/cooperation-holdout.json.gz');parser.add_argument('--source-ref');args=parser.parse_args()
+def source(path):
+ return subprocess.check_output(['git','show',args.source_ref+':'+str(path)]) if args.source_ref else path.read_bytes()
+p=pathlib.Path(args.path);d=json.loads(gzip.decompress(p.read_bytes()) if p.suffix=='.gz' else p.read_text());diffs=collections.defaultdict(list)
 for row in d['rows']:
  for v in ['baseline','candidate']:
   r=row['results'][v]; assert r['summary']['games']==d['count']*4;assert len(r['games'])==d['count']*4
@@ -14,8 +17,8 @@ for m in ['civil_war','primordial','lidellut','troll']:
   out['modes'][m][v]={'score':sum(r['results'][v]['summary']['currentScore'] for r in rows)/len(rows),'unfinished':sum(r['results'][v]['summary']['wins']['unfinished'] for r in rows),'earlyAttackFailures':sum(r['results'][v]['summary']['stats']['current']['earlyAttackFailures'] for r in rows),'rejected':sum(r['results'][v]['summary']['stats']['current']['rejected'] for r in rows),'observations':observations}
 for f,sha in d['hashes'].items():
  if f.endswith('.ts'):
-  assert hashlib.sha256(pathlib.Path('packages/rules/src',f).read_bytes()).hexdigest()==sha,f
+  assert hashlib.sha256(source(pathlib.Path('packages/rules/src',f))).hexdigest()==sha,f
 for key,path in [('baseline','packages/rules/scripts/baselines/pre-cooperative.ts'),('runner','packages/rules/scripts/league-runner.ts')]:
- assert hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()==d['hashes'][key],key
+ assert hashlib.sha256(source(pathlib.Path(path))).hexdigest()==d['hashes'][key],key
 out['promotionEvidence']=ci[0]>0
 pathlib.Path('docs/evaluations/cooperation-summary.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n');print(json.dumps(out,ensure_ascii=False,indent=2))
