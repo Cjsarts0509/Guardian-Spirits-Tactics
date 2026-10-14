@@ -1,3 +1,4 @@
+import {observeIntel, type BotIntel} from './bot-intel.js';
 import type { CharKey, GameEvent, PlayerId } from './types.js';
 import type { PlayerView } from './engine/view.js';
 import type { AssignmentBelief } from './bot-belief.js';
@@ -29,12 +30,15 @@ export interface BotPerception {
   manualClaims: Map<PlayerId, { name: CharKey; at: number }>;
   trueNameUntil: number;
   battle: BattleMemory;
+  intel?: BotIntel;
   lastBurn?: { target: PlayerId; at: number };
 }
 
 /** 한 판의 한 플레이어 전용. 서버 상태나 다른 봇의 기억을 보관하지 않는다. */
 export interface BotMemory {
   rng: number;
+  /** 현재 행동 결정에 딸린 대화 1회 허용. 다음 결정 또는 새 판에서 초기화. */
+  communicationAt?: number;
   perception?: BotPerception;
   beliefCache?: { signature: string; value: AssignmentBelief };
   plan?: SkillPlan;
@@ -55,6 +59,7 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
   let p = memory.perception;
   if (!p || p.playerId !== view.me.id || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs) {
     memory.plan = undefined;
+    delete memory.communicationAt;
     delete memory.protectionRetries;
     p = memory.perception = {
       playerId: view.me.id, mode: view.mode, character: view.me.character,
@@ -83,6 +88,7 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
       }
       if (f.commander) p.commanders.add(f.player);
     }
+    observeIntel(view, e, memory);
     if (e.kind === 'skill.angel_baptism' && typeof e.data?.character === 'string') p.baptized.add(e.data.character);
     if (e.kind === 'skill.chief_protection') p.chiefProtected = true;
     if (e.kind === 'skill.holy_binding.purge') p.madnessPurged = true;

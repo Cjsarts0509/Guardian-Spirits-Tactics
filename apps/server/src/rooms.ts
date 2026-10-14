@@ -14,6 +14,7 @@ import {
   playerLeft,
   randomBotAction,
   smartBotAction,
+  botCommunicationAction,
   observeBotActionResult,
   viewFor,
   spectatorView,
@@ -462,6 +463,8 @@ export class Room {
         observeBotActionResult(memory, a, r, now - this.state.startedAt);
         this.record(m.id, a, now, r.ok, r.error);
       }
+      const chat=this.cfg.botKind==='smart'?botCommunicationAction(this.state,m.id,memory):null;
+      if(chat){const result=applyAction(this.state,m.id,chat,now);this.record(m.id,chat,now,result.ok,result.error);}
     }
     if (this.state.seq !== before) this.afterChange();
   }

@@ -1,3 +1,4 @@
+import {shareIntel,verifyIntel} from './bot-intel.js';
 // 봇 두 종류
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
@@ -9,7 +10,7 @@ import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/vi
 import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } from './bot-memory.js';
 import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
 import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
-import { adaptiveClaimName } from './bot-claim-policy.js';
+import { adaptiveClaimName, strategicClaimName } from './bot-claim-policy.js';
 import { hasIdentityEvidence, bestConfirmation } from './bot-confirmation.js';
 import { boundedSequenceSearch } from './bot-sequence.js';
 import { boundedAttackSearch } from './bot-rollout.js';
@@ -18,6 +19,8 @@ import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot
 export type { BotMemory, Knowledge } from './bot-memory.js';
 
 export interface BotOptions {
+  /** 확정 관계 우선 동맹·파기와 실제 비공개 대화를 통한 정보 공유. false는 이전 정책 비교용. */
+  teamwork?: boolean;
   /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
   protectionRetryBackoff?: boolean;
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
@@ -47,7 +50,7 @@ export interface BotOptions {
   confirmationSearch?: boolean | 'combat' | 'combat-gem' | 'combat-lidellut';
   primordialSlash?: 'early' | 'finish-or-revealed';
   /** 공표 전략 비교. 기본은 진명이며 지연 리더쉽 실험은 기존 선택을 유지한다. */
-  claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders' | 'adaptive';
+  claimStrategy?: 'current' | 'truthful' | 'truthful-noncommanders' | 'adaptive' | 'strategic';
 }
 
 export function randomBotAction(state: GameState, playerId: PlayerId, rng: { rng: number }, opts: BotOptions = {}): Action | null {
@@ -179,6 +182,7 @@ export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerV
 }
 
 export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions = {}): Action | null {
+  delete mem.communicationAt;
   const action = chooseSmartBotAction(state, playerId, mem, opts);
   if (!opts.protectionRetryBackoff) { delete mem.protectionRetries; return action; }
   return filterProtectionRetry(mem, action, state.now - state.startedAt);
@@ -192,6 +196,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
 
   const view = viewFor(state, playerId);
   const knowledge = botKnowledge(state, playerId, view, mem);
+  mem.communicationAt = view.elapsedMs;
   const { known, candidates } = knowledge;
   const requestedConfirmation = opts.confirmationSearch ?? 'combat-lidellut';
   const confirmationStrategy = requestedConfirmation === 'combat-lidellut'
@@ -213,8 +218,10 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   const pick = <T,>(xs: T[]): T | undefined => xs[randomInt(mem, xs.length)];
   const enemy = (c: CharKey) => sideOf.get(c) !== me.side;
   const attackable = (c: CharKey) => enemy(c) && !guards[c]?.some((gd) => !deadChars.has(gd));
+  const claimStrategy=opts.claimStrategy??(opts.primordialLeadership==='after-six-minutes'?'current':'strategic');
   const act = (s: SkillView, target?: PlayerId, name?: CharKey): Action => {
-    const strategy = opts.claimStrategy ?? (opts.primordialLeadership === 'after-six-minutes' ? 'current' : 'truthful');
+    const strategy = claimStrategy;
+    if (s.key === 'publish' && strategy === 'strategic') name = strategicClaimName(view, knowledge, mem);
     if (s.key === 'publish' && strategy === 'adaptive') name = adaptiveClaimName(view, knowledge, mem);
     if (s.key === 'publish' && (strategy === 'truthful' ||
       (strategy === 'truthful-noncommanders' && !me.commander)) && s.nameOptions?.includes(me.character)) name = me.character;
@@ -245,6 +252,12 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
     checkInformation(view, belief, b.id, skill) - checkInformation(view, belief, a.id, skill),
   )[0];
   const threat = (id: PlayerId) => (candidates.get(id) ?? []).reduce((sum, c) => sum + massOf(id, c) * roleThreat(view, battle, c), 0);
+
+  if(opts.teamwork !== false){
+    const breakup=usable.get('break_ally');
+    const hostile=living.find(p=>me.allies.includes(p.id)&&known.has(p.id)&&enemy(known.get(p.id)!));
+    if(breakup&&hostile)return act(breakup,hostile.id);
+  }
 
   // 필요한 진명 스킬을 공표로 열어 둔다. 지휘관도 역할상 필요하면 예외다.
   const sequence = (baseline: Action): Action => opts.sequenceSearch
@@ -335,6 +348,15 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
       return act(burning, target.id);
     }
   }
+  if(opts.teamwork !== false){
+    const ally=usable.get('ally');
+    const friends=living.filter(p=>!me.allies.includes(p.id)&&known.has(p.id)&&!enemy(known.get(p.id)!)&&
+      (ally?.ignoresInvulnerable||!p.statuses.some(e=>e.kind==='invulnerable')));
+    friends.sort((a,b)=>Number(me.alliedBy.includes(b.id))-Number(me.alliedBy.includes(a.id))||
+      Number(!!isCommander.get(known.get(b.id)!))-Number(!!isCommander.get(known.get(a.id)!))||a.seat-b.seat);
+    if(ally&&friends[0])return act(ally,friends[0].id);
+  }
+
   // 백스탭: 나에게 동맹을 건 적 (또는 적 진영 이름을 공표한 사람)
   const backstab = usable.get('backstab');
   if (backstab) {
@@ -441,6 +463,11 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
 
   // 2) 공표. 지휘관은 진명을 숨기고, 나머지는 대체로 진명(턴 마나·진실의 조각). 가짜로 시작했어도 나중에 진명으로 바꾼다
   if (publish) {
+    if (claimStrategy === 'strategic') {
+      const desired=strategicClaimName(view,knowledge,mem);
+      if(me.published!==desired&&publish.nameOptions?.includes(desired))return sequence(act(publish,undefined,desired));
+    }
+    if (claimStrategy !== 'strategic') {
     if (opts.claimStrategy === 'adaptive') {
       const desired = adaptiveClaimName(view, knowledge, mem);
       // 최초 공표는 기존 난수·후보 선택 경로를 유지해 비교를 성향 전환 효과에 한정한다.
@@ -460,7 +487,10 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
     } else if (!commander && !me.trueName && !me.skills.some((s) => s.key === 'disguise') && elapsed > 3 * MIN && nextRandom(mem) < 0.15 && publish.nameOptions?.includes(me.character)) {
       return sequence(act(publish, undefined, me.character));
     }
+    }
   }
+
+  if(opts.teamwork !== false){const check=verifyIntel(view,knowledge,mem,usable);if(check)return sequence(check);}
 
   // 3) 진실의 보석: 지휘관 재통보만 남는 대상보다 새 정보를 줄 대상을 우선한다.
   const gem = usable.get('truth_gem');
@@ -547,7 +577,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   const breakAlly = usable.get('break_ally');
   const toBreak = breakAlly && alive.find((p) => me.allies.includes(p.id) && known.has(p.id) && enemy(known.get(p.id)!));
   if (breakAlly && toBreak) return act(breakAlly, toBreak.id);
-  if (ally && roll >= 0.85) {
+  if (ally && roll >= 0.85 && opts.teamwork === false) {
     const friends = alive.filter((p) => !me.allies.includes(p.id) && (known.has(p.id) ? !enemy(known.get(p.id)!) :
       sideMass(p.id, me.side) >= 0.75 && (view.mode !== 'civil_war' || massOf(p.id, 'soen') <= 0.05)));
     const t = pick(friends);
@@ -603,4 +633,14 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
     if (t && (t.all.length <= 3 || elapsed > 30 * MIN)) return act(reaver, t.p.id);
   }
   return null;
+}
+
+/** 행동 결정을 한 봇의 별도 대화. 채팅은 스킬 마나/쿨다운을 쓰지 않으므로 전투 결정을 대체하지 않는다. */
+export function botCommunicationAction(state: GameState, playerId: PlayerId, memory: BotMemory, opts: BotOptions = {}): Action | null {
+  const eligible = memory.communicationAt === state.now-state.startedAt;
+  delete memory.communicationAt;
+  if(!eligible || opts.teamwork===false || state.phase!=='running')return null;
+  const view=viewFor(state,playerId);if(!view.me.alive)return null;
+  const knowledge=botKnowledge(state,playerId,view,memory);
+  return shareIntel(view,knowledge,memory);
 }

@@ -38,10 +38,10 @@ describe('본인 보호 거절 응답 재시도 실험',()=>{
   let checked=false;
   for(let seed=1;seed<=128;seed++){
    const m=createBotMemory(seed*8191),rng=m.rng;
-   const proposal=smartBotAction(t.state,self.id,m,{activity:1,claimEvidenceScale:4,protectionRetryBackoff:true});
+   const proposal=smartBotAction(t.state,self.id,m,{activity:1,teamwork:false,claimEvidenceScale:4,protectionRetryBackoff:true});
    if(!proposal||proposal.type!=='skill'||!proposal.target)continue;
    observeBotActionResult(m,proposal,rejected,t.state.now-t.state.startedAt);m.rng=rng;
-   expect(smartBotAction(t.state,self.id,m,{activity:1,claimEvidenceScale:4,protectionRetryBackoff:true})).toBeNull();
+   expect(smartBotAction(t.state,self.id,m,{activity:1,teamwork:false,claimEvidenceScale:4,protectionRetryBackoff:true})).toBeNull();
    checked=true;break;
   }
   expect(checked).toBe(true);

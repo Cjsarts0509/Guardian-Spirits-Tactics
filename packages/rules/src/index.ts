@@ -9,7 +9,7 @@ export { Game } from './engine/game.js';
 export { modes, getMode, civilWar, primordial, lidellut, troll } from './modes/index.js';
 export type { ModeDef, CharacterDef, SkillDef, SkillCtx, TargetKind } from './modes/index.js';
 export { skillRegistry } from './skills/registry.js';
-export { randomBotAction, smartBotAction, botKnowledge } from './bot.js';
+export { randomBotAction, smartBotAction, botCommunicationAction, botKnowledge } from './bot.js';
 export type { BotMemory, Knowledge } from './bot.js';
 export { createBotMemory, updateBotKnowledge } from './bot-memory.js';
 export type { BotPerception } from './bot-memory.js';
