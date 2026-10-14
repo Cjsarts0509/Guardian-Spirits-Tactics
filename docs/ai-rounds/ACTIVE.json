@@ -1,34 +1,31 @@
 {
-  "round": 13,
-  "status": "completed",
-  "owner": "round-013-report-diagnostics",
-  "startedAt": "2026-10-15T08:04:27+09:00",
-  "leaseUntil": "2026-10-15T08:45:00+09:00",
+  "round": 14,
+  "status": "in_progress",
+  "owner": "continuous-round-014",
+  "startedAt": "2026-10-15T08:16:51+09:00",
+  "leaseUntil": "2026-10-15T08:55:00+09:00",
+  "continuation": "finish_commit_then_start_next_immediately_until_deadline",
   "deadline": "2026-10-15T12:00:00+09:00",
   "noNewExperimentAfter": "2026-10-15T11:50:00+09:00",
   "developmentSeeds": {
-    "start": 126000,
+    "start": 127000,
     "count": 5,
-    "status": "completed"
+    "status": "reserved_unused"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "normalReportVerification",
+  "candidate": "nonIdleReportVerification",
   "options": {
-    "reportVerification": "normal"
+    "reportVerification": "when-busy"
   },
-  "checkpoint": "diagnostics_completed_and_source_verified",
-  "sourceRef": "efd5015fbf28d5ea6afc061048512eada642a169",
-  "checks": {"tests": 506, "typecheck": "passed", "builds": "passed", "sourceCI": "success", "sourceBrowserCheck": "success"},
-  "completedAt": "2026-10-15T08:11:44+09:00",
-  "executions": 720,
+  "checkpoint": "reservation_before_implementation",
+  "executions": 0,
   "cumulativeExecutions": 11904,
-  "decision": "diagnostic_only_policy_unchanged_no_promotion",
-  "nextAction": "fresh_development_normal_report_with_priority_fallback_on_wait",
-  "nextDevelopmentSeeds": {"start": 127000, "count": 5, "status": "reserved_unused"},
+  "decision": "pending",
+  "nextAction": "implement_test_then_new_development_and_commit_then_next_round_immediately",
   "finalReport": {
     "round": 11,
     "status": "completed",
@@ -42,6 +39,6 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "013완료720경기·506테스트/타입/빌드통과. 정책012동일·미승격. 일반경로변경208중보석153/대기38,보고대상비용감소는전체마나절약아님. 다음127000새개발에서일반대기시원래우선검증fallback단일가설. 독립121000미사용·12시마감·112000/116000재사용금지.",
+  "task": "014예약·새127000개발960경기。일반제안이null일때원래기억/RNG의우선검증으로복귀하는단일후보。확정관계/신뢰/facts경계유지。사용자08:16지시:회차끝나면답변/예약기다리지말고즉시다음회차,12시까지。독립121000미사용·112000/116000재사용금지.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }
