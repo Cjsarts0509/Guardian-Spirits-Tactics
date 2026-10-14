@@ -1,0 +1,108 @@
+{
+  "start": 114000,
+  "seeds": 5,
+  "executions": 240,
+  "modes": {
+    "lidellut": {
+      "baseline": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 5,
+        "stats": {
+          "allies": 262,
+          "allyMana": 2620,
+          "reciprocalAtCreation": 42,
+          "potentialSkillBlocks": 59,
+          "potentialAttackBlocks": 7,
+          "potentialCheckBlocks": 9,
+          "turns": 1039,
+          "falseNameTurns": 0,
+          "potentialTrueNameManaMissed": 0,
+          "gemGrowthMissed": 0,
+          "incomingAllyManaGross": 6640,
+          "turnManaGross": 37810
+        }
+      },
+      "candidate": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 8,
+        "stats": {
+          "allies": 499,
+          "allyMana": 4990,
+          "reciprocalAtCreation": 117,
+          "potentialSkillBlocks": 96,
+          "potentialAttackBlocks": 14,
+          "potentialCheckBlocks": 22,
+          "turns": 1350,
+          "falseNameTurns": 345,
+          "potentialTrueNameManaMissed": 3450,
+          "gemGrowthMissed": 322,
+          "incomingAllyManaGross": 16760,
+          "turnManaGross": 53810
+        }
+      }
+    },
+    "troll": {
+      "baseline": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "stats": {
+          "allies": 226,
+          "allyMana": 2260,
+          "reciprocalAtCreation": 41,
+          "potentialSkillBlocks": 47,
+          "potentialAttackBlocks": 7,
+          "potentialCheckBlocks": 10,
+          "turns": 1323,
+          "falseNameTurns": 0,
+          "potentialTrueNameManaMissed": 0,
+          "gemGrowthMissed": 0,
+          "incomingAllyManaGross": 9420,
+          "turnManaGross": 49110
+        }
+      },
+      "candidate": {
+        "games": 60,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "stats": {
+          "allies": 371,
+          "allyMana": 3710,
+          "reciprocalAtCreation": 97,
+          "potentialSkillBlocks": 63,
+          "potentialAttackBlocks": 5,
+          "potentialCheckBlocks": 20,
+          "turns": 1585,
+          "falseNameTurns": 478,
+          "potentialTrueNameManaMissed": 4780,
+          "gemGrowthMissed": 471,
+          "incomingAllyManaGross": 16680,
+          "turnManaGross": 59450
+        }
+      }
+    }
+  },
+  "sourceHashes": {
+    "bot.ts": "49383030dbce9958e4d90982bb4ce780d34ca6e3808587c42304a5d287381bc7",
+    "bot-intel.ts": "309b2efc5b09931462582a3cd68ff592d9af877e4146543d98f59499abf8b483",
+    "bot-claim-policy.ts": "5441e9429944d89b0f71c565ecb1870bd0d47073b562263b8e1b3ebcc6133fe5",
+    "bot-belief.ts": "99e28d211c99ecf514a42bae8242d0fa40fb078b83da4d83e324bcd7a5ff4ee7",
+    "bot-memory.ts": "a7bd679f6a0a9a12b1992adb8f95f99b52c5f9121295d5dd8a3b27de6ee83585",
+    "engine/time.ts": "0b413b8aeb4b16e78d4aeeefa3fca8732b22053d714711dc428e35c9bc707b47",
+    "constants.ts": "d8e40237ce482f04e9cc07a25ce9c915d53669022c4f0bca319ce75ba7518eee",
+    "runner": "18b5b07cb1d1e4b9617ebe97d75ce3de0bd20944e0b412d17d82713ccd6c789e",
+    "baseline": "3fb32af177bcbddfdc15d6cecc12743af1abdc2f837e098ed979e4e03cb2206a",
+    "observer": "28f9702f2a3e6787b9a01dcd43670b231a58c31edaf68c01e997553cc52707c1"
+  },
+  "limitations": [
+    "직후 사용 가능 스킬의 마나 부족은 잠재 기회비용이며 실제 공격/확인을 선택했을 것이라는 인과 증거는 아니다.",
+    "턴 gain 및 진명 보너스 미수령은 엔진의 원시 지급량이며 마나 상한 150에서의 순수령 차이를 뜻하지 않는다.",
+    "동맹 즉시 상호 여부는 시전 당시 상태이며 이후 답례 동맹/생존의 인과효과를 포함하지 않는다."
+  ]
+}
