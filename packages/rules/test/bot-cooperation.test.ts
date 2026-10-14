@@ -79,7 +79,8 @@ describe('확정 관계와 실제 대화 기반 협력',()=>{
   const t=civilTable(),s=structuredClone(t.state);const a=t.id.arin!,b=t.id.kaspa!;
   const x=s.players.find(p=>p.id===a)!,y=s.players.find(p=>p.id===b)!;[x.character,y.character]=[y.character,x.character];
   for(const options of [{activity:1},{activity:1,teamworkBudget:true,verifyIncomingAllies:true,claimGemGoal:3 as const},
-    {activity:1,teamworkBudget:true,verifyIncomingAllies:'useful-report' as const,claimGemGoal:3 as const}])
+    {activity:1,teamworkBudget:true,verifyIncomingAllies:'useful-report' as const,claimGemGoal:3 as const},
+    {activity:1,claimGemGoal:3 as const,claimCommanderGrowth:'all' as const}])
    expect(smartBotAction(t.state,t.id.dantes!,createBotMemory(5),options)).toEqual(smartBotAction(s,t.id.dantes!,createBotMemory(5),options));
  });
 });

@@ -32,7 +32,7 @@ for row in d['rows']:
  for variant,r in row['results'].items():
   games,diags=r['games'],r['diagnostics'];assert len(games)==len(diags)==d['count']*4
   fixtures=set();wins=collections.Counter();paired=collections.defaultdict(list)
-  bucket=out['variants'].setdefault(variant,{}).setdefault(mode,{'games':0,'scoreSum':0,'unfinished':0,'earlyAttackFailures':0,'rejected':0,'economy':collections.Counter(),'gemStageMissed':collections.Counter(),'observations':collections.Counter(),'byRole':{}})
+  bucket=out['variants'].setdefault(variant,{}).setdefault(mode,{'games':0,'scoreSum':0,'unfinished':0,'earlyAttackFailures':0,'rejected':0,'economy':collections.Counter(),'gemStageMissed':collections.Counter(),'observations':collections.Counter(),'byRole':{},'survival':{}})
   for g,diag in zip(games,diags):
    f=g['fixture'];assert f==diag['fixture'] and f['mode']==mode
    assert d['start']<=f['seed']<d['start']+d['count'] and f['count']==8+(f['seed']-d['start'])%5
@@ -50,6 +50,11 @@ for row in d['rows']:
    bucket['games']+=1;bucket['scoreSum']+=score;bucket['unfinished']+=int(g['winner'] is None)
    bucket['earlyAttackFailures']+=g['stats']['current']['earlyAttackFailures'];bucket['rejected']+=g['stats']['current']['rejected']
    bucket['economy'].update({k:v for k,v in e.items() if k!='gemStageMissed'});bucket['gemStageMissed'].update(e['gemStageMissed']);bucket['observations'].update(diag['observations'])
+   assert len(g['survivors'])==f['count'] and len({p['character'] for p in g['survivors']})==f['count']
+   for p in g['survivors']:
+    assert type(p['alive']) is bool and p['controller'] in ['current','reference']
+    if p['controller']=='current':
+     survival=bucket['survival'].setdefault(p['character'],{'games':0,'alive':0});survival['games']+=1;survival['alive']+=int(p['alive'])
    for role,v in diag['byRole'].items():
     assert 0<=v['gemGrowthMissed']<=v['falseNameTurns']<=v['turns'] and sum(v['gemStageMissed'].values())==v['gemGrowthMissed']
     target=bucket['byRole'].setdefault(role,{'turns':0,'falseNameTurns':0,'gemGrowthMissed':0,'gemStageMissed':collections.Counter()})

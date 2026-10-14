@@ -1,10 +1,12 @@
 {
-  "round": 5,
+  "round": 6,
   "status": "in_progress",
   "owner": "interactive-session",
-  "startedAt": "2026-10-15T02:15:00+09:00",
-  "leaseUntil": "2026-10-15T02:45:00+09:00",
+  "startedAt": "2026-10-15T02:20:00+09:00",
+  "leaseUntil": "2026-10-15T02:50:00+09:00",
   "developmentSeeds": {"start": 119000, "count": 5},
-  "holdoutSeeds": {"start": 116000, "count": 16, "status": "unused"},
-  "task": "005회차: 샤이닝 한정/모든 지휘관의 성장 기간 진명과 완성 후 위장 후보 비교. 요청자 우선 검증은 끈다."
+  "holdoutSeeds": {"start": 116000, "count": 16, "status": "reserved_for_current_run"},
+  "candidate": "commanderGrowth",
+  "options": {"claimGemGoal":3,"teamworkBudget":true,"claimCommanderGrowth":"all"},
+  "task": "006회차 고정 후보 독립 평가. 평가 중 정책/옵션/판단 기준을 변경하지 않는다."
 }

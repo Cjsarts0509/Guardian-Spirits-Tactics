@@ -27,6 +27,8 @@ export interface BotOptions {
   verifyIncomingAllies?: boolean | 'useful-report';
   /** 개발 비교: 일반 인물의 위장 전 보석 목표 단계. 지휘관/변장 노출 예외는 유지한다. */
   claimGemGoal?: 2 | 3;
+  /** 개발 비교: 성장 기간에만 지휘관 진명. 기본 none이며 변장 인물의 위장은 유지한다. */
+  claimCommanderGrowth?: 'none' | 'shining' | 'all';
   /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
   protectionRetryBackoff?: boolean;
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
@@ -227,7 +229,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   const claimStrategy=opts.claimStrategy??(opts.primordialLeadership==='after-six-minutes'?'current':'strategic');
   const act = (s: SkillView, target?: PlayerId, name?: CharKey): Action => {
     const strategy = claimStrategy;
-    if (s.key === 'publish' && strategy === 'strategic') name = strategicClaimName(view, knowledge, mem, opts.claimGemGoal);
+    if (s.key === 'publish' && strategy === 'strategic') name = strategicClaimName(view, knowledge, mem, opts.claimGemGoal, opts.claimCommanderGrowth);
     if (s.key === 'publish' && strategy === 'adaptive') name = adaptiveClaimName(view, knowledge, mem);
     if (s.key === 'publish' && (strategy === 'truthful' ||
       (strategy === 'truthful-noncommanders' && !me.commander)) && s.nameOptions?.includes(me.character)) name = me.character;
@@ -500,7 +502,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   // 2) 공표. 지휘관은 진명을 숨기고, 나머지는 대체로 진명(턴 마나·진실의 조각). 가짜로 시작했어도 나중에 진명으로 바꾼다
   if (publish) {
     if (claimStrategy === 'strategic') {
-      const desired=strategicClaimName(view,knowledge,mem,opts.claimGemGoal);
+      const desired=strategicClaimName(view,knowledge,mem,opts.claimGemGoal,opts.claimCommanderGrowth);
       if(me.published!==desired&&publish.nameOptions?.includes(desired))return sequence(act(publish,undefined,desired));
     }
     if (claimStrategy !== 'strategic') {
