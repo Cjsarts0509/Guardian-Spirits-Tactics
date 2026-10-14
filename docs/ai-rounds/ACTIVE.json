@@ -23,7 +23,8 @@
     "nonDisguiseOnly": true,
     "once": true
   },
-  "checkpoint": "reservation_before_collector_and_frozen_learner",
+  "checkpoint": "collector_learner_verified_before_new_data",
+  "checks": {"tests": 521, "pythonLearnerTests": 6, "typecheck": "passed", "builds": "passed"},
   "executions": 0,
   "cumulativeExecutions": 12864,
   "decision": "pending_training_diagnostic_no_promotion",
