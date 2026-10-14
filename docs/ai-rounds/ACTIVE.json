@@ -23,12 +23,15 @@
     "nonDisguiseOnly": true,
     "once": true
   },
-  "checkpoint": "collector_learner_verified_before_new_data",
+  "checkpoint": "1536_of_3072_saved_and_independently_verified_partial_no_learning_yet",
   "checks": {"tests": 521, "pythonLearnerTests": 6, "typecheck": "passed", "builds": "passed"},
-  "executions": 0,
-  "cumulativeExecutions": 12864,
+  "executions": 1536,
+  "targetExecutions": 3072,
+  "cumulativeExecutions": 14400,
   "decision": "pending_training_diagnostic_no_promotion",
-  "nextAction": "freeze_collector_and_eight_cell_learner_then_new_training_pairs",
+  "nextAction": "resume_remaining_six_256_game_batches_then_preregistered_learning",
+  "sourceRef": "e527d0b4c282a7046b7542f16c5ea5d6c8acca82",
+  "checkpointRaw": "docs/evaluations/cooperation-round-015-checkpoint-1536.json.gz",
   "finalReport": {
     "round": 11,
     "status": "completed",
@@ -47,6 +50,6 @@
   "trainingSeeds": {
     "start": 128000,
     "count": 32,
-    "status": "reserved_unused"
+    "status": "in_progress_1536_of_3072_executions_saved"
   }
 }
