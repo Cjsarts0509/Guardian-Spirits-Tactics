@@ -8,11 +8,13 @@ import {smartBotAction as previous} from './baselines/pre-cooperative.js';
 import {opponentClaim,type ClaimStyle} from './claim-opponents.js';
 import {fixtures,playMatch,summarize,DEFAULT_SETTINGS,type Policy} from './league-runner.js';
 import {diagnoseDeferredGem,recordDeferredGemOutcome,type DeferredGemDecision} from './cooperative-decision-diagnostics.js';
+import {diagnoseReportVerification,recordReportVerificationOutcome,type ReportVerificationDecision} from './cooperative-report-diagnostics.js';
 import type {BotMemory} from '../src/bot-memory.js';
 import type {Action} from '../src/types.js';
 
 const count=Number(process.argv[2]??5),start=Number(process.argv[3]??115000),out=process.argv[4]??'../../docs/evaluations/cooperation-round-002-development.json';
 const phase=process.argv[5]??'development',selection=process.argv[6]??'all';
+const reportDiagnostics=process.argv[7]==='report-diagnostics';
 if(!Number.isSafeInteger(count)||count<1||!Number.isSafeInteger(start)||!['development','holdout'].includes(phase))throw Error('평가 조건 오류');
 const options:Record<string,BotOptions>={control:{},growth:{claimGemGoal:3},budget:{teamworkBudget:true},combined:{claimGemGoal:3,teamworkBudget:true},approach:{verifyIncomingAllies:true},coordinated:{claimGemGoal:3,teamworkBudget:true,verifyIncomingAllies:true},selective:{verifyIncomingAllies:'useful-report'},selectiveCombined:{claimGemGoal:3,teamworkBudget:true,verifyIncomingAllies:'useful-report'},shiningGrowth:{claimGemGoal:3,teamworkBudget:true,claimCommanderGrowth:'shining'},commanderGrowth:{claimGemGoal:3,teamworkBudget:true,claimCommanderGrowth:'all'}};
 options.reportedSupreme={reportedSupreme:true};
@@ -28,7 +30,7 @@ const hash=(p:URL)=>createHash('sha256').update(readFileSync(p)).digest('hex');
 const src=new URL('../src/',import.meta.url);
 const sourceHashes:Record<string,string>={};
 const walk=(dir:URL,prefix='')=>{for(const e of readdirSync(dir,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))){const p=prefix+e.name;if(e.isDirectory())walk(new URL(e.name+'/',dir),p+'/');else if(e.name.endsWith('.ts'))sourceHashes['src/'+p]=hash(new URL(e.name,dir));}};
-walk(src);for(const file of ['cooperative-rounds.ts','cooperative-decision-diagnostics.ts','league-runner.ts','baselines/pre-cooperative.ts','claim-opponents.ts'])sourceHashes['scripts/'+file]=hash(new URL(file,import.meta.url));
+walk(src);for(const file of ['cooperative-rounds.ts','cooperative-decision-diagnostics.ts','cooperative-report-diagnostics.ts','league-runner.ts','baselines/pre-cooperative.ts','claim-opponents.ts'])sourceHashes['scripts/'+file]=hash(new URL(file,import.meta.url));
 const freshEconomy=()=>({allies:0,allyMana:0,checkBlocks:0,turns:0,falseNameTurns:0,gemGrowthMissed:0,gemStageMissed:{0:0,1:0,2:0},incomingManaGross:0});
 const resourceRole=()=>({aliveMs:0,trueNameMs:0,gemCompleted:false,firstCompletedAt:null as number|null,partialGemUses:0,fullGemUses:0,reportChecks:0,reportCheckMana:0,reportAttacks:0,reportAttackMana:0,wrongReportAttackNames:0,reportAttackFailures:0});
 const rows=[];
@@ -46,10 +48,16 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
    const gemUses:Array<{at:number;role:string;stage:number;nextTurnInMs:number;trueName:boolean;mana:number;nextTurnManaPreview:number;nearCompletion:boolean;alternativeChecks:string[];targetCommanderObserved:boolean}>=[];
    const rejections:Array<{at:number;role:string;action:Action;error:string;ownSkillBlocked:string|null;targetPublicStatuses:string[]}>=[];
    const deferrals:DeferredGemDecision[]=[],pendingDeferrals=new Map<string,{trace:DeferredGemDecision;action:Action|null;memory:BotMemory}>();
+   const reportDecisions:ReportVerificationDecision[]=[],pendingReports=new Map<string,{trace:ReportVerificationDecision;action:Action;memory:BotMemory}>();
    const previews=new Map<string,PlayerView>();let lastSeq=0;
    const policy:Policy=(s,id,m,o)=>{
     const trace=variant==='baseline'?undefined:diagnoseDeferredGem(s,id,m,{...o,...options[variant]});
+    const reportTrace=variant==='baseline'||!reportDiagnostics?undefined:diagnoseReportVerification(s,id,m,{...o,...options[variant]});
     const a=variant==='baseline'?previous(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options[variant]});
+    if(reportTrace){
+     if(JSON.stringify(a)!==JSON.stringify(reportTrace.chosen))throw Error('복제 보고 판단과 실제 제안 불일치');
+     reportDecisions.push(reportTrace);if(a)pendingReports.set(id,{trace:reportTrace,action:a,memory:m});
+    }
     if(trace){
      if(JSON.stringify(a)!==JSON.stringify(trace.chosen))throw Error('복제 판단과 실제 제안 불일치');
      deferrals.push(trace);pendingDeferrals.set(id,{trace,action:a,memory:m});
@@ -74,6 +82,8 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
     }
     lastSeq=state.seq;
     const self=state.players.find(p=>p.id===id)!;if(self.side!==f.currentSide)return;
+    const reportPending=pendingReports.get(id);
+    if(reportPending&&reportPending.action===action&&reportPending.trace.at===state.now){recordReportVerificationOutcome(reportPending.trace,state,id,reportPending.memory,result);pendingReports.delete(id);}
     const pending=pendingDeferrals.get(id);
     if(pending&&pending.action===action&&pending.trace.at===state.now){recordDeferredGemOutcome(pending.trace,state,id,pending.memory,result);pendingDeferrals.delete(id);}
     if(!result.ok){
@@ -117,11 +127,11 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
      if(p.gem===3){r.gemCompleted=true;r.firstCompletedAt??=state.now;}
     }
    }));
-   diagnostics.push({fixture:f,economy,observations,byRole,resources,reportActions,gemUses,rejections,deferrals});
+   diagnostics.push({fixture:f,economy,observations,byRole,resources,reportActions,gemUses,rejections,deferrals,...(reportDiagnostics?{reportDecisions}:{})});
   }
   results[variant]={summary:summarize(games),games,diagnostics};
   process.stderr.write(`[rounds] ${mode}/${style}/${variant}: ${games.length} 완료\n`);
  }
  rows.push({mode,style,results});mkdirSync(new URL('../../docs/evaluations/',import.meta.url),{recursive:true});
- writeFileSync(out,JSON.stringify({format:1,kind:'cooperative-resource-comparison',phase,count,start,settings:DEFAULT_SETTINGS,variants,options,sourceHashes,design:{unit:'seed',adoption:'독립 평가의 전체 차이 95% 하한 양수·각 모드 점수 차이 -2%p 이상·안전 위반 0. 개발 성적은 채택 근거로 삼지 않는다.',limitations:['동맹 직후 스킬 마나 차단은 잠재 비용이며 실제 대체 행동의 인과 증거가 아니다.','단방향 동맹의 수입과 지급을 분리하며 원시 턴 마나는 150 상한 전 값이다.','개발 후보 다중 비교는 후보 선택용이며 독립 평가를 대체하지 않는다.']},rows},null,2));
+ writeFileSync(out,JSON.stringify({format:1,kind:'cooperative-resource-comparison',phase,count,start,settings:DEFAULT_SETTINGS,variants,options,sourceHashes,reportDiagnostics,design:{unit:'seed',adoption:'독립 평가의 전체 차이 95% 하한 양수·각 모드 점수 차이 -2%p 이상·안전 위반 0. 개발 성적은 채택 근거로 삼지 않는다.',limitations:['동맹 직후 스킬 마나 차단은 잠재 비용이며 실제 대체 행동의 인과 증거가 아니다.','단방향 동맹의 수입과 지급을 분리하며 원시 턴 마나는 150 상한 전 값이다.','개발 후보 다중 비교는 후보 선택용이며 독립 평가를 대체하지 않는다.']},rows},null,2));
 }

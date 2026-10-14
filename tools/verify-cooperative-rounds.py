@@ -1,5 +1,5 @@
 """Independently recount paired fixtures, diagnostics, scores and source hashes."""
-import argparse, collections, gzip, hashlib, json, pathlib, random, subprocess
+import argparse, collections, gzip, hashlib, json, math, pathlib, random, subprocess
 
 parser=argparse.ArgumentParser()
 parser.add_argument('path',type=pathlib.Path)
@@ -23,6 +23,7 @@ for path,sha in d['sourceHashes'].items():
  assert hashlib.sha256(source).hexdigest()==sha,path
 
 out={'format':1,'phase':d['phase'],'start':d['start'],'seeds':d['count'],'complete':len(d['rows'])==12,'executions':0,'sourceHashes':d['sourceHashes'],'options':d['options'],'variants':{},'contrasts':{},'design':d['design']}
+if d.get('reportDiagnostics'):out['reportDiagnostics']=True
 scores=collections.defaultdict(lambda:collections.defaultdict(list))
 seen=set()
 for row in d['rows']:
@@ -98,6 +99,44 @@ for row in d['rows']:
      action=a['action'];key=action['skill'] if action['type']=='skill' else action['type']
      counted[key]+=1;bucket['rejectionReasons'][a['error']]+=1
     assert dict(counted)==g['stats']['current']['rejectedSkills']
+   if d.get('reportDiagnostics'):
+    assert 'reportDecisions' in diag
+    if variant=='baseline':assert not diag['reportDecisions']
+   for a in diag.get('reportDecisions',[]):
+    assert d.get('reportDiagnostics') and variant!='baseline'
+    priority,normal,chosen=a['priority'],a['normal'],a['chosen']
+    assert priority['type']=='skill' and priority['target']
+    assert priority['skill'] in ['advanced_scan','scan','ally_scan','enemy_scan','troll_scan','troll_ally_scan','troll_enemy_scan','truth_gem']
+    assert priority['skill']=='truth_gem' or priority['name']==a['reportName']
+    policy='normal' if d['options'][variant].get('reportVerification')=='normal' else 'priority'
+    assert a['actualPolicy']==policy and chosen==(normal if policy=='normal' else priority)
+    assert a['changed']==(priority!=normal)
+    assert 0<=a['at']<=g['elapsedMs'] and 0<=a['reportAgeMs']<=a['at'] and 0<=a['mana']<=150
+    for key in ['priorityMana','normalMana','chosenMana']:assert 0<=a[key]<=a['mana']
+    assert a['chosenMana']==a['normalMana' if policy=='normal' else 'priorityMana']
+    assert math.isfinite(a['priorityExpectedInformation']) and a['priorityExpectedInformation']>=0
+    assert a['normalExpectedInformation'] is None or math.isfinite(a['normalExpectedInformation']) and a['normalExpectedInformation']>=0
+    s=bucket.setdefault('reportDecisionSummary',collections.Counter())
+    skills=bucket.setdefault('reportDecisionAlternatives',collections.Counter())
+    s['decisions']+=1;s['changed']+=int(a['changed']);s['priorityNominalMana']+=a['priorityMana'];s['normalNominalMana']+=a['normalMana']
+    s['priorityExpectedInformation']+=a['priorityExpectedInformation']
+    s['normalLowerMana']+=int(a['normalMana']<a['priorityMana'])
+    if a['normalExpectedInformation'] is not None:
+     s['normalInformationActions']+=1;s['normalExpectedInformation']+=a['normalExpectedInformation']
+     s['normalMoreInformation']+=int(a['normalExpectedInformation']>a['priorityExpectedInformation']+1e-12)
+    if a['changed']:
+     key=normal['skill'] if normal and normal['type']=='skill' else normal['type'] if normal else 'wait'
+     skills[key]+=1
+    if chosen is None:assert a['accepted'] is None and a['error'] is None and a['chosenMana']==0
+    else:
+     assert type(a['accepted']) is bool and (a['error'] is None)==a['accepted']
+     s['accepted']+=int(a['accepted']);s['rejected']+=int(not a['accepted'])
+     if a['accepted']:s['actualAcceptedNominalMana']+=a['chosenMana']
+    s['waits']+=int(chosen is None)
+    if a['ended']:assert a['knownAfter'] is None and a['totalCandidatesAfter'] is None
+    if a['knownAfter'] is not None:
+     assert chosen is not None and a['knownAfter']>=0 and a['totalCandidatesAfter']>=0
+     s['immediateMeasured']+=1;s['newKnown']+=a['knownAfter']-a['knownBefore'];s['candidateReduction']+=a['totalCandidatesBefore']-a['totalCandidatesAfter']
    for a in diag.get('deferrals',[]):
     assert d['options'][variant].get('preservePartialGem')
     assert a['wouldUse']['type']=='skill' and a['wouldUse']['skill']=='truth_gem'
