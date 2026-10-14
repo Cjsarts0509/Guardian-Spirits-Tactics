@@ -78,7 +78,8 @@ describe('확정 관계와 실제 대화 기반 협력',()=>{
  it('다른 봇의 비공개 기억이나 실제 숨은 배정을 바꿔도 자기 행동은 같다',()=>{
   const t=civilTable(),s=structuredClone(t.state);const a=t.id.arin!,b=t.id.kaspa!;
   const x=s.players.find(p=>p.id===a)!,y=s.players.find(p=>p.id===b)!;[x.character,y.character]=[y.character,x.character];
-  expect(smartBotAction(t.state,t.id.dantes!,createBotMemory(5),{activity:1})).toEqual(smartBotAction(s,t.id.dantes!,createBotMemory(5),{activity:1}));
+  for(const options of [{activity:1},{activity:1,teamworkBudget:true,verifyIncomingAllies:true,claimGemGoal:3 as const}])
+   expect(smartBotAction(t.state,t.id.dantes!,createBotMemory(5),options)).toEqual(smartBotAction(s,t.id.dantes!,createBotMemory(5),options));
  });
 });
 
