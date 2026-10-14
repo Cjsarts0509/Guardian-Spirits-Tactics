@@ -1,4 +1,4 @@
-import {shareIntel,verifyIntel} from './bot-intel.js';
+import {shareIntel,verifyIntel,hasUsefulIntelExchange} from './bot-intel.js';
 // 봇 두 종류
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
@@ -24,7 +24,7 @@ export interface BotOptions {
   /** 개발 비교: 동맹 후 즉시 확인·확정 아군 필수 지원의 마나를 보존한다. 기본은 기존 후보. */
   teamworkBudget?: boolean;
   /** 개발 비교: 미확인 동맹 요청자를 먼저 확인한다. 요청은 정체 사실로 취급하지 않는다. */
-  verifyIncomingAllies?: boolean;
+  verifyIncomingAllies?: boolean | 'useful-report';
   /** 개발 비교: 일반 인물의 위장 전 보석 목표 단계. 지휘관/변장 노출 예외는 유지한다. */
   claimGemGoal?: 2 | 3;
   /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
@@ -531,7 +531,8 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   if(opts.teamwork !== false&&opts.verifyIncomingAllies){
     // A가 B를 알아도 B는 A의 정체를 모를 수 있다. 실제 확인으로 대화의 신뢰 경로를 연다.
     // 공표나 단방향 동맹 요청 자체를 아군 facts로 승격하지 않는다.
-    const incoming=unknown.filter(p=>me.alliedBy.includes(p.id));
+    const incoming=unknown.filter(p=>me.alliedBy.includes(p.id)&&
+      (opts.verifyIncomingAllies!=='useful-report'||hasUsefulIntelExchange(view,knowledge,mem,p.id)));
     const check=bestConfirmation(view,belief,incoming,[...usable.values()]);
     if(check)return sequence(check);
     const gem=usable.get('truth_gem');

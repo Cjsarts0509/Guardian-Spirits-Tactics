@@ -59,6 +59,16 @@ export function trustedIntel(view: PlayerView, knowledge: Knowledge, memory: Bot
 /** 보고는 추론의 약한 가중치로만 사용. 제약이나 후보를 삭제하지 않으며 반복 보고를 누적하지 않는다. */
 export const INTEL_WEIGHT = 8;
 
+/** 검증 비용을 쓸 정보 교환이 있는지 자기 관찰로 판단한다. 보고 내용은 아직 신뢰하지 않는다. */
+export function hasUsefulIntelExchange(view: PlayerView, knowledge: Knowledge, memory: BotMemory, sender: PlayerId): boolean {
+  if(view.players.some(p=>p.alive&&p.id!==view.me.id&&p.id!==sender&&!p.revealed&&knowledge.known.has(p.id)))return true;
+  for(const [target,reports] of memory.perception?.intel?.reports??[]){
+    const report=reports.get(sender),p=view.players.find(p=>p.id===target);
+    if(report&&p?.alive&&target!==view.me.id&&!knowledge.known.has(target)&&knowledge.candidates.get(target)?.includes(report.character))return true;
+  }
+  return false;
+}
+
 export function shareIntel(view: PlayerView, knowledge: Knowledge, memory: BotMemory): Action | null {
   const intel = intelFor(memory);
   if (view.elapsedMs - intel.lastSentAt < 12_000) return null;

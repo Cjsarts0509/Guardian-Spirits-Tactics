@@ -14,23 +14,28 @@ describe('실제 동맹 요청의 검증과 비대칭 정보 공유',()=>{
   expect(bk.known.has(t.id.kelhu!)).toBe(false);expect(trustedIntel(bv,bk,b).size).toBe(0);
   // 이번 시점에는 보석만 사용할 수 있다. 자기 보석을 써 발신자를 직접 확인한다.
   t.p('freya').skills=t.p('freya').skills.filter(s=>s.key==='ally');t.p('freya').gem=2;
-  const action=smartBotAction(t.state,t.id.freya!,b,{activity:1,verifyIncomingAllies:true});
+  const action=smartBotAction(t.state,t.id.freya!,b,{activity:1,verifyIncomingAllies:'useful-report'});
   expect(action).toEqual({type:'skill',skill:'truth_gem',target:t.id.kelhu});expect(t.act('freya',action!).ok).toBe(true);
   bv=viewFor(t.state,t.id.freya!);bk=botKnowledge(t.state,t.id.freya!,bv,b);
   expect(bk.known.get(t.id.kelhu!)).toBe('kelhu');expect(bk.known.has(t.id.reindila!)).toBe(false);
   expect(trustedIntel(bv,bk,b).get(t.id.reindila!)).toBe('reindila');
-  expect(smartBotAction(t.state,t.id.freya!,b,{activity:1,verifyIncomingAllies:true})).toEqual({type:'skill',skill:'ally',target:t.id.kelhu});
+  expect(smartBotAction(t.state,t.id.freya!,b,{activity:1,verifyIncomingAllies:'useful-report'})).toEqual({type:'skill',skill:'ally',target:t.id.kelhu});
  });
  it('변장한 동맹 요청자는 확인 성공 뒤에도 아군이나 신뢰 발신자로 확정하지 않는다',()=>{
   const t=civilTable();t.publish('kai','kai');t.publish('soen','arin');fill(t,'soen','kai');t.skill('soen','ally','kai');
   const name=viewFor(t.state,t.id.kai!).roster.find(r=>r.key==='dantes')!.name;
   t.act('soen',{type:'chat',channel:'whisper',to:t.id.kai,text:`확인 정보: [${t.p('arin').seat}] ${name}`});
   t.p('kai').skills=t.p('kai').skills.filter(s=>['ally','ally_check'].includes(s.key));
-  const b=createBotMemory(5),action=smartBotAction(t.state,t.id.kai!,b,{activity:1,verifyIncomingAllies:true});
+  const b=createBotMemory(5),action=smartBotAction(t.state,t.id.kai!,b,{activity:1,verifyIncomingAllies:'useful-report'});
   expect(action).toEqual({type:'skill',skill:'ally_check',target:t.id.soen});expect(t.act('kai',action!).ok).toBe(true);
   const v=viewFor(t.state,t.id.kai!),k=botKnowledge(t.state,t.id.kai!,v,b);
   expect(k.known.has(t.id.soen!)).toBe(false);expect(k.candidates.get(t.id.soen!)).toContain('soen');
   expect(trustedIntel(v,k,b).size).toBe(0);
-  expect(smartBotAction(t.state,t.id.kai!,b,{activity:1,verifyIncomingAllies:true})).not.toEqual({type:'skill',skill:'ally',target:t.id.soen});
+  expect(smartBotAction(t.state,t.id.kai!,b,{activity:1,verifyIncomingAllies:'useful-report'})).not.toEqual({type:'skill',skill:'ally',target:t.id.soen});
+ });
+ it('전달/검증할 정보가 없는 요청은 일반 탐색의 판단과 난수 순서를 바꾸지 않는다',()=>{
+  const t=civilTable();t.publish('freya','freya');t.skill('kelhu','ally','freya');fill(t,'freya');t.p('freya').gem=2;
+  for(let seed=1;seed<=20;seed++)
+   expect(smartBotAction(t.state,t.id.freya!,createBotMemory(seed),{activity:1,verifyIncomingAllies:'useful-report'})).toEqual(smartBotAction(t.state,t.id.freya!,createBotMemory(seed),{activity:1}));
  });
 });

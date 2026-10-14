@@ -10,10 +10,11 @@ import {fixtures,playMatch,summarize,DEFAULT_SETTINGS,type Policy} from './leagu
 const count=Number(process.argv[2]??5),start=Number(process.argv[3]??115000),out=process.argv[4]??'../../docs/evaluations/cooperation-round-002-development.json';
 const phase=process.argv[5]??'development',selection=process.argv[6]??'all';
 if(!Number.isSafeInteger(count)||count<1||!Number.isSafeInteger(start)||!['development','holdout'].includes(phase))throw Error('평가 조건 오류');
-const options:Record<string,BotOptions>={control:{},growth:{claimGemGoal:3},budget:{teamworkBudget:true},combined:{claimGemGoal:3,teamworkBudget:true},approach:{verifyIncomingAllies:true},coordinated:{claimGemGoal:3,teamworkBudget:true,verifyIncomingAllies:true}};
-if(!['all','approach-development'].includes(selection)&&!options[selection])throw Error('후보 이름 오류');
-if(phase==='holdout'&&['all','approach-development'].includes(selection))throw Error('독립 평가는 사전에 고정한 후보 하나만 지정한다');
-const selected=selection==='all'?Object.keys(options):selection==='approach-development'?['control','combined','approach','coordinated']:['control',selection].filter((x,i,a)=>a.indexOf(x)===i);
+const options:Record<string,BotOptions>={control:{},growth:{claimGemGoal:3},budget:{teamworkBudget:true},combined:{claimGemGoal:3,teamworkBudget:true},approach:{verifyIncomingAllies:true},coordinated:{claimGemGoal:3,teamworkBudget:true,verifyIncomingAllies:true},selective:{verifyIncomingAllies:'useful-report'},selectiveCombined:{claimGemGoal:3,teamworkBudget:true,verifyIncomingAllies:'useful-report'}};
+const developmentGroups:Record<string,string[]>={'approach-development':['control','combined','approach','coordinated'],'selective-development':['control','combined','selective','selectiveCombined']};
+if(selection!=='all'&&!developmentGroups[selection]&&!options[selection])throw Error('후보 이름 오류');
+if(phase==='holdout'&&(selection==='all'||developmentGroups[selection]))throw Error('독립 평가는 사전에 고정한 후보 하나만 지정한다');
+const selected=selection==='all'?Object.keys(options):developmentGroups[selection]??['control',selection].filter((x,i,a)=>a.indexOf(x)===i);
 const variants=['baseline',...selected];
 const hash=(p:URL)=>createHash('sha256').update(readFileSync(p)).digest('hex');
 const src=new URL('../src/',import.meta.url);
