@@ -7,6 +7,9 @@ import type {BotOptions} from '../src/bot.js';
 import {smartBotAction as previous} from './baselines/pre-cooperative.js';
 import {opponentClaim,type ClaimStyle} from './claim-opponents.js';
 import {fixtures,playMatch,summarize,DEFAULT_SETTINGS,type Policy} from './league-runner.js';
+import {diagnoseDeferredGem,recordDeferredGemOutcome,type DeferredGemDecision} from './cooperative-decision-diagnostics.js';
+import type {BotMemory} from '../src/bot-memory.js';
+import type {Action} from '../src/types.js';
 
 const count=Number(process.argv[2]??5),start=Number(process.argv[3]??115000),out=process.argv[4]??'../../docs/evaluations/cooperation-round-002-development.json';
 const phase=process.argv[5]??'development',selection=process.argv[6]??'all';
@@ -23,7 +26,7 @@ const hash=(p:URL)=>createHash('sha256').update(readFileSync(p)).digest('hex');
 const src=new URL('../src/',import.meta.url);
 const sourceHashes:Record<string,string>={};
 const walk=(dir:URL,prefix='')=>{for(const e of readdirSync(dir,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))){const p=prefix+e.name;if(e.isDirectory())walk(new URL(e.name+'/',dir),p+'/');else if(e.name.endsWith('.ts'))sourceHashes['src/'+p]=hash(new URL(e.name,dir));}};
-walk(src);for(const file of ['cooperative-rounds.ts','league-runner.ts','baselines/pre-cooperative.ts','claim-opponents.ts'])sourceHashes['scripts/'+file]=hash(new URL(file,import.meta.url));
+walk(src);for(const file of ['cooperative-rounds.ts','cooperative-decision-diagnostics.ts','league-runner.ts','baselines/pre-cooperative.ts','claim-opponents.ts'])sourceHashes['scripts/'+file]=hash(new URL(file,import.meta.url));
 const freshEconomy=()=>({allies:0,allyMana:0,checkBlocks:0,turns:0,falseNameTurns:0,gemGrowthMissed:0,gemStageMissed:{0:0,1:0,2:0},incomingManaGross:0});
 const resourceRole=()=>({aliveMs:0,trueNameMs:0,gemCompleted:false,firstCompletedAt:null as number|null,partialGemUses:0,fullGemUses:0,reportChecks:0,reportCheckMana:0,reportAttacks:0,reportAttackMana:0,wrongReportAttackNames:0,reportAttackFailures:0});
 const rows=[];
@@ -39,9 +42,16 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
    const proposals=new Map<string,{view:PlayerView;reportedName:string|undefined;reportedAt:number|null;reportAttack:boolean;commanderObserved:boolean}>();
    const reportActions:Array<{at:number;role:string;skill:string;target:string;reportedName:string;reportAt:number|null;mana:number;kind:'check'|'attack';failure:boolean}>=[];
    const gemUses:Array<{at:number;role:string;stage:number;nextTurnInMs:number;trueName:boolean;mana:number;nextTurnManaPreview:number;nearCompletion:boolean;alternativeChecks:string[];targetCommanderObserved:boolean}>=[];
+   const rejections:Array<{at:number;role:string;action:Action;error:string;ownSkillBlocked:string|null;targetPublicStatuses:string[]}>=[];
+   const deferrals:DeferredGemDecision[]=[],pendingDeferrals=new Map<string,{trace:DeferredGemDecision;action:Action|null;memory:BotMemory}>();
    const previews=new Map<string,PlayerView>();let lastSeq=0;
    const policy:Policy=(s,id,m,o)=>{
+    const trace=variant==='baseline'?undefined:diagnoseDeferredGem(s,id,m,{...o,...options[variant]});
     const a=variant==='baseline'?previous(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options[variant]});
+    if(trace){
+     if(JSON.stringify(a)!==JSON.stringify(trace.chosen))throw Error('복제 판단과 실제 제안 불일치');
+     deferrals.push(trace);pendingDeferrals.set(id,{trace,action:a,memory:m});
+    }
     if(a?.type==='skill'){
      const v=viewFor(s,id);if(a.skill==='ally')previews.set(id,v);
      // 결과 보고용 자기 관찰. 복제 기억만 갱신해 정책 기억과 RNG는 변경하지 않는다.
@@ -61,7 +71,16 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
      if(e.data?.trueName===false){economy.falseNameTurns++;r.falseNameTurns++;const gem=Number(e.data?.gem??0);if(gem<3){economy.gemGrowthMissed++;r.gemGrowthMissed++;economy.gemStageMissed[gem as 0|1|2]++;r.gemStageMissed[gem]=(r.gemStageMissed[gem]??0)+1;}}
     }
     lastSeq=state.seq;
-    const self=state.players.find(p=>p.id===id)!;if(!result.ok||self.side!==f.currentSide)return;
+    const self=state.players.find(p=>p.id===id)!;if(self.side!==f.currentSide)return;
+    const pending=pendingDeferrals.get(id);
+    if(pending&&pending.action===action&&pending.trace.at===state.now){recordDeferredGemOutcome(pending.trace,state,id,pending.memory,result);pendingDeferrals.delete(id);}
+    if(!result.ok){
+     const v=proposals.get(id)?.view;
+     rejections.push({at:state.now,role:self.character,action,error:result.error??'알 수 없는 거절',
+      ownSkillBlocked:action.type==='skill'?v?.me.skills.find(s=>s.key===action.skill)?.blocked??null:null,
+      targetPublicStatuses:action.type==='skill'?v?.players.find(p=>p.id===action.target)?.statuses.map(s=>s.kind)??[]:[]});
+     return;
+    }
     const proposal=proposals.get(id),res=resources[self.character]??=resourceRole();
     if(action.type==='skill'&&action.skill==='truth_gem'&&proposal){
      if(proposal.view.me.gem===2)res.partialGemUses++;if(proposal.view.me.gem===3)res.fullGemUses++;
@@ -96,7 +115,7 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
      if(p.gem===3){r.gemCompleted=true;r.firstCompletedAt??=state.now;}
     }
    }));
-   diagnostics.push({fixture:f,economy,observations,byRole,resources,reportActions,gemUses});
+   diagnostics.push({fixture:f,economy,observations,byRole,resources,reportActions,gemUses,rejections,deferrals});
   }
   results[variant]={summary:summarize(games),games,diagnostics};
   process.stderr.write(`[rounds] ${mode}/${style}/${variant}: ${games.length} 완료\n`);

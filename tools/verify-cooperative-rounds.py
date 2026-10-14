@@ -32,7 +32,7 @@ for row in d['rows']:
  for variant,r in row['results'].items():
   games,diags=r['games'],r['diagnostics'];assert len(games)==len(diags)==d['count']*4
   fixtures=set();wins=collections.Counter();paired=collections.defaultdict(list)
-  bucket=out['variants'].setdefault(variant,{}).setdefault(mode,{'games':0,'scoreSum':0,'unfinished':0,'earlyAttackFailures':0,'rejected':0,'economy':collections.Counter(),'gemStageMissed':collections.Counter(),'observations':collections.Counter(),'byRole':{},'survival':{},'resources':{},'gemUseConditions':collections.Counter()})
+  bucket=out['variants'].setdefault(variant,{}).setdefault(mode,{'games':0,'scoreSum':0,'unfinished':0,'earlyAttackFailures':0,'rejected':0,'economy':collections.Counter(),'gemStageMissed':collections.Counter(),'observations':collections.Counter(),'byRole':{},'survival':{},'resources':{},'gemUseConditions':collections.Counter(),'rejectionReasons':collections.Counter(),'deferralSummary':collections.Counter(),'deferralSkills':collections.Counter()})
   for g,diag in zip(games,diags):
    f=g['fixture'];assert f==diag['fixture'] and f['mode']==mode
    assert d['start']<=f['seed']<d['start']+d['count'] and f['count']==8+(f['seed']-d['start'])%5
@@ -90,6 +90,37 @@ for row in d['rows']:
      c['partialWithOtherCheckReady']+=int(a['stage']==2 and bool(a['alternativeChecks']))
      c['commanderAlreadyObserved']+=int(a['targetCommanderObserved'])
      if d['options'].get(variant,{}).get('preservePartialGem'):assert not a['nearCompletion'],a
+   if 'rejections' in diag:
+    assert len(diag['rejections'])==g['stats']['current']['rejected']
+    counted=collections.Counter()
+    for a in diag['rejections']:
+     assert 0<=a['at']<=g['elapsedMs'] and a['error']
+     action=a['action'];key=action['skill'] if action['type']=='skill' else action['type']
+     counted[key]+=1;bucket['rejectionReasons'][a['error']]+=1
+    assert dict(counted)==g['stats']['current']['rejectedSkills']
+   for a in diag.get('deferrals',[]):
+    assert d['options'][variant].get('preservePartialGem')
+    assert a['wouldUse']['type']=='skill' and a['wouldUse']['skill']=='truth_gem'
+    assert 0<=a['at']<=g['elapsedMs'] and 0<a['nextTurnInMs']<=43000
+    assert a['gemExpectedInformation']>=0 and a['nominalMana']>=0
+    assert a['alternativeExpectedInformation'] is None or a['alternativeExpectedInformation']>=0
+    s=bucket['deferralSummary'];s['decisions']+=1;s['gemExpectedInformation']+=a['gemExpectedInformation']
+    chosen=a['chosen'];key=chosen['skill'] if chosen and chosen['type']=='skill' else chosen['type'] if chosen else 'wait'
+    assert key!='truth_gem';bucket['deferralSkills'][key]+=1
+    if chosen is None:assert a['accepted'] is None and a['nominalMana']==0
+    else:
+     assert type(a['accepted']) is bool
+     assert (a['error'] is None)==a['accepted']
+    s['waits']+=int(chosen is None);s['accepted']+=int(a['accepted'] is True);s['rejected']+=int(a['accepted'] is False)
+    if a['accepted']:s['acceptedNominalMana']+=a['nominalMana']
+    if a['alternativeExpectedInformation'] is not None:
+     s['informationActions']+=1;s['alternativeExpectedInformation']+=a['alternativeExpectedInformation']
+     s['zeroExpectedInformation']+=int(a['alternativeExpectedInformation']<=1e-12)
+    if a['ended']:assert a['knownAfter'] is None and a['totalCandidatesAfter'] is None
+    if a['knownAfter'] is not None:
+     assert a['knownAfter']>=0 and a['totalCandidatesAfter']>=0
+     s['immediateMeasured']+=1;s['newKnown']+=a['knownAfter']-a['knownBefore']
+     s['candidateReduction']+=a['totalCandidatesBefore']-a['totalCandidatesAfter']
   assert len(fixtures)==d['count']*4 and all(len(x)==4 for x in paired.values())
   for seed,x in paired.items():scores[variant][seed].append(sum(x)/4)
   s=r['summary'];assert s['games']==len(games) and s['seeds']==d['count']

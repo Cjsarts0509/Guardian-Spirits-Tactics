@@ -1,19 +1,24 @@
 {
   "round": 9,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "automation-round-009",
   "startedAt": "2026-10-15T05:02:58+09:00",
   "leaseUntil": "2026-10-15T05:50:00+09:00",
   "developmentSeeds": {
     "start": 123000,
     "count": 5,
-    "status": "reserved"
+    "status": "completed"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "task": "기존 고정 control/부분보석 보류의 새 개발 진단. 자기 거절 사유와 복제 자기 기억의 같은순간 보석 선택/대체행동 정보를 기록. 판단 정책 변경 없음·독립 평가 미사용. 이후 근거가 있으면 새 후보 하나만 개발.",
+  "completedAt": "2026-10-15T05:09:48+09:00",
+  "executions": 720,
+  "decision": "diagnostic_only_no_policy_change_no_holdout",
+  "nextDevelopmentSeeds": {"start":124000,"count":5,"status":"unused"},
+  "nextHoldoutSeeds": {"start":121000,"count":16,"status":"unused"},
+  "task": "009완료.225보석 의도 중150대기, 황야/트롤90/131대기.거절각8보호응답.010은 대기뿐이면 원래 보석 사용을 허용하는 단일 가설.112000/116000 재튜닝 금지.",
   "adoption": "진단 점수는 승격 증거 아님.112000/116000 재사용금지. 새로운 후보는 새 개발 통과·불변 고정 뒤만 holdout 사용."
 }
