@@ -1,28 +1,30 @@
 {
-  "round": 10,
-  "status": "completed",
-  "owner": "automation-round-010",
-  "startedAt": "2026-10-15T06:02:34+09:00",
-  "leaseUntil": "2026-10-15T06:45:00+09:00",
+  "round": 12,
+  "status": "in_progress",
+  "owner": "user-resumed-round-012",
+  "startedAt": "2026-10-15T07:25:03+09:00",
+  "leaseUntil": "2026-10-15T07:55:00+09:00",
+  "deadline": "2026-10-15T12:00:00+09:00",
+  "noNewExperimentAfter": "2026-10-15T11:50:00+09:00",
   "developmentSeeds": {
-    "start": 124000,
+    "start": 125000,
     "count": 5,
-    "status": "completed"
+    "status": "reserved_unused"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "nonIdleGem",
+  "candidate": "normalReportVerification",
   "options": {
-    "preservePartialGem": "when-busy"
+    "reportVerification": "normal"
   },
-  "completedAt": "2026-10-15T06:07:08+09:00",
-  "executions": 960,
+  "checkpoint": "reservation_before_implementation",
+  "executions": 0,
   "cumulativeExecutions": 10464,
-  "decision": "development_gate_failed_no_holdout",
-  "nextAction": "stopped_await_explicit_user_request",
+  "decision": "pending",
+  "nextAction": "implement_regression_then_development",
   "finalReport": {
     "round": 11,
     "status": "completed",
@@ -36,6 +38,6 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "011최종정리완료·새경기0·누적10464실행.010기본OFF·미승격·독립121000미사용. 새 실험/자동재개없음.112000/116000재사용금지.",
+  "task": "사용자07:24지시로12시까지再개. 실제아군보고강제우선검증을일반정보순서로돌리는단일가설. 신뢰/추론/facts경계유지.125000개발만사용,112000/116000재사용금지.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }
