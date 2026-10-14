@@ -1,36 +1,33 @@
 {
-  "round": 14,
-  "status": "completed",
-  "owner": "continuous-round-014",
-  "startedAt": "2026-10-15T08:16:51+09:00",
-  "leaseUntil": "2026-10-15T08:55:00+09:00",
+  "round": 15,
+  "status": "in_progress",
+  "owner": "continuous-round-015-claim-intervention",
+  "startedAt": "2026-10-15T08:28:00+09:00",
+  "leaseUntil": "2026-10-15T09:10:00+09:00",
   "continuation": "finish_commit_then_start_next_immediately_until_deadline",
   "deadline": "2026-10-15T12:00:00+09:00",
   "noNewExperimentAfter": "2026-10-15T11:50:00+09:00",
   "developmentSeeds": {
-    "start": 127000,
-    "count": 5,
-    "status": "completed"
+    "start": 129000,
+    "count": 8,
+    "status": "reserved_unused_candidate_only"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "nonIdleReportVerification",
+  "candidate": "firstFalseClaimTruthIntervention",
   "options": {
-    "reportVerification": "when-busy"
+    "selectedPublicPlayer": "p1",
+    "nonDisguiseOnly": true,
+    "once": true
   },
-  "checkpoint": "development_completed_verified_gate_failed",
-  "sourceRef": "5b05b30a46bc85d6dcbb8797fd2899e33db0614f",
-  "completedAt": "2026-10-15T08:23:52+09:00",
-  "checks": {"tests": 513, "typecheck": "passed", "builds": "passed"},
-  "executions": 960,
+  "checkpoint": "reservation_before_collector_and_frozen_learner",
+  "executions": 0,
   "cumulativeExecutions": 12864,
-  "decision": "development_gate_failed_no_holdout",
-  "nextAction": "immediately_reserve_first_false_claim_truthful_intervention_diagnostics",
-  "nextDevelopmentSeeds": {"start": 128000, "count": 32, "status": "reserved_unused"},
-  "nextCandidateDevelopmentSeeds": {"start": 129000, "count": 8, "status": "reserved_unused"},
+  "decision": "pending_training_diagnostic_no_promotion",
+  "nextAction": "freeze_collector_and_eight_cell_learner_then_new_training_pairs",
   "finalReport": {
     "round": 11,
     "status": "completed",
@@ -44,6 +41,11 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "014완료960경기·513테스트/타입/빌드/고정CI·브라우저통과. 대기복귀9건허용·관측대기0이나control69.58→67.92/main72.08%로미채택. 즉시015공표한번개입대응진단로. 128000새자료/129000후보개발/121000독립미사용. 12시까지연속진행. 112000/116000재사용금지.",
-  "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
+  "task": "015예약: 공개ID p1의 첫 비변장 가명 공표 한 번만 진명으로 바꾸는 대응 실행. 새128000–128031 자료3072실행 계획. 자기뷰3비트8셀·최소24개입/8시드·시드95%하한>0일 때만 진명 선택, 나머지는 기존 유지. 자료 보기 전에 수집기/학습기 고정.129000개발/121000독립 미사용. 회차 직후 다음 회차·12시 마감.",
+  "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
+  "trainingSeeds": {
+    "start": 128000,
+    "count": 32,
+    "status": "reserved_unused"
+  }
 }
