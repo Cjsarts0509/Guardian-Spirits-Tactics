@@ -1,6 +1,6 @@
 {
   "round": 14,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "continuous-round-014",
   "startedAt": "2026-10-15T08:16:51+09:00",
   "leaseUntil": "2026-10-15T08:55:00+09:00",
@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 127000,
     "count": 5,
-    "status": "reserved_unused"
+    "status": "completed"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,12 +21,16 @@
   "options": {
     "reportVerification": "when-busy"
   },
-  "checkpoint": "implementation_verified_before_development",
+  "checkpoint": "development_completed_verified_gate_failed",
+  "sourceRef": "5b05b30a46bc85d6dcbb8797fd2899e33db0614f",
+  "completedAt": "2026-10-15T08:23:52+09:00",
   "checks": {"tests": 513, "typecheck": "passed", "builds": "passed"},
-  "executions": 0,
-  "cumulativeExecutions": 11904,
-  "decision": "pending",
-  "nextAction": "implement_test_then_new_development_and_commit_then_next_round_immediately",
+  "executions": 960,
+  "cumulativeExecutions": 12864,
+  "decision": "development_gate_failed_no_holdout",
+  "nextAction": "immediately_reserve_first_false_claim_truthful_intervention_diagnostics",
+  "nextDevelopmentSeeds": {"start": 128000, "count": 32, "status": "reserved_unused"},
+  "nextCandidateDevelopmentSeeds": {"start": 129000, "count": 8, "status": "reserved_unused"},
   "finalReport": {
     "round": 11,
     "status": "completed",
@@ -40,6 +44,6 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "014예약·새127000개발960경기。일반제안이null일때원래기억/RNG의우선검증으로복귀하는단일후보。확정관계/신뢰/facts경계유지。사용자08:16지시:회차끝나면답변/예약기다리지말고즉시다음회차,12시까지。독립121000미사용·112000/116000재사용금지.",
+  "task": "014완료960경기·513테스트/타입/빌드/고정CI·브라우저통과. 대기복귀9건허용·관측대기0이나control69.58→67.92/main72.08%로미채택. 즉시015공표한번개입대응진단로. 128000새자료/129000후보개발/121000독립미사용. 12시까지연속진행. 112000/116000재사용금지.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }
