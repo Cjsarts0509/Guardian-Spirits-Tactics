@@ -1,15 +1,15 @@
 {
-  "round": 12,
-  "status": "completed",
-  "owner": "user-resumed-round-012",
-  "startedAt": "2026-10-15T07:25:03+09:00",
-  "leaseUntil": "2026-10-15T07:55:00+09:00",
+  "round": 13,
+  "status": "in_progress",
+  "owner": "round-013-report-diagnostics",
+  "startedAt": "2026-10-15T08:04:27+09:00",
+  "leaseUntil": "2026-10-15T08:45:00+09:00",
   "deadline": "2026-10-15T12:00:00+09:00",
   "noNewExperimentAfter": "2026-10-15T11:50:00+09:00",
   "developmentSeeds": {
-    "start": 125000,
+    "start": 126000,
     "count": 5,
-    "status": "completed"
+    "status": "reserved_unused"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -20,13 +20,11 @@
   "options": {
     "reportVerification": "normal"
   },
-  "checkpoint": "development_completed_verified_no_holdout",
-  "completedAt": "2026-10-15T07:29:57+09:00",
-  "executions": 720,
+  "checkpoint": "reservation_before_observer_implementation",
+  "executions": 0,
   "cumulativeExecutions": 11184,
-  "decision": "improved_control_but_below_main_no_holdout",
-  "nextAction": "fresh_development_report_verification_counterfactual_diagnostics",
-  "nextDevelopmentSeeds": {"start": 126000, "count": 5, "status": "reserved_unused"},
+  "decision": "diagnostic_only_no_new_policy_selection",
+  "nextAction": "implement_observer_regressions_then_fresh_diagnostics",
   "finalReport": {
     "round": 11,
     "status": "completed",
@@ -40,6 +38,6 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "012완료720경기·500고유테스트·타입/빌드통과. 일반재확인control66.25→69.17/main70.83%로미승격. 다음126000개발진단·독립121000미사용. 사용자지시12시까지유효. 112000/116000재사용금지.",
+  "task": "013예약。새126000개발720경기의자기관찰복제로보고우선검증/일반정보의제안·명목마나·정보량·실제선택결과를분리。정책src는012와동일유지·승격선택없음·독립121000미사용。12시마감。112000/116000재사용금지.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }
