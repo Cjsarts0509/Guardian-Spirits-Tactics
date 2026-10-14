@@ -1,13 +1,13 @@
 {
   "round": 8,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "automation-round-008",
   "startedAt": "2026-10-15T03:58:54+09:00",
   "leaseUntil": "2026-10-15T04:50:00+09:00",
   "developmentSeeds": {
     "start": 122000,
     "count": 5,
-    "status": "reserved"
+    "status": "completed"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -15,6 +15,12 @@
     "status": "unused"
   },
   "candidate": "preservePartialGem",
-  "task": "다음 턴이43초 이내이고 진명·충분한 다음턴 마나인 경우만 부분보석을 보존하는 단일 가설. 먼저 기존 소비의 자기뷰 조건을 분리 기록. 다른 행동·공표·보고 규칙은 유지·기본OFF.",
+  "completedAt": "2026-10-15T04:05:02+09:00",
+  "executions": 720,
+  "options": {"preservePartialGem":true},
+  "decision": "development_gate_failed_no_holdout",
+  "nextDevelopmentSeeds": {"start":123000,"count":5,"status":"unused"},
+  "nextHoldoutSeeds": {"start":121000,"count":16,"status":"unused"},
+  "task": "008완료·기본OFF.009회차는 보류 중 실제 대체행동 정보량과 증가한 거절의 자기 수신 사유를 먼저 진단.112000/116000 최종 재튜닝금지.",
   "adoption": "개발에서 control보다 개선·main 이상·안전 위반0일 때만 후보 고정 후 holdout. 독립 전체차이95%하한>0·모드>=-2pp.112000/116000 재사용금지."
 }

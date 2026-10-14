@@ -13,6 +13,7 @@ const phase=process.argv[5]??'development',selection=process.argv[6]??'all';
 if(!Number.isSafeInteger(count)||count<1||!Number.isSafeInteger(start)||!['development','holdout'].includes(phase))throw Error('평가 조건 오류');
 const options:Record<string,BotOptions>={control:{},growth:{claimGemGoal:3},budget:{teamworkBudget:true},combined:{claimGemGoal:3,teamworkBudget:true},approach:{verifyIncomingAllies:true},coordinated:{claimGemGoal:3,teamworkBudget:true,verifyIncomingAllies:true},selective:{verifyIncomingAllies:'useful-report'},selectiveCombined:{claimGemGoal:3,teamworkBudget:true,verifyIncomingAllies:'useful-report'},shiningGrowth:{claimGemGoal:3,teamworkBudget:true,claimCommanderGrowth:'shining'},commanderGrowth:{claimGemGoal:3,teamworkBudget:true,claimCommanderGrowth:'all'}};
 options.reportedSupreme={reportedSupreme:true};
+options.preservePartialGem={preservePartialGem:true};
 const developmentGroups:Record<string,string[]>={'approach-development':['control','combined','approach','coordinated'],'selective-development':['control','combined','selective','selectiveCombined'],'commander-development':['control','combined','shiningGrowth','commanderGrowth']};
 if(selection!=='all'&&!developmentGroups[selection]&&!options[selection])throw Error('후보 이름 오류');
 if(phase==='holdout'&&(selection==='all'||developmentGroups[selection]))throw Error('독립 평가는 사전에 고정한 후보 하나만 지정한다');
@@ -35,8 +36,9 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
    const economy=freshEconomy(),observations={trueClaims:0,falseClaims:0,wrongAllies:0,reports:0,falseReports:0};
    const byRole:Record<string,{turns:number;falseNameTurns:number;gemGrowthMissed:number;gemStageMissed:Record<number,number>}>={};
    const resources:Record<string,ReturnType<typeof resourceRole>>={};
-   const proposals=new Map<string,{view:PlayerView;reportedName:string|undefined;reportedAt:number|null;reportAttack:boolean}>();
+   const proposals=new Map<string,{view:PlayerView;reportedName:string|undefined;reportedAt:number|null;reportAttack:boolean;commanderObserved:boolean}>();
    const reportActions:Array<{at:number;role:string;skill:string;target:string;reportedName:string;reportAt:number|null;mana:number;kind:'check'|'attack';failure:boolean}>=[];
+   const gemUses:Array<{at:number;role:string;stage:number;nextTurnInMs:number;trueName:boolean;mana:number;nextTurnManaPreview:number;nearCompletion:boolean;alternativeChecks:string[];targetCommanderObserved:boolean}>=[];
    const previews=new Map<string,PlayerView>();let lastSeq=0;
    const policy:Policy=(s,id,m,o)=>{
     const a=variant==='baseline'?previous(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options[variant]});
@@ -47,7 +49,7 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
      const reportedName=knowledge&&a.target?trustedIntel(v,knowledge,m).get(a.target):undefined;
      const report=m.perception?.intel?.reports.get(a.target??'');
      const times=report?[...report].filter(([sender,r])=>r.character===reportedName&&v.roster.some(x=>x.key===knowledge?.known.get(sender)&&x.side===v.me.side)).map(([,r])=>r.at):[];
-     proposals.set(id,{view:v,reportedName,reportedAt:times.length?Math.min(...times):null,reportAttack:a.skill==='supreme_attack'&&a.name===reportedName});
+     proposals.set(id,{view:v,reportedName,reportedAt:times.length?Math.min(...times):null,reportAttack:a.skill==='supreme_attack'&&a.name===reportedName,commanderObserved:!!a.target&&!!m.perception?.commanders.has(a.target)});
     }
     return a;
    };
@@ -61,7 +63,14 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
     lastSeq=state.seq;
     const self=state.players.find(p=>p.id===id)!;if(!result.ok||self.side!==f.currentSide)return;
     const proposal=proposals.get(id),res=resources[self.character]??=resourceRole();
-    if(action.type==='skill'&&action.skill==='truth_gem'&&proposal){if(proposal.view.me.gem===2)res.partialGemUses++;if(proposal.view.me.gem===3)res.fullGemUses++;}
+    if(action.type==='skill'&&action.skill==='truth_gem'&&proposal){
+     if(proposal.view.me.gem===2)res.partialGemUses++;if(proposal.view.me.gem===3)res.fullGemUses++;
+     const v=proposal.view;
+     gemUses.push({at:state.now,role:self.character,stage:v.me.gem,nextTurnInMs:v.nextTurnInMs,trueName:v.me.trueName,mana:v.me.mana,nextTurnManaPreview:v.me.nextTurnManaPreview,
+      nearCompletion:v.me.gem===2&&v.me.trueName&&v.nextTurnInMs>0&&v.nextTurnInMs<=43_000&&v.me.mana+v.me.nextTurnManaPreview>=75,
+      alternativeChecks:v.me.skills.filter(s=>s.key!=='truth_gem'&&!s.passive&&s.blocked===null&&/scan|check|oracle|curse|sense|shadow_eye/.test(s.key)).map(s=>s.key),
+      targetCommanderObserved:proposal.commanderObserved||action.target!==undefined&&v.players.some(p=>p.id===action.target&&p.revealed!==null&&v.roster.some(r=>r.key===p.revealed&&r.commander))});
+    }
     if(action.type==='skill'&&proposal?.reportedName&&action.target&&
        (/scan|check|truth_gem|oracle|curse|sense|shadow_eye/.test(action.skill)||proposal.reportAttack)){
      const isAttack=proposal.reportAttack,mana=proposal.view.me.skills.find(s=>s.key===action.skill)!.mana;
@@ -87,7 +96,7 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
      if(p.gem===3){r.gemCompleted=true;r.firstCompletedAt??=state.now;}
     }
    }));
-   diagnostics.push({fixture:f,economy,observations,byRole,resources,reportActions});
+   diagnostics.push({fixture:f,economy,observations,byRole,resources,reportActions,gemUses});
   }
   results[variant]={summary:summarize(games),games,diagnostics};
   process.stderr.write(`[rounds] ${mode}/${style}/${variant}: ${games.length} 완료\n`);

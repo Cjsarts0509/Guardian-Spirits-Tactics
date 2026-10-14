@@ -32,7 +32,7 @@ for row in d['rows']:
  for variant,r in row['results'].items():
   games,diags=r['games'],r['diagnostics'];assert len(games)==len(diags)==d['count']*4
   fixtures=set();wins=collections.Counter();paired=collections.defaultdict(list)
-  bucket=out['variants'].setdefault(variant,{}).setdefault(mode,{'games':0,'scoreSum':0,'unfinished':0,'earlyAttackFailures':0,'rejected':0,'economy':collections.Counter(),'gemStageMissed':collections.Counter(),'observations':collections.Counter(),'byRole':{},'survival':{},'resources':{}})
+  bucket=out['variants'].setdefault(variant,{}).setdefault(mode,{'games':0,'scoreSum':0,'unfinished':0,'earlyAttackFailures':0,'rejected':0,'economy':collections.Counter(),'gemStageMissed':collections.Counter(),'observations':collections.Counter(),'byRole':{},'survival':{},'resources':{},'gemUseConditions':collections.Counter()})
   for g,diag in zip(games,diags):
    f=g['fixture'];assert f==diag['fixture'] and f['mode']==mode
    assert d['start']<=f['seed']<d['start']+d['count'] and f['count']==8+(f['seed']-d['start'])%5
@@ -76,6 +76,20 @@ for row in d['rows']:
     target=bucket['resources'].setdefault(role,collections.Counter())
     target['games']+=1
     target.update({k:int(x) for k,x in v.items() if k!='firstCompletedAt'})
+   if 'gemUses' in diag:
+    assert len(diag['gemUses'])==sum(v['partialGemUses']+v['fullGemUses'] for v in diag['resources'].values())
+    for a in diag['gemUses']:
+     assert a['stage'] in [2,3] and 0<=a['at']<=g['elapsedMs'] and 0<=a['nextTurnInMs']<=90000
+     assert 0<=a['mana']<=150 and 0<=a['nextTurnManaPreview']<=150-a['mana']
+     assert a['nearCompletion']==(a['stage']==2 and a['trueName'] and 0<a['nextTurnInMs']<=43000 and a['mana']+a['nextTurnManaPreview']>=75)
+     c=bucket['gemUseConditions'];c['allUses']+=1;c['partialUses']+=int(a['stage']==2)
+     c['partialTrueName']+=int(a['stage']==2 and a['trueName'])
+     c['partialWithin43s']+=int(a['stage']==2 and 0<a['nextTurnInMs']<=43000)
+     c['nearCompletionUses']+=int(a['nearCompletion'])
+     c['nearCompletionAlternativeReady']+=int(a['nearCompletion'] and bool(a['alternativeChecks']))
+     c['partialWithOtherCheckReady']+=int(a['stage']==2 and bool(a['alternativeChecks']))
+     c['commanderAlreadyObserved']+=int(a['targetCommanderObserved'])
+     if d['options'].get(variant,{}).get('preservePartialGem'):assert not a['nearCompletion'],a
   assert len(fixtures)==d['count']*4 and all(len(x)==4 for x in paired.values())
   for seed,x in paired.items():scores[variant][seed].append(sum(x)/4)
   s=r['summary'];assert s['games']==len(games) and s['seeds']==d['count']

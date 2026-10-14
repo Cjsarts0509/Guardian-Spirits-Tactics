@@ -14,7 +14,7 @@ import { adaptiveClaimName, strategicClaimName } from './bot-claim-policy.js';
 import { hasIdentityEvidence, bestConfirmation } from './bot-confirmation.js';
 import { boundedSequenceSearch } from './bot-sequence.js';
 import { boundedAttackSearch } from './bot-rollout.js';
-import { bestGemTarget } from './bot-information.js';
+import { bestGemTarget, shouldPreservePartialGem } from './bot-information.js';
 import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot-tactics.js';
 export type { BotMemory, Knowledge } from './bot-memory.js';
 
@@ -25,6 +25,8 @@ export interface BotOptions {
   teamworkBudget?: boolean;
   /** 개발 비교: 직접 확인된 아군의 일관된 적 보고는 최상급 공격만 참고. 기본 OFF. */
   reportedSupreme?: boolean;
+  /** 개발 비교: 다음 턴 완성이 가까운 진명·마나 조건에서만 부분 보석 사용을 보류. 기본 OFF. */
+  preservePartialGem?: boolean;
   /** 개발 비교: 미확인 동맹 요청자를 먼저 확인한다. 요청은 정체 사실로 취급하지 않는다. */
   verifyIncomingAllies?: boolean | 'useful-report';
   /** 개발 비교: 일반 인물의 위장 전 보석 목표 단계. 지휘관/변장 노출 예외는 유지한다. */
@@ -530,6 +532,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
     }
   }
 
+  if(opts.preservePartialGem&&shouldPreservePartialGem(view))usable.delete('truth_gem');
   if(opts.teamwork !== false){
     if(opts.reportedSupreme){const attack=reportedSupremeAttack(view,knowledge,mem,usable,attackable);if(attack)return attack;}
     const check=verifyIntel(view,knowledge,mem,usable);if(check)return sequence(check);
