@@ -9,7 +9,7 @@ p=argparse.ArgumentParser();p.add_argument('path',type=pathlib.Path);p.add_argum
 def read(path):
     raw=path.read_bytes();return gzip.decompress(raw) if path.suffix=='.gz' else raw
 d=json.loads(read(a.path));assert d['phase'] in ['development','holdout']
-specs={'own-attack-outcome-knowledge-comparison':('learnOwnAttackOutcome',{'learnOwnAttackOutcome':True}),'first-warning-trusted-report-comparison':('reportedFirstWarning',{'reportedFirstWarning':True}),'repeated-warned-failed-guess-comparison':('avoidRepeatedFailedGuess',{'avoidRepeatedFailedGuess':True}),'private-confirmation-attack-followup-comparison':('directCheckFollowup',{'directCheckFollowup':True}),'confirmed-ally-urgent-dispel-comparison':('urgentDispelBeforeAlly',{'urgentDispelBeforeAlly':True}),'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
+specs={'known-commander-guard-before-ally-comparison':('knownCommanderGuardBeforeAlly',{'knownCommanderGuardBeforeAlly':True}),'own-attack-outcome-knowledge-comparison':('learnOwnAttackOutcome',{'learnOwnAttackOutcome':True}),'first-warning-trusted-report-comparison':('reportedFirstWarning',{'reportedFirstWarning':True}),'repeated-warned-failed-guess-comparison':('avoidRepeatedFailedGuess',{'avoidRepeatedFailedGuess':True}),'private-confirmation-attack-followup-comparison':('directCheckFollowup',{'directCheckFollowup':True}),'confirmed-ally-urgent-dispel-comparison':('urgentDispelBeforeAlly',{'urgentDispelBeforeAlly':True}),'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
 candidate,options=specs[d['kind']]
 assert d['variants']==['baseline','control',candidate] and d['options']=={'baseline':{},'control':{},candidate:options}
 if not a.allow_partial:assert d['complete'] and d['executions']==d['count']*4*3*4*3
@@ -85,6 +85,34 @@ for x in d['records']:
     b['games']+=1;b['scoreSum']+=score;b['unfinished']+=int(g['winner'] is None);b['earlyAttackFailures']+=g['stats']['current']['earlyAttackFailures'];b['rejected']+=g['stats']['current']['rejected'];b['safety'].update(r['safety'])
     b['resources'].update({k:z for k,z in res.items() if k!='skills'})
     for k,z in skills.items():b['skills'].setdefault(k,collections.Counter()).update(z)
+    guard_counts=collections.Counter();guard_seen=set()
+    for t in r.get('guardDecisions',[]):
+        assert mode=='primordial' and v in ['control','knownCommanderGuardBeforeAlly'] and t['ownSide']==f['currentSide']
+        assert 0<=t['at']<=g['elapsedMs'] and (t['player'],t['at']) not in guard_seen;guard_seen.add((t['player'],t['at']))
+        skill,name={'consume':('consume_master_guard','eltas'),'kumarin':('kumarin_commander_guard','rael')}[t['character']]
+        assert t['guardSkill']==skill and t['guardCost']==50 and t['usesLeft']==1 and t['ownMemoryEqual'] and t['ownRngEqual']
+        assert t['knownName'] in [None,name] and (t['target'] is None)==(t['knownName'] is None)
+        assert t['reserve']==max([0]+[a['cost'] for a in t['reservedAttacks']])
+        for a1 in t['reservedAttacks']:assert a1['skill'] in ['attack','advanced_attack','supreme_attack','soen_chain_murder'] and 0<a1['cooldown']<=20000 and a1['cost']<=t['mana'] and a1['knownEnemy']
+        ready=not t['passive'] and t['blocked'] is None and t['cooldown']==0 and t['mana']>=t['guardCost']
+        original,chosen=t['originalAction'],t['chosenAction']
+        reason='skill_unavailable' if not ready else 'identity_unconfirmed' if t['target'] is None else 'target_dead' if not t['targetAlive'] else 'not_ally' if t['knownSide']!=t['ownSide'] else 'target_invulnerable' if t['targetProtected'] else 'attack_reserve' if t['guardCost']>t['mana']-t['reserve'] else 'other_original_choice' if not original or original['type']!='skill' or original['skill']!='ally' else 'eligible'
+        assert reason==t['reason'] and t['eligible']==(reason=='eligible')
+        selected=bool(t['target'] and chosen=={'type':'skill','skill':skill,'target':t['target']});assert selected==t['selectedGuard']
+        if chosen:
+            actual=[z for z in r['actions'] if z['player']==t['player'] and z['at']==t['at'] and z['action']==chosen];assert len(actual)==1 and actual[0]['accepted']==t['accepted'] and actual[0]['beforeMana']==t['mana']
+        else:assert t['accepted'] is None
+        if selected:assert t['actualName'] is not None and t['actualSide'] in [1,2] and type(t['success']) is bool
+        if v=='knownCommanderGuardBeforeAlly':
+            if t['eligible']:assert selected and t['accepted'] and t['success'] and t['actualName']==name and t['actualSide']==t['ownSide']
+            else:assert original==chosen
+        else:assert original==chosen
+        guard_counts['decisions']+=1;guard_counts['reason:'+reason]+=1;guard_counts['eligible']+=t['eligible']
+        guard_counts['selectedAtEligible']+=t['eligible'] and selected
+        guard_counts['successfulAtEligible']+=t['eligible'] and selected and t['success']
+        guard_counts['wrongAtEligible']+=t['eligible'] and selected and (t['actualName']!=name or t['actualSide']!=t['ownSide'])
+    if 'wrongEarlyGuards' in r['safety']:assert r['safety']['wrongEarlyGuards']==guard_counts['wrongAtEligible']
+    if candidate=='knownCommanderGuardBeforeAlly':b.setdefault('commanderGuard',collections.Counter()).update(guard_counts)
     proof_seen=set()
     for t in r.get('ownAttackProofs',[]):
         proof,event=t['proof'],t['event'];key=(t['player'],proof['seq'])

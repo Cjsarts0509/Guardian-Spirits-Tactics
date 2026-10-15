@@ -12,14 +12,14 @@ import {smartBotAction as priorPR} from './baselines/pre-round024.js';
 import {smartBotAction as previous} from './baselines/pre-cooperative.js';
 import {opponentClaim,type ClaimStyle} from './claim-opponents.js';
 import {playMatch,DEFAULT_SETTINGS,type Fixture,type Policy,type Settings} from './league-runner.js';
-export type CommitmentVariant='learnOwnAttackOutcome'|'reportedFirstWarning'|'avoidRepeatedFailedGuess'|'baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair'|'netAttackReserve'|'urgentDispelBeforeAlly'|'directCheckFollowup';
+export type CommitmentVariant='knownCommanderGuardBeforeAlly'|'learnOwnAttackOutcome'|'reportedFirstWarning'|'avoidRepeatedFailedGuess'|'baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair'|'netAttackReserve'|'urgentDispelBeforeAlly'|'directCheckFollowup';
 export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:CommitmentVariant,settings:Settings=DEFAULT_SETTINGS,observe=true,legacyControl=false){
-  const options=variant==='learnOwnAttackOutcome'?{learnOwnAttackOutcome:true}:variant==='reportedFirstWarning'?{reportedFirstWarning:true}:variant==='avoidRepeatedFailedGuess'?{avoidRepeatedFailedGuess:true}:variant==='directCheckFollowup'?{directCheckFollowup:true}:variant==='urgentDispelBeforeAlly'?{urgentDispelBeforeAlly:true}:variant==='netAttackReserve'?{netAttackReserve:true}:variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
+  const options=variant==='knownCommanderGuardBeforeAlly'?{knownCommanderGuardBeforeAlly:true}:variant==='learnOwnAttackOutcome'?{learnOwnAttackOutcome:true}:variant==='reportedFirstWarning'?{reportedFirstWarning:true}:variant==='avoidRepeatedFailedGuess'?{avoidRepeatedFailedGuess:true}:variant==='directCheckFollowup'?{directCheckFollowup:true}:variant==='urgentDispelBeforeAlly'?{urgentDispelBeforeAlly:true}:variant==='netAttackReserve'?{netAttackReserve:true}:variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
   const resources={aliveMs:0,trueNameMs:0,turns:0,trueNameTurns:0,trueNameBonusGross:0,incomingAllyManaGross:0,turnGainGross:0,
     publishes:0,truePublishes:0,falsePublishes:0,publishManaGross:0,publishManaNet:0,reaffirmations:0,reaffirmManaNet:0,allies:0,allyManaNet:0,
     acceptedSkillMana:0,attackFailures:0,holdingMs:0,holdStarts:0,holdingTrueNameTurns:0,gemCompletedPlayers:0,
     skills:{} as Record<string,{accepted:number;rejected:number;nominalMana:number;netManaDelta:number;whileHolding:number}>};
-  const safety={wrongReportedAttacks:0,wrongFollowups:0,wrongBreaks:0,wrongAllies:0,falseReports:0,holdingFalsePublishes:0};
+  const safety={wrongEarlyGuards:0,wrongReportedAttacks:0,wrongFollowups:0,wrongBreaks:0,wrongAllies:0,falseReports:0,holdingFalsePublishes:0};
   const turns:Array<{player:string;at:number;turn:number;gain:number;allies:number;trueName:boolean;gem:number;holding:boolean}>=[];
   const holds:Array<{player:string;character:string;at:number;publishedAt:number;until:number;nextTurnInMs:number;trueName:boolean;hasDisguise:boolean}>=[];
   type Proof={originalNull:boolean;ownMemoryEqual:boolean;ownRngEqual:boolean};
@@ -42,6 +42,10 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     senders:Array<{id:string;role:string;side:number;alive:boolean;event:GameEvent}>;
     accepted:boolean|null;attackFailure:boolean|null;actualName:string|null;actualSide:number|null}>=[];
   const ownAttackProofs:Array<{player:string;observedAt:number;proof:import('../src/bot-own-attack.js').OwnAttackProof;event:GameEvent;targetSeat:number;nameLabel:string;actualName:string;correct:boolean}>=[];
+  const guardDecisions:Array<{player:string;at:number;character:string;ownSide:number;guardSkill:string;guardCost:number;mana:number;
+    blocked:string|null;usesLeft:number|null;cooldown:number;passive:boolean;reserve:number;reservedAttacks:Array<{skill:string;cost:number;cooldown:number;knownEnemy:string;name:string}>;
+    target:string|null;knownName:string|null;knownSide:number|null;targetAlive:boolean;targetProtected:boolean;reason:string;
+    originalAction:Action|null;chosenAction:Action|null;ownMemoryEqual:boolean;ownRngEqual:boolean;eligible:boolean;selectedGuard:boolean;accepted:boolean|null;success:boolean|null;actualName:string|null;actualSide:number|null}>=[];
   const proofSeen=new Set<string>();
   const outcomeOpportunities:Array<{player:string;at:number;target:string;name:string;skill:string;seq:number;kind:string;gameRunning:boolean;actorAlive:boolean;targetAlive:boolean;knownBefore:boolean}>=[];
   const ownIds=new Set<string>(),seq=new Map<string,number>(),until=new Map<string,number>(),holdingCharacter=new Map<string,string>(),seenHolds=new Set<string>(),completed=new Set<string>();
@@ -76,7 +80,33 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     const rescueOriginal=observe&&variant==='urgentDispelBeforeAlly'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const guessOriginal=observe&&variant==='avoidRepeatedFailedGuess'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const reportOriginal=observe&&variant==='reportedFirstWarning'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
+    const guardOriginal=observe&&variant==='knownCommanderGuardBeforeAlly'&&s.mode==='primordial'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const a=variant==='baseline'?previous(s,id,m,{activity:o.activity}):variant==='control'&&legacyControl?priorPR(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options});let proof:Proof|null=null;
+    if(observe&&(variant==='control'||guardOriginal)&&s.mode==='primordial'&&m.communicationAt===s.now-s.startedAt){
+      const v=viewFor(s,id),pair=v.me.character==='consume'?['consume_master_guard','eltas']:v.me.character==='kumarin'?['kumarin_commander_guard','rael']:null;
+      const skill=pair?v.me.skills.find(z=>z.key===pair[0]):undefined;
+      if(pair&&skill&&skill.usesLeft!==0){
+        const k=botKnowledge(s,id,v,structuredClone(m)),target=v.players.find(p=>k.known.get(p.id)===pair[1]);
+        const enemies=v.players.filter(p=>p.alive&&!p.statuses.some(z=>z.kind==='invulnerable')&&k.known.has(p.id)&&v.roster.find(r=>r.key===k.known.get(p.id))!.side!==v.me.side);
+        const reservedAttacks=v.me.skills.flatMap(x=>{
+          const enemy=enemies.find(p=>x.nameOptions?.includes(k.known.get(p.id)!));
+          return NAME_ATTACKS.includes(x.key)&&x.cooldownRemainingMs>0&&x.cooldownRemainingMs<=20000&&v.me.mana>=x.mana&&enemy?
+            [{skill:x.key,cost:x.mana,cooldown:x.cooldownRemainingMs,knownEnemy:enemy.id,name:k.known.get(enemy.id)!}]:[];
+        });
+        const reserve=Math.max(0,...reservedAttacks.map(x=>x.cost));
+        const originalAction=guardOriginal?smartBotAction(s,id,guardOriginal,{...o,knownCommanderGuardBeforeAlly:false}):a;
+        const ready=!skill.passive&&skill.blocked===null&&skill.cooldownRemainingMs===0&&v.me.mana>=skill.mana;
+        const knownSide=target?v.roster.find(r=>r.key===k.known.get(target.id))!.side:null;
+        const reason=!ready?'skill_unavailable':!target?'identity_unconfirmed':!target.alive?'target_dead':knownSide!==v.me.side?'not_ally':
+          target.statuses.some(x=>x.kind==='invulnerable')?'target_invulnerable':skill.mana>v.me.mana-reserve?'attack_reserve':
+          originalAction?.type!=='skill'||originalAction.skill!=='ally'?'other_original_choice':'eligible';
+        guardDecisions.push({player:id,at:v.elapsedMs,character:v.me.character,ownSide:v.me.side,guardSkill:skill.key,guardCost:skill.mana,mana:v.me.mana,
+          blocked:skill.blocked,usesLeft:skill.usesLeft,cooldown:skill.cooldownRemainingMs,passive:skill.passive,reserve,reservedAttacks,
+          target:target?.id??null,knownName:target?k.known.get(target.id)!:null,knownSide,targetAlive:target?.alive??false,targetProtected:target?.statuses.some(z=>z.kind==='invulnerable')??false,reason,
+          originalAction,chosenAction:a,ownMemoryEqual:!guardOriginal||isDeepStrictEqual(guardOriginal,m),ownRngEqual:!guardOriginal||guardOriginal.rng===m.rng,eligible:reason==='eligible',selectedGuard:!!target&&a?.type==='skill'&&a.skill===skill.key&&a.target===target.id,
+          accepted:null,success:null,actualName:null,actualSide:null});
+      }
+    }
     if(reportOriginal&&a?.type==='skill'&&a.skill==='advanced_attack'&&a.target&&a.name){
       const v=viewFor(s,id),k=botKnowledge(s,id,v,structuredClone(m));
       if(!k.known.has(a.target)&&trustedIntel(v,k,m).get(a.target)===a.name){
@@ -190,6 +220,13 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     const report=reportedAttacks.find(z=>z.player===id&&z.at===p.view.elapsedMs&&isDeepStrictEqual(z.chosenAction,a));
     if(report){const t=s.players.find(p=>p.id===report.target)!;report.accepted=result.ok;report.attackFailure=result.events.some(e=>e.kind==='attack.fail.self');
       report.actualName=t.character;report.actualSide=t.side;safety.wrongReportedAttacks+=Number(t.character!==report.name||t.side===report.ownSide);}
+    const guard=guardDecisions.find(z=>z.player===id&&z.at===p.view.elapsedMs&&isDeepStrictEqual(z.chosenAction,a));
+    if(guard){guard.accepted=result.ok;
+      if(guard.selectedGuard){const target=s.players.find(z=>z.id===guard.target)!;guard.actualName=target.character;guard.actualSide=target.side;
+        guard.success=result.events.some(e=>e.kind==='skill.'+guard.guardSkill);
+        if(guard.eligible)safety.wrongEarlyGuards+=Number(target.character!==guard.knownName||target.side!==guard.ownSide);
+      }
+    }
     actions.push({player:id,at:p.view.elapsedMs,action:a,accepted:result.ok,error:result.ok?null:result.error??'알 수 없는 거절',beforeMana:p.view.me.mana,
       afterMana:after.me.mana,maxMana:p.view.me.maxMana,nominalMana:nominal,holding:p.holding,beforeTrueName:p.view.me.trueName,beforePublished:p.view.me.published,
       manualSameName:p.manualSameName,activeDecision:p.activeDecision,reaffirmationProof:p.proof,character:p.view.me.character,side:p.view.me.side,grading});
@@ -219,5 +256,5 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       if(v.me.gem===3&&!completed.has(id)){completed.add(id);resources.gemCompletedPlayers++;}
     }
   });
-  return {game,resources,safety,turns,holds,actions,budgets,deadReports,rescues,checkReactions,blockedGuesses,reportedAttacks,ownAttackProofs,outcomeOpportunities};
+  return {game,resources,safety,turns,holds,actions,budgets,deadReports,rescues,checkReactions,blockedGuesses,reportedAttacks,ownAttackProofs,outcomeOpportunities,guardDecisions};
 }

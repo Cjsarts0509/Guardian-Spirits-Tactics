@@ -5,6 +5,7 @@ import {shareIntel,verifyIntel,hasUsefulIntelExchange,reportedSupremeAttack,repo
 //   상대 정체를 모르면 공격하지 않고 확인부터 한다. 시간이 지나면 후보가 좁혀진 대상에게 추측 공격을 시작한다.
 import { filterProtectionRetry } from './bot-retry.js';
 import { prepareOwnAttack } from './bot-own-attack.js';
+import { knownCommanderGuard } from './bot-commander-guard.js';
 import { randomInt, nextRandom } from './rng.js';
 import type { Action, CharKey, GameState, PlayerId } from './types.js';
 import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
@@ -24,6 +25,8 @@ export type { BotMemory, Knowledge } from './bot-memory.js';
 export interface BotOptions {
   /** 기본OFF: 자기 명명 공격의 실제 성공 결과를 대상ID 정체 기억과 연결한다. */
   learnOwnAttackOutcome?: boolean;
+  /** 기본OFF: 새 동맹을 택하려는 순간, 확정 아군 지휘관의 준비된 횟수제 보호를 우선한다. */
+  knownCommanderGuardBeforeAlly?: boolean;
   /** 확정 관계 우선 동맹·파기와 실제 비공개 대화를 통한 정보 공유. false는 이전 정책 비교용. */
   teamwork?: boolean;
   /** 개발 비교: 동맹 후 즉시 확인·확정 아군 필수 지원의 마나를 보존한다. 기본은 기존 후보. */
@@ -488,6 +491,10 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
               p.statuses.some(e=>e.kind==='incapacitated')&&!p.statuses.some(e=>e.kind==='invulnerable'));
             if(s&&target)return act(s,target.id);
           }
+        }
+        if(opts.knownCommanderGuardBeforeAlly){
+          const guard=knownCommanderGuard(view,knowledge,usable);
+          if(guard)return guard;
         }
         return act(ally,friends[0].id);
       }
