@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 133000,
     "count": 64,
-    "status": "reserved_unused_new_paired_training_diagnostic"
+    "status": "training_diagnostic_in_progress_3068_verified_unique"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -20,11 +20,13 @@
   "candidate": "diagnosticOnlyFirstLowManaConfirmedAllyDelayOnce",
   "options": {},
   "conditionalCandidateDevelopmentSeeds":{"start":134000,"count":8,"status":"reserved_unused_only_if_preregistered_model_produces_candidate"},
-  "checkpoint": "570_tests_python6_type_server_client_worker_passed_before_source_freeze",
+  "checkpoint": "3068_unique_partial_verified_after_storage_recovery_complete_false",
+  "sourceRef":"38a57879a3ba358e33d4e8a4cac0b10b7eb6b2b4",
+  "unverifiedExecutionUpperBoundExcluded":6,
   "checks": {"tests":570,"rules":502,"server":68,"pythonLearnerTests":6,"typecheck":"passed","serverBuild":"passed","clientWorkerBuild":"passed"},
-  "executions": 0,
+  "executions": 3068,
   "targetExecutions": 6144,
-  "cumulativeExecutions": 19392,
+  "cumulativeExecutions": 22460,
   "decision": "pending_new_paired_diagnostic_no_promotion",
   "nextAction": "freeze_source_then_fresh133000_paired_diagnostic_in_96_game_batches",
   "previousCompleted": {"round":18,"executions":1152,"decision":"rejected_development_default_off_holdout_unused","evaluationSourceRef":"0429e6b169b7fca5227f1e04fb5eac131e17ac5a","postEvaluationSafetyFixRef":"d4360dc39a7c28889474d808aa45228ab3a1e037","record":"docs/ai-rounds/ROUND_018_20261015_1002.md"},
