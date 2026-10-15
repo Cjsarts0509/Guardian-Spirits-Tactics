@@ -1,23 +1,25 @@
 {
-  "round": 22,
-  "status": "completed",
-  "owner": "continuous-round-022-final-corpus-audit-only",
-  "startedAt": "2026-10-15T11:48:50+09:00",
-  "leaseUntil": "2026-10-15T12:05:00+09:00",
-  "continuation": "finish_commit_then_start_next_immediately_until_deadline",
-  "deadline": "2026-10-15T12:00:00+09:00",
-  "noNewExperimentAfter": "2026-10-15T11:50:00+09:00",
+  "round": 23,
+  "status": "in_progress",
+  "owner": "resumed-round-023-storage-consistency",
+  "startedAt": "2026-10-15T12:30:00+09:00",
+  "leaseUntil": "2026-10-15T13:30:00+09:00",
+  "continuation": "user_1227_authorized_resumption_fix_storage_then_evidence_based_ai_and_human_validation",
+  "deadline": null,
+  "noNewExperimentAfter": null,
   "developmentSeeds": {
-    "status": "none_no_new_experiments"
+    "start": 138000,
+    "count": 8,
+    "status": "reserved_unused_for_next_policy_development"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "none_final_audit_only",
+  "candidate": "storage_only_no_policy_change",
   "options": {},
-  "checkpoint": "final_closed_31296_verified_no_active_games_repeat_disabled",
+  "checkpoint": "reservation_before_storage_changes",
   "checks": {
     "tests": 584,
     "rules": 516,
@@ -29,16 +31,13 @@
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 31296,
-  "decision": "closed_zero_adoptions_experimental_options_off_holdout_unused",
-  "nextAction": "stopped_requires_new_user_authorization",
+  "decision": "pending_storage_reproduction_and_fix",
+  "nextAction": "reproduce_detectable_storage_gap_and_implement_verified_persistence",
   "previousCompleted": {
-    "round": 21,
-    "executions": 1152,
-    "unfinishedExecutions": 0,
-    "sourceRef": "8eb4e065b0fae7ed90d4b503bd6e4226954998c6",
-    "completionRef": "d79e67f59c9b43a98d4ad0a6a0c2d75957f01b97",
-    "decision": "rejected_development_default_off",
-    "record": "docs/ai-rounds/ROUND_021_20261015_1135.md"
+    "round": 22,
+    "completionRef": "73a7b34bb99d22c714b48796e806a034b86a04fc",
+    "record": "docs/ai-rounds/ROUND_022_20261015_1148.md",
+    "cumulativeExecutions": 31296
   },
   "unusedPriorCandidateDevelopment": {
     "start": 129000,
@@ -62,7 +61,7 @@
     "reportedAt": "2026-10-15T12:00:51.000+09:00",
     "repeatDisabled": true
   },
-  "task": "022 final closeout complete; no new development or research; repeat disabled",
+  "task": "User1227 resumed: storage repair, evidence-based win improvement, actual human validation readiness",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 6,
   "unfinishedExecutions": 0,
@@ -81,7 +80,11 @@
     "remoteFetchedAuditByteIdentical": true
   },
   "cumulativeUnfinishedExecutions": 2,
-  "completedAt": "2026-10-15T12:00:51.000+09:00",
   "policySourceRef": "8eb4e065b0fae7ed90d4b503bd6e4226954998c6",
-  "repeatDisabled": true
+  "repeatDisabled": true,
+  "conditionalDevelopmentSeeds": {
+    "start": 139000,
+    "count": 8,
+    "status": "reserved_unused"
+  }
 }
