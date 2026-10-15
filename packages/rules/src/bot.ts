@@ -51,6 +51,8 @@ export interface BotOptions {
   urgentDispelBeforeAlly?:boolean;
   /** 개발 기본OFF: 본인 직접 확인 뒤1초/5초 안 한 번만 확정 이름 공격 반응. */
   directCheckFollowup?:boolean;
+  /** 개발 기본OFF: 경고 뒤 새 확정 정체 없이 같은 이름으로 상급2단계 추측을 반복하지 않는다. */
+  avoidRepeatedFailedGuess?:boolean;
   /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
   protectionRetryBackoff?: boolean;
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
@@ -759,7 +761,11 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
       // 자기 진영의 패배 조건에 들어가는 캐릭터(트롤 사토시·즈윈라·울디안, 황야 기사단)는 후보가 좁을 때만 건다
       const careful = (PRECIOUS[view.mode] ?? []).includes(me.character);
       const adv = usable.get('advanced_attack');
-      if (adv && adv.nameOptions?.includes(name) && ((adv.level === 1 && !careful) || t.all.length <= 2)) return act(adv, t.p.id, name);
+      if (adv && adv.nameOptions?.includes(name) && ((adv.level === 1 && !careful) || t.all.length <= 2)) {
+        // 실패는 이름 오류/보호를 구별하지 못하므로 후보·facts는 유지하고 치명적 재시도만 보류한다.
+        if(opts.avoidRepeatedFailedGuess&&adv.level>1&&!known.has(t.p.id)&&failures?.has(name))return null;
+        return act(adv, t.p.id, name);
+      }
       const atk = usable.get('attack');
       if (atk && atk.nameOptions?.includes(name) && (t.all.length <= 2 || (elapsed > 20 * MIN && !careful))) return act(atk, t.p.id, name);
     }

@@ -9,7 +9,7 @@ p=argparse.ArgumentParser();p.add_argument('path',type=pathlib.Path);p.add_argum
 def read(path):
     raw=path.read_bytes();return gzip.decompress(raw) if path.suffix=='.gz' else raw
 d=json.loads(read(a.path));assert d['phase'] in ['development','holdout']
-specs={'private-confirmation-attack-followup-comparison':('directCheckFollowup',{'directCheckFollowup':True}),'confirmed-ally-urgent-dispel-comparison':('urgentDispelBeforeAlly',{'urgentDispelBeforeAlly':True}),'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
+specs={'repeated-warned-failed-guess-comparison':('avoidRepeatedFailedGuess',{'avoidRepeatedFailedGuess':True}),'private-confirmation-attack-followup-comparison':('directCheckFollowup',{'directCheckFollowup':True}),'confirmed-ally-urgent-dispel-comparison':('urgentDispelBeforeAlly',{'urgentDispelBeforeAlly':True}),'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
 candidate,options=specs[d['kind']]
 assert d['variants']==['baseline','control',candidate] and d['options']=={'baseline':{},'control':{},candidate:options}
 if not a.allow_partial:assert d['complete'] and d['executions']==d['count']*4*3*4*3
@@ -137,6 +137,15 @@ for x in d['records']:
         assert t['changed'] and t['accepted'] and t['afterStatuses']==[]
         assert any(z['player']==t['player'] and z['at']==t['at'] and z['action']==t['chosenAction'] and z['accepted'] for z in r['actions'])
     if candidate=='urgentDispelBeforeAlly':b.setdefault('rescues',collections.Counter()).update({'changed':len(rescues)})
+    blocked_guesses=r.get('blockedGuesses',[])
+    for t in blocked_guesses:
+        assert v==candidate=='avoidRepeatedFailedGuess' and t['chosenAction'] is None and t['knownName'] is None and t['level']>1
+        act=t['originalAction'];e=t['failureEvent'];assert act['type']=='skill' and act['skill']=='advanced_attack' and act['name'] in t['candidates'] and len(t['candidates'])<=2
+        assert 0<=t['previousFailureAt']<t['at']<=g['elapsedMs'] and e['at']==t['previousFailureAt'] and e['kind']=='attack.fail.self'
+        assert e['vis']['to']=='players' and e['vis']['ids']==[t['player']] and e['data']['target']==act['target'] and e['data']['name']==act['name']
+        assert t['skillCost']==50 and t['skillBlocked'] is None and t['ownMemoryEqual'] and t['ownRngEqual']
+        assert not any(a['player']==t['player'] and a['at']==t['at'] and a['action']['type']!='chat' for a in r['actions'])
+    if candidate=='avoidRepeatedFailedGuess':b.setdefault('blockedGuesses',collections.Counter()).update({'blocked':len(blocked_guesses)})
 
 assert out['executions']==d['executions']
 for v,modes in out['variants'].items():
