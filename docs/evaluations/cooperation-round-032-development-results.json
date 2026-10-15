@@ -1,0 +1,223 @@
+{
+  "kind": "completed-development-summary",
+  "sourceRef": "5db38453b1b4949eba727a9b21c9d3d0f28d6566",
+  "executions": 1152,
+  "fingerprint": "f33ba32e01b16b8577744d580ee66fc30430394bace03f0751a3b3a9ebef4846",
+  "policySHA256": "6b6a5272df9182b7a44a8b3e05e969601f709b7504ee962bd936587342244429",
+  "options": {
+    "baseline": {},
+    "control": {},
+    "avoidRepeatedFailedGuess": {
+      "avoidRepeatedFailedGuess": true
+    }
+  },
+  "optionsSHA256": "5ca52470706af82ec1cd48f679090c6f511d90a335244ba46710df679936b482",
+  "results": {
+    "baseline": {
+      "score": 0.7083333333333334,
+      "byMode": {
+        "civil_war": 0.65625,
+        "primordial": 0.7291666666666666,
+        "lidellut": 0.7395833333333334,
+        "troll": 0.7083333333333334
+      },
+      "unfinished": 0,
+      "safety": 2,
+      "earlyAttackFailures": 0
+    },
+    "control": {
+      "score": 0.6588541666666666,
+      "byMode": {
+        "civil_war": 0.6979166666666666,
+        "primordial": 0.7708333333333334,
+        "lidellut": 0.6354166666666666,
+        "troll": 0.53125
+      },
+      "unfinished": 0,
+      "safety": 0,
+      "earlyAttackFailures": 0
+    },
+    "avoidRepeatedFailedGuess": {
+      "score": 0.6614583333333334,
+      "byMode": {
+        "civil_war": 0.6979166666666666,
+        "primordial": 0.7708333333333334,
+        "lidellut": 0.6458333333333334,
+        "troll": 0.53125
+      },
+      "unfinished": 0,
+      "safety": 0,
+      "earlyAttackFailures": 0
+    }
+  },
+  "contrasts": {
+    "avoidRepeatedFailedGuess-control": {
+      "difference": 0.0026041666666666665,
+      "seedBootstrap95": [
+        0.0,
+        0.0078125
+      ],
+      "byMode": {
+        "civil_war": 0.0,
+        "primordial": 0.0,
+        "lidellut": 0.01041666666666674,
+        "troll": 0.0
+      }
+    },
+    "avoidRepeatedFailedGuess-baseline": {
+      "difference": -0.046875,
+      "seedBootstrap95": [
+        -0.11458333333333333,
+        0.013020833333333334
+      ],
+      "byMode": {
+        "civil_war": 0.04166666666666663,
+        "primordial": 0.04166666666666674,
+        "lidellut": -0.09375,
+        "troll": -0.17708333333333337
+      }
+    }
+  },
+  "developmentGatePassed": false,
+  "holdoutUsed": false,
+  "pairedGames": 384,
+  "actionsChanged": 3,
+  "pairedScores": {
+    "tied": 383,
+    "better": 1
+  },
+  "changes": [
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        143003,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        143006,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "skill-aware-bluff",
+        143002,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 1,
+      "rescues": [],
+      "checkReactionCount": 0
+    }
+  ],
+  "rescueCount": 0,
+  "checkReactionCount": 0,
+  "newResearchExecutions": 1152,
+  "promotionEvidence": false,
+  "rawFileSHA256": "dae32ab0f8cc26d5d689fe1c88ccee99fd7850c23fa3cb40066f9b92a80098aa",
+  "verifiedSHA256": "65d947ce56c41028ddf685c2ba2dbf978189f19c1ca87042ed4dee75c3a7bd17",
+  "summaryToolSHA256": "582d969718812b6c7cb9ddd72a8128996740f5b45bb615372034ea78fb0aa104",
+  "phase": "development",
+  "holdoutGatePassed": false,
+  "tests": 627,
+  "rulesTests": 552,
+  "serverTests": 75,
+  "builds": "server_client_worker_passed",
+  "actualHumanMatches": 0,
+  "batchFailures": 0,
+  "duplicateExecutions": 0,
+  "residualWriterLocks": 0,
+  "terminated": 1152,
+  "sourceCI": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38725019788",
+  "sourceBrowser": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38725019784",
+  "files": {
+    "cooperation-round-032-development.publication.json": "f8bebe78b1b0fa028c085e0d5d1c822b0d62c205608137bc15a41ad4222e205b",
+    "cooperation-round-032-development.json.gz": "dae32ab0f8cc26d5d689fe1c88ccee99fd7850c23fa3cb40066f9b92a80098aa",
+    "cooperation-round-032-development.verified.json": "65d947ce56c41028ddf685c2ba2dbf978189f19c1ca87042ed4dee75c3a7bd17",
+    "cooperation-round-032-development.journal.ndjson.gz": "0f93ed09e26e3ddf3282c6849484e19fd5935ce94fddd4d47eb8d100d50f954c",
+    "cooperation-round-032-development.batches.ndjson": "ec6183d4313efd04b03963e48f2770391e680d9def6cd37e2b9669d65eb15817",
+    "cooperation-round-032-resume-proof.json": "e261ee57c96610295448538729beff8caf31068edd3d3153a33b9eb2d1746f65",
+    "cooperation-round-032-public-guard-coverage.json": "307d650be090dc9d47facf5bdb1103ce5b670f0e57ff22e629142a3ab9f13122",
+    "cooperation-round-032-postflight.tar.gz": "8592fddda9c428c639c5b23b71ee2f6c2e31bd7ec7ef9cf136762e1ed02ce3ee"
+  },
+  "blockedGuessCalls": 10,
+  "blockedGuessEpisodes": 3,
+  "blockedGuessGames": 3,
+  "nonBlockedEqualGames": 381,
+  "resourceByMode": {
+    "baseline": {
+      "civil_war": {
+        "attackFailures": 4,
+        "skillNominalMana": 75190
+      },
+      "primordial": {
+        "attackFailures": 22,
+        "skillNominalMana": 81875
+      },
+      "lidellut": {
+        "attackFailures": 9,
+        "skillNominalMana": 83920
+      },
+      "troll": {
+        "attackFailures": 2,
+        "skillNominalMana": 109990
+      }
+    },
+    "control": {
+      "civil_war": {
+        "attackFailures": 7,
+        "skillNominalMana": 87660
+      },
+      "primordial": {
+        "attackFailures": 44,
+        "skillNominalMana": 79095
+      },
+      "lidellut": {
+        "attackFailures": 15,
+        "skillNominalMana": 87515
+      },
+      "troll": {
+        "attackFailures": 18,
+        "skillNominalMana": 101385
+      }
+    },
+    "avoidRepeatedFailedGuess": {
+      "civil_war": {
+        "attackFailures": 7,
+        "skillNominalMana": 87660
+      },
+      "primordial": {
+        "attackFailures": 42,
+        "skillNominalMana": 79270
+      },
+      "lidellut": {
+        "attackFailures": 14,
+        "skillNominalMana": 87690
+      },
+      "troll": {
+        "attackFailures": 18,
+        "skillNominalMana": 101385
+      }
+    }
+  },
+  "sourceCIStatus": "success",
+  "sourceBrowserStatus": "success",
+  "resumeProof": "cooperation-round-032-resume-proof.json"
+}

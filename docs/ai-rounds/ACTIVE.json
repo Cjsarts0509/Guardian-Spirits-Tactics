@@ -1,6 +1,6 @@
 {
   "round": 32,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round032-avoid-repeat-warned-failed-guess",
   "startedAt": "2026-10-15T19:58:45.480778+09:00",
   "leaseUntil": "2026-10-15T20:43:45.480778+09:00",
@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 143000,
     "count": 8,
-    "status": "in_progress576_of1152"
+    "status": "used_completed_development"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,7 +21,7 @@
   "options": {
     "avoidRepeatedFailedGuess": true
   },
-  "checkpoint": "partial576_of1152_independently_verified_same_fixed_candidate",
+  "checkpoint": "1152_complete_archive_source_verified_new0_resume",
   "checks": {
     "tests": 627,
     "rules": 552,
@@ -39,11 +39,11 @@
     "singleCheckSmoke": "96_synthetic_7_interventions_excluded",
     "ownTraceObserver": "callback_mutation_and_full_result_invariance_passed"
   },
-  "executions": 576,
+  "executions": 1152,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 38976,
-  "decision": "pending_development_candidate_default_off",
-  "nextAction": "Implement one late speculative advanced-level2 repeated-failed-name guard; regressions/types/builds then immutable freeze then143000 development",
+  "cumulativeExecutions": 40128,
+  "decision": "development_main_shortfall_defaultOFF_no_holdout",
+  "nextAction": "033 fresh144000 first-warning advanced attack on actual trusted reports, read prior007 first",
   "previousCompleted": {
     "round": 31,
     "completionRef": "56827b7f410f821b5d2e5904b8d47e21d308ad6e",
@@ -60,19 +60,19 @@
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 0,
   "unfinishedExecutions": 0,
   "corpusAudit": {
-    "datasets": 25,
-    "verifiedExecutions": 38976,
-    "terminatedGames": 38974,
+    "datasets": 26,
+    "verifiedExecutions": 40128,
+    "terminatedGames": 40126,
     "unfinishedExecutions": 2,
     "seedRangesDisjoint": true,
     "reservedUnusedIntrusions": 0,
-    "path": "docs/evaluations/cooperation-round-030-cumulative-audit.json"
+    "path": "docs/evaluations/cooperation-round-032-cumulative-audit.json"
   },
   "cumulativeUnfinishedExecutions": 2,
   "policySourceRef": "5db38453b1b4949eba727a9b21c9d3d0f28d6566",
   "repeatDisabled": false,
-  "sourceCI": "in_progress",
-  "sourceBrowserCheck": "in_progress",
+  "sourceCI": "success",
+  "sourceBrowserCheck": "success",
   "humanValidation": {
     "instrumentation": "implemented",
     "factualReplay": "tested_synthetic_only",
@@ -84,11 +84,11 @@
   "postflightCI": {
     "sourceRef": "5db38453b1b4949eba727a9b21c9d3d0f28d6566",
     "CI": {
-      "conclusion": "in_progress",
+      "conclusion": "success",
       "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38725019788"
     },
     "browser": {
-      "conclusion": "in_progress",
+      "conclusion": "success",
       "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38725019784"
     }
   },
@@ -108,5 +108,6 @@
     "maximumReplayGames": 23,
     "completedReplayGames": 23,
     "researchExecutions": 0
-  }
+  },
+  "completedAt": "2026-10-15T20:18:37.283357+09:00"
 }
