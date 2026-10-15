@@ -1,27 +1,27 @@
 {
-  "round": 33,
-  "status": "completed",
-  "owner": "round033-first-warning-advanced-real-trusted-report",
-  "startedAt": "2026-10-15T20:21:09.360977+09:00",
-  "leaseUntil": "2026-10-15T21:06:09.360977+09:00",
+  "round": 34,
+  "status": "in_progress",
+  "owner": "round034-own-accepted-name-outcome-knowledge",
+  "startedAt": "2026-10-15T20:50:39.250967+09:00",
+  "leaseUntil": "2026-10-15T21:35:39.250967+09:00",
   "continuation": "user_1818_resume_continuous_rounds",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
-    "start": 144000,
+    "start": 145000,
     "count": 8,
-    "status": "used_completed_development"
+    "status": "reserved_unused_conditional_on_reproduction"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "reportedFirstWarning",
+  "candidate": "learnOwnAttackOutcome",
   "options": {
-    "reportedFirstWarning": true
+    "learnOwnAttackOutcome": true
   },
-  "checkpoint": "1152_complete_source_archive_verified_new0_legacy032_same",
+  "checkpoint": "reserved_own_outcome_witness_before_code",
   "checks": {
     "tests": 635,
     "rules": 560,
@@ -40,16 +40,16 @@
     "ownTraceObserver": "callback_mutation_and_full_result_invariance_passed",
     "reportedAttackTamper": "3_rehashed_level2_sender_directFacts_rejected"
   },
-  "executions": 1152,
+  "executions": 0,
   "targetExecutions": 1152,
   "cumulativeExecutions": 41280,
-  "decision": "control_improved_main_shortfall_defaultOFF_no_holdout",
-  "nextAction": "034 reproduce own named-hit target identity knowledge gap before new145000 candidate",
+  "decision": "pending_reproduction_before_candidate",
+  "nextAction": "Reproduce own accepted attack hit/guarded receipt ID knowledge loss; only then defaultOFF patch and fresh145000",
   "previousCompleted": {
-    "round": 32,
-    "completionRef": "5ce95a810f709faacc1cf687be309de127b52651",
-    "record": "docs/ai-rounds/ROUND_032_20261015_1958.md",
-    "cumulativeExecutions": 40128
+    "round": 33,
+    "completionRef": "3743a894c1c41e149c0394b0fc71a83492b50cab",
+    "record": "docs/ai-rounds/ROUND_033_20261015_2021.md",
+    "cumulativeExecutions": 41280
   },
   "unusedPriorCandidateDevelopment": {
     "start": 129000,
@@ -94,7 +94,7 @@
     }
   },
   "conditionalDevelopmentSeeds": {
-    "start": 145000,
+    "start": 146000,
     "count": 8,
     "status": "reserved_unused"
   },
@@ -109,6 +109,5 @@
     "maximumReplayGames": 23,
     "completedReplayGames": 23,
     "researchExecutions": 0
-  },
-  "completedAt": "2026-10-15T20:46:31.967000+09:00"
+  }
 }
