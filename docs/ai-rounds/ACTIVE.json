@@ -1,6 +1,7 @@
 {
   "round": 18,
-  "status": "in_progress",
+  "status": "completed",
+  "completedAt":"2026-10-15T10:21:00+09:00",
   "owner": "continuous-round-018-forecast-attack-budget",
   "startedAt": "2026-10-15T10:02:00+09:00",
   "leaseUntil": "2026-10-15T10:40:00+09:00",
@@ -10,7 +11,7 @@
   "developmentSeeds": {
     "start": 132000,
     "count": 8,
-    "status": "development_in_progress_576_of_1152"
+    "status": "completed_development_not_reusable_for_promotion"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,14 +22,15 @@
   "options": {
     "forecastAttackBudget": true
   },
-  "checkpoint": "576_partial_verified_source_frozen_complete_false",
+  "checkpoint": "1152_complete_verified_post_evaluation_mandatory_break_fix_checked_not_reevaluated",
   "sourceRef": "0429e6b169b7fca5227f1e04fb5eac131e17ac5a",
   "checks": {"tests":561,"rules":493,"server":68,"typecheck":"passed","serverBuild":"passed","clientWorkerBuild":"passed","previous017SourceRefVerification":"passed_byte_identical_summary"},
-  "executions": 576,
+  "executions": 1152,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 18816,
-  "decision": "pending_new_development_no_promotion",
-  "nextAction": "freeze_source_then_fresh132000_development_in_96_game_batches",
+  "cumulativeExecutions": 19392,
+  "decision": "rejected_development_no_score_gain_default_off_holdout_unused",
+  "postEvaluationChecks":{"tests":562,"typecheck":"passed","serverClientWorkerBuild":"passed","correctedOptionNewResearchExecutions":0},
+  "nextAction": "immediate019_reserve_fresh133000_for_first_low_mana_confirmed_ally_single_delay_pairs",
   "previousCompleted": {"round": 17, "executions": 1152, "decision": "rejected_development_default_off_holdout_unused", "sourceRef": "efe45fa7a7d10f661414145984fe2f9d645011b0", "record": "docs/ai-rounds/ROUND_017_20261015_0937.md"},
   "unusedPriorCandidateDevelopment": {"start": 129000, "count": 8, "status": "unused_no015_candidate"},
   "finalReport": {
@@ -44,6 +46,6 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "018예약:현재마나부족·다음자기턴수입으로충족하는20초이내확정공격의부족분만예약.새132000–132007/1152개발예정·기본OFF·017/016과조합없음·12시까지연속진행.",
+  "task": "018완료1152개발·control/후보69.01/main70.31%로미채택·17예산판단중4확인보류/승패동일·독립121000미사용.평가후적동맹파기예산제외수정/562검사·새ON경기0.즉시019대응동맹진단예약.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }

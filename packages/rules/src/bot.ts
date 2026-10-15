@@ -290,7 +290,8 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
     s.cooldownRemainingMs > 0 && s.cooldownRemainingMs <= 20_000 && me.mana >= s.mana &&
     knownEnemies.some((p) => attackable(known.get(p.id)!) && s.nameOptions?.includes(known.get(p.id)!)),
   ).map((s) => s.mana));
-  if (reserve) for (const [key, s] of usable) if (!NAME_ATTACKS.includes(key) && s.mana > me.mana - reserve) usable.delete(key);
+  if (reserve) for (const [key, s] of usable) if (!NAME_ATTACKS.includes(key) &&
+    !(opts.forecastAttackBudget&&key==='break_ally') && s.mana > me.mana - reserve) usable.delete(key);
   const unknown = alive.filter((p) => !known.has(p.id));
   const informed = (id: PlayerId) => hasIdentityEvidence(view, knowledge, mem, id);
   const claimsSide = (p: { published: CharKey | null }, side: number) => p.published !== null && sideOf.get(p.published) === side;

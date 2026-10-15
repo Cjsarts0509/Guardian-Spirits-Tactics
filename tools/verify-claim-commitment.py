@@ -87,7 +87,7 @@ for x in d['records']:
         if t['originalWouldBreakForecast']:assert t['originalCost']>t['mana']-plan['manaToKeep']
         if chosen:
             assert any(z['player']==t['player'] and z['at']==t['at'] and z['action']==chosen and z['beforeMana']==t['mana'] and z['nominalMana']==t['chosenCost'] for z in r['actions'])
-            assert chosen['type']!='skill' or chosen['skill'] in attacks or t['chosenCost']<=t['mana']-plan['manaToKeep']
+            assert chosen['type']!='skill' or chosen['skill'] in attacks+['break_ally'] or t['chosenCost']<=t['mana']-plan['manaToKeep']
         budget_counts['decisions']+=1;budget_counts['changed']+=t['changed'];budget_counts['chosenNull']+=chosen is None
         if t['originalWouldBreakForecast']:
             budget_counts['originalBudgetBreaking']+=1;budget_counts['originalSkill:'+original['skill']]+=1

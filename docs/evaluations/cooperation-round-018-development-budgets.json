@@ -1,0 +1,518 @@
+{
+  "format": 1,
+  "executions": 1152,
+  "counts": {
+    "ownTurnEpisodes": 9,
+    "decisions": 17
+  },
+  "changed": [
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "style": "truthful",
+        "seed": 132001,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "budget": {
+        "player": "p5",
+        "at": 79750,
+        "mana": 30,
+        "maxMana": 150,
+        "nextTurnInMs": 10250,
+        "preview": 30,
+        "plan": {
+          "skill": "attack",
+          "cost": 50,
+          "cooldownRemainingMs": 18000,
+          "target": "p8",
+          "name": "supra",
+          "manaToKeep": 20
+        },
+        "knownTarget": "supra",
+        "ownSide": 1,
+        "targetSide": 2,
+        "skillPassive": false,
+        "skillUsesLeft": null,
+        "legalName": true,
+        "selfIncapacitated": false,
+        "targetProtected": false,
+        "guards": [],
+        "observedDead": [],
+        "originalAction": {
+          "type": "skill",
+          "skill": "enemy_check",
+          "target": "p9"
+        },
+        "originalCost": 20,
+        "chosenAction": null,
+        "chosenCost": 0,
+        "removedSkills": [
+          "enemy_check"
+        ],
+        "originalWouldBreakForecast": true,
+        "changed": true
+      },
+      "actualFollowUp60s": {
+        "control": [
+          {
+            "player": "p5",
+            "at": 79750,
+            "action": {
+              "type": "skill",
+              "skill": "enemy_check",
+              "target": "p9"
+            },
+            "accepted": true,
+            "error": null,
+            "beforeMana": 30,
+            "afterMana": 10,
+            "maxMana": 150,
+            "nominalMana": 20,
+            "holding": false,
+            "beforeTrueName": true,
+            "beforePublished": "arin",
+            "manualSameName": true,
+            "activeDecision": true,
+            "reaffirmationProof": null,
+            "character": "arin",
+            "side": 1,
+            "grading": {
+              "allyTargetSide": null,
+              "report": false,
+              "reportExpectedName": null
+            }
+          },
+          {
+            "player": "p5",
+            "at": 124750,
+            "action": {
+              "type": "skill",
+              "skill": "loyal_servant",
+              "target": "p3"
+            },
+            "accepted": true,
+            "error": null,
+            "beforeMana": 40,
+            "afterMana": 15,
+            "maxMana": 150,
+            "nominalMana": 25,
+            "holding": false,
+            "beforeTrueName": true,
+            "beforePublished": "arin",
+            "manualSameName": true,
+            "activeDecision": true,
+            "reaffirmationProof": null,
+            "character": "arin",
+            "side": 1,
+            "grading": {
+              "allyTargetSide": null,
+              "report": false,
+              "reportExpectedName": null
+            }
+          }
+        ],
+        "forecastAttackBudget": [
+          {
+            "player": "p5",
+            "at": 124500,
+            "action": {
+              "type": "skill",
+              "skill": "attack",
+              "target": "p8",
+              "name": "supra"
+            },
+            "accepted": true,
+            "error": null,
+            "beforeMana": 60,
+            "afterMana": 10,
+            "maxMana": 150,
+            "nominalMana": 50,
+            "holding": false,
+            "beforeTrueName": true,
+            "beforePublished": "arin",
+            "manualSameName": true,
+            "activeDecision": true,
+            "reaffirmationProof": null,
+            "character": "arin",
+            "side": 1,
+            "grading": {
+              "allyTargetSide": null,
+              "report": false,
+              "reportExpectedName": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "style": "truthful",
+        "seed": 132001,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "budget": {
+        "player": "p5",
+        "at": 87750,
+        "mana": 30,
+        "maxMana": 150,
+        "nextTurnInMs": 2250,
+        "preview": 30,
+        "plan": {
+          "skill": "attack",
+          "cost": 50,
+          "cooldownRemainingMs": 10000,
+          "target": "p8",
+          "name": "supra",
+          "manaToKeep": 20
+        },
+        "knownTarget": "supra",
+        "ownSide": 1,
+        "targetSide": 2,
+        "skillPassive": false,
+        "skillUsesLeft": null,
+        "legalName": true,
+        "selfIncapacitated": false,
+        "targetProtected": false,
+        "guards": [],
+        "observedDead": [],
+        "originalAction": {
+          "type": "skill",
+          "skill": "enemy_check",
+          "target": "p9"
+        },
+        "originalCost": 20,
+        "chosenAction": null,
+        "chosenCost": 0,
+        "removedSkills": [
+          "enemy_check"
+        ],
+        "originalWouldBreakForecast": true,
+        "changed": true
+      },
+      "actualFollowUp60s": {
+        "control": [
+          {
+            "player": "p5",
+            "at": 124750,
+            "action": {
+              "type": "skill",
+              "skill": "loyal_servant",
+              "target": "p3"
+            },
+            "accepted": true,
+            "error": null,
+            "beforeMana": 40,
+            "afterMana": 15,
+            "maxMana": 150,
+            "nominalMana": 25,
+            "holding": false,
+            "beforeTrueName": true,
+            "beforePublished": "arin",
+            "manualSameName": true,
+            "activeDecision": true,
+            "reaffirmationProof": null,
+            "character": "arin",
+            "side": 1,
+            "grading": {
+              "allyTargetSide": null,
+              "report": false,
+              "reportExpectedName": null
+            }
+          }
+        ],
+        "forecastAttackBudget": [
+          {
+            "player": "p5",
+            "at": 124500,
+            "action": {
+              "type": "skill",
+              "skill": "attack",
+              "target": "p8",
+              "name": "supra"
+            },
+            "accepted": true,
+            "error": null,
+            "beforeMana": 60,
+            "afterMana": 10,
+            "maxMana": 150,
+            "nominalMana": 50,
+            "holding": false,
+            "beforeTrueName": true,
+            "beforePublished": "arin",
+            "manualSameName": true,
+            "activeDecision": true,
+            "reaffirmationProof": null,
+            "character": "arin",
+            "side": 1,
+            "grading": {
+              "allyTargetSide": null,
+              "report": false,
+              "reportExpectedName": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "style": "skill-aware-bluff",
+        "seed": 132001,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "budget": {
+        "player": "p5",
+        "at": 80000,
+        "mana": 30,
+        "maxMana": 150,
+        "nextTurnInMs": 10000,
+        "preview": 30,
+        "plan": {
+          "skill": "attack",
+          "cost": 50,
+          "cooldownRemainingMs": 17750,
+          "target": "p8",
+          "name": "supra",
+          "manaToKeep": 20
+        },
+        "knownTarget": "supra",
+        "ownSide": 1,
+        "targetSide": 2,
+        "skillPassive": false,
+        "skillUsesLeft": null,
+        "legalName": true,
+        "selfIncapacitated": false,
+        "targetProtected": false,
+        "guards": [],
+        "observedDead": [],
+        "originalAction": {
+          "type": "skill",
+          "skill": "enemy_check",
+          "target": "p9"
+        },
+        "originalCost": 20,
+        "chosenAction": null,
+        "chosenCost": 0,
+        "removedSkills": [
+          "enemy_check"
+        ],
+        "originalWouldBreakForecast": true,
+        "changed": true
+      },
+      "actualFollowUp60s": {
+        "control": [
+          {
+            "player": "p5",
+            "at": 80000,
+            "action": {
+              "type": "skill",
+              "skill": "enemy_check",
+              "target": "p9"
+            },
+            "accepted": true,
+            "error": null,
+            "beforeMana": 30,
+            "afterMana": 10,
+            "maxMana": 150,
+            "nominalMana": 20,
+            "holding": false,
+            "beforeTrueName": true,
+            "beforePublished": "arin",
+            "manualSameName": true,
+            "activeDecision": true,
+            "reaffirmationProof": null,
+            "character": "arin",
+            "side": 1,
+            "grading": {
+              "allyTargetSide": null,
+              "report": false,
+              "reportExpectedName": null
+            }
+          },
+          {
+            "player": "p5",
+            "at": 125000,
+            "action": {
+              "type": "skill",
+              "skill": "loyal_servant",
+              "target": "p4"
+            },
+            "accepted": true,
+            "error": null,
+            "beforeMana": 40,
+            "afterMana": 15,
+            "maxMana": 150,
+            "nominalMana": 25,
+            "holding": false,
+            "beforeTrueName": true,
+            "beforePublished": "arin",
+            "manualSameName": true,
+            "activeDecision": true,
+            "reaffirmationProof": null,
+            "character": "arin",
+            "side": 1,
+            "grading": {
+              "allyTargetSide": null,
+              "report": false,
+              "reportExpectedName": null
+            }
+          }
+        ],
+        "forecastAttackBudget": [
+          {
+            "player": "p5",
+            "at": 124750,
+            "action": {
+              "type": "skill",
+              "skill": "attack",
+              "target": "p8",
+              "name": "supra"
+            },
+            "accepted": true,
+            "error": null,
+            "beforeMana": 60,
+            "afterMana": 10,
+            "maxMana": 150,
+            "nominalMana": 50,
+            "holding": false,
+            "beforeTrueName": true,
+            "beforePublished": "arin",
+            "manualSameName": true,
+            "activeDecision": true,
+            "reaffirmationProof": null,
+            "character": "arin",
+            "side": 1,
+            "grading": {
+              "allyTargetSide": null,
+              "report": false,
+              "reportExpectedName": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "style": "skill-aware-bluff",
+        "seed": 132001,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "budget": {
+        "player": "p5",
+        "at": 88000,
+        "mana": 30,
+        "maxMana": 150,
+        "nextTurnInMs": 2000,
+        "preview": 30,
+        "plan": {
+          "skill": "attack",
+          "cost": 50,
+          "cooldownRemainingMs": 9750,
+          "target": "p8",
+          "name": "supra",
+          "manaToKeep": 20
+        },
+        "knownTarget": "supra",
+        "ownSide": 1,
+        "targetSide": 2,
+        "skillPassive": false,
+        "skillUsesLeft": null,
+        "legalName": true,
+        "selfIncapacitated": false,
+        "targetProtected": false,
+        "guards": [],
+        "observedDead": [],
+        "originalAction": {
+          "type": "skill",
+          "skill": "enemy_check",
+          "target": "p9"
+        },
+        "originalCost": 20,
+        "chosenAction": null,
+        "chosenCost": 0,
+        "removedSkills": [
+          "enemy_check"
+        ],
+        "originalWouldBreakForecast": true,
+        "changed": true
+      },
+      "actualFollowUp60s": {
+        "control": [
+          {
+            "player": "p5",
+            "at": 125000,
+            "action": {
+              "type": "skill",
+              "skill": "loyal_servant",
+              "target": "p4"
+            },
+            "accepted": true,
+            "error": null,
+            "beforeMana": 40,
+            "afterMana": 15,
+            "maxMana": 150,
+            "nominalMana": 25,
+            "holding": false,
+            "beforeTrueName": true,
+            "beforePublished": "arin",
+            "manualSameName": true,
+            "activeDecision": true,
+            "reaffirmationProof": null,
+            "character": "arin",
+            "side": 1,
+            "grading": {
+              "allyTargetSide": null,
+              "report": false,
+              "reportExpectedName": null
+            }
+          }
+        ],
+        "forecastAttackBudget": [
+          {
+            "player": "p5",
+            "at": 124750,
+            "action": {
+              "type": "skill",
+              "skill": "attack",
+              "target": "p8",
+              "name": "supra"
+            },
+            "accepted": true,
+            "error": null,
+            "beforeMana": 60,
+            "afterMana": 10,
+            "maxMana": 150,
+            "nominalMana": 50,
+            "holding": false,
+            "beforeTrueName": true,
+            "beforePublished": "arin",
+            "manualSameName": true,
+            "activeDecision": true,
+            "reaffirmationProof": null,
+            "character": "arin",
+            "side": 1,
+            "grading": {
+              "allyTargetSide": null,
+              "report": false,
+              "reportExpectedName": null
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "windowMs": 60000,
+  "rawSHA256": "14f2d352dca4a8a0c2ccff12c6a377f9ebd7f81501de9f792c53a9b588228467",
+  "analysisSourceSHA256": "bb5cfed5851b0c065bf043827788be99b29f6ea5d12bba0a5a6b7d335079e461",
+  "promotionEvidence": false,
+  "limitations": [
+    "Multiple decision records can describe the same own-turn episode.",
+    "Follow-up actions are descriptive diverged paths, not independent causal trials."
+  ]
+}

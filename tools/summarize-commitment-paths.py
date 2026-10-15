@@ -1,7 +1,7 @@
 """Describe actual action paths; no candidate or mode selection."""
 import collections, gzip, hashlib, json, pathlib, sys
 p=pathlib.Path(sys.argv[1]);raw=p.read_bytes();d=json.loads(gzip.decompress(raw) if p.suffix=='.gz' else raw)
-assert d['complete'] and d['kind'] in ['claim-turn-commitment-comparison','idle-manual-true-claim-mana-comparison']
+assert d['complete'] and d['kind'] in ['claim-turn-commitment-comparison','idle-manual-true-claim-mana-comparison','forecast-attack-budget-comparison']
 candidate=d['variants'][2]
 records={}
 for x in d['records']:

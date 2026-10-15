@@ -28,6 +28,11 @@ describe('다음 자기 턴 직후 확정 공격의 제한 예산',()=>{
     const {t,p}=setup();p.mana=30;
     expect(smartBotAction(t.state,p.id,createBotMemory(2),{activity:1,forecastAttackBudget:true})).toEqual({type:'skill',skill:'ally',target:t.id.kelhu});
   });
+  it('확정 적 동맹 파기는 예산 부족분보다 먼저 실행한다',()=>{
+    const {t,p}=setup();p.skills.push({key:'break_ally',cooldownUntil:0,usesLeft:null,level:1});p.allies.push(t.id.kaspa!);
+    const a=smartBotAction(t.state,p.id,createBotMemory(2),{activity:1,forecastAttackBudget:true});
+    expect(a).toEqual({type:'skill',skill:'break_ally',target:t.id.kaspa});expect(t.act('mertz',a!).ok).toBe(true);expect(p.allies).not.toContain(t.id.kaspa);
+  });
   it('현재 이미 충분하거나 미리보기로도 부족하거나 다음 턴이 비용 전부를 주면 추가 예약이 없다',()=>{
     for(const [mana,preview] of [[50,30],[10,30],[25,50]] as const){const {v,k}=setup();v.me.mana=mana;v.me.nextTurnManaPreview=preview;expect(forecastAttackBudget(v,k)).toBeNull();}
   });

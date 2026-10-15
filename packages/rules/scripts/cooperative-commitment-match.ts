@@ -54,7 +54,7 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       const v=viewFor(s,id),k=botKnowledge(s,id,v,structuredClone(m)),plan=forecastAttackBudget(v,k);
       if(plan){
         const alternative=smartBotAction(s,id,budgetOriginal,{...o,forecastAttackBudget:false}),skill=v.me.skills.find(x=>x.key===plan.skill)!;
-        const removedSkills=v.me.skills.filter(x=>!x.passive&&x.blocked===null&&!NAME_ATTACKS.includes(x.key)&&x.mana>v.me.mana-plan.manaToKeep).map(x=>x.key);
+        const removedSkills=v.me.skills.filter(x=>!x.passive&&x.blocked===null&&!NAME_ATTACKS.includes(x.key)&&x.key!=='break_ally'&&x.mana>v.me.mana-plan.manaToKeep).map(x=>x.key);
         const cost=(x:Action|null)=>x?.type==='skill'?v.me.skills.find(z=>z.key===x.skill)?.mana??0:0;
         const guards=({civil_war:{kai:['arin'],dantes:['kelhu']},lidellut:{kai:['arin']},troll:{chis:['satoshi','zwinra']}} as Record<string,Record<string,string[]>>)[v.mode]?.[plan.name]??[];
         budgets.push({player:id,at:v.elapsedMs,mana:v.me.mana,maxMana:v.me.maxMana,nextTurnInMs:v.nextTurnInMs,preview:v.me.nextTurnManaPreview,plan,
