@@ -1,37 +1,58 @@
 {
-  "round": 19,
-  "status": "completed",
-  "completedAt": "2026-10-15T11:13:00+09:00",
-  "owner": "continuous-round-019-first-low-mana-confirmed-ally-pairs",
-  "startedAt": "2026-10-15T10:25:00+09:00",
-  "leaseUntil": "2026-10-15T11:30:00+09:00",
+  "round": 20,
+  "status": "in_progress",
+  "owner": "continuous-round-020-single-trusted-report-normal-path",
+  "startedAt": "2026-10-15T11:16:00+09:00",
+  "leaseUntil": "2026-10-15T11:50:00+09:00",
   "continuation": "finish_commit_then_start_next_immediately_until_deadline",
   "deadline": "2026-10-15T12:00:00+09:00",
   "noNewExperimentAfter": "2026-10-15T11:50:00+09:00",
   "developmentSeeds": {
-    "start": 133000,
-    "count": 64,
-    "status": "completed_training_diagnostic_no_action_change_candidate"
+    "start": 135000,
+    "count": 48,
+    "status": "reserved_unused"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "diagnosticOnlyFirstLowManaConfirmedAllyDelayOnce",
+  "candidate": "diagnosticOnlyFirstTrustedReportNormalPathOnce",
   "options": {},
-  "conditionalCandidateDevelopmentSeeds":{"start":134000,"count":8,"status":"unused_no019_candidate"},
-  "checkpoint": "6144_unique_complete_verified_no_delay_cells_storage_lineage_preserved_resume_regression_passed",
-  "sourceRef":"38a57879a3ba358e33d4e8a4cac0b10b7eb6b2b4",
-  "unverifiedExecutionUpperBoundExcluded":6,
-  "checks": {"tests":571,"rules":503,"server":68,"pythonLearnerTests":6,"pythonRecoveryTests":3,"typecheck":"passed","serverBuild":"passed","clientWorkerBuild":"passed"},
-  "executions": 6144,
-  "targetExecutions": 6144,
+  "conditionalCandidateDevelopmentSeeds": {
+    "start": 136000,
+    "count": 8,
+    "status": "reserved_unused_only_if_preregistered_whole_group_candidate"
+  },
+  "checkpoint": "reservation_only_no_new_research",
+  "checks": {
+    "tests": 571,
+    "rules": 503,
+    "server": 68,
+    "pythonLearnerTests": 6,
+    "pythonRecoveryTests": 3,
+    "typecheck": "passed",
+    "serverBuild": "passed",
+    "clientWorkerBuild": "passed"
+  },
+  "executions": 0,
+  "targetExecutions": 4608,
   "cumulativeExecutions": 25536,
-  "decision": "no_action_change_candidate_keep_confirmed_ally_no_holdout_used",
-  "nextAction": "commit_complete_then_reserve_fresh_single_report_verification_alternative_diagnostic_immediately",
-  "previousCompleted": {"round":18,"executions":1152,"decision":"rejected_development_default_off_holdout_unused","evaluationSourceRef":"0429e6b169b7fca5227f1e04fb5eac131e17ac5a","postEvaluationSafetyFixRef":"d4360dc39a7c28889474d808aa45228ab3a1e037","record":"docs/ai-rounds/ROUND_018_20261015_1002.md"},
-  "unusedPriorCandidateDevelopment": {"start": 129000, "count": 8, "status": "unused_no015_candidate"},
+  "decision": "pending_fresh_single_report_causal_diagnostic",
+  "nextAction": "freeze_verified_collector_then_fresh135000_paired_batches",
+  "previousCompleted": {
+    "round": 19,
+    "executions": 6144,
+    "decision": "no_action_change_candidate",
+    "sourceRef": "38a57879a3ba358e33d4e8a4cac0b10b7eb6b2b4",
+    "completionRef": "0b84ecd5710cb4984cf0c3731d72d4c807017a7f",
+    "record": "docs/ai-rounds/ROUND_019_20261015_1025.md"
+  },
+  "unusedPriorCandidateDevelopment": {
+    "start": 129000,
+    "count": 8,
+    "status": "unused_no015_candidate"
+  },
   "finalReport": {
     "round": 11,
     "status": "completed",
@@ -45,6 +66,7 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "019예약:공개ID p1의첫저마나확정아군동맹한번만지연하는대응진단.새133000–133063/6144실행·4셀사전고정99%하한검사·후보발생시에만새134000개발.독립121000미사용·12시까지연속진행.",
-  "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
+  "task": "020: first actual trusted report verification once versus own-memory normal alternative; preregistered whole-group 99% lower bound; continuous until noon",
+  "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
+  "previousRoundUnverifiedExecutionUpperBoundExcluded": 6
 }
