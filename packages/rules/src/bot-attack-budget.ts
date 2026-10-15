@@ -1,3 +1,4 @@
+import {TURN_BASE_MANA} from './constants.js';
 import type {PlayerView} from './engine/view.js';
 import type {Knowledge} from './bot-memory.js';
 import type {CharKey} from './types.js';
@@ -28,4 +29,10 @@ export function forecastAttackBudget(view:PlayerView,knowledge:Knowledge){
       name:knowledge.known.get(target.id)!,manaToKeep:Math.max(0,skill.mana-preview)});
   }
   return plans.filter(p=>p.manaToKeep>0).sort((a,b)=>b.manaToKeep-a.manaToKeep||a.cooldownRemainingMs-b.cooldownRemainingMs)[0]??null;
+}
+
+/** 기존 caller가 확정 공격/현재 충분한 마나/20초 내 재사용을 거른 뒤 호출한다. */
+export function reserveAttackMana(view:PlayerView,skill:PlayerView['me']['skills'][number],netOfBaseIncome=false):number{
+  return netOfBaseIncome&&view.nextTurnInMs>0&&view.nextTurnInMs<=skill.cooldownRemainingMs&&view.me.nextTurnManaPreview>=TURN_BASE_MANA
+    ? Math.max(0,skill.mana-TURN_BASE_MANA):skill.mana;
 }

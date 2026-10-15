@@ -1,10 +1,15 @@
 """Independent fixture, receipt, actual-action resource, source and journal checks."""
 import argparse, collections, gzip, hashlib, json, pathlib, random, re, subprocess
+def exact_seed_contrast(units,per_seed):
+    """Accumulate integer/half-point results before division; a true tie stays exactly zero."""
+    rng=random.Random(0x475354)
+    means=sorted(sum(rng.choices(units,k=len(units)))/len(units)/per_seed for _ in range(10000))
+    return sum(units)/len(units)/per_seed,[means[250],means[9749]]
 p=argparse.ArgumentParser();p.add_argument('path',type=pathlib.Path);p.add_argument('--source-ref');p.add_argument('--journal-path',type=pathlib.Path);p.add_argument('--allow-partial',action='store_true');a=p.parse_args()
 def read(path):
     raw=path.read_bytes();return gzip.decompress(raw) if path.suffix=='.gz' else raw
 d=json.loads(read(a.path));assert d['phase'] in ['development','holdout']
-specs={'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
+specs={'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
 candidate,options=specs[d['kind']]
 assert d['variants']==['baseline','control',candidate] and d['options']=={'baseline':{},'control':{},candidate:options}
 if not a.allow_partial:assert d['complete'] and d['executions']==d['count']*4*3*4*3
@@ -14,10 +19,12 @@ if a.source_ref:
 else:expected_sources={'src/'+str(x.relative_to('packages/rules/src')) for x in pathlib.Path('packages/rules/src').rglob('*.ts')}
 expected_sources|={'scripts/'+x for x in ['cooperative-claim-commitment.ts','cooperative-commitment-match.ts','league-runner.ts','baselines/pre-cooperative.ts','claim-opponents.ts']}
 if d.get('persistence')=={'version':2}:expected_sources.add('scripts/cooperative-store.ts')
-if d.get('comparisonRevision')==2:
+if d.get('comparisonRevision',0)>=2:
     expected_sources.add('scripts/baselines/pre-round024.ts')
     assert d['controlPolicy']==('PR-before-round024' if candidate=='enemyBreakRepair' else 'current-default')
-assert set(d['sourceHashes'])==expected_sources and set(d['auxiliarySourceHashes'])=={'tools/verify-claim-commitment.py'}
+expected_aux={'tools/verify-claim-commitment.py'}
+if d.get('comparisonRevision',0)>=3:expected_aux.add('tools/run-cooperative-generations.py')
+assert set(d['sourceHashes'])==expected_sources and set(d['auxiliarySourceHashes'])==expected_aux
 for group,prefix in [('sourceHashes','packages/rules/'),('auxiliarySourceHashes','')]:
     for path,sha in d[group].items():
         assert '..' not in pathlib.PurePosixPath(path).parts
@@ -117,7 +124,13 @@ if not a.allow_partial:
     for left,right in [(candidate,'control'),(candidate,'baseline')]:
         values=[sum(scores[left][s])/len(scores[left][s])-sum(scores[right][s])/len(scores[right][s]) for s in range(d['start'],d['start']+d['count'])]
         rng=random.Random(0x475354);means=sorted(sum(rng.choices(values,k=len(values)))/len(values) for _ in range(10000))
-        out['contrasts'][left+'-'+right]={'difference':sum(values)/len(values),'seedBootstrap95':[means[250],means[9749]],'byMode':{m:out['variants'][left][m]['score']-out['variants'][right][m]['score'] for m in out['variants'][left]}}
+        difference,interval=sum(values)/len(values),[means[250],means[9749]]
+        if d.get('comparisonRevision',0)>=3:
+            assert d['design']['arithmetic']=='exactHalfPointSeedTotalsBeforeNormalization'
+            per_seed=len(scores[left][d['start']]);assert all(len(scores[v][seed])==per_seed for v in d['variants'] for seed in range(d['start'],d['start']+d['count']))
+            units=[sum(scores[left][seed])-sum(scores[right][seed]) for seed in range(d['start'],d['start']+d['count'])]
+            difference,interval=exact_seed_contrast(units,per_seed)
+        out['contrasts'][left+'-'+right]={'difference':difference,'seedBootstrap95':interval,'byMode':{m:out['variants'][left][m]['score']-out['variants'][right][m]['score'] for m in out['variants'][left]}}
     safe=not any(sum(b['safety'].values())+b['earlyAttackFailures'] for b in out['variants'][candidate].values())
     out['developmentGatePassed']=safe and out['contrasts'][candidate+'-control']['difference']>0 and out['contrasts'][candidate+'-baseline']['difference']>=0
     c=out['contrasts'][candidate+'-baseline'];out['holdoutGatePassed']=d['phase']=='holdout' and safe and c['seedBootstrap95'][0]>0 and min(c['byMode'].values())>=-.02

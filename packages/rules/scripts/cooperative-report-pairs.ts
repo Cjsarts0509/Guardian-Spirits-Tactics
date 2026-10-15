@@ -34,7 +34,7 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
   if(a.point&&b.point){for(const k of ['at','player','cell','stateHash','memoryHash','viewHash','alternativeMemoryHash','before','original','alternative'] as const)if(diagnosticHash(a.point[k])!==diagnosticHash(b.point[k]))throw Error('개입 전 대응 불일치:'+k);}
   else if(JSON.stringify(a)!==JSON.stringify(b))throw Error('비개입 쌍 불일치');
   if(executions!==beforeExecutions&&executions%8===0)save(false);
-  if(batch&&fresh>=batch&&executions<count*4*3*4*2){save(false);process.stderr.write(`[report-pairs] 신규${fresh}/누적${executions}, 부분 체크포인트\n`);process.exit(0);}
+  if(batch&&fresh>=batch&&executions<count*4*3*4*2){save(false);store.close();process.stderr.write(`[report-pairs] 신규${fresh}/누적${executions}, 부분 체크포인트\n`);process.exit(0);}
 }
 if(executions!==count*4*3*4*2)throw Error('실행 수 불일치');save(true);process.stderr.write(`[report-pairs] 전체${executions}, 신규${fresh}\n`);
 

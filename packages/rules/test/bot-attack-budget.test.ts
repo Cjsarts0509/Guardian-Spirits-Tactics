@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {botKnowledge,createBotMemory,smartBotAction,viewFor,applyAction} from '../src/index.js';
-import {forecastAttackBudget} from '../src/bot-attack-budget.js';
+import {forecastAttackBudget,reserveAttackMana} from '../src/bot-attack-budget.js';
 import {smartBotAction as priorPR} from '../scripts/baselines/pre-round024.js';
 import {civilTable} from './helpers.js';
 
@@ -40,6 +40,21 @@ describe('다음 자기 턴 직후 확정 공격의 제한 예산',()=>{
     const a=smartBotAction(t.state,p.id,createBotMemory(2),{activity:1});
     expect(a).toEqual({type:'skill',skill:'break_ally',target:t.id.kaspa});expect(t.act('mertz',a!).ok).toBe(true);expect(p.allies).not.toContain(t.id.kaspa);
   });
+  it('기본OFF인 순예약은 공격 준비 전에 올 기본20만 빼고 진명·동맹 보너스는 가정하지 않는다',()=>{
+    const {v}=setup(),skill=v.me.skills.find(s=>s.key==='advanced_attack')!;v.me.mana=50;
+    expect(reserveAttackMana(v,skill)).toBe(50);expect(reserveAttackMana(v,skill,true)).toBe(30);
+    v.me.nextTurnManaPreview=100;expect(reserveAttackMana(v,skill,true)).toBe(30);
+    v.me.nextTurnManaPreview=19;expect(reserveAttackMana(v,skill,true)).toBe(50);
+    v.me.nextTurnManaPreview=30;v.nextTurnInMs=16000;expect(reserveAttackMana(v,skill,true)).toBe(50);
+    v.nextTurnInMs=0;expect(reserveAttackMana(v,skill,true)).toBe(50);
+  });
+  it('원래 대기하던 기회에 확정 동맹을 실행해도 같은15초 시각에 실제 공격할 수 있다',()=>{
+    const {t,p,m}=setup();p.mana=50;
+    expect(smartBotAction(t.state,p.id,createBotMemory(2),{activity:1})).toBeNull();
+    const ally=smartBotAction(t.state,p.id,m,{activity:1,netAttackReserve:true});expect(ally).toEqual({type:'skill',skill:'ally',target:t.id.kelhu});expect(t.act('mertz',ally!).ok).toBe(true);expect(p.mana).toBe(40);
+    t.tick(10000);expect(p.mana).toBe(70);t.tick(5000);
+    const attack=smartBotAction(t.state,p.id,m,{activity:1,netAttackReserve:true});expect(attack).toEqual({type:'skill',skill:'advanced_attack',target:t.id.kaspa,name:'kaspa'});expect(t.act('mertz',attack!).ok).toBe(true);
+  });
   it('현재 이미 충분하거나 미리보기로도 부족하거나 다음 턴이 비용 전부를 주면 추가 예약이 없다',()=>{
     for(const [mana,preview] of [[50,30],[10,30],[25,50]] as const){const {v,k}=setup();v.me.mana=mana;v.me.nextTurnManaPreview=preview;expect(forecastAttackBudget(v,k)).toBeNull();}
   });
@@ -67,10 +82,11 @@ describe('다음 자기 턴 직후 확정 공격의 제한 예산',()=>{
     expect(smartBotAction(t.state,p.id,createBotMemory(2),{activity:1,forecastAttackBudget:true})).toMatchObject({type:'skill',skill:'advanced_attack'});
   });
   it('숨은 타인 배정·마나·비수신 이벤트를 바꿔도 같은 자기 뷰/행동이다',()=>{
-    const {t,p}=setup(),s=structuredClone(t.state),a=s.players.find(x=>x.character==='freya')!,b=s.players.find(x=>x.character==='reindila')!;
+    const {t,p}=setup();p.mana=50;const s=structuredClone(t.state),a=s.players.find(x=>x.character==='freya')!,b=s.players.find(x=>x.character==='reindila')!;
     [a.character,b.character]=[b.character,a.character];a.mana=0;b.mana=149;
     s.log.push({seq:++s.seq,at:s.now,kind:'private.fake',text:'비공개',vis:{to:'players',ids:[a.id]},data:{name:'kai'}});
     expect(viewFor(s,p.id)).toEqual(viewFor(t.state,p.id));
     expect(smartBotAction(s,p.id,createBotMemory(2),{activity:1,forecastAttackBudget:true})).toEqual(smartBotAction(t.state,p.id,createBotMemory(2),{activity:1,forecastAttackBudget:true}));
+    expect(smartBotAction(s,p.id,createBotMemory(2),{activity:1,netAttackReserve:true})).toEqual(smartBotAction(t.state,p.id,createBotMemory(2),{activity:1,netAttackReserve:true}));
   });
 });

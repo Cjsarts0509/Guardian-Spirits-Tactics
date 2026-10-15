@@ -21,15 +21,16 @@
   "options": {
     "netAttackReserve": true
   },
-  "checkpoint": "reservation_before_changes",
+  "checkpoint": "preflight601_and_native_generation_tests_passed_waiting_freeze",
   "checks": {
-    "tests": 599,
-    "rules": 525,
+    "tests": 601,
+    "rules": 527,
     "server": 74,
     "typecheck": "passed",
     "serverBuild": "passed",
     "clientWorkerBuild": "passed",
-    "collectorStorageRegression": "passed_432_unit_games_excluded"
+    "collectorStorageRegression": "passed_432_unit_games_excluded",
+    "generationSupervisor": "passed_3_tests"
   },
   "executions": 0,
   "targetExecutions": 1152,

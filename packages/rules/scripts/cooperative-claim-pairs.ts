@@ -53,7 +53,7 @@ for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(
       if(JSON.stringify(a.point.before)!==JSON.stringify(b.point.before)||JSON.stringify(a.point.original)!==JSON.stringify(b.point.original))throw Error('개입 전 제안/뷰 불일치');
     }else if(JSON.stringify(a)!==JSON.stringify(b))throw Error('비개입 경기 결과/진단 불일치');
     if(executions!==beforeExecutions&&executions%8===0)save(false);
-    if(batchLimit&&newExecutions>=batchLimit&&executions<count*4*3*4*2){save(false);process.stderr.write(`[claim-pairs] 체크포인트 신규${newExecutions}/누적${executions}, 다음 호출에서 저널 복구\n`);process.exit(0);}
+    if(batchLimit&&newExecutions>=batchLimit&&executions<count*4*3*4*2){save(false);store.close();process.stderr.write(`[claim-pairs] 체크포인트 신규${newExecutions}/누적${executions}, 다음 호출에서 저널 복구\n`);process.exit(0);}
   }
   save(false);process.stderr.write(`[claim-pairs] ${mode}/${style}: 저장확인 누적${executions}, 이번호출 신규${newExecutions}\n`);
 }

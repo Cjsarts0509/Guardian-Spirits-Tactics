@@ -83,6 +83,6 @@ export class CooperativeStore<R>{
   }
   close(){
     if(this.closed)return;this.closed=true;process.removeListener('exit',this.exit);
-    const p=join(this.root,'WRITER.lock');try{if(existsSync(p)&&statSync(p).ino===fstatSync(this.lockFd).ino)unlinkSync(p);}finally{closeSync(this.lockFd);}
+    const p=join(this.root,'WRITER.lock');try{if(existsSync(p)&&statSync(p).ino===fstatSync(this.lockFd).ino){unlinkSync(p);const d=openSync(this.root,'r');try{fsyncSync(d);}finally{closeSync(d);}if(existsSync(p))throw Error('storage writer release readback mismatch');}}finally{closeSync(this.lockFd);}
   }
 }

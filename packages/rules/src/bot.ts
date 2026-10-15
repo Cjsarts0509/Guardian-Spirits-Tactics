@@ -12,7 +12,7 @@ import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.
 import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
 import { adaptiveClaimName, strategicClaimName } from './bot-claim-policy.js';
 import {idleManualTrueClaim} from './bot-idle-claim.js';
-import {forecastAttackBudget,KNOWN_ATTACK_GUARDS as GUARDS} from './bot-attack-budget.js';
+import {forecastAttackBudget,reserveAttackMana,KNOWN_ATTACK_GUARDS as GUARDS} from './bot-attack-budget.js';
 import { hasIdentityEvidence, bestConfirmation } from './bot-confirmation.js';
 import { boundedSequenceSearch } from './bot-sequence.js';
 import { boundedAttackSearch } from './bot-rollout.js';
@@ -45,6 +45,8 @@ export interface BotOptions {
   idleClaimMana?: boolean;
   /** 개발 비교: 다음 자기 턴 뒤20초 안에 준비될 확정 공격의 현재 부족분만 예약. 기본OFF. */
   forecastAttackBudget?: boolean;
+  /** 개발 기본OFF: 공격 준비 전에 도착하는 보장 기본 턴 수입만 기존 예약에서 뺀다. */
+  netAttackReserve?:boolean;
   /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
   protectionRetryBackoff?: boolean;
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
@@ -291,7 +293,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   const reserve = Math.max(opts.forecastAttackBudget?forecastAttackBudget(view,knowledge)?.manaToKeep??0:0, ...me.skills.filter((s) => NAME_ATTACKS.includes(s.key) &&
     s.cooldownRemainingMs > 0 && s.cooldownRemainingMs <= 20_000 && me.mana >= s.mana &&
     knownEnemies.some((p) => attackable(known.get(p.id)!) && s.nameOptions?.includes(known.get(p.id)!)),
-  ).map((s) => s.mana));
+  ).map((s) => reserveAttackMana(view,s,opts.netAttackReserve)));
   if (reserve) for (const [key, s] of usable) if (!NAME_ATTACKS.includes(key) &&
     key!=='break_ally' && s.mana > me.mana - reserve) usable.delete(key);
   const unknown = alive.filter((p) => !known.has(p.id));
