@@ -1,14 +1,14 @@
 {
   "round": 42,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round042-commander-report-delivery",
   "startedAt": "2026-10-16T00:12:08.561115+09:00",
-  "leaseUntil": "2026-10-16T01:02:08.561115+09:00",
+  "leaseUntil": null,
   "continuation": "user_20261015_2354_go",
   "task": "039 실제 지휘관 보고 전송과041 수신 기억·후속 활용 연결",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
-  "evaluationSourceRef": null,
+  "evaluationSourceRef": "3d97c1c43d770532881e88dc9562f0f97d69e13b",
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 46208,
@@ -41,8 +41,8 @@
     "executions": 0,
     "replayedGames": 320
   },
-  "checkpoint": "round041_complete_round042_preregistered",
-  "nextAction": "Join all original accepted commander whispers to own received report observations; count recipients, trust, own attack resources, later knowledge/action; no new policy/seed",
+  "checkpoint": "round042_completed_report_delivery_joined",
+  "nextAction": "043 actual own-memory same-point reportedSupreme OFF/ON audit on all039320; only after actual opportunity evidence preregister new150000 development; no new seed used",
   "record": "docs/ai-rounds/ROUND_042_20261016_0010.md",
   "deployment": false,
   "repeatDisabled": false,
@@ -80,21 +80,35 @@
     "serverBuild": "passed",
     "clientWorkerBuild": "passed",
     "observerInvariant": "all320_original_games_and_actual_action_receipts_match",
-    "semanticTamper": "4_rejected"
+    "semanticTamper": "4_rejected",
+    "pythonReportChain": 5,
+    "reportChainRepeatedOutput": "byte_identical"
   },
   "postflightCI": {
-    "sourceRef": "12efbd1b51933306301cd51ef87297f99f796952",
+    "sourceRef": "3d97c1c43d770532881e88dc9562f0f97d69e13b",
     "checks": [
       {
         "name": "CI",
         "conclusion": "success",
-        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38757456600"
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38759612595"
       },
       {
         "name": "Card UI browser check",
         "conclusion": "success",
-        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38757457846"
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38759612407"
       }
     ]
-  }
+  },
+  "completedAt": "2026-10-16T00:25:05.676151+09:00",
+  "decision": "report_delivery_works_commander_followup_gap_existing_option_to_revalidate_default_off",
+  "analyzedExistingGames": 320,
+  "reportChain": {
+    "acceptedEnemyCommanderMessages": 648,
+    "observedMessages": 549,
+    "censoredNoLaterChoice": 99,
+    "recipientTargetEpisodes": 605,
+    "unmatchedReceivedReports": 0,
+    "wrongCommanderMessages": 0
+  },
+  "nextRoundStarted": false
 }
