@@ -8,14 +8,17 @@ key=lambda r:(r['mode'],r['style'],r['result']['game']['fixture']['seed'],r['res
 control={key(r):r['result'] for r in d['records'] if r['variant']=='control'};candidate={key(r):r['result'] for r in d['records'] if r['variant']=='reportedSupreme'};assert len(control)==len(candidate)==d['count']*48 and set(control)==set(candidate)
 project=lambda r:[{k:x[k] for k in ['player','at','action','accepted','error','beforeMana','afterMana','nominalMana','character','side']} for x in r['actions']]
 score=lambda g:.5 if g['winnerPolicy'] is None else int(g['winnerPolicy']=='current')
-counts=collections.Counter();rows=[];strata={};report_games=set();report_seeds=set();change_games=set();change_seeds=set()
+counts=collections.Counter();rows=[];strata={};report_games=set();report_seeds=set();change_games=set();change_seeds=set();first_exceptions=[]
 for k,r in candidate.items():
  old=control[k];left,right=project(old),project(r);difference=score(r['game'])-score(old['game']);counts['improved' if difference>0 else 'worsened' if difference<0 else 'tied']+=1
  changed=left!=right;counts['actualActionChangedPairs']+=changed
  if changed:
   i=next((i for i,(x,y) in enumerate(zip(left,right)) if x!=y),min(len(left),len(right)));first=right[i] if i<len(right) else None
   proof=next((q for q in r['supremeDecisions'] if q['changed'] and first and q['player']==first['player'] and q['at']==first['at'] and q['chosenAction']==first['action']),None)
-  assert proof is not None;counts['firstDivergenceIsActualReport']+=1
+  if proof is not None:counts['firstDivergenceIsActualReport']+=1
+  else:
+   counts['firstDivergenceNotLocalActionChange']+=1
+   first_exceptions.append({'fixture':r['game']['fixture'],'style':k[1],'controlFirst':left[i] if i<len(left) else None,'candidateFirst':first,'scoreDifference':difference,'priorSameActionReportChoices':[{'player':q['player'],'at':q['at'],'action':q['chosenAction']} for q in r['supremeDecisions'] if q['selected'] and not q['changed'] and first and q['at']<=first['at']]})
  else:
   assert old['game']==r['game'] and old['resources']==r['resources'];counts['unchangedPairsGameResourcesExact']+=1
  for q in r['supremeDecisions']:
@@ -30,4 +33,5 @@ for k,r in candidate.items():
   later=[x for x in r['actions'] if x['player']==q['player'] and x['at']>q['at'] and x['action'].get('target')==act['target']]
   rows.append({'fixture':f,'style':k[1],'player':q['player'],'at':q['at'],'role':q['character'],'target':act['target'],'name':act['name'],'changed':q['changed'],'original':q['originalAction'],'receipt':h,'laterSameTargetActions':len(later),'laterSameTargetSkillCounts':dict(collections.Counter(x['action'].get('skill',x['action']['type']) for x in later))})
 out={'kind':'supreme-report-development-behavior-summary','sourceSHA256':hashlib.sha256(raw).hexdigest(),'analysisSHA256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),'executions':d['executions'],'pairedGames':len(candidate),'pairs':dict(counts),'reportGames':len(report_games),'reportIndependentSeeds':len(report_seeds),'optionChangedGames':len(change_games),'optionChangedIndependentSeeds':len(change_seeds),'strata':[dict(mode=k[0],count=k[1],side=k[2],counts=b) for k,b in sorted(strata.items())],'actualReportAttacks':rows,'limitations':['Synthetic fixed opponents; no human data or equal-policy balance inference.','Same-point OFF choices on ON paths are not control match opportunities.','Later same-target actions are descriptive, not independent causal effects.','Historical win gate is diagnostic only; no deployment or threshold tuning.']}
+out['firstDivergenceExceptions']=first_exceptions
 print(json.dumps(out,ensure_ascii=False,indent=2))
