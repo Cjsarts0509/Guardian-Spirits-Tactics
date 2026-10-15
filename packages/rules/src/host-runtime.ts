@@ -9,14 +9,14 @@ export interface HostSeat { id: string; bot: boolean; spectator?: boolean; autom
 export type HostInput = { id: number; player: string; ref?: number } & (
   { kind: 'action'; action: Action } | { kind: 'quit' }
 );
-export interface HostActionRecord { t: number; player: string; action: Action; ok: boolean; error?: string }
+export interface HostActionRecord { t: number; player: string; action: Action; ok: boolean; error?: string;controller?:'human-input'|'bot'|'away-bot' }
 export interface HostSnapshot {
   version: 1;
   state: GameState;
   memories: Map<string, BotMemory>;
   handled: number;
   records: HostActionRecord[];
-  results: { id: number; player: string; ref?: number; ok: boolean; error?: string }[];
+  results: { id: number; player: string; ref?: number; ok: boolean; error?: string;controller?:'human-input'|'bot'|'away-bot' }[];
 }
 export interface HostWireSnapshot extends Omit<HostSnapshot, 'memories'> { memories: HostMemoryWire }
 const revive = (_key: string, value: any): any => {
@@ -95,7 +95,7 @@ export function applyHostInputs(snapshot: HostSnapshot, inputs: readonly HostInp
     if (input.kind === 'quit') playerLeft(snapshot.state, input.player, now);
     else {
       const result = applyAction(snapshot.state, input.player, input.action, now);
-      snapshot.records.push({ t: now - snapshot.state.startedAt, player: input.player, action: input.action, ok: result.ok, error: result.error });
+      snapshot.records.push({ t: now - snapshot.state.startedAt, player: input.player, action: input.action, ok: result.ok, error: result.error,controller:'human-input' });
       snapshot.results.push({ id: input.id, player: input.player, ref: input.ref, ok: result.ok, error: result.error });
     }
     snapshot.handled = input.id;
@@ -114,9 +114,9 @@ export function tickHost(snapshot: HostSnapshot, members: readonly HostSeat[], n
     if (action) {
       const result = applyAction(snapshot.state, member.id, action, now);
       observeBotActionResult(memory, action, result, now - snapshot.state.startedAt);
-      snapshot.records.push({ t: now - snapshot.state.startedAt, player: member.id, action, ok: result.ok, error: result.error });
+      snapshot.records.push({ t: now - snapshot.state.startedAt, player: member.id, action, ok: result.ok, error: result.error,controller:member.bot?'bot':'away-bot' });
     }
     const chat=options.botKind==='smart'?botCommunicationAction(snapshot.state,member.id,memory):null;
-    if(chat){const result=applyAction(snapshot.state,member.id,chat,now);snapshot.records.push({t:now-snapshot.state.startedAt,player:member.id,action:chat,ok:result.ok,error:result.error});}
+    if(chat){const result=applyAction(snapshot.state,member.id,chat,now);snapshot.records.push({t:now-snapshot.state.startedAt,player:member.id,action:chat,ok:result.ok,error:result.error,controller:member.bot?'bot':'away-bot'});}
   }
 }

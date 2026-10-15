@@ -8,17 +8,18 @@ import {nextRandom} from '../src/rng.js';
 import {forecastAttackBudget} from '../src/bot-attack-budget.js';
 import {trustedIntel,verifyIntel} from '../src/bot-intel.js';
 import {NAME_ATTACKS} from '../src/bot-tactics.js';
+import {smartBotAction as priorPR} from './baselines/pre-round024.js';
 import {smartBotAction as previous} from './baselines/pre-cooperative.js';
 import {opponentClaim,type ClaimStyle} from './claim-opponents.js';
 import {playMatch,DEFAULT_SETTINGS,type Fixture,type Policy,type Settings} from './league-runner.js';
-export type CommitmentVariant='baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport';
-export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:CommitmentVariant,settings:Settings=DEFAULT_SETTINGS,observe=true){
+export type CommitmentVariant='baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair';
+export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:CommitmentVariant,settings:Settings=DEFAULT_SETTINGS,observe=true,legacyControl=false){
   const options=variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
   const resources={aliveMs:0,trueNameMs:0,turns:0,trueNameTurns:0,trueNameBonusGross:0,incomingAllyManaGross:0,turnGainGross:0,
     publishes:0,truePublishes:0,falsePublishes:0,publishManaGross:0,publishManaNet:0,reaffirmations:0,reaffirmManaNet:0,allies:0,allyManaNet:0,
     acceptedSkillMana:0,attackFailures:0,holdingMs:0,holdStarts:0,holdingTrueNameTurns:0,gemCompletedPlayers:0,
     skills:{} as Record<string,{accepted:number;rejected:number;nominalMana:number;netManaDelta:number;whileHolding:number}>};
-  const safety={wrongAllies:0,falseReports:0,holdingFalsePublishes:0};
+  const safety={wrongBreaks:0,wrongAllies:0,falseReports:0,holdingFalsePublishes:0};
   const turns:Array<{player:string;at:number;turn:number;gain:number;allies:number;trueName:boolean;gem:number;holding:boolean}>=[];
   const holds:Array<{player:string;character:string;at:number;publishedAt:number;until:number;nextTurnInMs:number;trueName:boolean;hasDisguise:boolean}>=[];
   type Proof={originalNull:boolean;ownMemoryEqual:boolean;ownRngEqual:boolean};
@@ -29,9 +30,9 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     removedSkills:string[];originalWouldBreakForecast:boolean;changed:boolean}>=[];
   const deadReports:Array<{player:string;at:number;ownSide:number;target:string;name:string;targetKnown:boolean;senders:Array<{id:string;name:string;side:number;alive:boolean;revealed:string|null;reportAt:number}>;originalAction:Action|null;chosenAction:Action;changed:boolean;nominalMana:number}>=[];
   const actions:Array<{player:string;at:number;action:Action;accepted:boolean;error:string|null;beforeMana:number;afterMana:number;maxMana:number;nominalMana:number;holding:boolean;beforeTrueName:boolean;beforePublished:string|null;manualSameName:boolean;activeDecision:boolean;reaffirmationProof:Proof|null;character:string;side:number;
-    grading:{allyTargetSide:number|null;report:boolean;reportExpectedName:string|null}}>=[];
+    grading:{breakTargetSide:number|null;breakTargetName:string|null;breakKnownName:string|null;allyTargetSide:number|null;report:boolean;reportExpectedName:string|null}}>=[];
   const ownIds=new Set<string>(),seq=new Map<string,number>(),until=new Map<string,number>(),holdingCharacter=new Map<string,string>(),seenHolds=new Set<string>(),completed=new Set<string>();
-  const pending=new Map<string,{action:Action;view:PlayerView;holding:boolean;manualSameName:boolean;activeDecision:boolean;proof:Proof|null}>();
+  const pending=new Map<string,{action:Action;view:PlayerView;holding:boolean;manualSameName:boolean;activeDecision:boolean;proof:Proof|null;breakKnownName:string|null}>();
   const note=(s:Parameters<Policy>[0],id:string,m:BotMemory)=>{
     if(!observe)return;ownIds.add(id);const v=viewFor(s,id),c=m.perception?.claimCommitment,h=claimTurnCommitted(v,m);
     until.set(id,h?c!.until:0);
@@ -43,7 +44,7 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
   };
   const remember=(s:Parameters<Policy>[0],id:string,a:Action|null,m:BotMemory,proof:Proof|null=null)=>{
     note(s,id,m);if(observe&&a){const view=viewFor(s,id);pending.set(id,{action:a,view,holding:claimTurnCommitted(view,m),
-      manualSameName:m.perception?.manualClaims.get(id)?.name===view.me.published&&!m.perception?.automaticClaims.has(id),activeDecision:m.communicationAt===view.elapsedMs,proof});}return a;
+      manualSameName:m.perception?.manualClaims.get(id)?.name===view.me.published&&!m.perception?.automaticClaims.has(id),activeDecision:m.communicationAt===view.elapsedMs,proof,breakKnownName:a.type==='skill'&&a.skill==='break_ally'&&a.target?botKnowledge(s,id,view,structuredClone(m)).known.get(a.target)??null:null});}return a;
   };
   const reference:Policy=(s,id,m,o)=>{const a=previous(s,id,m,{activity:o.activity});return a?.type==='skill'&&a.skill==='publish'
     ?{...a,name:opponentClaim(viewFor(s,id),m,style,a.name)}:a;};
@@ -52,7 +53,7 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     const original=observe&&variant==='idleClaimMana'&&nextRandom({rng:m.rng})<=(o.activity??.5)&&idleClaimViewEligible(viewFor(s,id))?structuredClone(m):undefined;
     const deadOriginal=observe&&variant==='deadAllyReport'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const budgetOriginal=observe&&variant==='forecastAttackBudget'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
-    const a=variant==='baseline'?previous(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options});let proof:Proof|null=null;
+    const a=variant==='baseline'?previous(s,id,m,{activity:o.activity}):variant==='control'&&legacyControl?priorPR(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options});let proof:Proof|null=null;
     if(deadOriginal&&a?.type==='skill'&&a.target&&m.communicationAt===s.now-s.startedAt){
       const v=viewFor(s,id),k=botKnowledge(s,id,v,structuredClone(m)),name=trustedIntel(v,k,m,true).get(a.target);
       const usable=new Map(v.me.skills.filter(x=>!x.passive&&x.blocked===null).map(x=>[x.key,x]));
@@ -104,7 +105,8 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     const p=pending.get(id);if(!p||p.action!==a)throw Error('자기 실제 행동의 직전 뷰 누락');pending.delete(id);
     const after=viewFor(s,id),nominal=a.type==='skill'?p.view.me.skills.find(x=>x.key===a.skill)?.mana??0:0;
     // 실제 정체 채점 자료는 결정이 끝난 뒤에만 생성하고 출력에만 쓴다.
-    const grading={allyTargetSide:a.type==='skill'&&a.skill==='ally'&&result.ok?s.players.find(x=>x.id===a.target)?.side??null:null,report:false,reportExpectedName:null as string|null};
+    const target=a.type==='skill'&&a.skill==='break_ally'&&result.ok?s.players.find(x=>x.id===a.target):undefined;
+    const grading={breakTargetSide:target?.side??null,breakTargetName:target?.character??null,breakKnownName:p.breakKnownName,allyTargetSide:a.type==='skill'&&a.skill==='ally'&&result.ok?s.players.find(x=>x.id===a.target)?.side??null:null,report:false,reportExpectedName:null as string|null};
     if(result.ok&&a.type==='chat'&&a.text.startsWith('확인 정보: ')){
       grading.report=true;const match=/^확인 정보: \[(\d+)\] (.+)$/.exec(a.text),target=s.players.find(x=>x.seat===Number(match?.[1]));
       grading.reportExpectedName=p.view.roster.find(x=>x.key===target?.character)?.name??null;
@@ -124,6 +126,7 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
         if(a.name===p.view.me.published){resources.reaffirmations++;resources.reaffirmManaNet+=after.me.mana-p.view.me.mana;}
         safety.holdingFalsePublishes+=Number(p.holding&&!truthful);
       }
+      if(result.ok&&a.skill==='break_ally')safety.wrongBreaks+=Number(grading.breakTargetSide===null||grading.breakTargetSide===p.view.me.side||!grading.breakKnownName||grading.breakKnownName!==grading.breakTargetName);
       if(result.ok&&a.skill==='ally'){
         resources.allies++;resources.allyManaNet+=p.view.me.mana-after.me.mana;
         // 실제 진영은 외부 안전 채점만. 정책/기억/선택 특징에 돌려주지 않는다.

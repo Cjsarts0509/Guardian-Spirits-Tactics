@@ -171,6 +171,8 @@ export class Room {
   status: 'lobby' | 'playing' | 'ended' = 'lobby';
   members: Member[] = [];
   state: GameState | null = null;
+  initialState:GameState|null=null;
+  initialBots=new Set<string>();
   endedAt = 0;
   private botMemories = new Map<string, BotMemory>();
   private botSeq = 0;
@@ -391,6 +393,7 @@ export class Room {
     const prepChat=this.chatArchive.map(line=>({seq:0,at:0,kind:'chat.room',vis:{to:'all' as const},text:`${this.anonymous?'참가자':line.nickname}: ${line.text}`,data:{wallTime:line.at}}));
     state.log=[...prepChat,...state.log];state.log.forEach((e,i)=>e.seq=i+1);state.seq=state.log.length;
     this.state = state;
+    this.initialState=structuredClone(state);this.initialBots=this.botIds();
     this.matchNicknames=Object.fromEntries(this.members.map(m=>[m.id,m.nickname]));
     this.matchAuthIds = Object.fromEntries(this.members.map(m => [m.id, m.authId]));
     this.replayFrames = [{ at: 0, view: spectatorView(state) }];
@@ -435,6 +438,7 @@ export class Room {
         this.state.startedAt += delta; this.state.now = now; this.state.nextTurnAt += delta;
         for (const task of this.state.queue) task.at += delta;
         this.stage = 'running'; this.countdownEndsAt = 0;
+        if(this.actions.length===0)this.initialState=structuredClone(this.state);
         this.broadcastRoom(); this.syncGame();
       }
       if (this.stage !== 'running') return;
@@ -461,10 +465,10 @@ export class Room {
       if (a) {
         const r = applyAction(this.state, m.id, a, now);
         observeBotActionResult(memory, a, r, now - this.state.startedAt);
-        this.record(m.id, a, now, r.ok, r.error);
+        this.record(m.id, a, now, r.ok, r.error,m.bot?'bot':'away-bot');
       }
       const chat=this.cfg.botKind==='smart'?botCommunicationAction(this.state,m.id,memory):null;
-      if(chat){const result=applyAction(this.state,m.id,chat,now);this.record(m.id,chat,now,result.ok,result.error);}
+      if(chat){const result=applyAction(this.state,m.id,chat,now);this.record(m.id,chat,now,result.ok,result.error,m.bot?'bot':'away-bot');}
     }
     if (this.state.seq !== before) this.afterChange();
   }
@@ -588,9 +592,9 @@ export class Room {
 
   hostExpired(): boolean { return this.hosting === 'player' && !!this.hostVacantAt && Date.now() - this.hostVacantAt > 10 * 60_000; }
 
-  private record(player: string, action: Action, now: number, ok: boolean, error?: string): void {
+  private record(player: string, action: Action, now: number, ok: boolean, error?: string,controller:'human-input'|'bot'|'away-bot'='human-input'): void {
     if (!this.state) return;
-    this.actions.push({ t: now - this.state.startedAt, player, action, ok, ...(error ? { error } : {}) });
+    this.actions.push({ t: now - this.state.startedAt, player, action, ok, controller, ...(error ? { error } : {}) });
   }
 
   botIds(): Set<string> {

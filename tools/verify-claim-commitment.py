@@ -4,7 +4,7 @@ p=argparse.ArgumentParser();p.add_argument('path',type=pathlib.Path);p.add_argum
 def read(path):
     raw=path.read_bytes();return gzip.decompress(raw) if path.suffix=='.gz' else raw
 d=json.loads(read(a.path));assert d['phase'] in ['development','holdout']
-specs={'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
+specs={'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
 candidate,options=specs[d['kind']]
 assert d['variants']==['baseline','control',candidate] and d['options']=={'baseline':{},'control':{},candidate:options}
 if not a.allow_partial:assert d['complete'] and d['executions']==d['count']*4*3*4*3
@@ -14,6 +14,9 @@ if a.source_ref:
 else:expected_sources={'src/'+str(x.relative_to('packages/rules/src')) for x in pathlib.Path('packages/rules/src').rglob('*.ts')}
 expected_sources|={'scripts/'+x for x in ['cooperative-claim-commitment.ts','cooperative-commitment-match.ts','league-runner.ts','baselines/pre-cooperative.ts','claim-opponents.ts']}
 if d.get('persistence')=={'version':2}:expected_sources.add('scripts/cooperative-store.ts')
+if d.get('comparisonRevision')==2:
+    expected_sources.add('scripts/baselines/pre-round024.ts')
+    assert d['controlPolicy']==('PR-before-round024' if candidate=='enemyBreakRepair' else 'current-default')
 assert set(d['sourceHashes'])==expected_sources and set(d['auxiliarySourceHashes'])=={'tools/verify-claim-commitment.py'}
 for group,prefix in [('sourceHashes','packages/rules/'),('auxiliarySourceHashes','')]:
     for path,sha in d[group].items():
@@ -54,6 +57,8 @@ for x in d['records']:
                         if v=='idleClaimMana':
                             assert truthful and t['beforeTrueName'] and t['manualSameName'] and t['activeDecision'] and t['beforeMana']+5<=t['maxMana'] and delta==5
                             assert t['reaffirmationProof']=={'originalNull':True,'ownMemoryEqual':True,'ownRngEqual':True}
+                if k=='break_ally' and 'wrongBreaks' in r['safety']:
+                    z=t['grading'];safety['wrongBreaks']+=int(z['breakTargetSide'] is None or z['breakTargetSide']==t['side'] or not z['breakKnownName'] or z['breakKnownName']!=z['breakTargetName'])
                 if k=='ally':
                     expected['allies']+=1;expected['allyManaNet']+=t['beforeMana']-t['afterMana'];safety['wrongAllies']+=int(t['grading']['allyTargetSide']!=t['side'])
             else:s['rejected']+=1
@@ -64,6 +69,7 @@ for x in d['records']:
     if 'reaffirmations' in res:
         for k in ['reaffirmations','reaffirmManaNet']:assert res[k]==expected[k],k
     for k in ['wrongAllies','falseReports','holdingFalsePublishes']:assert r['safety'][k]==safety[k],k
+    if 'wrongBreaks' in r['safety']:assert r['safety']['wrongBreaks']==safety['wrongBreaks']
     assert res['turns']==len(r['turns']) and res['trueNameTurns']==sum(t['trueName'] for t in r['turns']) and res['trueNameBonusGross']==10*res['trueNameTurns']
     assert res['turnGainGross']==sum(t['gain'] for t in r['turns']) and res['incomingAllyManaGross']==10*sum(t['allies'] for t in r['turns'])
     assert res['holdingTrueNameTurns']==sum(t['holding'] and t['trueName'] for t in r['turns'])

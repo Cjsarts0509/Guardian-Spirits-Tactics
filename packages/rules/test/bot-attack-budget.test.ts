@@ -1,6 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {botKnowledge,createBotMemory,smartBotAction,viewFor,applyAction} from '../src/index.js';
 import {forecastAttackBudget} from '../src/bot-attack-budget.js';
+import {smartBotAction as priorPR} from '../scripts/baselines/pre-round024.js';
 import {civilTable} from './helpers.js';
 
 function setup(){
@@ -31,6 +32,12 @@ describe('다음 자기 턴 직후 확정 공격의 제한 예산',()=>{
   it('확정 적 동맹 파기는 예산 부족분보다 먼저 실행한다',()=>{
     const {t,p}=setup();p.skills.push({key:'break_ally',cooldownUntil:0,usesLeft:null,level:1});p.allies.push(t.id.kaspa!);
     const a=smartBotAction(t.state,p.id,createBotMemory(2),{activity:1,forecastAttackBudget:true});
+    expect(a).toEqual({type:'skill',skill:'break_ally',target:t.id.kaspa});expect(t.act('mertz',a!).ok).toBe(true);expect(p.allies).not.toContain(t.id.kaspa);
+  });
+  it('기본 정책에서도 충분한 현재 마나를 예약할 때 확정 적 동맹을 파기한다',()=>{
+    const {t,p}=setup();p.mana=50;p.skills.push({key:'break_ally',cooldownUntil:0,usesLeft:null,level:1});p.allies.push(t.id.kaspa!);
+    expect(priorPR(t.state,p.id,createBotMemory(2),{activity:1})).toBeNull();
+    const a=smartBotAction(t.state,p.id,createBotMemory(2),{activity:1});
     expect(a).toEqual({type:'skill',skill:'break_ally',target:t.id.kaspa});expect(t.act('mertz',a!).ok).toBe(true);expect(p.allies).not.toContain(t.id.kaspa);
   });
   it('현재 이미 충분하거나 미리보기로도 부족하거나 다음 턴이 비용 전부를 주면 추가 예약이 없다',()=>{
