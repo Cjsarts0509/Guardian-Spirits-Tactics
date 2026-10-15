@@ -1,23 +1,23 @@
 {
   "round": 44,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round044-reported-supreme-fresh-development",
   "startedAt": "2026-10-16T01:26:00+09:00",
-  "leaseUntil": "2026-10-16T02:26:00+09:00",
+  "leaseUntil": null,
   "continuation": "user_20261015_2354_go",
   "task": "既存 reportedSupreme 단독 새 고정 상대 개발; 기회/실제 보고 공격과 전체 성능 분리",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
   "evaluationSourceRef": "2541ef036fba963e83f2cd4b089fc3ddf85735c8",
-  "executions": 576,
+  "executions": 1152,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 46784,
-  "cumulativeTerminatedExecutions": 46782,
+  "cumulativeExecutions": 47360,
+  "cumulativeTerminatedExecutions": 47358,
   "cumulativeUnfinishedExecutions": 2,
   "developmentSeeds": {
     "start": 150000,
     "count": 8,
-    "status": "in_use"
+    "status": "used_complete_round044"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -41,18 +41,18 @@
     "executions": 0,
     "replayedGames": 320
   },
-  "checkpoint": "round044_disk_full_recovered_verified_576",
-  "nextAction": "Finish at most12x96 frozen development batches; independently verify all1152 and zero-new resume; then preserve results before same-policy balance",
+  "checkpoint": "round044_complete_behavior_verified_strength_uncertain",
+  "nextAction": "Round045 preregister/verify unused151000-151079 and evaluate 320 identical-policy primordial games; preserve default OFF and skill values",
   "record": "docs/ai-rounds/ROUND_044_20261016_0126.md",
   "deployment": false,
   "repeatDisabled": false,
   "replayTarget": 0,
-  "replayedGames": 0,
+  "replayedGames": 2,
   "corpusAudit": {
-    "path": "docs/evaluations/cooperation-round-039-cumulative-audit.json",
-    "primaryDatasets": 32,
-    "verifiedExecutions": 46208,
-    "terminated": 46206,
+    "path": "docs/evaluations/cooperation-round-044-cumulative-audit.json",
+    "primaryDatasets": 33,
+    "verifiedExecutions": 47360,
+    "terminated": 47358,
     "unfinished": 2,
     "seedRangesDisjoint": true
   },
@@ -82,20 +82,26 @@
     "observerInvariant": "4_modes_full_match_ON_OFF_equal",
     "syntheticExecutions": 144,
     "syntheticOptionChanges": 9,
-    "semanticTamper": "valid_plus4_rehashed_rejections"
+    "semanticTamper": "valid_plus4_rehashed_rejections",
+    "supervisorUnknownWriterPreserved": 1,
+    "recovered288PrefixExact": true,
+    "completeResumeNewGames": 0,
+    "completeResumeHashesUnchanged": true,
+    "posthocReplay": "2_original_matches_and_all_actions_exact",
+    "posthocTypecheck": "passed"
   },
   "postflightCI": {
-    "sourceRef": "4eb38918c69988ef1643dc83ec29c791544e75df",
+    "sourceRef": "2541ef036fba963e83f2cd4b089fc3ddf85735c8",
     "checks": [
       {
         "name": "CI",
         "conclusion": "success",
-        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38767334994"
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38769468633"
       },
       {
         "name": "Card UI browser check",
         "conclusion": "success",
-        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38767335132"
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38769468558"
       }
     ]
   },
@@ -108,7 +114,7 @@
     "unmatchedReceivedReports": 0,
     "wrongCommanderMessages": 0
   },
-  "nextRoundStarted": true,
+  "nextRoundStarted": false,
   "reportedSupremeSamePoint": {
     "control": {
       "eligible": 163,
@@ -141,7 +147,40 @@
     "lastDiskSnapshotExecutions": 288,
     "interruptedDuplicatesArchive": "/tmp/gst-round044-interrupted-generations.tar.gz",
     "newGamesRerun": 0,
-    "log": "/tmp/gst-round044-validation/recovered-development.log"
+    "log": "/tmp/gst-round044-validation/recovered-development.log",
+    "resolved": true,
+    "canonicalRepo": "docs/evaluations/cooperation-round-044-development.json.gz"
   },
-  "completedCorpusBeforeRound": 46208
+  "completedCorpusBeforeRound": 46208,
+  "completedAt": "2026-10-16T01:50:00+09:00",
+  "analysisSourceRef": "361cd20ba11cff4edd5b20849e45c42a93db7b15",
+  "functionalDecision044": {
+    "eligible": 58,
+    "selected": 54,
+    "accepted": 54,
+    "wrong": 0,
+    "failedReportAttacks": 0,
+    "samePointChanged": 51,
+    "idleReplaced": 49,
+    "higherPriorityPreserved": 4,
+    "knownPromotion": 0
+  },
+  "strength044": {
+    "baselineWins": 263,
+    "controlWins": 261,
+    "candidateWins": 264,
+    "gamesEach": 384,
+    "candidateMinusControlPP": 0.78125,
+    "seed95PP": [
+      -0.2604166667,
+      2.0833333333
+    ],
+    "pairedImproved": 4,
+    "pairedWorsened": 1,
+    "pairedTied": 379,
+    "totalAttackFailuresControl": 98,
+    "totalAttackFailuresCandidate": 99,
+    "overallRejectedEach": 36,
+    "defaultEnabled": false
+  }
 }
