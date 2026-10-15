@@ -8,7 +8,7 @@ import {playCommitmentMatch} from '../scripts/cooperative-commitment-match.js';
 import {DEFAULT_SETTINGS} from '../scripts/league-runner.js';
 const f={mode:'civil_war' as const,seed:23,count:8,reversed:false,currentSide:1 as const},settings={...DEFAULT_SETTINGS,activity:.08,limitMs:240000};
 const root=resolve('../..'),hash=(x:string|Buffer)=>createHash('sha256').update(x).digest('hex');
-let dir:string,data:any,journal:string,idleData:any,idleJournal:string;
+let dir:string,data:any,journal:string,idleData:any,idleJournal:string,forecastData:any,forecastJournal:string;
 describe('한 턴 공표 유지의 실제 경기 관측과 독립 검증',()=>{
   beforeAll(()=>{
     dir=mkdtempSync(join(tmpdir(),'gst-commitment-test-'));const sourceHashes:Record<string,string>={};
@@ -23,6 +23,10 @@ describe('한 턴 공표 유지의 실제 경기 관측과 독립 검증',()=>{
     const idleRecords=[...records.slice(0,2),{mode:f.mode,style:'truthful',variant:'idleClaimMana',result:playCommitmentMatch(f,'truthful','idleClaimMana',settings)}];
     const idleFingerprint=hash(JSON.stringify(idleMeta));idleJournal=JSON.stringify({type:'header',fingerprint:idleFingerprint,meta:idleMeta})+'\n'+idleRecords.map(x=>JSON.stringify(x)+'\n').join('');
     idleData={...idleMeta,fingerprint:idleFingerprint,complete:false,executions:3,journalSha256:hash(idleJournal),records:idleRecords};
+    const forecastMeta={...meta,kind:'forecast-attack-budget-comparison',variants:['baseline','control','forecastAttackBudget'],options:{baseline:{},control:{},forecastAttackBudget:{forecastAttackBudget:true}}};
+    const forecastRecords=[...records.slice(0,2),{mode:f.mode,style:'truthful',variant:'forecastAttackBudget',result:playCommitmentMatch(f,'truthful','forecastAttackBudget',settings)}];
+    const forecastFingerprint=hash(JSON.stringify(forecastMeta));forecastJournal=JSON.stringify({type:'header',fingerprint:forecastFingerprint,meta:forecastMeta})+'\n'+forecastRecords.map(x=>JSON.stringify(x)+'\n').join('');
+    forecastData={...forecastMeta,fingerprint:forecastFingerprint,complete:false,executions:3,journalSha256:hash(forecastJournal),records:forecastRecords};
   });
   afterAll(()=>rmSync(dir,{recursive:true,force:true}));
   const verify=(d:any=data,j=journal)=>{writeFileSync(join(dir,'raw.json'),JSON.stringify(d));writeFileSync(join(dir,'journal.ndjson'),j);return execFileSync('python',['tools/verify-claim-commitment.py',join(dir,'raw.json'),'--allow-partial','--journal-path',join(dir,'journal.ndjson')],{cwd:root,encoding:'utf8',stdio:['pipe','pipe','pipe']});};
@@ -59,5 +63,14 @@ describe('한 턴 공표 유지의 실제 경기 관측과 독립 검증',()=>{
   });
   it('자기 기억 복제 관측을 켜거나 꺼도 대기 재공표 후보의 실제 경기가 같다',()=>{
     expect(playCommitmentMatch(f,'truthful','idleClaimMana',settings,false).game).toEqual(idleData.records.find((x:any)=>x.variant==='idleClaimMana').result.game);
+  });
+  it('다음 턴 예산 관측ON/OFF의 실제 경기와 행동 통계가 같고 독립 검증이 통과한다',()=>{
+    const r=forecastData.records.find((x:any)=>x.variant==='forecastAttackBudget').result;
+    expect(playCommitmentMatch(f,'truthful','forecastAttackBudget',settings,false).game).toEqual(r.game);
+    expect(JSON.parse(verify(forecastData,forecastJournal)).journalVerified).toBe(true);
+  });
+  it('예산 후보를 다른 옵션과 섞거나 보유하지 않은 예산 증거를 삽입하면 거절한다',()=>{
+    const bad=structuredClone(forecastData);bad.options.forecastAttackBudget.idleClaimMana=true;expect(()=>verify(bad,forecastJournal)).toThrow();
+    const forged=structuredClone(forecastData);forged.records.find((x:any)=>x.variant==='control').result.budgets.push({plan:{skill:'advanced_attack'},at:0});expect(()=>verify(forged,forecastJournal)).toThrow();
   });
 });

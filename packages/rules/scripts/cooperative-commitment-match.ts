@@ -1,16 +1,18 @@
 // 평가 관측 전용. 자기 뷰/수신 이벤트 집계는 정책으로 전달하지 않는다.
 import {isDeepStrictEqual} from 'node:util';
-import {smartBotAction,botCommunicationAction,eventsFor,viewFor,type Action,type BotMemory,type PlayerView} from '../src/index.js';
+import {smartBotAction,botCommunicationAction,botKnowledge,eventsFor,viewFor,type Action,type BotMemory,type PlayerView} from '../src/index.js';
 import {claimTurnCommitted} from '../src/bot-claim-commitment.js';
 import {PUBLISH_MANA} from '../src/constants.js';
 import {idleClaimViewEligible} from '../src/bot-idle-claim.js';
 import {nextRandom} from '../src/rng.js';
+import {forecastAttackBudget} from '../src/bot-attack-budget.js';
+import {NAME_ATTACKS} from '../src/bot-tactics.js';
 import {smartBotAction as previous} from './baselines/pre-cooperative.js';
 import {opponentClaim,type ClaimStyle} from './claim-opponents.js';
 import {playMatch,DEFAULT_SETTINGS,type Fixture,type Policy,type Settings} from './league-runner.js';
-export type CommitmentVariant='baseline'|'control'|'commitment'|'idleClaimMana';
+export type CommitmentVariant='baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget';
 export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:CommitmentVariant,settings:Settings=DEFAULT_SETTINGS,observe=true){
-  const options=variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:{};
+  const options=variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:{};
   const resources={aliveMs:0,trueNameMs:0,turns:0,trueNameTurns:0,trueNameBonusGross:0,incomingAllyManaGross:0,turnGainGross:0,
     publishes:0,truePublishes:0,falsePublishes:0,publishManaGross:0,publishManaNet:0,reaffirmations:0,reaffirmManaNet:0,allies:0,allyManaNet:0,
     acceptedSkillMana:0,attackFailures:0,holdingMs:0,holdStarts:0,holdingTrueNameTurns:0,gemCompletedPlayers:0,
@@ -19,6 +21,11 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
   const turns:Array<{player:string;at:number;turn:number;gain:number;allies:number;trueName:boolean;gem:number;holding:boolean}>=[];
   const holds:Array<{player:string;character:string;at:number;publishedAt:number;until:number;nextTurnInMs:number;trueName:boolean;hasDisguise:boolean}>=[];
   type Proof={originalNull:boolean;ownMemoryEqual:boolean;ownRngEqual:boolean};
+  const budgets:Array<{player:string;at:number;mana:number;maxMana:number;nextTurnInMs:number;preview:number;
+    plan:NonNullable<ReturnType<typeof forecastAttackBudget>>;knownTarget:string;ownSide:number;targetSide:number;
+    skillPassive:boolean;skillUsesLeft:number|null;legalName:boolean;selfIncapacitated:boolean;targetProtected:boolean;
+    guards:string[];observedDead:string[];originalAction:Action|null;originalCost:number;chosenAction:Action|null;chosenCost:number;
+    removedSkills:string[];originalWouldBreakForecast:boolean;changed:boolean}>=[];
   const actions:Array<{player:string;at:number;action:Action;accepted:boolean;error:string|null;beforeMana:number;afterMana:number;maxMana:number;nominalMana:number;holding:boolean;beforeTrueName:boolean;beforePublished:string|null;manualSameName:boolean;activeDecision:boolean;reaffirmationProof:Proof|null;character:string;side:number;
     grading:{allyTargetSide:number|null;report:boolean;reportExpectedName:string|null}}>=[];
   const ownIds=new Set<string>(),seq=new Map<string,number>(),until=new Map<string,number>(),holdingCharacter=new Map<string,string>(),seenHolds=new Set<string>(),completed=new Set<string>();
@@ -41,7 +48,23 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
   const current:Policy=(s,id,m,o)=>{
     // 복제는 해당 호출의 자기 기억뿐이다. 가상 결과는 검증 출력에만 쓰고 실제 행동을 고르지 않는다.
     const original=observe&&variant==='idleClaimMana'&&nextRandom({rng:m.rng})<=(o.activity??.5)&&idleClaimViewEligible(viewFor(s,id))?structuredClone(m):undefined;
+    const budgetOriginal=observe&&variant==='forecastAttackBudget'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const a=variant==='baseline'?previous(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options});let proof:Proof|null=null;
+    if(budgetOriginal&&m.communicationAt===s.now-s.startedAt){
+      const v=viewFor(s,id),k=botKnowledge(s,id,v,structuredClone(m)),plan=forecastAttackBudget(v,k);
+      if(plan){
+        const alternative=smartBotAction(s,id,budgetOriginal,{...o,forecastAttackBudget:false}),skill=v.me.skills.find(x=>x.key===plan.skill)!;
+        const removedSkills=v.me.skills.filter(x=>!x.passive&&x.blocked===null&&!NAME_ATTACKS.includes(x.key)&&x.mana>v.me.mana-plan.manaToKeep).map(x=>x.key);
+        const cost=(x:Action|null)=>x?.type==='skill'?v.me.skills.find(z=>z.key===x.skill)?.mana??0:0;
+        const guards=({civil_war:{kai:['arin'],dantes:['kelhu']},lidellut:{kai:['arin']},troll:{chis:['satoshi','zwinra']}} as Record<string,Record<string,string[]>>)[v.mode]?.[plan.name]??[];
+        budgets.push({player:id,at:v.elapsedMs,mana:v.me.mana,maxMana:v.me.maxMana,nextTurnInMs:v.nextTurnInMs,preview:v.me.nextTurnManaPreview,plan,
+          knownTarget:k.known.get(plan.target)!,ownSide:v.me.side,targetSide:v.roster.find(r=>r.key===plan.name)!.side,
+          skillPassive:skill.passive,skillUsesLeft:skill.usesLeft,legalName:skill.nameOptions?.includes(plan.name)??false,
+          selfIncapacitated:v.me.effects.some(e=>e.kind==='incapacitated'),targetProtected:v.players.find(p=>p.id===plan.target)!.statuses.some(e=>e.kind==='invulnerable'),
+          guards,observedDead:v.players.filter(p=>!p.alive&&p.revealed).map(p=>p.revealed!),originalAction:alternative,originalCost:cost(alternative),chosenAction:a,chosenCost:cost(a),removedSkills,
+          originalWouldBreakForecast:alternative?.type==='skill'&&removedSkills.includes(alternative.skill),changed:!isDeepStrictEqual(alternative,a)});
+      }
+    }
     if(observe&&variant==='idleClaimMana'&&a?.type==='skill'&&a.skill==='publish'&&a.name===viewFor(s,id).me.published){
       if(!original)throw Error('재공표 전 자기 기억 복제 누락');
       const alternative=smartBotAction(s,id,original,{...o,idleClaimMana:false});
@@ -99,5 +122,5 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       if(v.me.gem===3&&!completed.has(id)){completed.add(id);resources.gemCompletedPlayers++;}
     }
   });
-  return {game,resources,safety,turns,holds,actions};
+  return {game,resources,safety,turns,holds,actions,budgets};
 }

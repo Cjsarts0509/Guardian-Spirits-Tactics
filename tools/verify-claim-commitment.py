@@ -4,7 +4,7 @@ p=argparse.ArgumentParser();p.add_argument('path',type=pathlib.Path);p.add_argum
 def read(path):
     raw=path.read_bytes();return gzip.decompress(raw) if path.suffix=='.gz' else raw
 d=json.loads(read(a.path));assert d['phase'] in ['development','holdout']
-specs={'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True})}
+specs={'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True})}
 candidate,options=specs[d['kind']]
 assert d['variants']==['baseline','control',candidate] and d['options']=={'baseline':{},'control':{},candidate:options}
 if not a.allow_partial:assert d['complete'] and d['executions']==d['count']*4*3*4*3
@@ -71,6 +71,27 @@ for x in d['records']:
     b['games']+=1;b['scoreSum']+=score;b['unfinished']+=int(g['winner'] is None);b['earlyAttackFailures']+=g['stats']['current']['earlyAttackFailures'];b['rejected']+=g['stats']['current']['rejected'];b['safety'].update(r['safety'])
     b['resources'].update({k:z for k,z in res.items() if k!='skills'})
     for k,z in skills.items():b['skills'].setdefault(k,collections.Counter()).update(z)
+    budget_seen=set();budget_counts=collections.Counter()
+    for t in r.get('budgets',[]):
+        plan=t['plan'];assert v=='forecastAttackBudget' and t['ownSide']==f['currentSide'] and t['targetSide']!=t['ownSide']
+        assert 0<=t['at']<=g['elapsedMs'] and (t['player'],t['at']) not in budget_seen;budget_seen.add((t['player'],t['at']))
+        assert 0<t['nextTurnInMs']<=plan['cooldownRemainingMs']<=20000 and 0<=t['mana']<plan['cost']<=min(t['maxMana'],t['mana']+t['preview'])
+        assert 0<plan['manaToKeep']==max(0,plan['cost']-t['preview'])<=t['mana'] and plan['name']==t['knownTarget']
+        attacks=['attack','advanced_attack','supreme_attack','soen_chain_murder'];assert plan['skill'] in attacks
+        assert not t['skillPassive'] and t['skillUsesLeft']!=0 and t['legalName'] and not t['selfIncapacitated'] and not t['targetProtected']
+        guards={'civil_war':{'kai':['arin'],'dantes':['kelhu']},'lidellut':{'kai':['arin']},'troll':{'chis':['satoshi','zwinra']}}.get(mode,{}).get(plan['name'],[])
+        assert t['guards']==guards and set(guards)<=set(t['observedDead'])
+        original,chosen=t['originalAction'],t['chosenAction'];assert t['changed']==(original!=chosen) and t['originalCost']>=0 and t['chosenCost']>=0
+        assert not set(t['removedSkills'])&set(attacks)
+        assert t['originalWouldBreakForecast']==bool(original and original['type']=='skill' and original['skill'] in t['removedSkills'])
+        if t['originalWouldBreakForecast']:assert t['originalCost']>t['mana']-plan['manaToKeep']
+        if chosen:
+            assert any(z['player']==t['player'] and z['at']==t['at'] and z['action']==chosen and z['beforeMana']==t['mana'] and z['nominalMana']==t['chosenCost'] for z in r['actions'])
+            assert chosen['type']!='skill' or chosen['skill'] in attacks or t['chosenCost']<=t['mana']-plan['manaToKeep']
+        budget_counts['decisions']+=1;budget_counts['changed']+=t['changed'];budget_counts['chosenNull']+=chosen is None
+        if t['originalWouldBreakForecast']:
+            budget_counts['originalBudgetBreaking']+=1;budget_counts['originalSkill:'+original['skill']]+=1
+    if candidate=='forecastAttackBudget':b.setdefault('budget',collections.Counter()).update(budget_counts)
 assert out['executions']==d['executions']
 for v,modes in out['variants'].items():
     for mode,b in modes.items():b['score']=b['scoreSum']/b['games']

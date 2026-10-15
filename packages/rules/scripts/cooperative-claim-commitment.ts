@@ -8,14 +8,14 @@ import {playCommitmentMatch,type CommitmentVariant} from './cooperative-commitme
 import type {ClaimStyle} from './claim-opponents.js';
 const count=Number(process.argv[2]??8),start=Number(process.argv[3]??130000),out=process.argv[4]??'../../docs/evaluations/cooperation-round-016-development.json',batch=Number(process.argv[5]??96),phase=process.argv[6]??'development';
 if(!Number.isSafeInteger(count)||count<1||!Number.isSafeInteger(start)||!Number.isSafeInteger(batch)||batch<0||batch%3||!['development','holdout'].includes(phase))throw Error('시드/배치/단계 오류');
-const candidate=process.argv[7]??'commitment';if(!['commitment','idleClaimMana'].includes(candidate))throw Error('고정 후보 이름 오류');
-const candidateOptions=candidate==='commitment'?{claimTurnCommitment:true}:{idleClaimMana:true};
+const candidate=process.argv[7]??'commitment';if(!['commitment','idleClaimMana','forecastAttackBudget'].includes(candidate))throw Error('고정 후보 이름 오류');
+const candidateOptions=candidate==='commitment'?{claimTurnCommitment:true}:candidate==='idleClaimMana'?{idleClaimMana:true}:{forecastAttackBudget:true};
 const hash=(x:string|Buffer)=>createHash('sha256').update(x).digest('hex'),sourceHashes:Record<string,string>={},src=new URL('../src/',import.meta.url);
 const walk=(dir:URL,prefix='')=>{for(const e of readdirSync(dir,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))){const p=prefix+e.name;if(e.isDirectory())walk(new URL(e.name+'/',dir),p+'/');else if(e.name.endsWith('.ts'))sourceHashes['src/'+p]=hash(readFileSync(new URL(e.name,dir)));}};walk(src);
 for(const p of ['cooperative-claim-commitment.ts','cooperative-commitment-match.ts','league-runner.ts','baselines/pre-cooperative.ts','claim-opponents.ts'])sourceHashes['scripts/'+p]=hash(readFileSync(new URL(p,import.meta.url)));
 const auxiliarySourceHashes={'tools/verify-claim-commitment.py':hash(readFileSync(new URL('../../../tools/verify-claim-commitment.py',import.meta.url)))};
 const variants:CommitmentVariant[]=['baseline','control',candidate as CommitmentVariant];
-const meta={format:1,kind:candidate==='commitment'?'claim-turn-commitment-comparison':'idle-manual-true-claim-mana-comparison',phase,count,start,settings:DEFAULT_SETTINGS,variants,
+const meta={format:1,kind:candidate==='commitment'?'claim-turn-commitment-comparison':candidate==='idleClaimMana'?'idle-manual-true-claim-mana-comparison':'forecast-attack-budget-comparison',phase,count,start,settings:DEFAULT_SETTINGS,variants,
   options:{baseline:{},control:{},[candidate]:candidateOptions},sourceHashes,auxiliarySourceHashes,
   design:{unit:'seed',development:'candidate>control AND candidate>=baseline AND safety=0',holdout:'overall_vs_baseline_seed95Lower>0 AND each_mode_difference>=-0.02 AND safety=0',
     limitations:['개발 결과로 승격하지 않는다.','턴 마나는 상한 전 원시 값이다. 공표 보상은 실제 자기 마나 전후 차이를 따로 기록한다.','대기 때 추가 행동이나 유지 중 행동의 횟수는 승패 개선을 대체하지 않는다.']}};

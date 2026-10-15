@@ -12,6 +12,7 @@ import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.
 import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
 import { adaptiveClaimName, strategicClaimName } from './bot-claim-policy.js';
 import {idleManualTrueClaim} from './bot-idle-claim.js';
+import {forecastAttackBudget,KNOWN_ATTACK_GUARDS as GUARDS} from './bot-attack-budget.js';
 import { hasIdentityEvidence, bestConfirmation } from './bot-confirmation.js';
 import { boundedSequenceSearch } from './bot-sequence.js';
 import { boundedAttackSearch } from './bot-rollout.js';
@@ -40,6 +41,8 @@ export interface BotOptions {
   claimTurnCommitment?: boolean;
   /** 개발 비교: 원래 null인 실제 활동 기회에만 기존 수동 진명을 재공표해+5마나. 기본OFF. */
   idleClaimMana?: boolean;
+  /** 개발 비교: 다음 자기 턴 뒤20초 안에 준비될 확정 공격의 현재 부족분만 예약. 기본OFF. */
+  forecastAttackBudget?: boolean;
   /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
   protectionRetryBackoff?: boolean;
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
@@ -103,11 +106,6 @@ export function randomBotAction(state: GameState, playerId: PlayerId, rng: { rng
 // ── 똑똑한 봇 ───────────────────────────────────────────────────────────
 
 /** 보디가드가 살아 있으면 공격이 무조건 실패하는 관계 (모드 규칙, 공개 정보). 태초의 횟수제 보디가드는 공격자 손해가 없어 제외 */
-const GUARDS: Record<string, Record<CharKey, CharKey[]>> = {
-  civil_war: { kai: ['arin'], dantes: ['kelhu'] },
-  lidellut: { kai: ['arin'] },
-  troll: { chis: ['satoshi', 'zwinra'] }, // 한 명이라도 살아 있으면 보호 (G1)
-};
 /** 대상이 특정 캐릭터일 때만 의미 있는 조건부 스킬. friendly: 아군에게 거는 것(공표 이름을 믿고 시도). knownOnly: 확실히 알 때만 (실패 손해가 큰 것) */
 interface Need {
   want: CharKey[];
@@ -288,7 +286,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
     return c !== undefined && enemy(c);
   });
   // 곧 돌아오는 확정 공격의 마나를 관계없는 확인·지원에 먼저 쓰지 않는다.
-  const reserve = Math.max(0, ...me.skills.filter((s) => NAME_ATTACKS.includes(s.key) &&
+  const reserve = Math.max(opts.forecastAttackBudget?forecastAttackBudget(view,knowledge)?.manaToKeep??0:0, ...me.skills.filter((s) => NAME_ATTACKS.includes(s.key) &&
     s.cooldownRemainingMs > 0 && s.cooldownRemainingMs <= 20_000 && me.mana >= s.mana &&
     knownEnemies.some((p) => attackable(known.get(p.id)!) && s.nameOptions?.includes(known.get(p.id)!)),
   ).map((s) => s.mana));
