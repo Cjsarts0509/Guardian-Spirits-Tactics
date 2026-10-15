@@ -1,27 +1,23 @@
 {
-  "round": 21,
-  "status": "completed",
-  "owner": "continuous-round-021-dead-confirmed-ally-report-verification",
-  "startedAt": "2026-10-15T11:35:00+09:00",
-  "leaseUntil": "2026-10-15T11:50:00+09:00",
+  "round": 22,
+  "status": "in_progress",
+  "owner": "continuous-round-022-final-corpus-audit-only",
+  "startedAt": "2026-10-15T11:48:50+09:00",
+  "leaseUntil": "2026-10-15T12:05:00+09:00",
   "continuation": "finish_commit_then_start_next_immediately_until_deadline",
   "deadline": "2026-10-15T12:00:00+09:00",
   "noNewExperimentAfter": "2026-10-15T11:50:00+09:00",
   "developmentSeeds": {
-    "start": 137000,
-    "count": 8,
-    "status": "completed_development_rejected"
+    "status": "none_no_new_experiments"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "verifyDeadAllyReports",
-  "options": {
-    "verifyDeadAllyReports": true
-  },
-  "checkpoint": "1152_complete_verified_new0_resume_verified_no_storage_mismatch",
+  "candidate": "none_final_audit_only",
+  "options": {},
+  "checkpoint": "final_audit_reservation_no_new_research",
   "checks": {
     "tests": 584,
     "rules": 516,
@@ -30,19 +26,19 @@
     "serverBuild": "passed",
     "clientWorkerBuild": "passed"
   },
-  "executions": 1152,
-  "targetExecutions": 1152,
+  "executions": 0,
+  "targetExecutions": 0,
   "cumulativeExecutions": 31296,
-  "decision": "rejected_development_below_main_default_off_holdout_unused",
-  "nextAction": "commit_then_immediate_final_corpus_and_seed_audit_no_new_games",
+  "decision": "pending_read_only_corpus_and_seed_reverification",
+  "nextAction": "reverify_immutable_corpus_then_close_report_at_noon_and_disable_repeat",
   "previousCompleted": {
-    "round": 20,
-    "executions": 4608,
-    "unfinishedExecutions": 2,
-    "sourceRef": "358cc64e3b5a276d162050bda8b66c930da201ec",
-    "completionRef": "6900ee026e671a84580242fe88fe0ecb40b32e73",
-    "decision": "no_action_change_candidate",
-    "record": "docs/ai-rounds/ROUND_020_20261015_1116.md"
+    "round": 21,
+    "executions": 1152,
+    "unfinishedExecutions": 0,
+    "sourceRef": "8eb4e065b0fae7ed90d4b503bd6e4226954998c6",
+    "completionRef": "d79e67f59c9b43a98d4ad0a6a0c2d75957f01b97",
+    "decision": "rejected_development_default_off",
+    "record": "docs/ai-rounds/ROUND_021_20261015_1135.md"
   },
   "unusedPriorCandidateDevelopment": {
     "start": 129000,
@@ -62,10 +58,8 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "021: safe verification of actual reports from own-view publicly dead confirmed allies only; no facts or attack promotion",
+  "task": "022 final immutable-corpus and seed audit only; no new games or candidate development; stop at noon",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 6,
-  "unfinishedExecutions": 0,
-  "completedAt": "2026-10-15T11:46:00+09:00",
-  "sourceRef": "8eb4e065b0fae7ed90d4b503bd6e4226954998c6"
+  "unfinishedExecutions": 0
 }
