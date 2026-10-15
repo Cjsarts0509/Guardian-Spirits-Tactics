@@ -1,23 +1,23 @@
 {
-  "round": 43,
-  "status": "completed",
-  "owner": "round043-reported-supreme-same-point",
-  "startedAt": "2026-10-16T01:06:00+09:00",
-  "leaseUntil": null,
+  "round": 44,
+  "status": "in_progress",
+  "owner": "round044-reported-supreme-fresh-development",
+  "startedAt": "2026-10-16T01:26:00+09:00",
+  "leaseUntil": "2026-10-16T02:26:00+09:00",
   "continuation": "user_20261015_2354_go",
-  "task": "039 전320 실제 자기 기억에서 reportedSupreme OFF/ON 같은 순간 선택·합법 접수 진단",
+  "task": "既存 reportedSupreme 단독 새 고정 상대 개발; 기회/실제 보고 공격과 전체 성능 분리",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
-  "evaluationSourceRef": "4eb38918c69988ef1643dc83ec29c791544e75df",
+  "evaluationSourceRef": null,
   "executions": 0,
-  "targetExecutions": 0,
+  "targetExecutions": 1152,
   "cumulativeExecutions": 46208,
   "cumulativeTerminatedExecutions": 46206,
   "cumulativeUnfinishedExecutions": 2,
   "developmentSeeds": {
-    "start": 149000,
-    "count": 80,
-    "status": "used_complete_round039"
+    "start": 150000,
+    "count": 8,
+    "status": "reserved_unused_round044"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -25,9 +25,9 @@
     "status": "unused"
   },
   "nextSeeds": {
-    "start": 150000,
+    "start": 151000,
     "count": 80,
-    "status": "reserved_unused"
+    "status": "reserved_unused_balance"
   },
   "remainingUnused148000Reservation": {
     "start": 148008,
@@ -35,19 +35,19 @@
     "status": "unused"
   },
   "previousCompleted": {
-    "round": 42,
-    "record": "docs/ai-rounds/ROUND_042_20261016_0010.md",
-    "sourceRef": "3d97c1c43d770532881e88dc9562f0f97d69e13b",
+    "round": 43,
+    "record": "docs/ai-rounds/ROUND_043_20261016_0106.md",
+    "sourceRef": "4eb38918c69988ef1643dc83ec29c791544e75df",
     "executions": 0,
-    "replayedGames": 0
+    "replayedGames": 320
   },
-  "checkpoint": "round043_complete_320_exact_replays_305_isolated_changes",
-  "nextAction": "Preregister round044 150000-150007 fixed-opponent reportedSupreme-only evaluation; then separately evaluate same-policy faction balance",
-  "record": "docs/ai-rounds/ROUND_043_20261016_0106.md",
+  "checkpoint": "round044_preregistered_no_new_games",
+  "nextAction": "Add existing option to durable collector with all-mode own-view denominator; regressions/freeze before 1152 games",
+  "record": "docs/ai-rounds/ROUND_044_20261016_0126.md",
   "deployment": false,
   "repeatDisabled": false,
-  "replayTarget": 320,
-  "replayedGames": 320,
+  "replayTarget": 0,
+  "replayedGames": 0,
   "corpusAudit": {
     "path": "docs/evaluations/cooperation-round-039-cumulative-audit.json",
     "primaryDatasets": 32,
@@ -108,8 +108,7 @@
     "unmatchedReceivedReports": 0,
     "wrongCommanderMessages": 0
   },
-  "nextRoundStarted": false,
-  "completedAt": "2026-10-16T01:22:00+09:00",
+  "nextRoundStarted": true,
   "reportedSupremeSamePoint": {
     "control": {
       "eligible": 163,
@@ -128,5 +127,10 @@
       "attackFailure": 0
     },
     "actualFullOnGames": 0
+  },
+  "remainingUnused150000Reservation": {
+    "start": 150008,
+    "count": 72,
+    "status": "unused"
   }
 }
