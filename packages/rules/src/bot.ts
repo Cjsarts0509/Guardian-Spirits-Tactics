@@ -47,6 +47,8 @@ export interface BotOptions {
   forecastAttackBudget?: boolean;
   /** 개발 기본OFF: 공격 준비 전에 도착하는 보장 기본 턴 수입만 기존 예약에서 뺀다. */
   netAttackReserve?:boolean;
+  /** 개발 기본OFF: 새 동맹 선택 직전, 보호 상태 없는 확정 아군의 행동 불능을 먼저 해제. */
+  urgentDispelBeforeAlly?:boolean;
   /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
   protectionRetryBackoff?: boolean;
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
@@ -438,7 +440,18 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
             (s.ignoresInvulnerable||!p.statuses.some(e=>e.kind==='invulnerable'))))requiredMana=Math.max(requiredMana,s.mana);
         }
       }
-      if(me.mana-ally.mana>=requiredMana)return act(ally,friends[0].id);
+      if(me.mana-ally.mana>=requiredMana){
+        if(opts.urgentDispelBeforeAlly){
+          for(const key of DISPEL){
+            const s=usable.get(key);
+            // 중화는 모든 효과를 제거하므로 보호 중인 아군은 조기 해제하지 않는다.
+            const target=s&&living.find(p=>known.has(p.id)&&!enemy(known.get(p.id)!)&&
+              p.statuses.some(e=>e.kind==='incapacitated')&&!p.statuses.some(e=>e.kind==='invulnerable'));
+            if(s&&target)return act(s,target.id);
+          }
+        }
+        return act(ally,friends[0].id);
+      }
     }
   }
 

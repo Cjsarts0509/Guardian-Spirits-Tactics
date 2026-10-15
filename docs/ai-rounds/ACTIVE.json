@@ -21,17 +21,18 @@
   "options": {
     "urgentDispelBeforeAlly": true
   },
-  "checkpoint": "reserved_before_code_or_simulation",
+  "checkpoint": "regression_type_build_passed_before_source_freeze",
   "checks": {
-    "tests": 602,
-    "rules": 527,
+    "tests": 607,
+    "rules": 532,
     "server": 75,
     "typecheck": "passed",
     "serverBuild": "passed",
     "clientWorkerBuild": "passed",
     "collectorStorageRegression": "passed_432_unit_games_excluded",
     "generationSupervisor": "passed_3_tests",
-    "postflightHumanAudit": "passed_7_tests_no_actual_humans"
+    "postflightHumanAudit": "passed_7_tests_no_actual_humans",
+    "observerInvariant": "passed_2_synthetic_games_excluded"
   },
   "executions": 0,
   "targetExecutions": 1152,

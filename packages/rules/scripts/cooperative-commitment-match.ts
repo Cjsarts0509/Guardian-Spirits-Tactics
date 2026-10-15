@@ -12,9 +12,9 @@ import {smartBotAction as priorPR} from './baselines/pre-round024.js';
 import {smartBotAction as previous} from './baselines/pre-cooperative.js';
 import {opponentClaim,type ClaimStyle} from './claim-opponents.js';
 import {playMatch,DEFAULT_SETTINGS,type Fixture,type Policy,type Settings} from './league-runner.js';
-export type CommitmentVariant='baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair'|'netAttackReserve';
+export type CommitmentVariant='baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair'|'netAttackReserve'|'urgentDispelBeforeAlly';
 export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:CommitmentVariant,settings:Settings=DEFAULT_SETTINGS,observe=true,legacyControl=false){
-  const options=variant==='netAttackReserve'?{netAttackReserve:true}:variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
+  const options=variant==='urgentDispelBeforeAlly'?{urgentDispelBeforeAlly:true}:variant==='netAttackReserve'?{netAttackReserve:true}:variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
   const resources={aliveMs:0,trueNameMs:0,turns:0,trueNameTurns:0,trueNameBonusGross:0,incomingAllyManaGross:0,turnGainGross:0,
     publishes:0,truePublishes:0,falsePublishes:0,publishManaGross:0,publishManaNet:0,reaffirmations:0,reaffirmManaNet:0,allies:0,allyManaNet:0,
     acceptedSkillMana:0,attackFailures:0,holdingMs:0,holdStarts:0,holdingTrueNameTurns:0,gemCompletedPlayers:0,
@@ -31,6 +31,8 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
   const deadReports:Array<{player:string;at:number;ownSide:number;target:string;name:string;targetKnown:boolean;senders:Array<{id:string;name:string;side:number;alive:boolean;revealed:string|null;reportAt:number}>;originalAction:Action|null;chosenAction:Action;changed:boolean;nominalMana:number}>=[];
   const actions:Array<{player:string;at:number;action:Action;accepted:boolean;error:string|null;beforeMana:number;afterMana:number;maxMana:number;nominalMana:number;holding:boolean;beforeTrueName:boolean;beforePublished:string|null;manualSameName:boolean;activeDecision:boolean;reaffirmationProof:Proof|null;character:string;side:number;
     grading:{breakTargetSide:number|null;breakTargetName:string|null;breakKnownName:string|null;allyTargetSide:number|null;report:boolean;reportExpectedName:string|null}}>=[];
+  const rescues:Array<{player:string;at:number;ownSide:number;target:string;knownName:string;knownSide:number;
+    beforeStatuses:string[];originalAction:Action|null;chosenAction:Action;changed:boolean;accepted:boolean|null;afterStatuses:string[]|null}>=[];
   const ownIds=new Set<string>(),seq=new Map<string,number>(),until=new Map<string,number>(),holdingCharacter=new Map<string,string>(),seenHolds=new Set<string>(),completed=new Set<string>();
   const pending=new Map<string,{action:Action;view:PlayerView;holding:boolean;manualSameName:boolean;activeDecision:boolean;proof:Proof|null;breakKnownName:string|null}>();
   const note=(s:Parameters<Policy>[0],id:string,m:BotMemory)=>{
@@ -53,7 +55,17 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     const original=observe&&variant==='idleClaimMana'&&nextRandom({rng:m.rng})<=(o.activity??.5)&&idleClaimViewEligible(viewFor(s,id))?structuredClone(m):undefined;
     const deadOriginal=observe&&variant==='deadAllyReport'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const budgetOriginal=observe&&variant==='forecastAttackBudget'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
+    const rescueOriginal=observe&&variant==='urgentDispelBeforeAlly'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const a=variant==='baseline'?previous(s,id,m,{activity:o.activity}):variant==='control'&&legacyControl?priorPR(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options});let proof:Proof|null=null;
+    if(rescueOriginal&&a?.type==='skill'&&a.skill==='tachin_neutralize'&&a.target){
+      const originalAction=smartBotAction(s,id,rescueOriginal,{...o,urgentDispelBeforeAlly:false});
+      if(originalAction?.type==='skill'&&originalAction.skill==='ally'){
+        const v=viewFor(s,id),k=botKnowledge(s,id,v,structuredClone(m)),name=k.known.get(a.target)!,target=v.players.find(p=>p.id===a.target)!;
+        rescues.push({player:id,at:v.elapsedMs,ownSide:v.me.side,target:a.target,knownName:name,
+          knownSide:v.roster.find(r=>r.key===name)!.side,beforeStatuses:target.statuses.map(e=>e.kind),originalAction,chosenAction:a,
+          changed:!isDeepStrictEqual(originalAction,a),accepted:null,afterStatuses:null});
+      }
+    }
     if(deadOriginal&&a?.type==='skill'&&a.target&&m.communicationAt===s.now-s.startedAt){
       const v=viewFor(s,id),k=botKnowledge(s,id,v,structuredClone(m)),name=trustedIntel(v,k,m,true).get(a.target);
       const usable=new Map(v.me.skills.filter(x=>!x.passive&&x.blocked===null).map(x=>[x.key,x]));
@@ -112,6 +124,8 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       grading.reportExpectedName=p.view.roster.find(x=>x.key===target?.character)?.name??null;
       safety.falseReports+=Number(!match||grading.reportExpectedName!==match[2]);
     }
+    const rescue=rescues.find(z=>z.player===id&&z.at===p.view.elapsedMs&&isDeepStrictEqual(z.chosenAction,a));
+    if(rescue){rescue.accepted=result.ok;rescue.afterStatuses=after.players.find(t=>t.id===rescue.target)!.statuses.map(e=>e.kind);}
     actions.push({player:id,at:p.view.elapsedMs,action:a,accepted:result.ok,error:result.ok?null:result.error??'알 수 없는 거절',beforeMana:p.view.me.mana,
       afterMana:after.me.mana,maxMana:p.view.me.maxMana,nominalMana:nominal,holding:p.holding,beforeTrueName:p.view.me.trueName,beforePublished:p.view.me.published,
       manualSameName:p.manualSameName,activeDecision:p.activeDecision,reaffirmationProof:p.proof,character:p.view.me.character,side:p.view.me.side,grading});
@@ -141,5 +155,5 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       if(v.me.gem===3&&!completed.has(id)){completed.add(id);resources.gemCompletedPlayers++;}
     }
   });
-  return {game,resources,safety,turns,holds,actions,budgets,deadReports};
+  return {game,resources,safety,turns,holds,actions,budgets,deadReports,rescues};
 }

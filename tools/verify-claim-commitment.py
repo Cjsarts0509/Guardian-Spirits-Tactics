@@ -9,7 +9,7 @@ p=argparse.ArgumentParser();p.add_argument('path',type=pathlib.Path);p.add_argum
 def read(path):
     raw=path.read_bytes();return gzip.decompress(raw) if path.suffix=='.gz' else raw
 d=json.loads(read(a.path));assert d['phase'] in ['development','holdout']
-specs={'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
+specs={'confirmed-ally-urgent-dispel-comparison':('urgentDispelBeforeAlly',{'urgentDispelBeforeAlly':True}),'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
 candidate,options=specs[d['kind']]
 assert d['variants']==['baseline','control',candidate] and d['options']=={'baseline':{},'control':{},candidate:options}
 if not a.allow_partial:assert d['complete'] and d['executions']==d['count']*4*3*4*3
@@ -115,6 +115,16 @@ for x in d['records']:
         assert t['changed']==(t['originalAction']!=chosen) and any(z['player']==t['player'] and z['at']==t['at'] and z['action']==chosen and z['nominalMana']==t['nominalMana'] for z in r['actions'])
         dead_counts['decisions']+=1;dead_counts['changed']+=t['changed'];dead_counts['nominalMana']+=t['nominalMana']
     if candidate=='deadAllyReport':b.setdefault('deadReports',collections.Counter()).update(dead_counts)
+    rescues=r.get('rescues',[]);rescue_seen=set()
+    for t in rescues:
+        assert v=='urgentDispelBeforeAlly' and mode=='primordial' and t['ownSide']==t['knownSide']==f['currentSide'] and t['knownName']
+        assert (t['player'],t['at']) not in rescue_seen;rescue_seen.add((t['player'],t['at']))
+        assert 'incapacitated' in t['beforeStatuses'] and 'invulnerable' not in t['beforeStatuses']
+        assert t['originalAction']['type']=='skill' and t['originalAction']['skill']=='ally' and t['chosenAction']=={'type':'skill','skill':'tachin_neutralize','target':t['target']}
+        assert t['changed'] and t['accepted'] and t['afterStatuses']==[]
+        assert any(z['player']==t['player'] and z['at']==t['at'] and z['action']==t['chosenAction'] and z['accepted'] for z in r['actions'])
+    if candidate=='urgentDispelBeforeAlly':b.setdefault('rescues',collections.Counter()).update({'changed':len(rescues)})
+
 assert out['executions']==d['executions']
 for v,modes in out['variants'].items():
     for mode,b in modes.items():b['score']=b['scoreSum']/b['games']
