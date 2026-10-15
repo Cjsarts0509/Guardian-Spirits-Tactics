@@ -4,7 +4,7 @@ p=argparse.ArgumentParser();p.add_argument('path',type=pathlib.Path);p.add_argum
 def read(path):
     raw=path.read_bytes();return gzip.decompress(raw) if path.suffix=='.gz' else raw
 d=json.loads(read(a.path));assert d['phase'] in ['development','holdout']
-specs={'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True})}
+specs={'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
 candidate,options=specs[d['kind']]
 assert d['variants']==['baseline','control',candidate] and d['options']=={'baseline':{},'control':{},candidate:options}
 if not a.allow_partial:assert d['complete'] and d['executions']==d['count']*4*3*4*3
@@ -92,6 +92,15 @@ for x in d['records']:
         if t['originalWouldBreakForecast']:
             budget_counts['originalBudgetBreaking']+=1;budget_counts['originalSkill:'+original['skill']]+=1
     if candidate=='forecastAttackBudget':b.setdefault('budget',collections.Counter()).update(budget_counts)
+    dead_seen=set();dead_counts=collections.Counter()
+    for t in r.get('deadReports',[]):
+        assert v=='deadAllyReport' and t['ownSide']==f['currentSide'] and not t['targetKnown'] and t['senders']
+        assert 0<=t['at']<=g['elapsedMs'] and (t['player'],t['at']) not in dead_seen;dead_seen.add((t['player'],t['at']))
+        for sender in t['senders']:assert not sender['alive'] and sender['revealed']==sender['name'] and sender['side']==t['ownSide'] and 0<=sender['reportAt']<=t['at']
+        chosen=t['chosenAction'];assert chosen['type']=='skill' and chosen['target']==t['target'] and chosen['skill'] in ['advanced_scan','scan','ally_scan','enemy_scan','troll_scan','troll_ally_scan','troll_enemy_scan','truth_gem']
+        assert t['changed']==(t['originalAction']!=chosen) and any(z['player']==t['player'] and z['at']==t['at'] and z['action']==chosen and z['nominalMana']==t['nominalMana'] for z in r['actions'])
+        dead_counts['decisions']+=1;dead_counts['changed']+=t['changed'];dead_counts['nominalMana']+=t['nominalMana']
+    if candidate=='deadAllyReport':b.setdefault('deadReports',collections.Counter()).update(dead_counts)
 assert out['executions']==d['executions']
 for v,modes in out['variants'].items():
     for mode,b in modes.items():b['score']=b['scoreSum']/b['games']

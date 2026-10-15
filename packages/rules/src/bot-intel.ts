@@ -38,7 +38,7 @@ export function observeIntel(view: PlayerView, event: GameEvent, memory: BotMemo
 /** 공표·동맹 요청만으로 신뢰하지 않는다. 직접 확인/확정 제약상 아군인 발신자만 참고한다.
  * 직접 사실과 충돌하거나 신뢰한 발신자끼리 의견이 다르면 보류. 말은 정체 확정 facts가 아니다.
  */
-export function trustedIntel(view: PlayerView, knowledge: Knowledge, memory: BotMemory): Map<PlayerId, CharKey> {
+export function trustedIntel(view: PlayerView, knowledge: Knowledge, memory: BotMemory, includeDeadConfirmedSenders=false): Map<PlayerId, CharKey> {
   const result = new Map<PlayerId, CharKey>();
   for (const [target, reports] of memory.perception?.intel?.reports ?? []) {
     if (target === view.me.id || knowledge.known.has(target) || !view.players.some(p => p.id === target && p.alive)) continue;
@@ -47,7 +47,7 @@ export function trustedIntel(view: PlayerView, knowledge: Knowledge, memory: Bot
     for (const [sender, report] of reports) {
       const role = knowledge.known.get(sender);
       if (!role || !view.roster.some(r => r.key === role && r.side === view.me.side) ||
-          !view.players.some(p => p.id === sender && p.alive)) continue;
+          !view.players.some(p => p.id === sender && (p.alive || includeDeadConfirmedSenders && p.revealed === role))) continue;
       if (!knowledge.candidates.get(target)?.includes(report.character)) contradiction = true;
       names.add(report.character);
     }
@@ -112,8 +112,8 @@ export function shareIntel(view: PlayerView, knowledge: Knowledge, memory: BotMe
 }
 
 /** 보고받은 대상의 검증을 먼저 한다. 정체 불명 대상에게 보고 이름으로 위험한 공격을 하지 않는다. */
-export function verifyIntel(view: PlayerView, knowledge: Knowledge, memory: BotMemory, skills: ReadonlyMap<string, SkillView>): Action | null {
-  const reports = [...trustedIntel(view, knowledge, memory)];
+export function verifyIntel(view: PlayerView, knowledge: Knowledge, memory: BotMemory, skills: ReadonlyMap<string, SkillView>, includeDeadConfirmedSenders=false): Action | null {
+  const reports = [...trustedIntel(view, knowledge, memory,includeDeadConfirmedSenders)];
   reports.sort((a, b) => Number(view.roster.find(r => r.key === b[1])?.side !== view.me.side) -
     Number(view.roster.find(r => r.key === a[1])?.side !== view.me.side));
   for (const [target, name] of reports) {
