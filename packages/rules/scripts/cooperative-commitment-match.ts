@@ -12,10 +12,11 @@ import {smartBotAction as priorPR} from './baselines/pre-round024.js';
 import {smartBotAction as previous} from './baselines/pre-cooperative.js';
 import {opponentClaim,type ClaimStyle} from './claim-opponents.js';
 import {playMatch,DEFAULT_SETTINGS,type Fixture,type Policy,type Settings} from './league-runner.js';
-export type CommitmentVariant='knownCommanderGuardBeforeAlly'|'learnOwnAttackOutcome'|'reportedFirstWarning'|'avoidRepeatedFailedGuess'|'baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair'|'netAttackReserve'|'urgentDispelBeforeAlly'|'directCheckFollowup';
+import {supremeReportOpportunity} from './reported-supreme-opportunities.js';
+export type CommitmentVariant='reportedSupreme'|'knownCommanderGuardBeforeAlly'|'learnOwnAttackOutcome'|'reportedFirstWarning'|'avoidRepeatedFailedGuess'|'baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair'|'netAttackReserve'|'urgentDispelBeforeAlly'|'directCheckFollowup';
 export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:CommitmentVariant,settings:Settings=DEFAULT_SETTINGS,observe=true,legacyControl=false,identicalSelfplay=false){
   if(identicalSelfplay&&(fixture.mode!=='primordial'||!['control','knownCommanderGuardBeforeAlly'].includes(variant)||legacyControl))throw Error('동일 보호 정책 평가 조건 오류');
-  const options=variant==='knownCommanderGuardBeforeAlly'?{knownCommanderGuardBeforeAlly:true}:variant==='learnOwnAttackOutcome'?{learnOwnAttackOutcome:true}:variant==='reportedFirstWarning'?{reportedFirstWarning:true}:variant==='avoidRepeatedFailedGuess'?{avoidRepeatedFailedGuess:true}:variant==='directCheckFollowup'?{directCheckFollowup:true}:variant==='urgentDispelBeforeAlly'?{urgentDispelBeforeAlly:true}:variant==='netAttackReserve'?{netAttackReserve:true}:variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
+  const options=variant==='reportedSupreme'?{reportedSupreme:true}:variant==='knownCommanderGuardBeforeAlly'?{knownCommanderGuardBeforeAlly:true}:variant==='learnOwnAttackOutcome'?{learnOwnAttackOutcome:true}:variant==='reportedFirstWarning'?{reportedFirstWarning:true}:variant==='avoidRepeatedFailedGuess'?{avoidRepeatedFailedGuess:true}:variant==='directCheckFollowup'?{directCheckFollowup:true}:variant==='urgentDispelBeforeAlly'?{urgentDispelBeforeAlly:true}:variant==='netAttackReserve'?{netAttackReserve:true}:variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
   const resources={aliveMs:0,trueNameMs:0,turns:0,trueNameTurns:0,trueNameBonusGross:0,incomingAllyManaGross:0,turnGainGross:0,
     publishes:0,truePublishes:0,falsePublishes:0,publishManaGross:0,publishManaNet:0,reaffirmations:0,reaffirmManaNet:0,allies:0,allyManaNet:0,
     acceptedSkillMana:0,attackFailures:0,holdingMs:0,holdStarts:0,holdingTrueNameTurns:0,gemCompletedPlayers:0,
@@ -47,6 +48,8 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     blocked:string|null;usesLeft:number|null;cooldown:number;passive:boolean;reserve:number;reservedAttacks:Array<{skill:string;cost:number;cooldown:number;knownEnemy:string;name:string}>;
     target:string|null;knownName:string|null;knownSide:number|null;targetAlive:boolean;targetProtected:boolean;reason:string;
     originalAction:Action|null;chosenAction:Action|null;ownMemoryEqual:boolean;ownRngEqual:boolean;eligible:boolean;selectedGuard:boolean;accepted:boolean|null;success:boolean|null;actualName:string|null;actualSide:number|null}>=[];
+  const supremeDecisions:Array<ReturnType<typeof supremeReportOpportunity>&{originalAction:Action|null;chosenAction:Action|null;changed:boolean;selected:boolean;knowledgeUnchanged:boolean;receipt:null|{accepted:boolean;error:string|null;actualName:string|null;actualSide:number|null;manaDelta:number;receiptKinds:string[]}}>=[];
+  let supremeActiveDecisions=0;
   const proofSeen=new Set<string>();
   const outcomeOpportunities:Array<{player:string;at:number;target:string;name:string;skill:string;seq:number;kind:string;gameRunning:boolean;actorAlive:boolean;targetAlive:boolean;knownBefore:boolean}>=[];
   const ownIds=new Set<string>(),seq=new Map<string,number>(),until=new Map<string,number>(),holdingCharacter=new Map<string,string>(),seenHolds=new Set<string>(),completed=new Set<string>();
@@ -81,8 +84,18 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     const rescueOriginal=observe&&variant==='urgentDispelBeforeAlly'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const guessOriginal=observe&&variant==='avoidRepeatedFailedGuess'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const reportOriginal=observe&&variant==='reportedFirstWarning'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
+    const supremeOriginal=observe&&variant==='reportedSupreme'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const guardOriginal=observe&&variant==='knownCommanderGuardBeforeAlly'&&s.mode==='primordial'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const a=variant==='baseline'?previous(s,id,m,{activity:o.activity}):variant==='control'&&legacyControl?priorPR(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options});let proof:Proof|null=null;
+    if(observe&&variant==='reportedSupreme'&&m.communicationAt===s.now-s.startedAt){
+      if(!supremeOriginal)throw Error('active report observation missing');
+      supremeActiveDecisions++;
+      const v=viewFor(s,id),own=supremeReportOpportunity(v,eventsFor(s,id),m);
+      const originalAction=smartBotAction(s,id,supremeOriginal,{...o,reportedSupreme:false});
+      const knowledgeUnchanged=isDeepStrictEqual(m.perception?.known,supremeOriginal.perception?.known),changed=!isDeepStrictEqual(originalAction,a);
+      if(!knowledgeUnchanged||changed&&(!own.suggestion||!isDeepStrictEqual(own.suggestion,a)))throw Error('unexpected report option divergence');
+      supremeDecisions.push({...own,originalAction,chosenAction:a,changed,selected:!!own.suggestion&&isDeepStrictEqual(own.suggestion,a),knowledgeUnchanged,receipt:null});
+    }
     if(observe&&(variant==='control'||guardOriginal)&&s.mode==='primordial'&&m.communicationAt===s.now-s.startedAt){
       const v=viewFor(s,id),pair=v.me.character==='consume'?['consume_master_guard','eltas']:v.me.character==='kumarin'?['kumarin_commander_guard','rael']:null;
       const skill=pair?v.me.skills.find(z=>z.key===pair[0]):undefined;
@@ -219,6 +232,12 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       safety.wrongFollowups+=Number(target.character!==reaction.name||target.side===reaction.ownSide);}
     const rescue=rescues.find(z=>z.player===id&&z.at===p.view.elapsedMs&&isDeepStrictEqual(z.chosenAction,a));
     if(rescue){rescue.accepted=result.ok;rescue.afterStatuses=after.players.find(t=>t.id===rescue.target)!.statuses.map(e=>e.kind);}
+    const supreme=supremeDecisions.find(z=>z.player===id&&z.at===p.view.elapsedMs&&z.selected&&isDeepStrictEqual(z.chosenAction,a));
+    if(supreme&&a.type==='skill'){
+      const target=s.players.find(z=>z.id===a.target)!;
+      supreme.receipt={accepted:result.ok,error:result.ok?null:result.error??'unknown',actualName:target.character,actualSide:target.side,manaDelta:after.me.mana-p.view.me.mana,receiptKinds:result.events.map(e=>e.kind)};
+      safety.wrongReportedAttacks+=Number(target.character!==a.name||target.side===p.view.me.side);
+    }
     const report=reportedAttacks.find(z=>z.player===id&&z.at===p.view.elapsedMs&&isDeepStrictEqual(z.chosenAction,a));
     if(report){const t=s.players.find(p=>p.id===report.target)!;report.accepted=result.ok;report.attackFailure=result.events.some(e=>e.kind==='attack.fail.self');
       report.actualName=t.character;report.actualSide=t.side;safety.wrongReportedAttacks+=Number(t.character!==report.name||t.side===report.ownSide);}
@@ -259,5 +278,5 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       if(v.me.gem===3&&!completed.has(id)){completed.add(id);resources.gemCompletedPlayers++;}
     }
   });
-  return {game,resources,safety,turns,holds,actions,budgets,deadReports,rescues,checkReactions,blockedGuesses,reportedAttacks,ownAttackProofs,outcomeOpportunities,guardDecisions};
+  return {game,resources,safety,turns,holds,actions,budgets,deadReports,rescues,checkReactions,blockedGuesses,reportedAttacks,ownAttackProofs,outcomeOpportunities,guardDecisions,...(variant==='reportedSupreme'?{supremeDecisions,supremeActiveDecisions}: {})};
 }

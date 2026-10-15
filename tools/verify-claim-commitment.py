@@ -9,7 +9,7 @@ p=argparse.ArgumentParser();p.add_argument('path',type=pathlib.Path);p.add_argum
 def read(path):
     raw=path.read_bytes();return gzip.decompress(raw) if path.suffix=='.gz' else raw
 d=json.loads(read(a.path));assert d['phase'] in ['development','holdout']
-specs={'known-commander-guard-before-ally-comparison':('knownCommanderGuardBeforeAlly',{'knownCommanderGuardBeforeAlly':True}),'own-attack-outcome-knowledge-comparison':('learnOwnAttackOutcome',{'learnOwnAttackOutcome':True}),'first-warning-trusted-report-comparison':('reportedFirstWarning',{'reportedFirstWarning':True}),'repeated-warned-failed-guess-comparison':('avoidRepeatedFailedGuess',{'avoidRepeatedFailedGuess':True}),'private-confirmation-attack-followup-comparison':('directCheckFollowup',{'directCheckFollowup':True}),'confirmed-ally-urgent-dispel-comparison':('urgentDispelBeforeAlly',{'urgentDispelBeforeAlly':True}),'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
+specs={'trusted-supreme-report-comparison':('reportedSupreme',{'reportedSupreme':True}),'known-commander-guard-before-ally-comparison':('knownCommanderGuardBeforeAlly',{'knownCommanderGuardBeforeAlly':True}),'own-attack-outcome-knowledge-comparison':('learnOwnAttackOutcome',{'learnOwnAttackOutcome':True}),'first-warning-trusted-report-comparison':('reportedFirstWarning',{'reportedFirstWarning':True}),'repeated-warned-failed-guess-comparison':('avoidRepeatedFailedGuess',{'avoidRepeatedFailedGuess':True}),'private-confirmation-attack-followup-comparison':('directCheckFollowup',{'directCheckFollowup':True}),'confirmed-ally-urgent-dispel-comparison':('urgentDispelBeforeAlly',{'urgentDispelBeforeAlly':True}),'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
 candidate,options=specs[d['kind']]
 assert d['variants']==['baseline','control',candidate] and d['options']=={'baseline':{},'control':{},candidate:options}
 if not a.allow_partial:assert d['complete'] and d['executions']==d['count']*4*3*4*3
@@ -22,6 +22,7 @@ if d.get('persistence')=={'version':2}:expected_sources.add('scripts/cooperative
 if d.get('comparisonRevision',0)>=2:
     expected_sources.add('scripts/baselines/pre-round024.ts')
     assert d['controlPolicy']==('PR-before-round024' if candidate=='enemyBreakRepair' else 'current-default')
+if candidate=='reportedSupreme':expected_sources.add('scripts/reported-supreme-opportunities.ts')
 expected_aux={'tools/verify-claim-commitment.py'}
 if d.get('comparisonRevision',0)>=3:expected_aux.add('tools/run-cooperative-generations.py')
 assert set(d['sourceHashes'])==expected_sources and set(d['auxiliarySourceHashes'])==expected_aux
@@ -203,7 +204,45 @@ for x in d['records']:
             assert e['data']['text']==f"확인 정보: [{t['targetSeat']}] {t['nameLabel']}" and not e.get('facts')
         actual=[a for a in r['actions'] if a['player']==t['player'] and a['at']==t['at'] and a['action']==act];assert len(actual)==1 and actual[0]['accepted']==t['accepted']
         assert t['actualName'] is not None and t['actualSide'] in [1,2] and type(t['attackFailure']) is bool
-    if 'wrongReportedAttacks' in r['safety']:assert r['safety']['wrongReportedAttacks']==sum(t['actualName']!=t['name'] or t['actualSide']==t['ownSide'] for t in reported_attacks)
+    supreme=r.get('supremeDecisions',[])
+    sc=collections.Counter();decision_keys=set();wrong_supreme=0
+    if v=='reportedSupreme':assert r['supremeActiveDecisions']==len(supreme)
+    for t in supreme:
+        assert v==candidate=='reportedSupreme' and t['mode']==mode and t['side']==f['currentSide'] and t['knowledgeUnchanged']
+        dk=(t['player'],t['at']);assert dk not in decision_keys;decision_keys.add(dk)
+        assert 0<=t['at']<=g['elapsedMs'] and 0<=t['mana']<=150 and t['changed']==(t['originalAction']!=t['chosenAction'])
+        eligible=[];skill=t['skill'];sc['activeDecisions']+=1;sc['withSupreme']+=skill is not None;sc['withTrustedReport']+=bool(t['targets'])
+        assert len({z['id'] for z in t['targets']})==len(t['targets'])
+        for z in t['targets']:
+            assert z['alive'] and not z['known'] and z['id']!=t['player'] and z['senders']
+            guards={'civil_war':{'kai':['arin'],'dantes':['kelhu']},'lidellut':{'kai':['arin']},'troll':{'chis':['satoshi','zwinra']}}.get(mode,{}).get(z['name'],[])
+            assert z['guardsAlive']==[guard for guard in guards if guard not in t['observedDead']]
+            reason='no_skill' if not skill else 'skill_blocked' if skill['blocked'] is not None else 'before_four_minutes' if t['at']<240000 else 'reserve_mana' if t['mana']<max(100,skill['mana']) else 'friendly_report' if z['side']==t['side'] else 'mandatory_guard_alive' if z['guardsAlive'] else 'name_unavailable' if not z['nameAllowed'] else 'public_invulnerable' if not skill['ignoresInvulnerable'] and z['invulnerable'] else 'own_same_name_failure' if z['ownSameNameFailure'] else 'eligible'
+            assert z['reason']==reason;sc['target:'+reason]+=1
+            target_id=int(z['id'].removeprefix('p'));assert z['seat']==(f['count']+1-target_id if f['reversed'] else target_id)
+            for sender in z['senders']:
+                e=sender['event'];assert sender['id']!=t['player'] and e['seq']==sender['seq'] and e['at']==sender['at']<=t['at']
+                assert e['kind'] in ['chat.whisper','chat.ally'] and e['vis']['to']=='players' and t['player'] in e['vis']['ids'] and e['data']['from']==sender['id']
+                assert e['data']['text']==f"확인 정보: [{z['seat']}] {z['label']}" and not e.get('facts')
+            if reason=='eligible':eligible.append(z)
+        eligible.sort(key=lambda z:(-int(z['commander']),z['seat']))
+        suggestion={'type':'skill','skill':'supreme_attack','target':eligible[0]['id'],'name':eligible[0]['name']} if eligible else None
+        assert t['suggestion']==suggestion and t['selected']==(suggestion is not None and suggestion==t['chosenAction'])
+        if t['changed']:assert t['selected']
+        sc['eligible']+=bool(eligible);sc['selected']+=t['selected'];sc['changed']+=t['changed']
+        sc['higherPriorityPreserved']+=bool(eligible) and not t['selected'];sc['idleReplaced']+=t['changed'] and t['originalAction'] is None
+        sc['alreadySame']+=t['selected'] and not t['changed']
+        if t['selected']:
+            h=t['receipt'];assert h is not None and h['actualName'] is not None and h['actualSide'] in [1,2] and h['accepted']==(h['error'] is None)
+            actual=[z for z in r['actions'] if z['player']==t['player'] and z['at']==t['at'] and z['action']==suggestion]
+            assert len(actual)==1 and actual[0]['accepted']==h['accepted'] and actual[0]['beforeMana']==t['mana'] and actual[0]['afterMana']-t['mana']==h['manaDelta']
+            if h['accepted']:assert any(k in ['attack.hit','attack.kill','attack.guarded','attack.fail','attack.fail.death'] for k in h['receiptKinds'])
+            wrong=h['actualName']!=suggestion['name'] or h['actualSide']==t['side'];wrong_supreme+=wrong
+            sc['accepted']+=h['accepted'];sc['rejected']+=not h['accepted'];sc['wrong']+=wrong;sc['attackFailure']+=any(k in ['attack.fail.self','attack.fail','attack.fail.death'] for k in h['receiptKinds'])
+            sc['nominalMana']+=actual[0]['nominalMana'];sc['netManaDelta']+=h['manaDelta'];sc['commanderAttacks']+=eligible[0]['commander']
+        else:assert t['receipt'] is None
+    if candidate=='reportedSupreme':b.setdefault('supremeReports',collections.Counter()).update(sc)
+    if 'wrongReportedAttacks' in r['safety']:assert r['safety']['wrongReportedAttacks']==sum(t['actualName']!=t['name'] or t['actualSide']==t['ownSide'] for t in reported_attacks)+wrong_supreme
     if candidate=='reportedFirstWarning':b.setdefault('reportedAttacks',collections.Counter()).update({'attempted':len(reported_attacks),'changed':sum(t['changed'] for t in reported_attacks),'attackFailure':sum(t['attackFailure'] for t in reported_attacks)})
 
 assert out['executions']==d['executions']
