@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 130000,
     "count": 8,
-    "status": "reserved_unused_new_development"
+    "status": "in_progress_576_of_1152_saved"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,13 +21,15 @@
   "options": {
     "claimTurnCommitment": true
   },
-  "checkpoint": "538_tests_type_server_client_worker_build_passed_before_development_source_freeze",
+  "checkpoint": "576_of_1152_saved_and_source_journal_actions_independently_verified_partial",
   "checks": {"tests": 538, "rulesTests": 470, "serverTests": 68, "typecheck": "passed", "serverBuild": "passed", "clientWorkerBuild": "passed", "newDevelopmentExecutions": 0},
-  "executions": 0,
+  "executions": 576,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 15936,
+  "cumulativeExecutions": 16512,
   "decision": "pending_new_development_no_promotion",
-  "nextAction": "freeze_verified_policy_collector_grader_then_twelve_96_game_batches_new130000",
+  "nextAction": "resume_remaining_six_96_game_batches_then_full_gate_evaluation",
+  "sourceRef": "508ed0493032ea4e5f3b657864a4eedbe52d9ee4",
+  "checkpointRaw": "docs/evaluations/cooperation-round-016-checkpoint-576.json.gz",
   "previousCompleted": {"round": 15, "executions": 3072, "decision": "all_eight_cells_keep_no_candidate", "sourceRef": "e527d0b4c282a7046b7542f16c5ea5d6c8acca82", "record": "docs/ai-rounds/ROUND_015_20261015_0828.md"},
   "unusedPriorCandidateDevelopment": {"start": 129000, "count": 8, "status": "unused_no015_candidate"},
   "finalReport": {
