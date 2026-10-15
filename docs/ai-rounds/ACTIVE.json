@@ -1,27 +1,25 @@
 {
-  "round": 28,
-  "status": "completed",
-  "owner": "round028-direct-private-check-attack-followup",
-  "startedAt": "2026-10-15T18:46:02.214467+09:00",
-  "leaseUntil": "2026-10-15T19:41:02.214467+09:00",
+  "round": 29,
+  "status": "in_progress",
+  "owner": "round029-completed-development-first-divergence-audit",
+  "startedAt": "2026-10-15T19:08:48.289903+09:00",
+  "leaseUntil": "2026-10-15T19:28:48.289903+09:00",
   "continuation": "user_1818_resume_continuous_rounds",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
-    "start": 141000,
+    "start": 142000,
     "count": 8,
-    "status": "used_completed_1152"
+    "status": "reserved_unused_not_used_in_readonly_round"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "directCheckFollowup",
-  "options": {
-    "directCheckFollowup": true
-  },
-  "checkpoint": "all1152_development_verified_rejected_no_holdout",
+  "candidate": "none_readonly_diagnostic",
+  "options": {},
+  "checkpoint": "reserved_before_postaction_audit",
   "checks": {
     "tests": 615,
     "rules": 540,
@@ -36,16 +34,16 @@
     "existing026Resume": "new0_same_snapshot_journal_publication_full_summary_restored",
     "candidateSmoke": "final144_synthetic_and_observer1_excluded"
   },
-  "executions": 1152,
-  "targetExecutions": 1152,
+  "executions": 0,
+  "targetExecutions": 0,
   "cumulativeExecutions": 35904,
-  "decision": "development_rejected_65.885_vs_control65.104_main68.229_option_OFF",
+  "decision": "pending_readonly_audit_no_policy_selection",
   "nextAction": "029 completed-development first-divergence audit only, no new games or retuning",
   "previousCompleted": {
-    "round": 27,
-    "completionRef": "d5dfb843ba3dc7fa389854baaebe9b3bdbcc8dbe",
-    "record": "docs/ai-rounds/ROUND_027_20261015_1840.md",
-    "cumulativeExecutions": 34752
+    "round": 28,
+    "completionRef": "acafa32ff47b3549cfb1bf266de2468bb5c48077",
+    "record": "docs/ai-rounds/ROUND_028_20261015_1846.md",
+    "cumulativeExecutions": 35904
   },
   "unusedPriorCandidateDevelopment": {
     "start": 129000,
@@ -93,7 +91,5 @@
     "start": 142000,
     "count": 8,
     "status": "reserved_unused"
-  },
-  "checkpointAt": "2026-10-15T18:56:13.988110+09:00",
-  "completedAt": "2026-10-15T19:05:25.535366+09:00"
+  }
 }
