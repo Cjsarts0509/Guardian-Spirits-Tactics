@@ -1,31 +1,30 @@
 {
-  "round": 37,
-  "status": "completed",
-  "owner": "round037-postchoice-commander-guard-audit",
-  "startedAt": "2026-10-15T22:21:20.922808+09:00",
-  "leaseUntil": null,
-  "task": "태초 12인 지휘관 보호 기회의 관측 전용 재생",
-  "continuation": "user_20261015_2135_resume_behavior_quality_first",
+  "round": 38,
+  "status": "in_progress",
+  "owner": "round038-known-commander-guard-before-ally",
+  "startedAt": "2026-10-15T22:36:45.964122+09:00",
+  "leaseUntil": "2026-10-15T23:51:45.964122+09:00",
+  "task": "확정 지휘관 보호를 새 동맹 직전에 우선하는 단일 후보",
+  "continuation": "user_20261015_2235_continue",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "evaluationSourceRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98",
   "policySourceRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98",
   "executions": 0,
-  "targetExecutions": 0,
-  "replayTarget": 32,
-  "replayedGames": 32,
+  "targetExecutions": 1152,
+  "replayTarget": 1,
+  "replayedGames": 0,
   "cumulativeExecutions": 44736,
   "cumulativeTerminatedExecutions": 44734,
   "cumulativeUnfinishedExecutions": 2,
   "previousCompleted": {
-    "round": 36,
-    "record": "docs/ai-rounds/ROUND_036_20261015_2210.md",
-    "executions": 1920,
-    "sourceRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98"
+    "round": 37,
+    "record": "docs/ai-rounds/ROUND_037_20261015_2220.md",
+    "completionRef": "2d863e946359c90caa6bffb569dad3a3bb4c9e43"
   },
   "developmentSeeds": {
-    "start": 147000,
-    "count": 80,
-    "status": "used_round036_replay_only"
+    "start": 148000,
+    "count": 8,
+    "status": "reserved_unused"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -33,18 +32,18 @@
     "status": "unused"
   },
   "conditionalDevelopmentSeeds": {
-    "start": 148000,
-    "count": 80,
+    "start": 149000,
+    "count": 8,
     "status": "reserved_unused"
   },
-  "candidate": "no_policy_change_observer_only",
+  "candidate": "knownCommanderGuardBeforeAlly",
   "options": {
-    "learnOwnAttackOutcome": true
+    "knownCommanderGuardBeforeAlly": true
   },
-  "optionsStatus": "replay_original_policy_option_default_off_in_product",
-  "checkpoint": "round037_complete_guard_deferral_observed_no_new_policy",
-  "nextAction": "Reproduce seed147004 reversed guard deferral with default control; implement a single default-OFF knownCommanderGuardBeforeAlly only if reproduced, test/freeze then pre-register fresh148000 evaluation",
-  "decision": "guard_before_new_ally_is_next_behavior_candidate_not_yet_implemented",
+  "optionsStatus": "single_candidate_default_off_other_experimental_options_off",
+  "checkpoint": "round038_preregistered_before_witness_and_new_seeds",
+  "nextAction": "Reproduce default cooperative guard deferral; only then implement candidate and test/freeze before new148000 games",
+  "decision": "pending",
   "checks": {
     "tests": 646,
     "rules": 571,
@@ -82,8 +81,12 @@
   "functionalDecision034": "passed_62_of_62_eligible_wrong0_preserved_defaultoff",
   "repeatDisabled": false,
   "deployment": false,
-  "completedAt": "2026-10-15T22:25:14.169778+09:00",
-  "record": "docs/ai-rounds/ROUND_037_20261015_2220.md",
+  "record": "docs/ai-rounds/ROUND_038_20261015_2235.md",
   "nextCandidate": "knownCommanderGuardBeforeAlly",
-  "candidateImplemented": false
+  "candidateImplemented": false,
+  "remainingUnused148000Reservation": {
+    "start": 148008,
+    "count": 72,
+    "status": "unused"
+  }
 }
