@@ -1,27 +1,27 @@
 {
-  "round": 25,
-  "status": "completed",
-  "owner": "round025-net-base-turn-reserve",
-  "startedAt": "2026-10-15T13:10:02.223601+09:00",
-  "leaseUntil": "2026-10-15T14:00:00+09:00",
-  "continuation": "user_1227_authorized_resumption_fix_storage_then_evidence_based_ai_and_human_validation",
+  "round": 26,
+  "status": "in_progress",
+  "owner": "round026-confirmed-ally-dispel-priority",
+  "startedAt": "2026-10-15T18:20:31.858490+09:00",
+  "leaseUntil": "2026-10-15T19:05:31.858490+09:00",
+  "continuation": "user_1818_resume_continuous_rounds",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
-    "start": 139000,
+    "start": 140000,
     "count": 8,
-    "status": "used_completed_1152"
+    "status": "reserved_unused"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "net_base_turn_attack_reserve",
+  "candidate": "urgentDispelBeforeAlly",
   "options": {
-    "netAttackReserve": true
+    "urgentDispelBeforeAlly": true
   },
-  "checkpoint": "development_rejected_all_records_and_corpus_verified",
+  "checkpoint": "reserved_before_code_or_simulation",
   "checks": {
     "tests": 602,
     "rules": 527,
@@ -33,43 +33,21 @@
     "generationSupervisor": "passed_3_tests",
     "postflightHumanAudit": "passed_7_tests_no_actual_humans"
   },
-  "executions": 1152,
+  "executions": 0,
   "targetExecutions": 1152,
   "cumulativeExecutions": 33600,
-  "decision": "no_win_promotion_net_option_OFF_human_actual_records_missing",
-  "nextAction": "fresh140000_diagnostic_only_when_new_hypothesis_and_real_human_records_available",
+  "decision": "pending_development",
+  "nextAction": "test_actual_known_friendly_incapacitation_relief_before_new_ally_only",
   "previousCompleted": {
-    "round": 24,
-    "completionRef": "880c9ded8ad7fce6aa6d63f79a860283b00d2b52",
-    "record": "docs/ai-rounds/ROUND_024_20261015_1245.md",
-    "cumulativeExecutions": 32448
+    "round": 25,
+    "completionRef": "1826d34367428c1779591f196ee68889d3e784ce",
+    "record": "docs/ai-rounds/ROUND_025_20261015_1310.md",
+    "cumulativeExecutions": 33600
   },
   "unusedPriorCandidateDevelopment": {
     "start": 129000,
     "count": 8,
     "status": "unused_no015_candidate"
-  },
-  "finalReport": {
-    "round": 25,
-    "status": "completed",
-    "path": "docs/ai-rounds/ROUND_025_20261015_1310.md",
-    "newExecutions": 1152,
-    "resumedWorkExecutions": 2304,
-    "verifiedExecutions": 33600,
-    "terminatedGames": 33598,
-    "unfinishedExecutions": 2,
-    "interruptedExecutionsExcluded": 500,
-    "unverifiedExecutionUpperBoundExcluded": 6,
-    "sourceRef": "540f07ff432cf39129f4174d4fd556524f15a73b",
-    "sourceCI": "success",
-    "sourceBrowserCheck": "success",
-    "adoptedCandidates": 0,
-    "humanValidation": "incomplete_actual_human_records_missing",
-    "reportedAt": "2026-10-15T13:38:34.702344+09:00",
-    "repeatDisabled": true,
-    "validatedCodeRef": "8fb87f5cf66fac36f22df9e012cb608f42ceb6d8",
-    "postflightCI": "success",
-    "postflightBrowser": "success"
   },
   "task": "User1227 resumed: storage repair, evidence-based win improvement, actual human validation readiness",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
@@ -91,13 +69,6 @@
   "cumulativeUnfinishedExecutions": 2,
   "policySourceRef": "540f07ff432cf39129f4174d4fd556524f15a73b",
   "repeatDisabled": true,
-  "conditionalDevelopmentSeeds": {
-    "start": 140000,
-    "count": 8,
-    "status": "reserved_unused"
-  },
-  "completedAt": "2026-10-15T13:37:18.902364+09:00",
-  "checkpointAt": "2026-10-15T13:31:43.094918+09:00",
   "sourceCI": "success",
   "sourceBrowserCheck": "success",
   "humanValidation": {
@@ -118,5 +89,10 @@
       "conclusion": "success",
       "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38682635060"
     }
+  },
+  "conditionalDevelopmentSeeds": {
+    "start": 141000,
+    "count": 8,
+    "status": "reserved_unused"
   }
 }
