@@ -1,0 +1,787 @@
+{
+  "kind": "completed-development-summary",
+  "sourceRef": "764ba6f204f7bd608b2e8b9ab18bbe3a2b50761e",
+  "executions": 1152,
+  "fingerprint": "f97a389e4aad143f89d3d2e33ccd1af6995e3cca4a0d4c50e904abf24d339eab",
+  "policySHA256": "a2226403aedbd7f0bdaf2a05c777b804a14e8475a7a87fe3c052b5d2068a91c6",
+  "options": {
+    "baseline": {},
+    "control": {},
+    "learnOwnAttackOutcome": {
+      "learnOwnAttackOutcome": true
+    }
+  },
+  "optionsSHA256": "e31f051ff76c6f528f755ddaeb5b78f7acd41da41900017dc43cec4256dc299d",
+  "results": {
+    "baseline": {
+      "score": 0.6796875,
+      "byMode": {
+        "civil_war": 0.625,
+        "primordial": 0.6875,
+        "lidellut": 0.7395833333333334,
+        "troll": 0.6666666666666666
+      },
+      "unfinished": 0,
+      "safety": 2,
+      "earlyAttackFailures": 0
+    },
+    "control": {
+      "score": 0.6875,
+      "byMode": {
+        "civil_war": 0.7708333333333334,
+        "primordial": 0.7708333333333334,
+        "lidellut": 0.59375,
+        "troll": 0.6145833333333334
+      },
+      "unfinished": 0,
+      "safety": 0,
+      "earlyAttackFailures": 0
+    },
+    "learnOwnAttackOutcome": {
+      "score": 0.6901041666666666,
+      "byMode": {
+        "civil_war": 0.7708333333333334,
+        "primordial": 0.78125,
+        "lidellut": 0.59375,
+        "troll": 0.6145833333333334
+      },
+      "unfinished": 0,
+      "safety": 0,
+      "earlyAttackFailures": 0
+    }
+  },
+  "contrasts": {
+    "learnOwnAttackOutcome-control": {
+      "difference": 0.0026041666666666665,
+      "seedBootstrap95": [
+        0.0,
+        0.0078125
+      ],
+      "byMode": {
+        "civil_war": 0.0,
+        "primordial": 0.01041666666666663,
+        "lidellut": 0.0,
+        "troll": 0.0
+      }
+    },
+    "learnOwnAttackOutcome-baseline": {
+      "difference": 0.010416666666666666,
+      "seedBootstrap95": [
+        -0.020833333333333332,
+        0.0390625
+      ],
+      "byMode": {
+        "civil_war": 0.14583333333333337,
+        "primordial": 0.09375,
+        "lidellut": -0.14583333333333337,
+        "troll": -0.05208333333333326
+      }
+    }
+  },
+  "developmentGatePassed": true,
+  "holdoutUsed": false,
+  "pairedGames": 384,
+  "actionsChanged": 53,
+  "pairedScores": {
+    "tied": 383,
+    "better": 1
+  },
+  "changes": [
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        145001,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        145004,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        145006,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        145001,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        145004,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        145006,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145001,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 1,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145001,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145001,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145002,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145002,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145003,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145003,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145003,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145004,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145004,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145004,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145004,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145005,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145005,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145006,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145007,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        145007,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "skill-aware-bluff",
+        145001,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "skill-aware-bluff",
+        145002,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "skill-aware-bluff",
+        145002,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "skill-aware-bluff",
+        145003,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "skill-aware-bluff",
+        145003,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "skill-aware-bluff",
+        145004,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "skill-aware-bluff",
+        145004,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "skill-aware-bluff",
+        145005,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "skill-aware-bluff",
+        145007,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "truthful",
+        145003,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "truthful",
+        145005,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145000,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145000,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145001,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145001,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145002,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145003,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145003,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145004,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145005,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145006,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145006,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        145007,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "skill-aware-bluff",
+        145000,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "skill-aware-bluff",
+        145002,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "skill-aware-bluff",
+        145002,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "skill-aware-bluff",
+        145002,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "skill-aware-bluff",
+        145003,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "skill-aware-bluff",
+        145004,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "skill-aware-bluff",
+        145007,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    }
+  ],
+  "rescueCount": 0,
+  "checkReactionCount": 0,
+  "newResearchExecutions": 0,
+  "promotionEvidence": false,
+  "rawFileSHA256": "94d4e36ad38c8ffb5ddafa2ad273837d9e06e17bff2c4ec2610999bc087c7fbb",
+  "verifiedSHA256": "1ce58f536c15f5a71bb0791c636f460947f11049eb9fa6f6c0e59a53f79d0132",
+  "summaryToolSHA256": "582d969718812b6c7cb9ddd72a8128996740f5b45bb615372034ea78fb0aa104"
+}
