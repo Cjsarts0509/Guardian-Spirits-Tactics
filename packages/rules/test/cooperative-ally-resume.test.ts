@@ -9,7 +9,7 @@ it('resumes real paired journals without rewriting partial snapshots for cached 
   try {
     const out=join(dir,'pairs.json'),journal=join(dir,'pairs.journal.ndjson'),writes=join(dir,'writes.ndjson'),hook=join(dir,'hook.mjs');
     writeFileSync(hook,`import fs from 'node:fs';import {syncBuiltinESMExports} from 'node:module';
-const original=fs.writeFileSync;fs.writeFileSync=function(path,data,...args){if(String(path)===process.env.GST_TEST_OUTPUT)fs.appendFileSync(process.env.GST_TEST_WRITES,JSON.stringify({complete:JSON.parse(String(data)).complete})+'\\n');return original.call(this,path,data,...args);};syncBuiltinESMExports();`);
+const original=fs.writeFileSync;fs.writeFileSync=function(path,data,...args){if(typeof data==='string'&&data.includes('"rows"'))fs.appendFileSync(process.env.GST_TEST_WRITES,JSON.stringify({complete:JSON.parse(String(data)).complete})+'\\n');return original.call(this,path,data,...args);};syncBuiltinESMExports();`);
     const run=(batch:number)=>{
       const r=spawnSync(process.execPath,['--import','tsx','--import',hook,'scripts/cooperative-ally-pairs.ts','1','23',out,String(batch)],{
         cwd:new URL('../',import.meta.url),encoding:'utf8',timeout:90000,

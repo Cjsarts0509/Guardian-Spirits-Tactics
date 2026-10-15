@@ -53,7 +53,7 @@ describe('one actual trusted-report verification alternative',()=>{
  });
  it('completes a zero-new-game resume with identical records and no partial snapshot writes',()=>{
   const before=readFileSync(journal,'utf8'),hook=join(dir,'hook.mjs'),writes=join(dir,'writes');
-  writeFileSync(hook,`import fs from 'node:fs';import {syncBuiltinESMExports} from 'node:module';const old=fs.writeFileSync;fs.writeFileSync=function(p,d,...a){if(typeof d==='string'&&d.includes('"executions"'))fs.appendFileSync(process.env.GST_WRITES,JSON.stringify({complete:JSON.parse(d).complete})+'\\n');return old.call(this,p,d,...a);};syncBuiltinESMExports();`);
+  writeFileSync(hook,`import fs from 'node:fs';import {syncBuiltinESMExports} from 'node:module';const old=fs.writeFileSync;fs.writeFileSync=function(p,d,...a){if(typeof d==='string'&&d.includes('"rows"'))fs.appendFileSync(process.env.GST_WRITES,JSON.stringify({complete:JSON.parse(d).complete})+'\\n');return old.call(this,p,d,...a);};syncBuiltinESMExports();`);
   const log=execFileSync(process.execPath,['--import','tsx','--import',hook,'scripts/cooperative-report-pairs.ts','1','23',raw,'8'],{encoding:'utf8',env:{...process.env,GST_WRITES:writes},stdio:['pipe','pipe','pipe']});
   expect(log).toBe('');expect(readFileSync(journal,'utf8')).toBe(before);expect(readFileSync(writes,'utf8').trim()).toBe('{"complete":true}');expect(verify().complete).toBe(true);
  });

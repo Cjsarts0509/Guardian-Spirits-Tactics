@@ -7,6 +7,7 @@ d=json.loads(read(a.path));assert d['kind']=='first-low-mana-confirmed-ally-sing
 assert d['count']>0 and d['learning']=={'features':['knownEnemy','afterManaLessThan20'],'cells':4,'minPairs':48,'minSeeds':16,'bootstrapSamples':10000,'bootstrapSeed':0x475354,'selection':'seed99LowerPositive'}
 files=subprocess.check_output(['git','ls-tree','-r','--name-only',a.source_ref,'packages/rules/src'],text=True).splitlines() if a.source_ref else [str(x) for x in pathlib.Path('packages/rules/src').rglob('*.ts')]
 expected={x.removeprefix('packages/rules/') for x in files if x.endswith('.ts')}|{'scripts/'+x for x in ['cooperative-ally-pairs.ts','cooperative-ally-intervention.ts','cooperative-claim-intervention.ts','league-runner.ts','baselines/pre-cooperative.ts','claim-opponents.ts']}
+if d.get('persistence')=={'version':2}:expected.add('scripts/cooperative-store.ts')
 assert set(d['sourceHashes'])==expected and set(d['auxiliarySourceHashes'])=={'tools/verify-ally-pairs.py','tools/learn-ally-delay.py'}
 for group,prefix in [('sourceHashes','packages/rules/'),('auxiliarySourceHashes','')]:
     for path,sha in d[group].items():
@@ -83,4 +84,10 @@ if a.journal_path:
     for line in lines:
         x=json.loads(line);f=x['result']['game']['fixture'];k=(x['mode'],x['style'],f['seed'],f['reversed'],f['currentSide'],x['variant']);assert k not in journal;journal[k]=x['result']
     assert journal==records;out['journalVerified']=True
+if d.get('persistence')=={'version':2}:
+    assert a.journal_path,'v2 verification requires journal'
+    base=str(a.path).removesuffix('.gz').removesuffix('.json')
+    publication=json.loads(pathlib.Path(base+'.publication.json').read_text())
+    assert publication=={'version':2,'fingerprint':d['fingerprint'],'executions':d['executions'],'complete':d['complete'],'snapshotSHA256':hashlib.sha256(read(a.path)).hexdigest(),'journalSHA256':hashlib.sha256(read(a.journal_path)).hexdigest()}
+    out['publicationVerified']=True
 print(json.dumps(out,ensure_ascii=False,indent=2))

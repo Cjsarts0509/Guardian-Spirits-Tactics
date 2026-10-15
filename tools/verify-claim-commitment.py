@@ -13,6 +13,7 @@ if a.source_ref:
     expected_sources={x.removeprefix('packages/rules/') for x in files if x.endswith('.ts')}
 else:expected_sources={'src/'+str(x.relative_to('packages/rules/src')) for x in pathlib.Path('packages/rules/src').rglob('*.ts')}
 expected_sources|={'scripts/'+x for x in ['cooperative-claim-commitment.ts','cooperative-commitment-match.ts','league-runner.ts','baselines/pre-cooperative.ts','claim-opponents.ts']}
+if d.get('persistence')=={'version':2}:expected_sources.add('scripts/cooperative-store.ts')
 assert set(d['sourceHashes'])==expected_sources and set(d['auxiliarySourceHashes'])=={'tools/verify-claim-commitment.py'}
 for group,prefix in [('sourceHashes','packages/rules/'),('auxiliarySourceHashes','')]:
     for path,sha in d[group].items():
@@ -117,4 +118,10 @@ if not a.allow_partial:
 if a.journal_path:
     raw=read(a.journal_path);assert hashlib.sha256(raw).hexdigest()==d['journalSha256'];lines=raw.splitlines();header=json.loads(lines.pop(0));assert header['fingerprint']==d['fingerprint'] and header['meta']==meta
     assert [json.loads(line) for line in lines]==d['records'];out['journalVerified']=True
+if d.get('persistence')=={'version':2}:
+    assert a.journal_path,'v2 verification requires journal'
+    base=str(a.path).removesuffix('.gz').removesuffix('.json')
+    publication=json.loads(pathlib.Path(base+'.publication.json').read_text())
+    assert publication=={'version':2,'fingerprint':d['fingerprint'],'executions':d['executions'],'complete':d['complete'],'snapshotSHA256':hashlib.sha256(read(a.path)).hexdigest(),'journalSHA256':hashlib.sha256(read(a.journal_path)).hexdigest()}
+    out['publicationVerified']=True
 print(json.dumps(out,ensure_ascii=False,indent=2))

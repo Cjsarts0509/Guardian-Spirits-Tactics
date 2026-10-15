@@ -70,4 +70,10 @@ if args.journal_path:
     for line in lines:
         x=json.loads(line);f=x['result']['game']['fixture'];key=(x['mode'],x['style'],f['seed'],f['reversed'],f['currentSide'],x['variant']);assert key not in journal_records;journal_records[key]=x['result']
     assert journal_records==game_records;out['journalVerified']=True
+if d.get('persistence')=={'version':2}:
+    assert args.journal_path,'v2 verification requires journal'
+    base=str(args.path).removesuffix('.gz').removesuffix('.json')
+    publication=json.loads(pathlib.Path(base+'.publication.json').read_text())
+    assert publication=={'version':2,'fingerprint':d['fingerprint'],'executions':d['executions'],'complete':d['complete'],'snapshotSHA256':hashlib.sha256(read(args.path)).hexdigest(),'journalSHA256':hashlib.sha256(read(args.journal_path)).hexdigest()}
+    out['publicationVerified']=True
 print(json.dumps(out,ensure_ascii=False,indent=2))

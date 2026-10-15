@@ -1,6 +1,6 @@
 {
   "round": 23,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "resumed-round-023-storage-consistency",
   "startedAt": "2026-10-15T12:30:00+09:00",
   "leaseUntil": "2026-10-15T13:30:00+09:00",
@@ -19,20 +19,21 @@
   },
   "candidate": "storage_only_no_policy_change",
   "options": {},
-  "checkpoint": "reservation_before_storage_changes",
+  "checkpoint": "storage_regression_verified",
   "checks": {
-    "tests": 584,
-    "rules": 516,
+    "tests": 591,
+    "rules": 523,
     "server": 68,
     "typecheck": "passed",
     "serverBuild": "passed",
-    "clientWorkerBuild": "passed"
+    "clientWorkerBuild": "passed",
+    "collectorStorageRegression": "passed_432_unit_games_excluded"
   },
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 31296,
-  "decision": "pending_storage_reproduction_and_fix",
-  "nextAction": "reproduce_detectable_storage_gap_and_implement_verified_persistence",
+  "decision": "storage_false_completion_detection_and_repair_fixed_physical_cause_unconfirmed",
+  "nextAction": "round024_confirmed_enemy_break_repair_and_human_record_evidence",
   "previousCompleted": {
     "round": 22,
     "completionRef": "73a7b34bb99d22c714b48796e806a034b86a04fc",
@@ -86,5 +87,6 @@
     "start": 139000,
     "count": 8,
     "status": "reserved_unused"
-  }
+  },
+  "completedAt": "2026-10-15T12:41:56.945568+09:00"
 }
