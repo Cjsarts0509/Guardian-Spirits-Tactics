@@ -21,7 +21,7 @@
   "options": {
     "directCheckFollowup": true
   },
-  "checkpoint": "615_tests_type_build_smoke_passed_before_freeze",
+  "checkpoint": "development_partial576_not_final_no_holdout",
   "checks": {
     "tests": 615,
     "rules": 540,
@@ -36,7 +36,7 @@
     "existing026Resume": "new0_same_snapshot_journal_publication_full_summary_restored",
     "candidateSmoke": "final144_synthetic_and_observer1_excluded"
   },
-  "executions": 0,
+  "executions": 576,
   "targetExecutions": 1152,
   "cumulativeExecutions": 34752,
   "decision": "pending_development",
@@ -66,10 +66,10 @@
     "path": "docs/evaluations/cooperation-round-026-cumulative-audit.json"
   },
   "cumulativeUnfinishedExecutions": 2,
-  "policySourceRef": "989fe11c47dade1342864c319c9d8d656266d46b",
+  "policySourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
   "repeatDisabled": true,
   "sourceCI": "success",
-  "sourceBrowserCheck": "success",
+  "sourceBrowserCheck": "in_progress",
   "humanValidation": {
     "instrumentation": "implemented",
     "factualReplay": "tested_synthetic_only",
@@ -93,5 +93,6 @@
     "start": 142000,
     "count": 8,
     "status": "reserved_unused"
-  }
+  },
+  "checkpointAt": "2026-10-15T18:56:13.988110+09:00"
 }
