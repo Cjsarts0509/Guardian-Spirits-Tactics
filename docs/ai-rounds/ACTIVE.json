@@ -1,30 +1,30 @@
 {
   "round": 38,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round038-known-commander-guard-before-ally",
   "startedAt": "2026-10-15T22:36:45.964122+09:00",
-  "leaseUntil": "2026-10-15T23:51:45.964122+09:00",
+  "leaseUntil": null,
   "task": "확정 지휘관 보호를 새 동맹 직전에 우선하는 단일 후보",
   "continuation": "user_20261015_2235_continue",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
-  "evaluationSourceRef": null,
-  "policySourceRef": null,
-  "executions": 0,
+  "evaluationSourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
+  "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
+  "executions": 1152,
   "targetExecutions": 1152,
   "replayTarget": 1,
   "replayedGames": 1,
-  "cumulativeExecutions": 44736,
-  "cumulativeTerminatedExecutions": 44734,
+  "cumulativeExecutions": 45888,
+  "cumulativeTerminatedExecutions": 45886,
   "cumulativeUnfinishedExecutions": 2,
   "previousCompleted": {
     "round": 37,
-    "record": "docs/ai-rounds/ROUND_037_20261015_2220.md",
-    "completionRef": "2d863e946359c90caa6bffb569dad3a3bb4c9e43"
+    "completionRef": "2d863e946359c90caa6bffb569dad3a3bb4c9e43",
+    "record": "docs/ai-rounds/ROUND_037_20261015_2220.md"
   },
   "developmentSeeds": {
     "start": 148000,
     "count": 8,
-    "status": "reserved_unused"
+    "status": "used_complete"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -33,17 +33,17 @@
   },
   "conditionalDevelopmentSeeds": {
     "start": 149000,
-    "count": 8,
-    "status": "reserved_unused"
+    "count": 80,
+    "status": "reserved_unused_selfplay"
   },
   "candidate": "knownCommanderGuardBeforeAlly",
   "options": {
     "knownCommanderGuardBeforeAlly": true
   },
   "optionsStatus": "single_candidate_default_off_other_experimental_options_off",
-  "checkpoint": "round038_validated_before_fixed_source_development",
-  "nextAction": "Freeze this validated source, record its SHA in batch metadata and run preregistered148000–148007/1152",
-  "decision": "pending",
+  "checkpoint": "round038_complete_guard_fulfillment_and_performance_separated",
+  "nextAction": "039: implement fixed two-policy primordial-only identical-policy collector; preregister149000–149079/320 games before running; no policy or skill change",
+  "decision": "functional_fulfillment_passed_performance_not_generalized_defaultoff",
   "checks": {
     "tests": 654,
     "rules": 579,
@@ -57,24 +57,23 @@
     "rehashedTamper": "rejected"
   },
   "postflightCI": {
-    "sourceRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98",
+    "sourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
     "CI": {
       "conclusion": "success",
-      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38739713487"
+      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38746507772"
     },
     "browser": {
       "conclusion": "success",
-      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38739713485"
+      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38746507778"
     }
   },
   "corpusAudit": {
-    "path": "docs/evaluations/cooperation-round-036-cumulative-audit.json",
-    "primaryDatasets": 30,
-    "verifiedExecutions": 44736,
-    "terminated": 44734,
+    "path": "docs/evaluations/cooperation-round-038-cumulative-audit.json",
+    "primaryDatasets": 31,
+    "verifiedExecutions": 45888,
+    "terminated": 45886,
     "unfinished": 2,
-    "seedRangesDisjoint": true,
-    "seedLedger": "docs/evaluations/cooperation-round-037-seed-ledger.json"
+    "seedRangesDisjoint": true
   },
   "humanValidation": {
     "actualHumanMatches": 0
@@ -83,11 +82,19 @@
   "repeatDisabled": false,
   "deployment": false,
   "record": "docs/ai-rounds/ROUND_038_20261015_2235.md",
-  "nextCandidate": "knownCommanderGuardBeforeAlly",
+  "nextCandidate": null,
   "candidateImplemented": true,
   "remainingUnused148000Reservation": {
     "start": 148008,
     "count": 72,
     "status": "unused"
+  },
+  "completedAt": "2026-10-15T23:01:01.314137+09:00",
+  "functionalDecision038": {
+    "eligible": 4,
+    "success": 4,
+    "wrong": 0,
+    "rejected": 0,
+    "defaultOff": true
   }
 }

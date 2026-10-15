@@ -1,0 +1,196 @@
+{
+  "candidate": "knownCommanderGuardBeforeAlly",
+  "executions": 1152,
+  "sourceFingerprint": "199269216485c14803719e258c9b42a07c40d39110e76c91fde0203d4e9f8d9f",
+  "snapshotSHA256": "5485bf0e3ba4c3297054de1e8464ace495135dccee21028a114ca0952833a375",
+  "behavior": {
+    "control": {
+      "activeGuardDecisions": 117,
+      "reasons": {
+        "identity_unconfirmed": 109,
+        "eligible": 4,
+        "other_original_choice": 4
+      },
+      "eligible": 4,
+      "selectedAtEligible": 0,
+      "successfulAtEligible": 0,
+      "wrongAtEligible": 0,
+      "rejectedAtEligible": 0,
+      "gamesWithEligibleOpportunity": 4,
+      "byCharacter": {
+        "consume": {
+          "eligible": 4,
+          "selected": 0,
+          "success": 0
+        },
+        "kumarin": {
+          "eligible": 0,
+          "selected": 0,
+          "success": 0
+        }
+      }
+    },
+    "knownCommanderGuardBeforeAlly": {
+      "activeGuardDecisions": 113,
+      "reasons": {
+        "identity_unconfirmed": 109,
+        "eligible": 4
+      },
+      "eligible": 4,
+      "selectedAtEligible": 4,
+      "successfulAtEligible": 4,
+      "wrongAtEligible": 0,
+      "rejectedAtEligible": 0,
+      "gamesWithEligibleOpportunity": 4,
+      "byCharacter": {
+        "consume": {
+          "eligible": 4,
+          "selected": 4,
+          "success": 4
+        },
+        "kumarin": {
+          "eligible": 0,
+          "selected": 0,
+          "success": 0
+        }
+      }
+    }
+  },
+  "pairedPerformance": {
+    "pairs": 384,
+    "better": 0,
+    "worse": 0,
+    "tied": 384,
+    "intervenedGames": 4,
+    "nonintervenedEntireGamesIdentical": 380,
+    "contrasts": {
+      "knownCommanderGuardBeforeAlly-control": {
+        "difference": 0.0,
+        "seedBootstrap95": [
+          0.0,
+          0.0
+        ],
+        "byMode": {
+          "civil_war": 0.0,
+          "primordial": 0.0,
+          "lidellut": 0.0,
+          "troll": 0.0
+        }
+      },
+      "knownCommanderGuardBeforeAlly-baseline": {
+        "difference": -0.0546875,
+        "seedBootstrap95": [
+          -0.09635416666666667,
+          -0.015625
+        ],
+        "byMode": {
+          "civil_war": -0.15625,
+          "primordial": 0.04166666666666663,
+          "lidellut": -0.07291666666666674,
+          "troll": -0.03125
+        }
+      }
+    }
+  },
+  "firstDivergences": [
+    {
+      "fixtureKey": [
+        "primordial",
+        "truthful",
+        148004,
+        false,
+        2
+      ],
+      "commonActionPrefix": 9,
+      "at": 54750,
+      "player": "p5",
+      "controlAction": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      },
+      "candidateAction": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p3"
+      },
+      "scoreDelta": 0
+    },
+    {
+      "fixtureKey": [
+        "primordial",
+        "truthful",
+        148004,
+        true,
+        2
+      ],
+      "commonActionPrefix": 9,
+      "at": 54750,
+      "player": "p5",
+      "controlAction": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      },
+      "candidateAction": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p3"
+      },
+      "scoreDelta": 0
+    },
+    {
+      "fixtureKey": [
+        "primordial",
+        "bluff",
+        148004,
+        false,
+        2
+      ],
+      "commonActionPrefix": 9,
+      "at": 54750,
+      "player": "p5",
+      "controlAction": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      },
+      "candidateAction": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p3"
+      },
+      "scoreDelta": 0
+    },
+    {
+      "fixtureKey": [
+        "primordial",
+        "skill-aware-bluff",
+        148004,
+        false,
+        2
+      ],
+      "commonActionPrefix": 9,
+      "at": 54750,
+      "player": "p5",
+      "controlAction": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      },
+      "candidateAction": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p3"
+      },
+      "scoreDelta": 0
+    }
+  ],
+  "newResearchExecutionsFromAnalysis": 0,
+  "functionalFulfillmentPassed": true,
+  "limits": [
+    "Candidate and control opportunity counts come from their own reached trajectories; do not interpret them as the same denominator.",
+    "Original OFF choice at a reached state is observational only; first-divergence matches validate the real pair before its first intervention.",
+    "Earlier guard success is not proof of improved win rate, faction balance, or human performance."
+  ]
+}

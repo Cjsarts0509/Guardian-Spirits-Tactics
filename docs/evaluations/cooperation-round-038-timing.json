@@ -1,0 +1,84 @@
+{
+  "sourceSHA256": "5485bf0e3ba4c3297054de1e8464ace495135dccee21028a114ca0952833a375",
+  "analysisSHA256": "7bf48c19db72873563510b75affb94943f967989e646b8df8e51416ce7a1dcd4",
+  "researchExecutions": 0,
+  "records": [
+    {
+      "fixtureKey": [
+        "primordial",
+        "truthful",
+        148004,
+        false,
+        2
+      ],
+      "player": "p5",
+      "action": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p3"
+      },
+      "candidateFirstGuardAt": 54750,
+      "controlGuardAt": 75000,
+      "earlierMs": 20250,
+      "controlAccepted": true
+    },
+    {
+      "fixtureKey": [
+        "primordial",
+        "truthful",
+        148004,
+        true,
+        2
+      ],
+      "player": "p5",
+      "action": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p3"
+      },
+      "candidateFirstGuardAt": 54750,
+      "controlGuardAt": 75000,
+      "earlierMs": 20250,
+      "controlAccepted": true
+    },
+    {
+      "fixtureKey": [
+        "primordial",
+        "bluff",
+        148004,
+        false,
+        2
+      ],
+      "player": "p5",
+      "action": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p3"
+      },
+      "candidateFirstGuardAt": 54750,
+      "controlGuardAt": 75000,
+      "earlierMs": 20250,
+      "controlAccepted": true
+    },
+    {
+      "fixtureKey": [
+        "primordial",
+        "skill-aware-bluff",
+        148004,
+        false,
+        2
+      ],
+      "player": "p5",
+      "action": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p3"
+      },
+      "candidateFirstGuardAt": 54750,
+      "controlGuardAt": 75000,
+      "earlierMs": 20250,
+      "controlAccepted": true
+    }
+  ],
+  "limitation": "Timing on diverged paired trajectories; no causal win contribution claim."
+}
