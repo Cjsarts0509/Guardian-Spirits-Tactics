@@ -1,6 +1,6 @@
 {
   "round": 22,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "continuous-round-022-final-corpus-audit-only",
   "startedAt": "2026-10-15T11:48:50+09:00",
   "leaseUntil": "2026-10-15T12:05:00+09:00",
@@ -17,7 +17,7 @@
   },
   "candidate": "none_final_audit_only",
   "options": {},
-  "checkpoint": "all20_primary_datasets_31296_executions_verified_final_report_preparing_no_new_games",
+  "checkpoint": "final_closed_31296_verified_no_active_games_repeat_disabled",
   "checks": {
     "tests": 584,
     "rules": 516,
@@ -29,8 +29,8 @@
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 31296,
-  "decision": "all_candidates_unadopted_new_options_off_holdout_unused",
-  "nextAction": "finish_noon_closeout_and_disable_repeat_no_new_development",
+  "decision": "closed_zero_adoptions_experimental_options_off_holdout_unused",
+  "nextAction": "stopped_requires_new_user_authorization",
   "previousCompleted": {
     "round": 21,
     "executions": 1152,
@@ -47,7 +47,7 @@
   },
   "finalReport": {
     "round": 22,
-    "status": "preparing",
+    "status": "completed",
     "path": "docs/ai-rounds/ROUND_022_20261015_1148.md",
     "newExecutions": 0,
     "verifiedExecutions": 31296,
@@ -58,9 +58,11 @@
     "sourceRef": "8eb4e065b0fae7ed90d4b503bd6e4226954998c6",
     "sourceCI": "success",
     "sourceBrowserCheck": "success",
-    "adoptedCandidates": 0
+    "adoptedCandidates": 0,
+    "reportedAt": "2026-10-15T12:00:51.000+09:00",
+    "repeatDisabled": true
   },
-  "task": "022 final immutable-corpus and seed audit only; no new games or candidate development; stop at noon",
+  "task": "022 final closeout complete; no new development or research; repeat disabled",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 6,
   "unfinishedExecutions": 0,
@@ -72,7 +74,14 @@
     "unfinishedExecutions": 2,
     "seedRangesDisjoint": true,
     "reservedUnusedIntrusions": 0,
-    "path": "docs/evaluations/cooperation-round-022-corpus-audit.json"
+    "path": "docs/evaluations/cooperation-round-022-corpus-audit.json",
+    "currentRuntimeMatchesFrozen": true,
+    "reservedSeedHeadersScanned": 36,
+    "reservedSeedHeaderOverlaps": 0,
+    "remoteFetchedAuditByteIdentical": true
   },
-  "cumulativeUnfinishedExecutions": 2
+  "cumulativeUnfinishedExecutions": 2,
+  "completedAt": "2026-10-15T12:00:51.000+09:00",
+  "policySourceRef": "8eb4e065b0fae7ed90d4b503bd6e4226954998c6",
+  "repeatDisabled": true
 }
