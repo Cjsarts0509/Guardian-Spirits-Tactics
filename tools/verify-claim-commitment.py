@@ -9,7 +9,7 @@ p=argparse.ArgumentParser();p.add_argument('path',type=pathlib.Path);p.add_argum
 def read(path):
     raw=path.read_bytes();return gzip.decompress(raw) if path.suffix=='.gz' else raw
 d=json.loads(read(a.path));assert d['phase'] in ['development','holdout']
-specs={'repeated-warned-failed-guess-comparison':('avoidRepeatedFailedGuess',{'avoidRepeatedFailedGuess':True}),'private-confirmation-attack-followup-comparison':('directCheckFollowup',{'directCheckFollowup':True}),'confirmed-ally-urgent-dispel-comparison':('urgentDispelBeforeAlly',{'urgentDispelBeforeAlly':True}),'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
+specs={'first-warning-trusted-report-comparison':('reportedFirstWarning',{'reportedFirstWarning':True}),'repeated-warned-failed-guess-comparison':('avoidRepeatedFailedGuess',{'avoidRepeatedFailedGuess':True}),'private-confirmation-attack-followup-comparison':('directCheckFollowup',{'directCheckFollowup':True}),'confirmed-ally-urgent-dispel-comparison':('urgentDispelBeforeAlly',{'urgentDispelBeforeAlly':True}),'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
 candidate,options=specs[d['kind']]
 assert d['variants']==['baseline','control',candidate] and d['options']=={'baseline':{},'control':{},candidate:options}
 if not a.allow_partial:assert d['complete'] and d['executions']==d['count']*4*3*4*3
@@ -146,6 +146,19 @@ for x in d['records']:
         assert t['skillCost']==50 and t['skillBlocked'] is None and t['ownMemoryEqual'] and t['ownRngEqual']
         assert not any(a['player']==t['player'] and a['at']==t['at'] and a['action']['type']!='chat' for a in r['actions'])
     if candidate=='avoidRepeatedFailedGuess':b.setdefault('blockedGuesses',collections.Counter()).update({'blocked':len(blocked_guesses)})
+    reported_attacks=r.get('reportedAttacks',[])
+    for t in reported_attacks:
+        assert v==candidate=='reportedFirstWarning' and t['knownName'] is None and t['level']==1 and t['mana']>=100 and t['at']==t['elapsedMs']>=240000 and not t['lastSameFailure']
+        act=t['chosenAction'];assert act=={'type':'skill','skill':'advanced_attack','target':t['target'],'name':t['name']} and t['changed']==(act!=t['originalAction']) and t['senders']
+        target_id=int(t['target'].removeprefix('p'));assert t['targetSeat']==(f['count']+1-target_id if f['reversed'] else target_id)
+        for sender in t['senders']:
+            e=sender['event'];assert sender['alive'] and sender['side']==t['ownSide']==f['currentSide'] and sender['id']!=t['player']
+            assert e['kind'] in ['chat.whisper','chat.ally'] and e['vis']['to']=='players' and t['player'] in e['vis']['ids'] and e['data']['from']==sender['id'] and e['at']<=t['at']
+            assert e['data']['text']==f"확인 정보: [{t['targetSeat']}] {t['nameLabel']}" and not e.get('facts')
+        actual=[a for a in r['actions'] if a['player']==t['player'] and a['at']==t['at'] and a['action']==act];assert len(actual)==1 and actual[0]['accepted']==t['accepted']
+        assert t['actualName'] is not None and t['actualSide'] in [1,2] and type(t['attackFailure']) is bool
+    if 'wrongReportedAttacks' in r['safety']:assert r['safety']['wrongReportedAttacks']==sum(t['actualName']!=t['name'] or t['actualSide']==t['ownSide'] for t in reported_attacks)
+    if candidate=='reportedFirstWarning':b.setdefault('reportedAttacks',collections.Counter()).update({'attempted':len(reported_attacks),'changed':sum(t['changed'] for t in reported_attacks),'attackFailure':sum(t['attackFailure'] for t in reported_attacks)})
 
 assert out['executions']==d['executions']
 for v,modes in out['variants'].items():

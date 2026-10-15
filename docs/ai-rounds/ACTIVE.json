@@ -21,10 +21,10 @@
   "options": {
     "reportedFirstWarning": true
   },
-  "checkpoint": "reserved_fresh144000_before_code",
+  "checkpoint": "635_tests_4_types_builds_supervisor4_unit144_report11_rehashed_tamper3_passed_before_freeze",
   "checks": {
-    "tests": 627,
-    "rules": 552,
+    "tests": 635,
+    "rules": 560,
     "server": 75,
     "typecheck": "4_packages_passed",
     "serverBuild": "passed",
@@ -34,10 +34,11 @@
     "postflightHumanAudit": "passed_7_tests_no_actual_humans",
     "observerInvariant": "passed_2_synthetic_games_excluded",
     "existing026Resume": "new0_same_snapshot_journal_publication_full_summary_restored",
-    "candidateSmoke": "144_synthetic_with_new_candidate_independently_verified_excluded",
+    "candidateSmoke": "144_synthetic_11_actual_reported_attacks_independently_verified_excluded",
     "firstDivergenceAudit": "passed_384_pairs_294_prefixes_90_noninterventions",
     "singleCheckSmoke": "96_synthetic_7_interventions_excluded",
-    "ownTraceObserver": "callback_mutation_and_full_result_invariance_passed"
+    "ownTraceObserver": "callback_mutation_and_full_result_invariance_passed",
+    "reportedAttackTamper": "3_rehashed_level2_sender_directFacts_rejected"
   },
   "executions": 0,
   "targetExecutions": 1152,
@@ -80,7 +81,7 @@
     "humanWinRate": null
   },
   "historicalUnverifiedExecutionUpperBoundExcluded": 6,
-  "validatedCodeRef": "5db38453b1b4949eba727a9b21c9d3d0f28d6566",
+  "validatedCodeRef": "pending_round033_freeze",
   "postflightCI": {
     "sourceRef": "5db38453b1b4949eba727a9b21c9d3d0f28d6566",
     "CI": {

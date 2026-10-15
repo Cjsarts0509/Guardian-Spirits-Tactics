@@ -1,4 +1,4 @@
-import {shareIntel,verifyIntel,hasUsefulIntelExchange,reportedSupremeAttack} from './bot-intel.js';
+import {shareIntel,verifyIntel,hasUsefulIntelExchange,reportedSupremeAttack,reportedFirstWarningAttack} from './bot-intel.js';
 // 봇 두 종류
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
@@ -27,6 +27,8 @@ export interface BotOptions {
   teamworkBudget?: boolean;
   /** 개발 비교: 직접 확인된 아군의 일관된 적 보고는 최상급 공격만 참고. 기본 OFF. */
   reportedSupreme?: boolean;
+  /** 개발 기본OFF: 실제 신뢰 보고는 첫 경고 이전 상급1단계 공격에만 참고한다. */
+  reportedFirstWarning?:boolean;
   /** 개발 비교: 보고는 추론에 유지하고 재확인은 일반 정보 수집 순서로 판단한다. 기본 priority. */
   reportVerification?: 'priority' | 'normal' | 'when-busy';
   /** 개발 기본OFF: 사망 공개로 확정된 아군 보고는 안전 확인에만 참고한다. */
@@ -619,6 +621,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   if(opts.preservePartialGem&&shouldPreservePartialGem(view))usable.delete('truth_gem');
   if(opts.teamwork !== false){
     if(opts.reportedSupreme){const attack=reportedSupremeAttack(view,knowledge,mem,usable,attackable);if(attack)return attack;}
+    if(opts.reportedFirstWarning){const attack=reportedFirstWarningAttack(view,knowledge,mem,usable,attackable);if(attack)return attack;}
     if(opts.reportVerification!=='normal'){
       const check=verifyIntel(view,knowledge,mem,usable);if(check)return sequence(check);
       if(opts.verifyDeadAllyReports){const deadCheck=verifyIntel(view,knowledge,mem,usable,true);if(deadCheck)return sequence(deadCheck);}
