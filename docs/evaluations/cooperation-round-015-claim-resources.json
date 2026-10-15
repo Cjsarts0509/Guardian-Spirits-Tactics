@@ -1,0 +1,2383 @@
+{
+  "format": 1,
+  "kind": "descriptive-claim-resource-paths",
+  "executions": 3072,
+  "trainingRawSHA256": "0e50e3cfbfe3e02b7d9dbe1826ddcc39aecc4c9a4f8bf6aa61c7706848c11cbb",
+  "analysisSourceSHA256": "78a5b76e2a8f22f6b8502c899c8c615bb8b807336fce4c7e6c298a6e1b0e76e3",
+  "promotionEvidence": false,
+  "policySelection": false,
+  "limitations": [
+    "Totals follow actual diverged game paths; future survival and resources are not held fixed.",
+    "Turn gains and true-name bonus are gross before the mana cap, not effective net gain.",
+    "Sampled true-name time may include later returns; it is not a guaranteed initial hold duration.",
+    "No post hoc feature, threshold or policy selection is performed."
+  ],
+  "groups": {
+    "overall": {
+      "pairs": 293,
+      "better": 14,
+      "worse": 14,
+      "same": 265,
+      "scoreDifferenceTotal": 0,
+      "incompleteGemAtPoint": 256,
+      "control": {
+        "aliveMs": 134587250,
+        "trueNameMs": 19754250,
+        "turns": 1466,
+        "trueNameTurns": 249,
+        "trueNameBonusGross": 2490,
+        "incomingAllyManaGross": 11070,
+        "turnGainGross": 42880,
+        "acceptedSkillMana": 37050,
+        "acceptedSkills": 1998,
+        "rejectedSkills": 0,
+        "attackFailures": 24,
+        "noPostPointTurn": 25,
+        "firstPostPointTurnTrue": 29,
+        "anyTrueNameTurn": 105,
+        "incompleteThenGem3": 24,
+        "aliveAtEnd": 203
+      },
+      "truthful": {
+        "aliveMs": 139161000,
+        "trueNameMs": 33800500,
+        "turns": 1521,
+        "trueNameTurns": 364,
+        "trueNameBonusGross": 3640,
+        "incomingAllyManaGross": 12270,
+        "turnGainGross": 46330,
+        "acceptedSkillMana": 38300,
+        "acceptedSkills": 2173,
+        "rejectedSkills": 0,
+        "attackFailures": 29,
+        "noPostPointTurn": 26,
+        "firstPostPointTurnTrue": 165,
+        "anyTrueNameTurn": 197,
+        "incompleteThenGem3": 32,
+        "aliveAtEnd": 201
+      },
+      "skills": {
+        "control": {
+          "publish": {
+            "accepted": 533,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "truth_gem": {
+            "accepted": 99,
+            "rejected": 0,
+            "nominalMana": 5575
+          },
+          "advanced_attack": {
+            "accepted": 41,
+            "rejected": 0,
+            "nominalMana": 2050
+          },
+          "ally_check": {
+            "accepted": 287,
+            "rejected": 0,
+            "nominalMana": 4305
+          },
+          "ally": {
+            "accepted": 380,
+            "rejected": 0,
+            "nominalMana": 3800
+          },
+          "dantes_successor": {
+            "accepted": 13,
+            "rejected": 0,
+            "nominalMana": 390
+          },
+          "advanced_scan": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 140
+          },
+          "attack": {
+            "accepted": 41,
+            "rejected": 0,
+            "nominalMana": 2050
+          },
+          "dantes_command": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "scan": {
+            "accepted": 33,
+            "rejected": 0,
+            "nominalMana": 660
+          },
+          "oracle": {
+            "accepted": 37,
+            "rejected": 0,
+            "nominalMana": 1480
+          },
+          "nightmare": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 120
+          },
+          "kelhu_loyal": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "warrior_scent": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "soul_reaver": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 400
+          },
+          "supreme_attack": {
+            "accepted": 94,
+            "rejected": 0,
+            "nominalMana": 4700
+          },
+          "advanced_enemy_check": {
+            "accepted": 16,
+            "rejected": 0,
+            "nominalMana": 320
+          },
+          "kane_wolfs_slash": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 360
+          },
+          "enemy_check": {
+            "accepted": 10,
+            "rejected": 0,
+            "nominalMana": 200
+          },
+          "nukelius_chakra_magic": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "rael_eoril_test": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 180
+          },
+          "drakan_black_spell": {
+            "accepted": 10,
+            "rejected": 0,
+            "nominalMana": 800
+          },
+          "ally_scan": {
+            "accepted": 47,
+            "rejected": 0,
+            "nominalMana": 940
+          },
+          "kinship_shining": {
+            "accepted": 24,
+            "rejected": 0,
+            "nominalMana": 600
+          },
+          "join": {
+            "accepted": 16,
+            "rejected": 0,
+            "nominalMana": 320
+          },
+          "great_will": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 600
+          },
+          "enemy_scan": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 220
+          },
+          "kinship_chizuko": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 275
+          },
+          "dawn_mist": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 75
+          },
+          "angel_baptism": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 280
+          },
+          "diplomacy": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 350
+          },
+          "battle_sense": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 600
+          },
+          "advanced_ally_check": {
+            "accepted": 60,
+            "rejected": 0,
+            "nominalMana": 900
+          },
+          "support": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "troll_ally_scan": {
+            "accepted": 91,
+            "rejected": 0,
+            "nominalMana": 1820
+          },
+          "spirit_hex": {
+            "accepted": 30,
+            "rejected": 0,
+            "nominalMana": 1200
+          },
+          "holy_binding": {
+            "accepted": 15,
+            "rejected": 0,
+            "nominalMana": 900
+          },
+          "wild_blessing": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 140
+          }
+        },
+        "truthful": {
+          "publish": {
+            "accepted": 672,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "truth_gem": {
+            "accepted": 108,
+            "rejected": 0,
+            "nominalMana": 6375
+          },
+          "advanced_attack": {
+            "accepted": 42,
+            "rejected": 0,
+            "nominalMana": 2100
+          },
+          "ally_check": {
+            "accepted": 287,
+            "rejected": 0,
+            "nominalMana": 4305
+          },
+          "ally": {
+            "accepted": 394,
+            "rejected": 0,
+            "nominalMana": 3940
+          },
+          "dantes_successor": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 330
+          },
+          "attack": {
+            "accepted": 43,
+            "rejected": 0,
+            "nominalMana": 2150
+          },
+          "dantes_command": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "advanced_scan": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 140
+          },
+          "scan": {
+            "accepted": 31,
+            "rejected": 0,
+            "nominalMana": 620
+          },
+          "oracle": {
+            "accepted": 41,
+            "rejected": 0,
+            "nominalMana": 1640
+          },
+          "soul_reaver": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 300
+          },
+          "nightmare": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 120
+          },
+          "kelhu_loyal": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "warrior_scent": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "advanced_enemy_check": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "supreme_attack": {
+            "accepted": 105,
+            "rejected": 0,
+            "nominalMana": 5250
+          },
+          "enemy_check": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 220
+          },
+          "nukelius_chakra_magic": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "rael_eoril_test": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "drakan_black_spell": {
+            "accepted": 9,
+            "rejected": 0,
+            "nominalMana": 720
+          },
+          "rael_master_power": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 20
+          },
+          "kane_wolfs_slash": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "ally_scan": {
+            "accepted": 58,
+            "rejected": 0,
+            "nominalMana": 1160
+          },
+          "kinship_shining": {
+            "accepted": 15,
+            "rejected": 0,
+            "nominalMana": 375
+          },
+          "join": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 400
+          },
+          "enemy_scan": {
+            "accepted": 14,
+            "rejected": 0,
+            "nominalMana": 280
+          },
+          "kinship_chizuko": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 425
+          },
+          "great_will": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 350
+          },
+          "dawn_mist": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 75
+          },
+          "angel_baptism": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "diplomacy": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 300
+          },
+          "battle_sense": {
+            "accepted": 21,
+            "rejected": 0,
+            "nominalMana": 630
+          },
+          "advanced_ally_check": {
+            "accepted": 53,
+            "rejected": 0,
+            "nominalMana": 795
+          },
+          "support": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "troll_ally_scan": {
+            "accepted": 90,
+            "rejected": 0,
+            "nominalMana": 1800
+          },
+          "spirit_hex": {
+            "accepted": 29,
+            "rejected": 0,
+            "nominalMana": 1160
+          },
+          "holy_binding": {
+            "accepted": 15,
+            "rejected": 0,
+            "nominalMana": 900
+          },
+          "wild_blessing": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 140
+          },
+          "troll_scan": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 20
+          }
+        }
+      },
+      "scoreDifferencePerIntervenedPair": 0.0
+    },
+    "mode/civil_war": {
+      "pairs": 68,
+      "better": 2,
+      "worse": 4,
+      "same": 62,
+      "scoreDifferenceTotal": -2,
+      "incompleteGemAtPoint": 55,
+      "control": {
+        "aliveMs": 27935500,
+        "trueNameMs": 3253250,
+        "turns": 299,
+        "trueNameTurns": 44,
+        "trueNameBonusGross": 440,
+        "incomingAllyManaGross": 3860,
+        "turnGainGross": 10280,
+        "acceptedSkillMana": 7775,
+        "acceptedSkills": 478,
+        "rejectedSkills": 0,
+        "attackFailures": 4,
+        "noPostPointTurn": 3,
+        "firstPostPointTurnTrue": 9,
+        "anyTrueNameTurn": 20,
+        "incompleteThenGem3": 8,
+        "aliveAtEnd": 52
+      },
+      "truthful": {
+        "aliveMs": 26389000,
+        "trueNameMs": 5909250,
+        "turns": 280,
+        "trueNameTurns": 64,
+        "trueNameBonusGross": 640,
+        "incomingAllyManaGross": 4400,
+        "turnGainGross": 10640,
+        "acceptedSkillMana": 7810,
+        "acceptedSkills": 513,
+        "rejectedSkills": 0,
+        "attackFailures": 4,
+        "noPostPointTurn": 4,
+        "firstPostPointTurnTrue": 43,
+        "anyTrueNameTurn": 47,
+        "incompleteThenGem3": 9,
+        "aliveAtEnd": 51
+      },
+      "skills": {
+        "control": {
+          "publish": {
+            "accepted": 129,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "truth_gem": {
+            "accepted": 18,
+            "rejected": 0,
+            "nominalMana": 1075
+          },
+          "advanced_attack": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 550
+          },
+          "ally_check": {
+            "accepted": 132,
+            "rejected": 0,
+            "nominalMana": 1980
+          },
+          "ally": {
+            "accepted": 81,
+            "rejected": 0,
+            "nominalMana": 810
+          },
+          "dantes_successor": {
+            "accepted": 13,
+            "rejected": 0,
+            "nominalMana": 390
+          },
+          "advanced_scan": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 140
+          },
+          "attack": {
+            "accepted": 10,
+            "rejected": 0,
+            "nominalMana": 500
+          },
+          "dantes_command": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "scan": {
+            "accepted": 25,
+            "rejected": 0,
+            "nominalMana": 500
+          },
+          "oracle": {
+            "accepted": 37,
+            "rejected": 0,
+            "nominalMana": 1480
+          },
+          "nightmare": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 120
+          },
+          "kelhu_loyal": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "warrior_scent": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "soul_reaver": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 50
+          }
+        },
+        "truthful": {
+          "publish": {
+            "accepted": 152,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "truth_gem": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 1025
+          },
+          "advanced_attack": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 550
+          },
+          "ally_check": {
+            "accepted": 133,
+            "rejected": 0,
+            "nominalMana": 1995
+          },
+          "ally": {
+            "accepted": 92,
+            "rejected": 0,
+            "nominalMana": 920
+          },
+          "dantes_successor": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 330
+          },
+          "attack": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 400
+          },
+          "dantes_command": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "advanced_scan": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 140
+          },
+          "scan": {
+            "accepted": 23,
+            "rejected": 0,
+            "nominalMana": 460
+          },
+          "oracle": {
+            "accepted": 41,
+            "rejected": 0,
+            "nominalMana": 1640
+          },
+          "soul_reaver": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 50
+          },
+          "nightmare": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 120
+          },
+          "kelhu_loyal": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "warrior_scent": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80
+          }
+        }
+      },
+      "scoreDifferencePerIntervenedPair": -0.029411764705882353
+    },
+    "cell/C0G1T0": {
+      "pairs": 60,
+      "better": 0,
+      "worse": 3,
+      "same": 57,
+      "scoreDifferenceTotal": -3,
+      "incompleteGemAtPoint": 60,
+      "control": {
+        "aliveMs": 17170750,
+        "trueNameMs": 7167750,
+        "turns": 178,
+        "trueNameTurns": 98,
+        "trueNameBonusGross": 980,
+        "incomingAllyManaGross": 2880,
+        "turnGainGross": 7420,
+        "acceptedSkillMana": 6725,
+        "acceptedSkills": 341,
+        "rejectedSkills": 0,
+        "attackFailures": 0,
+        "noPostPointTurn": 15,
+        "firstPostPointTurnTrue": 22,
+        "anyTrueNameTurn": 34,
+        "incompleteThenGem3": 15,
+        "aliveAtEnd": 42
+      },
+      "truthful": {
+        "aliveMs": 16372000,
+        "trueNameMs": 8667250,
+        "turns": 173,
+        "trueNameTurns": 94,
+        "trueNameBonusGross": 940,
+        "incomingAllyManaGross": 3190,
+        "turnGainGross": 7590,
+        "acceptedSkillMana": 6570,
+        "acceptedSkills": 329,
+        "rejectedSkills": 0,
+        "attackFailures": 0,
+        "noPostPointTurn": 16,
+        "firstPostPointTurnTrue": 26,
+        "anyTrueNameTurn": 37,
+        "incompleteThenGem3": 14,
+        "aliveAtEnd": 35
+      },
+      "skills": {
+        "control": {
+          "publish": {
+            "accepted": 155,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "truth_gem": {
+            "accepted": 55,
+            "rejected": 0,
+            "nominalMana": 2925
+          },
+          "advanced_attack": {
+            "accepted": 13,
+            "rejected": 0,
+            "nominalMana": 650
+          },
+          "advanced_scan": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "scan": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 340
+          },
+          "oracle": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 680
+          },
+          "kelhu_loyal": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "ally": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 170
+          },
+          "warrior_scent": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "enemy_check": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 160
+          },
+          "nukelius_chakra_magic": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "drakan_black_spell": {
+            "accepted": 5,
+            "rejected": 0,
+            "nominalMana": 400
+          },
+          "enemy_scan": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "kinship_chizuko": {
+            "accepted": 5,
+            "rejected": 0,
+            "nominalMana": 125
+          },
+          "dawn_mist": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 75
+          },
+          "diplomacy": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "angel_baptism": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "battle_sense": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 600
+          },
+          "support": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 80
+          }
+        },
+        "truthful": {
+          "publish": {
+            "accepted": 143,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "truth_gem": {
+            "accepted": 52,
+            "rejected": 0,
+            "nominalMana": 2800
+          },
+          "advanced_attack": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 600
+          },
+          "scan": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 340
+          },
+          "oracle": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 680
+          },
+          "kelhu_loyal": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "ally": {
+            "accepted": 19,
+            "rejected": 0,
+            "nominalMana": 190
+          },
+          "warrior_scent": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "nukelius_chakra_magic": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "enemy_check": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 160
+          },
+          "drakan_black_spell": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 320
+          },
+          "enemy_scan": {
+            "accepted": 5,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "kinship_chizuko": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 175
+          },
+          "dawn_mist": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 75
+          },
+          "diplomacy": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "angel_baptism": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "battle_sense": {
+            "accepted": 21,
+            "rejected": 0,
+            "nominalMana": 630
+          },
+          "support": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "troll_scan": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 20
+          }
+        }
+      },
+      "scoreDifferencePerIntervenedPair": -0.05
+    },
+    "cell/C1G1T0": {
+      "pairs": 140,
+      "better": 12,
+      "worse": 7,
+      "same": 121,
+      "scoreDifferenceTotal": 5,
+      "incompleteGemAtPoint": 140,
+      "control": {
+        "aliveMs": 78439250,
+        "trueNameMs": 7031500,
+        "turns": 843,
+        "trueNameTurns": 79,
+        "trueNameBonusGross": 790,
+        "incomingAllyManaGross": 3680,
+        "turnGainGross": 21330,
+        "acceptedSkillMana": 18495,
+        "acceptedSkills": 1089,
+        "rejectedSkills": 0,
+        "attackFailures": 18,
+        "noPostPointTurn": 0,
+        "firstPostPointTurnTrue": 0,
+        "anyTrueNameTurn": 33,
+        "incompleteThenGem3": 7,
+        "aliveAtEnd": 89
+      },
+      "truthful": {
+        "aliveMs": 82240250,
+        "trueNameMs": 15019500,
+        "turns": 882,
+        "trueNameTurns": 138,
+        "trueNameBonusGross": 1380,
+        "incomingAllyManaGross": 4380,
+        "turnGainGross": 23400,
+        "acceptedSkillMana": 18750,
+        "acceptedSkills": 1236,
+        "rejectedSkills": 0,
+        "attackFailures": 21,
+        "noPostPointTurn": 0,
+        "firstPostPointTurnTrue": 63,
+        "anyTrueNameTurn": 83,
+        "incompleteThenGem3": 6,
+        "aliveAtEnd": 95
+      },
+      "skills": {
+        "control": {
+          "publish": {
+            "accepted": 191,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "ally_check": {
+            "accepted": 235,
+            "rejected": 0,
+            "nominalMana": 3525
+          },
+          "ally": {
+            "accepted": 269,
+            "rejected": 0,
+            "nominalMana": 2690
+          },
+          "dantes_successor": {
+            "accepted": 13,
+            "rejected": 0,
+            "nominalMana": 390
+          },
+          "advanced_attack": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 600
+          },
+          "attack": {
+            "accepted": 35,
+            "rejected": 0,
+            "nominalMana": 1750
+          },
+          "dantes_command": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "truth_gem": {
+            "accepted": 10,
+            "rejected": 0,
+            "nominalMana": 500
+          },
+          "soul_reaver": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 400
+          },
+          "advanced_enemy_check": {
+            "accepted": 16,
+            "rejected": 0,
+            "nominalMana": 320
+          },
+          "kane_wolfs_slash": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 360
+          },
+          "supreme_attack": {
+            "accepted": 31,
+            "rejected": 0,
+            "nominalMana": 1550
+          },
+          "ally_scan": {
+            "accepted": 38,
+            "rejected": 0,
+            "nominalMana": 760
+          },
+          "kinship_shining": {
+            "accepted": 18,
+            "rejected": 0,
+            "nominalMana": 450
+          },
+          "join": {
+            "accepted": 13,
+            "rejected": 0,
+            "nominalMana": 260
+          },
+          "great_will": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 300
+          },
+          "troll_ally_scan": {
+            "accepted": 91,
+            "rejected": 0,
+            "nominalMana": 1820
+          },
+          "spirit_hex": {
+            "accepted": 30,
+            "rejected": 0,
+            "nominalMana": 1200
+          },
+          "holy_binding": {
+            "accepted": 15,
+            "rejected": 0,
+            "nominalMana": 900
+          },
+          "advanced_ally_check": {
+            "accepted": 48,
+            "rejected": 0,
+            "nominalMana": 720
+          }
+        },
+        "truthful": {
+          "publish": {
+            "accepted": 327,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "ally_check": {
+            "accepted": 237,
+            "rejected": 0,
+            "nominalMana": 3555
+          },
+          "ally": {
+            "accepted": 280,
+            "rejected": 0,
+            "nominalMana": 2800
+          },
+          "dantes_successor": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 330
+          },
+          "advanced_attack": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 550
+          },
+          "attack": {
+            "accepted": 36,
+            "rejected": 0,
+            "nominalMana": 1800
+          },
+          "dantes_command": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "soul_reaver": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 300
+          },
+          "advanced_enemy_check": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "supreme_attack": {
+            "accepted": 38,
+            "rejected": 0,
+            "nominalMana": 1900
+          },
+          "truth_gem": {
+            "accepted": 16,
+            "rejected": 0,
+            "nominalMana": 825
+          },
+          "rael_master_power": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 10
+          },
+          "kane_wolfs_slash": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "ally_scan": {
+            "accepted": 46,
+            "rejected": 0,
+            "nominalMana": 920
+          },
+          "kinship_shining": {
+            "accepted": 9,
+            "rejected": 0,
+            "nominalMana": 225
+          },
+          "join": {
+            "accepted": 14,
+            "rejected": 0,
+            "nominalMana": 280
+          },
+          "great_will": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 300
+          },
+          "troll_ally_scan": {
+            "accepted": 90,
+            "rejected": 0,
+            "nominalMana": 1800
+          },
+          "spirit_hex": {
+            "accepted": 29,
+            "rejected": 0,
+            "nominalMana": 1160
+          },
+          "holy_binding": {
+            "accepted": 15,
+            "rejected": 0,
+            "nominalMana": 900
+          },
+          "advanced_ally_check": {
+            "accepted": 41,
+            "rejected": 0,
+            "nominalMana": 615
+          }
+        }
+      },
+      "scoreDifferencePerIntervenedPair": 0.03571428571428571
+    },
+    "cell/C0G0T0": {
+      "pairs": 28,
+      "better": 0,
+      "worse": 0,
+      "same": 28,
+      "scoreDifferenceTotal": 0,
+      "incompleteGemAtPoint": 0,
+      "control": {
+        "aliveMs": 6887750,
+        "trueNameMs": 2043000,
+        "turns": 66,
+        "trueNameTurns": 25,
+        "trueNameBonusGross": 250,
+        "incomingAllyManaGross": 1580,
+        "turnGainGross": 3150,
+        "acceptedSkillMana": 2790,
+        "acceptedSkills": 115,
+        "rejectedSkills": 0,
+        "attackFailures": 0,
+        "noPostPointTurn": 8,
+        "firstPostPointTurnTrue": 7,
+        "anyTrueNameTurn": 12,
+        "incompleteThenGem3": 0,
+        "aliveAtEnd": 25
+      },
+      "truthful": {
+        "aliveMs": 7200750,
+        "trueNameMs": 3417000,
+        "turns": 70,
+        "trueNameTurns": 31,
+        "trueNameBonusGross": 310,
+        "incomingAllyManaGross": 1650,
+        "turnGainGross": 3360,
+        "acceptedSkillMana": 2865,
+        "acceptedSkills": 113,
+        "rejectedSkills": 0,
+        "attackFailures": 0,
+        "noPostPointTurn": 8,
+        "firstPostPointTurnTrue": 13,
+        "anyTrueNameTurn": 14,
+        "incompleteThenGem3": 0,
+        "aliveAtEnd": 25
+      },
+      "skills": {
+        "control": {
+          "publish": {
+            "accepted": 53,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "nightmare": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 120
+          },
+          "oracle": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 480
+          },
+          "truth_gem": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 900
+          },
+          "advanced_scan": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "scan": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "ally": {
+            "accepted": 5,
+            "rejected": 0,
+            "nominalMana": 50
+          },
+          "drakan_black_spell": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "enemy_scan": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 60
+          },
+          "kinship_chizuko": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 50
+          },
+          "angel_baptism": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "diplomacy": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "advanced_attack": {
+            "accepted": 13,
+            "rejected": 0,
+            "nominalMana": 650
+          },
+          "wild_blessing": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 140
+          }
+        },
+        "truthful": {
+          "publish": {
+            "accepted": 49,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "nightmare": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 120
+          },
+          "oracle": {
+            "accepted": 14,
+            "rejected": 0,
+            "nominalMana": 560
+          },
+          "truth_gem": {
+            "accepted": 13,
+            "rejected": 0,
+            "nominalMana": 975
+          },
+          "advanced_scan": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "scan": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "ally": {
+            "accepted": 5,
+            "rejected": 0,
+            "nominalMana": 50
+          },
+          "enemy_check": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 20
+          },
+          "drakan_black_spell": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "enemy_scan": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 60
+          },
+          "kinship_chizuko": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 50
+          },
+          "angel_baptism": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "diplomacy": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "advanced_attack": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 550
+          },
+          "wild_blessing": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 140
+          }
+        }
+      },
+      "scoreDifferencePerIntervenedPair": 0.0
+    },
+    "cell/C0G1T1": {
+      "pairs": 16,
+      "better": 0,
+      "worse": 1,
+      "same": 15,
+      "scoreDifferenceTotal": -1,
+      "incompleteGemAtPoint": 16,
+      "control": {
+        "aliveMs": 4141750,
+        "trueNameMs": 2058500,
+        "turns": 50,
+        "trueNameTurns": 23,
+        "trueNameBonusGross": 230,
+        "incomingAllyManaGross": 890,
+        "turnGainGross": 2120,
+        "acceptedSkillMana": 1770,
+        "acceptedSkills": 99,
+        "rejectedSkills": 0,
+        "attackFailures": 0,
+        "noPostPointTurn": 2,
+        "firstPostPointTurnTrue": 0,
+        "anyTrueNameTurn": 6,
+        "incompleteThenGem3": 2,
+        "aliveAtEnd": 10
+      },
+      "truthful": {
+        "aliveMs": 3706000,
+        "trueNameMs": 2164500,
+        "turns": 44,
+        "trueNameTurns": 31,
+        "trueNameBonusGross": 310,
+        "incomingAllyManaGross": 940,
+        "turnGainGross": 2130,
+        "acceptedSkillMana": 2055,
+        "acceptedSkills": 103,
+        "rejectedSkills": 0,
+        "attackFailures": 0,
+        "noPostPointTurn": 2,
+        "firstPostPointTurnTrue": 14,
+        "anyTrueNameTurn": 14,
+        "incompleteThenGem3": 11,
+        "aliveAtEnd": 10
+      },
+      "skills": {
+        "control": {
+          "publish": {
+            "accepted": 40,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "advanced_scan": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 60
+          },
+          "ally": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 110
+          },
+          "truth_gem": {
+            "accepted": 15,
+            "rejected": 0,
+            "nominalMana": 750
+          },
+          "scan": {
+            "accepted": 10,
+            "rejected": 0,
+            "nominalMana": 200
+          },
+          "oracle": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 160
+          },
+          "enemy_check": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "enemy_scan": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "diplomacy": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 150
+          },
+          "kinship_chizuko": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "angel_baptism": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 120
+          }
+        },
+        "truthful": {
+          "publish": {
+            "accepted": 41,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "advanced_scan": {
+            "accepted": 5,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "ally": {
+            "accepted": 9,
+            "rejected": 0,
+            "nominalMana": 90
+          },
+          "truth_gem": {
+            "accepted": 14,
+            "rejected": 0,
+            "nominalMana": 925
+          },
+          "scan": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 160
+          },
+          "oracle": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "enemy_check": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "enemy_scan": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 120
+          },
+          "kinship_chizuko": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 200
+          },
+          "diplomacy": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 100
+          },
+          "angel_baptism": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80
+          }
+        }
+      },
+      "scoreDifferencePerIntervenedPair": -0.0625
+    },
+    "cell/C0G0T1": {
+      "pairs": 9,
+      "better": 0,
+      "worse": 0,
+      "same": 9,
+      "scoreDifferenceTotal": 0,
+      "incompleteGemAtPoint": 0,
+      "control": {
+        "aliveMs": 4318250,
+        "trueNameMs": 472500,
+        "turns": 52,
+        "trueNameTurns": 7,
+        "trueNameBonusGross": 70,
+        "incomingAllyManaGross": 1130,
+        "turnGainGross": 2240,
+        "acceptedSkillMana": 1180,
+        "acceptedSkills": 43,
+        "rejectedSkills": 0,
+        "attackFailures": 0,
+        "noPostPointTurn": 0,
+        "firstPostPointTurnTrue": 0,
+        "anyTrueNameTurn": 5,
+        "incompleteThenGem3": 0,
+        "aliveAtEnd": 7
+      },
+      "truthful": {
+        "aliveMs": 4783000,
+        "trueNameMs": 1208500,
+        "turns": 57,
+        "trueNameTurns": 18,
+        "trueNameBonusGross": 180,
+        "incomingAllyManaGross": 1230,
+        "turnGainGross": 2550,
+        "acceptedSkillMana": 1430,
+        "acceptedSkills": 49,
+        "rejectedSkills": 0,
+        "attackFailures": 0,
+        "noPostPointTurn": 0,
+        "firstPostPointTurnTrue": 9,
+        "anyTrueNameTurn": 9,
+        "incompleteThenGem3": 0,
+        "aliveAtEnd": 7
+      },
+      "skills": {
+        "control": {
+          "publish": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "scan": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "oracle": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 160
+          },
+          "drakan_black_spell": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 320
+          },
+          "truth_gem": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 450
+          },
+          "advanced_attack": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 150
+          },
+          "ally": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 20
+          }
+        },
+        "truthful": {
+          "publish": {
+            "accepted": 21,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "scan": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "oracle": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 160
+          },
+          "drakan_black_spell": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 320
+          },
+          "truth_gem": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 450
+          },
+          "advanced_attack": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 400
+          },
+          "ally": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 20
+          }
+        }
+      },
+      "scoreDifferencePerIntervenedPair": 0.0
+    },
+    "mode/primordial": {
+      "pairs": 103,
+      "better": 1,
+      "worse": 1,
+      "same": 101,
+      "scoreDifferenceTotal": 0,
+      "incompleteGemAtPoint": 94,
+      "control": {
+        "aliveMs": 53845000,
+        "trueNameMs": 5253000,
+        "turns": 600,
+        "trueNameTurns": 79,
+        "trueNameBonusGross": 790,
+        "incomingAllyManaGross": 3670,
+        "turnGainGross": 16460,
+        "acceptedSkillMana": 11950,
+        "acceptedSkills": 584,
+        "rejectedSkills": 0,
+        "attackFailures": 12,
+        "noPostPointTurn": 13,
+        "firstPostPointTurnTrue": 11,
+        "anyTrueNameTurn": 42,
+        "incompleteThenGem3": 1,
+        "aliveAtEnd": 68
+      },
+      "truthful": {
+        "aliveMs": 49249250,
+        "trueNameMs": 9634500,
+        "turns": 550,
+        "trueNameTurns": 109,
+        "trueNameBonusGross": 1090,
+        "incomingAllyManaGross": 3420,
+        "turnGainGross": 15510,
+        "acceptedSkillMana": 12150,
+        "acceptedSkills": 603,
+        "rejectedSkills": 0,
+        "attackFailures": 13,
+        "noPostPointTurn": 13,
+        "firstPostPointTurnTrue": 56,
+        "anyTrueNameTurn": 65,
+        "incompleteThenGem3": 5,
+        "aliveAtEnd": 63
+      },
+      "skills": {
+        "control": {
+          "publish": {
+            "accepted": 206,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "truth_gem": {
+            "accepted": 44,
+            "rejected": 0,
+            "nominalMana": 2425
+          },
+          "ally_check": {
+            "accepted": 101,
+            "rejected": 0,
+            "nominalMana": 1515
+          },
+          "ally": {
+            "accepted": 76,
+            "rejected": 0,
+            "nominalMana": 760
+          },
+          "supreme_attack": {
+            "accepted": 74,
+            "rejected": 0,
+            "nominalMana": 3700
+          },
+          "advanced_enemy_check": {
+            "accepted": 16,
+            "rejected": 0,
+            "nominalMana": 320
+          },
+          "attack": {
+            "accepted": 31,
+            "rejected": 0,
+            "nominalMana": 1550
+          },
+          "kane_wolfs_slash": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 360
+          },
+          "enemy_check": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 140
+          },
+          "scan": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 160
+          },
+          "nukelius_chakra_magic": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "rael_eoril_test": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 180
+          },
+          "drakan_black_spell": {
+            "accepted": 10,
+            "rejected": 0,
+            "nominalMana": 800
+          }
+        },
+        "truthful": {
+          "publish": {
+            "accepted": 227,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "truth_gem": {
+            "accepted": 46,
+            "rejected": 0,
+            "nominalMana": 2625
+          },
+          "ally_check": {
+            "accepted": 99,
+            "rejected": 0,
+            "nominalMana": 1485
+          },
+          "ally": {
+            "accepted": 72,
+            "rejected": 0,
+            "nominalMana": 720
+          },
+          "advanced_enemy_check": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "attack": {
+            "accepted": 35,
+            "rejected": 0,
+            "nominalMana": 1750
+          },
+          "supreme_attack": {
+            "accepted": 75,
+            "rejected": 0,
+            "nominalMana": 3750
+          },
+          "enemy_check": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 160
+          },
+          "scan": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 160
+          },
+          "nukelius_chakra_magic": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 40
+          },
+          "rael_eoril_test": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "drakan_black_spell": {
+            "accepted": 9,
+            "rejected": 0,
+            "nominalMana": 720
+          },
+          "rael_master_power": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 20
+          },
+          "kane_wolfs_slash": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 240
+          }
+        }
+      },
+      "scoreDifferencePerIntervenedPair": 0.0
+    },
+    "cell/C1G1T1": {
+      "pairs": 40,
+      "better": 2,
+      "worse": 3,
+      "same": 35,
+      "scoreDifferenceTotal": -1,
+      "incompleteGemAtPoint": 40,
+      "control": {
+        "aliveMs": 23629500,
+        "trueNameMs": 981000,
+        "turns": 277,
+        "trueNameTurns": 17,
+        "trueNameBonusGross": 170,
+        "incomingAllyManaGross": 910,
+        "turnGainGross": 6620,
+        "acceptedSkillMana": 6090,
+        "acceptedSkills": 311,
+        "rejectedSkills": 0,
+        "attackFailures": 6,
+        "noPostPointTurn": 0,
+        "firstPostPointTurnTrue": 0,
+        "anyTrueNameTurn": 15,
+        "incompleteThenGem3": 0,
+        "aliveAtEnd": 30
+      },
+      "truthful": {
+        "aliveMs": 24859000,
+        "trueNameMs": 3323750,
+        "turns": 295,
+        "trueNameTurns": 52,
+        "trueNameBonusGross": 520,
+        "incomingAllyManaGross": 880,
+        "turnGainGross": 7300,
+        "acceptedSkillMana": 6630,
+        "acceptedSkills": 343,
+        "rejectedSkills": 0,
+        "attackFailures": 8,
+        "noPostPointTurn": 0,
+        "firstPostPointTurnTrue": 40,
+        "anyTrueNameTurn": 40,
+        "incompleteThenGem3": 1,
+        "aliveAtEnd": 29
+      },
+      "skills": {
+        "control": {
+          "publish": {
+            "accepted": 74,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "ally_check": {
+            "accepted": 52,
+            "rejected": 0,
+            "nominalMana": 780
+          },
+          "ally": {
+            "accepted": 76,
+            "rejected": 0,
+            "nominalMana": 760
+          },
+          "supreme_attack": {
+            "accepted": 63,
+            "rejected": 0,
+            "nominalMana": 3150
+          },
+          "rael_eoril_test": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 180
+          },
+          "truth_gem": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 50
+          },
+          "attack": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 300
+          },
+          "ally_scan": {
+            "accepted": 9,
+            "rejected": 0,
+            "nominalMana": 180
+          },
+          "kinship_shining": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 150
+          },
+          "great_will": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 300
+          },
+          "join": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 60
+          },
+          "advanced_ally_check": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 180
+          }
+        },
+        "truthful": {
+          "publish": {
+            "accepted": 91,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "ally_check": {
+            "accepted": 50,
+            "rejected": 0,
+            "nominalMana": 750
+          },
+          "ally": {
+            "accepted": 79,
+            "rejected": 0,
+            "nominalMana": 790
+          },
+          "supreme_attack": {
+            "accepted": 67,
+            "rejected": 0,
+            "nominalMana": 3350
+          },
+          "rael_eoril_test": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "truth_gem": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 400
+          },
+          "attack": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 350
+          },
+          "rael_master_power": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 10
+          },
+          "ally_scan": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "kinship_shining": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 150
+          },
+          "join": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 120
+          },
+          "great_will": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 50
+          },
+          "advanced_ally_check": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 180
+          }
+        }
+      },
+      "scoreDifferencePerIntervenedPair": -0.025
+    },
+    "mode/lidellut": {
+      "pairs": 63,
+      "better": 6,
+      "worse": 6,
+      "same": 51,
+      "scoreDifferenceTotal": 0,
+      "incompleteGemAtPoint": 55,
+      "control": {
+        "aliveMs": 23183250,
+        "trueNameMs": 3123500,
+        "turns": 244,
+        "trueNameTurns": 37,
+        "trueNameBonusGross": 370,
+        "incomingAllyManaGross": 1560,
+        "turnGainGross": 6810,
+        "acceptedSkillMana": 7735,
+        "acceptedSkills": 453,
+        "rejectedSkills": 0,
+        "attackFailures": 3,
+        "noPostPointTurn": 6,
+        "firstPostPointTurnTrue": 4,
+        "anyTrueNameTurn": 13,
+        "incompleteThenGem3": 5,
+        "aliveAtEnd": 43
+      },
+      "truthful": {
+        "aliveMs": 29520000,
+        "trueNameMs": 6239500,
+        "turns": 318,
+        "trueNameTurns": 57,
+        "trueNameBonusGross": 570,
+        "incomingAllyManaGross": 2200,
+        "turnGainGross": 9130,
+        "acceptedSkillMana": 7690,
+        "acceptedSkills": 518,
+        "rejectedSkills": 0,
+        "attackFailures": 2,
+        "noPostPointTurn": 6,
+        "firstPostPointTurnTrue": 23,
+        "anyTrueNameTurn": 30,
+        "incompleteThenGem3": 8,
+        "aliveAtEnd": 43
+      },
+      "skills": {
+        "control": {
+          "publish": {
+            "accepted": 90,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "ally_scan": {
+            "accepted": 47,
+            "rejected": 0,
+            "nominalMana": 940
+          },
+          "ally": {
+            "accepted": 134,
+            "rejected": 0,
+            "nominalMana": 1340
+          },
+          "kinship_shining": {
+            "accepted": 24,
+            "rejected": 0,
+            "nominalMana": 600
+          },
+          "join": {
+            "accepted": 16,
+            "rejected": 0,
+            "nominalMana": 320
+          },
+          "great_will": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 600
+          },
+          "ally_check": {
+            "accepted": 54,
+            "rejected": 0,
+            "nominalMana": 810
+          },
+          "soul_reaver": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 350
+          },
+          "truth_gem": {
+            "accepted": 14,
+            "rejected": 0,
+            "nominalMana": 775
+          },
+          "enemy_scan": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 220
+          },
+          "kinship_chizuko": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 275
+          },
+          "advanced_attack": {
+            "accepted": 16,
+            "rejected": 0,
+            "nominalMana": 800
+          },
+          "dawn_mist": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 75
+          },
+          "angel_baptism": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 280
+          },
+          "diplomacy": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 350
+          }
+        },
+        "truthful": {
+          "publish": {
+            "accepted": 139,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "ally_scan": {
+            "accepted": 58,
+            "rejected": 0,
+            "nominalMana": 1160
+          },
+          "ally": {
+            "accepted": 146,
+            "rejected": 0,
+            "nominalMana": 1460
+          },
+          "kinship_shining": {
+            "accepted": 15,
+            "rejected": 0,
+            "nominalMana": 375
+          },
+          "join": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 400
+          },
+          "ally_check": {
+            "accepted": 55,
+            "rejected": 0,
+            "nominalMana": 825
+          },
+          "truth_gem": {
+            "accepted": 13,
+            "rejected": 0,
+            "nominalMana": 850
+          },
+          "enemy_scan": {
+            "accepted": 14,
+            "rejected": 0,
+            "nominalMana": 280
+          },
+          "kinship_chizuko": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 425
+          },
+          "advanced_attack": {
+            "accepted": 14,
+            "rejected": 0,
+            "nominalMana": 700
+          },
+          "great_will": {
+            "accepted": 7,
+            "rejected": 0,
+            "nominalMana": 350
+          },
+          "dawn_mist": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 75
+          },
+          "soul_reaver": {
+            "accepted": 5,
+            "rejected": 0,
+            "nominalMana": 250
+          },
+          "angel_baptism": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 240
+          },
+          "diplomacy": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 300
+          }
+        }
+      },
+      "scoreDifferencePerIntervenedPair": 0.0
+    },
+    "mode/troll": {
+      "pairs": 59,
+      "better": 5,
+      "worse": 3,
+      "same": 51,
+      "scoreDifferenceTotal": 2,
+      "incompleteGemAtPoint": 52,
+      "control": {
+        "aliveMs": 29623500,
+        "trueNameMs": 8124500,
+        "turns": 323,
+        "trueNameTurns": 89,
+        "trueNameBonusGross": 890,
+        "incomingAllyManaGross": 1980,
+        "turnGainGross": 9330,
+        "acceptedSkillMana": 9590,
+        "acceptedSkills": 483,
+        "rejectedSkills": 0,
+        "attackFailures": 5,
+        "noPostPointTurn": 3,
+        "firstPostPointTurnTrue": 5,
+        "anyTrueNameTurn": 30,
+        "incompleteThenGem3": 10,
+        "aliveAtEnd": 40
+      },
+      "truthful": {
+        "aliveMs": 34002750,
+        "trueNameMs": 12017250,
+        "turns": 373,
+        "trueNameTurns": 134,
+        "trueNameBonusGross": 1340,
+        "incomingAllyManaGross": 2250,
+        "turnGainGross": 11050,
+        "acceptedSkillMana": 10650,
+        "acceptedSkills": 539,
+        "rejectedSkills": 0,
+        "attackFailures": 10,
+        "noPostPointTurn": 3,
+        "firstPostPointTurnTrue": 43,
+        "anyTrueNameTurn": 55,
+        "incompleteThenGem3": 10,
+        "aliveAtEnd": 44
+      },
+      "skills": {
+        "control": {
+          "publish": {
+            "accepted": 108,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "truth_gem": {
+            "accepted": 23,
+            "rejected": 0,
+            "nominalMana": 1300
+          },
+          "enemy_check": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 60
+          },
+          "battle_sense": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 600
+          },
+          "ally": {
+            "accepted": 89,
+            "rejected": 0,
+            "nominalMana": 890
+          },
+          "advanced_ally_check": {
+            "accepted": 60,
+            "rejected": 0,
+            "nominalMana": 900
+          },
+          "support": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "troll_ally_scan": {
+            "accepted": 91,
+            "rejected": 0,
+            "nominalMana": 1820
+          },
+          "spirit_hex": {
+            "accepted": 30,
+            "rejected": 0,
+            "nominalMana": 1200
+          },
+          "holy_binding": {
+            "accepted": 15,
+            "rejected": 0,
+            "nominalMana": 900
+          },
+          "supreme_attack": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 1000
+          },
+          "advanced_attack": {
+            "accepted": 14,
+            "rejected": 0,
+            "nominalMana": 700
+          },
+          "wild_blessing": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 140
+          }
+        },
+        "truthful": {
+          "publish": {
+            "accepted": 154,
+            "rejected": 0,
+            "nominalMana": 0
+          },
+          "truth_gem": {
+            "accepted": 32,
+            "rejected": 0,
+            "nominalMana": 1875
+          },
+          "enemy_check": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 60
+          },
+          "battle_sense": {
+            "accepted": 21,
+            "rejected": 0,
+            "nominalMana": 630
+          },
+          "advanced_ally_check": {
+            "accepted": 53,
+            "rejected": 0,
+            "nominalMana": 795
+          },
+          "ally": {
+            "accepted": 84,
+            "rejected": 0,
+            "nominalMana": 840
+          },
+          "support": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 80
+          },
+          "troll_ally_scan": {
+            "accepted": 90,
+            "rejected": 0,
+            "nominalMana": 1800
+          },
+          "spirit_hex": {
+            "accepted": 29,
+            "rejected": 0,
+            "nominalMana": 1160
+          },
+          "holy_binding": {
+            "accepted": 15,
+            "rejected": 0,
+            "nominalMana": 900
+          },
+          "supreme_attack": {
+            "accepted": 30,
+            "rejected": 0,
+            "nominalMana": 1500
+          },
+          "advanced_attack": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 850
+          },
+          "wild_blessing": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 140
+          },
+          "troll_scan": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 20
+          }
+        }
+      },
+      "scoreDifferencePerIntervenedPair": 0.03389830508474576
+    }
+  }
+}

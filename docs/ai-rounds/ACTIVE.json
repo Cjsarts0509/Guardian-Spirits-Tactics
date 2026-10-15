@@ -1,6 +1,7 @@
 {
   "round": 15,
-  "status": "in_progress",
+  "status": "completed",
+  "completedAt": "2026-10-15T09:01:00+09:00",
   "owner": "continuous-round-015-claim-intervention",
   "startedAt": "2026-10-15T08:28:00+09:00",
   "leaseUntil": "2026-10-15T09:10:00+09:00",
@@ -23,13 +24,15 @@
     "nonDisguiseOnly": true,
     "once": true
   },
-  "checkpoint": "1536_of_3072_saved_and_independently_verified_partial_no_learning_yet",
+  "checkpoint": "3072_complete_journal_source_verified_recovery_zero_new_eight_cells_keep",
   "checks": {"tests": 521, "pythonLearnerTests": 6, "typecheck": "passed", "builds": "passed"},
-  "executions": 1536,
+  "executions": 3072,
   "targetExecutions": 3072,
-  "cumulativeExecutions": 14400,
-  "decision": "pending_training_diagnostic_no_promotion",
-  "nextAction": "resume_remaining_six_256_game_batches_then_preregistered_learning",
+  "cumulativeExecutions": 15936,
+  "decision": "no_action_change_candidate_all_eight_cells_keep_no_promotion",
+  "nextAction": "immediately_reserve_round016_natural_true_claim_hold_until_next_turn_new130000_development",
+  "nextRound": 16,
+  "nextDevelopmentSeeds": {"start": 130000, "count": 8, "status": "planned_unused_reserve_before_new_work"},
   "sourceRef": "e527d0b4c282a7046b7542f16c5ea5d6c8acca82",
   "checkpointRaw": "docs/evaluations/cooperation-round-015-checkpoint-1536.json.gz",
   "finalReport": {
@@ -45,11 +48,11 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "015예약: 공개ID p1의 첫 비변장 가명 공표 한 번만 진명으로 바꾸는 대응 실행. 새128000–128031 자료3072실행 계획. 자기뷰3비트8셀·최소24개입/8시드·시드95%하한>0일 때만 진명 선택, 나머지는 기존 유지. 자료 보기 전에 수집기/학습기 고정.129000개발/121000독립 미사용. 회차 직후 다음 회차·12시 마감.",
+  "task": "015완료: 128000–128031/3072실행, 293개입전해시일치·1243비개입동일. 전체67.64%동일/14개선14악화, 고정8셀전부기존유지·행동변경후보없음. 129000개발/121000독립미사용. 다음은원래진명선택뒤다음턴까지보류하는단일가설을새130000에서검토·12시까지연속진행.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
   "trainingSeeds": {
     "start": 128000,
     "count": 32,
-    "status": "in_progress_1536_of_3072_executions_saved"
+    "status": "completed_3072_executions_32_seeds_training_not_holdout"
   }
 }
