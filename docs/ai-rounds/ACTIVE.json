@@ -1,27 +1,25 @@
 {
-  "round": 26,
-  "status": "completed",
-  "owner": "round026-confirmed-ally-dispel-priority",
-  "startedAt": "2026-10-15T18:20:31.858490+09:00",
-  "leaseUntil": "2026-10-15T19:05:31.858490+09:00",
+  "round": 27,
+  "status": "in_progress",
+  "owner": "round027-final-verification-recovery",
+  "startedAt": "2026-10-15T18:40:30.299414+09:00",
+  "leaseUntil": "2026-10-15T19:05:30.299414+09:00",
   "continuation": "user_1818_resume_continuous_rounds",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
-    "start": 140000,
+    "start": 141000,
     "count": 8,
-    "status": "used_completed_1152"
+    "status": "reserved_unused_not_used_in_tooling_round"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "urgentDispelBeforeAlly",
-  "options": {
-    "urgentDispelBeforeAlly": true
-  },
-  "checkpoint": "all1152_complete_verified_raw_preserved",
+  "candidate": "none_tooling_only",
+  "options": {},
+  "checkpoint": "reserved_no_new_research",
   "checks": {
     "tests": 607,
     "rules": 532,
@@ -34,16 +32,16 @@
     "postflightHumanAudit": "passed_7_tests_no_actual_humans",
     "observerInvariant": "passed_2_synthetic_games_excluded"
   },
-  "executions": 1152,
-  "targetExecutions": 1152,
+  "executions": 0,
+  "targetExecutions": 0,
   "cumulativeExecutions": 34752,
-  "decision": "development_rejected_no_intervention_all384_pairs_identical_option_OFF",
-  "nextAction": "027 fix generation final summary missing promotion gate with no research rerun; then diagnose delayed confirmed attack reactions",
+  "decision": "pending_regression_no_promotion",
+  "nextAction": "repair_full_summary_on_completed_batch_and_zero_new_resume",
   "previousCompleted": {
-    "round": 25,
-    "completionRef": "1826d34367428c1779591f196ee68889d3e784ce",
-    "record": "docs/ai-rounds/ROUND_025_20261015_1310.md",
-    "cumulativeExecutions": 33600
+    "round": 26,
+    "completionRef": "ee7f4356e3a8c2d640adee7e21131d135d0fabcd",
+    "record": "docs/ai-rounds/ROUND_026_20261015_1820.md",
+    "cumulativeExecutions": 34752
   },
   "unusedPriorCandidateDevelopment": {
     "start": 129000,
@@ -91,7 +89,5 @@
     "start": 141000,
     "count": 8,
     "status": "reserved_unused"
-  },
-  "checkpointAt": "2026-10-15T18:30:12.426192+09:00",
-  "completedAt": "2026-10-15T18:38:27.984556+09:00"
+  }
 }
