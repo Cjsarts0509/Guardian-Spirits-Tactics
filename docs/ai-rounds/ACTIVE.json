@@ -1,23 +1,23 @@
 {
-  "round": 39,
+  "round": 40,
   "status": "in_progress",
-  "owner": "round039-identical-guard-policy-balance",
-  "startedAt": "2026-10-15T23:13:00+09:00",
-  "leaseUntil": "2026-10-16T00:03:00+09:00",
+  "owner": "round040-guard-realized-outcomes",
+  "startedAt": "2026-10-15T23:31:00+09:00",
+  "leaseUntil": "2026-10-16T00:10:00+09:00",
   "continuation": "user_20261015_2309_start",
-  "task": "태초 동일 정책 양측 적용: 보호 우선 후보의 인원별 진영 균형 비교",
+  "task": "039 전320경기 결정론 재생: 실제 보호 흡수·보호자 생존·시점 분리 진단",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
   "evaluationSourceRef": null,
   "executions": 0,
-  "targetExecutions": 320,
-  "cumulativeExecutions": 45888,
-  "cumulativeTerminatedExecutions": 45886,
+  "targetExecutions": 0,
+  "cumulativeExecutions": 46208,
+  "cumulativeTerminatedExecutions": 46206,
   "cumulativeUnfinishedExecutions": 2,
   "developmentSeeds": {
     "start": 149000,
     "count": 80,
-    "status": "reserved_unused_selfplay"
+    "status": "used_complete_round039"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -35,13 +35,24 @@
     "status": "unused"
   },
   "previousCompleted": {
-    "round": 38,
-    "completionRef": "cf4bb0cc8ce88df478b875efac82416791a6272c",
-    "record": "docs/ai-rounds/ROUND_038_20261015_2235.md"
+    "round": 39,
+    "record": "docs/ai-rounds/ROUND_039_20261015_2309.md",
+    "sourceRef": "6b4355d7d7c942bb4094ac7a9065c0193596267b",
+    "executions": 320
   },
-  "checkpoint": "preregistered_before_collector_changes_or_new_games",
-  "nextAction": "검증된 두 정책 태초 수집기를 고정하고 유한320경기 및 독립검증",
-  "record": "docs/ai-rounds/ROUND_039_20261015_2309.md",
+  "checkpoint": "round039_complete_round040_preregistered_before_replay",
+  "nextAction": "039 모든320경기를 고정 정책으로 재생하고 경기/전체 실제행동 일치를 확인",
+  "record": "docs/ai-rounds/ROUND_040_20261015_2331.md",
   "deployment": false,
-  "repeatDisabled": false
+  "repeatDisabled": false,
+  "replayTarget": 320,
+  "replayedGames": 0,
+  "checks": {
+    "tests": 657,
+    "typecheck": "4_packages_passed",
+    "build": "server_client_worker_passed",
+    "semanticTamper": "5_rejected",
+    "round039CI": "success",
+    "round039Browser": "success"
+  }
 }
