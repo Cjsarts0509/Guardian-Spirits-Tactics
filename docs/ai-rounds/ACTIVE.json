@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 131000,
     "count": 8,
-    "status": "reserved_unused_new_development"
+    "status": "development_in_progress_576_of_1152"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,11 +21,12 @@
   "options": {
     "idleClaimMana": true
   },
-  "checkpoint": "549_tests_type_server_client_worker_passed_before_source_freeze",
+  "checkpoint": "576_partial_verified_source_frozen_complete_false",
+  "sourceRef": "efe45fa7a7d10f661414145984fe2f9d645011b0",
   "checks": {"tests": 549, "rules": 481, "server": 68, "typecheck": "passed", "serverBuild": "passed", "clientWorkerBuild": "passed", "previous016SourceRefVerification": "passed_byte_identical_summary"},
-  "executions": 0,
+  "executions": 576,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 17088,
+  "cumulativeExecutions": 17664,
   "decision": "pending_new_development_no_promotion",
   "nextAction": "freeze_source_then_fresh131000_development_in_96_game_batches",
   "previousCompleted": {"round": 16, "executions": 1152, "decision": "rejected_development_default_off_holdout_unused", "sourceRef": "508ed0493032ea4e5f3b657864a4eedbe52d9ee4", "record": "docs/ai-rounds/ROUND_016_20261015_0904.md"},
