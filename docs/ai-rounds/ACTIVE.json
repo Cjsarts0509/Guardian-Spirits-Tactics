@@ -1,6 +1,6 @@
 {
   "round": 29,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round029-completed-development-first-divergence-audit",
   "startedAt": "2026-10-15T19:08:48.289903+09:00",
   "leaseUntil": "2026-10-15T19:28:48.289903+09:00",
@@ -19,7 +19,7 @@
   },
   "candidate": "none_readonly_diagnostic",
   "options": {},
-  "checkpoint": "reserved_before_postaction_audit",
+  "checkpoint": "384_pairs_294_prefixes_90_noninterventions_verified_no_new_games",
   "checks": {
     "tests": 615,
     "rules": 540,
@@ -32,13 +32,14 @@
     "postflightHumanAudit": "passed_7_tests_no_actual_humans",
     "observerInvariant": "passed_2_synthetic_games_excluded",
     "existing026Resume": "new0_same_snapshot_journal_publication_full_summary_restored",
-    "candidateSmoke": "final144_synthetic_and_observer1_excluded"
+    "candidateSmoke": "final144_synthetic_and_observer1_excluded",
+    "firstDivergenceAudit": "passed_384_pairs_294_prefixes_90_noninterventions"
   },
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 35904,
-  "decision": "pending_readonly_audit_no_policy_selection",
-  "nextAction": "029 completed-development first-divergence audit only, no new games or retuning",
+  "decision": "no_new_candidate_descriptive_only_no_promotion",
+  "nextAction": "030 reserve fresh142000 single-public-player first-followup paired diagnostic; preserve independent121000",
   "previousCompleted": {
     "round": 28,
     "completionRef": "acafa32ff47b3549cfb1bf266de2468bb5c48077",
@@ -91,5 +92,6 @@
     "start": 142000,
     "count": 8,
     "status": "reserved_unused"
-  }
+  },
+  "completedAt": "2026-10-15T19:13:39.932937+09:00"
 }
