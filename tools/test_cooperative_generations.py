@@ -30,4 +30,17 @@ class GenerationTests(unittest.TestCase):
    if dest:=os.environ.get('GST_GENERATION_TEST_ARTIFACT_DIR'):
     dest=pathlib.Path(dest);dest.mkdir(parents=True,exist_ok=True)
     (dest/'data.json.gz').write_bytes(gzip.compress(out.read_bytes(),mtime=0));(dest/'data.journal.ndjson.gz').write_bytes(gzip.compress(original,mtime=0));(dest/'data.publication.json').write_bytes(out.with_suffix('.publication.json').read_bytes());(dest/'data.batches.ndjson').write_bytes(events.read_bytes())
+ def test_check_pair_profile_and_rehashed_rng_tampering(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   out=pathlib.Path(tmp)/'pairs.json';cmd=self.command(out,'--profile','check-pairs');subprocess.run(cmd,cwd=ROOT,capture_output=True,check=True)
+   raw=out.read_bytes();data=json.loads(raw);self.assertEqual(data['executions'],96);self.assertTrue(data['complete']);summary=json.loads(out.with_suffix('.verified.json').read_bytes());self.assertEqual(len(summary['contrasts']),1);self.assertFalse(summary['promotionEvidence']);self.assertGreater(summary['intervenedPairs'],0)
+   point=next(x['result']['point'] for x in data['records'] if x['variant']=='single' and x['result']['point']);point['rngAfterSelection']^=1
+   header=json.loads(out.with_suffix('.journal.ndjson').read_bytes().splitlines()[0]);journal=(json.dumps(header,ensure_ascii=False,separators=(',',':'))+'\n'+''.join(json.dumps(x,ensure_ascii=False,separators=(',',':'))+'\n' for x in data['records'])).encode();data['journalSha256']=hashlib.sha256(journal).hexdigest();bad=out.with_name('bad.json');snapshot=json.dumps(data,ensure_ascii=False,separators=(',',':')).encode();bad.write_bytes(snapshot);bad.with_suffix('.journal.ndjson').write_bytes(journal)
+   pub=json.loads(out.with_suffix('.publication.json').read_bytes());pub.update(snapshotSHA256=hashlib.sha256(snapshot).hexdigest(),journalSHA256=hashlib.sha256(journal).hexdigest());bad.with_suffix('.publication.json').write_text(json.dumps(pub))
+   rejected=subprocess.run(['python','tools/verify-check-pairs.py',str(bad),'--journal-path',str(bad.with_suffix('.journal.ndjson'))],cwd=ROOT,capture_output=True);self.assertNotEqual(rejected.returncode,0)
+   before=out.with_suffix('.journal.ndjson').read_bytes();resume=subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True,check=True);self.assertEqual(json.loads(resume.stdout)['newGames'],0);self.assertEqual(out.read_bytes(),raw);self.assertEqual(out.with_suffix('.journal.ndjson').read_bytes(),before)
+   if dest:=os.environ.get('GST_CHECK_PAIR_TEST_ARTIFACT_DIR'):
+    dest=pathlib.Path(dest);dest.mkdir(parents=True,exist_ok=True)
+    for ext in ['.json','.journal.ndjson']:(dest/('data'+ext+'.gz')).write_bytes(gzip.compress(out.with_suffix(ext).read_bytes(),mtime=0))
+    for ext in ['.publication.json','.verified.json','.batches.ndjson']:(dest/('data'+ext)).write_bytes(out.with_suffix(ext).read_bytes())
 if __name__=='__main__':unittest.main()

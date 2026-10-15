@@ -1,11 +1,15 @@
 """Bounded fresh-path batches. Native flock releases on process death; old writer locks are never stolen."""
 import argparse,datetime,fcntl,hashlib,json,os,pathlib,re,subprocess,sys,tempfile,uuid
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-p=argparse.ArgumentParser();p.add_argument('count',type=int);p.add_argument('start',type=int);p.add_argument('out',type=pathlib.Path);p.add_argument('batches',type=int);p.add_argument('--source-ref');p.add_argument('--unit-current-source',action='store_true');p.add_argument('--candidate',default='netAttackReserve');p.add_argument('--lease-until');p.add_argument('--phase',choices=['development','holdout'],default='development');a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('count',type=int);p.add_argument('start',type=int);p.add_argument('out',type=pathlib.Path);p.add_argument('batches',type=int);p.add_argument('--source-ref');p.add_argument('--unit-current-source',action='store_true');p.add_argument('--candidate',default='netAttackReserve');p.add_argument('--profile',choices=['commitment','check-pairs'],default='commitment');p.add_argument('--lease-until');p.add_argument('--phase',choices=['development','holdout'],default='development');a=p.parse_args()
 assert a.count>0 and a.start>=0 and a.batches>0 and a.out.suffix=='.json'
 assert bool(a.source_ref)!=a.unit_current_source
 if a.unit_current_source:assert a.count==1 and a.start in [23,24,25] and a.phase=='development'
 else:assert re.fullmatch('[0-9a-f]{40}',a.source_ref)
+if a.profile=='check-pairs':assert a.phase=='development'
+variant_count=2 if a.profile=='check-pairs' else 3
+verifier='verify-check-pairs.py' if a.profile=='check-pairs' else 'verify-claim-commitment.py'
+collector='cooperative-check-pairs.ts' if a.profile=='check-pairs' else 'cooperative-claim-commitment.ts'
 out=a.out.resolve();out.parent.mkdir(parents=True,exist_ok=True)
 lock=open(str(out)+'.run.lock','a+')
 try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -15,7 +19,7 @@ root=pathlib.Path(str(out)+'.generations');root.mkdir(exist_ok=True)
 hash=lambda b:hashlib.sha256(b).hexdigest()
 def paths(base):return [base,base.with_suffix('.journal.ndjson'),base.with_suffix('.publication.json')]
 def verify(base):
- cmd=[sys.executable,'tools/verify-claim-commitment.py',str(base),'--journal-path',str(base.with_suffix('.journal.ndjson'))]
+ cmd=[sys.executable,'tools/'+verifier,str(base),'--journal-path',str(base.with_suffix('.journal.ndjson'))]
  if not json.loads(base.read_bytes())['complete']:cmd+=['--allow-partial']
  if a.source_ref:cmd+=['--source-ref',a.source_ref]
  return json.loads(subprocess.check_output(cmd,cwd=ROOT))
@@ -36,7 +40,7 @@ def write_summary(base,summary):
  raw=(json.dumps(summary,ensure_ascii=False,indent=2)+'\n').encode();target=base.with_suffix('.verified.json');tmp=pathlib.Path(str(target)+'.'+str(uuid.uuid4())+'.tmp')
  if summary['complete']:
   assert {'contrasts','developmentGatePassed','holdoutGatePassed'}<=summary.keys()
-  assert len(summary['contrasts'])==2
+  assert len(summary['contrasts'])==(1 if a.profile=='check-pairs' else 2)
  with open(tmp,'xb') as f:f.write(raw);f.flush();os.fsync(f.fileno())
  assert tmp.read_bytes()==raw;os.replace(tmp,target)
  fd=os.open(target.parent,os.O_RDONLY)
@@ -55,7 +59,7 @@ for folder in root.glob('batch-*'):
  if cache.exists() and len(list(cache.glob('*.json')))!=snapshot['executions']:raise SystemExit('Canonical games exceed/mismatch exported checkpoint; recover before resuming')
  if previous and snapshot['executions']<=previous['executions']:continue
  candidate_summary=verify(gen)
- assert snapshot['start']==a.start and snapshot['count']==a.count and snapshot['phase']==a.phase and snapshot['variants'][-1]==a.candidate
+ assert snapshot['start']==a.start and snapshot['count']==a.count and snapshot['phase']==a.phase and snapshot['variants'][-1]==('single' if a.profile=='check-pairs' else a.candidate)
  if previous:
   assert candidate_summary['fingerprint']==previous['fingerprint']
   assert snapshot['records'][:previous['executions']]==json.loads(out.read_bytes())['records']
@@ -71,10 +75,11 @@ for batch in range(a.batches):
  before=previous['executions'] if previous else 0
  gen=pathlib.Path(tempfile.mkdtemp(prefix='batch-',dir=root))/'data.json'
  if previous:publish(gen,exports(out,previous))
- cmd=['node','--import',str(ROOT/'packages/rules/node_modules/tsx/dist/loader.mjs'),str(ROOT/'packages/rules/scripts/cooperative-claim-commitment.ts'),str(a.count),str(a.start),str(gen),'96',a.phase,a.candidate]
+ cmd=['node','--import',str(ROOT/'packages/rules/node_modules/tsx/dist/loader.mjs'),str(ROOT/'packages/rules/scripts'/collector),str(a.count),str(a.start),str(gen),'96']
+ if a.profile=='commitment':cmd += [a.phase,a.candidate]
  child=subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True,timeout=240);sys.stderr.write(child.stderr)
  if child.returncode:raise SystemExit('Collector failed; preserving generation and prior verified export')
- current=verify(gen);new=min(96,a.count*4*3*4*3-before);assert current['executions']==before+new and int(re.findall(r'신규(\d+)',child.stderr)[-1])==new
+ current=verify(gen);new=min(96,a.count*4*3*4*variant_count-before);assert current['executions']==before+new and int(re.findall(r'신규(\d+)',child.stderr)[-1])==new
  if previous:assert current['fingerprint']==previous['fingerprint']
  publish(out,exports(gen,current));assert verify(out)['executions']==current['executions']
  write_summary(out,current)
