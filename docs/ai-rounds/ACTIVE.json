@@ -8,7 +8,7 @@
   "task": "既存 reportedSupreme 단독 새 고정 상대 개발; 기회/실제 보고 공격과 전체 성능 분리",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
-  "evaluationSourceRef": null,
+  "evaluationSourceRef": "2541ef036fba963e83f2cd4b089fc3ddf85735c8",
   "executions": 0,
   "targetExecutions": 1152,
   "cumulativeExecutions": 46208,
@@ -17,7 +17,7 @@
   "developmentSeeds": {
     "start": 150000,
     "count": 8,
-    "status": "reserved_unused_round044"
+    "status": "in_use"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -41,8 +41,8 @@
     "executions": 0,
     "replayedGames": 320
   },
-  "checkpoint": "round044_preregistered_no_new_games",
-  "nextAction": "Add existing option to durable collector with all-mode own-view denominator; regressions/freeze before 1152 games",
+  "checkpoint": "round044_frozen_676_checks_finite_development_running",
+  "nextAction": "Finish at most12x96 frozen development batches; independently verify all1152 and zero-new resume; then preserve results before same-policy balance",
   "record": "docs/ai-rounds/ROUND_044_20261016_0126.md",
   "deployment": false,
   "repeatDisabled": false,
@@ -73,16 +73,16 @@
     "actualHumanMatches": 0
   },
   "checks": {
-    "tests": 671,
-    "rules": 596,
+    "tests": 676,
+    "rules": 601,
     "server": 75,
     "typecheck": "4_packages_passed",
     "serverBuild": "passed",
     "clientWorkerBuild": "passed",
-    "observerInvariant": "all320_original_games_and_actual_action_receipts_match",
-    "activeChoiceCensus": 52521,
-    "semanticTamper": "5_rejected",
-    "repeatSummary": "byte_identical"
+    "observerInvariant": "4_modes_full_match_ON_OFF_equal",
+    "syntheticExecutions": 144,
+    "syntheticOptionChanges": 9,
+    "semanticTamper": "valid_plus4_rehashed_rejections"
   },
   "postflightCI": {
     "sourceRef": "4eb38918c69988ef1643dc83ec29c791544e75df",
