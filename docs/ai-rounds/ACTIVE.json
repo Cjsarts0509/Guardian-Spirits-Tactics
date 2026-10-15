@@ -1,15 +1,15 @@
 {
-  "round": 35,
+  "round": 36,
   "status": "in_progress",
-  "owner": "round035-identical-policy-faction-balance",
-  "startedAt": "2026-10-15T22:02:17.200971+09:00",
-  "leaseUntil": "2026-10-15T23:02:17.200971+09:00",
+  "owner": "round036-count-stratified-identical-policy-balance",
+  "startedAt": "2026-10-15T22:08:35.353283+09:00",
+  "leaseUntil": "2026-10-15T23:08:35.353283+09:00",
   "continuation": "user_2135_resume_behavior_quality_first",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
-    "start": 146000,
-    "count": 16,
+    "start": 147000,
+    "count": 80,
     "status": "reserved_unused_selfplay_diagnostic"
   },
   "holdoutSeeds": {
@@ -19,7 +19,7 @@
   },
   "candidate": "same_policy_balance_diagnostic",
   "options": {},
-  "checkpoint": "round034_complete_selfplay_reserved_before_new_games",
+  "checkpoint": "round035_complete_036_reserved_before_new_games",
   "checks": {
     "tests": 645,
     "rules": 570,
@@ -41,15 +41,15 @@
     "ownAttackSmoke": "144_synthetic_excluded_7_of_7_eligible_remembered_wrong0"
   },
   "executions": 0,
-  "targetExecutions": 384,
-  "cumulativeExecutions": 42432,
+  "targetExecutions": 1920,
+  "cumulativeExecutions": 42816,
   "decision": "pending_same_policy_balance_diagnostic",
-  "nextAction": "Run fixed-policy selfplay 146000-146015; no skill tuning",
+  "nextAction": "Run 1920 fixed selfplay games with equal 8-12 player seed counts; no policy/skill change",
   "previousCompleted": {
-    "round": 34,
-    "completionRef": "764ba6f204f7bd608b2e8b9ab18bbe3a2b50761e",
-    "record": "docs/ai-rounds/ROUND_034_20261015_2050.md",
-    "cumulativeExecutions": 42432
+    "round": 35,
+    "completionRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98",
+    "record": "docs/ai-rounds/ROUND_035_20261015_2200.md",
+    "cumulativeExecutions": 42816
   },
   "unusedPriorCandidateDevelopment": {
     "start": 129000,
@@ -94,11 +94,11 @@
     }
   },
   "conditionalDevelopmentSeeds": {
-    "start": 147000,
-    "count": 16,
+    "start": 148000,
+    "count": 80,
     "status": "reserved_unused"
   },
-  "evaluationSourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
+  "evaluationSourceRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98",
   "corePolicySourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
   "checkpointAt": "2026-10-15T20:34:33.516442+09:00",
   "previousDiagnosticReplay": {
