@@ -1,6 +1,6 @@
 {
   "round": 24,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round024-confirmed-enemy-break",
   "startedAt": "2026-10-15T12:43:51.647595+09:00",
   "leaseUntil": "2026-10-15T13:40:00+09:00",
@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 138000,
     "count": 8,
-    "status": "reserved_for_round024"
+    "status": "used_completed_1152"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -19,7 +19,7 @@
   },
   "candidate": "confirmed_enemy_break_repair",
   "options": {},
-  "checkpoint": "partial288_verified_next_call_rejected_by_orphan_lock",
+  "checkpoint": "all1152_verified_and_zero_new_resume",
   "checks": {
     "tests": 599,
     "rules": 525,
@@ -29,10 +29,10 @@
     "clientWorkerBuild": "passed",
     "collectorStorageRegression": "passed_432_unit_games_excluded"
   },
-  "executions": 288,
+  "executions": 1152,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 31296,
-  "decision": "pending_no_score_selection",
+  "cumulativeExecutions": 32448,
+  "decision": "correctness_repair_retained_no_win_improvement_no_holdout",
   "nextAction": "round024_confirmed_enemy_break_repair_and_human_record_evidence",
   "previousCompleted": {
     "round": 23,
@@ -88,7 +88,7 @@
     "count": 8,
     "status": "reserved_unused"
   },
-  "completedAt": "2026-10-15T12:41:56.945568+09:00",
+  "completedAt": "2026-10-15T13:07:58.925060+09:00",
   "checkpointAt": "2026-10-15T12:53:02.516623+09:00",
   "sourceCI": "success",
   "sourceBrowserCheck": "success"
