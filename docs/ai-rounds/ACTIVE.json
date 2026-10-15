@@ -1,25 +1,25 @@
 {
-  "round": 30,
-  "status": "completed",
-  "owner": "round030-public-p1-single-check-attack-diagnostic",
-  "startedAt": "2026-10-15T19:17:46.502523+09:00",
-  "leaseUntil": "2026-10-15T20:02:46.502523+09:00",
+  "round": 31,
+  "status": "in_progress",
+  "owner": "round031-own-failed-attack-receipt-audit",
+  "startedAt": "2026-10-15T19:47:38.954373+09:00",
+  "leaseUntil": "2026-10-15T20:27:38.954373+09:00",
   "continuation": "user_1818_resume_continuous_rounds",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
-    "start": 142000,
-    "count": 32,
-    "status": "used_completed_development_diagnostic_not_holdout"
+    "start": 143000,
+    "count": 8,
+    "status": "reserved_unused_conditional_future_candidate_only"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "none_single_intervention_diagnostic",
+  "candidate": "none_until_own_evidence_diagnosis",
   "options": {},
-  "checkpoint": "complete_3072_archived_independently_verified_new0_resume",
+  "checkpoint": "reserved_readonly_audit_23_existing_development_records_27_failures",
   "checks": {
     "tests": 622,
     "rules": 547,
@@ -36,16 +36,16 @@
     "firstDivergenceAudit": "passed_384_pairs_294_prefixes_90_noninterventions",
     "singleCheckSmoke": "96_synthetic_7_interventions_excluded"
   },
-  "executions": 3072,
-  "targetExecutions": 3072,
+  "executions": 0,
+  "targetExecutions": 0,
   "cumulativeExecutions": 38976,
-  "decision": "diagnostic_global99_lower_not_positive_no_candidate",
-  "nextAction": "031 bounded own-receipt combat failure/opportunity audit of completed development, no new research seeds",
+  "decision": "pending_replay_diagnostic_not_promotion",
+  "nextAction": "Verify completed030 source then inspect own failure receipts/knowledge/guard ambiguity; <=23 deterministic trace replays, no new research",
   "previousCompleted": {
-    "round": 29,
-    "completionRef": "6cf322b5e3ddad0ed96a0e70135a0c14fe5af109",
-    "record": "docs/ai-rounds/ROUND_029_20261015_1908.md",
-    "cumulativeExecutions": 35904
+    "round": 30,
+    "completionRef": "591ec02d9ad98a0eb58b6bb155bbce02fa22bc4b",
+    "record": "docs/ai-rounds/ROUND_030_20261015_1917.md",
+    "cumulativeExecutions": 38976
   },
   "unusedPriorCandidateDevelopment": {
     "start": 129000,
@@ -97,5 +97,14 @@
   "evaluationSourceRef": "7a8eb17df8692a4fc87e59c1810b0d9425d9a0ef",
   "corePolicySourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
   "checkpointAt": "2026-10-15T19:40:15.250995+09:00",
-  "completedAt": "2026-10-15T19:44:50.567697+09:00"
+  "completedAt": "2026-10-15T19:44:50.567697+09:00",
+  "diagnosticReplay": {
+    "sourceRound": 30,
+    "sourceRef": "7a8eb17df8692a4fc87e59c1810b0d9425d9a0ef",
+    "sourceDevelopmentStart": 142000,
+    "sourceDevelopmentCount": 32,
+    "maximumReplayGames": 23,
+    "completedReplayGames": 0,
+    "researchExecutions": 0
+  }
 }
