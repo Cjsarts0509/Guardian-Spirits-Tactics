@@ -32,6 +32,12 @@ describe('factual human-match evidence audit',()=>{
  it('builds independent immutable snapshots',()=>{
   const r=fixture(),initial=JSON.stringify(r.replay!.initialState);r.finalState.players[0]!.mana++;expect(JSON.stringify(r.replay!.initialState)).toBe(initial);
  });
+ it('does not echo private strings from malformed record metadata or engine errors',()=>{
+  const secret='private-human-name-secret';
+  for(const mutate of [(r:any)=>r.winner=secret,(r:any)=>r.replay.authority=secret,(r:any)=>r.actions={length:secret},(r:any)=>r.actions[0].action.skill=secret]){
+   const r=fixture();mutate(r);expect(JSON.stringify(auditMatchRecord(r))).not.toContain(secret);
+  }
+ });
  it('publishes idempotently and rejects conflicting concurrent records without truncating the original',async()=>{
   const dir=await mkdtemp(join(tmpdir(),'gst-atomic-rec-'));try{
    const r=fixture(),[a,b]=await Promise.all([saveRecord(dir,r),saveRecord(dir,r)]);expect(a).toBe(b);const raw=await readFile(a,'utf8');

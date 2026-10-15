@@ -1,6 +1,6 @@
 {
   "round": 25,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round025-net-base-turn-reserve",
   "startedAt": "2026-10-15T13:10:02.223601+09:00",
   "leaseUntil": "2026-10-15T14:00:00+09:00",
@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 139000,
     "count": 8,
-    "status": "reserved_unused"
+    "status": "used_completed_1152"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,22 +21,23 @@
   "options": {
     "netAttackReserve": true
   },
-  "checkpoint": "development_partial_verified",
+  "checkpoint": "development_rejected_all_records_and_corpus_verified",
   "checks": {
-    "tests": 601,
+    "tests": 602,
     "rules": 527,
-    "server": 74,
+    "server": 75,
     "typecheck": "passed",
     "serverBuild": "passed",
     "clientWorkerBuild": "passed",
     "collectorStorageRegression": "passed_432_unit_games_excluded",
-    "generationSupervisor": "passed_3_tests"
+    "generationSupervisor": "passed_3_tests",
+    "postflightHumanAudit": "passed_7_tests_no_actual_humans"
   },
-  "executions": 576,
+  "executions": 1152,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 32448,
-  "decision": "pending_preflight_and_fresh_development",
-  "nextAction": "round024_confirmed_enemy_break_repair_and_human_record_evidence",
+  "cumulativeExecutions": 33600,
+  "decision": "no_win_promotion_net_option_OFF_human_actual_records_missing",
+  "nextAction": "fresh140000_diagnostic_only_when_new_hypothesis_and_real_human_records_available",
   "previousCompleted": {
     "round": 24,
     "completionRef": "880c9ded8ad7fce6aa6d63f79a860283b00d2b52",
@@ -49,39 +50,40 @@
     "status": "unused_no015_candidate"
   },
   "finalReport": {
-    "round": 22,
+    "round": 25,
     "status": "completed",
-    "path": "docs/ai-rounds/ROUND_022_20261015_1148.md",
-    "newExecutions": 0,
-    "verifiedExecutions": 31296,
-    "terminatedGames": 31294,
+    "path": "docs/ai-rounds/ROUND_025_20261015_1310.md",
+    "newExecutions": 1152,
+    "resumedWorkExecutions": 2304,
+    "verifiedExecutions": 33600,
+    "terminatedGames": 33598,
     "unfinishedExecutions": 2,
     "interruptedExecutionsExcluded": 500,
     "unverifiedExecutionUpperBoundExcluded": 6,
-    "sourceRef": "8eb4e065b0fae7ed90d4b503bd6e4226954998c6",
+    "sourceRef": "540f07ff432cf39129f4174d4fd556524f15a73b",
     "sourceCI": "success",
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0,
-    "reportedAt": "2026-10-15T12:00:51.000+09:00",
+    "humanValidation": "incomplete_actual_human_records_missing",
+    "reportedAt": "2026-10-15T13:38:34.702344+09:00",
     "repeatDisabled": true
   },
   "task": "User1227 resumed: storage repair, evidence-based win improvement, actual human validation readiness",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
-  "previousRoundUnverifiedExecutionUpperBoundExcluded": 6,
+  "previousRoundUnverifiedExecutionUpperBoundExcluded": 0,
   "unfinishedExecutions": 0,
   "corpusAudit": {
     "allPassed": true,
-    "datasets": 20,
-    "verifiedExecutions": 31296,
-    "terminatedGames": 31294,
+    "datasets": 22,
+    "verifiedExecutions": 33600,
+    "terminatedGames": 33598,
     "unfinishedExecutions": 2,
     "seedRangesDisjoint": true,
     "reservedUnusedIntrusions": 0,
-    "path": "docs/evaluations/cooperation-round-022-corpus-audit.json",
-    "currentRuntimeMatchesFrozen": true,
-    "reservedSeedHeadersScanned": 36,
-    "reservedSeedHeaderOverlaps": 0,
-    "remoteFetchedAuditByteIdentical": true
+    "path": "docs/evaluations/cooperation-round-025-cumulative-audit.json",
+    "historicalAudit": "docs/evaluations/cooperation-round-025-historical-corpus-audit.json",
+    "currentPolicyMatchesFrozen": true,
+    "policySourceRef": "540f07ff432cf39129f4174d4fd556524f15a73b"
   },
   "cumulativeUnfinishedExecutions": 2,
   "policySourceRef": "540f07ff432cf39129f4174d4fd556524f15a73b",
@@ -91,8 +93,15 @@
     "count": 8,
     "status": "reserved_unused"
   },
-  "completedAt": "2026-10-15T13:07:58.925060+09:00",
-  "checkpointAt": "2026-10-15T13:23:19.845228+09:00",
+  "completedAt": "2026-10-15T13:37:18.902364+09:00",
+  "checkpointAt": "2026-10-15T13:31:43.094918+09:00",
   "sourceCI": "success",
-  "sourceBrowserCheck": "success"
+  "sourceBrowserCheck": "success",
+  "humanValidation": {
+    "instrumentation": "implemented",
+    "factualReplay": "tested_synthetic_only",
+    "actualHumanMatches": 0,
+    "humanWinRate": null
+  },
+  "historicalUnverifiedExecutionUpperBoundExcluded": 6
 }
