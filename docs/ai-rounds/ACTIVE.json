@@ -1,25 +1,27 @@
 {
-  "round": 31,
-  "status": "completed",
-  "owner": "round031-own-failed-attack-receipt-audit",
-  "startedAt": "2026-10-15T19:47:38.954373+09:00",
-  "leaseUntil": "2026-10-15T20:27:38.954373+09:00",
+  "round": 32,
+  "status": "in_progress",
+  "owner": "round032-avoid-repeat-warned-failed-guess",
+  "startedAt": "2026-10-15T19:58:45.480778+09:00",
+  "leaseUntil": "2026-10-15T20:43:45.480778+09:00",
   "continuation": "user_1818_resume_continuous_rounds",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
     "start": 143000,
     "count": 8,
-    "status": "reserved_unused_conditional_future_candidate_only"
+    "status": "reserved_unused"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "none_until_own_evidence_diagnosis",
-  "options": {},
-  "checkpoint": "23_exact_replays_27_own_failures_4_repeat_deaths_2_unique_situations",
+  "candidate": "avoidRepeatedFailedGuess",
+  "options": {
+    "avoidRepeatedFailedGuess": true
+  },
+  "checkpoint": "reserved_fresh143000_development_before_code",
   "checks": {
     "tests": 623,
     "rules": 548,
@@ -38,14 +40,14 @@
     "ownTraceObserver": "callback_mutation_and_full_result_invariance_passed"
   },
   "executions": 0,
-  "targetExecutions": 0,
+  "targetExecutions": 1152,
   "cumulativeExecutions": 38976,
-  "decision": "bounded_own_receipt_evidence_supports_single_new_development_hypothesis_not_promotion",
-  "nextAction": "032 reserve fresh143000–143007, defaultOFF avoidRepeatedFailedGuess; preserve121000 until development passes",
+  "decision": "pending_development_candidate_default_off",
+  "nextAction": "Implement one late speculative advanced-level2 repeated-failed-name guard; regressions/types/builds then immutable freeze then143000 development",
   "previousCompleted": {
-    "round": 30,
-    "completionRef": "591ec02d9ad98a0eb58b6bb155bbce02fa22bc4b",
-    "record": "docs/ai-rounds/ROUND_030_20261015_1917.md",
+    "round": 31,
+    "completionRef": "56827b7f410f821b5d2e5904b8d47e21d308ad6e",
+    "record": "docs/ai-rounds/ROUND_031_20261015_1947.md",
     "cumulativeExecutions": 38976
   },
   "unusedPriorCandidateDevelopment": {
@@ -91,7 +93,7 @@
     }
   },
   "conditionalDevelopmentSeeds": {
-    "start": 143000,
+    "start": 144000,
     "count": 8,
     "status": "reserved_unused"
   },
@@ -99,7 +101,7 @@
   "corePolicySourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
   "checkpointAt": "2026-10-15T19:40:15.250995+09:00",
   "completedAt": "2026-10-15T19:57:04.380270+09:00",
-  "diagnosticReplay": {
+  "previousDiagnosticReplay": {
     "sourceRound": 30,
     "sourceRef": "7a8eb17df8692a4fc87e59c1810b0d9425d9a0ef",
     "sourceDevelopmentStart": 142000,
