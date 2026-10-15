@@ -1,25 +1,25 @@
 {
-  "round": 29,
-  "status": "completed",
-  "owner": "round029-completed-development-first-divergence-audit",
-  "startedAt": "2026-10-15T19:08:48.289903+09:00",
-  "leaseUntil": "2026-10-15T19:28:48.289903+09:00",
+  "round": 30,
+  "status": "in_progress",
+  "owner": "round030-public-p1-single-check-attack-diagnostic",
+  "startedAt": "2026-10-15T19:17:46.502523+09:00",
+  "leaseUntil": "2026-10-15T20:02:46.502523+09:00",
   "continuation": "user_1818_resume_continuous_rounds",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
     "start": 142000,
-    "count": 8,
-    "status": "reserved_unused_not_used_in_readonly_round"
+    "count": 32,
+    "status": "reserved_unused_expanded_from8_after_overlap_check"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "none_readonly_diagnostic",
+  "candidate": "none_single_intervention_diagnostic",
   "options": {},
-  "checkpoint": "384_pairs_294_prefixes_90_noninterventions_verified_no_new_games",
+  "checkpoint": "reserved_before_code_and_research",
   "checks": {
     "tests": 615,
     "rules": 540,
@@ -36,14 +36,14 @@
     "firstDivergenceAudit": "passed_384_pairs_294_prefixes_90_noninterventions"
   },
   "executions": 0,
-  "targetExecutions": 0,
+  "targetExecutions": 3072,
   "cumulativeExecutions": 35904,
-  "decision": "no_new_candidate_descriptive_only_no_promotion",
+  "decision": "pending_diagnostic_not_a_policy_candidate",
   "nextAction": "030 reserve fresh142000 single-public-player first-followup paired diagnostic; preserve independent121000",
   "previousCompleted": {
-    "round": 28,
-    "completionRef": "acafa32ff47b3549cfb1bf266de2468bb5c48077",
-    "record": "docs/ai-rounds/ROUND_028_20261015_1846.md",
+    "round": 29,
+    "completionRef": "6cf322b5e3ddad0ed96a0e70135a0c14fe5af109",
+    "record": "docs/ai-rounds/ROUND_029_20261015_1908.md",
     "cumulativeExecutions": 35904
   },
   "unusedPriorCandidateDevelopment": {
@@ -89,9 +89,8 @@
     }
   },
   "conditionalDevelopmentSeeds": {
-    "start": 142000,
+    "start": 143000,
     "count": 8,
     "status": "reserved_unused"
-  },
-  "completedAt": "2026-10-15T19:13:39.932937+09:00"
+  }
 }
