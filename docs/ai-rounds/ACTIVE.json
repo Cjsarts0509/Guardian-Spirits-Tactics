@@ -1,6 +1,6 @@
 {
   "round": 20,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "continuous-round-020-single-trusted-report-normal-path",
   "startedAt": "2026-10-15T11:16:00+09:00",
   "leaseUntil": "2026-10-15T11:50:00+09:00",
@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 135000,
     "count": 48,
-    "status": "reserved_unused"
+    "status": "completed_training_diagnostic_no_candidate"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -22,22 +22,23 @@
   "conditionalCandidateDevelopmentSeeds": {
     "start": 136000,
     "count": 8,
-    "status": "reserved_unused_only_if_preregistered_whole_group_candidate"
+    "status": "unused_no020_candidate"
   },
-  "checkpoint": "verified_source_freeze_before_research_zero",
+  "checkpoint": "4608_verified_unique_reconciled_unchanged_new0_resume_verified",
   "checks": {
     "tests": 577,
     "rules": 509,
     "server": 68,
     "typecheck": "passed",
     "serverBuild": "passed",
-    "clientWorkerBuild": "passed"
+    "clientWorkerBuild": "passed",
+    "pythonRecoveryTests": 3
   },
-  "executions": 0,
+  "executions": 4608,
   "targetExecutions": 4608,
-  "cumulativeExecutions": 25536,
-  "decision": "pending_fresh_single_report_causal_diagnostic",
-  "nextAction": "freeze_verified_collector_then_fresh135000_paired_batches",
+  "cumulativeExecutions": 30144,
+  "decision": "no_action_change_candidate_keep_priority_report_verification",
+  "nextAction": "commit_then_reserve_dead_confirmed_ally_report_safe_verification_boundary",
   "previousCompleted": {
     "round": 19,
     "executions": 6144,
@@ -66,5 +67,8 @@
   },
   "task": "020: first actual trusted report verification once versus own-memory normal alternative; preregistered whole-group 99% lower bound; continuous until noon",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
-  "previousRoundUnverifiedExecutionUpperBoundExcluded": 6
+  "previousRoundUnverifiedExecutionUpperBoundExcluded": 6,
+  "completedAt": "2026-10-15T11:33:00+09:00",
+  "sourceRef": "358cc64e3b5a276d162050bda8b66c930da201ec",
+  "unfinishedExecutions": 2
 }
