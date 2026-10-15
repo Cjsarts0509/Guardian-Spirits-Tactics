@@ -1,10 +1,10 @@
 {
   "round": 34,
-  "status": "paused_by_user",
+  "status": "in_progress",
   "owner": "round034-own-accepted-name-outcome-knowledge",
   "startedAt": "2026-10-15T20:50:39.250967+09:00",
-  "leaseUntil": "2026-10-15T21:35:39.250967+09:00",
-  "continuation": "user_stop_and_report_20261015",
+  "leaseUntil": "2026-10-15T23:07:53.929396+09:00",
+  "continuation": "user_2135_resume_behavior_quality_first",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
@@ -21,7 +21,7 @@
   "options": {
     "learnOwnAttackOutcome": true
   },
-  "checkpoint": "paused_one_synthetic_hit_reproduction_no_implementation_no_research",
+  "checkpoint": "resumed_behavior_quality_protocol_before_implementation",
   "checks": {
     "tests": 635,
     "rules": 560,
@@ -44,7 +44,7 @@
   "targetExecutions": 1152,
   "cumulativeExecutions": 41280,
   "decision": "reproduced_knowledge_gap_implementation_pending_user_resume",
-  "nextAction": "Wait for explicit user resume; round033 complete, round034 reservation only. Do not start further experiments.",
+  "nextAction": "Implement own action/result identity memory; evaluate behavior correctness separately from fixed-opponent score. No balance changes in this round.",
   "previousCompleted": {
     "round": 33,
     "completionRef": "3743a894c1c41e149c0394b0fc71a83492b50cab",
@@ -57,7 +57,7 @@
     "status": "unused_no015_candidate"
   },
   "task": "User1818 resumed continuous finite AI rounds",
-  "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
+  "adoption": "機능 정확성/정보 은닉/행동 품질과 고정 상대 성능·동일 정책 진영 밸런스를 별도 판정. 승률만으로 기능 폐기/운영 승격하지 않음. 새 자료 사전계획, 과거 최종 표본 재튜닝 금지.",
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 0,
   "unfinishedExecutions": 0,
   "corpusAudit": {
@@ -123,5 +123,7 @@
     "sourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
     "capturedAt": "2026-10-15T20:51:17.426026+09:00",
     "implementation": "not_started"
-  }
+  },
+  "resumedAt": "2026-10-15T21:37:53.929396+09:00",
+  "evaluationProtocol": "behavior_quality_v1"
 }
