@@ -1,6 +1,7 @@
 import type { PlayerView } from './engine/view.js';
 import type { BotMemory, Knowledge } from './bot-memory.js';
 import { wantsTrueName } from './bot-claims.js';
+import {claimTurnCommitted} from './bot-claim-commitment.js';
 
 /** 플레이어마다 최신 수동 공표 하나. 확정된 적 정체로만 성향을 분류한다. */
 export function observedClaimStyle(view: PlayerView, knowledge: Knowledge, memory: BotMemory) {
@@ -28,9 +29,10 @@ export function adaptiveClaimName(view: PlayerView, knowledge: Knowledge, memory
 
 /** 정체 숨김과 자원 이익을 구분. 진명 스킬·공개된 정체는 유지하고 지휘관/변장은 위장한다. */
 export function strategicClaimName(view: PlayerView, knowledge: Knowledge, memory: BotMemory, gemGoal: 2 | 3 = 2,
-  commanderGrowth: 'none' | 'shining' | 'all' = 'none'): string {
+  commanderGrowth: 'none' | 'shining' | 'all' = 'none',turnCommitment=false): string {
   const me=view.me, names=me.skills.find(s=>s.key==='publish')?.nameOptions??[];
   if(wantsTrueName(view)||(memory.perception?.trueNameUntil??0)>view.elapsedMs||view.players.find(p=>p.id===me.id)?.revealed)return me.character;
+  if(turnCommitment&&claimTurnCommitted(view,memory))return me.character;
   const disguise=me.skills.some(s=>s.key==='disguise');
   // 개발 후보: 성장 중인 지휘관만 한시적으로 자원/보석을 얻고 완성 후 다시 숨긴다.
   if(!disguise&&me.commander&&me.gem<3&&(commanderGrowth==='all'||commanderGrowth==='shining'&&me.character==='shining'))return me.character;

@@ -35,6 +35,8 @@ export interface BotOptions {
   claimGemGoal?: 2 | 3;
   /** 개발 비교: 성장 기간에만 지휘관 진명. 기본 none이며 변장 인물의 위장은 유지한다. */
   claimCommanderGrowth?: 'none' | 'shining' | 'all';
+  /** 개발 비교: 실제 자기 수동 진명 공표 성공 뒤 다음 자기 턴까지만 이름을 유지. 기본OFF. */
+  claimTurnCommitment?: boolean;
   /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
   protectionRetryBackoff?: boolean;
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
@@ -189,10 +191,11 @@ const DISPEL = ['tachin_neutralize'] as const;
 const MIN = 60_000;
 
 /** 봇이 정당하게 아는 정보만으로 각 플레이어의 정체 후보를 계산한다 */
-export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerView = viewFor(state, playerId), memory: BotMemory = createBotMemory(0)): Knowledge {
+export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerView = viewFor(state, playerId), memory: BotMemory = createBotMemory(0),
+  options: {claimTurnCommitment?:boolean} = {}): Knowledge {
   const p = memory.perception;
   if (p && (p.playerId !== playerId || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs || state.seq < p.lastSeq)) memory.perception = undefined;
-  return updateBotKnowledge(view, eventsFor(state, playerId, memory.perception?.lastSeq ?? 0), memory);
+  return updateBotKnowledge(view, eventsFor(state, playerId, memory.perception?.lastSeq ?? 0), memory, options);
 }
 
 export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions = {}): Action | null {
@@ -237,7 +240,8 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   if (nextRandom(mem) > (opts.activity ?? 0.5)) return null;
 
   const view = viewFor(state, playerId);
-  const knowledge = botKnowledge(state, playerId, view, mem);
+  const claimStrategy=opts.claimStrategy??(opts.primordialLeadership==='after-six-minutes'?'current':'strategic');
+  const knowledge = botKnowledge(state, playerId, view, mem,{claimTurnCommitment:opts.claimTurnCommitment===true&&claimStrategy==='strategic'});
   mem.communicationAt = view.elapsedMs;
   const { known, candidates } = knowledge;
   const requestedConfirmation = opts.confirmationSearch ?? 'combat-lidellut';
@@ -260,10 +264,9 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   const pick = <T,>(xs: T[]): T | undefined => xs[randomInt(mem, xs.length)];
   const enemy = (c: CharKey) => sideOf.get(c) !== me.side;
   const attackable = (c: CharKey) => enemy(c) && !guards[c]?.some((gd) => !deadChars.has(gd));
-  const claimStrategy=opts.claimStrategy??(opts.primordialLeadership==='after-six-minutes'?'current':'strategic');
   const act = (s: SkillView, target?: PlayerId, name?: CharKey): Action => {
     const strategy = claimStrategy;
-    if (s.key === 'publish' && strategy === 'strategic') name = strategicClaimName(view, knowledge, mem, opts.claimGemGoal, opts.claimCommanderGrowth);
+    if (s.key === 'publish' && strategy === 'strategic') name = strategicClaimName(view, knowledge, mem, opts.claimGemGoal, opts.claimCommanderGrowth,opts.claimTurnCommitment);
     if (s.key === 'publish' && strategy === 'adaptive') name = adaptiveClaimName(view, knowledge, mem);
     if (s.key === 'publish' && (strategy === 'truthful' ||
       (strategy === 'truthful-noncommanders' && !me.commander)) && s.nameOptions?.includes(me.character)) name = me.character;
@@ -536,7 +539,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
   // 2) 공표. 지휘관은 진명을 숨기고, 나머지는 대체로 진명(턴 마나·진실의 조각). 가짜로 시작했어도 나중에 진명으로 바꾼다
   if (publish) {
     if (claimStrategy === 'strategic') {
-      const desired=strategicClaimName(view,knowledge,mem,opts.claimGemGoal,opts.claimCommanderGrowth);
+      const desired=strategicClaimName(view,knowledge,mem,opts.claimGemGoal,opts.claimCommanderGrowth,opts.claimTurnCommitment);
       if(me.published!==desired&&publish.nameOptions?.includes(desired))return sequence(act(publish,undefined,desired));
     }
     if (claimStrategy !== 'strategic') {

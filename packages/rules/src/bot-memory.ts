@@ -1,4 +1,5 @@
 import {observeIntel, type BotIntel} from './bot-intel.js';
+import {observeClaimTurnCommitment} from './bot-claim-commitment.js';
 import type { CharKey, GameEvent, PlayerId } from './types.js';
 import type { PlayerView } from './engine/view.js';
 import type { AssignmentBelief } from './bot-belief.js';
@@ -29,6 +30,8 @@ export interface BotPerception {
   automaticClaims: Set<PlayerId>;
   manualClaims: Map<PlayerId, { name: CharKey; at: number }>;
   trueNameUntil: number;
+  /** 기본OFF 실험. 자기 성공 공표 이후 다음 자기 턴까지만 유지하는 정책 의도. */
+  claimCommitment?: {lastSeq:number;until:number;publishedAt:number|null};
   battle: BattleMemory;
   intel?: BotIntel;
   lastBurn?: { target: PlayerId; at: number };
@@ -55,7 +58,7 @@ export function createBotMemory(seed: number): BotMemory {
  * 지속되는 실제 봇 기억은 기본값으로 모든 관측 스킬/쿨다운을 기록한다.
  */
 export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[], memory: BotMemory,
-  options: { recordBattle?: boolean } = {}): Knowledge {
+  options: { recordBattle?: boolean; claimTurnCommitment?: boolean } = {}): Knowledge {
   let p = memory.perception;
   if (!p || p.playerId !== view.me.id || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs) {
     memory.plan = undefined;
@@ -113,6 +116,9 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
     p.lastSeq = e.seq;
   }
   p.lastElapsedMs = view.elapsedMs;
+  if(options.claimTurnCommitment===false)delete p.claimCommitment;
+  // 대화 경로가 먼저 수신 이벤트를 소비해도 같은 자기 기억에서 성공/턴을 관찰한다.
+  if(options.claimTurnCommitment===true||p.claimCommitment)observeClaimTurnCommitment(view,events,memory);
   for (const other of view.players) if (other.revealed && other.id !== view.me.id) p.known.set(other.id, other.revealed);
 
   const roster = view.roster.filter((r) => r.inGame);
