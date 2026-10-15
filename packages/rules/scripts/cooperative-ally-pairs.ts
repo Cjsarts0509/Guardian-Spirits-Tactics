@@ -27,12 +27,12 @@ if(existsSync(journal)){
 }else{if(existsSync(out))throw Error('저널 없는 스냅샷');appendFileSync(journal,JSON.stringify({type:'header',fingerprint,meta})+'\n');}
 const save=(complete:boolean)=>writeFileSync(out,JSON.stringify({...meta,fingerprint,complete,executions,journalSha256:hash(readFileSync(journal)),rows},null,2));
 for(const mode of ['civil_war','primordial','lidellut','troll'] as ModeId[])for(const style of ['truthful','bluff','skill-aware-bluff'] as ClaimStyle[])for(let i=0;i<count;i++)for(const f of fixtures(mode,start+i,8+i%5)){
-  const pair=getPair(mode,style,f);
+  const pair=getPair(mode,style,f),beforeExecutions=executions;
   for(const v of ['control','delay'] as const)if(!pair[v]){const result=playAllyIntervention(f,style,v==='delay');appendFileSync(journal,JSON.stringify({type:'game',mode,style,variant:v,result})+'\n');pair[v]=result;executions++;fresh++;}
   const a=pair.control!,b=pair.delay!;if(Boolean(a.point)!==Boolean(b.point))throw Error('개입 유무 불일치');
   if(a.point&&b.point){for(const k of ['at','player','cell','stateHash','memoryHash','viewHash','before','original'] as const)if(diagnosticHash(a.point[k])!==diagnosticHash(b.point[k]))throw Error('개입 전 대응 불일치:'+k);}
   else if(JSON.stringify(a)!==JSON.stringify(b))throw Error('비개입 쌍 불일치');
-  if(executions%8===0)save(false);
+  if(executions!==beforeExecutions&&executions%8===0)save(false);
   if(batch&&fresh>=batch&&executions<count*4*3*4*2){save(false);process.stderr.write(`[ally-pairs] 신규${fresh}/누적${executions}, 부분 체크포인트\n`);process.exit(0);}
 }
 if(executions!==count*4*3*4*2)throw Error('실행 수 불일치');save(true);process.stderr.write(`[ally-pairs] 전체${executions}, 신규${fresh}\n`);

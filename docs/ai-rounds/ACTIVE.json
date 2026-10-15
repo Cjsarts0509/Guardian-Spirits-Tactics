@@ -1,6 +1,7 @@
 {
   "round": 19,
-  "status": "in_progress",
+  "status": "completed",
+  "completedAt": "2026-10-15T11:13:00+09:00",
   "owner": "continuous-round-019-first-low-mana-confirmed-ally-pairs",
   "startedAt": "2026-10-15T10:25:00+09:00",
   "leaseUntil": "2026-10-15T11:30:00+09:00",
@@ -10,7 +11,7 @@
   "developmentSeeds": {
     "start": 133000,
     "count": 64,
-    "status": "training_diagnostic_in_progress_3068_verified_unique"
+    "status": "completed_training_diagnostic_no_action_change_candidate"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -19,16 +20,16 @@
   },
   "candidate": "diagnosticOnlyFirstLowManaConfirmedAllyDelayOnce",
   "options": {},
-  "conditionalCandidateDevelopmentSeeds":{"start":134000,"count":8,"status":"reserved_unused_only_if_preregistered_model_produces_candidate"},
-  "checkpoint": "6144_unique_complete_verified_no_delay_cells_finalizing_storage_lineage_and_resume_regression",
+  "conditionalCandidateDevelopmentSeeds":{"start":134000,"count":8,"status":"unused_no019_candidate"},
+  "checkpoint": "6144_unique_complete_verified_no_delay_cells_storage_lineage_preserved_resume_regression_passed",
   "sourceRef":"38a57879a3ba358e33d4e8a4cac0b10b7eb6b2b4",
   "unverifiedExecutionUpperBoundExcluded":6,
-  "checks": {"tests":570,"rules":502,"server":68,"pythonLearnerTests":6,"typecheck":"passed","serverBuild":"passed","clientWorkerBuild":"passed"},
-  "executions": 3068,
+  "checks": {"tests":571,"rules":503,"server":68,"pythonLearnerTests":6,"pythonRecoveryTests":3,"typecheck":"passed","serverBuild":"passed","clientWorkerBuild":"passed"},
+  "executions": 6144,
   "targetExecutions": 6144,
-  "cumulativeExecutions": 22460,
-  "decision": "pending_new_paired_diagnostic_no_promotion",
-  "nextAction": "freeze_source_then_fresh133000_paired_diagnostic_in_96_game_batches",
+  "cumulativeExecutions": 25536,
+  "decision": "no_action_change_candidate_keep_confirmed_ally_no_holdout_used",
+  "nextAction": "commit_complete_then_reserve_fresh_single_report_verification_alternative_diagnostic_immediately",
   "previousCompleted": {"round":18,"executions":1152,"decision":"rejected_development_default_off_holdout_unused","evaluationSourceRef":"0429e6b169b7fca5227f1e04fb5eac131e17ac5a","postEvaluationSafetyFixRef":"d4360dc39a7c28889474d808aa45228ab3a1e037","record":"docs/ai-rounds/ROUND_018_20261015_1002.md"},
   "unusedPriorCandidateDevelopment": {"start": 129000, "count": 8, "status": "unused_no015_candidate"},
   "finalReport": {

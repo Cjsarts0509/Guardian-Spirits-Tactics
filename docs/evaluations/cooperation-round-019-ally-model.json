@@ -1,0 +1,70 @@
+{
+  "format": 1,
+  "kind": "first-ally-four-cell-model",
+  "status": "no_action_change_candidate",
+  "trainingStart": 133000,
+  "trainingSeeds": 64,
+  "trainingExecutions": 6144,
+  "settings": {
+    "features": [
+      "knownEnemy",
+      "afterManaLessThan20"
+    ],
+    "cells": 4,
+    "minPairs": 48,
+    "minSeeds": 16,
+    "bootstrapSamples": 10000,
+    "bootstrapSeed": 4674388,
+    "selection": "seed99LowerPositive"
+  },
+  "delayCells": [],
+  "cells": {
+    "E0L0": {
+      "pairs": 197,
+      "seeds": 47,
+      "difference": -0.001773049645390071,
+      "seedBootstrap99": [
+        -0.02127659574468085,
+        0.014184397163120567
+      ],
+      "action": "keep",
+      "reason": "positive_lower_bound_not_proven"
+    },
+    "E0L1": {
+      "pairs": 42,
+      "seeds": 22,
+      "difference": 0.0,
+      "seedBootstrap99": null,
+      "action": "keep",
+      "reason": "insufficient_pairs_or_seeds"
+    },
+    "E1L0": {
+      "pairs": 71,
+      "seeds": 35,
+      "difference": -0.005714285714285714,
+      "seedBootstrap99": [
+        -0.022857142857142857,
+        0.0
+      ],
+      "action": "keep",
+      "reason": "positive_lower_bound_not_proven"
+    },
+    "E1L1": {
+      "pairs": 45,
+      "seeds": 26,
+      "difference": 0.0,
+      "seedBootstrap99": null,
+      "action": "keep",
+      "reason": "insufficient_pairs_or_seeds"
+    }
+  },
+  "safetyPassed": true,
+  "promotionEvidence": false,
+  "limitations": [
+    "One public selected player and one skipped ally proposal.",
+    "Fresh all-player development and independent holdout remain required.",
+    "Rejected original proposals are retained; no hidden post-treatment selection."
+  ],
+  "trainingRawSHA256": "ef467c71e6285ed052cbb4552d990173668b0312122a704dc0f9b5d388c0ee9e",
+  "learnerSHA256": "f53b8df020bf2719454339e42d2c45ed613a6171bc09ecb340926d3a6c066b76"
+}
