@@ -1,6 +1,6 @@
 {
   "round": 31,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round031-own-failed-attack-receipt-audit",
   "startedAt": "2026-10-15T19:47:38.954373+09:00",
   "leaseUntil": "2026-10-15T20:27:38.954373+09:00",
@@ -19,7 +19,7 @@
   },
   "candidate": "none_until_own_evidence_diagnosis",
   "options": {},
-  "checkpoint": "623_tests_types_builds_4_supervisor_regressions_passed_replay0",
+  "checkpoint": "23_exact_replays_27_own_failures_4_repeat_deaths_2_unique_situations",
   "checks": {
     "tests": 623,
     "rules": 548,
@@ -40,8 +40,8 @@
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 38976,
-  "decision": "pending_replay_diagnostic_not_promotion",
-  "nextAction": "Verify completed030 source then inspect own failure receipts/knowledge/guard ambiguity; <=23 deterministic trace replays, no new research",
+  "decision": "bounded_own_receipt_evidence_supports_single_new_development_hypothesis_not_promotion",
+  "nextAction": "032 reserve fresh143000–143007, defaultOFF avoidRepeatedFailedGuess; preserve121000 until development passes",
   "previousCompleted": {
     "round": 30,
     "completionRef": "591ec02d9ad98a0eb58b6bb155bbce02fa22bc4b",
@@ -70,7 +70,7 @@
   "policySourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
   "repeatDisabled": false,
   "sourceCI": "success",
-  "sourceBrowserCheck": "success",
+  "sourceBrowserCheck": "in_progress",
   "humanValidation": {
     "instrumentation": "implemented",
     "factualReplay": "tested_synthetic_only",
@@ -78,16 +78,16 @@
     "humanWinRate": null
   },
   "historicalUnverifiedExecutionUpperBoundExcluded": 6,
-  "validatedCodeRef": "pending_round031_observer_freeze",
+  "validatedCodeRef": "8e93602a8adc678ea155d4f836fba1495608dc43",
   "postflightCI": {
-    "sourceRef": "7a8eb17df8692a4fc87e59c1810b0d9425d9a0ef",
+    "sourceRef": "8e93602a8adc678ea155d4f836fba1495608dc43",
     "CI": {
       "conclusion": "success",
-      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38720781717"
+      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38723491536"
     },
     "browser": {
-      "conclusion": "success",
-      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38720781843"
+      "conclusion": "in_progress",
+      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38723491531"
     }
   },
   "conditionalDevelopmentSeeds": {
@@ -95,17 +95,17 @@
     "count": 8,
     "status": "reserved_unused"
   },
-  "evaluationSourceRef": "7a8eb17df8692a4fc87e59c1810b0d9425d9a0ef",
+  "evaluationSourceRef": "8e93602a8adc678ea155d4f836fba1495608dc43",
   "corePolicySourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
   "checkpointAt": "2026-10-15T19:40:15.250995+09:00",
-  "completedAt": "2026-10-15T19:44:50.567697+09:00",
+  "completedAt": "2026-10-15T19:57:04.380270+09:00",
   "diagnosticReplay": {
     "sourceRound": 30,
     "sourceRef": "7a8eb17df8692a4fc87e59c1810b0d9425d9a0ef",
     "sourceDevelopmentStart": 142000,
     "sourceDevelopmentCount": 32,
     "maximumReplayGames": 23,
-    "completedReplayGames": 0,
+    "completedReplayGames": 23,
     "researchExecutions": 0
   }
 }

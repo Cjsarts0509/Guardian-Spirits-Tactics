@@ -1,0 +1,45 @@
+{
+  "kind": "gst-own-failure-replay-results",
+  "replaySourceRef": "8e93602a8adc678ea155d4f836fba1495608dc43",
+  "inputSourceRef": "7a8eb17df8692a4fc87e59c1810b0d9425d9a0ef",
+  "corePolicySourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
+  "options": {
+    "researchExecutions": 0,
+    "maximumReplayGames": 23,
+    "sourceDevelopmentStart": 142000,
+    "sourceDevelopmentSeeds": 32,
+    "selectedPlayer": "p1",
+    "failedRecordSelection": "any_original_postpoint_attackFailure",
+    "noPolicyChange": true
+  },
+  "optionsSHA256": "f9ec567e1dffb396109b57b64d3283c4042b6e36337a15647eebbf3a8a875b79",
+  "newResearchExecutions": 0,
+  "deterministicReplayGames": 23,
+  "cumulativeResearchExecutions": 38976,
+  "tests": 623,
+  "rulesTests": 548,
+  "serverTests": 75,
+  "typecheck": "4_passed",
+  "builds": "server_client_Worker_passed",
+  "generationSupervisor": "4_passed",
+  "actualHumanMatches": 0,
+  "promotionEvidence": false,
+  "holdoutUsed": false,
+  "sourceCI": {
+    "conclusion": "success",
+    "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38723491536"
+  },
+  "sourceBrowser": {
+    "conclusion": "in_progress",
+    "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38723491531"
+  },
+  "files": {
+    "packages/rules/scripts/cooperative-check-single.ts": "a72a606971a7c98574b46084c45a94297862c1b8ef7187b3916ee8957b44d3a2",
+    "packages/rules/scripts/cooperative-check-failure-audit.ts": "a233c8f126db078bd5edfc1349992c6334bc3b5e87f775ee452c42e6836bb067",
+    "packages/rules/test/cooperative-check-single.test.ts": "7b0fe3308f68081a59ac2b992101527706e0e6b34a02e93cbcb631aaba5b32f8",
+    "tools/verify-check-failure-audit.py": "b125d63f7551e1a39418d0e75b2a83233bc7ec4da796065f2189d5d4358344e5",
+    "docs/evaluations/cooperation-round-031-replay.json.gz": "b54f15dc921dee9c00379620199c7a12801bf06117f9c2ec60bc24e5410d5455",
+    "docs/evaluations/cooperation-round-031-summary.json": "8fe950588dc3f1ef69657860df15539973cf62fe1b839d78bafe769f6e8da48c",
+    "docs/evaluations/cooperation-round-031-preflight.tar.gz": "ae3cee5fd665353673fc9cf0f1c42228a3564ef85c6b732a3c6610a964f30865"
+  }
+}
