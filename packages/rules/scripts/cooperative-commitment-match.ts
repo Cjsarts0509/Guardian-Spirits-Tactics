@@ -13,7 +13,8 @@ import {smartBotAction as previous} from './baselines/pre-cooperative.js';
 import {opponentClaim,type ClaimStyle} from './claim-opponents.js';
 import {playMatch,DEFAULT_SETTINGS,type Fixture,type Policy,type Settings} from './league-runner.js';
 export type CommitmentVariant='knownCommanderGuardBeforeAlly'|'learnOwnAttackOutcome'|'reportedFirstWarning'|'avoidRepeatedFailedGuess'|'baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair'|'netAttackReserve'|'urgentDispelBeforeAlly'|'directCheckFollowup';
-export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:CommitmentVariant,settings:Settings=DEFAULT_SETTINGS,observe=true,legacyControl=false){
+export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:CommitmentVariant,settings:Settings=DEFAULT_SETTINGS,observe=true,legacyControl=false,identicalSelfplay=false){
+  if(identicalSelfplay&&(fixture.mode!=='primordial'||!['control','knownCommanderGuardBeforeAlly'].includes(variant)||legacyControl))throw Error('동일 보호 정책 평가 조건 오류');
   const options=variant==='knownCommanderGuardBeforeAlly'?{knownCommanderGuardBeforeAlly:true}:variant==='learnOwnAttackOutcome'?{learnOwnAttackOutcome:true}:variant==='reportedFirstWarning'?{reportedFirstWarning:true}:variant==='avoidRepeatedFailedGuess'?{avoidRepeatedFailedGuess:true}:variant==='directCheckFollowup'?{directCheckFollowup:true}:variant==='urgentDispelBeforeAlly'?{urgentDispelBeforeAlly:true}:variant==='netAttackReserve'?{netAttackReserve:true}:variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
   const resources={aliveMs:0,trueNameMs:0,turns:0,trueNameTurns:0,trueNameBonusGross:0,incomingAllyManaGross:0,turnGainGross:0,
     publishes:0,truePublishes:0,falsePublishes:0,publishManaGross:0,publishManaNet:0,reaffirmations:0,reaffirmManaNet:0,allies:0,allyManaNet:0,
@@ -30,7 +31,7 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     removedSkills:string[];originalWouldBreakForecast:boolean;changed:boolean}>=[];
   const deadReports:Array<{player:string;at:number;ownSide:number;target:string;name:string;targetKnown:boolean;senders:Array<{id:string;name:string;side:number;alive:boolean;revealed:string|null;reportAt:number}>;originalAction:Action|null;chosenAction:Action;changed:boolean;nominalMana:number}>=[];
   const actions:Array<{player:string;at:number;action:Action;accepted:boolean;error:string|null;beforeMana:number;afterMana:number;maxMana:number;nominalMana:number;holding:boolean;beforeTrueName:boolean;beforePublished:string|null;manualSameName:boolean;activeDecision:boolean;reaffirmationProof:Proof|null;character:string;side:number;
-    grading:{breakTargetSide:number|null;breakTargetName:string|null;breakKnownName:string|null;allyTargetSide:number|null;report:boolean;reportExpectedName:string|null}}>=[];
+    grading:{breakTargetSide:number|null;breakTargetName:string|null;breakKnownName:string|null;allyTargetSide:number|null;report:boolean;reportExpectedName:string|null};receiptKinds?:string[]}>=[];
   const checkReactions:Array<{player:string;at:number;receivedAt:number;seq:number;target:string;name:string;ownSide:number;knownName:string;knownSide:number;
     inactiveDraw:number;activity:number;originalAction:Action|null;chosenAction:Action;event:GameEvent;actualTargetName:string|null;actualTargetSide:number|null}>=[];
   const rescues:Array<{player:string;at:number;ownSide:number;target:string;knownName:string;knownSide:number;
@@ -196,7 +197,8 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       resources.incomingAllyManaGross+=10*r.allies;resources.turnGainGross+=r.gain;resources.holdingTrueNameTurns+=Number(holding&&r.trueName);
     }seq.set(id,s.seq);}
   };
-  const game=playMatch(fixture,{current,reference},settings,(s,id,a,result)=>{
+  const chat:Policy=(s,id,m,o)=>remember(s,id,botCommunicationAction(s,id,m,{...o,...options}),m);
+  const game=playMatch(fixture,{current,reference:identicalSelfplay?current:reference},settings,(s,id,a,result)=>{
     if(!observe)return;receive(s);if(!ownIds.has(id))return;
     const p=pending.get(id);if(!p||p.action!==a)throw Error('자기 실제 행동의 직전 뷰 누락');pending.delete(id);
     if(result.ok&&a.type==='skill'&&NAME_ATTACKS.includes(a.skill)&&a.target&&a.name){
@@ -229,7 +231,8 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     }
     actions.push({player:id,at:p.view.elapsedMs,action:a,accepted:result.ok,error:result.ok?null:result.error??'알 수 없는 거절',beforeMana:p.view.me.mana,
       afterMana:after.me.mana,maxMana:p.view.me.maxMana,nominalMana:nominal,holding:p.holding,beforeTrueName:p.view.me.trueName,beforePublished:p.view.me.published,
-      manualSameName:p.manualSameName,activeDecision:p.activeDecision,reaffirmationProof:p.proof,character:p.view.me.character,side:p.view.me.side,grading});
+      manualSameName:p.manualSameName,activeDecision:p.activeDecision,reaffirmationProof:p.proof,character:p.view.me.character,side:p.view.me.side,grading,
+      ...(identicalSelfplay?{receiptKinds:result.events.map(e=>e.kind)}:{})});
     if(a.type==='skill'){
       const skill=resources.skills[a.skill]??={accepted:0,rejected:0,nominalMana:0,netManaDelta:0,whileHolding:0};
       if(result.ok){skill.accepted++;skill.nominalMana+=nominal;skill.netManaDelta+=after.me.mana-p.view.me.mana;skill.whileHolding+=Number(p.holding);resources.acceptedSkillMana+=nominal;}
@@ -248,7 +251,7 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
         safety.wrongAllies+=Number(grading.allyTargetSide!==p.view.me.side);
       }
     }
-  },variant==='baseline'?{}:{current:(s,id,m,o)=>remember(s,id,botCommunicationAction(s,id,m,{...o,...options}),m)},s=>{
+  },variant==='baseline'?{}:identicalSelfplay?{current:chat,reference:chat}:{current:chat},s=>{
     if(!observe)return;receive(s);
     for(const id of ownIds){const v=viewFor(s,id);if(!v.me.alive)continue;
       resources.aliveMs+=settings.tickMs;if(v.me.trueName)resources.trueNameMs+=settings.tickMs;
