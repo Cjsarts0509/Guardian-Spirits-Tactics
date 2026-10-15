@@ -17,7 +17,7 @@
   },
   "candidate": "none_final_audit_only",
   "options": {},
-  "checkpoint": "final_audit_reservation_no_new_research",
+  "checkpoint": "all20_primary_datasets_31296_executions_verified_final_report_preparing_no_new_games",
   "checks": {
     "tests": 584,
     "rules": 516,
@@ -29,8 +29,8 @@
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 31296,
-  "decision": "pending_read_only_corpus_and_seed_reverification",
-  "nextAction": "reverify_immutable_corpus_then_close_report_at_noon_and_disable_repeat",
+  "decision": "all_candidates_unadopted_new_options_off_holdout_unused",
+  "nextAction": "finish_noon_closeout_and_disable_repeat_no_new_development",
   "previousCompleted": {
     "round": 21,
     "executions": 1152,
@@ -46,14 +46,16 @@
     "status": "unused_no015_candidate"
   },
   "finalReport": {
-    "round": 11,
-    "status": "completed",
-    "reportedAt": "2026-10-15T07:06:47+09:00",
-    "path": "docs/ai-rounds/ROUND_011_20261015_0704.md",
+    "round": 22,
+    "status": "preparing",
+    "path": "docs/ai-rounds/ROUND_022_20261015_1148.md",
     "newExecutions": 0,
-    "completedExecutions": 10464,
+    "verifiedExecutions": 31296,
+    "terminatedGames": 31294,
+    "unfinishedExecutions": 2,
     "interruptedExecutionsExcluded": 500,
-    "sourceRef": "fb47fe9ab7adf12989a140452554ec588707924d",
+    "unverifiedExecutionUpperBoundExcluded": 6,
+    "sourceRef": "8eb4e065b0fae7ed90d4b503bd6e4226954998c6",
     "sourceCI": "success",
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
@@ -61,5 +63,16 @@
   "task": "022 final immutable-corpus and seed audit only; no new games or candidate development; stop at noon",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 6,
-  "unfinishedExecutions": 0
+  "unfinishedExecutions": 0,
+  "corpusAudit": {
+    "allPassed": true,
+    "datasets": 20,
+    "verifiedExecutions": 31296,
+    "terminatedGames": 31294,
+    "unfinishedExecutions": 2,
+    "seedRangesDisjoint": true,
+    "reservedUnusedIntrusions": 0,
+    "path": "docs/evaluations/cooperation-round-022-corpus-audit.json"
+  },
+  "cumulativeUnfinishedExecutions": 2
 }
