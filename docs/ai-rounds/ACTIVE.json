@@ -1,39 +1,34 @@
 {
-  "round": 16,
-  "status": "completed",
-  "completedAt": "2026-10-15T09:33:00+09:00",
-  "owner": "continuous-round-016-natural-claim-commitment",
-  "startedAt": "2026-10-15T09:04:00+09:00",
-  "leaseUntil": "2026-10-15T09:45:00+09:00",
+  "round": 17,
+  "status": "in_progress",
+  "owner": "continuous-round-017-idle-manual-true-claim-mana",
+  "startedAt": "2026-10-15T09:37:00+09:00",
+  "leaseUntil": "2026-10-15T10:15:00+09:00",
   "continuation": "finish_commit_then_start_next_immediately_until_deadline",
   "deadline": "2026-10-15T12:00:00+09:00",
   "noNewExperimentAfter": "2026-10-15T11:50:00+09:00",
   "developmentSeeds": {
-    "start": 130000,
+    "start": 131000,
     "count": 8,
-    "status": "completed_1152_development_executions_no_holdout"
+    "status": "reserved_unused_new_development"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "naturalTrueClaimUntilNextOwnTurn",
+  "candidate": "idleExistingManualTrueClaimMana",
   "options": {
-    "claimTurnCommitment": true
+    "idleClaimMana": true
   },
-  "checkpoint": "1152_complete_source_actions_journal_verified_resume_zero_new_development_gate_failed",
-  "checks": {"tests": 538, "rulesTests": 470, "serverTests": 68, "typecheck": "passed", "serverBuild": "passed", "clientWorkerBuild": "passed", "executionsBeforeSourceFreeze": 0, "sourceCI": "success", "sourceBrowser": "success"},
-  "executions": 1152,
+  "checkpoint": "reserved_before_new_code_or_experiments",
+  "checks": {"previousRoundTests": 538, "newChecks": "not_run"},
+  "executions": 0,
   "targetExecutions": 1152,
   "cumulativeExecutions": 17088,
-  "decision": "rejected_development_control67.71_candidate66.93_baseline71.88_default_off_holdout_unused",
-  "nextAction": "immediately_reserve_round017_idle_existing_manual_true_claim_mana_new131000_development",
-  "nextRound": 17,
-  "nextDevelopmentSeeds": {"start": 131000, "count": 8, "status": "planned_unused_reserve_before_new_work"},
-  "sourceRef": "508ed0493032ea4e5f3b657864a4eedbe52d9ee4",
-  "checkpointRaw": "docs/evaluations/cooperation-round-016-checkpoint-576.json.gz",
-  "previousCompleted": {"round": 15, "executions": 3072, "decision": "all_eight_cells_keep_no_candidate", "sourceRef": "e527d0b4c282a7046b7542f16c5ea5d6c8acca82", "record": "docs/ai-rounds/ROUND_015_20261015_0828.md"},
+  "decision": "pending_new_development_no_promotion",
+  "nextAction": "implement_default_off_idle_manual_true_claim_only_then_regression_type_build_freeze_fresh131000",
+  "previousCompleted": {"round": 16, "executions": 1152, "decision": "rejected_development_default_off_holdout_unused", "sourceRef": "508ed0493032ea4e5f3b657864a4eedbe52d9ee4", "record": "docs/ai-rounds/ROUND_016_20261015_0904.md"},
   "unusedPriorCandidateDevelopment": {"start": 129000, "count": 8, "status": "unused_no015_candidate"},
   "finalReport": {
     "round": 11,
@@ -48,6 +43,6 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "016완료: 130000–130007/1152실행, control67.71→후보66.93/main71.88%로미채택·기본OFF·독립121000미사용. 538테스트/타입/빌드/고정CI·브라우저성공. 다음017은대기때기존수동진명재공표의+5순마나와향후쿨다운비용을새131000개발로검증·12시까지연속진행.",
+  "task": "017예약: 실제활동에서원래주행동null일때만이미수동공표한자기진명재공표로+5순마나. 자동/가명/변장/추가노출제외·다른행동유지·미래40초쿨다운비용포함. 새131000–131007/1152개발예정·016과조합안함·lease10:15·12시까지연속진행.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }
