@@ -1,6 +1,7 @@
 {
   "round": 17,
-  "status": "in_progress",
+  "status": "completed",
+  "completedAt": "2026-10-15T09:59:00+09:00",
   "owner": "continuous-round-017-idle-manual-true-claim-mana",
   "startedAt": "2026-10-15T09:37:00+09:00",
   "leaseUntil": "2026-10-15T10:15:00+09:00",
@@ -10,7 +11,7 @@
   "developmentSeeds": {
     "start": 131000,
     "count": 8,
-    "status": "development_in_progress_576_of_1152"
+    "status": "completed_development_not_reusable_for_promotion"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,14 +22,14 @@
   "options": {
     "idleClaimMana": true
   },
-  "checkpoint": "576_partial_verified_source_frozen_complete_false",
+  "checkpoint": "1152_complete_source_journal_resume_new0_verified",
   "sourceRef": "efe45fa7a7d10f661414145984fe2f9d645011b0",
   "checks": {"tests": 549, "rules": 481, "server": 68, "typecheck": "passed", "serverBuild": "passed", "clientWorkerBuild": "passed", "previous016SourceRefVerification": "passed_byte_identical_summary"},
-  "executions": 576,
+  "executions": 1152,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 17664,
-  "decision": "pending_new_development_no_promotion",
-  "nextAction": "freeze_source_then_fresh131000_development_in_96_game_batches",
+  "cumulativeExecutions": 18240,
+  "decision": "rejected_development_main_not_recovered_default_off_holdout_unused",
+  "nextAction": "immediate018_reserve_fresh132000_for_underfunded_near_ready_attack_mana_hypothesis",
   "previousCompleted": {"round": 16, "executions": 1152, "decision": "rejected_development_default_off_holdout_unused", "sourceRef": "508ed0493032ea4e5f3b657864a4eedbe52d9ee4", "record": "docs/ai-rounds/ROUND_016_20261015_0904.md"},
   "unusedPriorCandidateDevelopment": {"start": 129000, "count": 8, "status": "unused_no015_candidate"},
   "finalReport": {
@@ -44,6 +45,6 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "017예약: 실제활동에서원래주행동null일때만이미수동공표한자기진명재공표로+5순마나. 자동/가명/변장/추가노출제외·다른행동유지·미래40초쿨다운비용포함. 새131000–131007/1152개발예정·016과조합안함·lease10:15·12시까지연속진행.",
+  "task": "017완료1152개발·control67.19→68.23/main69.79%로미채택·재공표4973/실수령24865·안전0/미종료0·549검사/타입/빌드/고정CI브라우저성공.기본OFF/121000미사용·즉시018예약후진행.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }

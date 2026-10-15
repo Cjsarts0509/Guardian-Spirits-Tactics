@@ -1,7 +1,8 @@
 """Describe actual action paths; no candidate or mode selection."""
 import collections, gzip, hashlib, json, pathlib, sys
 p=pathlib.Path(sys.argv[1]);raw=p.read_bytes();d=json.loads(gzip.decompress(raw) if p.suffix=='.gz' else raw)
-assert d['complete'] and d['kind']=='claim-turn-commitment-comparison'
+assert d['complete'] and d['kind'] in ['claim-turn-commitment-comparison','idle-manual-true-claim-mana-comparison']
+candidate=d['variants'][2]
 records={}
 for x in d['records']:
     f=x['result']['game']['fixture'];k=(x['mode'],x['style'],f['seed'],f['reversed'],f['currentSide']);records.setdefault(k,{})[x['variant']]=x['result']
@@ -9,7 +10,7 @@ def score(r):return .5 if r['game']['winnerPolicy'] is None else float(r['game']
 def actions(r):return [{k:t[k] for k in ['player','at','action','accepted','error','beforeMana','afterMana','character']} for t in r['actions']]
 groups={}
 for key,variants in records.items():
-    a,b=variants['control'],variants['commitment'];aa,bb=actions(a),actions(b)
+    a,b=variants['control'],variants[candidate];aa,bb=actions(a),actions(b)
     for name in ['overall',key[0]]:
         g=groups.setdefault(name,collections.Counter());g['pairs']+=1;g['better' if score(b)>score(a) else 'worse' if score(b)<score(a) else 'sameWinner']+=1
         g['exactActionPaths']+=aa==bb;g['exactGameResults']+=a['game']==b['game']
