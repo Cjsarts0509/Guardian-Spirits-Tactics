@@ -1,6 +1,6 @@
 {
   "round": 28,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round028-direct-private-check-attack-followup",
   "startedAt": "2026-10-15T18:46:02.214467+09:00",
   "leaseUntil": "2026-10-15T19:41:02.214467+09:00",
@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 141000,
     "count": 8,
-    "status": "reserved_unused"
+    "status": "used_completed_1152"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,7 +21,7 @@
   "options": {
     "directCheckFollowup": true
   },
-  "checkpoint": "development_partial576_not_final_no_holdout",
+  "checkpoint": "all1152_development_verified_rejected_no_holdout",
   "checks": {
     "tests": 615,
     "rules": 540,
@@ -36,11 +36,11 @@
     "existing026Resume": "new0_same_snapshot_journal_publication_full_summary_restored",
     "candidateSmoke": "final144_synthetic_and_observer1_excluded"
   },
-  "executions": 576,
+  "executions": 1152,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 34752,
-  "decision": "pending_development",
-  "nextAction": "028 private-confirmation single bounded combat followup hypothesis; fresh141000 development reservation before changes",
+  "cumulativeExecutions": 35904,
+  "decision": "development_rejected_65.885_vs_control65.104_main68.229_option_OFF",
+  "nextAction": "029 completed-development first-divergence audit only, no new games or retuning",
   "previousCompleted": {
     "round": 27,
     "completionRef": "d5dfb843ba3dc7fa389854baaebe9b3bdbcc8dbe",
@@ -52,24 +52,24 @@
     "count": 8,
     "status": "unused_no015_candidate"
   },
-  "task": "User1227 resumed: storage repair, evidence-based win improvement, actual human validation readiness",
+  "task": "User1818 resumed continuous finite AI rounds",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 0,
   "unfinishedExecutions": 0,
   "corpusAudit": {
-    "datasets": 23,
-    "verifiedExecutions": 34752,
-    "terminatedGames": 34750,
+    "datasets": 24,
+    "verifiedExecutions": 35904,
+    "terminatedGames": 35902,
     "unfinishedExecutions": 2,
     "seedRangesDisjoint": true,
     "reservedUnusedIntrusions": 0,
-    "path": "docs/evaluations/cooperation-round-026-cumulative-audit.json"
+    "path": "docs/evaluations/cooperation-round-028-cumulative-audit.json"
   },
   "cumulativeUnfinishedExecutions": 2,
   "policySourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
-  "repeatDisabled": true,
+  "repeatDisabled": false,
   "sourceCI": "success",
-  "sourceBrowserCheck": "in_progress",
+  "sourceBrowserCheck": "success",
   "humanValidation": {
     "instrumentation": "implemented",
     "factualReplay": "tested_synthetic_only",
@@ -77,16 +77,16 @@
     "humanWinRate": null
   },
   "historicalUnverifiedExecutionUpperBoundExcluded": 6,
-  "validatedCodeRef": "989fe11c47dade1342864c319c9d8d656266d46b",
+  "validatedCodeRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
   "postflightCI": {
-    "sourceRef": "8fb87f5cf66fac36f22df9e012cb608f42ceb6d8",
+    "sourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
     "CI": {
       "conclusion": "success",
-      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38682635168"
+      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38716201115"
     },
     "browser": {
       "conclusion": "success",
-      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38682635060"
+      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38716201157"
     }
   },
   "conditionalDevelopmentSeeds": {
@@ -94,5 +94,6 @@
     "count": 8,
     "status": "reserved_unused"
   },
-  "checkpointAt": "2026-10-15T18:56:13.988110+09:00"
+  "checkpointAt": "2026-10-15T18:56:13.988110+09:00",
+  "completedAt": "2026-10-15T19:05:25.535366+09:00"
 }
