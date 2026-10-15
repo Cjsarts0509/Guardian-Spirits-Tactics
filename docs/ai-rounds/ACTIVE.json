@@ -1,14 +1,14 @@
 {
   "round": 40,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round040-guard-realized-outcomes",
   "startedAt": "2026-10-15T23:31:00+09:00",
-  "leaseUntil": "2026-10-16T00:10:00+09:00",
+  "leaseUntil": null,
   "continuation": "user_20261015_2309_start",
   "task": "039 전320경기 결정론 재생: 실제 보호 흡수·보호자 생존·시점 분리 진단",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
-  "evaluationSourceRef": null,
+  "evaluationSourceRef": "a615b217f06a464dd9ffbd379cabb2a3847acf4b",
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 46208,
@@ -40,19 +40,65 @@
     "sourceRef": "6b4355d7d7c942bb4094ac7a9065c0193596267b",
     "executions": 320
   },
-  "checkpoint": "round039_complete_round040_preregistered_before_replay",
-  "nextAction": "039 모든320경기를 고정 정책으로 재생하고 경기/전체 실제행동 일치를 확인",
+  "checkpoint": "round040_completed_all320_exact_replays_absorption_separated",
+  "nextAction": "041: own-view confirmed enemy commander knowledge -> legally available attack -> actual target choice; compare factions/player counts on039 existing320; no new policy/skill/seed yet",
   "record": "docs/ai-rounds/ROUND_040_20261015_2331.md",
   "deployment": false,
   "repeatDisabled": false,
   "replayTarget": 320,
-  "replayedGames": 0,
+  "replayedGames": 320,
   "checks": {
-    "tests": 657,
+    "tests": 658,
+    "rules": 583,
+    "server": 75,
     "typecheck": "4_packages_passed",
-    "build": "server_client_worker_passed",
-    "semanticTamper": "5_rejected",
-    "round039CI": "success",
-    "round039Browser": "success"
-  }
+    "serverBuild": "passed",
+    "clientWorkerBuild": "passed",
+    "observerInvariant": "full_game_unchanged_and_all320_original_action_streams_match",
+    "semanticTamper": "3_rejected",
+    "source39CI": "passed",
+    "source39Browser": "passed"
+  },
+  "completedAt": "2026-10-15 14:47:23 UTC",
+  "decision": "guard_function_correct_but_faction_gap_not_reduced_default_off",
+  "postflightCI": {
+    "sourceRef": "a615b217f06a464dd9ffbd379cabb2a3847acf4b",
+    "checks": [
+      {
+        "name": "CI",
+        "conclusion": "success",
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38753954791"
+      },
+      {
+        "name": "Card UI browser check",
+        "conclusion": "success",
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38753954854"
+      }
+    ]
+  },
+  "corpusAudit": {
+    "path": "docs/evaluations/cooperation-round-039-cumulative-audit.json",
+    "primaryDatasets": 32,
+    "verifiedExecutions": 46208,
+    "terminated": 46206,
+    "unfinished": 2,
+    "seedRangesDisjoint": true
+  },
+  "functionalDecision039": {
+    "eligible": 40,
+    "success": 40,
+    "wrong": 0,
+    "rejected": 0
+  },
+  "realizedGuard040": {
+    "controlConsumeAbsorbed": 37,
+    "candidateConsumeAbsorbed": 38,
+    "controlKumarinAbsorbed": 0,
+    "candidateKumarinAbsorbed": 0,
+    "pairedWinnerChanges": 0
+  },
+  "humanValidation": {
+    "actualHumanMatches": 0
+  },
+  "completedAtFormat": "UTC"
 }
