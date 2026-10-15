@@ -1,6 +1,6 @@
 {
   "round": 21,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "continuous-round-021-dead-confirmed-ally-report-verification",
   "startedAt": "2026-10-15T11:35:00+09:00",
   "leaseUntil": "2026-10-15T11:50:00+09:00",
@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 137000,
     "count": 8,
-    "status": "reserved_unused"
+    "status": "completed_development_rejected"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,7 +21,7 @@
   "options": {
     "verifyDeadAllyReports": true
   },
-  "checkpoint": "verified_source_freeze_before_research_zero",
+  "checkpoint": "1152_complete_verified_new0_resume_verified_no_storage_mismatch",
   "checks": {
     "tests": 584,
     "rules": 516,
@@ -30,11 +30,11 @@
     "serverBuild": "passed",
     "clientWorkerBuild": "passed"
   },
-  "executions": 0,
+  "executions": 1152,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 30144,
-  "decision": "pending_new_development",
-  "nextAction": "verify_and_freeze_one_default_off_safe_report_candidate",
+  "cumulativeExecutions": 31296,
+  "decision": "rejected_development_below_main_default_off_holdout_unused",
+  "nextAction": "commit_then_immediate_final_corpus_and_seed_audit_no_new_games",
   "previousCompleted": {
     "round": 20,
     "executions": 4608,
@@ -65,5 +65,7 @@
   "task": "021: safe verification of actual reports from own-view publicly dead confirmed allies only; no facts or attack promotion",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 6,
-  "unfinishedExecutions": 2
+  "unfinishedExecutions": 0,
+  "completedAt": "2026-10-15T11:46:00+09:00",
+  "sourceRef": "8eb4e065b0fae7ed90d4b503bd6e4226954998c6"
 }
