@@ -1,127 +1,89 @@
 {
-  "round": 36,
-  "status": "in_progress",
-  "owner": "round036-count-stratified-identical-policy-balance",
-  "startedAt": "2026-10-15T22:08:35.353283+09:00",
-  "leaseUntil": "2026-10-15T23:08:35.353283+09:00",
-  "continuation": "user_2135_resume_behavior_quality_first",
-  "deadline": null,
-  "noNewExperimentAfter": null,
+  "round": 37,
+  "status": "completed",
+  "owner": "round037-postchoice-commander-guard-audit",
+  "startedAt": "2026-10-15T22:21:20.922808+09:00",
+  "leaseUntil": null,
+  "task": "태초 12인 지휘관 보호 기회의 관측 전용 재생",
+  "continuation": "user_20261015_2135_resume_behavior_quality_first",
+  "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
+  "evaluationSourceRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98",
+  "policySourceRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98",
+  "executions": 0,
+  "targetExecutions": 0,
+  "replayTarget": 32,
+  "replayedGames": 32,
+  "cumulativeExecutions": 44736,
+  "cumulativeTerminatedExecutions": 44734,
+  "cumulativeUnfinishedExecutions": 2,
+  "previousCompleted": {
+    "round": 36,
+    "record": "docs/ai-rounds/ROUND_036_20261015_2210.md",
+    "executions": 1920,
+    "sourceRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98"
+  },
   "developmentSeeds": {
     "start": 147000,
     "count": 80,
-    "status": "reserved_unused_selfplay_diagnostic"
+    "status": "used_round036_replay_only"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "same_policy_balance_diagnostic",
-  "options": {},
-  "checkpoint": "round035_complete_036_reserved_before_new_games",
-  "checks": {
-    "tests": 645,
-    "rules": 570,
-    "server": 75,
-    "typecheck": "4_packages_passed",
-    "serverBuild": "passed",
-    "clientWorkerBuild": "passed",
-    "collectorStorageRegression": "passed_432_unit_games_excluded",
-    "generationSupervisor": "4_passed",
-    "postflightHumanAudit": "passed_7_tests_no_actual_humans",
-    "observerInvariant": "passed_2_synthetic_games_excluded",
-    "existing026Resume": "new0_same_snapshot_journal_publication_full_summary_restored",
-    "candidateSmoke": "144_synthetic_11_actual_reported_attacks_independently_verified_excluded",
-    "firstDivergenceAudit": "passed_384_pairs_294_prefixes_90_noninterventions",
-    "singleCheckSmoke": "96_synthetic_7_interventions_excluded",
-    "ownTraceObserver": "callback_mutation_and_full_result_invariance_passed",
-    "reportedAttackTamper": "3_rehashed_level2_sender_directFacts_rejected",
-    "ownAttackRegression": "10_passed",
-    "ownAttackSmoke": "144_synthetic_excluded_7_of_7_eligible_remembered_wrong0"
-  },
-  "executions": 0,
-  "targetExecutions": 1920,
-  "cumulativeExecutions": 42816,
-  "decision": "pending_same_policy_balance_diagnostic",
-  "nextAction": "Run 1920 fixed selfplay games with equal 8-12 player seed counts; no policy/skill change",
-  "previousCompleted": {
-    "round": 35,
-    "completionRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98",
-    "record": "docs/ai-rounds/ROUND_035_20261015_2200.md",
-    "cumulativeExecutions": 42816
-  },
-  "unusedPriorCandidateDevelopment": {
-    "start": 129000,
-    "count": 8,
-    "status": "unused_no015_candidate"
-  },
-  "task": "User2135 resume: behavior quality and separate faction balance",
-  "adoption": "기능 정확성/정보 은닉/행동 품질과 고정 상대 성능·동일 정책 진영 밸런스를 별도 판정. 승률만으로 기능 폐기/운영 승격하지 않음. 새 자료 사전계획, 과거 최종 표본 재튜닝 금지.",
-  "previousRoundUnverifiedExecutionUpperBoundExcluded": 0,
-  "unfinishedExecutions": 0,
-  "corpusAudit": {
-    "datasets": 27,
-    "verifiedExecutions": 41280,
-    "terminatedGames": 41278,
-    "unfinishedExecutions": 2,
-    "seedRangesDisjoint": true,
-    "reservedUnusedIntrusions": 0,
-    "path": "docs/evaluations/cooperation-round-033-cumulative-audit.json"
-  },
-  "cumulativeUnfinishedExecutions": 2,
-  "policySourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
-  "repeatDisabled": false,
-  "sourceCI": "success",
-  "sourceBrowserCheck": "success",
-  "humanValidation": {
-    "instrumentation": "implemented",
-    "factualReplay": "tested_synthetic_only",
-    "actualHumanMatches": 0,
-    "humanWinRate": null
-  },
-  "historicalUnverifiedExecutionUpperBoundExcluded": 6,
-  "validatedCodeRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
-  "postflightCI": {
-    "sourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
-    "CI": {
-      "conclusion": "success",
-      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38727854874"
-    },
-    "browser": {
-      "conclusion": "success",
-      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38727855038"
-    }
-  },
   "conditionalDevelopmentSeeds": {
     "start": 148000,
     "count": 80,
     "status": "reserved_unused"
   },
-  "evaluationSourceRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98",
-  "corePolicySourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
-  "checkpointAt": "2026-10-15T20:34:33.516442+09:00",
-  "previousDiagnosticReplay": {
-    "sourceRound": 30,
-    "sourceRef": "7a8eb17df8692a4fc87e59c1810b0d9425d9a0ef",
-    "sourceDevelopmentStart": 142000,
-    "sourceDevelopmentCount": 32,
-    "maximumReplayGames": 23,
-    "completedReplayGames": 23,
-    "researchExecutions": 0
+  "candidate": "no_policy_change_observer_only",
+  "options": {
+    "learnOwnAttackOutcome": true
   },
-  "candidateImplemented": false,
-  "optionsStatus": "three_fixed_profiles_no_new_policy",
-  "unitReproductions": {
-    "count": 1,
-    "researchExecutions": 0,
-    "path": "docs/evaluations/cooperation-round-034-witness.json",
-    "SHA256": "8b694eeb1a5fe724e270941a4026389b0b840832521a2bdc4bda4b566d41734b",
-    "sourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
-    "capturedAt": "2026-10-15T20:51:17.426026+09:00",
-    "implementation": "not_started"
+  "optionsStatus": "replay_original_policy_option_default_off_in_product",
+  "checkpoint": "round037_complete_guard_deferral_observed_no_new_policy",
+  "nextAction": "Reproduce seed147004 reversed guard deferral with default control; implement a single default-OFF knownCommanderGuardBeforeAlly only if reproduced, test/freeze then pre-register fresh148000 evaluation",
+  "decision": "guard_before_new_ally_is_next_behavior_candidate_not_yet_implemented",
+  "checks": {
+    "tests": 646,
+    "rules": 571,
+    "server": 75,
+    "typecheck": "4_packages_passed",
+    "serverBuild": "passed",
+    "clientWorkerBuild": "passed",
+    "ownAttackRegression": "10_passed",
+    "selfplayRelabelRegression": "1_passed",
+    "guardObserver": "32_entire_records_match_live_engine_memory_unchanged"
   },
-  "resumedAt": "2026-10-15T21:37:53.929396+09:00",
-  "evaluationProtocol": "behavior_quality_v1",
-  "functionalDecision034": "passed_62_of_62_eligible_wrong0_preserved_defaultoff"
+  "postflightCI": {
+    "sourceRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98",
+    "CI": {
+      "conclusion": "success",
+      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38739713487"
+    },
+    "browser": {
+      "conclusion": "success",
+      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38739713485"
+    }
+  },
+  "corpusAudit": {
+    "path": "docs/evaluations/cooperation-round-036-cumulative-audit.json",
+    "primaryDatasets": 30,
+    "verifiedExecutions": 44736,
+    "terminated": 44734,
+    "unfinished": 2,
+    "seedRangesDisjoint": true,
+    "seedLedger": "docs/evaluations/cooperation-round-037-seed-ledger.json"
+  },
+  "humanValidation": {
+    "actualHumanMatches": 0
+  },
+  "functionalDecision034": "passed_62_of_62_eligible_wrong0_preserved_defaultoff",
+  "repeatDisabled": false,
+  "deployment": false,
+  "completedAt": "2026-10-15T22:25:14.169778+09:00",
+  "record": "docs/ai-rounds/ROUND_037_20261015_2220.md",
+  "nextCandidate": "knownCommanderGuardBeforeAlly",
+  "candidateImplemented": false
 }
