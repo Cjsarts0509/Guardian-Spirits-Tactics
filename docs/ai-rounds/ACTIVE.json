@@ -1,11 +1,11 @@
 {
-  "round": 41,
+  "round": 42,
   "status": "in_progress",
-  "owner": "round041-commander-attack-opportunities",
-  "startedAt": "2026-10-15T23:59:57.811793+09:00",
-  "leaseUntil": "2026-10-16T01:04:57.811793+09:00",
+  "owner": "round042-commander-report-delivery",
+  "startedAt": "2026-10-16T00:12:08.561115+09:00",
+  "leaseUntil": "2026-10-16T01:02:08.561115+09:00",
   "continuation": "user_20261015_2354_go",
-  "task": "039 전320경기 자기정보 지휘관 인지·명명 공격 기회·실제 대상 선택 진단",
+  "task": "039 실제 지휘관 보고 전송과041 수신 기억·후속 활용 연결",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
   "evaluationSourceRef": null,
@@ -35,17 +35,18 @@
     "status": "unused"
   },
   "previousCompleted": {
-    "round": 40,
-    "record": "docs/ai-rounds/ROUND_040_20261015_2331.md",
-    "sourceRef": "a615b217f06a464dd9ffbd379cabb2a3847acf4b",
-    "executions": 0
+    "round": 41,
+    "record": "docs/ai-rounds/ROUND_041_20261015_2354.md",
+    "sourceRef": "12efbd1b51933306301cd51ef87297f99f796952",
+    "executions": 0,
+    "replayedGames": 320
   },
-  "checkpoint": "preregistered_no_policy_change_no_new_seed",
-  "nextAction": "Implement own-view-only diagnostic and regression, freeze source, replay all039320; no policy/skill change",
-  "record": "docs/ai-rounds/ROUND_041_20261015_2354.md",
+  "checkpoint": "round041_complete_round042_preregistered",
+  "nextAction": "Join all original accepted commander whispers to own received report observations; count recipients, trust, own attack resources, later knowledge/action; no new policy/seed",
+  "record": "docs/ai-rounds/ROUND_042_20261016_0010.md",
   "deployment": false,
   "repeatDisabled": false,
-  "replayTarget": 320,
+  "replayTarget": 0,
   "replayedGames": 0,
   "corpusAudit": {
     "path": "docs/evaluations/cooperation-round-039-cumulative-audit.json",
@@ -70,5 +71,30 @@
   },
   "humanValidation": {
     "actualHumanMatches": 0
+  },
+  "checks": {
+    "tests": 665,
+    "rules": 590,
+    "server": 75,
+    "typecheck": "4_packages_passed",
+    "serverBuild": "passed",
+    "clientWorkerBuild": "passed",
+    "observerInvariant": "all320_original_games_and_actual_action_receipts_match",
+    "semanticTamper": "4_rejected"
+  },
+  "postflightCI": {
+    "sourceRef": "12efbd1b51933306301cd51ef87297f99f796952",
+    "checks": [
+      {
+        "name": "CI",
+        "conclusion": "success",
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38757456600"
+      },
+      {
+        "name": "Card UI browser check",
+        "conclusion": "success",
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38757457846"
+      }
+    ]
   }
 }
