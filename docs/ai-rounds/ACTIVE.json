@@ -1,6 +1,7 @@
 {
   "round": 16,
-  "status": "in_progress",
+  "status": "completed",
+  "completedAt": "2026-10-15T09:33:00+09:00",
   "owner": "continuous-round-016-natural-claim-commitment",
   "startedAt": "2026-10-15T09:04:00+09:00",
   "leaseUntil": "2026-10-15T09:45:00+09:00",
@@ -10,7 +11,7 @@
   "developmentSeeds": {
     "start": 130000,
     "count": 8,
-    "status": "in_progress_576_of_1152_saved"
+    "status": "completed_1152_development_executions_no_holdout"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,13 +22,15 @@
   "options": {
     "claimTurnCommitment": true
   },
-  "checkpoint": "576_of_1152_saved_and_source_journal_actions_independently_verified_partial",
-  "checks": {"tests": 538, "rulesTests": 470, "serverTests": 68, "typecheck": "passed", "serverBuild": "passed", "clientWorkerBuild": "passed", "newDevelopmentExecutions": 0},
-  "executions": 576,
+  "checkpoint": "1152_complete_source_actions_journal_verified_resume_zero_new_development_gate_failed",
+  "checks": {"tests": 538, "rulesTests": 470, "serverTests": 68, "typecheck": "passed", "serverBuild": "passed", "clientWorkerBuild": "passed", "executionsBeforeSourceFreeze": 0, "sourceCI": "success", "sourceBrowser": "success"},
+  "executions": 1152,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 16512,
-  "decision": "pending_new_development_no_promotion",
-  "nextAction": "resume_remaining_six_96_game_batches_then_full_gate_evaluation",
+  "cumulativeExecutions": 17088,
+  "decision": "rejected_development_control67.71_candidate66.93_baseline71.88_default_off_holdout_unused",
+  "nextAction": "immediately_reserve_round017_idle_existing_manual_true_claim_mana_new131000_development",
+  "nextRound": 17,
+  "nextDevelopmentSeeds": {"start": 131000, "count": 8, "status": "planned_unused_reserve_before_new_work"},
   "sourceRef": "508ed0493032ea4e5f3b657864a4eedbe52d9ee4",
   "checkpointRaw": "docs/evaluations/cooperation-round-016-checkpoint-576.json.gz",
   "previousCompleted": {"round": 15, "executions": 3072, "decision": "all_eight_cells_keep_no_candidate", "sourceRef": "e527d0b4c282a7046b7542f16c5ea5d6c8acca82", "record": "docs/ai-rounds/ROUND_015_20261015_0828.md"},
@@ -45,6 +48,6 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "016예약: 실제 자기 수신의 수동 진명 공표 성공 뒤에만 다음 자기 턴까지 진명 유지·비변장·전투/동맹/보고 계속. 새130000–130007의main/control/commitment 1152개발실행 계획, 기존8셀모델사후선택없음. lease09:45·12시까지연속진행.",
+  "task": "016완료: 130000–130007/1152실행, control67.71→후보66.93/main71.88%로미채택·기본OFF·독립121000미사용. 538테스트/타입/빌드/고정CI·브라우저성공. 다음017은대기때기존수동진명재공표의+5순마나와향후쿨다운비용을새131000개발로검증·12시까지연속진행.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }
