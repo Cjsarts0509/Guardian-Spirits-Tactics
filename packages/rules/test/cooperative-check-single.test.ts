@@ -37,4 +37,16 @@ describe('공개p1의 단일 직접 확인 후속 대응 진단',()=>{
  it('대상이 없는 공개ID에서는 개입/비개입 경기가 완전히 같다',()=>{
   const f={mode:'troll' as const,seed:25,count:8,reversed:false,currentSide:1 as const};expect(playCheckSingle(f,'truthful',true,DEFAULT_SETTINGS,'not-a-player')).toEqual(playCheckSingle(f,'truthful',false,DEFAULT_SETTINGS,'not-a-player'));
  });
+ it('공격 진단 콜백에는 자기 정보 복제만 주며 콜백의 변경이 원래 경기/기억/RNG에 영향을 주지 않는다',()=>{
+  const f={mode:'civil_war' as const,seed:25,count:8,reversed:false,currentSide:1 as const},normal=playCheckSingle(f,'truthful',true);
+  let count=0;
+  const traced=playCheckSingle(f,'truthful',true,DEFAULT_SETTINGS,'p1',true,e=>{
+   count++;expect(e.privateEvidence.every(x=>x.vis.to==='players'&&x.vis.ids.includes('p1'))).toBe(true);
+   expect(e.ownResultEvents.every(x=>x.vis.to==='all'||x.vis.to==='players'&&x.vis.ids.includes('p1'))).toBe(true);
+   expect(e.publicProtection.every(x=>x.vis.to==='all')).toBe(true);
+   e.view.me.mana=0;e.known.length=0;e.candidates.length=0;e.privateEvidence.length=0;
+   if(e.action.type==='skill')e.action.target='not-a-player';
+  });
+  expect(count).toBeGreaterThan(0);expect(traced).toEqual(normal);
+ });
 });
