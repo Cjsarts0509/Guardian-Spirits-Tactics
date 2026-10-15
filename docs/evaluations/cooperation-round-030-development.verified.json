@@ -1,0 +1,143 @@
+{
+  "format": 1,
+  "phase": "development",
+  "complete": true,
+  "executions": 3072,
+  "fingerprint": "a91f4ab8ee9f22355b65a336201cc9eeef4e9c30815dd3b053202d996860bc4e",
+  "start": 142000,
+  "seeds": 32,
+  "promotionEvidence": false,
+  "developmentGatePassed": false,
+  "holdoutGatePassed": false,
+  "diagnosticGatePassed": false,
+  "contrasts": {
+    "single-control": {
+      "difference": 0.001953125,
+      "seedBootstrap95": [
+        -0.0026041666666666665,
+        0.005859375
+      ],
+      "seedBootstrap99": [
+        -0.00390625,
+        0.007161458333333333
+      ]
+    }
+  },
+  "modes": {
+    "civil_war": {
+      "control": {
+        "games": 384,
+        "scoreSum": 262,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "safety": {
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "wrongSingleAttack": 0
+        },
+        "score": 0.6822916666666666
+      },
+      "single": {
+        "games": 384,
+        "scoreSum": 261,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "safety": {
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "wrongSingleAttack": 0
+        },
+        "score": 0.6796875
+      }
+    },
+    "primordial": {
+      "control": {
+        "games": 384,
+        "scoreSum": 268,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "safety": {
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "wrongSingleAttack": 0
+        },
+        "score": 0.6979166666666666
+      },
+      "single": {
+        "games": 384,
+        "scoreSum": 268,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "safety": {
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "wrongSingleAttack": 0
+        },
+        "score": 0.6979166666666666
+      }
+    },
+    "lidellut": {
+      "control": {
+        "games": 384,
+        "scoreSum": 252,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "safety": {
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "wrongSingleAttack": 0
+        },
+        "score": 0.65625
+      },
+      "single": {
+        "games": 384,
+        "scoreSum": 255,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "safety": {
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "wrongSingleAttack": 0
+        },
+        "score": 0.6640625
+      }
+    },
+    "troll": {
+      "control": {
+        "games": 384,
+        "scoreSum": 235,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "safety": {
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "wrongSingleAttack": 0
+        },
+        "score": 0.6119791666666666
+      },
+      "single": {
+        "games": 384,
+        "scoreSum": 236,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "safety": {
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "wrongSingleAttack": 0
+        },
+        "score": 0.6145833333333334
+      }
+    }
+  },
+  "intervenedPairs": 266,
+  "nonIntervenedEqualPairs": 1270,
+  "pairs": 1536,
+  "intervenedSeeds": 28,
+  "intervenedOutcomes": {
+    "same": 257,
+    "worse": 3,
+    "better": 6
+  },
+  "journalVerified": true,
+  "publicationVerified": true
+}

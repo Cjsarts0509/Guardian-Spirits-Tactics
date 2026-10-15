@@ -1,6 +1,6 @@
 {
   "round": 30,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round030-public-p1-single-check-attack-diagnostic",
   "startedAt": "2026-10-15T19:17:46.502523+09:00",
   "leaseUntil": "2026-10-15T20:02:46.502523+09:00",
@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 142000,
     "count": 32,
-    "status": "in_progress_2304_of3072"
+    "status": "used_completed_development_diagnostic_not_holdout"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -19,7 +19,7 @@
   },
   "candidate": "none_single_intervention_diagnostic",
   "options": {},
-  "checkpoint": "partial_2304_verified_of3072_not_complete",
+  "checkpoint": "complete_3072_archived_independently_verified_new0_resume",
   "checks": {
     "tests": 622,
     "rules": 547,
@@ -36,11 +36,11 @@
     "firstDivergenceAudit": "passed_384_pairs_294_prefixes_90_noninterventions",
     "singleCheckSmoke": "96_synthetic_7_interventions_excluded"
   },
-  "executions": 2304,
+  "executions": 3072,
   "targetExecutions": 3072,
-  "cumulativeExecutions": 35904,
-  "decision": "pending_diagnostic_not_a_policy_candidate",
-  "nextAction": "030 reserve fresh142000 single-public-player first-followup paired diagnostic; preserve independent121000",
+  "cumulativeExecutions": 38976,
+  "decision": "diagnostic_global99_lower_not_positive_no_candidate",
+  "nextAction": "031 bounded own-receipt combat failure/opportunity audit of completed development, no new research seeds",
   "previousCompleted": {
     "round": 29,
     "completionRef": "6cf322b5e3ddad0ed96a0e70135a0c14fe5af109",
@@ -57,13 +57,13 @@
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 0,
   "unfinishedExecutions": 0,
   "corpusAudit": {
-    "datasets": 24,
-    "verifiedExecutions": 35904,
-    "terminatedGames": 35902,
+    "datasets": 25,
+    "verifiedExecutions": 38976,
+    "terminatedGames": 38974,
     "unfinishedExecutions": 2,
     "seedRangesDisjoint": true,
     "reservedUnusedIntrusions": 0,
-    "path": "docs/evaluations/cooperation-round-028-cumulative-audit.json"
+    "path": "docs/evaluations/cooperation-round-030-cumulative-audit.json"
   },
   "cumulativeUnfinishedExecutions": 2,
   "policySourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
@@ -96,5 +96,6 @@
   },
   "evaluationSourceRef": "7a8eb17df8692a4fc87e59c1810b0d9425d9a0ef",
   "corePolicySourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
-  "checkpointAt": "2026-10-15T19:40:15.250995+09:00"
+  "checkpointAt": "2026-10-15T19:40:15.250995+09:00",
+  "completedAt": "2026-10-15T19:44:50.567697+09:00"
 }
