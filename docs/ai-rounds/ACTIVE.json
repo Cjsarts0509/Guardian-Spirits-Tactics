@@ -1,40 +1,35 @@
 {
-  "round": 15,
-  "status": "completed",
-  "completedAt": "2026-10-15T09:01:00+09:00",
-  "owner": "continuous-round-015-claim-intervention",
-  "startedAt": "2026-10-15T08:28:00+09:00",
-  "leaseUntil": "2026-10-15T09:10:00+09:00",
+  "round": 16,
+  "status": "in_progress",
+  "owner": "continuous-round-016-natural-claim-commitment",
+  "startedAt": "2026-10-15T09:04:00+09:00",
+  "leaseUntil": "2026-10-15T09:45:00+09:00",
   "continuation": "finish_commit_then_start_next_immediately_until_deadline",
   "deadline": "2026-10-15T12:00:00+09:00",
   "noNewExperimentAfter": "2026-10-15T11:50:00+09:00",
   "developmentSeeds": {
-    "start": 129000,
+    "start": 130000,
     "count": 8,
-    "status": "reserved_unused_candidate_only"
+    "status": "reserved_unused_new_development"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "firstFalseClaimTruthIntervention",
+  "candidate": "naturalTrueClaimUntilNextOwnTurn",
   "options": {
-    "selectedPublicPlayer": "p1",
-    "nonDisguiseOnly": true,
-    "once": true
+    "claimTurnCommitment": true
   },
-  "checkpoint": "3072_complete_journal_source_verified_recovery_zero_new_eight_cells_keep",
-  "checks": {"tests": 521, "pythonLearnerTests": 6, "typecheck": "passed", "builds": "passed"},
-  "executions": 3072,
-  "targetExecutions": 3072,
+  "checkpoint": "reserved_before_new_code_or_experiments",
+  "checks": {"previousRoundTests": 521, "newChecks": "not_run"},
+  "executions": 0,
+  "targetExecutions": 1152,
   "cumulativeExecutions": 15936,
-  "decision": "no_action_change_candidate_all_eight_cells_keep_no_promotion",
-  "nextAction": "immediately_reserve_round016_natural_true_claim_hold_until_next_turn_new130000_development",
-  "nextRound": 16,
-  "nextDevelopmentSeeds": {"start": 130000, "count": 8, "status": "planned_unused_reserve_before_new_work"},
-  "sourceRef": "e527d0b4c282a7046b7542f16c5ea5d6c8acca82",
-  "checkpointRaw": "docs/evaluations/cooperation-round-015-checkpoint-1536.json.gz",
+  "decision": "pending_new_development_no_promotion",
+  "nextAction": "implement_own_event_bounded_commitment_default_off_then_regression_type_build_freeze_and_new_development",
+  "previousCompleted": {"round": 15, "executions": 3072, "decision": "all_eight_cells_keep_no_candidate", "sourceRef": "e527d0b4c282a7046b7542f16c5ea5d6c8acca82", "record": "docs/ai-rounds/ROUND_015_20261015_0828.md"},
+  "unusedPriorCandidateDevelopment": {"start": 129000, "count": 8, "status": "unused_no015_candidate"},
   "finalReport": {
     "round": 11,
     "status": "completed",
@@ -48,11 +43,6 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "015완료: 128000–128031/3072실행, 293개입전해시일치·1243비개입동일. 전체67.64%동일/14개선14악화, 고정8셀전부기존유지·행동변경후보없음. 129000개발/121000독립미사용. 다음은원래진명선택뒤다음턴까지보류하는단일가설을새130000에서검토·12시까지연속진행.",
-  "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지.",
-  "trainingSeeds": {
-    "start": 128000,
-    "count": 32,
-    "status": "completed_3072_executions_32_seeds_training_not_holdout"
-  }
+  "task": "016예약: 실제 자기 수신의 수동 진명 공표 성공 뒤에만 다음 자기 턴까지 진명 유지·비변장·전투/동맹/보고 계속. 새130000–130007의main/control/commitment 1152개발실행 계획, 기존8셀모델사후선택없음. lease09:45·12시까지연속진행.",
+  "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }
