@@ -32,6 +32,8 @@ export interface BotPerception {
   trueNameUntil: number;
   /** 기본OFF 실험. 자기 성공 공표 이후 다음 자기 턴까지만 유지하는 정책 의도. */
   claimCommitment?: {lastSeq:number;until:number;publishedAt:number|null};
+  /** 기본OFF 실험: 본인 직접 확인으로 새 적 정체를 얻은 단 한 번의 후속 기회. */
+  directCheckReaction?: {seq:number;at:number;target:string;name:CharKey};
   battle: BattleMemory;
   intel?: BotIntel;
   lastBurn?: { target: PlayerId; at: number };
@@ -58,7 +60,7 @@ export function createBotMemory(seed: number): BotMemory {
  * 지속되는 실제 봇 기억은 기본값으로 모든 관측 스킬/쿨다운을 기록한다.
  */
 export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[], memory: BotMemory,
-  options: { recordBattle?: boolean; claimTurnCommitment?: boolean } = {}): Knowledge {
+  options: { recordBattle?: boolean; claimTurnCommitment?: boolean; directCheckFollowup?:boolean } = {}): Knowledge {
   let p = memory.perception;
   if (!p || p.playerId !== view.me.id || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs) {
     memory.plan = undefined;
@@ -79,7 +81,14 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
     if (e.kind === 'skill.burning_magic.self' && typeof e.data?.target === 'string') p.lastBurn = { target: e.data.target, at: e.at };
     for (const f of e.facts ?? []) {
       if (f.player === view.me.id) continue;
-      if (f.character) p.known.set(f.player, f.character);
+      if (f.character) {
+        if(options.directCheckFollowup&&!p.known.has(f.player)&&['inspect.result','gem.result'].includes(e.kind)&&
+          e.vis.to==='players'&&e.vis.ids.length===1&&e.vis.ids[0]===view.me.id&&!f.oneOf&&
+          e.at<=view.elapsedMs&&view.elapsedMs-e.at<=5000&&
+          view.roster.some(r=>r.key===f.character&&r.side!==view.me.side))
+          p.directCheckReaction={seq:e.seq,at:e.at,target:f.player,name:f.character};
+        p.known.set(f.player, f.character);
+      }
       if (f.not) {
         const excluded = p.excluded.get(f.player) ?? new Set<CharKey>();
         excluded.add(f.not);

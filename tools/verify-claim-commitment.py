@@ -9,7 +9,7 @@ p=argparse.ArgumentParser();p.add_argument('path',type=pathlib.Path);p.add_argum
 def read(path):
     raw=path.read_bytes();return gzip.decompress(raw) if path.suffix=='.gz' else raw
 d=json.loads(read(a.path));assert d['phase'] in ['development','holdout']
-specs={'confirmed-ally-urgent-dispel-comparison':('urgentDispelBeforeAlly',{'urgentDispelBeforeAlly':True}),'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
+specs={'private-confirmation-attack-followup-comparison':('directCheckFollowup',{'directCheckFollowup':True}),'confirmed-ally-urgent-dispel-comparison':('urgentDispelBeforeAlly',{'urgentDispelBeforeAlly':True}),'net-base-turn-attack-reserve-comparison':('netAttackReserve',{'netAttackReserve':True}),'confirmed-enemy-break-repair-comparison':('enemyBreakRepair',{}),'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True}),'forecast-attack-budget-comparison':('forecastAttackBudget',{'forecastAttackBudget':True}),'dead-ally-report-verification-comparison':('deadAllyReport',{'verifyDeadAllyReports':True})}
 candidate,options=specs[d['kind']]
 assert d['variants']==['baseline','control',candidate] and d['options']=={'baseline':{},'control':{},candidate:options}
 if not a.allow_partial:assert d['complete'] and d['executions']==d['count']*4*3*4*3
@@ -115,6 +115,19 @@ for x in d['records']:
         assert t['changed']==(t['originalAction']!=chosen) and any(z['player']==t['player'] and z['at']==t['at'] and z['action']==chosen and z['nominalMana']==t['nominalMana'] for z in r['actions'])
         dead_counts['decisions']+=1;dead_counts['changed']+=t['changed'];dead_counts['nominalMana']+=t['nominalMana']
     if candidate=='deadAllyReport':b.setdefault('deadReports',collections.Counter()).update(dead_counts)
+    reaction_seen=set()
+    for t in r.get('checkReactions',[]):
+        assert v=='directCheckFollowup' and t['ownSide']==f['currentSide'] and t['knownSide']!=t['ownSide'] and t['knownName']==t['name']
+        assert (t['player'],t['seq']) not in reaction_seen;reaction_seen.add((t['player'],t['seq']))
+        assert 1000<=t['at']-t['receivedAt']<=5000 and t['at']<=g['elapsedMs'] and t['seq']>0
+        assert 0<t['activity']<t['inactiveDraw']<=1 and t['originalAction'] is None
+        e=t['event'];assert e['kind'] in ['inspect.result','gem.result'] and e['at']==t['receivedAt'] and e['seq']==t['seq']
+        assert e['vis']=={'to':'players','ids':[t['player']]} and any(f.get('character')==t['name'] and f['player']==t['target'] and not f.get('oneOf') for f in e['facts'])
+        assert t['actualTargetName'] is not None and t['actualTargetSide'] in [1,2]
+        assert t['chosenAction']['type']=='skill' and t['chosenAction']['skill'] in ['attack','advanced_attack','supreme_attack','soen_chain_murder'] and t['chosenAction']['target']==t['target'] and t['chosenAction']['name']==t['name']
+        assert any(z['player']==t['player'] and z['at']==t['at'] and z['action']==t['chosenAction'] for z in r['actions'])
+    if 'wrongFollowups' in r['safety']:assert r['safety']['wrongFollowups']==sum(t['actualTargetName']!=t['name'] or t['actualTargetSide']==t['ownSide'] for t in r.get('checkReactions',[]))
+    if candidate=='directCheckFollowup':b.setdefault('checkReactions',collections.Counter()).update({'changed':len(r.get('checkReactions',[]))})
     rescues=r.get('rescues',[]);rescue_seen=set()
     for t in rescues:
         assert v=='urgentDispelBeforeAlly' and mode=='primordial' and t['ownSide']==t['knownSide']==f['currentSide'] and t['knownName']

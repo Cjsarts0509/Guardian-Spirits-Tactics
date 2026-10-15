@@ -1,6 +1,6 @@
 // 평가 관측 전용. 자기 뷰/수신 이벤트 집계는 정책으로 전달하지 않는다.
 import {isDeepStrictEqual} from 'node:util';
-import {smartBotAction,botCommunicationAction,botKnowledge,eventsFor,viewFor,type Action,type BotMemory,type PlayerView} from '../src/index.js';
+import {smartBotAction,botCommunicationAction,botKnowledge,eventsFor,viewFor,type Action,type BotMemory,type GameEvent,type PlayerView} from '../src/index.js';
 import {claimTurnCommitted} from '../src/bot-claim-commitment.js';
 import {PUBLISH_MANA} from '../src/constants.js';
 import {idleClaimViewEligible} from '../src/bot-idle-claim.js';
@@ -12,14 +12,14 @@ import {smartBotAction as priorPR} from './baselines/pre-round024.js';
 import {smartBotAction as previous} from './baselines/pre-cooperative.js';
 import {opponentClaim,type ClaimStyle} from './claim-opponents.js';
 import {playMatch,DEFAULT_SETTINGS,type Fixture,type Policy,type Settings} from './league-runner.js';
-export type CommitmentVariant='baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair'|'netAttackReserve'|'urgentDispelBeforeAlly';
+export type CommitmentVariant='baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair'|'netAttackReserve'|'urgentDispelBeforeAlly'|'directCheckFollowup';
 export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:CommitmentVariant,settings:Settings=DEFAULT_SETTINGS,observe=true,legacyControl=false){
-  const options=variant==='urgentDispelBeforeAlly'?{urgentDispelBeforeAlly:true}:variant==='netAttackReserve'?{netAttackReserve:true}:variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
+  const options=variant==='directCheckFollowup'?{directCheckFollowup:true}:variant==='urgentDispelBeforeAlly'?{urgentDispelBeforeAlly:true}:variant==='netAttackReserve'?{netAttackReserve:true}:variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
   const resources={aliveMs:0,trueNameMs:0,turns:0,trueNameTurns:0,trueNameBonusGross:0,incomingAllyManaGross:0,turnGainGross:0,
     publishes:0,truePublishes:0,falsePublishes:0,publishManaGross:0,publishManaNet:0,reaffirmations:0,reaffirmManaNet:0,allies:0,allyManaNet:0,
     acceptedSkillMana:0,attackFailures:0,holdingMs:0,holdStarts:0,holdingTrueNameTurns:0,gemCompletedPlayers:0,
     skills:{} as Record<string,{accepted:number;rejected:number;nominalMana:number;netManaDelta:number;whileHolding:number}>};
-  const safety={wrongBreaks:0,wrongAllies:0,falseReports:0,holdingFalsePublishes:0};
+  const safety={wrongFollowups:0,wrongBreaks:0,wrongAllies:0,falseReports:0,holdingFalsePublishes:0};
   const turns:Array<{player:string;at:number;turn:number;gain:number;allies:number;trueName:boolean;gem:number;holding:boolean}>=[];
   const holds:Array<{player:string;character:string;at:number;publishedAt:number;until:number;nextTurnInMs:number;trueName:boolean;hasDisguise:boolean}>=[];
   type Proof={originalNull:boolean;ownMemoryEqual:boolean;ownRngEqual:boolean};
@@ -31,6 +31,8 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
   const deadReports:Array<{player:string;at:number;ownSide:number;target:string;name:string;targetKnown:boolean;senders:Array<{id:string;name:string;side:number;alive:boolean;revealed:string|null;reportAt:number}>;originalAction:Action|null;chosenAction:Action;changed:boolean;nominalMana:number}>=[];
   const actions:Array<{player:string;at:number;action:Action;accepted:boolean;error:string|null;beforeMana:number;afterMana:number;maxMana:number;nominalMana:number;holding:boolean;beforeTrueName:boolean;beforePublished:string|null;manualSameName:boolean;activeDecision:boolean;reaffirmationProof:Proof|null;character:string;side:number;
     grading:{breakTargetSide:number|null;breakTargetName:string|null;breakKnownName:string|null;allyTargetSide:number|null;report:boolean;reportExpectedName:string|null}}>=[];
+  const checkReactions:Array<{player:string;at:number;receivedAt:number;seq:number;target:string;name:string;ownSide:number;knownName:string;knownSide:number;
+    inactiveDraw:number;activity:number;originalAction:Action|null;chosenAction:Action;event:GameEvent;actualTargetName:string|null;actualTargetSide:number|null}>=[];
   const rescues:Array<{player:string;at:number;ownSide:number;target:string;knownName:string;knownSide:number;
     beforeStatuses:string[];originalAction:Action|null;chosenAction:Action;changed:boolean;accepted:boolean|null;afterStatuses:string[]|null}>=[];
   const ownIds=new Set<string>(),seq=new Map<string,number>(),until=new Map<string,number>(),holdingCharacter=new Map<string,string>(),seenHolds=new Set<string>(),completed=new Set<string>();
@@ -55,8 +57,16 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     const original=observe&&variant==='idleClaimMana'&&nextRandom({rng:m.rng})<=(o.activity??.5)&&idleClaimViewEligible(viewFor(s,id))?structuredClone(m):undefined;
     const deadOriginal=observe&&variant==='deadAllyReport'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const budgetOriginal=observe&&variant==='forecastAttackBudget'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
+    const followup=observe&&variant==='directCheckFollowup'&&m.perception?.directCheckReaction?{reaction:{...m.perception.directCheckReaction},memory:structuredClone(m)}:undefined;
     const rescueOriginal=observe&&variant==='urgentDispelBeforeAlly'&&nextRandom({rng:m.rng})<=(o.activity??.5)?structuredClone(m):undefined;
     const a=variant==='baseline'?previous(s,id,m,{activity:o.activity}):variant==='control'&&legacyControl?priorPR(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options});let proof:Proof|null=null;
+    if(followup&&a?.type==='skill'&&NAME_ATTACKS.includes(a.skill)&&a.target===followup.reaction.target&&a.name===followup.reaction.name&&
+      nextRandom({rng:followup.memory.rng})>(o.activity??.5)&&s.now-s.startedAt-followup.reaction.at>=1000){
+      const v=viewFor(s,id),inactiveDraw=nextRandom({rng:followup.memory.rng}),originalAction=smartBotAction(s,id,followup.memory,{...o,directCheckFollowup:false});
+      checkReactions.push({player:id,at:v.elapsedMs,receivedAt:followup.reaction.at,seq:followup.reaction.seq,target:a.target!,name:a.name!,ownSide:v.me.side,
+        knownName:m.perception!.known.get(a.target!)!,knownSide:v.roster.find(r=>r.key===a.name)!.side,
+        inactiveDraw,activity:o.activity??.5,originalAction,chosenAction:a,event:eventsFor(s,id).find(e=>e.seq===followup.reaction.seq)!,actualTargetName:null,actualTargetSide:null});
+    }
     if(rescueOriginal&&a?.type==='skill'&&a.skill==='tachin_neutralize'&&a.target){
       const originalAction=smartBotAction(s,id,rescueOriginal,{...o,urgentDispelBeforeAlly:false});
       if(originalAction?.type==='skill'&&originalAction.skill==='ally'){
@@ -124,6 +134,9 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       grading.reportExpectedName=p.view.roster.find(x=>x.key===target?.character)?.name??null;
       safety.falseReports+=Number(!match||grading.reportExpectedName!==match[2]);
     }
+    const reaction=checkReactions.find(z=>z.player===id&&z.at===p.view.elapsedMs&&isDeepStrictEqual(z.chosenAction,a));
+    if(reaction){const target=s.players.find(p=>p.id===reaction.target)!;reaction.actualTargetName=target.character;reaction.actualTargetSide=target.side;
+      safety.wrongFollowups+=Number(target.character!==reaction.name||target.side===reaction.ownSide);}
     const rescue=rescues.find(z=>z.player===id&&z.at===p.view.elapsedMs&&isDeepStrictEqual(z.chosenAction,a));
     if(rescue){rescue.accepted=result.ok;rescue.afterStatuses=after.players.find(t=>t.id===rescue.target)!.statuses.map(e=>e.kind);}
     actions.push({player:id,at:p.view.elapsedMs,action:a,accepted:result.ok,error:result.ok?null:result.error??'알 수 없는 거절',beforeMana:p.view.me.mana,
@@ -155,5 +168,5 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       if(v.me.gem===3&&!completed.has(id)){completed.add(id);resources.gemCompletedPlayers++;}
     }
   });
-  return {game,resources,safety,turns,holds,actions,budgets,deadReports,rescues};
+  return {game,resources,safety,turns,holds,actions,budgets,deadReports,rescues,checkReactions};
 }

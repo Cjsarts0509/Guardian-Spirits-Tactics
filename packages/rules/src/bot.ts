@@ -49,6 +49,8 @@ export interface BotOptions {
   netAttackReserve?:boolean;
   /** 개발 기본OFF: 새 동맹 선택 직전, 보호 상태 없는 확정 아군의 행동 불능을 먼저 해제. */
   urgentDispelBeforeAlly?:boolean;
+  /** 개발 기본OFF: 본인 직접 확인 뒤1초/5초 안 한 번만 확정 이름 공격 반응. */
+  directCheckFollowup?:boolean;
   /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
   protectionRetryBackoff?: boolean;
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
@@ -199,7 +201,7 @@ const MIN = 60_000;
 
 /** 봇이 정당하게 아는 정보만으로 각 플레이어의 정체 후보를 계산한다 */
 export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerView = viewFor(state, playerId), memory: BotMemory = createBotMemory(0),
-  options: {claimTurnCommitment?:boolean} = {}): Knowledge {
+  options: {claimTurnCommitment?:boolean;directCheckFollowup?:boolean} = {}): Knowledge {
   const p = memory.perception;
   if (p && (p.playerId !== playerId || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs || state.seq < p.lastSeq)) memory.perception = undefined;
   return updateBotKnowledge(view, eventsFor(state, playerId, memory.perception?.lastSeq ?? 0), memory, options);
@@ -207,6 +209,30 @@ export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerV
 
 export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions = {}): Action | null {
   delete mem.communicationAt;
+  const reaction=mem.perception?.directCheckReaction,elapsed=state.now-state.startedAt;
+  if(!opts.directCheckFollowup&&mem.perception)delete mem.perception.directCheckReaction;
+  if(opts.directCheckFollowup&&reaction&&elapsed-reaction.at<1000&&nextRandom({rng:mem.rng})<=(opts.activity??.5))delete mem.perception!.directCheckReaction;
+  if(opts.directCheckFollowup&&reaction&&elapsed-reaction.at>=1000){
+    // 정상 기회가 먼저 와도 이 기회는 소비한다. 추가 추첨/실패 반복을 만들지 않는다.
+    delete mem.perception!.directCheckReaction;
+    const activity=opts.activity??.5;
+    const view=state.players.some(p=>p.id===playerId)?viewFor(state,playerId):undefined;
+    if(view&&elapsed-reaction.at<=5000&&activity>0&&nextRandom({rng:mem.rng})>activity&&
+      view.phase==='running'&&view.me.alive&&mem.perception?.playerId===playerId&&
+      mem.perception.mode===view.mode&&mem.perception.character===view.me.character&&
+      mem.perception.lastSeq<=state.seq&&mem.perception.lastElapsedMs<=elapsed){
+      const trial=structuredClone(mem);
+      const a=chooseSmartBotAction(state,playerId,trial,{...opts,activity:1});
+      // 기존 전체 우선순위/보호/마나 검사를 통과한, 새로 확인한 그 적의 공격만 채택한다.
+      if(a?.type==='skill'&&NAME_ATTACKS.includes(a.skill)&&a.target===reaction.target&&a.name===reaction.name&&
+        trial.perception?.known.get(reaction.target)===reaction.name&&
+        view.roster.some(r=>r.key===reaction.name&&r.side!==view.me.side)){
+        for(const key of Object.keys(mem))if(!(key in trial))Reflect.deleteProperty(mem,key);
+        Object.assign(mem,trial);
+        return opts.protectionRetryBackoff?filterProtectionRetry(mem,a,elapsed):a;
+      }
+    }
+  }
   const nonIdleReport=opts.reportVerification==='when-busy';
   if(nonIdleReport&&state.phase==='running'&&state.players.some(p=>p.id===playerId&&p.alive)&&
       nextRandom({rng:mem.rng})<=(opts.activity??0.5)){
@@ -252,7 +278,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
 
   const view = viewFor(state, playerId);
   const claimStrategy=opts.claimStrategy??(opts.primordialLeadership==='after-six-minutes'?'current':'strategic');
-  const knowledge = botKnowledge(state, playerId, view, mem,{claimTurnCommitment:opts.claimTurnCommitment===true&&claimStrategy==='strategic'});
+  const knowledge = botKnowledge(state, playerId, view, mem,{claimTurnCommitment:opts.claimTurnCommitment===true&&claimStrategy==='strategic',directCheckFollowup:opts.directCheckFollowup});
   mem.communicationAt = view.elapsedMs;
   const { known, candidates } = knowledge;
   const requestedConfirmation = opts.confirmationSearch ?? 'combat-lidellut';
@@ -758,6 +784,6 @@ export function botCommunicationAction(state: GameState, playerId: PlayerId, mem
   delete memory.communicationAt;
   if(!eligible || opts.teamwork===false || state.phase!=='running')return null;
   const view=viewFor(state,playerId);if(!view.me.alive)return null;
-  const knowledge=botKnowledge(state,playerId,view,memory);
+  const knowledge=botKnowledge(state,playerId,view,memory,{directCheckFollowup:opts.directCheckFollowup});
   return shareIntel(view,knowledge,memory);
 }
