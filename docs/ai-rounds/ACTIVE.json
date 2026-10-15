@@ -1,14 +1,14 @@
 {
-  "round": 42,
-  "status": "completed",
-  "owner": "round042-commander-report-delivery",
-  "startedAt": "2026-10-16T00:12:08.561115+09:00",
-  "leaseUntil": null,
+  "round": 43,
+  "status": "in_progress",
+  "owner": "round043-reported-supreme-same-point",
+  "startedAt": "2026-10-16T01:06:00+09:00",
+  "leaseUntil": "2026-10-16T02:06:00+09:00",
   "continuation": "user_20261015_2354_go",
-  "task": "039 실제 지휘관 보고 전송과041 수신 기억·후속 활용 연결",
+  "task": "039 전320 실제 자기 기억에서 reportedSupreme OFF/ON 같은 순간 선택·합법 접수 진단",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
-  "evaluationSourceRef": "3d97c1c43d770532881e88dc9562f0f97d69e13b",
+  "evaluationSourceRef": null,
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 46208,
@@ -35,18 +35,18 @@
     "status": "unused"
   },
   "previousCompleted": {
-    "round": 41,
-    "record": "docs/ai-rounds/ROUND_041_20261015_2354.md",
-    "sourceRef": "12efbd1b51933306301cd51ef87297f99f796952",
+    "round": 42,
+    "record": "docs/ai-rounds/ROUND_042_20261016_0010.md",
+    "sourceRef": "3d97c1c43d770532881e88dc9562f0f97d69e13b",
     "executions": 0,
-    "replayedGames": 320
+    "replayedGames": 0
   },
-  "checkpoint": "round042_completed_report_delivery_joined",
-  "nextAction": "043 actual own-memory same-point reportedSupreme OFF/ON audit on all039320; only after actual opportunity evidence preregister new150000 development; no new seed used",
-  "record": "docs/ai-rounds/ROUND_042_20261016_0010.md",
+  "checkpoint": "round043_preregistered_no_new_seed",
+  "nextAction": "Implement own-memory same-point observer, regressions, freeze source and replay all039320; no new seed used",
+  "record": "docs/ai-rounds/ROUND_043_20261016_0106.md",
   "deployment": false,
   "repeatDisabled": false,
-  "replayTarget": 0,
+  "replayTarget": 320,
   "replayedGames": 0,
   "corpusAudit": {
     "path": "docs/evaluations/cooperation-round-039-cumulative-audit.json",
@@ -99,8 +99,6 @@
       }
     ]
   },
-  "completedAt": "2026-10-16T00:25:05.676151+09:00",
-  "decision": "report_delivery_works_commander_followup_gap_existing_option_to_revalidate_default_off",
   "analyzedExistingGames": 320,
   "reportChain": {
     "acceptedEnemyCommanderMessages": 648,
@@ -110,5 +108,5 @@
     "unmatchedReceivedReports": 0,
     "wrongCommanderMessages": 0
   },
-  "nextRoundStarted": false
+  "nextRoundStarted": true
 }
