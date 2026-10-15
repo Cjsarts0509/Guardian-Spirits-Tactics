@@ -1,25 +1,27 @@
 {
-  "round": 27,
-  "status": "completed",
-  "owner": "round027-final-verification-recovery",
-  "startedAt": "2026-10-15T18:40:30.299414+09:00",
-  "leaseUntil": "2026-10-15T19:05:30.299414+09:00",
+  "round": 28,
+  "status": "in_progress",
+  "owner": "round028-direct-private-check-attack-followup",
+  "startedAt": "2026-10-15T18:46:02.214467+09:00",
+  "leaseUntil": "2026-10-15T19:41:02.214467+09:00",
   "continuation": "user_1818_resume_continuous_rounds",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
     "start": 141000,
     "count": 8,
-    "status": "reserved_unused_not_used_in_tooling_round"
+    "status": "reserved_unused"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "none_tooling_only",
-  "options": {},
-  "checkpoint": "final_summary_recovery_verified_no_new_research",
+  "candidate": "directCheckFollowup",
+  "options": {
+    "directCheckFollowup": true
+  },
+  "checkpoint": "reserved_before_code_and_research",
   "checks": {
     "tests": 607,
     "rules": 532,
@@ -34,14 +36,14 @@
     "existing026Resume": "new0_same_snapshot_journal_publication_full_summary_restored"
   },
   "executions": 0,
-  "targetExecutions": 0,
+  "targetExecutions": 1152,
   "cumulativeExecutions": 34752,
-  "decision": "tooling_fix_adopted_no_policy_promotion",
+  "decision": "pending_development",
   "nextAction": "028 private-confirmation single bounded combat followup hypothesis; fresh141000 development reservation before changes",
   "previousCompleted": {
-    "round": 26,
-    "completionRef": "ee7f4356e3a8c2d640adee7e21131d135d0fabcd",
-    "record": "docs/ai-rounds/ROUND_026_20261015_1820.md",
+    "round": 27,
+    "completionRef": "d5dfb843ba3dc7fa389854baaebe9b3bdbcc8dbe",
+    "record": "docs/ai-rounds/ROUND_027_20261015_1840.md",
     "cumulativeExecutions": 34752
   },
   "unusedPriorCandidateDevelopment": {
@@ -87,9 +89,8 @@
     }
   },
   "conditionalDevelopmentSeeds": {
-    "start": 141000,
+    "start": 142000,
     "count": 8,
     "status": "reserved_unused"
-  },
-  "completedAt": "2026-10-15T18:44:06.919942+09:00"
+  }
 }
