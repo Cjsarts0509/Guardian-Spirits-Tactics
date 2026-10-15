@@ -1,10 +1,10 @@
 {
   "round": 34,
-  "status": "in_progress",
+  "status": "paused_by_user",
   "owner": "round034-own-accepted-name-outcome-knowledge",
   "startedAt": "2026-10-15T20:50:39.250967+09:00",
   "leaseUntil": "2026-10-15T21:35:39.250967+09:00",
-  "continuation": "user_1818_resume_continuous_rounds",
+  "continuation": "user_stop_and_report_20261015",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
@@ -21,7 +21,7 @@
   "options": {
     "learnOwnAttackOutcome": true
   },
-  "checkpoint": "reserved_own_outcome_witness_before_code",
+  "checkpoint": "paused_one_synthetic_hit_reproduction_no_implementation_no_research",
   "checks": {
     "tests": 635,
     "rules": 560,
@@ -43,8 +43,8 @@
   "executions": 0,
   "targetExecutions": 1152,
   "cumulativeExecutions": 41280,
-  "decision": "pending_reproduction_before_candidate",
-  "nextAction": "Reproduce own accepted attack hit/guarded receipt ID knowledge loss; only then defaultOFF patch and fresh145000",
+  "decision": "reproduced_knowledge_gap_implementation_pending_user_resume",
+  "nextAction": "Wait for explicit user resume; round033 complete, round034 reservation only. Do not start further experiments.",
   "previousCompleted": {
     "round": 33,
     "completionRef": "3743a894c1c41e149c0394b0fc71a83492b50cab",
@@ -71,7 +71,7 @@
   },
   "cumulativeUnfinishedExecutions": 2,
   "policySourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
-  "repeatDisabled": false,
+  "repeatDisabled": true,
   "sourceCI": "success",
   "sourceBrowserCheck": "success",
   "humanValidation": {
@@ -109,5 +109,19 @@
     "maximumReplayGames": 23,
     "completedReplayGames": 23,
     "researchExecutions": 0
+  },
+  "stopRequestedAt": "2026-10-15T20:50:57.328850+09:00",
+  "stopReason": "최신 사용자 지시: 지금 하는거까지 끝내고 어디까지 했는지 보고. 033 완료 결과 보존, 034 예약 단계에서 중단.",
+  "candidateImplemented": false,
+  "optionsStatus": "planned_not_available_in_code",
+  "stopObservedAt": "2026-10-15T20:57:28.557121+09:00",
+  "unitReproductions": {
+    "count": 1,
+    "researchExecutions": 0,
+    "path": "docs/evaluations/cooperation-round-034-witness.json",
+    "SHA256": "8b694eeb1a5fe724e270941a4026389b0b840832521a2bdc4bda4b566d41734b",
+    "sourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
+    "capturedAt": "2026-10-15T20:51:17.426026+09:00",
+    "implementation": "not_started"
   }
 }

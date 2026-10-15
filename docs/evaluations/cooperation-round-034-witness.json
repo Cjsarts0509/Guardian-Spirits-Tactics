@@ -1,0 +1,49 @@
+{
+  "kind": "own-named-hit-knowledge-gap-witness",
+  "sourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
+  "newResearchExecutions": 0,
+  "unitFixture": true,
+  "actor": "u11",
+  "target": "u3",
+  "action": {
+    "type": "skill",
+    "skill": "advanced_attack",
+    "target": "u3",
+    "name": "zwinra"
+  },
+  "livesBefore": 1,
+  "livesAfter": 0,
+  "accepted": true,
+  "ownEvents": [
+    {
+      "seq": 19,
+      "at": 60000,
+      "kind": "attack.hit",
+      "vis": {
+        "to": "all"
+      },
+      "text": "-카즈로우가 즈윈라를 공격하였습니다.",
+      "data": {
+        "attacker": "kazrow",
+        "target": "zwinra",
+        "remaining": 1
+      }
+    },
+    {
+      "seq": 20,
+      "at": 60000,
+      "kind": "attack.lives",
+      "vis": {
+        "to": "all"
+      },
+      "text": "-즈윈라는 1회 더 공격받으면 사망합니다.",
+      "data": {
+        "target": "zwinra",
+        "remaining": 1
+      }
+    }
+  ],
+  "knownBefore": null,
+  "knownAfter": null,
+  "publicTargetRevealed": null
+}
