@@ -1,0 +1,943 @@
+{
+  "kind": "completed-development-summary",
+  "sourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
+  "executions": 1152,
+  "fingerprint": "8648a40db3316ed5355fb1a67d123067756c5be1d5a4dd9dbcb5a1bdc345ddf6",
+  "policySHA256": "7bf3ff57f7a6b5734ebda8a6463452b0e57f43eb4c8d9757fc4ed2b6f39e63d2",
+  "options": {
+    "baseline": {},
+    "control": {},
+    "reportedFirstWarning": {
+      "reportedFirstWarning": true
+    }
+  },
+  "optionsSHA256": "f398472393d7c5964b862c900bb7f20d6e407ba5d33df910aef56ac73cac6d77",
+  "results": {
+    "baseline": {
+      "score": 0.6979166666666666,
+      "byMode": {
+        "civil_war": 0.6666666666666666,
+        "primordial": 0.7291666666666666,
+        "lidellut": 0.7395833333333334,
+        "troll": 0.65625
+      },
+      "unfinished": 0,
+      "safety": 3,
+      "earlyAttackFailures": 0
+    },
+    "control": {
+      "score": 0.6614583333333334,
+      "byMode": {
+        "civil_war": 0.6666666666666666,
+        "primordial": 0.7083333333333334,
+        "lidellut": 0.6979166666666666,
+        "troll": 0.5729166666666666
+      },
+      "unfinished": 0,
+      "safety": 0,
+      "earlyAttackFailures": 0
+    },
+    "reportedFirstWarning": {
+      "score": 0.671875,
+      "byMode": {
+        "civil_war": 0.6666666666666666,
+        "primordial": 0.71875,
+        "lidellut": 0.71875,
+        "troll": 0.5833333333333334
+      },
+      "unfinished": 0,
+      "safety": 0,
+      "earlyAttackFailures": 0
+    }
+  },
+  "contrasts": {
+    "reportedFirstWarning-control": {
+      "difference": 0.010416666666666666,
+      "seedBootstrap95": [
+        0.0026041666666666665,
+        0.018229166666666668
+      ],
+      "byMode": {
+        "civil_war": 0.0,
+        "primordial": 0.01041666666666663,
+        "lidellut": 0.02083333333333337,
+        "troll": 0.01041666666666674
+      }
+    },
+    "reportedFirstWarning-baseline": {
+      "difference": -0.026041666666666668,
+      "seedBootstrap95": [
+        -0.07291666666666667,
+        0.018229166666666668
+      ],
+      "byMode": {
+        "civil_war": 0.0,
+        "primordial": -0.01041666666666663,
+        "lidellut": -0.02083333333333337,
+        "troll": -0.07291666666666663
+      }
+    }
+  },
+  "developmentGatePassed": false,
+  "holdoutUsed": false,
+  "pairedGames": 384,
+  "actionsChanged": 57,
+  "pairedScores": {
+    "tied": 380,
+    "better": 4
+  },
+  "changes": [
+    {
+      "key": [
+        "civil_war",
+        "truthful",
+        144003,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "truthful",
+        144005,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        144001,
+        true,
+        1
+      ],
+      "gameChanged": false,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        144002,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        144002,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        144003,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        144003,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        144007,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        144007,
+        false,
+        2
+      ],
+      "gameChanged": false,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        144007,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        144001,
+        true,
+        1
+      ],
+      "gameChanged": false,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        144002,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        144002,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        144002,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        144003,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        144003,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        144007,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        144007,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "truthful",
+        144004,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 1,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "truthful",
+        144004,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        144003,
+        false,
+        2
+      ],
+      "gameChanged": false,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "bluff",
+        144004,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "primordial",
+        "skill-aware-bluff",
+        144003,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "truthful",
+        144002,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "truthful",
+        144003,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "truthful",
+        144004,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "bluff",
+        144000,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "bluff",
+        144001,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "bluff",
+        144001,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "bluff",
+        144002,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 1,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "bluff",
+        144002,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "bluff",
+        144005,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "bluff",
+        144006,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "bluff",
+        144006,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "bluff",
+        144007,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "bluff",
+        144007,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "skill-aware-bluff",
+        144000,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "skill-aware-bluff",
+        144002,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "skill-aware-bluff",
+        144004,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "skill-aware-bluff",
+        144005,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 1,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "skill-aware-bluff",
+        144005,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "lidellut",
+        "skill-aware-bluff",
+        144007,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "truthful",
+        144002,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "truthful",
+        144004,
+        false,
+        1
+      ],
+      "gameChanged": false,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        144000,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        144003,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        144003,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        144003,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        144004,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        144004,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        144004,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        144004,
+        true,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        144005,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        144006,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 1,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        144006,
+        false,
+        2
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "skill-aware-bluff",
+        144001,
+        false,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    },
+    {
+      "key": [
+        "troll",
+        "skill-aware-bluff",
+        144002,
+        true,
+        1
+      ],
+      "gameChanged": true,
+      "scoreDifference": 0,
+      "rescues": [],
+      "checkReactionCount": 0
+    }
+  ],
+  "rescueCount": 0,
+  "checkReactionCount": 0,
+  "newResearchExecutions": 1152,
+  "promotionEvidence": false,
+  "rawFileSHA256": "33e910198437f6f741a880ee5f023fc5fa9547613708d32fdae114a37a07b551",
+  "verifiedSHA256": "27fa4d1248e7d447684889135688c0513bcd88039e2e242ba0cbcc29f9b939cd",
+  "summaryToolSHA256": "582d969718812b6c7cb9ddd72a8128996740f5b45bb615372034ea78fb0aa104",
+  "phase": "development",
+  "holdoutGatePassed": false,
+  "tests": 635,
+  "rulesTests": 560,
+  "serverTests": 75,
+  "builds": "server_client_worker_passed",
+  "actualHumanMatches": 0,
+  "batchFailures": 0,
+  "duplicateExecutions": 0,
+  "residualWriterLocks": 0,
+  "terminated": 1152,
+  "sourceCI": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38727854874",
+  "sourceBrowser": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38727855038",
+  "files": {
+    "cooperation-round-033-development.json.gz": "33e910198437f6f741a880ee5f023fc5fa9547613708d32fdae114a37a07b551",
+    "cooperation-round-033-development.journal.ndjson.gz": "ca1c821b49956fbc1ac38b6dbc8cf0f14918dd48edc4218eb57b1b6508b40a42",
+    "cooperation-round-033-development.publication.json": "728efb85bfbdf9eeb8d3b15de272ba9b9b212e959860ad820235c11e51f3a36a",
+    "cooperation-round-033-development.verified.json": "27fa4d1248e7d447684889135688c0513bcd88039e2e242ba0cbcc29f9b939cd",
+    "cooperation-round-033-development.batches.ndjson": "e87195bddc93db9664891f8e2d3737c541f6654689f3afb126a664eb8f0bdb41",
+    "cooperation-round-033-resume-proof.json": "d8f339626bbe88341673fe21bf98419414b449de52a204041a2be86ba90542c8",
+    "cooperation-round-033-postflight.tar.gz": "7474e2e09a44423202246606371b4f9475c034ad98fb355766798f64e801ea13"
+  },
+  "reportedAttackCount": 84,
+  "changedReportedAttackCount": 81,
+  "reportedReceivedEpisodeCount": 78,
+  "reportedGames": 58,
+  "nonReportedEqualGames": 326,
+  "resourceByMode": {
+    "baseline": {
+      "civil_war": {
+        "attackFailures": 0,
+        "skillNominalMana": 81725
+      },
+      "primordial": {
+        "attackFailures": 22,
+        "skillNominalMana": 81675
+      },
+      "lidellut": {
+        "attackFailures": 2,
+        "skillNominalMana": 84105
+      },
+      "troll": {
+        "attackFailures": 10,
+        "skillNominalMana": 113610
+      }
+    },
+    "control": {
+      "civil_war": {
+        "attackFailures": 5,
+        "skillNominalMana": 88400
+      },
+      "primordial": {
+        "attackFailures": 54,
+        "skillNominalMana": 83045
+      },
+      "lidellut": {
+        "attackFailures": 14,
+        "skillNominalMana": 94570
+      },
+      "troll": {
+        "attackFailures": 9,
+        "skillNominalMana": 97615
+      }
+    },
+    "reportedFirstWarning": {
+      "civil_war": {
+        "attackFailures": 3,
+        "skillNominalMana": 87265
+      },
+      "primordial": {
+        "attackFailures": 54,
+        "skillNominalMana": 83430
+      },
+      "lidellut": {
+        "attackFailures": 14,
+        "skillNominalMana": 93055
+      },
+      "troll": {
+        "attackFailures": 10,
+        "skillNominalMana": 97775
+      }
+    }
+  },
+  "botIntelSHA256": "36a62f09f6574df76ee65f808f633260d498b14f923fb2880e31b58c058ef141",
+  "sourceCIStatus": "success",
+  "sourceBrowserStatus": "success",
+  "reportedAttackFailures": 0,
+  "localShadowOriginalChoices": {
+    "ally_check": 6,
+    "truth_gem": 18,
+    "kelhu_loyal": 2,
+    "warrior_scent": 4,
+    "null": 50,
+    "advanced_attack": 4
+  },
+  "reportedAttacksByMode": {
+    "civil_war": 26,
+    "primordial": 8,
+    "lidellut": 28,
+    "troll": 22
+  },
+  "localShadowCaution": "OFF action uses the candidate-reached own state;81 changed choices are not81 independent/control-game extra attacks.",
+  "resumeProof": "cooperation-round-033-resume-proof.json",
+  "legacy032Verification": "full_summary_unchanged_source_ref_5db3845"
+}

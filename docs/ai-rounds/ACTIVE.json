@@ -1,6 +1,6 @@
 {
   "round": 33,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round033-first-warning-advanced-real-trusted-report",
   "startedAt": "2026-10-15T20:21:09.360977+09:00",
   "leaseUntil": "2026-10-15T21:06:09.360977+09:00",
@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 144000,
     "count": 8,
-    "status": "in_progress576_of1152"
+    "status": "used_completed_development"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,7 +21,7 @@
   "options": {
     "reportedFirstWarning": true
   },
-  "checkpoint": "partial576_of1152_independently_verified_same_fixed_candidate",
+  "checkpoint": "1152_complete_source_archive_verified_new0_legacy032_same",
   "checks": {
     "tests": 635,
     "rules": 560,
@@ -40,11 +40,11 @@
     "ownTraceObserver": "callback_mutation_and_full_result_invariance_passed",
     "reportedAttackTamper": "3_rehashed_level2_sender_directFacts_rejected"
   },
-  "executions": 576,
+  "executions": 1152,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 40128,
-  "decision": "pending_single_development_hypothesis_defaultOFF",
-  "nextAction": "Implement trusted actual report advanced level1 only; same confidence/guards/mana100/time4min boundaries, no facts changes, freeze then fresh144000",
+  "cumulativeExecutions": 41280,
+  "decision": "control_improved_main_shortfall_defaultOFF_no_holdout",
+  "nextAction": "034 reproduce own named-hit target identity knowledge gap before new145000 candidate",
   "previousCompleted": {
     "round": 32,
     "completionRef": "5ce95a810f709faacc1cf687be309de127b52651",
@@ -61,13 +61,13 @@
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 0,
   "unfinishedExecutions": 0,
   "corpusAudit": {
-    "datasets": 26,
-    "verifiedExecutions": 40128,
-    "terminatedGames": 40126,
+    "datasets": 27,
+    "verifiedExecutions": 41280,
+    "terminatedGames": 41278,
     "unfinishedExecutions": 2,
     "seedRangesDisjoint": true,
     "reservedUnusedIntrusions": 0,
-    "path": "docs/evaluations/cooperation-round-032-cumulative-audit.json"
+    "path": "docs/evaluations/cooperation-round-033-cumulative-audit.json"
   },
   "cumulativeUnfinishedExecutions": 2,
   "policySourceRef": "f731e1e062a2e3e3643b9041461bc664ae417e02",
@@ -109,5 +109,6 @@
     "maximumReplayGames": 23,
     "completedReplayGames": 23,
     "researchExecutions": 0
-  }
+  },
+  "completedAt": "2026-10-15T20:46:31.967000+09:00"
 }
