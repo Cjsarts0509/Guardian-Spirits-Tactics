@@ -1,100 +1,47 @@
 {
-  "round": 38,
-  "status": "completed",
-  "owner": "round038-known-commander-guard-before-ally",
-  "startedAt": "2026-10-15T22:36:45.964122+09:00",
-  "leaseUntil": null,
-  "task": "확정 지휘관 보호를 새 동맹 직전에 우선하는 단일 후보",
-  "continuation": "user_20261015_2235_continue",
+  "round": 39,
+  "status": "in_progress",
+  "owner": "round039-identical-guard-policy-balance",
+  "startedAt": "2026-10-15T23:13:00+09:00",
+  "leaseUntil": "2026-10-16T00:03:00+09:00",
+  "continuation": "user_20261015_2309_start",
+  "task": "태초 동일 정책 양측 적용: 보호 우선 후보의 인원별 진영 균형 비교",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
-  "evaluationSourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
-  "executions": 1152,
-  "targetExecutions": 1152,
-  "replayTarget": 1,
-  "replayedGames": 1,
+  "evaluationSourceRef": null,
+  "executions": 0,
+  "targetExecutions": 320,
   "cumulativeExecutions": 45888,
   "cumulativeTerminatedExecutions": 45886,
   "cumulativeUnfinishedExecutions": 2,
-  "previousCompleted": {
-    "round": 37,
-    "completionRef": "2d863e946359c90caa6bffb569dad3a3bb4c9e43",
-    "record": "docs/ai-rounds/ROUND_037_20261015_2220.md"
-  },
   "developmentSeeds": {
-    "start": 148000,
-    "count": 8,
-    "status": "used_complete"
+    "start": 149000,
+    "count": 80,
+    "status": "reserved_unused_selfplay"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "conditionalDevelopmentSeeds": {
-    "start": 149000,
+  "nextSeeds": {
+    "start": 150000,
     "count": 80,
-    "status": "reserved_unused_selfplay"
+    "status": "reserved_unused"
   },
-  "candidate": "knownCommanderGuardBeforeAlly",
-  "options": {
-    "knownCommanderGuardBeforeAlly": true
-  },
-  "optionsStatus": "single_candidate_default_off_other_experimental_options_off",
-  "checkpoint": "round038_complete_guard_fulfillment_and_performance_separated",
-  "nextAction": "039: implement fixed two-policy primordial-only identical-policy collector; preregister149000–149079/320 games before running; no policy or skill change",
-  "decision": "functional_fulfillment_passed_performance_not_generalized_defaultoff",
-  "checks": {
-    "tests": 654,
-    "rules": 579,
-    "server": 75,
-    "typecheck": "4_packages_passed",
-    "serverBuild": "passed",
-    "clientWorkerBuild": "passed",
-    "commanderGuardRegression": "8_passed",
-    "guardSynthetic": "720_excluded_4_of_4_success_wrong0",
-    "observerInvariant": "actual_intervention_full_match",
-    "rehashedTamper": "rejected"
-  },
-  "postflightCI": {
-    "sourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
-    "CI": {
-      "conclusion": "success",
-      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38746507772"
-    },
-    "browser": {
-      "conclusion": "success",
-      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38746507778"
-    }
-  },
-  "corpusAudit": {
-    "path": "docs/evaluations/cooperation-round-038-cumulative-audit.json",
-    "primaryDatasets": 31,
-    "verifiedExecutions": 45888,
-    "terminated": 45886,
-    "unfinished": 2,
-    "seedRangesDisjoint": true
-  },
-  "humanValidation": {
-    "actualHumanMatches": 0
-  },
-  "functionalDecision034": "passed_62_of_62_eligible_wrong0_preserved_defaultoff",
-  "repeatDisabled": false,
-  "deployment": false,
-  "record": "docs/ai-rounds/ROUND_038_20261015_2235.md",
-  "nextCandidate": null,
-  "candidateImplemented": true,
   "remainingUnused148000Reservation": {
     "start": 148008,
     "count": 72,
     "status": "unused"
   },
-  "completedAt": "2026-10-15T23:01:01.314137+09:00",
-  "functionalDecision038": {
-    "eligible": 4,
-    "success": 4,
-    "wrong": 0,
-    "rejected": 0,
-    "defaultOff": true
-  }
+  "previousCompleted": {
+    "round": 38,
+    "completionRef": "cf4bb0cc8ce88df478b875efac82416791a6272c",
+    "record": "docs/ai-rounds/ROUND_038_20261015_2235.md"
+  },
+  "checkpoint": "preregistered_before_collector_changes_or_new_games",
+  "nextAction": "검증된 두 정책 태초 수집기를 고정하고 유한320경기 및 독립검증",
+  "record": "docs/ai-rounds/ROUND_039_20261015_2309.md",
+  "deployment": false,
+  "repeatDisabled": false
 }
