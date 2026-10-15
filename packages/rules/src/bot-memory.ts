@@ -1,5 +1,6 @@
 import {observeIntel, type BotIntel} from './bot-intel.js';
 import {observeClaimTurnCommitment} from './bot-claim-commitment.js';
+import {observeOwnAttack, type OwnAttackMemory} from './bot-own-attack.js';
 import type { CharKey, GameEvent, PlayerId } from './types.js';
 import type { PlayerView } from './engine/view.js';
 import type { AssignmentBelief } from './bot-belief.js';
@@ -34,6 +35,8 @@ export interface BotPerception {
   claimCommitment?: {lastSeq:number;until:number;publishedAt:number|null};
   /** 기본OFF 실험: 본인 직접 확인으로 새 적 정체를 얻은 단 한 번의 후속 기회. */
   directCheckReaction?: {seq:number;at:number;target:string;name:CharKey};
+  /** Optional direct evidence linking one's own named attack to a visible successful outcome. */
+  ownAttacks?: OwnAttackMemory;
   battle: BattleMemory;
   intel?: BotIntel;
   lastBurn?: { target: PlayerId; at: number };
@@ -60,7 +63,7 @@ export function createBotMemory(seed: number): BotMemory {
  * 지속되는 실제 봇 기억은 기본값으로 모든 관측 스킬/쿨다운을 기록한다.
  */
 export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[], memory: BotMemory,
-  options: { recordBattle?: boolean; claimTurnCommitment?: boolean; directCheckFollowup?:boolean } = {}): Knowledge {
+  options: { recordBattle?: boolean; claimTurnCommitment?: boolean; directCheckFollowup?:boolean; learnOwnAttackOutcome?:boolean } = {}): Knowledge {
   let p = memory.perception;
   if (!p || p.playerId !== view.me.id || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs) {
     memory.plan = undefined;
@@ -75,6 +78,9 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
       battle: createBattleMemory(),
     };
   }
+  if (options.learnOwnAttackOutcome === false) delete p.ownAttacks;
+  if (options.learnOwnAttackOutcome === true) p.ownAttacks ??= { proofs: new Map() };
+  observeOwnAttack(view, events, memory);
   for (const e of events) {
     if (e.seq <= p.lastSeq || !(e.vis.to === 'all' || (e.vis.to === 'players' && e.vis.ids.includes(view.me.id)))) continue;
     if (options.recordBattle !== false) observeBattle(view, e, p.battle);
@@ -132,6 +138,10 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
 
   const roster = view.roster.filter((r) => r.inGame);
   const known = new Map(p.known);
+  for (const [id, proof] of p.ownAttacks?.proofs ?? []) {
+    // Direct engine facts take precedence if an inconsistent history is ever supplied.
+    if (!known.has(id)) known.set(id, proof.name);
+  }
   const candidates = new Map<PlayerId, CharKey[]>();
   // 확정 제약과 한 사람당 한 역할이라는 규칙으로 후보가 하나면 정체를 추론한다.
   // 원래 관찰과 분리해서 계산하므로 과거의 추론을 다시 증거로 사용하지 않는다.

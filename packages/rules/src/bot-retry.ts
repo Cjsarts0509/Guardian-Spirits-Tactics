@@ -1,5 +1,6 @@
 import type { Action, ActionResult } from './types.js';
 import type { BotMemory } from './bot-memory.js';
+import { acknowledgeOwnAttack } from './bot-own-attack.js';
 
 export const PROTECTION_RETRY_MS = 10_000;
 const protectionError = '대상이 보호받고 있어 지정할 수 없습니다.';
@@ -9,6 +10,7 @@ const keyOf = (action: Action): string | undefined => action.type === 'skill' &&
 /** 결과 관측 경계: 엔진 상태/이벤트 없이 본인 행동과 본인 응답만 받는다. */
 export function observeBotActionResult(memory: BotMemory, action: Action,
   result: Pick<ActionResult, 'ok' | 'error'>, elapsedMs: number): void {
+  acknowledgeOwnAttack(memory, action, result.ok, elapsedMs);
   if (!memory.protectionRetries) return;
   const key = keyOf(action);
   if (!key || !Number.isFinite(elapsedMs)) return;

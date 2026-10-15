@@ -4,6 +4,7 @@ import {shareIntel,verifyIntel,hasUsefulIntelExchange,reportedSupremeAttack,repo
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
 //   상대 정체를 모르면 공격하지 않고 확인부터 한다. 시간이 지나면 후보가 좁혀진 대상에게 추측 공격을 시작한다.
 import { filterProtectionRetry } from './bot-retry.js';
+import { prepareOwnAttack } from './bot-own-attack.js';
 import { randomInt, nextRandom } from './rng.js';
 import type { Action, CharKey, GameState, PlayerId } from './types.js';
 import { eventsFor, viewFor, type PlayerView, type SkillView } from './engine/view.js';
@@ -21,6 +22,8 @@ import { estimatedHits, NAME_ATTACKS, neutralizedSkill, roleThreat } from './bot
 export type { BotMemory, Knowledge } from './bot-memory.js';
 
 export interface BotOptions {
+  /** 기본OFF: 자기 명명 공격의 실제 성공 결과를 대상ID 정체 기억과 연결한다. */
+  learnOwnAttackOutcome?: boolean;
   /** 확정 관계 우선 동맹·파기와 실제 비공개 대화를 통한 정보 공유. false는 이전 정책 비교용. */
   teamwork?: boolean;
   /** 개발 비교: 동맹 후 즉시 확인·확정 아군 필수 지원의 마나를 보존한다. 기본은 기존 후보. */
@@ -205,13 +208,19 @@ const MIN = 60_000;
 
 /** 봇이 정당하게 아는 정보만으로 각 플레이어의 정체 후보를 계산한다 */
 export function botKnowledge(state: GameState, playerId: PlayerId, view: PlayerView = viewFor(state, playerId), memory: BotMemory = createBotMemory(0),
-  options: {claimTurnCommitment?:boolean;directCheckFollowup?:boolean} = {}): Knowledge {
+  options: {claimTurnCommitment?:boolean;directCheckFollowup?:boolean;learnOwnAttackOutcome?:boolean} = {}): Knowledge {
   const p = memory.perception;
   if (p && (p.playerId !== playerId || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs || state.seq < p.lastSeq)) memory.perception = undefined;
   return updateBotKnowledge(view, eventsFor(state, playerId, memory.perception?.lastSeq ?? 0), memory, options);
 }
 
 export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions = {}): Action | null {
+  const action = selectSmartBotAction(state, playerId, mem, opts);
+  if (opts.learnOwnAttackOutcome) prepareOwnAttack(mem, action, state.now - state.startedAt);
+  return action;
+}
+
+function selectSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemory, opts: BotOptions): Action | null {
   delete mem.communicationAt;
   const reaction=mem.perception?.directCheckReaction,elapsed=state.now-state.startedAt;
   if(!opts.directCheckFollowup&&mem.perception)delete mem.perception.directCheckReaction;
@@ -282,7 +291,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
 
   const view = viewFor(state, playerId);
   const claimStrategy=opts.claimStrategy??(opts.primordialLeadership==='after-six-minutes'?'current':'strategic');
-  const knowledge = botKnowledge(state, playerId, view, mem,{claimTurnCommitment:opts.claimTurnCommitment===true&&claimStrategy==='strategic',directCheckFollowup:opts.directCheckFollowup});
+  const knowledge = botKnowledge(state, playerId, view, mem,{claimTurnCommitment:opts.claimTurnCommitment===true&&claimStrategy==='strategic',directCheckFollowup:opts.directCheckFollowup,learnOwnAttackOutcome:opts.learnOwnAttackOutcome===true});
   mem.communicationAt = view.elapsedMs;
   const { known, candidates } = knowledge;
   const requestedConfirmation = opts.confirmationSearch ?? 'combat-lidellut';
@@ -793,6 +802,6 @@ export function botCommunicationAction(state: GameState, playerId: PlayerId, mem
   delete memory.communicationAt;
   if(!eligible || opts.teamwork===false || state.phase!=='running')return null;
   const view=viewFor(state,playerId);if(!view.me.alive)return null;
-  const knowledge=botKnowledge(state,playerId,view,memory,{directCheckFollowup:opts.directCheckFollowup});
+  const knowledge=botKnowledge(state,playerId,view,memory,{directCheckFollowup:opts.directCheckFollowup,learnOwnAttackOutcome:opts.learnOwnAttackOutcome===true});
   return shareIntel(view,knowledge,memory);
 }

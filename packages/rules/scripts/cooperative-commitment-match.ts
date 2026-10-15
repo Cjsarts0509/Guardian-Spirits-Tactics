@@ -12,9 +12,9 @@ import {smartBotAction as priorPR} from './baselines/pre-round024.js';
 import {smartBotAction as previous} from './baselines/pre-cooperative.js';
 import {opponentClaim,type ClaimStyle} from './claim-opponents.js';
 import {playMatch,DEFAULT_SETTINGS,type Fixture,type Policy,type Settings} from './league-runner.js';
-export type CommitmentVariant='reportedFirstWarning'|'avoidRepeatedFailedGuess'|'baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair'|'netAttackReserve'|'urgentDispelBeforeAlly'|'directCheckFollowup';
+export type CommitmentVariant='learnOwnAttackOutcome'|'reportedFirstWarning'|'avoidRepeatedFailedGuess'|'baseline'|'control'|'commitment'|'idleClaimMana'|'forecastAttackBudget'|'deadAllyReport'|'enemyBreakRepair'|'netAttackReserve'|'urgentDispelBeforeAlly'|'directCheckFollowup';
 export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:CommitmentVariant,settings:Settings=DEFAULT_SETTINGS,observe=true,legacyControl=false){
-  const options=variant==='reportedFirstWarning'?{reportedFirstWarning:true}:variant==='avoidRepeatedFailedGuess'?{avoidRepeatedFailedGuess:true}:variant==='directCheckFollowup'?{directCheckFollowup:true}:variant==='urgentDispelBeforeAlly'?{urgentDispelBeforeAlly:true}:variant==='netAttackReserve'?{netAttackReserve:true}:variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
+  const options=variant==='learnOwnAttackOutcome'?{learnOwnAttackOutcome:true}:variant==='reportedFirstWarning'?{reportedFirstWarning:true}:variant==='avoidRepeatedFailedGuess'?{avoidRepeatedFailedGuess:true}:variant==='directCheckFollowup'?{directCheckFollowup:true}:variant==='urgentDispelBeforeAlly'?{urgentDispelBeforeAlly:true}:variant==='netAttackReserve'?{netAttackReserve:true}:variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:variant==='forecastAttackBudget'?{forecastAttackBudget:true}:variant==='deadAllyReport'?{verifyDeadAllyReports:true}:{};
   const resources={aliveMs:0,trueNameMs:0,turns:0,trueNameTurns:0,trueNameBonusGross:0,incomingAllyManaGross:0,turnGainGross:0,
     publishes:0,truePublishes:0,falsePublishes:0,publishManaGross:0,publishManaNet:0,reaffirmations:0,reaffirmManaNet:0,allies:0,allyManaNet:0,
     acceptedSkillMana:0,attackFailures:0,holdingMs:0,holdStarts:0,holdingTrueNameTurns:0,gemCompletedPlayers:0,
@@ -41,10 +41,19 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
     lastSameFailure:boolean;originalAction:Action|null;chosenAction:Action;changed:boolean;
     senders:Array<{id:string;role:string;side:number;alive:boolean;event:GameEvent}>;
     accepted:boolean|null;attackFailure:boolean|null;actualName:string|null;actualSide:number|null}>=[];
+  const ownAttackProofs:Array<{player:string;observedAt:number;proof:import('../src/bot-own-attack.js').OwnAttackProof;event:GameEvent;targetSeat:number;nameLabel:string;actualName:string;correct:boolean}>=[];
+  const proofSeen=new Set<string>();
+  const outcomeOpportunities:Array<{player:string;at:number;target:string;name:string;skill:string;seq:number;kind:string;gameRunning:boolean;actorAlive:boolean;targetAlive:boolean;knownBefore:boolean}>=[];
   const ownIds=new Set<string>(),seq=new Map<string,number>(),until=new Map<string,number>(),holdingCharacter=new Map<string,string>(),seenHolds=new Set<string>(),completed=new Set<string>();
-  const pending=new Map<string,{action:Action;view:PlayerView;holding:boolean;manualSameName:boolean;activeDecision:boolean;proof:Proof|null;breakKnownName:string|null}>();
+  const pending=new Map<string,{action:Action;view:PlayerView;holding:boolean;manualSameName:boolean;activeDecision:boolean;proof:Proof|null;breakKnownName:string|null;attackKnownBefore:boolean}>();
   const note=(s:Parameters<Policy>[0],id:string,m:BotMemory)=>{
     if(!observe)return;ownIds.add(id);const v=viewFor(s,id),c=m.perception?.claimCommitment,h=claimTurnCommitted(v,m);
+    for(const proof of m.perception?.ownAttacks?.proofs.values()??[]){
+      const key=id+'/'+proof.seq;if(proofSeen.has(key))continue;proofSeen.add(key);
+      const event=eventsFor(s,id).find(e=>e.seq===proof.seq);if(!event)throw Error('자기 공격 증거 이벤트 누락');
+      const actualName=s.players.find(p=>p.id===proof.target)!.character;
+      ownAttackProofs.push({player:id,observedAt:v.elapsedMs,proof:structuredClone(proof),event:structuredClone(event),targetSeat:v.players.find(p=>p.id===proof.target)!.seat,nameLabel:v.roster.find(r=>r.key===proof.name)!.name,actualName,correct:actualName===proof.name});
+    }
     until.set(id,h?c!.until:0);
     if(h)holdingCharacter.set(id,v.me.character);else holdingCharacter.delete(id);
     if(h){const key=`${id}/${c!.publishedAt}/${c!.until}`;if(!seenHolds.has(key)){
@@ -54,7 +63,7 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
   };
   const remember=(s:Parameters<Policy>[0],id:string,a:Action|null,m:BotMemory,proof:Proof|null=null)=>{
     note(s,id,m);if(observe&&a){const view=viewFor(s,id);pending.set(id,{action:a,view,holding:claimTurnCommitted(view,m),
-      manualSameName:m.perception?.manualClaims.get(id)?.name===view.me.published&&!m.perception?.automaticClaims.has(id),activeDecision:m.communicationAt===view.elapsedMs,proof,breakKnownName:a.type==='skill'&&a.skill==='break_ally'&&a.target?botKnowledge(s,id,view,structuredClone(m)).known.get(a.target)??null:null});}return a;
+      manualSameName:m.perception?.manualClaims.get(id)?.name===view.me.published&&!m.perception?.automaticClaims.has(id),activeDecision:m.communicationAt===view.elapsedMs,proof,attackKnownBefore:a.type==='skill'&&!!a.target&&botKnowledge(s,id,view,structuredClone(m)).known.has(a.target),breakKnownName:a.type==='skill'&&a.skill==='break_ally'&&a.target?botKnowledge(s,id,view,structuredClone(m)).known.get(a.target)??null:null});}return a;
   };
   const reference:Policy=(s,id,m,o)=>{const a=previous(s,id,m,{activity:o.activity});return a?.type==='skill'&&a.skill==='publish'
     ?{...a,name:opponentClaim(viewFor(s,id),m,style,a.name)}:a;};
@@ -160,6 +169,10 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
   const game=playMatch(fixture,{current,reference},settings,(s,id,a,result)=>{
     if(!observe)return;receive(s);if(!ownIds.has(id))return;
     const p=pending.get(id);if(!p||p.action!==a)throw Error('자기 실제 행동의 직전 뷰 누락');pending.delete(id);
+    if(result.ok&&a.type==='skill'&&NAME_ATTACKS.includes(a.skill)&&a.target&&a.name){
+      for(const e of eventsFor(s,id).filter(e=>e.at===p.view.elapsedMs&&['attack.hit','attack.kill','attack.guarded'].includes(e.kind)&&e.data?.attacker===p.view.me.character&&e.data?.target===a.name))
+        outcomeOpportunities.push({player:id,at:p.view.elapsedMs,target:a.target,name:a.name,skill:a.skill,seq:e.seq,kind:e.kind,gameRunning:s.phase==='running',actorAlive:viewFor(s,id).me.alive,targetAlive:viewFor(s,id).players.find(p=>p.id===a.target)!.alive,knownBefore:p.attackKnownBefore});
+    }
     const after=viewFor(s,id),nominal=a.type==='skill'?p.view.me.skills.find(x=>x.key===a.skill)?.mana??0:0;
     // 실제 정체 채점 자료는 결정이 끝난 뒤에만 생성하고 출력에만 쓴다.
     const target=a.type==='skill'&&a.skill==='break_ally'&&result.ok?s.players.find(x=>x.id===a.target):undefined;
@@ -206,5 +219,5 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       if(v.me.gem===3&&!completed.has(id)){completed.add(id);resources.gemCompletedPlayers++;}
     }
   });
-  return {game,resources,safety,turns,holds,actions,budgets,deadReports,rescues,checkReactions,blockedGuesses,reportedAttacks};
+  return {game,resources,safety,turns,holds,actions,budgets,deadReports,rescues,checkReactions,blockedGuesses,reportedAttacks,ownAttackProofs,outcomeOpportunities};
 }

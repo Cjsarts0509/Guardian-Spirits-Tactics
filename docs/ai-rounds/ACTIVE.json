@@ -21,10 +21,10 @@
   "options": {
     "learnOwnAttackOutcome": true
   },
-  "checkpoint": "resumed_behavior_quality_protocol_before_implementation",
+  "checkpoint": "645_tests_build_passed_behavior_protocol_fixed_before_development",
   "checks": {
-    "tests": 635,
-    "rules": 560,
+    "tests": 645,
+    "rules": 570,
     "server": 75,
     "typecheck": "4_packages_passed",
     "serverBuild": "passed",
@@ -38,13 +38,15 @@
     "firstDivergenceAudit": "passed_384_pairs_294_prefixes_90_noninterventions",
     "singleCheckSmoke": "96_synthetic_7_interventions_excluded",
     "ownTraceObserver": "callback_mutation_and_full_result_invariance_passed",
-    "reportedAttackTamper": "3_rehashed_level2_sender_directFacts_rejected"
+    "reportedAttackTamper": "3_rehashed_level2_sender_directFacts_rejected",
+    "ownAttackRegression": "10_passed",
+    "ownAttackSmoke": "144_synthetic_excluded_7_of_7_eligible_remembered_wrong0"
   },
   "executions": 0,
   "targetExecutions": 1152,
   "cumulativeExecutions": 41280,
-  "decision": "reproduced_knowledge_gap_implementation_pending_user_resume",
-  "nextAction": "Implement own action/result identity memory; evaluate behavior correctness separately from fixed-opponent score. No balance changes in this round.",
+  "decision": "behavior_and_strength_evaluation_pending",
+  "nextAction": "Freeze source then run fresh145000 development; classify functional correctness separately from relative win rate",
   "previousCompleted": {
     "round": 33,
     "completionRef": "3743a894c1c41e149c0394b0fc71a83492b50cab",
@@ -57,7 +59,7 @@
     "status": "unused_no015_candidate"
   },
   "task": "User1818 resumed continuous finite AI rounds",
-  "adoption": "機능 정확성/정보 은닉/행동 품질과 고정 상대 성능·동일 정책 진영 밸런스를 별도 판정. 승률만으로 기능 폐기/운영 승격하지 않음. 새 자료 사전계획, 과거 최종 표본 재튜닝 금지.",
+  "adoption": "기능 정확성/정보 은닉/행동 품질과 고정 상대 성능·동일 정책 진영 밸런스를 별도 판정. 승률만으로 기능 폐기/운영 승격하지 않음. 새 자료 사전계획, 과거 최종 표본 재튜닝 금지.",
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 0,
   "unfinishedExecutions": 0,
   "corpusAudit": {
@@ -112,8 +114,8 @@
   },
   "stopRequestedAt": "2026-10-15T20:50:57.328850+09:00",
   "stopReason": "최신 사용자 지시: 지금 하는거까지 끝내고 어디까지 했는지 보고. 033 완료 결과 보존, 034 예약 단계에서 중단.",
-  "candidateImplemented": false,
-  "optionsStatus": "planned_not_available_in_code",
+  "candidateImplemented": true,
+  "optionsStatus": "implemented_default_off",
   "stopObservedAt": "2026-10-15T20:57:28.557121+09:00",
   "unitReproductions": {
     "count": 1,
