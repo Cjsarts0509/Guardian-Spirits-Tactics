@@ -9,10 +9,10 @@
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
   "evaluationSourceRef": "2541ef036fba963e83f2cd4b089fc3ddf85735c8",
-  "executions": 0,
+  "executions": 576,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 46208,
-  "cumulativeTerminatedExecutions": 46206,
+  "cumulativeExecutions": 46784,
+  "cumulativeTerminatedExecutions": 46782,
   "cumulativeUnfinishedExecutions": 2,
   "developmentSeeds": {
     "start": 150000,
@@ -41,7 +41,7 @@
     "executions": 0,
     "replayedGames": 320
   },
-  "checkpoint": "round044_frozen_676_checks_finite_development_running",
+  "checkpoint": "round044_disk_full_recovered_verified_576",
   "nextAction": "Finish at most12x96 frozen development batches; independently verify all1152 and zero-new resume; then preserve results before same-policy balance",
   "record": "docs/ai-rounds/ROUND_044_20261016_0126.md",
   "deployment": false,
@@ -132,5 +132,16 @@
     "start": 150008,
     "count": 72,
     "status": "unused"
-  }
+  },
+  "runtimeRecovery": {
+    "sourceRef": "2541ef036fba963e83f2cd4b089fc3ddf85735c8",
+    "stableRaw": "/dev/shm/gst-round044-recovery/data.json",
+    "stableJournal": "/dev/shm/gst-round044-recovery/data.journal.ndjson",
+    "lastDiskSnapshot": "/tmp/gst-round044-development/data.json",
+    "lastDiskSnapshotExecutions": 288,
+    "interruptedDuplicatesArchive": "/tmp/gst-round044-interrupted-generations.tar.gz",
+    "newGamesRerun": 0,
+    "log": "/tmp/gst-round044-validation/recovered-development.log"
+  },
+  "completedCorpusBeforeRound": 46208
 }
