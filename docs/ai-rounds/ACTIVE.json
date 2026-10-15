@@ -1,6 +1,6 @@
 {
   "round": 27,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round027-final-verification-recovery",
   "startedAt": "2026-10-15T18:40:30.299414+09:00",
   "leaseUntil": "2026-10-15T19:05:30.299414+09:00",
@@ -19,7 +19,7 @@
   },
   "candidate": "none_tooling_only",
   "options": {},
-  "checkpoint": "reserved_no_new_research",
+  "checkpoint": "final_summary_recovery_verified_no_new_research",
   "checks": {
     "tests": 607,
     "rules": 532,
@@ -28,15 +28,16 @@
     "serverBuild": "passed",
     "clientWorkerBuild": "passed",
     "collectorStorageRegression": "passed_432_unit_games_excluded",
-    "generationSupervisor": "passed_3_tests",
+    "generationSupervisor": "passed_3_extended_real_regressions_144_synthetic_excluded",
     "postflightHumanAudit": "passed_7_tests_no_actual_humans",
-    "observerInvariant": "passed_2_synthetic_games_excluded"
+    "observerInvariant": "passed_2_synthetic_games_excluded",
+    "existing026Resume": "new0_same_snapshot_journal_publication_full_summary_restored"
   },
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 34752,
-  "decision": "pending_regression_no_promotion",
-  "nextAction": "repair_full_summary_on_completed_batch_and_zero_new_resume",
+  "decision": "tooling_fix_adopted_no_policy_promotion",
+  "nextAction": "028 private-confirmation single bounded combat followup hypothesis; fresh141000 development reservation before changes",
   "previousCompleted": {
     "round": 26,
     "completionRef": "ee7f4356e3a8c2d640adee7e21131d135d0fabcd",
@@ -89,5 +90,6 @@
     "start": 141000,
     "count": 8,
     "status": "reserved_unused"
-  }
+  },
+  "completedAt": "2026-10-15T18:44:06.919942+09:00"
 }
