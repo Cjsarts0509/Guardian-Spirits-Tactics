@@ -1,36 +1,34 @@
 {
-  "round": 17,
-  "status": "completed",
-  "completedAt": "2026-10-15T09:59:00+09:00",
-  "owner": "continuous-round-017-idle-manual-true-claim-mana",
-  "startedAt": "2026-10-15T09:37:00+09:00",
-  "leaseUntil": "2026-10-15T10:15:00+09:00",
+  "round": 18,
+  "status": "in_progress",
+  "owner": "continuous-round-018-forecast-attack-budget",
+  "startedAt": "2026-10-15T10:02:00+09:00",
+  "leaseUntil": "2026-10-15T10:40:00+09:00",
   "continuation": "finish_commit_then_start_next_immediately_until_deadline",
   "deadline": "2026-10-15T12:00:00+09:00",
   "noNewExperimentAfter": "2026-10-15T11:50:00+09:00",
   "developmentSeeds": {
-    "start": 131000,
+    "start": 132000,
     "count": 8,
-    "status": "completed_development_not_reusable_for_promotion"
+    "status": "reserved_unused_new_development"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "idleExistingManualTrueClaimMana",
+  "candidate": "forecastAttackBudget",
   "options": {
-    "idleClaimMana": true
+    "forecastAttackBudget": true
   },
-  "checkpoint": "1152_complete_source_journal_resume_new0_verified",
-  "sourceRef": "efe45fa7a7d10f661414145984fe2f9d645011b0",
-  "checks": {"tests": 549, "rules": 481, "server": 68, "typecheck": "passed", "serverBuild": "passed", "clientWorkerBuild": "passed", "previous016SourceRefVerification": "passed_byte_identical_summary"},
-  "executions": 1152,
+  "checkpoint": "reserved_before_new_code_or_experiments",
+  "checks": {"previousRoundTests": 549, "newChecks": "not_run"},
+  "executions": 0,
   "targetExecutions": 1152,
   "cumulativeExecutions": 18240,
-  "decision": "rejected_development_main_not_recovered_default_off_holdout_unused",
-  "nextAction": "immediate018_reserve_fresh132000_for_underfunded_near_ready_attack_mana_hypothesis",
-  "previousCompleted": {"round": 16, "executions": 1152, "decision": "rejected_development_default_off_holdout_unused", "sourceRef": "508ed0493032ea4e5f3b657864a4eedbe52d9ee4", "record": "docs/ai-rounds/ROUND_016_20261015_0904.md"},
+  "decision": "pending_new_development_no_promotion",
+  "nextAction": "implement_default_off_forecast_attack_budget_then_checks_freeze_fresh132000",
+  "previousCompleted": {"round": 17, "executions": 1152, "decision": "rejected_development_default_off_holdout_unused", "sourceRef": "efe45fa7a7d10f661414145984fe2f9d645011b0", "record": "docs/ai-rounds/ROUND_017_20261015_0937.md"},
   "unusedPriorCandidateDevelopment": {"start": 129000, "count": 8, "status": "unused_no015_candidate"},
   "finalReport": {
     "round": 11,
@@ -45,6 +43,6 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "017완료1152개발·control67.19→68.23/main69.79%로미채택·재공표4973/실수령24865·안전0/미종료0·549검사/타입/빌드/고정CI브라우저성공.기본OFF/121000미사용·즉시018예약후진행.",
+  "task": "018예약:현재마나부족·다음자기턴수입으로충족하는20초이내확정공격의부족분만예약.새132000–132007/1152개발예정·기본OFF·017/016과조합없음·12시까지연속진행.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }
