@@ -1,6 +1,6 @@
 {
   "round": 26,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round026-confirmed-ally-dispel-priority",
   "startedAt": "2026-10-15T18:20:31.858490+09:00",
   "leaseUntil": "2026-10-15T19:05:31.858490+09:00",
@@ -10,7 +10,7 @@
   "developmentSeeds": {
     "start": 140000,
     "count": 8,
-    "status": "reserved_unused"
+    "status": "used_completed_1152"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -21,7 +21,7 @@
   "options": {
     "urgentDispelBeforeAlly": true
   },
-  "checkpoint": "partial576_completed_other576_not_started",
+  "checkpoint": "all1152_complete_verified_raw_preserved",
   "checks": {
     "tests": 607,
     "rules": 532,
@@ -34,11 +34,11 @@
     "postflightHumanAudit": "passed_7_tests_no_actual_humans",
     "observerInvariant": "passed_2_synthetic_games_excluded"
   },
-  "executions": 576,
+  "executions": 1152,
   "targetExecutions": 1152,
-  "cumulativeExecutions": 33600,
-  "decision": "pending_development",
-  "nextAction": "test_actual_known_friendly_incapacitation_relief_before_new_ally_only",
+  "cumulativeExecutions": 34752,
+  "decision": "development_rejected_no_intervention_all384_pairs_identical_option_OFF",
+  "nextAction": "027 fix generation final summary missing promotion gate with no research rerun; then diagnose delayed confirmed attack reactions",
   "previousCompleted": {
     "round": 25,
     "completionRef": "1826d34367428c1779591f196ee68889d3e784ce",
@@ -55,17 +55,13 @@
   "previousRoundUnverifiedExecutionUpperBoundExcluded": 0,
   "unfinishedExecutions": 0,
   "corpusAudit": {
-    "allPassed": true,
-    "datasets": 22,
-    "verifiedExecutions": 33600,
-    "terminatedGames": 33598,
+    "datasets": 23,
+    "verifiedExecutions": 34752,
+    "terminatedGames": 34750,
     "unfinishedExecutions": 2,
     "seedRangesDisjoint": true,
     "reservedUnusedIntrusions": 0,
-    "path": "docs/evaluations/cooperation-round-025-cumulative-audit.json",
-    "historicalAudit": "docs/evaluations/cooperation-round-025-historical-corpus-audit.json",
-    "currentPolicyMatchesFrozen": true,
-    "policySourceRef": "540f07ff432cf39129f4174d4fd556524f15a73b"
+    "path": "docs/evaluations/cooperation-round-026-cumulative-audit.json"
   },
   "cumulativeUnfinishedExecutions": 2,
   "policySourceRef": "989fe11c47dade1342864c319c9d8d656266d46b",
@@ -79,7 +75,7 @@
     "humanWinRate": null
   },
   "historicalUnverifiedExecutionUpperBoundExcluded": 6,
-  "validatedCodeRef": "8fb87f5cf66fac36f22df9e012cb608f42ceb6d8",
+  "validatedCodeRef": "989fe11c47dade1342864c319c9d8d656266d46b",
   "postflightCI": {
     "sourceRef": "8fb87f5cf66fac36f22df9e012cb608f42ceb6d8",
     "CI": {
@@ -96,5 +92,6 @@
     "count": 8,
     "status": "reserved_unused"
   },
-  "checkpointAt": "2026-10-15T18:30:12.426192+09:00"
+  "checkpointAt": "2026-10-15T18:30:12.426192+09:00",
+  "completedAt": "2026-10-15T18:38:27.984556+09:00"
 }
