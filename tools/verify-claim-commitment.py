@@ -3,8 +3,10 @@ import argparse, collections, gzip, hashlib, json, pathlib, random, re, subproce
 p=argparse.ArgumentParser();p.add_argument('path',type=pathlib.Path);p.add_argument('--source-ref');p.add_argument('--journal-path',type=pathlib.Path);p.add_argument('--allow-partial',action='store_true');a=p.parse_args()
 def read(path):
     raw=path.read_bytes();return gzip.decompress(raw) if path.suffix=='.gz' else raw
-d=json.loads(read(a.path));assert d['kind']=='claim-turn-commitment-comparison' and d['phase'] in ['development','holdout']
-assert d['variants']==['baseline','control','commitment'] and d['options']=={'baseline':{},'control':{},'commitment':{'claimTurnCommitment':True}}
+d=json.loads(read(a.path));assert d['phase'] in ['development','holdout']
+specs={'claim-turn-commitment-comparison':('commitment',{'claimTurnCommitment':True}),'idle-manual-true-claim-mana-comparison':('idleClaimMana',{'idleClaimMana':True})}
+candidate,options=specs[d['kind']]
+assert d['variants']==['baseline','control',candidate] and d['options']=={'baseline':{},'control':{},candidate:options}
 if not a.allow_partial:assert d['complete'] and d['executions']==d['count']*4*3*4*3
 if a.source_ref:
     files=subprocess.check_output(['git','ls-tree','-r','--name-only',a.source_ref,'packages/rules/src'],text=True).splitlines()
@@ -46,6 +48,11 @@ for x in d['records']:
                 if k=='publish':
                     truthful=act.get('name')==t['character'];delta=t['afterMana']-t['beforeMana'];assert delta==min(t['maxMana'],t['beforeMana']+5)-t['beforeMana']
                     expected['publishes']+=1;expected['truePublishes' if truthful else 'falsePublishes']+=1;expected['publishManaGross']+=5;expected['publishManaNet']+=delta;safety['holdingFalsePublishes']+=int(t['holding'] and not truthful)
+                    if 'beforePublished' in t and act.get('name')==t['beforePublished']:
+                        expected['reaffirmations']+=1;expected['reaffirmManaNet']+=delta
+                        if v=='idleClaimMana':
+                            assert truthful and t['beforeTrueName'] and t['manualSameName'] and t['activeDecision'] and t['beforeMana']+5<=t['maxMana'] and delta==5
+                            assert t['reaffirmationProof']=={'originalNull':True,'ownMemoryEqual':True,'ownRngEqual':True}
                 if k=='ally':
                     expected['allies']+=1;expected['allyManaNet']+=t['beforeMana']-t['afterMana'];safety['wrongAllies']+=int(t['grading']['allyTargetSide']!=t['side'])
             else:s['rejected']+=1
@@ -53,6 +60,8 @@ for x in d['records']:
             assert t['accepted'] and act['type']=='chat';match=re.fullmatch(r'확인 정보: \[(\d+)\] (.+)',act['text']);safety['falseReports']+=int(not match or match[2]!=t['grading']['reportExpectedName'])
     assert skills==res['skills']
     for k in ['publishes','truePublishes','falsePublishes','publishManaGross','publishManaNet','allies','allyManaNet','acceptedSkillMana']:assert res[k]==expected[k],k
+    if 'reaffirmations' in res:
+        for k in ['reaffirmations','reaffirmManaNet']:assert res[k]==expected[k],k
     for k in ['wrongAllies','falseReports','holdingFalsePublishes']:assert r['safety'][k]==safety[k],k
     assert res['turns']==len(r['turns']) and res['trueNameTurns']==sum(t['trueName'] for t in r['turns']) and res['trueNameBonusGross']==10*res['trueNameTurns']
     assert res['turnGainGross']==sum(t['gain'] for t in r['turns']) and res['incomingAllyManaGross']==10*sum(t['allies'] for t in r['turns'])
@@ -67,14 +76,14 @@ for v,modes in out['variants'].items():
     for mode,b in modes.items():b['score']=b['scoreSum']/b['games']
     if not a.allow_partial:assert len(fixture_sets[v])==d['count']*4*3*4 and set(modes)=={'civil_war','primordial','lidellut','troll'}
 if not a.allow_partial:
-    assert fixture_sets['baseline']==fixture_sets['control']==fixture_sets['commitment']
-    for left,right in [('commitment','control'),('commitment','baseline')]:
+    assert fixture_sets['baseline']==fixture_sets['control']==fixture_sets[candidate]
+    for left,right in [(candidate,'control'),(candidate,'baseline')]:
         values=[sum(scores[left][s])/len(scores[left][s])-sum(scores[right][s])/len(scores[right][s]) for s in range(d['start'],d['start']+d['count'])]
         rng=random.Random(0x475354);means=sorted(sum(rng.choices(values,k=len(values)))/len(values) for _ in range(10000))
         out['contrasts'][left+'-'+right]={'difference':sum(values)/len(values),'seedBootstrap95':[means[250],means[9749]],'byMode':{m:out['variants'][left][m]['score']-out['variants'][right][m]['score'] for m in out['variants'][left]}}
-    safe=not any(sum(b['safety'].values())+b['earlyAttackFailures'] for b in out['variants']['commitment'].values())
-    out['developmentGatePassed']=safe and out['contrasts']['commitment-control']['difference']>0 and out['contrasts']['commitment-baseline']['difference']>=0
-    c=out['contrasts']['commitment-baseline'];out['holdoutGatePassed']=d['phase']=='holdout' and safe and c['seedBootstrap95'][0]>0 and min(c['byMode'].values())>=-.02
+    safe=not any(sum(b['safety'].values())+b['earlyAttackFailures'] for b in out['variants'][candidate].values())
+    out['developmentGatePassed']=safe and out['contrasts'][candidate+'-control']['difference']>0 and out['contrasts'][candidate+'-baseline']['difference']>=0
+    c=out['contrasts'][candidate+'-baseline'];out['holdoutGatePassed']=d['phase']=='holdout' and safe and c['seedBootstrap95'][0]>0 and min(c['byMode'].values())>=-.02
 if a.journal_path:
     raw=read(a.journal_path);assert hashlib.sha256(raw).hexdigest()==d['journalSha256'];lines=raw.splitlines();header=json.loads(lines.pop(0));assert header['fingerprint']==d['fingerprint'] and header['meta']==meta
     assert [json.loads(line) for line in lines]==d['records'];out['journalVerified']=True

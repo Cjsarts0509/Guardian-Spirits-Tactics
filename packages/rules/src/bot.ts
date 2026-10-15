@@ -11,6 +11,7 @@ import { createBotMemory, updateBotKnowledge, type BotMemory, type Knowledge } f
 import { assignmentBelief, checkInformation, probabilityOf } from './bot-belief.js';
 import { claimCheckSucceeds, wantsTrueName } from './bot-claims.js';
 import { adaptiveClaimName, strategicClaimName } from './bot-claim-policy.js';
+import {idleManualTrueClaim} from './bot-idle-claim.js';
 import { hasIdentityEvidence, bestConfirmation } from './bot-confirmation.js';
 import { boundedSequenceSearch } from './bot-sequence.js';
 import { boundedAttackSearch } from './bot-rollout.js';
@@ -37,6 +38,8 @@ export interface BotOptions {
   claimCommanderGrowth?: 'none' | 'shining' | 'all';
   /** 개발 비교: 실제 자기 수동 진명 공표 성공 뒤 다음 자기 턴까지만 이름을 유지. 기본OFF. */
   claimTurnCommitment?: boolean;
+  /** 개발 비교: 원래 null인 실제 활동 기회에만 기존 수동 진명을 재공표해+5마나. 기본OFF. */
+  idleClaimMana?: boolean;
   /** 자신의 보호 거절 응답에만 근거한 동일 행동 10초 재시도 지연 실험. */
   protectionRetryBackoff?: boolean;
   /** 오프라인 학습 실험: 주 판단의 공표 증거 배율. 기본1, 확장 탐색은 별도 미보정. */
@@ -229,6 +232,10 @@ export function smartBotAction(state: GameState, playerId: PlayerId, mem: BotMem
       action=chooseSmartBotAction(state,playerId,mem,{...opts,preservePartialGem:false});
     }
   }else action=chooseSmartBotAction(state,playerId,mem,nonIdle?{...opts,preservePartialGem:false}:opts);
+  if(action===null&&opts.idleClaimMana&&mem.communicationAt===state.now-state.startedAt&&
+    (opts.claimStrategy??(opts.primordialLeadership==='after-six-minutes'?'current':'strategic'))==='strategic'){
+    action=idleManualTrueClaim(viewFor(state,playerId),mem,action);
+  }
   if (!opts.protectionRetryBackoff) { delete mem.protectionRetries; return action; }
   return filterProtectionRetry(mem, action, state.now - state.startedAt);
 }

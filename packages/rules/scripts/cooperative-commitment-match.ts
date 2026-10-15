@@ -1,24 +1,28 @@
 // 평가 관측 전용. 자기 뷰/수신 이벤트 집계는 정책으로 전달하지 않는다.
+import {isDeepStrictEqual} from 'node:util';
 import {smartBotAction,botCommunicationAction,eventsFor,viewFor,type Action,type BotMemory,type PlayerView} from '../src/index.js';
 import {claimTurnCommitted} from '../src/bot-claim-commitment.js';
 import {PUBLISH_MANA} from '../src/constants.js';
+import {idleClaimViewEligible} from '../src/bot-idle-claim.js';
+import {nextRandom} from '../src/rng.js';
 import {smartBotAction as previous} from './baselines/pre-cooperative.js';
 import {opponentClaim,type ClaimStyle} from './claim-opponents.js';
 import {playMatch,DEFAULT_SETTINGS,type Fixture,type Policy,type Settings} from './league-runner.js';
-export type CommitmentVariant='baseline'|'control'|'commitment';
+export type CommitmentVariant='baseline'|'control'|'commitment'|'idleClaimMana';
 export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:CommitmentVariant,settings:Settings=DEFAULT_SETTINGS,observe=true){
-  const options=variant==='commitment'?{claimTurnCommitment:true}:{};
+  const options=variant==='commitment'?{claimTurnCommitment:true}:variant==='idleClaimMana'?{idleClaimMana:true}:{};
   const resources={aliveMs:0,trueNameMs:0,turns:0,trueNameTurns:0,trueNameBonusGross:0,incomingAllyManaGross:0,turnGainGross:0,
-    publishes:0,truePublishes:0,falsePublishes:0,publishManaGross:0,publishManaNet:0,allies:0,allyManaNet:0,
+    publishes:0,truePublishes:0,falsePublishes:0,publishManaGross:0,publishManaNet:0,reaffirmations:0,reaffirmManaNet:0,allies:0,allyManaNet:0,
     acceptedSkillMana:0,attackFailures:0,holdingMs:0,holdStarts:0,holdingTrueNameTurns:0,gemCompletedPlayers:0,
     skills:{} as Record<string,{accepted:number;rejected:number;nominalMana:number;netManaDelta:number;whileHolding:number}>};
   const safety={wrongAllies:0,falseReports:0,holdingFalsePublishes:0};
   const turns:Array<{player:string;at:number;turn:number;gain:number;allies:number;trueName:boolean;gem:number;holding:boolean}>=[];
   const holds:Array<{player:string;character:string;at:number;publishedAt:number;until:number;nextTurnInMs:number;trueName:boolean;hasDisguise:boolean}>=[];
-  const actions:Array<{player:string;at:number;action:Action;accepted:boolean;error:string|null;beforeMana:number;afterMana:number;maxMana:number;nominalMana:number;holding:boolean;beforeTrueName:boolean;character:string;side:number;
+  type Proof={originalNull:boolean;ownMemoryEqual:boolean;ownRngEqual:boolean};
+  const actions:Array<{player:string;at:number;action:Action;accepted:boolean;error:string|null;beforeMana:number;afterMana:number;maxMana:number;nominalMana:number;holding:boolean;beforeTrueName:boolean;beforePublished:string|null;manualSameName:boolean;activeDecision:boolean;reaffirmationProof:Proof|null;character:string;side:number;
     grading:{allyTargetSide:number|null;report:boolean;reportExpectedName:string|null}}>=[];
   const ownIds=new Set<string>(),seq=new Map<string,number>(),until=new Map<string,number>(),holdingCharacter=new Map<string,string>(),seenHolds=new Set<string>(),completed=new Set<string>();
-  const pending=new Map<string,{action:Action;view:PlayerView;holding:boolean}>();
+  const pending=new Map<string,{action:Action;view:PlayerView;holding:boolean;manualSameName:boolean;activeDecision:boolean;proof:Proof|null}>();
   const note=(s:Parameters<Policy>[0],id:string,m:BotMemory)=>{
     if(!observe)return;ownIds.add(id);const v=viewFor(s,id),c=m.perception?.claimCommitment,h=claimTurnCommitted(v,m);
     until.set(id,h?c!.until:0);
@@ -28,10 +32,24 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
         nextTurnInMs:v.nextTurnInMs,trueName:v.me.trueName,hasDisguise:v.me.skills.some(x=>x.key==='disguise')});
     }}
   };
-  const remember=(s:Parameters<Policy>[0],id:string,a:Action|null,m:BotMemory)=>{note(s,id,m);if(observe&&a)pending.set(id,{action:a,view:viewFor(s,id),holding:claimTurnCommitted(viewFor(s,id),m)});return a;};
+  const remember=(s:Parameters<Policy>[0],id:string,a:Action|null,m:BotMemory,proof:Proof|null=null)=>{
+    note(s,id,m);if(observe&&a){const view=viewFor(s,id);pending.set(id,{action:a,view,holding:claimTurnCommitted(view,m),
+      manualSameName:m.perception?.manualClaims.get(id)?.name===view.me.published&&!m.perception?.automaticClaims.has(id),activeDecision:m.communicationAt===view.elapsedMs,proof});}return a;
+  };
   const reference:Policy=(s,id,m,o)=>{const a=previous(s,id,m,{activity:o.activity});return a?.type==='skill'&&a.skill==='publish'
     ?{...a,name:opponentClaim(viewFor(s,id),m,style,a.name)}:a;};
-  const current:Policy=(s,id,m,o)=>remember(s,id,variant==='baseline'?previous(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options}),m);
+  const current:Policy=(s,id,m,o)=>{
+    // 복제는 해당 호출의 자기 기억뿐이다. 가상 결과는 검증 출력에만 쓰고 실제 행동을 고르지 않는다.
+    const original=observe&&variant==='idleClaimMana'&&nextRandom({rng:m.rng})<=(o.activity??.5)&&idleClaimViewEligible(viewFor(s,id))?structuredClone(m):undefined;
+    const a=variant==='baseline'?previous(s,id,m,{activity:o.activity}):smartBotAction(s,id,m,{...o,...options});let proof:Proof|null=null;
+    if(observe&&variant==='idleClaimMana'&&a?.type==='skill'&&a.skill==='publish'&&a.name===viewFor(s,id).me.published){
+      if(!original)throw Error('재공표 전 자기 기억 복제 누락');
+      const alternative=smartBotAction(s,id,original,{...o,idleClaimMana:false});
+      proof={originalNull:alternative===null,ownMemoryEqual:isDeepStrictEqual(original,m),ownRngEqual:original.rng===m.rng};
+      if(!proof.originalNull||!proof.ownMemoryEqual||!proof.ownRngEqual)throw Error('기존 null/자기 기억/RNG 대응 검증 실패');
+    }
+    return remember(s,id,a,m,proof);
+  };
   const receive=(s:Parameters<Policy>[0])=>{
     if(!observe)return;
     for(const id of ownIds){for(const e of eventsFor(s,id,seq.get(id)??0)){
@@ -54,7 +72,8 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       safety.falseReports+=Number(!match||grading.reportExpectedName!==match[2]);
     }
     actions.push({player:id,at:p.view.elapsedMs,action:a,accepted:result.ok,error:result.ok?null:result.error??'알 수 없는 거절',beforeMana:p.view.me.mana,
-      afterMana:after.me.mana,maxMana:p.view.me.maxMana,nominalMana:nominal,holding:p.holding,beforeTrueName:p.view.me.trueName,character:p.view.me.character,side:p.view.me.side,grading});
+      afterMana:after.me.mana,maxMana:p.view.me.maxMana,nominalMana:nominal,holding:p.holding,beforeTrueName:p.view.me.trueName,beforePublished:p.view.me.published,
+      manualSameName:p.manualSameName,activeDecision:p.activeDecision,reaffirmationProof:p.proof,character:p.view.me.character,side:p.view.me.side,grading});
     if(a.type==='skill'){
       const skill=resources.skills[a.skill]??={accepted:0,rejected:0,nominalMana:0,netManaDelta:0,whileHolding:0};
       if(result.ok){skill.accepted++;skill.nominalMana+=nominal;skill.netManaDelta+=after.me.mana-p.view.me.mana;skill.whileHolding+=Number(p.holding);resources.acceptedSkillMana+=nominal;}
@@ -63,6 +82,7 @@ export function playCommitmentMatch(fixture:Fixture,style:ClaimStyle,variant:Com
       if(result.ok&&a.skill==='publish'){
         const truthful=a.name===p.view.me.character;resources.publishes++;resources.truePublishes+=Number(truthful);resources.falsePublishes+=Number(!truthful);
         resources.publishManaGross+=PUBLISH_MANA;resources.publishManaNet+=after.me.mana-p.view.me.mana;
+        if(a.name===p.view.me.published){resources.reaffirmations++;resources.reaffirmManaNet+=after.me.mana-p.view.me.mana;}
         safety.holdingFalsePublishes+=Number(p.holding&&!truthful);
       }
       if(result.ok&&a.skill==='ally'){

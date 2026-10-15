@@ -8,7 +8,7 @@ import {playCommitmentMatch} from '../scripts/cooperative-commitment-match.js';
 import {DEFAULT_SETTINGS} from '../scripts/league-runner.js';
 const f={mode:'civil_war' as const,seed:23,count:8,reversed:false,currentSide:1 as const},settings={...DEFAULT_SETTINGS,activity:.08,limitMs:240000};
 const root=resolve('../..'),hash=(x:string|Buffer)=>createHash('sha256').update(x).digest('hex');
-let dir:string,data:any,journal:string;
+let dir:string,data:any,journal:string,idleData:any,idleJournal:string;
 describe('한 턴 공표 유지의 실제 경기 관측과 독립 검증',()=>{
   beforeAll(()=>{
     dir=mkdtempSync(join(tmpdir(),'gst-commitment-test-'));const sourceHashes:Record<string,string>={};
@@ -19,6 +19,10 @@ describe('한 턴 공표 유지의 실제 경기 관측과 독립 검증',()=>{
     const records=variants.map(variant=>({mode:f.mode,style:'truthful',variant,result:playCommitmentMatch(f,'truthful',variant,settings)}));
     const fingerprint=hash(JSON.stringify(meta));journal=JSON.stringify({type:'header',fingerprint,meta})+'\n'+records.map(x=>JSON.stringify(x)+'\n').join('');
     data={...meta,fingerprint,complete:false,executions:3,journalSha256:hash(journal),records};writeFileSync(join(dir,'journal.ndjson'),journal);
+    const idleMeta={...meta,kind:'idle-manual-true-claim-mana-comparison',variants:['baseline','control','idleClaimMana'],options:{baseline:{},control:{},idleClaimMana:{idleClaimMana:true}}};
+    const idleRecords=[...records.slice(0,2),{mode:f.mode,style:'truthful',variant:'idleClaimMana',result:playCommitmentMatch(f,'truthful','idleClaimMana',settings)}];
+    const idleFingerprint=hash(JSON.stringify(idleMeta));idleJournal=JSON.stringify({type:'header',fingerprint:idleFingerprint,meta:idleMeta})+'\n'+idleRecords.map(x=>JSON.stringify(x)+'\n').join('');
+    idleData={...idleMeta,fingerprint:idleFingerprint,complete:false,executions:3,journalSha256:hash(idleJournal),records:idleRecords};
   });
   afterAll(()=>rmSync(dir,{recursive:true,force:true}));
   const verify=(d:any=data,j=journal)=>{writeFileSync(join(dir,'raw.json'),JSON.stringify(d));writeFileSync(join(dir,'journal.ndjson'),j);return execFileSync('python',['tools/verify-claim-commitment.py',join(dir,'raw.json'),'--allow-partial','--journal-path',join(dir,'journal.ndjson')],{cwd:root,encoding:'utf8',stdio:['pipe','pipe','pipe']});};
@@ -43,5 +47,17 @@ describe('한 턴 공표 유지의 실제 경기 관측과 독립 검증',()=>{
     const bad=structuredClone(data);bad.records.find((x:any)=>x.variant==='commitment').result.holds[0].until++;
     expect(()=>verify(bad)).toThrow();expect(()=>verify(data,journal+'{}\n')).toThrow();
     const missing=structuredClone(data);delete missing.sourceHashes['src/bot.ts'];expect(()=>verify(missing)).toThrow();
+  });
+  it('실제 대기 재공표는 원래null/자기 기억/RNG 대응과 정확한+5수령을 검증한다',()=>{
+    const r=idleData.records.find((x:any)=>x.variant==='idleClaimMana').result;
+    expect(r.resources.reaffirmations).toBeGreaterThan(0);expect(r.resources.reaffirmManaNet).toBe(5*r.resources.reaffirmations);
+    const pubs=r.actions.filter((x:any)=>x.accepted&&x.action.type==='skill'&&x.action.skill==='publish'&&x.action.name===x.beforePublished);
+    for(const x of pubs){expect(x.reaffirmationProof).toEqual({originalNull:true,ownMemoryEqual:true,ownRngEqual:true});expect(x.manualSameName&&x.activeDecision&&x.beforeTrueName).toBe(true);}
+    expect(JSON.parse(verify(idleData,idleJournal)).journalVerified).toBe(true);
+    const bad=structuredClone(idleData),pub=bad.records.find((x:any)=>x.variant==='idleClaimMana').result.actions.find((x:any)=>x.reaffirmationProof);pub.reaffirmationProof.originalNull=false;
+    expect(()=>verify(bad,idleJournal)).toThrow();
+  });
+  it('자기 기억 복제 관측을 켜거나 꺼도 대기 재공표 후보의 실제 경기가 같다',()=>{
+    expect(playCommitmentMatch(f,'truthful','idleClaimMana',settings,false).game).toEqual(idleData.records.find((x:any)=>x.variant==='idleClaimMana').result.game);
   });
 });
