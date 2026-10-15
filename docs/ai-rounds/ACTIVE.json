@@ -1,25 +1,25 @@
 {
-  "round": 23,
-  "status": "completed",
-  "owner": "resumed-round-023-storage-consistency",
-  "startedAt": "2026-10-15T12:30:00+09:00",
-  "leaseUntil": "2026-10-15T13:30:00+09:00",
+  "round": 24,
+  "status": "in_progress",
+  "owner": "round024-confirmed-enemy-break",
+  "startedAt": "2026-10-15T12:43:51.647595+09:00",
+  "leaseUntil": "2026-10-15T13:40:00+09:00",
   "continuation": "user_1227_authorized_resumption_fix_storage_then_evidence_based_ai_and_human_validation",
   "deadline": null,
   "noNewExperimentAfter": null,
   "developmentSeeds": {
     "start": 138000,
     "count": 8,
-    "status": "reserved_unused_for_next_policy_development"
+    "status": "reserved_for_round024"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "storage_only_no_policy_change",
+  "candidate": "confirmed_enemy_break_repair",
   "options": {},
-  "checkpoint": "storage_regression_verified",
+  "checkpoint": "reservation_before_policy_change",
   "checks": {
     "tests": 591,
     "rules": 523,
@@ -30,14 +30,14 @@
     "collectorStorageRegression": "passed_432_unit_games_excluded"
   },
   "executions": 0,
-  "targetExecutions": 0,
+  "targetExecutions": 1152,
   "cumulativeExecutions": 31296,
-  "decision": "storage_false_completion_detection_and_repair_fixed_physical_cause_unconfirmed",
+  "decision": "pending_fresh_development",
   "nextAction": "round024_confirmed_enemy_break_repair_and_human_record_evidence",
   "previousCompleted": {
-    "round": 22,
-    "completionRef": "73a7b34bb99d22c714b48796e806a034b86a04fc",
-    "record": "docs/ai-rounds/ROUND_022_20261015_1148.md",
+    "round": 23,
+    "completionRef": "0b8a3fdd7906f97714a35fdcbfe6893545097553",
+    "record": "docs/ai-rounds/ROUND_023_20261015_1230.md",
     "cumulativeExecutions": 31296
   },
   "unusedPriorCandidateDevelopment": {
