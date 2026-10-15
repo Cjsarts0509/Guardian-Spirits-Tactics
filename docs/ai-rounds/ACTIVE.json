@@ -1,37 +1,33 @@
 {
-  "round": 18,
-  "status": "completed",
-  "completedAt":"2026-10-15T10:21:00+09:00",
-  "owner": "continuous-round-018-forecast-attack-budget",
-  "startedAt": "2026-10-15T10:02:00+09:00",
-  "leaseUntil": "2026-10-15T10:40:00+09:00",
+  "round": 19,
+  "status": "in_progress",
+  "owner": "continuous-round-019-first-low-mana-confirmed-ally-pairs",
+  "startedAt": "2026-10-15T10:25:00+09:00",
+  "leaseUntil": "2026-10-15T11:15:00+09:00",
   "continuation": "finish_commit_then_start_next_immediately_until_deadline",
   "deadline": "2026-10-15T12:00:00+09:00",
   "noNewExperimentAfter": "2026-10-15T11:50:00+09:00",
   "developmentSeeds": {
-    "start": 132000,
-    "count": 8,
-    "status": "completed_development_not_reusable_for_promotion"
+    "start": 133000,
+    "count": 64,
+    "status": "reserved_unused_new_paired_training_diagnostic"
   },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
-  "candidate": "forecastAttackBudget",
-  "options": {
-    "forecastAttackBudget": true
-  },
-  "checkpoint": "1152_complete_verified_post_evaluation_mandatory_break_fix_checked_not_reevaluated",
-  "sourceRef": "0429e6b169b7fca5227f1e04fb5eac131e17ac5a",
-  "checks": {"tests":561,"rules":493,"server":68,"typecheck":"passed","serverBuild":"passed","clientWorkerBuild":"passed","previous017SourceRefVerification":"passed_byte_identical_summary"},
-  "executions": 1152,
-  "targetExecutions": 1152,
+  "candidate": "diagnosticOnlyFirstLowManaConfirmedAllyDelayOnce",
+  "options": {},
+  "conditionalCandidateDevelopmentSeeds":{"start":134000,"count":8,"status":"reserved_unused_only_if_preregistered_model_produces_candidate"},
+  "checkpoint": "reserved_before_new_code_or_experiments",
+  "checks": {"previousRoundTests":562,"newChecks":"not_run"},
+  "executions": 0,
+  "targetExecutions": 6144,
   "cumulativeExecutions": 19392,
-  "decision": "rejected_development_no_score_gain_default_off_holdout_unused",
-  "postEvaluationChecks":{"tests":562,"typecheck":"passed","serverClientWorkerBuild":"passed","correctedOptionNewResearchExecutions":0},
-  "nextAction": "immediate019_reserve_fresh133000_for_first_low_mana_confirmed_ally_single_delay_pairs",
-  "previousCompleted": {"round": 17, "executions": 1152, "decision": "rejected_development_default_off_holdout_unused", "sourceRef": "efe45fa7a7d10f661414145984fe2f9d645011b0", "record": "docs/ai-rounds/ROUND_017_20261015_0937.md"},
+  "decision": "pending_new_paired_diagnostic_no_promotion",
+  "nextAction": "implement_own_view_single_ally_delay_collector_and_fixed_four_cell_learner_then_checks_freeze",
+  "previousCompleted": {"round":18,"executions":1152,"decision":"rejected_development_default_off_holdout_unused","evaluationSourceRef":"0429e6b169b7fca5227f1e04fb5eac131e17ac5a","postEvaluationSafetyFixRef":"d4360dc39a7c28889474d808aa45228ab3a1e037","record":"docs/ai-rounds/ROUND_018_20261015_1002.md"},
   "unusedPriorCandidateDevelopment": {"start": 129000, "count": 8, "status": "unused_no015_candidate"},
   "finalReport": {
     "round": 11,
@@ -46,6 +42,6 @@
     "sourceBrowserCheck": "success",
     "adoptedCandidates": 0
   },
-  "task": "018완료1152개발·control/후보69.01/main70.31%로미채택·17예산판단중4확인보류/승패동일·독립121000미사용.평가후적동맹파기예산제외수정/562검사·새ON경기0.즉시019대응동맹진단예약.",
+  "task": "019예약:공개ID p1의첫저마나확정아군동맹한번만지연하는대응진단.새133000–133063/6144실행·4셀사전고정99%하한검사·후보발생시에만새134000개발.독립121000미사용·12시까지연속진행.",
   "adoption": "개발 control보다 개선·main 이상·안전0일 때만 불변 고정 후 holdout. 최종 전체차이시드95%하한>0·각모드>=-2pp·안전0.112000/116000 재사용금지."
 }
