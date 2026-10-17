@@ -1,0 +1,444 @@
+{
+  "kind": "default-cooperative-guard-deferral-witness",
+  "policySourceRef": "2d863e946359c90caa6bffb569dad3a3bb4c9e43",
+  "researchExecutions": 0,
+  "originalFullGameMatched": true,
+  "game": {
+    "fixture": {
+      "mode": "primordial",
+      "seed": 147004,
+      "count": 12,
+      "reversed": true,
+      "currentSide": 1
+    },
+    "winner": 1,
+    "winnerPolicy": "current",
+    "elapsedMs": 384250,
+    "reason": "지상 연합측이 승리했습니다.",
+    "stats": {
+      "current": {
+        "attempted": 73,
+        "accepted": 73,
+        "rejected": 0,
+        "earlyAttackFailures": 0,
+        "rejectedSkills": {}
+      },
+      "reference": {
+        "attempted": 70,
+        "accepted": 70,
+        "rejected": 0,
+        "earlyAttackFailures": 0,
+        "rejectedSkills": {}
+      }
+    },
+    "survivors": [
+      {
+        "character": "eoril",
+        "controller": "current",
+        "alive": false
+      },
+      {
+        "character": "rael",
+        "controller": "current",
+        "alive": true
+      },
+      {
+        "character": "sasint",
+        "controller": "reference",
+        "alive": true
+      },
+      {
+        "character": "kane",
+        "controller": "current",
+        "alive": true
+      },
+      {
+        "character": "eltas",
+        "controller": "reference",
+        "alive": false
+      },
+      {
+        "character": "tachin",
+        "controller": "current",
+        "alive": false
+      },
+      {
+        "character": "hermilly",
+        "controller": "reference",
+        "alive": false
+      },
+      {
+        "character": "drakan",
+        "controller": "reference",
+        "alive": true
+      },
+      {
+        "character": "kumarin",
+        "controller": "current",
+        "alive": true
+      },
+      {
+        "character": "consume",
+        "controller": "reference",
+        "alive": true
+      },
+      {
+        "character": "kilder",
+        "controller": "reference",
+        "alive": true
+      },
+      {
+        "character": "nukelius",
+        "controller": "current",
+        "alive": false
+      }
+    ]
+  },
+  "witness": {
+    "at": 374500,
+    "player": "p3",
+    "action": {
+      "type": "skill",
+      "skill": "ally",
+      "target": "p8"
+    },
+    "mana": 70,
+    "guard": {
+      "key": "consume_master_guard",
+      "name": "주인 보호",
+      "hotkey": "X",
+      "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+      "passive": false,
+      "mana": 50,
+      "cooldown": 0,
+      "cooldownRemainingMs": 0,
+      "usesLeft": 1,
+      "level": 1,
+      "target": "player",
+      "ignoresInvulnerable": false,
+      "nameOptions": null,
+      "blocked": null
+    },
+    "knownTarget": {
+      "id": "p8",
+      "seat": 5,
+      "nickname": "봇8",
+      "alive": true,
+      "left": false,
+      "published": "sasint",
+      "revealed": null,
+      "revealedSide": null,
+      "statuses": []
+    }
+  },
+  "decisions": [
+    {
+      "at": 29000,
+      "player": "p3",
+      "action": {
+        "type": "skill",
+        "skill": "publish",
+        "name": "consume"
+      },
+      "mana": 120,
+      "guard": {
+        "key": "consume_master_guard",
+        "name": "주인 보호",
+        "hotkey": "X",
+        "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+        "passive": false,
+        "mana": 50,
+        "cooldown": 0,
+        "cooldownRemainingMs": 0,
+        "usesLeft": 1,
+        "level": 1,
+        "target": "player",
+        "ignoresInvulnerable": false,
+        "nameOptions": null,
+        "blocked": null
+      },
+      "knownTarget": null
+    },
+    {
+      "at": 42250,
+      "player": "p3",
+      "action": {
+        "type": "skill",
+        "skill": "consume_slave_instinct",
+        "target": "p12"
+      },
+      "mana": 125,
+      "guard": {
+        "key": "consume_master_guard",
+        "name": "주인 보호",
+        "hotkey": "X",
+        "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+        "passive": false,
+        "mana": 50,
+        "cooldown": 0,
+        "cooldownRemainingMs": 0,
+        "usesLeft": 1,
+        "level": 1,
+        "target": "player",
+        "ignoresInvulnerable": false,
+        "nameOptions": null,
+        "blocked": null
+      },
+      "knownTarget": null
+    },
+    {
+      "at": 106000,
+      "player": "p3",
+      "action": {
+        "type": "skill",
+        "skill": "consume_slave_instinct",
+        "target": "p10"
+      },
+      "mana": 130,
+      "guard": {
+        "key": "consume_master_guard",
+        "name": "주인 보호",
+        "hotkey": "X",
+        "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+        "passive": false,
+        "mana": 50,
+        "cooldown": 0,
+        "cooldownRemainingMs": 0,
+        "usesLeft": 1,
+        "level": 1,
+        "target": "player",
+        "ignoresInvulnerable": false,
+        "nameOptions": null,
+        "blocked": null
+      },
+      "knownTarget": null
+    },
+    {
+      "at": 159250,
+      "player": "p3",
+      "action": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p5"
+      },
+      "mana": 105,
+      "guard": {
+        "key": "consume_master_guard",
+        "name": "주인 보호",
+        "hotkey": "X",
+        "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+        "passive": false,
+        "mana": 50,
+        "cooldown": 0,
+        "cooldownRemainingMs": 0,
+        "usesLeft": 1,
+        "level": 1,
+        "target": "player",
+        "ignoresInvulnerable": false,
+        "nameOptions": null,
+        "blocked": null
+      },
+      "knownTarget": null
+    },
+    {
+      "at": 191500,
+      "player": "p3",
+      "action": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p12"
+      },
+      "mana": 135,
+      "guard": {
+        "key": "consume_master_guard",
+        "name": "주인 보호",
+        "hotkey": "X",
+        "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+        "passive": false,
+        "mana": 50,
+        "cooldown": 0,
+        "cooldownRemainingMs": 0,
+        "usesLeft": 1,
+        "level": 1,
+        "target": "player",
+        "ignoresInvulnerable": false,
+        "nameOptions": null,
+        "blocked": null
+      },
+      "knownTarget": null
+    },
+    {
+      "at": 226000,
+      "player": "p3",
+      "action": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p12",
+        "name": "eoril"
+      },
+      "mana": 85,
+      "guard": {
+        "key": "consume_master_guard",
+        "name": "주인 보호",
+        "hotkey": "X",
+        "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+        "passive": false,
+        "mana": 50,
+        "cooldown": 0,
+        "cooldownRemainingMs": 0,
+        "usesLeft": 1,
+        "level": 1,
+        "target": "player",
+        "ignoresInvulnerable": false,
+        "nameOptions": null,
+        "blocked": null
+      },
+      "knownTarget": null
+    },
+    {
+      "at": 231750,
+      "player": "p3",
+      "action": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p10"
+      },
+      "mana": 35,
+      "guard": {
+        "key": "consume_master_guard",
+        "name": "주인 보호",
+        "hotkey": "X",
+        "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+        "passive": false,
+        "mana": 50,
+        "cooldown": 0,
+        "cooldownRemainingMs": 0,
+        "usesLeft": 1,
+        "level": 1,
+        "target": "player",
+        "ignoresInvulnerable": false,
+        "nameOptions": null,
+        "blocked": "마나가 부족합니다. (50 필요)"
+      },
+      "knownTarget": null
+    },
+    {
+      "at": 237000,
+      "player": "p3",
+      "action": {
+        "type": "skill",
+        "skill": "consume_slave_instinct",
+        "target": "p7"
+      },
+      "mana": 25,
+      "guard": {
+        "key": "consume_master_guard",
+        "name": "주인 보호",
+        "hotkey": "X",
+        "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+        "passive": false,
+        "mana": 50,
+        "cooldown": 0,
+        "cooldownRemainingMs": 0,
+        "usesLeft": 1,
+        "level": 1,
+        "target": "player",
+        "ignoresInvulnerable": false,
+        "nameOptions": null,
+        "blocked": "마나가 부족합니다. (50 필요)"
+      },
+      "knownTarget": null
+    },
+    {
+      "at": 321250,
+      "player": "p3",
+      "action": {
+        "type": "skill",
+        "skill": "consume_slave_instinct",
+        "target": "p11"
+      },
+      "mana": 50,
+      "guard": {
+        "key": "consume_master_guard",
+        "name": "주인 보호",
+        "hotkey": "X",
+        "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+        "passive": false,
+        "mana": 50,
+        "cooldown": 0,
+        "cooldownRemainingMs": 0,
+        "usesLeft": 1,
+        "level": 1,
+        "target": "player",
+        "ignoresInvulnerable": false,
+        "nameOptions": null,
+        "blocked": null
+      },
+      "knownTarget": null
+    },
+    {
+      "at": 369500,
+      "player": "p3",
+      "action": {
+        "type": "skill",
+        "skill": "consume_slave_instinct",
+        "target": "p8"
+      },
+      "mana": 95,
+      "guard": {
+        "key": "consume_master_guard",
+        "name": "주인 보호",
+        "hotkey": "X",
+        "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+        "passive": false,
+        "mana": 50,
+        "cooldown": 0,
+        "cooldownRemainingMs": 0,
+        "usesLeft": 1,
+        "level": 1,
+        "target": "player",
+        "ignoresInvulnerable": false,
+        "nameOptions": null,
+        "blocked": null
+      },
+      "knownTarget": null
+    },
+    {
+      "at": 374500,
+      "player": "p3",
+      "action": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p8"
+      },
+      "mana": 70,
+      "guard": {
+        "key": "consume_master_guard",
+        "name": "주인 보호",
+        "hotkey": "X",
+        "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+        "passive": false,
+        "mana": 50,
+        "cooldown": 0,
+        "cooldownRemainingMs": 0,
+        "usesLeft": 1,
+        "level": 1,
+        "target": "player",
+        "ignoresInvulnerable": false,
+        "nameOptions": null,
+        "blocked": null
+      },
+      "knownTarget": {
+        "id": "p8",
+        "seat": 5,
+        "nickname": "봇8",
+        "alive": true,
+        "left": false,
+        "published": "sasint",
+        "revealed": null,
+        "revealedSide": null,
+        "statuses": []
+      }
+    }
+  ]
+}

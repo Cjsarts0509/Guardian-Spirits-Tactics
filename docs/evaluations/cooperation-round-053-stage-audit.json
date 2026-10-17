@@ -1,0 +1,216 @@
+{
+  "kind": "round053-posthoc-own-stage-audit",
+  "sourceSHA256": "0292ff79a573780574dcc7a67533031487b958c9ff2218bb87e7f1829717b094",
+  "witnessSHA256": "92274255bc35dc8faf6e3c6b2fb871b036a2e97d48ddf4ba57a4ca15457c6b85",
+  "reconstructedOwnChoices": 153,
+  "rows": [
+    {
+      "variant": "cooperative",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "player": "p10",
+      "at": 189750,
+      "priorTrustedVerification": null,
+      "trustedReports": [],
+      "commanderSenderProposal": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p1"
+      },
+      "actual": {
+        "type": "skill",
+        "skill": "drakan_enchant_muscle",
+        "target": "p3"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "drakan_enchant_muscle",
+        "target": "p3"
+      },
+      "changed": false,
+      "priorMatchesActual": false
+    },
+    {
+      "variant": "cooperative",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "player": "p10",
+      "at": 230250,
+      "priorTrustedVerification": null,
+      "trustedReports": [],
+      "commanderSenderProposal": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p1"
+      },
+      "actual": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      },
+      "changed": false,
+      "priorMatchesActual": false
+    },
+    {
+      "variant": "cooperative",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "player": "p10",
+      "at": 265000,
+      "priorTrustedVerification": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p11"
+      },
+      "trustedReports": [
+        [
+          "p11",
+          "hermilly"
+        ]
+      ],
+      "commanderSenderProposal": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p1"
+      },
+      "actual": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p11"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p11"
+      },
+      "changed": false,
+      "priorMatchesActual": true
+    },
+    {
+      "variant": "reportedSupreme",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "player": "p10",
+      "at": 189750,
+      "priorTrustedVerification": null,
+      "trustedReports": [],
+      "commanderSenderProposal": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p1"
+      },
+      "actual": {
+        "type": "skill",
+        "skill": "drakan_enchant_muscle",
+        "target": "p3"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "drakan_enchant_muscle",
+        "target": "p3"
+      },
+      "changed": false,
+      "priorMatchesActual": false
+    },
+    {
+      "variant": "reportedSupreme",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "player": "p10",
+      "at": 230250,
+      "priorTrustedVerification": null,
+      "trustedReports": [],
+      "commanderSenderProposal": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p1"
+      },
+      "actual": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      },
+      "changed": false,
+      "priorMatchesActual": false
+    },
+    {
+      "variant": "reportedSupreme",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "player": "p10",
+      "at": 265000,
+      "priorTrustedVerification": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p11"
+      },
+      "trustedReports": [
+        [
+          "p11",
+          "hermilly"
+        ]
+      ],
+      "commanderSenderProposal": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p1"
+      },
+      "actual": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p11"
+      },
+      "alternative": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p11"
+      },
+      "changed": false,
+      "priorMatchesActual": true
+    }
+  ],
+  "limitations": [
+    "A matching earlier helper is stage evidence supported by source order, not a counterfactual win estimate.",
+    "Rebuilt only own views/events; no hidden assignment input."
+  ]
+}

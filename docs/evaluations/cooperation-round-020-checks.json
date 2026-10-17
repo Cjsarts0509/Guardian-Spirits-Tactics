@@ -1,0 +1,36 @@
+{
+  "sourceRef": "358cc64e3b5a276d162050bda8b66c930da201ec",
+  "phase": "before_research",
+  "tests": {
+    "rules": 509,
+    "server": 68,
+    "total": 577
+  },
+  "checks": {
+    "typecheck": "passed",
+    "serverBuild": "passed",
+    "clientWorkerBuild": "passed",
+    "newPairedAndInformationBoundaryTests": 6
+  },
+  "sourceSHA256": {
+    "packages/rules/scripts/cooperative-report-intervention.ts": "b5c26e75f4d08b7b15c30fce8960dd5b6aed29489cff05fcf2d58b2d49ba00c8",
+    "packages/rules/scripts/cooperative-report-pairs.ts": "2267c17769b68b515546cb2ec1131d9852b7239dd38b9cf4095de9c98b4ed562",
+    "tools/verify-report-pairs.py": "360be69f56b9638e50377b137a5ce025c73961b95d6b0b6456a0bb5d62d5b386",
+    "tools/summarize-report-pairs.py": "122f6f590b2f96f4ec171917ad451a2e59d9941d2773905c63a7ba7bbe43b88e"
+  },
+  "policyOptions": {},
+  "policyOptionsSHA256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "github": {
+    "ci": {
+      "id": 38670810948,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "browser": {
+      "id": 38670810922,
+      "status": "completed",
+      "conclusion": "success"
+    }
+  },
+  "unitTestGamesExcludedFromResearch": true
+}

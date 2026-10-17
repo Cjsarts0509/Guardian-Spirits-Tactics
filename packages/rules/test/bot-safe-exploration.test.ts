@@ -12,7 +12,7 @@ describe('최상급 공격의 관측 실패 순환', () => {
     const honest = smartBotAction(t.state, t.id.dantes!, createBotMemory(1), { activity: 1, claimStrategy: 'truthful' });
     const members = smartBotAction(t.state, t.id.dantes!, createBotMemory(1), { activity: 1, claimStrategy: 'truthful-noncommanders' });
     expect(honest).toEqual({ type: 'skill', skill: 'publish', name: 'dantes' });
-    expect(smartBotAction(t.state, t.id.dantes!, createBotMemory(1), { activity: 1 })).toEqual(honest);
+    expect(smartBotAction(t.state, t.id.dantes!, createBotMemory(1), { activity: 1 })).not.toEqual(honest);
     expect(members).toEqual(current);
     expect(current && 'name' in current && current.name).not.toBe('dantes');
   });

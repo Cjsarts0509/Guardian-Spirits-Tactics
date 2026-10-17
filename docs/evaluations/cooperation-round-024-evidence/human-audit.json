@@ -1,0 +1,23 @@
+{
+  "format": 1,
+  "kind": "factual-match-audit",
+  "records": [
+    {
+      "recordSHA256": "e2133cf7a5ac5fafe55a06871c65d741b500fc72aed5941965733ee826785c34",
+      "replayVerified": true,
+      "actions": 59,
+      "humanInputs": 0,
+      "botActions": 59,
+      "awayBotActions": 0,
+      "unknownControllers": 0,
+      "humanOpponentWinRateEvidence": false,
+      "reason": "no_human_inputs",
+      "winner": 1,
+      "authority": "server"
+    }
+  ],
+  "verified": 1,
+  "actualHumanWinRate": null,
+  "limitation": "Input provenance does not attest real human participation. Factual replay does not validate counterfactual bot win rates. Legacy/lifecycle/version mismatches are excluded.",
+  "inputOrigin": "synthetic unit fixture apps/server/test/records.test.ts; NOT actual human participation"
+}

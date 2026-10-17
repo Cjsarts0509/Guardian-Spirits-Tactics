@@ -1,0 +1,36 @@
+{
+  "evaluationSourceRef": "8eb4e065b0fae7ed90d4b503bd6e4226954998c6",
+  "tests": {
+    "rules": 516,
+    "server": 68,
+    "total": 584
+  },
+  "typecheck": "passed",
+  "serverBuild": "passed",
+  "clientWorkerBuild": "passed",
+  "ci": {
+    "id": 38672201335,
+    "conclusion": "success"
+  },
+  "browser": {
+    "id": 38672201357,
+    "conclusion": "success"
+  },
+  "options": {
+    "verifyDeadAllyReports": true
+  },
+  "optionsSHA256": "f6d78c68b592da443b3772917e24598a6d858f60aef94b63505f829047306747",
+  "researchExecutions": 1152,
+  "unfinished": 0,
+  "new0Resume": "passed_journal_hash_and_summary_identical",
+  "past018ImmutableReverification": "passed_byte_identical",
+  "unitTestGamesExcludedFromResearch": true,
+  "sourceHashes": {
+    "packages/rules/src/bot.ts": "ae93104627c2091185c06c139e48f734e213b52eed7036d760015b8bbacf86ab",
+    "packages/rules/src/bot-intel.ts": "b42dc044a27b7ed8fc2c2578587ac4b431d957b9e25dd0c800547a1875d1e897",
+    "packages/rules/scripts/cooperative-commitment-match.ts": "89b957885e48d9632930210afbc53bc5d981828b364545e59d2e2b3b1bb8a9a5",
+    "packages/rules/scripts/cooperative-claim-commitment.ts": "40709c5dba8790c6a95ba68295f672a55b71a8556667cd1d8741c3e29aa4f4c9",
+    "tools/verify-claim-commitment.py": "68d9c674a2b011f09891e25766730b4ecbef221df16b42a1822e5923afedd4a2",
+    "tools/summarize-commitment-paths.py": "7424f8aeb48cfd61973bc04d8ee89fc9a0b90034a5f8b7fa03ed7192f93c0225"
+  }
+}

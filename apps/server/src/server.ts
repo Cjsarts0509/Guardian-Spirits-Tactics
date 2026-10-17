@@ -61,7 +61,7 @@ export function createGameServer(cfg: ServerConfig, log: (...a: unknown[]) => vo
     const stored=room.recordState()!;
     void delivery.enqueue({ id: matchIds.get(room.id) ?? (()=>{const id=randomUUID();matchIds.set(room.id,id);return id;})(), state: stored, authIds: room.authIds() }).catch(e => log('[persist] 보관 실패', String(e)));
     if (cfg.recordsDir) {
-      const rec = buildRecord({ roomId: room.id, roomName: room.name, turnSeconds: room.turnSeconds, botKind: cfg.botKind, aiOnly: room.aiOnly, bots: room.botIds(), state: room.state, actions: room.actions });
+      const rec = buildRecord({ roomId: room.id, roomName: room.name, turnSeconds: room.turnSeconds, botKind: cfg.botKind, aiOnly: room.aiOnly, bots: room.botIds(), state: room.state, actions: room.actions,initialState:room.initialState,initialBots:room.initialBots,authority:room.hosting==='player'?'player-host':'server' });
       saveRecord(cfg.recordsDir, rec)
         .then((f) => log(`[record] 저장: ${f} (행동 ${rec.actions.length}, 이벤트 ${rec.log.length})`))
         .catch((e) => log('[record] 실패', String(e)));

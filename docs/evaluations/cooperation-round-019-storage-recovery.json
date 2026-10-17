@@ -1,0 +1,21 @@
+{
+  "format":1,
+  "status":"recovered_partial_not_completed",
+  "sourceRef":"38a57879a3ba358e33d4e8a4cac0b10b7eb6b2b4",
+  "batchCallBudgetBeforeRecovery":3072,
+  "lastProcessReportedExecutions":3070,
+  "archivedSnapshotExecutions":3064,
+  "archivedUniqueJournalGames":3066,
+  "snapshotJournalHashMatched":false,
+  "snapshotSHA256":"875d5e5c0409c42ee16c27450858937a0a1524011c1815c14a86c273d1bceff3",
+  "journalSHA256":"0d67dba430196c393c643f5a575070091dc1516c79c37b33eba5d22616395acf",
+  "recoveryNewExecutions":2,
+  "recoveredUniqueVerifiedExecutions":3068,
+  "snapshotJournalHashMatchedAfterRecovery":true,
+  "verifiedAfterProcessCompletion":true,
+  "unverifiedExecutionUpperBoundExcluded":6,
+  "cause":"undetermined_storage_snapshot_and_journal_divergence_after_repeated_tool_processes",
+  "mitigation":"resume_valid_unique_journal_and_run_remaining_small_batches_in_one_sequential_shell_with_independent_verification_after_each_batch",
+  "doubleCountArchivedInterruptedFiles":false,
+  "promotionEvidence":false
+}

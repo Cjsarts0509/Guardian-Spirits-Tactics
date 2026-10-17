@@ -1,0 +1,834 @@
+{
+  "kind": "identical-guard-policy-primordial",
+  "complete": true,
+  "executions": 320,
+  "sourceRef": "6b4355d7d7c942bb4094ac7a9065c0193596267b",
+  "optionsSHA256": "fdbafaba8780b77714e7064324ebbf9291c8b5423f68414ebb558553898ac85b",
+  "snapshotSHA256": "456d299b9f72ef711e6f61c00ef079aa309cad5e0ee5759c1f9a3048e3dfe782",
+  "journalSHA256": "1fbbbaeee0d830e4ebf773c87067d845dc22a429a0b874c6ad4510a8729d33f0",
+  "publicationVerified": true,
+  "variants": {
+    "cooperative": {
+      "games": 160,
+      "side1Wins": 144,
+      "side2Wins": 16,
+      "unfinished": 0,
+      "failedAttacks": 8,
+      "rejectedActions": 0,
+      "nominalSkillMana": 271825,
+      "netSkillManaDelta": -245740,
+      "incomingAllyManaGross": 63420,
+      "guard": {
+        "decisions": 897,
+        "reason:identity_unconfirmed": 745,
+        "eligible": 44,
+        "selected": 0,
+        "success": 0,
+        "reason:eligible": 44,
+        "reason:other_original_choice": 40,
+        "reason:skill_unavailable": 63,
+        "reason:target_dead": 5
+      },
+      "guardByRole": {
+        "kumarin": {
+          "decisions": 711,
+          "reason:identity_unconfirmed": 627,
+          "eligible": 16,
+          "selected": 0,
+          "success": 0,
+          "reason:eligible": 16,
+          "reason:other_original_choice": 16,
+          "reason:skill_unavailable": 47,
+          "reason:target_dead": 5
+        },
+        "consume": {
+          "decisions": 186,
+          "reason:identity_unconfirmed": 118,
+          "eligible": 28,
+          "selected": 0,
+          "success": 0,
+          "reason:eligible": 28,
+          "reason:other_original_choice": 24,
+          "reason:skill_unavailable": 16
+        }
+      },
+      "byCount": {
+        "8": {
+          "games": 32,
+          "side1Wins": 27,
+          "side2Wins": 5,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.84375,
+          "seedBootstrap95": [
+            0.71875,
+            0.9375
+          ]
+        },
+        "9": {
+          "games": 32,
+          "side1Wins": 32,
+          "side2Wins": 0,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 1.0,
+          "seedBootstrap95": [
+            1.0,
+            1.0
+          ]
+        },
+        "10": {
+          "games": 32,
+          "side1Wins": 29,
+          "side2Wins": 3,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.90625,
+          "seedBootstrap95": [
+            0.8125,
+            1.0
+          ]
+        },
+        "11": {
+          "games": 32,
+          "side1Wins": 32,
+          "side2Wins": 0,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 1.0,
+          "seedBootstrap95": [
+            1.0,
+            1.0
+          ]
+        },
+        "12": {
+          "games": 32,
+          "side1Wins": 24,
+          "side2Wins": 8,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.75,
+          "seedBootstrap95": [
+            0.59375,
+            0.875
+          ]
+        }
+      },
+      "bySide": {
+        "2": {
+          "actions": 9439,
+          "rejected": 0,
+          "nominalSkillMana": 124420,
+          "netSkillManaDelta": -106985
+        },
+        "1": {
+          "actions": 9761,
+          "rejected": 0,
+          "nominalSkillMana": 147405,
+          "netSkillManaDelta": -138755
+        }
+      },
+      "seedCount": 80,
+      "side1Score": 0.9,
+      "seedBootstrap95": [
+        0.85,
+        0.94375
+      ]
+    },
+    "knownCommanderGuardBeforeAlly": {
+      "games": 160,
+      "side1Wins": 144,
+      "side2Wins": 16,
+      "unfinished": 0,
+      "failedAttacks": 8,
+      "rejectedActions": 0,
+      "nominalSkillMana": 271805,
+      "netSkillManaDelta": -245705,
+      "incomingAllyManaGross": 63150,
+      "guard": {
+        "decisions": 844,
+        "reason:identity_unconfirmed": 745,
+        "eligible": 40,
+        "selected": 40,
+        "success": 40,
+        "reason:eligible": 40,
+        "reason:skill_unavailable": 54,
+        "reason:target_dead": 5
+      },
+      "guardByRole": {
+        "kumarin": {
+          "decisions": 686,
+          "reason:identity_unconfirmed": 627,
+          "eligible": 16,
+          "selected": 16,
+          "success": 16,
+          "reason:eligible": 16,
+          "reason:skill_unavailable": 38,
+          "reason:target_dead": 5
+        },
+        "consume": {
+          "decisions": 158,
+          "reason:identity_unconfirmed": 118,
+          "eligible": 24,
+          "selected": 24,
+          "success": 24,
+          "reason:eligible": 24,
+          "reason:skill_unavailable": 16
+        }
+      },
+      "byCount": {
+        "8": {
+          "games": 32,
+          "side1Wins": 27,
+          "side2Wins": 5,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.84375,
+          "seedBootstrap95": [
+            0.71875,
+            0.9375
+          ]
+        },
+        "9": {
+          "games": 32,
+          "side1Wins": 32,
+          "side2Wins": 0,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 1.0,
+          "seedBootstrap95": [
+            1.0,
+            1.0
+          ]
+        },
+        "10": {
+          "games": 32,
+          "side1Wins": 29,
+          "side2Wins": 3,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.90625,
+          "seedBootstrap95": [
+            0.8125,
+            1.0
+          ]
+        },
+        "11": {
+          "games": 32,
+          "side1Wins": 32,
+          "side2Wins": 0,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 1.0,
+          "seedBootstrap95": [
+            1.0,
+            1.0
+          ]
+        },
+        "12": {
+          "games": 32,
+          "side1Wins": 24,
+          "side2Wins": 8,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.75,
+          "seedBootstrap95": [
+            0.59375,
+            0.875
+          ]
+        }
+      },
+      "bySide": {
+        "2": {
+          "actions": 9436,
+          "rejected": 0,
+          "nominalSkillMana": 124400,
+          "netSkillManaDelta": -106955
+        },
+        "1": {
+          "actions": 9751,
+          "rejected": 0,
+          "nominalSkillMana": 147405,
+          "netSkillManaDelta": -138750
+        }
+      },
+      "seedCount": 80,
+      "side1Score": 0.9,
+      "seedBootstrap95": [
+        0.85,
+        0.94375
+      ]
+    }
+  },
+  "pairedContrasts": {
+    "all": {
+      "seeds": 80,
+      "side1Delta": 0.0,
+      "seedBootstrap95": [
+        0.0,
+        0.0
+      ]
+    },
+    "8": {
+      "seeds": 16,
+      "side1Delta": 0.0,
+      "seedBootstrap95": [
+        0.0,
+        0.0
+      ]
+    },
+    "9": {
+      "seeds": 16,
+      "side1Delta": 0.0,
+      "seedBootstrap95": [
+        0.0,
+        0.0
+      ]
+    },
+    "10": {
+      "seeds": 16,
+      "side1Delta": 0.0,
+      "seedBootstrap95": [
+        0.0,
+        0.0
+      ]
+    },
+    "11": {
+      "seeds": 16,
+      "side1Delta": 0.0,
+      "seedBootstrap95": [
+        0.0,
+        0.0
+      ]
+    },
+    "12": {
+      "seeds": 16,
+      "side1Delta": 0.0,
+      "seedBootstrap95": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "nonintervenedPairsIdentical": 128,
+  "firstDivergences": [
+    {
+      "seed": 149004,
+      "reversed": false,
+      "at": 37000,
+      "player": "p5",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p9"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p9"
+      }
+    },
+    {
+      "seed": 149004,
+      "reversed": true,
+      "at": 37000,
+      "player": "p5",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p9"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p9"
+      }
+    },
+    {
+      "seed": 149009,
+      "reversed": false,
+      "at": 63000,
+      "player": "p7",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p6"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p6"
+      }
+    },
+    {
+      "seed": 149009,
+      "reversed": true,
+      "at": 63000,
+      "player": "p7",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p6"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p6"
+      }
+    },
+    {
+      "seed": 149014,
+      "reversed": false,
+      "at": 25250,
+      "player": "p2",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p7"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p7"
+      }
+    },
+    {
+      "seed": 149014,
+      "reversed": true,
+      "at": 25250,
+      "player": "p2",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p7"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p7"
+      }
+    },
+    {
+      "seed": 149019,
+      "reversed": false,
+      "at": 100250,
+      "player": "p5",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p4"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p4"
+      }
+    },
+    {
+      "seed": 149019,
+      "reversed": true,
+      "at": 100250,
+      "player": "p5",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p4"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p4"
+      }
+    },
+    {
+      "seed": 149024,
+      "reversed": false,
+      "at": 98750,
+      "player": "p1",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p11"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p11"
+      }
+    },
+    {
+      "seed": 149024,
+      "reversed": true,
+      "at": 98750,
+      "player": "p1",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p11"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p11"
+      }
+    },
+    {
+      "seed": 149029,
+      "reversed": false,
+      "at": 87500,
+      "player": "p12",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p7"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p7"
+      }
+    },
+    {
+      "seed": 149038,
+      "reversed": false,
+      "at": 115250,
+      "player": "p8",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p4"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "kumarin_commander_guard",
+        "target": "p4"
+      }
+    },
+    {
+      "seed": 149038,
+      "reversed": true,
+      "at": 115250,
+      "player": "p8",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p4"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "kumarin_commander_guard",
+        "target": "p4"
+      }
+    },
+    {
+      "seed": 149039,
+      "reversed": false,
+      "at": 86500,
+      "player": "p2",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p10"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p10"
+      }
+    },
+    {
+      "seed": 149039,
+      "reversed": true,
+      "at": 86500,
+      "player": "p2",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p10"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p10"
+      }
+    },
+    {
+      "seed": 149044,
+      "reversed": false,
+      "at": 71000,
+      "player": "p4",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p11"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p7"
+      }
+    },
+    {
+      "seed": 149044,
+      "reversed": true,
+      "at": 71000,
+      "player": "p4",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p7"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p7"
+      }
+    },
+    {
+      "seed": 149049,
+      "reversed": false,
+      "at": 85500,
+      "player": "p6",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p5"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p5"
+      }
+    },
+    {
+      "seed": 149049,
+      "reversed": true,
+      "at": 85500,
+      "player": "p6",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p5"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p5"
+      }
+    },
+    {
+      "seed": 149054,
+      "reversed": false,
+      "at": 91000,
+      "player": "p2",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p11"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "kumarin_commander_guard",
+        "target": "p11"
+      }
+    },
+    {
+      "seed": 149054,
+      "reversed": true,
+      "at": 91000,
+      "player": "p2",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p11"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "kumarin_commander_guard",
+        "target": "p11"
+      }
+    },
+    {
+      "seed": 149059,
+      "reversed": false,
+      "at": 103750,
+      "player": "p10",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p12"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p12"
+      }
+    },
+    {
+      "seed": 149059,
+      "reversed": true,
+      "at": 130750,
+      "player": "p5",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p9"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "kumarin_commander_guard",
+        "target": "p9"
+      }
+    },
+    {
+      "seed": 149063,
+      "reversed": false,
+      "at": 21500,
+      "player": "p11",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p2"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "kumarin_commander_guard",
+        "target": "p2"
+      }
+    },
+    {
+      "seed": 149063,
+      "reversed": true,
+      "at": 21500,
+      "player": "p11",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p2"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "kumarin_commander_guard",
+        "target": "p2"
+      }
+    },
+    {
+      "seed": 149064,
+      "reversed": true,
+      "at": 53500,
+      "player": "p11",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p12"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p12"
+      }
+    },
+    {
+      "seed": 149069,
+      "reversed": false,
+      "at": 63000,
+      "player": "p7",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p5"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p5"
+      }
+    },
+    {
+      "seed": 149069,
+      "reversed": true,
+      "at": 63000,
+      "player": "p7",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p5"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p5"
+      }
+    },
+    {
+      "seed": 149074,
+      "reversed": false,
+      "at": 109750,
+      "player": "p5",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p11"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "kumarin_commander_guard",
+        "target": "p11"
+      }
+    },
+    {
+      "seed": 149074,
+      "reversed": true,
+      "at": 127250,
+      "player": "p3",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p1"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p1"
+      }
+    },
+    {
+      "seed": 149079,
+      "reversed": false,
+      "at": 45000,
+      "player": "p12",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p3"
+      }
+    },
+    {
+      "seed": 149079,
+      "reversed": true,
+      "at": 45000,
+      "player": "p12",
+      "original": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      },
+      "chosen": {
+        "type": "skill",
+        "skill": "consume_master_guard",
+        "target": "p3"
+      }
+    }
+  ],
+  "limitations": [
+    "Synthetic bots; actual human matches zero.",
+    "Faction outcomes are not policy strength.",
+    "Bootstrap [0,0] from tied samples is not population equivalence.",
+    "Guard trajectory opportunities are not identical after intervention."
+  ]
+}

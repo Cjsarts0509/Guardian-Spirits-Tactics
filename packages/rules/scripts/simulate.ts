@@ -1,6 +1,6 @@
 // 봇 시뮬레이션: pnpm sim -- [판수] [인원] [smart|random] [모드]
 // 서버와 같은 조건(250ms 틱, 봇 행동 확률 0.012)으로 돌려 판 길이 분포를 본다
-import { advance, applyAction, assignmentBelief, beliefBrier, botKnowledge, createBotMemory, createGame, randomBotAction, smartBotAction, viewFor } from '../src/index.js';
+import { advance, applyAction, assignmentBelief, beliefBrier, botKnowledge, createBotMemory, createGame, randomBotAction, smartBotAction, botCommunicationAction, viewFor } from '../src/index.js';
 
 const args = process.argv.slice(2).filter((a) => a !== '--');
 const games = Number(args[0] ?? 200);
@@ -50,6 +50,7 @@ for (let i = 0; i < games; i++) {
       const mem = memories.get(p.id)!;
       const a = kind === 'random' ? randomBotAction(state, p.id, mem, { activity: ACTIVITY }) : smartBotAction(state, p.id, mem, { activity: ACTIVITY });
       if (a) applyAction(state, p.id, a, now);
+      const chat=kind==='smart'?botCommunicationAction(state,p.id,mem):null;if(chat)applyAction(state,p.id,chat,now);
     }
   }
   if (state.winner === 1) wins[1]++;

@@ -1,0 +1,1673 @@
+{
+  "format": 1,
+  "phase": "development",
+  "complete": false,
+  "executions": 576,
+  "start": 143000,
+  "seeds": 8,
+  "fingerprint": "f33ba32e01b16b8577744d580ee66fc30430394bace03f0751a3b3a9ebef4846",
+  "sourceHashes": {
+    "src/bot-attack-budget.ts": "c9ff67f3e00ded9caa3bbc1ec34f84ed6fc6d914fcfab6ec762d2d2a168be33d",
+    "src/bot-belief.ts": "99e28d211c99ecf514a42bae8242d0fa40fb078b83da4d83e324bcd7a5ff4ee7",
+    "src/bot-claim-commitment.ts": "e78d72ffe94629c6c89004a999bfaea3d85f75f52928e7ed27b70c695c8f2208",
+    "src/bot-claim-policy.ts": "844245cbbee46474942d6d6709016c563bac2b40b7862478c53dcc3e9cb00340",
+    "src/bot-claims.ts": "8b4a70a2b81c531c42b4b55dc97f657e817cfb714c9ad2a544983ffefc60dd04",
+    "src/bot-confirmation-combat.ts": "877c29851874365fca469a482714f6d3e7db1fddd7f819a17e1bc24cd164c7e1",
+    "src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "src/bot-followup.ts": "624c444dc161c31efabd937ff5f8888dd086997ba4fdfd9137bbedf7a4057c25",
+    "src/bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "src/bot-idle-claim.ts": "705f506d006c83ce344c19beaff7169dd4c1d1da239a23aca511a1464bc1f95d",
+    "src/bot-information.ts": "342e4d64600e07923812fec4f46bf5e239d4a8118b6121cc4e93bd27f28827e4",
+    "src/bot-intel.ts": "b42dc044a27b7ed8fc2c2578587ac4b431d957b9e25dd0c800547a1875d1e897",
+    "src/bot-memory.ts": "96cace9fef1cf2eb93ea8cece7d788b70ac600d14b8a5e8ac742520fbd57265a",
+    "src/bot-response.ts": "0a7d792d2f3b2262f22155466014d5a0bc309ee1ddba93aa98158b0107a7b521",
+    "src/bot-retry.ts": "e6c5fd3f88d0aa225561313197b73ca60eda01e8e99e3867584079271efd82cc",
+    "src/bot-rollout.ts": "804d45192914975407e36dd0c5df63ca2f246dd2453087db5f2f6106e391d3df",
+    "src/bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+    "src/bot-tactics.ts": "ea8d2f8122efb603155b5aab75851b41abcbf0555b42eac9e4678115f9af3d87",
+    "src/bot.ts": "6b6a5272df9182b7a44a8b3e05e969601f709b7504ee962bd936587342244429",
+    "src/constants.ts": "d8e40237ce482f04e9cc07a25ce9c915d53669022c4f0bca319ce75ba7518eee",
+    "src/engine/actions.ts": "89453200644e1232f9e41a6c6e0add1e35db885d5c78965890474b9089c63708",
+    "src/engine/attack.ts": "bb9e1e2c3771a79029d243f64295ec7a30b8608ba6e3294af7dba22ba61e10c8",
+    "src/engine/checks.ts": "b47ebee3a226d7a8c9cd443989356a1fa953276044341b8c95ca95bde1b7cfa2",
+    "src/engine/create.ts": "00852891bee53689b54451dedbb079455da76fabf4fb0a38c5dbc42ff808e69c",
+    "src/engine/game.ts": "dc1bb4fd293f8391cf889ae5b779132015860a2315566d711d8a094666e2b8b0",
+    "src/engine/time.ts": "0b413b8aeb4b16e78d4aeeefa3fca8732b22053d714711dc428e35c9bc707b47",
+    "src/engine/view.ts": "700e8a4fd5f59578bef21f91b65d050a3f8d79e0e4263fcf5cf4e0d00abc0147",
+    "src/host-memory.ts": "afe791a3bc8909bb62d07f98dfa5acb872decb3384c32decdf5e728d2ef27c86",
+    "src/host-runtime.ts": "e3415ffa083ec2cd2132c6024b5b7ff98f8ec187e358c20437aaeda81b97f759",
+    "src/index.ts": "01bab72662393131174875a250077c5d75d35471d8ba381bd804cb58c9b88296",
+    "src/modes/civil_war.ts": "812d13da2eafec3deb957f976ad2ed9d0c433ef1dc24a95c8b238bc56eb2f70d",
+    "src/modes/index.ts": "d839d60dd3c9bc8a709bda120a9f006fded719e94b12e9837f759b3e81055df5",
+    "src/modes/lidellut.ts": "0d10054d0ba72efedc3508faa5137258b64065012d1d5859629fcd378082f041",
+    "src/modes/primordial.ts": "b69146d17a7dd5c2b5e09bbc514f0556fcef3c03f171b5bfd4294a380a0ab104",
+    "src/modes/troll.ts": "38a6288c06a0bc34a9d3378d5faec07be15f7f1c00fd9189153c28b00dd5d629",
+    "src/modes/types.ts": "c4d3496c6f78e921a4cca3768c9f3412d011f19c036f63fdbef6ca60001dc300",
+    "src/rng.ts": "3c4250a2f7358bd04cd377e72759dd386bb149098dadf1e013649afef1ff9695",
+    "src/skills/common.ts": "47d8463b2d44e64f56ff510653bc59e07eaf36f9c6c72ca678fb7fd9f0b1e4d0",
+    "src/skills/registry.ts": "ae569271530dda73f677e9e771918d8bf622ee6767ea0e3a8619c48ad705873e",
+    "src/text.ts": "ed42a4d871e2a039d255f897391c97757803451afb47cf51a54bd60ca5e9aecd",
+    "src/types.ts": "0f56affb727e1776e5345d5ff932ebe9ced9a9f5c88e09a5b509ed153dd219f3",
+    "scripts/cooperative-claim-commitment.ts": "43b2def3f6e76c1dd4caeef09712e08bf4eebc5aaa64286e50513dd7696c23ba",
+    "scripts/cooperative-commitment-match.ts": "ec2797dfd859a083bd3340bf2540e90004e579f972f1108756483e2cdc768f1a",
+    "scripts/baselines/pre-round024.ts": "44ad92b9da15d4fa9921ebfb34dffcd05189cb0dba903c9576a1a4852c17630f",
+    "scripts/cooperative-store.ts": "55c86b9db9b6cb3a5b30ec188aeb3cc0045233e0c77123b809578eb1109e5804",
+    "scripts/league-runner.ts": "306938e3c0e5005fb2197b3e59c6e7249f1c0ee160aa41e45b59ce100b4841b7",
+    "scripts/baselines/pre-cooperative.ts": "3fb32af177bcbddfdc15d6cecc12743af1abdc2f837e098ed979e4e03cb2206a",
+    "scripts/claim-opponents.ts": "56b70de28ec2c24d9165f909b6065e99a24bbbd6d334ebd6f4cd1a8d3cd395ef"
+  },
+  "variants": {
+    "baseline": {
+      "civil_war": {
+        "games": 96,
+        "scoreSum": 63.0,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 8,
+        "resources": {
+          "aliveMs": 152154750,
+          "trueNameMs": 143339250,
+          "turns": 1498,
+          "trueNameTurns": 1498,
+          "trueNameBonusGross": 14980,
+          "incomingAllyManaGross": 7160,
+          "turnGainGross": 52100,
+          "publishes": 462,
+          "truePublishes": 462,
+          "falsePublishes": 0,
+          "publishManaGross": 2310,
+          "publishManaNet": 2310,
+          "reaffirmations": 0,
+          "reaffirmManaNet": 0,
+          "allies": 286,
+          "allyManaNet": 2860,
+          "acceptedSkillMana": 75190,
+          "attackFailures": 4,
+          "holdingMs": 0,
+          "holdStarts": 0,
+          "holdingTrueNameTurns": 0,
+          "gemCompletedPlayers": 132
+        },
+        "safety": {
+          "wrongFollowups": 0,
+          "wrongBreaks": 0,
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "holdingFalsePublishes": 0
+        },
+        "skills": {
+          "publish": {
+            "accepted": 462,
+            "rejected": 0,
+            "nominalMana": 0,
+            "netManaDelta": 2310,
+            "whileHolding": 0
+          },
+          "scan": {
+            "accepted": 158,
+            "rejected": 0,
+            "nominalMana": 3160,
+            "netManaDelta": -3160,
+            "whileHolding": 0
+          },
+          "ally_check": {
+            "accepted": 378,
+            "rejected": 0,
+            "nominalMana": 5670,
+            "netManaDelta": -5670,
+            "whileHolding": 0
+          },
+          "kelhu_loyal": {
+            "accepted": 104,
+            "rejected": 0,
+            "nominalMana": 2600,
+            "netManaDelta": -2600,
+            "whileHolding": 0
+          },
+          "enemy_check": {
+            "accepted": 26,
+            "rejected": 2,
+            "nominalMana": 520,
+            "netManaDelta": -520,
+            "whileHolding": 0
+          },
+          "warrior_scent": {
+            "accepted": 127,
+            "rejected": 2,
+            "nominalMana": 5080,
+            "netManaDelta": -5080,
+            "whileHolding": 0
+          },
+          "dantes_successor": {
+            "accepted": 42,
+            "rejected": 0,
+            "nominalMana": 1260,
+            "netManaDelta": -1260,
+            "whileHolding": 0
+          },
+          "shadow_jail": {
+            "accepted": 9,
+            "rejected": 0,
+            "nominalMana": 315,
+            "netManaDelta": -315,
+            "whileHolding": 0
+          },
+          "advice": {
+            "accepted": 36,
+            "rejected": 0,
+            "nominalMana": 1800,
+            "netManaDelta": -1800,
+            "whileHolding": 0
+          },
+          "ally": {
+            "accepted": 286,
+            "rejected": 2,
+            "nominalMana": 2860,
+            "netManaDelta": -2860,
+            "whileHolding": 0
+          },
+          "truth_gem": {
+            "accepted": 463,
+            "rejected": 1,
+            "nominalMana": 24700,
+            "netManaDelta": -24700,
+            "whileHolding": 0
+          },
+          "advanced_attack": {
+            "accepted": 128,
+            "rejected": 0,
+            "nominalMana": 6400,
+            "netManaDelta": -6400,
+            "whileHolding": 0
+          },
+          "dantes_command": {
+            "accepted": 39,
+            "rejected": 0,
+            "nominalMana": 0,
+            "netManaDelta": 0,
+            "whileHolding": 0
+          },
+          "advanced_scan": {
+            "accepted": 219,
+            "rejected": 0,
+            "nominalMana": 4380,
+            "netManaDelta": -4380,
+            "whileHolding": 0
+          },
+          "advanced_enemy_check": {
+            "accepted": 53,
+            "rejected": 0,
+            "nominalMana": 1060,
+            "netManaDelta": -1060,
+            "whileHolding": 0
+          },
+          "attack": {
+            "accepted": 91,
+            "rejected": 0,
+            "nominalMana": 4550,
+            "netManaDelta": -4450,
+            "whileHolding": 0
+          },
+          "kai_loyal": {
+            "accepted": 132,
+            "rejected": 0,
+            "nominalMana": 3300,
+            "netManaDelta": -3300,
+            "whileHolding": 0
+          },
+          "rune_protection": {
+            "accepted": 28,
+            "rejected": 0,
+            "nominalMana": 1120,
+            "netManaDelta": -1120,
+            "whileHolding": 0
+          },
+          "oracle": {
+            "accepted": 35,
+            "rejected": 1,
+            "nominalMana": 1400,
+            "netManaDelta": -1400,
+            "whileHolding": 0
+          },
+          "nightmare": {
+            "accepted": 33,
+            "rejected": 0,
+            "nominalMana": 990,
+            "netManaDelta": -990,
+            "whileHolding": 0
+          },
+          "soul_reaver": {
+            "accepted": 31,
+            "rejected": 0,
+            "nominalMana": 1550,
+            "netManaDelta": -1550,
+            "whileHolding": 0
+          },
+          "mertz_spouse": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 500,
+            "netManaDelta": -500,
+            "whileHolding": 0
+          },
+          "reindila_spouse": {
+            "accepted": 10,
+            "rejected": 0,
+            "nominalMana": 250,
+            "netManaDelta": -250,
+            "whileHolding": 0
+          },
+          "soul_recovery": {
+            "accepted": 18,
+            "rejected": 0,
+            "nominalMana": 720,
+            "netManaDelta": -720,
+            "whileHolding": 0
+          },
+          "shadow_eye": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 200,
+            "netManaDelta": -200,
+            "whileHolding": 0
+          },
+          "burning_magic": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 160,
+            "netManaDelta": -160,
+            "whileHolding": 0
+          },
+          "curse": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 120,
+            "netManaDelta": -120,
+            "whileHolding": 0
+          },
+          "libido_priestess": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "valiant_charge": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 225,
+            "netManaDelta": -225,
+            "whileHolding": 0
+          }
+        },
+        "blockedGuesses": {
+          "blocked": 0
+        },
+        "score": 0.65625
+      },
+      "primordial": {
+        "games": 96,
+        "scoreSum": 70.0,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "resources": {
+          "aliveMs": 169991750,
+          "trueNameMs": 160388750,
+          "turns": 1707,
+          "trueNameTurns": 1707,
+          "trueNameBonusGross": 17070,
+          "incomingAllyManaGross": 8100,
+          "turnGainGross": 59310,
+          "publishes": 462,
+          "truePublishes": 462,
+          "falsePublishes": 0,
+          "publishManaGross": 2310,
+          "publishManaNet": 2310,
+          "reaffirmations": 0,
+          "reaffirmManaNet": 0,
+          "allies": 391,
+          "allyManaNet": 3910,
+          "acceptedSkillMana": 81875,
+          "attackFailures": 22,
+          "holdingMs": 0,
+          "holdStarts": 0,
+          "holdingTrueNameTurns": 0,
+          "gemCompletedPlayers": 173
+        },
+        "safety": {
+          "wrongFollowups": 0,
+          "wrongBreaks": 0,
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "holdingFalsePublishes": 0
+        },
+        "skills": {
+          "publish": {
+            "accepted": 462,
+            "rejected": 0,
+            "nominalMana": 0,
+            "netManaDelta": 2310,
+            "whileHolding": 0
+          },
+          "scan": {
+            "accepted": 200,
+            "rejected": 0,
+            "nominalMana": 4000,
+            "netManaDelta": -4000,
+            "whileHolding": 0
+          },
+          "rael_leadership": {
+            "accepted": 48,
+            "rejected": 0,
+            "nominalMana": 2400,
+            "netManaDelta": -2400,
+            "whileHolding": 0
+          },
+          "ally_check": {
+            "accepted": 480,
+            "rejected": 0,
+            "nominalMana": 7200,
+            "netManaDelta": -7200,
+            "whileHolding": 0
+          },
+          "ally": {
+            "accepted": 391,
+            "rejected": 0,
+            "nominalMana": 3910,
+            "netManaDelta": -3910,
+            "whileHolding": 0
+          },
+          "advanced_enemy_check": {
+            "accepted": 68,
+            "rejected": 0,
+            "nominalMana": 1360,
+            "netManaDelta": -1360,
+            "whileHolding": 0
+          },
+          "eoril_trial": {
+            "accepted": 39,
+            "rejected": 0,
+            "nominalMana": 2340,
+            "netManaDelta": -2340,
+            "whileHolding": 0
+          },
+          "nukelius_chakra_magic": {
+            "accepted": 46,
+            "rejected": 0,
+            "nominalMana": 920,
+            "netManaDelta": -920,
+            "whileHolding": 0
+          },
+          "eoril_flame_shackle": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 600,
+            "netManaDelta": -600,
+            "whileHolding": 0
+          },
+          "attack": {
+            "accepted": 213,
+            "rejected": 0,
+            "nominalMana": 10650,
+            "netManaDelta": -8900,
+            "whileHolding": 0
+          },
+          "rael_eoril_test": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 480,
+            "netManaDelta": -480,
+            "whileHolding": 0
+          },
+          "truth_gem": {
+            "accepted": 423,
+            "rejected": 0,
+            "nominalMana": 23800,
+            "netManaDelta": -23800,
+            "whileHolding": 0
+          },
+          "rael_master_power": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 40,
+            "netManaDelta": -40,
+            "whileHolding": 0
+          },
+          "kane_wolfs_slash": {
+            "accepted": 24,
+            "rejected": 0,
+            "nominalMana": 1440,
+            "netManaDelta": -1440,
+            "whileHolding": 0
+          },
+          "enemy_check": {
+            "accepted": 69,
+            "rejected": 0,
+            "nominalMana": 1380,
+            "netManaDelta": -1380,
+            "whileHolding": 0
+          },
+          "hermilly_seeing_libido": {
+            "accepted": 28,
+            "rejected": 0,
+            "nominalMana": 1120,
+            "netManaDelta": -1120,
+            "whileHolding": 0
+          },
+          "eltas_leadership": {
+            "accepted": 48,
+            "rejected": 0,
+            "nominalMana": 2400,
+            "netManaDelta": -2400,
+            "whileHolding": 0
+          },
+          "kilder_casanova": {
+            "accepted": 35,
+            "rejected": 0,
+            "nominalMana": 1050,
+            "netManaDelta": -1050,
+            "whileHolding": 0
+          },
+          "supreme_attack": {
+            "accepted": 158,
+            "rejected": 0,
+            "nominalMana": 7900,
+            "netManaDelta": -3310,
+            "whileHolding": 0
+          },
+          "drakan_black_spell": {
+            "accepted": 21,
+            "rejected": 0,
+            "nominalMana": 1680,
+            "netManaDelta": -1680,
+            "whileHolding": 0
+          },
+          "advanced_attack": {
+            "accepted": 29,
+            "rejected": 0,
+            "nominalMana": 1450,
+            "netManaDelta": -1450,
+            "whileHolding": 0
+          },
+          "tachin_neutralize": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 850,
+            "netManaDelta": -850,
+            "whileHolding": 0
+          },
+          "advanced_ally_check": {
+            "accepted": 92,
+            "rejected": 0,
+            "nominalMana": 1380,
+            "netManaDelta": -1380,
+            "whileHolding": 0
+          },
+          "sasint_support": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 170,
+            "netManaDelta": -170,
+            "whileHolding": 0
+          },
+          "sasint_battle_mastery": {
+            "accepted": 17,
+            "rejected": 0,
+            "nominalMana": 850,
+            "netManaDelta": -850,
+            "whileHolding": 0
+          },
+          "kumarin_union": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "tachin_union": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "kumarin_commander_guard": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 600,
+            "netManaDelta": -600,
+            "whileHolding": 0
+          },
+          "kilder_master_power": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 40,
+            "netManaDelta": -40,
+            "whileHolding": 0
+          },
+          "consume_slave_instinct": {
+            "accepted": 13,
+            "rejected": 0,
+            "nominalMana": 325,
+            "netManaDelta": -325,
+            "whileHolding": 0
+          },
+          "consume_master_guard": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "hermilly_libido_protection": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 180,
+            "netManaDelta": -180,
+            "whileHolding": 0
+          },
+          "sasint_training": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 120,
+            "netManaDelta": -120,
+            "whileHolding": 0
+          },
+          "drakan_enchant_muscle": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 160,
+            "netManaDelta": -160,
+            "whileHolding": 0
+          },
+          "consume_final_evolution": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 150,
+            "netManaDelta": -150,
+            "whileHolding": 0
+          },
+          "consume_slaughter": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 30,
+            "netManaDelta": -30,
+            "whileHolding": 0
+          }
+        },
+        "blockedGuesses": {
+          "blocked": 0
+        },
+        "score": 0.7291666666666666
+      }
+    },
+    "control": {
+      "civil_war": {
+        "games": 96,
+        "scoreSum": 67.0,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 1,
+        "resources": {
+          "aliveMs": 213894250,
+          "trueNameMs": 127448500,
+          "turns": 2189,
+          "trueNameTurns": 1387,
+          "trueNameBonusGross": 13870,
+          "incomingAllyManaGross": 21880,
+          "turnGainGross": 79530,
+          "publishes": 614,
+          "truePublishes": 377,
+          "falsePublishes": 237,
+          "publishManaGross": 3070,
+          "publishManaNet": 3000,
+          "reaffirmations": 0,
+          "reaffirmManaNet": 0,
+          "allies": 616,
+          "allyManaNet": 6160,
+          "acceptedSkillMana": 87660,
+          "attackFailures": 7,
+          "holdingMs": 0,
+          "holdStarts": 0,
+          "holdingTrueNameTurns": 0,
+          "gemCompletedPlayers": 137
+        },
+        "safety": {
+          "wrongFollowups": 0,
+          "wrongBreaks": 0,
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "holdingFalsePublishes": 0
+        },
+        "skills": {
+          "publish": {
+            "accepted": 614,
+            "rejected": 0,
+            "nominalMana": 0,
+            "netManaDelta": 3000,
+            "whileHolding": 0
+          },
+          "scan": {
+            "accepted": 201,
+            "rejected": 0,
+            "nominalMana": 4020,
+            "netManaDelta": -4020,
+            "whileHolding": 0
+          },
+          "ally": {
+            "accepted": 616,
+            "rejected": 0,
+            "nominalMana": 6160,
+            "netManaDelta": -6160,
+            "whileHolding": 0
+          },
+          "ally_check": {
+            "accepted": 461,
+            "rejected": 0,
+            "nominalMana": 6915,
+            "netManaDelta": -6915,
+            "whileHolding": 0
+          },
+          "kelhu_loyal": {
+            "accepted": 205,
+            "rejected": 0,
+            "nominalMana": 5125,
+            "netManaDelta": -5125,
+            "whileHolding": 0
+          },
+          "enemy_check": {
+            "accepted": 42,
+            "rejected": 0,
+            "nominalMana": 840,
+            "netManaDelta": -840,
+            "whileHolding": 0
+          },
+          "warrior_scent": {
+            "accepted": 169,
+            "rejected": 1,
+            "nominalMana": 6760,
+            "netManaDelta": -6760,
+            "whileHolding": 0
+          },
+          "dantes_successor": {
+            "accepted": 37,
+            "rejected": 0,
+            "nominalMana": 1110,
+            "netManaDelta": -1110,
+            "whileHolding": 0
+          },
+          "advice": {
+            "accepted": 48,
+            "rejected": 0,
+            "nominalMana": 2400,
+            "netManaDelta": -2400,
+            "whileHolding": 0
+          },
+          "truth_gem": {
+            "accepted": 386,
+            "rejected": 0,
+            "nominalMana": 21475,
+            "netManaDelta": -21475,
+            "whileHolding": 0
+          },
+          "advanced_attack": {
+            "accepted": 152,
+            "rejected": 0,
+            "nominalMana": 7600,
+            "netManaDelta": -7600,
+            "whileHolding": 0
+          },
+          "dantes_command": {
+            "accepted": 24,
+            "rejected": 0,
+            "nominalMana": 0,
+            "netManaDelta": 0,
+            "whileHolding": 0
+          },
+          "advanced_scan": {
+            "accepted": 262,
+            "rejected": 0,
+            "nominalMana": 5240,
+            "netManaDelta": -5240,
+            "whileHolding": 0
+          },
+          "advanced_enemy_check": {
+            "accepted": 56,
+            "rejected": 0,
+            "nominalMana": 1120,
+            "netManaDelta": -1120,
+            "whileHolding": 0
+          },
+          "attack": {
+            "accepted": 100,
+            "rejected": 0,
+            "nominalMana": 5000,
+            "netManaDelta": -4650,
+            "whileHolding": 0
+          },
+          "kai_loyal": {
+            "accepted": 234,
+            "rejected": 0,
+            "nominalMana": 5850,
+            "netManaDelta": -5850,
+            "whileHolding": 0
+          },
+          "oracle": {
+            "accepted": 87,
+            "rejected": 0,
+            "nominalMana": 3480,
+            "netManaDelta": -3480,
+            "whileHolding": 0
+          },
+          "shadow_jail": {
+            "accepted": 23,
+            "rejected": 0,
+            "nominalMana": 805,
+            "netManaDelta": -805,
+            "whileHolding": 0
+          },
+          "nightmare": {
+            "accepted": 22,
+            "rejected": 0,
+            "nominalMana": 660,
+            "netManaDelta": -660,
+            "whileHolding": 0
+          },
+          "mertz_spouse": {
+            "accepted": 27,
+            "rejected": 0,
+            "nominalMana": 675,
+            "netManaDelta": -675,
+            "whileHolding": 0
+          },
+          "reindila_spouse": {
+            "accepted": 10,
+            "rejected": 0,
+            "nominalMana": 250,
+            "netManaDelta": -250,
+            "whileHolding": 0
+          },
+          "soul_recovery": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 800,
+            "netManaDelta": -800,
+            "whileHolding": 0
+          },
+          "shadow_eye": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 50,
+            "netManaDelta": -50,
+            "whileHolding": 0
+          },
+          "soul_reaver": {
+            "accepted": 9,
+            "rejected": 0,
+            "nominalMana": 450,
+            "netManaDelta": -450,
+            "whileHolding": 0
+          },
+          "valiant_charge": {
+            "accepted": 9,
+            "rejected": 0,
+            "nominalMana": 675,
+            "netManaDelta": -675,
+            "whileHolding": 0
+          },
+          "libido_priestess": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 200,
+            "netManaDelta": -200,
+            "whileHolding": 0
+          }
+        },
+        "blockedGuesses": {
+          "blocked": 0
+        },
+        "score": 0.6979166666666666
+      },
+      "primordial": {
+        "games": 96,
+        "scoreSum": 74.0,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "resources": {
+          "aliveMs": 217924250,
+          "trueNameMs": 110085250,
+          "turns": 2247,
+          "trueNameTurns": 1194,
+          "trueNameBonusGross": 11940,
+          "incomingAllyManaGross": 17300,
+          "turnGainGross": 74180,
+          "publishes": 769,
+          "truePublishes": 522,
+          "falsePublishes": 247,
+          "publishManaGross": 3845,
+          "publishManaNet": 3745,
+          "reaffirmations": 0,
+          "reaffirmManaNet": 0,
+          "allies": 708,
+          "allyManaNet": 7080,
+          "acceptedSkillMana": 79095,
+          "attackFailures": 44,
+          "holdingMs": 0,
+          "holdStarts": 0,
+          "holdingTrueNameTurns": 0,
+          "gemCompletedPlayers": 75
+        },
+        "safety": {
+          "wrongFollowups": 0,
+          "wrongBreaks": 0,
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "holdingFalsePublishes": 0
+        },
+        "skills": {
+          "publish": {
+            "accepted": 769,
+            "rejected": 0,
+            "nominalMana": 0,
+            "netManaDelta": 3745,
+            "whileHolding": 0
+          },
+          "scan": {
+            "accepted": 227,
+            "rejected": 0,
+            "nominalMana": 4540,
+            "netManaDelta": -4540,
+            "whileHolding": 0
+          },
+          "ally": {
+            "accepted": 708,
+            "rejected": 0,
+            "nominalMana": 7080,
+            "netManaDelta": -7080,
+            "whileHolding": 0
+          },
+          "rael_leadership": {
+            "accepted": 48,
+            "rejected": 0,
+            "nominalMana": 2400,
+            "netManaDelta": -2400,
+            "whileHolding": 0
+          },
+          "ally_check": {
+            "accepted": 518,
+            "rejected": 0,
+            "nominalMana": 7770,
+            "netManaDelta": -7770,
+            "whileHolding": 0
+          },
+          "advanced_enemy_check": {
+            "accepted": 66,
+            "rejected": 0,
+            "nominalMana": 1320,
+            "netManaDelta": -1320,
+            "whileHolding": 0
+          },
+          "eoril_trial": {
+            "accepted": 34,
+            "rejected": 0,
+            "nominalMana": 2040,
+            "netManaDelta": -2040,
+            "whileHolding": 0
+          },
+          "nukelius_chakra_magic": {
+            "accepted": 41,
+            "rejected": 0,
+            "nominalMana": 820,
+            "netManaDelta": -820,
+            "whileHolding": 0
+          },
+          "attack": {
+            "accepted": 197,
+            "rejected": 0,
+            "nominalMana": 9850,
+            "netManaDelta": -7850,
+            "whileHolding": 0
+          },
+          "kane_wolfs_slash": {
+            "accepted": 24,
+            "rejected": 0,
+            "nominalMana": 1440,
+            "netManaDelta": -1440,
+            "whileHolding": 0
+          },
+          "enemy_check": {
+            "accepted": 71,
+            "rejected": 0,
+            "nominalMana": 1420,
+            "netManaDelta": -1420,
+            "whileHolding": 0
+          },
+          "hermilly_seeing_libido": {
+            "accepted": 22,
+            "rejected": 0,
+            "nominalMana": 880,
+            "netManaDelta": -880,
+            "whileHolding": 0
+          },
+          "eltas_leadership": {
+            "accepted": 48,
+            "rejected": 0,
+            "nominalMana": 2400,
+            "netManaDelta": -2400,
+            "whileHolding": 0
+          },
+          "kilder_casanova": {
+            "accepted": 26,
+            "rejected": 0,
+            "nominalMana": 780,
+            "netManaDelta": -780,
+            "whileHolding": 0
+          },
+          "supreme_attack": {
+            "accepted": 138,
+            "rejected": 0,
+            "nominalMana": 6900,
+            "netManaDelta": -3330,
+            "whileHolding": 0
+          },
+          "drakan_black_spell": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 1600,
+            "netManaDelta": -1600,
+            "whileHolding": 0
+          },
+          "truth_gem": {
+            "accepted": 298,
+            "rejected": 0,
+            "nominalMana": 17325,
+            "netManaDelta": -17325,
+            "whileHolding": 0
+          },
+          "rael_eoril_test": {
+            "accepted": 5,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "advanced_attack": {
+            "accepted": 68,
+            "rejected": 0,
+            "nominalMana": 3400,
+            "netManaDelta": -3400,
+            "whileHolding": 0
+          },
+          "tachin_neutralize": {
+            "accepted": 15,
+            "rejected": 0,
+            "nominalMana": 750,
+            "netManaDelta": -750,
+            "whileHolding": 0
+          },
+          "eoril_flame_shackle": {
+            "accepted": 16,
+            "rejected": 0,
+            "nominalMana": 480,
+            "netManaDelta": -480,
+            "whileHolding": 0
+          },
+          "advanced_ally_check": {
+            "accepted": 146,
+            "rejected": 0,
+            "nominalMana": 2190,
+            "netManaDelta": -2190,
+            "whileHolding": 0
+          },
+          "sasint_support": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 200,
+            "netManaDelta": -200,
+            "whileHolding": 0
+          },
+          "sasint_battle_mastery": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 1000,
+            "netManaDelta": -1000,
+            "whileHolding": 0
+          },
+          "kumarin_union": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "tachin_union": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "rael_master_power": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 10,
+            "netManaDelta": -10,
+            "whileHolding": 0
+          },
+          "kumarin_commander_guard": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 550,
+            "netManaDelta": -550,
+            "whileHolding": 0
+          },
+          "kumarin_binding": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 10,
+            "netManaDelta": -10,
+            "whileHolding": 0
+          },
+          "consume_slave_instinct": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 200,
+            "netManaDelta": -200,
+            "whileHolding": 0
+          },
+          "consume_master_guard": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "hermilly_libido_protection": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 180,
+            "netManaDelta": -180,
+            "whileHolding": 0
+          },
+          "sasint_training": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 120,
+            "netManaDelta": -120,
+            "whileHolding": 0
+          },
+          "drakan_enchant_muscle": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80,
+            "netManaDelta": -80,
+            "whileHolding": 0
+          },
+          "consume_final_evolution": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 100,
+            "netManaDelta": -100,
+            "whileHolding": 0
+          },
+          "consume_slaughter": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 20,
+            "netManaDelta": -20,
+            "whileHolding": 0
+          },
+          "kilder_master_power": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 40,
+            "netManaDelta": -40,
+            "whileHolding": 0
+          }
+        },
+        "blockedGuesses": {
+          "blocked": 0
+        },
+        "score": 0.7708333333333334
+      }
+    },
+    "avoidRepeatedFailedGuess": {
+      "civil_war": {
+        "games": 96,
+        "scoreSum": 67.0,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 1,
+        "resources": {
+          "aliveMs": 213894250,
+          "trueNameMs": 127448500,
+          "turns": 2189,
+          "trueNameTurns": 1387,
+          "trueNameBonusGross": 13870,
+          "incomingAllyManaGross": 21880,
+          "turnGainGross": 79530,
+          "publishes": 614,
+          "truePublishes": 377,
+          "falsePublishes": 237,
+          "publishManaGross": 3070,
+          "publishManaNet": 3000,
+          "reaffirmations": 0,
+          "reaffirmManaNet": 0,
+          "allies": 616,
+          "allyManaNet": 6160,
+          "acceptedSkillMana": 87660,
+          "attackFailures": 7,
+          "holdingMs": 0,
+          "holdStarts": 0,
+          "holdingTrueNameTurns": 0,
+          "gemCompletedPlayers": 137
+        },
+        "safety": {
+          "wrongFollowups": 0,
+          "wrongBreaks": 0,
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "holdingFalsePublishes": 0
+        },
+        "skills": {
+          "publish": {
+            "accepted": 614,
+            "rejected": 0,
+            "nominalMana": 0,
+            "netManaDelta": 3000,
+            "whileHolding": 0
+          },
+          "scan": {
+            "accepted": 201,
+            "rejected": 0,
+            "nominalMana": 4020,
+            "netManaDelta": -4020,
+            "whileHolding": 0
+          },
+          "ally": {
+            "accepted": 616,
+            "rejected": 0,
+            "nominalMana": 6160,
+            "netManaDelta": -6160,
+            "whileHolding": 0
+          },
+          "ally_check": {
+            "accepted": 461,
+            "rejected": 0,
+            "nominalMana": 6915,
+            "netManaDelta": -6915,
+            "whileHolding": 0
+          },
+          "kelhu_loyal": {
+            "accepted": 205,
+            "rejected": 0,
+            "nominalMana": 5125,
+            "netManaDelta": -5125,
+            "whileHolding": 0
+          },
+          "enemy_check": {
+            "accepted": 42,
+            "rejected": 0,
+            "nominalMana": 840,
+            "netManaDelta": -840,
+            "whileHolding": 0
+          },
+          "warrior_scent": {
+            "accepted": 169,
+            "rejected": 1,
+            "nominalMana": 6760,
+            "netManaDelta": -6760,
+            "whileHolding": 0
+          },
+          "dantes_successor": {
+            "accepted": 37,
+            "rejected": 0,
+            "nominalMana": 1110,
+            "netManaDelta": -1110,
+            "whileHolding": 0
+          },
+          "advice": {
+            "accepted": 48,
+            "rejected": 0,
+            "nominalMana": 2400,
+            "netManaDelta": -2400,
+            "whileHolding": 0
+          },
+          "truth_gem": {
+            "accepted": 386,
+            "rejected": 0,
+            "nominalMana": 21475,
+            "netManaDelta": -21475,
+            "whileHolding": 0
+          },
+          "advanced_attack": {
+            "accepted": 152,
+            "rejected": 0,
+            "nominalMana": 7600,
+            "netManaDelta": -7600,
+            "whileHolding": 0
+          },
+          "dantes_command": {
+            "accepted": 24,
+            "rejected": 0,
+            "nominalMana": 0,
+            "netManaDelta": 0,
+            "whileHolding": 0
+          },
+          "advanced_scan": {
+            "accepted": 262,
+            "rejected": 0,
+            "nominalMana": 5240,
+            "netManaDelta": -5240,
+            "whileHolding": 0
+          },
+          "advanced_enemy_check": {
+            "accepted": 56,
+            "rejected": 0,
+            "nominalMana": 1120,
+            "netManaDelta": -1120,
+            "whileHolding": 0
+          },
+          "attack": {
+            "accepted": 100,
+            "rejected": 0,
+            "nominalMana": 5000,
+            "netManaDelta": -4650,
+            "whileHolding": 0
+          },
+          "kai_loyal": {
+            "accepted": 234,
+            "rejected": 0,
+            "nominalMana": 5850,
+            "netManaDelta": -5850,
+            "whileHolding": 0
+          },
+          "oracle": {
+            "accepted": 87,
+            "rejected": 0,
+            "nominalMana": 3480,
+            "netManaDelta": -3480,
+            "whileHolding": 0
+          },
+          "shadow_jail": {
+            "accepted": 23,
+            "rejected": 0,
+            "nominalMana": 805,
+            "netManaDelta": -805,
+            "whileHolding": 0
+          },
+          "nightmare": {
+            "accepted": 22,
+            "rejected": 0,
+            "nominalMana": 660,
+            "netManaDelta": -660,
+            "whileHolding": 0
+          },
+          "mertz_spouse": {
+            "accepted": 27,
+            "rejected": 0,
+            "nominalMana": 675,
+            "netManaDelta": -675,
+            "whileHolding": 0
+          },
+          "reindila_spouse": {
+            "accepted": 10,
+            "rejected": 0,
+            "nominalMana": 250,
+            "netManaDelta": -250,
+            "whileHolding": 0
+          },
+          "soul_recovery": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 800,
+            "netManaDelta": -800,
+            "whileHolding": 0
+          },
+          "shadow_eye": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 50,
+            "netManaDelta": -50,
+            "whileHolding": 0
+          },
+          "soul_reaver": {
+            "accepted": 9,
+            "rejected": 0,
+            "nominalMana": 450,
+            "netManaDelta": -450,
+            "whileHolding": 0
+          },
+          "valiant_charge": {
+            "accepted": 9,
+            "rejected": 0,
+            "nominalMana": 675,
+            "netManaDelta": -675,
+            "whileHolding": 0
+          },
+          "libido_priestess": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 200,
+            "netManaDelta": -200,
+            "whileHolding": 0
+          }
+        },
+        "blockedGuesses": {
+          "blocked": 0
+        },
+        "score": 0.6979166666666666
+      },
+      "primordial": {
+        "games": 96,
+        "scoreSum": 74.0,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "resources": {
+          "aliveMs": 218532500,
+          "trueNameMs": 110693500,
+          "turns": 2254,
+          "trueNameTurns": 1201,
+          "trueNameBonusGross": 12010,
+          "incomingAllyManaGross": 17380,
+          "turnGainGross": 74470,
+          "publishes": 769,
+          "truePublishes": 522,
+          "falsePublishes": 247,
+          "publishManaGross": 3845,
+          "publishManaNet": 3745,
+          "reaffirmations": 0,
+          "reaffirmManaNet": 0,
+          "allies": 708,
+          "allyManaNet": 7080,
+          "acceptedSkillMana": 79270,
+          "attackFailures": 42,
+          "holdingMs": 0,
+          "holdStarts": 0,
+          "holdingTrueNameTurns": 0,
+          "gemCompletedPlayers": 75
+        },
+        "safety": {
+          "wrongFollowups": 0,
+          "wrongBreaks": 0,
+          "wrongAllies": 0,
+          "falseReports": 0,
+          "holdingFalsePublishes": 0
+        },
+        "skills": {
+          "publish": {
+            "accepted": 769,
+            "rejected": 0,
+            "nominalMana": 0,
+            "netManaDelta": 3745,
+            "whileHolding": 0
+          },
+          "scan": {
+            "accepted": 227,
+            "rejected": 0,
+            "nominalMana": 4540,
+            "netManaDelta": -4540,
+            "whileHolding": 0
+          },
+          "ally": {
+            "accepted": 708,
+            "rejected": 0,
+            "nominalMana": 7080,
+            "netManaDelta": -7080,
+            "whileHolding": 0
+          },
+          "rael_leadership": {
+            "accepted": 48,
+            "rejected": 0,
+            "nominalMana": 2400,
+            "netManaDelta": -2400,
+            "whileHolding": 0
+          },
+          "ally_check": {
+            "accepted": 518,
+            "rejected": 0,
+            "nominalMana": 7770,
+            "netManaDelta": -7770,
+            "whileHolding": 0
+          },
+          "advanced_enemy_check": {
+            "accepted": 66,
+            "rejected": 0,
+            "nominalMana": 1320,
+            "netManaDelta": -1320,
+            "whileHolding": 0
+          },
+          "eoril_trial": {
+            "accepted": 34,
+            "rejected": 0,
+            "nominalMana": 2040,
+            "netManaDelta": -2040,
+            "whileHolding": 0
+          },
+          "nukelius_chakra_magic": {
+            "accepted": 41,
+            "rejected": 0,
+            "nominalMana": 820,
+            "netManaDelta": -820,
+            "whileHolding": 0
+          },
+          "attack": {
+            "accepted": 196,
+            "rejected": 0,
+            "nominalMana": 9800,
+            "netManaDelta": -7800,
+            "whileHolding": 0
+          },
+          "kane_wolfs_slash": {
+            "accepted": 24,
+            "rejected": 0,
+            "nominalMana": 1440,
+            "netManaDelta": -1440,
+            "whileHolding": 0
+          },
+          "enemy_check": {
+            "accepted": 71,
+            "rejected": 0,
+            "nominalMana": 1420,
+            "netManaDelta": -1420,
+            "whileHolding": 0
+          },
+          "hermilly_seeing_libido": {
+            "accepted": 22,
+            "rejected": 0,
+            "nominalMana": 880,
+            "netManaDelta": -880,
+            "whileHolding": 0
+          },
+          "eltas_leadership": {
+            "accepted": 48,
+            "rejected": 0,
+            "nominalMana": 2400,
+            "netManaDelta": -2400,
+            "whileHolding": 0
+          },
+          "kilder_casanova": {
+            "accepted": 26,
+            "rejected": 0,
+            "nominalMana": 780,
+            "netManaDelta": -780,
+            "whileHolding": 0
+          },
+          "supreme_attack": {
+            "accepted": 138,
+            "rejected": 0,
+            "nominalMana": 6900,
+            "netManaDelta": -3330,
+            "whileHolding": 0
+          },
+          "drakan_black_spell": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 1600,
+            "netManaDelta": -1600,
+            "whileHolding": 0
+          },
+          "truth_gem": {
+            "accepted": 301,
+            "rejected": 0,
+            "nominalMana": 17550,
+            "netManaDelta": -17550,
+            "whileHolding": 0
+          },
+          "rael_eoril_test": {
+            "accepted": 5,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "advanced_attack": {
+            "accepted": 68,
+            "rejected": 0,
+            "nominalMana": 3400,
+            "netManaDelta": -3400,
+            "whileHolding": 0
+          },
+          "tachin_neutralize": {
+            "accepted": 15,
+            "rejected": 0,
+            "nominalMana": 750,
+            "netManaDelta": -750,
+            "whileHolding": 0
+          },
+          "eoril_flame_shackle": {
+            "accepted": 16,
+            "rejected": 0,
+            "nominalMana": 480,
+            "netManaDelta": -480,
+            "whileHolding": 0
+          },
+          "advanced_ally_check": {
+            "accepted": 146,
+            "rejected": 0,
+            "nominalMana": 2190,
+            "netManaDelta": -2190,
+            "whileHolding": 0
+          },
+          "sasint_support": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 200,
+            "netManaDelta": -200,
+            "whileHolding": 0
+          },
+          "sasint_battle_mastery": {
+            "accepted": 20,
+            "rejected": 0,
+            "nominalMana": 1000,
+            "netManaDelta": -1000,
+            "whileHolding": 0
+          },
+          "kumarin_union": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "tachin_union": {
+            "accepted": 12,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "rael_master_power": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 10,
+            "netManaDelta": -10,
+            "whileHolding": 0
+          },
+          "kumarin_commander_guard": {
+            "accepted": 11,
+            "rejected": 0,
+            "nominalMana": 550,
+            "netManaDelta": -550,
+            "whileHolding": 0
+          },
+          "kumarin_binding": {
+            "accepted": 1,
+            "rejected": 0,
+            "nominalMana": 10,
+            "netManaDelta": -10,
+            "whileHolding": 0
+          },
+          "consume_slave_instinct": {
+            "accepted": 8,
+            "rejected": 0,
+            "nominalMana": 200,
+            "netManaDelta": -200,
+            "whileHolding": 0
+          },
+          "consume_master_guard": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 300,
+            "netManaDelta": -300,
+            "whileHolding": 0
+          },
+          "hermilly_libido_protection": {
+            "accepted": 6,
+            "rejected": 0,
+            "nominalMana": 180,
+            "netManaDelta": -180,
+            "whileHolding": 0
+          },
+          "sasint_training": {
+            "accepted": 3,
+            "rejected": 0,
+            "nominalMana": 120,
+            "netManaDelta": -120,
+            "whileHolding": 0
+          },
+          "drakan_enchant_muscle": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 80,
+            "netManaDelta": -80,
+            "whileHolding": 0
+          },
+          "consume_final_evolution": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 100,
+            "netManaDelta": -100,
+            "whileHolding": 0
+          },
+          "consume_slaughter": {
+            "accepted": 2,
+            "rejected": 0,
+            "nominalMana": 20,
+            "netManaDelta": -20,
+            "whileHolding": 0
+          },
+          "kilder_master_power": {
+            "accepted": 4,
+            "rejected": 0,
+            "nominalMana": 40,
+            "netManaDelta": -40,
+            "whileHolding": 0
+          }
+        },
+        "blockedGuesses": {
+          "blocked": 8
+        },
+        "score": 0.7708333333333334
+      }
+    }
+  },
+  "contrasts": {},
+  "promotionEvidence": false,
+  "journalVerified": true,
+  "publicationVerified": true
+}

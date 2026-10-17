@@ -1,0 +1,92 @@
+{
+  "kind": "completed-development-post-action-support-grading",
+  "inputSHA256": "a053606d838223b7d1217ba21ddb08e3d0aac88ad68b73437b031159cb7778ab",
+  "newResearchExecutions": 0,
+  "policyInput": false,
+  "limitations": [
+    "Only factual target-side grading; not causal win evidence.",
+    "Initial fixture roles and sides are immutable in this engine.",
+    "No hidden target mana is inspected or returned to a policy."
+  ],
+  "aggregates": {
+    "baseline": {
+      "civil_war": {
+        "accepted": 0,
+        "wrongTargets": 0,
+        "ownManaCost": 0,
+        "wrongTargetOwnManaCost": 0
+      },
+      "primordial": {
+        "accepted": 59,
+        "wrongTargets": 0,
+        "ownManaCost": 1020,
+        "wrongTargetOwnManaCost": 0
+      },
+      "lidellut": {
+        "accepted": 0,
+        "wrongTargets": 0,
+        "ownManaCost": 0,
+        "wrongTargetOwnManaCost": 0
+      },
+      "troll": {
+        "accepted": 171,
+        "wrongTargets": 0,
+        "ownManaCost": 1710,
+        "wrongTargetOwnManaCost": 0
+      }
+    },
+    "control": {
+      "civil_war": {
+        "accepted": 0,
+        "wrongTargets": 0,
+        "ownManaCost": 0,
+        "wrongTargetOwnManaCost": 0
+      },
+      "primordial": {
+        "accepted": 54,
+        "wrongTargets": 0,
+        "ownManaCost": 950,
+        "wrongTargetOwnManaCost": 0
+      },
+      "lidellut": {
+        "accepted": 0,
+        "wrongTargets": 0,
+        "ownManaCost": 0,
+        "wrongTargetOwnManaCost": 0
+      },
+      "troll": {
+        "accepted": 161,
+        "wrongTargets": 0,
+        "ownManaCost": 1610,
+        "wrongTargetOwnManaCost": 0
+      }
+    },
+    "urgentDispelBeforeAlly": {
+      "civil_war": {
+        "accepted": 0,
+        "wrongTargets": 0,
+        "ownManaCost": 0,
+        "wrongTargetOwnManaCost": 0
+      },
+      "primordial": {
+        "accepted": 54,
+        "wrongTargets": 0,
+        "ownManaCost": 950,
+        "wrongTargetOwnManaCost": 0
+      },
+      "lidellut": {
+        "accepted": 0,
+        "wrongTargets": 0,
+        "ownManaCost": 0,
+        "wrongTargetOwnManaCost": 0
+      },
+      "troll": {
+        "accepted": 161,
+        "wrongTargets": 0,
+        "ownManaCost": 1610,
+        "wrongTargetOwnManaCost": 0
+      }
+    }
+  },
+  "cases": []
+}

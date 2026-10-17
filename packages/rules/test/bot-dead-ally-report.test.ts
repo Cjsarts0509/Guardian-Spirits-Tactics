@@ -1,0 +1,20 @@
+import {describe,it,expect} from 'vitest';
+import {botKnowledge,createBotMemory,smartBotAction,viewFor,botCommunicationAction} from '../src/index.js';
+import {trustedIntel} from '../src/bot-intel.js';
+import {playCommitmentMatch} from '../scripts/cooperative-commitment-match.js';
+import {DEFAULT_SETTINGS} from '../scripts/league-runner.js';
+import {civilTable,fill} from './helpers.js';
+function scenario(dead=true){
+ const t=civilTable();fill(t,'freya');t.p('freya').gem=3;t.p('freya').gemCooldownUntil=0;t.state.revealed[t.id.kelhu!]='kelhu';
+ expect(t.act('kelhu',{type:'chat',channel:'whisper',to:t.id.freya,text:`확인 정보: [${t.p('reindila').seat}] 레인딜라`}).ok).toBe(true);
+ t.p('kelhu').alive=!dead;t.p('freya').skills=t.p('freya').skills.filter(s=>s.key==='scan');return t;
+}
+describe('dead confirmed ally reports only guide safe verification',()=>{
+ it('default OFF preserves original action, own memory and RNG',()=>{const t=scenario();const a=createBotMemory(7),b=createBotMemory(7);expect(smartBotAction(t.state,t.id.freya!,a,{activity:1})).toEqual(smartBotAction(t.state,t.id.freya!,b,{activity:1,verifyDeadAllyReports:false}));expect(a).toEqual(b);});
+ it('uses an actual received report from a publicly dead confirmed ally for a legal scan',()=>{const t=scenario(),m=createBotMemory(7),a=smartBotAction(t.state,t.id.freya!,m,{activity:1,verifyDeadAllyReports:true});expect(a).toEqual({type:'skill',skill:'scan',target:t.id.reindila,name:'reindila'});expect(t.act('freya',a!).ok).toBe(true);});
+ it('keeps reports separate from facts, ordinary inference and forwarding before the check',()=>{const t=scenario(),m=createBotMemory(7);smartBotAction(t.state,t.id.freya!,m,{activity:1,verifyDeadAllyReports:true});const v=viewFor(t.state,t.id.freya!),k=botKnowledge(t.state,t.id.freya!,v,m);expect(k.known.has(t.id.reindila!)).toBe(false);expect(trustedIntel(v,k,m).size).toBe(0);expect(trustedIntel(v,k,m,true).get(t.id.reindila!)).toBe('reindila');expect(botCommunicationAction(t.state,t.id.freya!,m)).toBeNull();});
+ it('requires the dead sender public reveal to match own confirmed ally knowledge',()=>{const t=scenario(),m=createBotMemory(7),v=viewFor(t.state,t.id.freya!),k=botKnowledge(t.state,t.id.freya!,v,m);v.players.find(p=>p.id===t.id.kelhu)!.revealed=null;expect(trustedIntel(v,k,m,true).size).toBe(0);v.players.find(p=>p.id===t.id.kelhu)!.revealed='kaspa';expect(trustedIntel(v,k,m,true).size).toBe(0);k.known.set(t.id.kelhu!,'kaspa');expect(trustedIntel(v,k,m,true).size).toBe(0);});
+ it('excludes conflicting allied reports and directly known targets',()=>{const t=scenario(),m=createBotMemory(7),v=viewFor(t.state,t.id.freya!),k=botKnowledge(t.state,t.id.freya!,v,m);k.known.set(t.id.mertz!,'mertz');m.perception!.intel!.reports.get(t.id.reindila!)!.set(t.id.mertz!,{character:'mertz',at:0,seq:1});expect(trustedIntel(v,k,m,true).size).toBe(0);m.perception!.intel!.reports.get(t.id.reindila!)!.delete(t.id.mertz!);k.known.set(t.id.reindila!,'reindila');expect(trustedIntel(v,k,m,true).size).toBe(0);});
+ it('leaves living report priority and hidden-other-state decisions unchanged',()=>{const t=scenario(false),m=createBotMemory(7),n=createBotMemory(7);expect(smartBotAction(t.state,t.id.freya!,m,{activity:1,verifyDeadAllyReports:true})).toEqual(smartBotAction(t.state,t.id.freya!,n,{activity:1}));expect(m).toEqual(n);const dead=scenario(),other=structuredClone(dead.state);other.players.find(p=>p.id===dead.id.reindila)!.mana=0;const x=createBotMemory(7),y=createBotMemory(7);expect(smartBotAction(dead.state,dead.id.freya!,x,{activity:1,verifyDeadAllyReports:true})).toEqual(smartBotAction(other,dead.id.freya!,y,{activity:1,verifyDeadAllyReports:true}));expect(x).toEqual(y);});
+ it('does not let evaluation observation change the actual candidate game',()=>{const f={mode:'civil_war' as const,seed:23,count:8,reversed:false,currentSide:2 as const},s={...DEFAULT_SETTINGS,activity:.08,limitMs:240000};expect(playCommitmentMatch(f,'truthful','deadAllyReport',s,true).game).toEqual(playCommitmentMatch(f,'truthful','deadAllyReport',s,false).game);});
+});

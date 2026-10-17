@@ -1,0 +1,37 @@
+{
+  "command": [
+    "python",
+    "tools/run-cooperative-generations.py",
+    "8",
+    "144000",
+    "/tmp/gst-round033-development.json",
+    "1",
+    "--source-ref",
+    "f731e1e062a2e3e3643b9041461bc664ae417e02",
+    "--candidate",
+    "reportedFirstWarning",
+    "--lease-until",
+    "2026-10-15T21:06:09.360977+09:00"
+  ],
+  "exitCode": 0,
+  "result": {
+    "executions": 1152,
+    "newGames": 0,
+    "complete": true,
+    "publicationVerified": true,
+    "recoveredExport": false
+  },
+  "beforeSHA256": {
+    "gst-round033-development.json": "e39d2ad30aba54a9c1a607e8ce118894ba12976cd56787ad5aee1e18a3edd2ee",
+    "gst-round033-development.journal.ndjson": "0efbd3390d20012555b95ac18bcd4dba07adba74de963fd571a8478041303709",
+    "gst-round033-development.publication.json": "728efb85bfbdf9eeb8d3b15de272ba9b9b212e959860ad820235c11e51f3a36a"
+  },
+  "afterSHA256": {
+    "gst-round033-development.json": "e39d2ad30aba54a9c1a607e8ce118894ba12976cd56787ad5aee1e18a3edd2ee",
+    "gst-round033-development.journal.ndjson": "0efbd3390d20012555b95ac18bcd4dba07adba74de963fd571a8478041303709",
+    "gst-round033-development.publication.json": "728efb85bfbdf9eeb8d3b15de272ba9b9b212e959860ad820235c11e51f3a36a"
+  },
+  "unchanged": true,
+  "newGames": 0,
+  "residualWriterLocks": 0
+}

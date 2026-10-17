@@ -1,0 +1,104 @@
+{
+  "format": 1,
+  "kind": "first-claim-eight-cell-model",
+  "status": "no_action_change_candidate",
+  "trainingStart": 128000,
+  "trainingSeeds": 32,
+  "trainingExecutions": 3072,
+  "settings": {
+    "features": [
+      "commander",
+      "unfinishedGem",
+      "nearTurn43s"
+    ],
+    "cells": 8,
+    "minPairs": 24,
+    "minSeeds": 8,
+    "bootstrapSamples": 10000,
+    "bootstrapSeed": 4674388,
+    "selection": "seed95LowerPositive"
+  },
+  "truthfulCells": [],
+  "cells": {
+    "C0G0T0": {
+      "pairs": 28,
+      "seeds": 12,
+      "difference": 0.0,
+      "seedBootstrap95": [
+        0.0,
+        0.0
+      ],
+      "action": "keep",
+      "reason": "positive_lower_bound_not_proven"
+    },
+    "C0G0T1": {
+      "pairs": 9,
+      "seeds": 5,
+      "difference": 0.0,
+      "seedBootstrap95": null,
+      "action": "keep",
+      "reason": "insufficient_pairs_or_seeds"
+    },
+    "C0G1T0": {
+      "pairs": 60,
+      "seeds": 18,
+      "difference": -0.05,
+      "seedBootstrap95": [
+        -0.12222222222222223,
+        0.0
+      ],
+      "action": "keep",
+      "reason": "positive_lower_bound_not_proven"
+    },
+    "C0G1T1": {
+      "pairs": 16,
+      "seeds": 7,
+      "difference": -0.047619047619047616,
+      "seedBootstrap95": null,
+      "action": "keep",
+      "reason": "insufficient_pairs_or_seeds"
+    },
+    "C1G0T0": {
+      "pairs": 0,
+      "seeds": 0,
+      "difference": null,
+      "seedBootstrap95": null,
+      "action": "keep",
+      "reason": "insufficient_pairs_or_seeds"
+    },
+    "C1G0T1": {
+      "pairs": 0,
+      "seeds": 0,
+      "difference": null,
+      "seedBootstrap95": null,
+      "action": "keep",
+      "reason": "insufficient_pairs_or_seeds"
+    },
+    "C1G1T0": {
+      "pairs": 140,
+      "seeds": 12,
+      "difference": 0.05257936507936508,
+      "seedBootstrap95": [
+        -0.014285714285714285,
+        0.1484126984126984
+      ],
+      "action": "keep",
+      "reason": "positive_lower_bound_not_proven"
+    },
+    "C1G1T1": {
+      "pairs": 40,
+      "seeds": 7,
+      "difference": -0.022959183673469385,
+      "seedBootstrap95": null,
+      "action": "keep",
+      "reason": "insufficient_pairs_or_seeds"
+    }
+  },
+  "promotionEvidence": false,
+  "limitations": [
+    "One selected public player and one forced claim per paired game.",
+    "All-player deployment needs separate fresh development and holdout."
+  ],
+  "trainingRawSHA256": "0e50e3cfbfe3e02b7d9dbe1826ddcc39aecc4c9a4f8bf6aa61c7706848c11cbb",
+  "learnerSHA256": "78c0ad6d2de6b54851bc96845d32350ff8731771180e0414fa2d870004cb54cd"
+}

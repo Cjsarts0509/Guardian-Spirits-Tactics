@@ -1,0 +1,130 @@
+{
+  "kind": "completed-development-summary",
+  "sourceRef": "989fe11c47dade1342864c319c9d8d656266d46b",
+  "executions": 1152,
+  "fingerprint": "ba26745d6955d4f9966632f05725eb019aab767de37e701ca69d6b9f6761ec45",
+  "policySHA256": "46c5e94a272992afdab37dfd94bcba0951772b5e88397a700ba3e44acae5ba91",
+  "options": {
+    "baseline": {},
+    "control": {},
+    "urgentDispelBeforeAlly": {
+      "urgentDispelBeforeAlly": true
+    }
+  },
+  "optionsSHA256": "96b7a39af866c18f59884928855565187e1345d1224b4112e11e6eeab63475a2",
+  "results": {
+    "baseline": {
+      "score": 0.6927083333333334,
+      "byMode": {
+        "civil_war": 0.65625,
+        "primordial": 0.7291666666666666,
+        "lidellut": 0.7291666666666666,
+        "troll": 0.65625
+      },
+      "unfinished": 0,
+      "safety": 0,
+      "earlyAttackFailures": 0
+    },
+    "control": {
+      "score": 0.6770833333333334,
+      "byMode": {
+        "civil_war": 0.6458333333333334,
+        "primordial": 0.7916666666666666,
+        "lidellut": 0.625,
+        "troll": 0.6458333333333334
+      },
+      "unfinished": 0,
+      "safety": 0,
+      "earlyAttackFailures": 0
+    },
+    "urgentDispelBeforeAlly": {
+      "score": 0.6770833333333334,
+      "byMode": {
+        "civil_war": 0.6458333333333334,
+        "primordial": 0.7916666666666666,
+        "lidellut": 0.625,
+        "troll": 0.6458333333333334
+      },
+      "unfinished": 0,
+      "safety": 0,
+      "earlyAttackFailures": 0
+    }
+  },
+  "contrasts": {
+    "urgentDispelBeforeAlly-control": {
+      "difference": 0.0,
+      "seedBootstrap95": [
+        0.0,
+        0.0
+      ],
+      "byMode": {
+        "civil_war": 0.0,
+        "primordial": 0.0,
+        "lidellut": 0.0,
+        "troll": 0.0
+      }
+    },
+    "urgentDispelBeforeAlly-baseline": {
+      "difference": -0.015625,
+      "seedBootstrap95": [
+        -0.0546875,
+        0.0234375
+      ],
+      "byMode": {
+        "civil_war": -0.01041666666666663,
+        "primordial": 0.0625,
+        "lidellut": -0.10416666666666663,
+        "troll": -0.01041666666666663
+      }
+    }
+  },
+  "developmentGatePassed": false,
+  "holdoutUsed": false,
+  "pairedGames": 384,
+  "actionsChanged": 0,
+  "pairedScores": {
+    "tied": 384
+  },
+  "changes": [],
+  "rescueCount": 0,
+  "newResearchExecutions": 0,
+  "promotionEvidence": false,
+  "rawFileSHA256": "aa9c6b0359618e31504af0612263e864e5fc86ee28c684b0e57726758ceb5f7a",
+  "verifiedSHA256": "c975e284ca471df237027d1d688edd774f0c2486ffbf175e77f264c2b435b81e",
+  "summaryToolSHA256": "5be9c0371a2b3134e10f5c084593ff054be3602f303338e9c91e9b8b42e05d22",
+  "tests": 607,
+  "rulesTests": 532,
+  "serverTests": 75,
+  "builds": "server_client_worker_passed",
+  "actualHumanMatches": 0,
+  "batchFailures": 0,
+  "duplicateExecutions": 0,
+  "residualWriterLocks": 0,
+  "sourceCI": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38712940596",
+  "sourceBrowser": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38712940314",
+  "runtimePhysicalStorageCause": "unconfirmed",
+  "terminated": 1152,
+  "files": {
+    "cooperation-round-026-development.verified.json": "c975e284ca471df237027d1d688edd774f0c2486ffbf175e77f264c2b435b81e",
+    "cooperation-round-026-development.json.gz": "aa9c6b0359618e31504af0612263e864e5fc86ee28c684b0e57726758ceb5f7a",
+    "cooperation-round-026-development.publication.json": "efdc5f62c20aee91db21d8773f58249056288c1beacc16d8579622f69d327f22",
+    "cooperation-round-026-development.journal.ndjson.gz": "f76074dfd5cf04e211de07bb30d0c6a5689544b4fc554f4d246ddf428d900027",
+    "cooperation-round-026-development.batches.ndjson": "e96578ab73527b40c565c79c730e1c61bb45b3c4820db1959ac07ab244c6c88e"
+  },
+  "supportAudit": {
+    "actualEnemyManaSupport": 0,
+    "controlAccepted": 215,
+    "candidateAccepted": 215,
+    "promotionEvidence": false,
+    "file": "cooperation-round-026-support-audit.json"
+  },
+  "summaryIntermediateError": {
+    "missingDevelopmentGateInAllowPartialSummary": true,
+    "newGames": 0,
+    "resolvedBy": "explicit full immutable-source verifier without --allow-partial"
+  },
+  "auxiliaryToolsSHA256": {
+    "tools/summarize-cooperative-development.py": "5be9c0371a2b3134e10f5c084593ff054be3602f303338e9c91e9b8b42e05d22",
+    "tools/audit-cooperative-support.mjs": "4e30e6fac3499fedd7e870192c610c3110775fd2eda88c4ed9ae89246478318e"
+  }
+}

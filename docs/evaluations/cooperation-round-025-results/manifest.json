@@ -1,0 +1,114 @@
+{
+  "kind": "fresh-development-result",
+  "sourceRef": "540f07ff432cf39129f4174d4fd556524f15a73b",
+  "executions": 1152,
+  "terminated": 1152,
+  "unfinished": 0,
+  "candidateSafetyErrors": 0,
+  "promotionEvidence": false,
+  "developmentGatePassed": false,
+  "holdoutUsed": false,
+  "results": {
+    "baseline": {
+      "score": 0.71875,
+      "unfinished": 0,
+      "earlyFailures": 0,
+      "safety": 2,
+      "byMode": {
+        "civil_war": 0.6875,
+        "primordial": 0.7291666666666666,
+        "lidellut": 0.78125,
+        "troll": 0.6770833333333334
+      }
+    },
+    "control": {
+      "score": 0.6953125,
+      "unfinished": 0,
+      "earlyFailures": 0,
+      "safety": 0,
+      "byMode": {
+        "civil_war": 0.6770833333333334,
+        "primordial": 0.7291666666666666,
+        "lidellut": 0.7395833333333334,
+        "troll": 0.6354166666666666
+      }
+    },
+    "netAttackReserve": {
+      "score": 0.6953125,
+      "unfinished": 0,
+      "earlyFailures": 0,
+      "safety": 0,
+      "byMode": {
+        "civil_war": 0.6770833333333334,
+        "primordial": 0.7291666666666666,
+        "lidellut": 0.7395833333333334,
+        "troll": 0.6354166666666666
+      }
+    }
+  },
+  "changedControlCandidatePairs": [
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 139004,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "style": "skill-aware-bluff",
+      "actionsChanged": true,
+      "gameResultChanged": false,
+      "resourcesChanged": false
+    }
+  ],
+  "pairedGames": 384,
+  "policySHA256": "ef0ccedf447cc23f57bdef00a7fc96e7032235242bde709cf350d84b6fbfc1bb",
+  "budgetSHA256": "c9ff67f3e00ded9caa3bbc1ec34f84ed6fc6d914fcfab6ec762d2d2a168be33d",
+  "options": {
+    "baseline": {},
+    "control": {},
+    "netAttackReserve": {
+      "netAttackReserve": true
+    }
+  },
+  "optionsSHA256": "ef95a51a4fd96185bdd805773e42da1b2048a6be28c1aa73634d6aae4ddee82b",
+  "fingerprint": "7c76496db71a133958f5e4e85560e95f85d66782232cc87a46677b97548bc99d",
+  "driverSHA256": "1e18c4af7bf7247a3236c7356aa94d21ace3e9b7cdbcf6ce21a1554f2c8d5ab4",
+  "researchBatchEvents": 12,
+  "batchFailures": 0,
+  "duplicateExecutions": 0,
+  "residualGenerationWriterLocks": 0,
+  "syncIncident": {
+    "failedFastForwardMerge": 1,
+    "newGames": 0,
+    "recovery": "matched own uploaded files byte-for-byte with origin, backed up, then fast-forwarded"
+  },
+  "postflightSourceHashes": {
+    "apps/server/src/record-audit.ts": "5eb6ebcaefdc7a3a5116f23df353ea9ceaf733b4b1ba161e5a3f7591d247baf6",
+    "apps/server/test/record-audit.test.ts": "fc272618c89e59108fb71b228a4843870dc17ce9ae9d0de5fd052fbf6bb09730"
+  },
+  "tests": 602,
+  "rules": 527,
+  "server": 75,
+  "actualHumanMatches": 0,
+  "runtimePhysicalStorageCause": "unconfirmed",
+  "files": {
+    "cooperation-round-025-development.json.gz": "09f3fa306f4fa064018a1e03a7b81a08aa70e506035c6fd5b0d1e169b95b8bef",
+    "cooperation-round-025-development.journal.ndjson.gz": "a28edbfff0381d98f31483de38a6ad68d7ee00e2520a24fa8952a93360d1abf2",
+    "cooperation-round-025-development.publication.json": "8653302a9400e9d5985de590fbae96bf76b0414767b401ee46fb5ff278c83463",
+    "cooperation-round-025-development.verified.json": "f9a735476633fe0a3a1e21c6a7376c33874cf63273564fe806b2373ce490d3b7",
+    "cooperation-round-025-development.batches.ndjson": "d2da853c25668c655fd5829bca74a87bf041ed8e66f5656ebadb41cd29d1a0b1"
+  },
+  "postflightCI": {
+    "sourceRef": "8fb87f5cf66fac36f22df9e012cb608f42ceb6d8",
+    "CI": {
+      "conclusion": "success",
+      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38682635168"
+    },
+    "browser": {
+      "conclusion": "success",
+      "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38682635060"
+    }
+  },
+  "economyComparisonSHA256": "f97096d169a6fa33efaa55a64a864079d7e478fd89251e62de4ddf5ee0ea6748"
+}

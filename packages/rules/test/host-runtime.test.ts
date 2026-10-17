@@ -21,6 +21,16 @@ describe('호스트 상태 복원', () => {
     expect(deltas).toBeGreaterThan(0);
   },20000);
 
+  it('외부 입력과 자동 봇·이탈자 대행의 제어 주체를 기록한다',()=>{
+    const {state}=createGame({mode:'civil_war',players:Array.from({length:8},(_,i)=>({id:`p${i}`,nickname:`P${i}`})),seed:23,now:1000});
+    const snapshot:HostSnapshot={version:1,state,memories:new Map(state.players.map((p,i)=>[p.id,createBotMemory(i+1)])),handled:0,records:[],results:[]};
+    applyHostInputs(snapshot,[{id:1,kind:'action',player:'p0',action:{type:'chat',channel:'all',text:'입력'}}],1100);
+    expect(snapshot.records[0]!.controller).toBe('human-input');
+    tickHost(snapshot,[{id:'p1',bot:true,automate:true},{id:'p2',bot:false,automate:true}],21000,{activity:1,botKind:'smart'});
+    expect(snapshot.records.filter(x=>x.player==='p1').map(x=>x.controller)).toContain('bot');
+    expect(snapshot.records.filter(x=>x.player==='p2').map(x=>x.controller)).toContain('away-bot');
+  });
+
   it('이전 문자열 기억도 읽고 잘못된 기억 기준/중복 필드는 거절',()=>{
     const {state}=createGame({mode:'civil_war',players:Array.from({length:8},(_,i)=>({id:`p${i}`,nickname:`P${i}`})),seed:1,now:1000});
     const snapshot:HostSnapshot={version:1,state,memories:new Map([['p0',createBotMemory(1)]]),handled:0,records:[],results:[]};
