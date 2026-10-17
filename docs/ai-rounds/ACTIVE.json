@@ -1,19 +1,19 @@
 {
-  "round": 50,
-  "status": "completed",
-  "owner": "round050-guardian-report-chain",
-  "startedAt": "2026-10-18T07:41:00+09:00",
-  "leaseUntil": null,
+  "round": 51,
+  "status": "in_progress",
+  "owner": "round051-own-sender-share-witness",
+  "startedAt": "2026-10-18T07:45:00+09:00",
+  "leaseUntil": "2026-10-18T08:25:00+09:00",
   "continuation": "user_20261015_2354_go",
-  "task": "049 보호자 자기 수신과045 실제 접수 명령의 정보 전달 경로를 분리 검증",
+  "task": "두 배정 양정책4기존경기의 킬더/드라칸 본인 보고 가능 경로 관측",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "previousCompleted": {
-    "round": 49,
-    "record": "docs/ai-rounds/ROUND_049_20261018_0725.md",
-    "sourceRef": "e9d62f71c7e90ad3bb9be136f85df7126f27c274",
-    "resultHead": "10547ca6e4feea942a90b3b67dd649a36ef49b75"
+    "round": 50,
+    "record": "docs/ai-rounds/ROUND_050_20261018_0741.md",
+    "sourceRef": "8e9ff0a32bf6907ebe01bcee7d8065a01940ce65",
+    "resultHead": "026f2561514a72d0b651c8bd5f3be930b46291c8"
   },
-  "inputSourceRef": "e9d62f71c7e90ad3bb9be136f85df7126f27c274",
+  "inputSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
   "executions": 0,
   "targetExecutions": 0,
   "newEngineReplayPasses": 0,
@@ -38,45 +38,13 @@
     "unfinished": 2,
     "seedRangesDisjoint": true
   },
-  "record": "docs/ai-rounds/ROUND_050_20261018_0741.md",
-  "checkpoint": "round050_complete_no_addressed_reports_to_nominal_case_guardians",
+  "record": "docs/ai-rounds/ROUND_051_20261018_0745.md",
+  "checkpoint": "preregistered_finite_own_sender_witness",
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
   },
   "nextRoundStarted": false,
-  "evaluationSourceRef": "8e9ff0a32bf6907ebe01bcee7d8065a01940ce65",
-  "completedAt": "2026-10-18T07:43:20+09:00",
-  "reportPath050": {
-    "originalGames": 4,
-    "episodes": 8,
-    "activeChoices": 162,
-    "classification": {
-      "reported_only_to_others": 4,
-      "no_report_command": 2,
-      "addressed_receipt_observed": 2
-    },
-    "reportCommands": 16,
-    "addressedReportCommands": 2,
-    "ownReceivedReportEvents": 2,
-    "ownReceivedReportChoices": 38,
-    "failures": 0
-  },
-  "checks": {
-    "newSyntheticPython": 16,
-    "existingActualWitnessPython": 8,
-    "inputWitnessIndependentVerification": "passed",
-    "receiverPrivacyPrefixAndActualActionJoin": "passed",
-    "repeatedCompressedAndSummaryByteIdentical": true,
-    "wrongClaims": 0,
-    "wrongOwnKnownChoices": 0,
-    "newFailures": 0,
-    "newUnfinished": 0
-  },
-  "runtime": {
-    "raw": "docs/evaluations/cooperation-round-050-path.json.gz",
-    "summary": "docs/evaluations/cooperation-round-050-summary.json",
-    "completion": "docs/evaluations/cooperation-round-050-completion.json"
-  },
-  "nextAction": "Round051 observe own sender knowledge/allies/sent/cooldown and actual share proposal across same four games; no hidden-identity recipient selection, no policy change or new seeds"
+  "nextAction": "Freeze sender-only observer after real engine/privacy/ON-OFF regression, then replay four registered existing fixtures",
+  "replayTarget": 4
 }
