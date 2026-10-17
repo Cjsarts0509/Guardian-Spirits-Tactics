@@ -1,34 +1,25 @@
 {
-  "round": 49,
-  "status": "completed",
-  "owner": "round049-own-guard-choice-witness",
-  "startedAt": "2026-10-18T07:24:23+09:00",
-  "leaseUntil": null,
+  "round": 50,
+  "status": "in_progress",
+  "owner": "round050-guardian-report-chain",
+  "startedAt": "2026-10-18T07:41:00+09:00",
+  "leaseUntil": "2026-10-18T08:25:00+09:00",
   "continuation": "user_20261015_2354_go",
-  "task": "048전수 명목준비2상황·양정책4경기의 본인 확정 기억/마지막 실제 활성선택 재생",
+  "task": "049 보호자 자기 수신과045 실제 접수 명령의 정보 전달 경로를 분리 검증",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "previousCompleted": {
-    "round": 48,
-    "record": "docs/ai-rounds/ROUND_048_20261018_0717.md",
-    "sourceRef": "24ff7103d6a9140cb8bb9d35f40be1321f48d7a2",
-    "resultHead": "e45b64e3b7e1c4969dec4f65c854005fc17ecf8a"
+    "round": 49,
+    "record": "docs/ai-rounds/ROUND_049_20261018_0725.md",
+    "sourceRef": "e9d62f71c7e90ad3bb9be136f85df7126f27c274",
+    "resultHead": "10547ca6e4feea942a90b3b67dd649a36ef49b75"
   },
-  "inputSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
-  "evaluationSourceRef": "e9d62f71c7e90ad3bb9be136f85df7126f27c274",
+  "inputSourceRef": "e9d62f71c7e90ad3bb9be136f85df7126f27c274",
   "executions": 0,
   "targetExecutions": 0,
-  "replayTarget": 4,
-  "replayedGames": 4,
-  "policyWitnessPasses": 4,
-  "originalCollectorPasses": 4,
+  "newEngineReplayPasses": 0,
   "cumulativeExecutions": 47680,
   "cumulativeTerminatedExecutions": 47678,
   "cumulativeUnfinishedExecutions": 2,
-  "developmentSeeds": {
-    "start": 151000,
-    "count": 80,
-    "status": "used_complete_round045"
-  },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
@@ -47,61 +38,11 @@
     "unfinished": 2,
     "seedRangesDisjoint": true
   },
-  "record": "docs/ai-rounds/ROUND_049_20261018_0725.md",
-  "checkpoint": "round049_complete_nominal_cases_own_identity_unconfirmed_no_confirmed_guard_proposal",
-  "checks": {
-    "tests": 693,
-    "rules": 618,
-    "server": 75,
-    "typecheck": "4_packages_passed",
-    "serverClientWorkerBuild": "passed",
-    "syntheticPythonChecks": 8,
-    "syntheticUniqueGames": 2,
-    "realPythonChecks": 8,
-    "completeResumeNewGames": 0,
-    "completeResumeThreeHashesUnchanged": true,
-    "repeatedSummaryByteIdentical": true
-  },
-  "runtime": {
-    "raw": "docs/evaluations/cooperation-round-049-witness.json.gz",
-    "summary": "docs/evaluations/cooperation-round-049-summary.json",
-    "caseAudit": "docs/evaluations/cooperation-round-049-case-audit.json"
-  },
-  "nextAction": "Round050 trace own received commander reports/known senders/actual message delivery for these situations; separate missing/untrusted/conflicting/no-followup evidence without promoting reports or tuning old final data",
+  "record": "docs/ai-rounds/ROUND_050_20261018_0741.md",
+  "checkpoint": "preregistered_existing049_own_receipts_only",
   "deployment": false,
-  "repeatDisabled": false,
   "humanValidation": {
     "actualHumanMatches": 0
-  },
-  "completedAt": "2026-10-18T07:30:57+09:00",
-  "ownGuardWitness049": {
-    "uniqueOriginalGames": 4,
-    "totalEngineReplayPasses": 8,
-    "matchedActions": 651,
-    "activeGuardianChoices": 162,
-    "identityUnconfirmedFirstReason": 106,
-    "skillUnavailableFirstReason": 52,
-    "ownConfirmedGuardProposals": 4,
-    "selectedAcceptedCorrect": 2,
-    "wrongKnownEntryRows": 0,
-    "wrongGuardSuggestions": 0,
-    "originalNominalCaseRows": 3,
-    "uniqueSituations": 2,
-    "confirmedGuardProposalsBeforeThoseDeaths": 0,
-    "knownAllyBeforeGuardDelaySeconds": 6.75,
-    "delayPolicies": 2,
-    "delayUniqueSituations": 1
-  },
-  "postflightCI": {
-    "sourceRef": "e9d62f71c7e90ad3bb9be136f85df7126f27c274",
-    "CI": {
-      "run": 39075270857,
-      "conclusion": "success"
-    },
-    "browser": {
-      "run": 39075270746,
-      "conclusion": "success"
-    }
   },
   "nextRoundStarted": false
 }
