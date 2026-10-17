@@ -1,25 +1,26 @@
 {
-  "round": 48,
-  "status": "completed",
-  "owner": "round048-protector-coverage-analysis",
-  "startedAt": "2026-10-18T07:16:42+09:00",
-  "leaseUntil": null,
+  "round": 49,
+  "status": "in_progress",
+  "owner": "round049-own-guard-choice-witness",
+  "startedAt": "2026-10-18T07:25:30+09:00",
+  "leaseUntil": "2026-10-18T07:55:00+09:00",
   "continuation": "user_20261015_2354_go",
-  "task": "기존045/047全320경기 인원별 실제 보호자 편성·사망 시 준비와 실제 공격 흡수 구분",
+  "task": "048전수 명목준비2상황·양정책4경기의 본인 확정 기억/마지막 실제 활성선택 재생",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "previousCompleted": {
-    "round": 47,
-    "record": "docs/ai-rounds/ROUND_047_20261018_0705.md",
-    "sourceRef": "c09a74ff54ba15b1fcaac5f9a39ef925faac8696",
-    "resultHead": "002ee4ad296e7d26241d77257aafa8b969e90548"
+    "round": 48,
+    "record": "docs/ai-rounds/ROUND_048_20261018_0717.md",
+    "sourceRef": "24ff7103d6a9140cb8bb9d35f40be1321f48d7a2",
+    "resultHead": "e45b64e3b7e1c4969dec4f65c854005fc17ecf8a"
   },
-  "inputSourceRef": "c09a74ff54ba15b1fcaac5f9a39ef925faac8696",
-  "evaluationSourceRef": "24ff7103d6a9140cb8bb9d35f40be1321f48d7a2",
+  "inputSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
+  "evaluationSourceRef": null,
   "executions": 0,
   "targetExecutions": 0,
-  "replayTarget": 0,
+  "replayTarget": 4,
   "replayedGames": 0,
-  "analyzedExistingGames": 320,
+  "policyWitnessPasses": 0,
+  "originalCollectorPasses": 0,
   "cumulativeExecutions": 47680,
   "cumulativeTerminatedExecutions": 47678,
   "cumulativeUnfinishedExecutions": 2,
@@ -46,89 +47,12 @@
     "unfinished": 2,
     "seedRangesDisjoint": true
   },
-  "checksFrom047": {
-    "tests": 689,
-    "rules": 614,
-    "server": 75,
-    "typecheck": "4_packages_passed",
-    "serverClientWorkerBuild": "passed",
-    "engineRegression": 9,
-    "syntheticPythonChecks": 10,
-    "syntheticUniqueGames": 4
-  },
-  "postflightCI047": {
-    "sourceRef": "c09a74ff54ba15b1fcaac5f9a39ef925faac8696",
-    "CI": {
-      "run": 39074048146,
-      "conclusion": "success"
-    },
-    "browser": {
-      "run": 39074048168,
-      "conclusion": "success"
-    }
-  },
-  "record": "docs/ai-rounds/ROUND_048_20261018_0717.md",
-  "checkpoint": "round048_complete_protector_composition_and_actual_absorption_census",
-  "nextAction": "Round049 replay two nominal-readiness situations151009reversed/151014forward under both original policies(4games), inspect own knowledge and last actual active choice; no new research or skill tuning",
+  "record": "docs/ai-rounds/ROUND_049_20261018_0725.md",
+  "checkpoint": "preregistered_before_replay",
+  "nextAction": "Implement own-only decision witness, verify semantic/observer invariants/types/tests/builds, freeze source then4unique original games",
   "deployment": false,
   "repeatDisabled": false,
   "humanValidation": {
     "actualHumanMatches": 0
-  },
-  "analysisSourceRef": "24ff7103d6a9140cb8bb9d35f40be1321f48d7a2",
-  "completedAt": "2026-10-18T07:20:15+09:00",
-  "postflightCI048": {
-    "sourceRef": "24ff7103d6a9140cb8bb9d35f40be1321f48d7a2",
-    "CI": {
-      "run": 39074585532,
-      "conclusion": "in_progress"
-    },
-    "browser": {
-      "run": 39074585576,
-      "conclusion": "in_progress"
-    }
-  },
-  "analysisChecks": {
-    "python": 10,
-    "rawAndSummaryRepeatedByteIdentical": true,
-    "input047IndependentSummaryByteIdentical": true,
-    "engineAndPolicySourceUnchanged": true
-  },
-  "runtime": {
-    "raw": "docs/evaluations/cooperation-round-048-coverage.json.gz",
-    "summary": "docs/evaluations/cooperation-round-048-summary.json"
-  },
-  "protectorCoverage048": {
-    "gamesEach": 160,
-    "consumeAssignedEach": 32,
-    "kumarinAssignedEach": 64,
-    "eltasNamedGuardAbsorptions": [
-      38,
-      38
-    ],
-    "raelNamedGuardAbsorptions": [
-      4,
-      5
-    ],
-    "eltasDeathGuardStatus": {
-      "OFF": {
-        "notAssigned": 123,
-        "guardianDead": 9,
-        "empty": 9,
-        "activeCharged": 5,
-        "unactivatedNominallyReady": 1
-      },
-      "ON": {
-        "notAssigned": 117,
-        "guardianDead": 9,
-        "empty": 10,
-        "activeCharged": 5,
-        "unactivatedNominallyReady": 1
-      }
-    },
-    "nominalReadyRows": 3,
-    "nominalReadyUniqueSituations": 2,
-    "legalGuardOpportunityDenominator": "not_yet_measured",
-    "nextRoundStarted": false
   }
 }
