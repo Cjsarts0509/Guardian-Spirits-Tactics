@@ -1,14 +1,14 @@
 {
   "round": 46,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round046-commander-stage-analysis",
   "startedAt": "2026-10-18T06:23:15.000+09:00",
-  "leaseUntil": "2026-10-17T22:23:15.000Z",
+  "leaseUntil": null,
   "continuation": "user_20261015_2354_go",
   "task": "045 동일 정책 경기의 지휘관 제거 전후 압박 진단; 새 연구0",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
-  "evaluationSourceRef": null,
+  "evaluationSourceRef": "e0a08f5f395f37ba03465f0dfcd373c824c4715f",
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 47680,
@@ -40,8 +40,8 @@
     "sourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
     "executions": 320
   },
-  "checkpoint": "round046_preregistered_analysis_only",
-  "nextAction": "Validate terminal leaders and direct-death coverage; split attack/report opportunity stages only with complete observed ground-commander deaths",
+  "checkpoint": "round046_complete_commander_stages_and_missing_death_trace_identified",
+  "nextAction": "Round047 replay all045320 with actual action/tick death-event observation, verify original games/actions and own-only policy inputs; no new seeds or skill tuning",
   "record": "docs/ai-rounds/ROUND_046_20261018_0623.md",
   "deployment": false,
   "repeatDisabled": false,
@@ -84,7 +84,11 @@
     "finalSyntheticExecutions": 20,
     "completeResumeNewGames": 0,
     "completeResumeHashesUnchanged": true,
-    "repeatedSummary": "byte_identical"
+    "repeatedSummary": "byte_identical",
+    "analysisPython": 9,
+    "analysisSourceAndRuleHashesVerified": true,
+    "analysisRepeatedGzipAndSummary": "byte_identical",
+    "enginePolicySourceUnchanged": true
   },
   "postflightCI": {
     "sourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
@@ -110,7 +114,7 @@
     "unmatchedReceivedReports": 0,
     "wrongCommanderMessages": 0
   },
-  "nextRoundStarted": true,
+  "nextRoundStarted": false,
   "reportedSupremeSamePoint": {
     "control": {
       "eligible": 163,
@@ -135,8 +139,8 @@
     "count": 72,
     "status": "unused"
   },
-  "completedCorpusBeforeRound": 47360,
-  "analysisSourceRef": null,
+  "completedCorpusBeforeRound": 47680,
+  "analysisSourceRef": "e0a08f5f395f37ba03465f0dfcd373c824c4715f",
   "functionalDecision044": {
     "eligible": 58,
     "selected": 54,
@@ -167,9 +171,8 @@
     "defaultEnabled": false
   },
   "runtime": {
-    "raw": "/tmp/gst-round045-selfplay.json",
-    "journal": "/tmp/gst-round045-selfplay.journal.ndjson",
-    "log": "/tmp/gst-round045-validation/research.log"
+    "analysisRaw": "docs/evaluations/cooperation-round-046-stages.json.gz",
+    "summary": "docs/evaluations/cooperation-round-046-summary.json"
   },
   "functionalDecision045": {
     "activeChoices": 26294,
@@ -210,6 +213,52 @@
     "rejected": [
       0,
       0
+    ]
+  },
+  "completedAt": "2026-10-18T06:30:23.000+09:00",
+  "commanderStage046": {
+    "gamesAnalyzed": 320,
+    "OFF": {
+      "groundWins": 147,
+      "bothGroundLeadersSurvivedInGroundWin": 139,
+      "oneSurvivedInGroundWin": 8,
+      "completeGroundDeathTimingGames": 154,
+      "excludedTimingGames": 6,
+      "eltasDeathUnattributedToNamedAttack": 86
+    },
+    "ON": {
+      "groundWins": 142,
+      "bothGroundLeadersSurvivedInGroundWin": 130,
+      "oneSurvivedInGroundWin": 12,
+      "completeGroundDeathTimingGames": 152,
+      "excludedTimingGames": 8,
+      "eltasDeathUnattributedToNamedAttack": 84
+    },
+    "afterFirstGroundDeathOn": {
+      "activeChoices": 343,
+      "eligibleReports": 4,
+      "selectedReports": 4,
+      "groundCommanderAttacks": 21,
+      "groundCommanderAttackFailures": 0
+    },
+    "newResearchExecutions": 0,
+    "replayedGames": 0
+  },
+  "postflightAnalysisCI": {
+    "sourceRef": "e0a08f5f395f37ba03465f0dfcd373c824c4715f",
+    "checks": [
+      {
+        "name": "Card UI browser check",
+        "status": "completed",
+        "conclusion": "failure",
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39071055979"
+      },
+      {
+        "name": "CI",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39071055950"
+      }
     ]
   }
 }
