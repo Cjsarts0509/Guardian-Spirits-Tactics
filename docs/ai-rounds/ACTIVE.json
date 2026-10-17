@@ -1,26 +1,25 @@
 {
-  "round": 47,
-  "status": "completed",
-  "owner": "round047-engine-commander-deaths",
-  "startedAt": "2026-10-18T07:05:15+09:00",
-  "leaseUntil": null,
+  "round": 48,
+  "status": "in_progress",
+  "owner": "round048-protector-coverage-analysis",
+  "startedAt": "2026-10-18T07:17:00+09:00",
+  "leaseUntil": "2026-10-18T07:55:00+09:00",
   "continuation": "user_20261015_2354_go",
-  "task": "045全320경기 정책/명령 재생·엔진 지휘관 사망 원인·자기 방어 준비 진단",
+  "task": "기존045/047全320경기 인원별 실제 보호자 편성·사망 시 준비와 실제 공격 흡수 구분",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "previousCompleted": {
-    "round": 46,
-    "record": "docs/ai-rounds/ROUND_046_20261018_0623.md",
-    "sourceRef": "e0a08f5f395f37ba03465f0dfcd373c824c4715f"
+    "round": 47,
+    "record": "docs/ai-rounds/ROUND_047_20261018_0705.md",
+    "sourceRef": "c09a74ff54ba15b1fcaac5f9a39ef925faac8696",
+    "resultHead": "002ee4ad296e7d26241d77257aafa8b969e90548"
   },
-  "inputSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
-  "inputRaw": "docs/evaluations/cooperation-round-045-selfplay.json.gz",
-  "evaluationSourceRef": "c09a74ff54ba15b1fcaac5f9a39ef925faac8696",
+  "inputSourceRef": "c09a74ff54ba15b1fcaac5f9a39ef925faac8696",
+  "evaluationSourceRef": null,
   "executions": 0,
   "targetExecutions": 0,
-  "replayTarget": 320,
-  "replayedGames": 320,
-  "policyReplayPasses": 320,
-  "commandReplayPasses": 320,
+  "replayTarget": 0,
+  "replayedGames": 0,
+  "analyzedExistingGames": 0,
   "cumulativeExecutions": 47680,
   "cumulativeTerminatedExecutions": 47678,
   "cumulativeUnfinishedExecutions": 2,
@@ -47,10 +46,7 @@
     "unfinished": 2,
     "seedRangesDisjoint": true
   },
-  "record": "docs/ai-rounds/ROUND_047_20261018_0705.md",
-  "checkpoint": "round047_complete_all371_commander_deaths_traced",
-  "nextAction": "Round048 posthoc census of count-specific protector assignment, active guard absorption and non-named damage; no new games or tuning",
-  "checks": {
+  "checksFrom047": {
     "tests": 689,
     "rules": 614,
     "server": 75,
@@ -60,38 +56,7 @@
     "syntheticPythonChecks": 10,
     "syntheticUniqueGames": 4
   },
-  "runtime": {
-    "raw": "docs/evaluations/cooperation-round-047-deaths.json.gz",
-    "journal": "docs/evaluations/cooperation-round-047-deaths.journal.ndjson.gz",
-    "summary": "docs/evaluations/cooperation-round-047-summary.json"
-  },
-  "deployment": false,
-  "repeatDisabled": false,
-  "humanValidation": {
-    "actualHumanMatches": 0
-  },
-  "completedAt": "2026-10-18T07:14:28+09:00",
-  "commanderDeaths": {
-    "OFF": {
-      "all": 181,
-      "eltas": 147,
-      "namedEltas": 61,
-      "wolfsSlashEltas": 66,
-      "raelMasterPowerEltas": 20,
-      "unattributed": 0
-    },
-    "ON": {
-      "all": 190,
-      "eltas": 142,
-      "namedEltas": 58,
-      "wolfsSlashEltas": 65,
-      "raelMasterPowerEltas": 19,
-      "unattributed": 0
-    },
-    "matchedActions": 39716,
-    "unknownDeathCause": 0
-  },
-  "postflightCI": {
+  "postflightCI047": {
     "sourceRef": "c09a74ff54ba15b1fcaac5f9a39ef925faac8696",
     "CI": {
       "run": 39074048146,
@@ -101,5 +66,13 @@
       "run": 39074048168,
       "conclusion": "in_progress"
     }
+  },
+  "record": "docs/ai-rounds/ROUND_048_20261018_0717.md",
+  "checkpoint": "preregistered_before_analysis",
+  "nextAction": "Pure posthoc all320 census; no new games/replays/policy or skill tuning",
+  "deployment": false,
+  "repeatDisabled": false,
+  "humanValidation": {
+    "actualHumanMatches": 0
   }
 }
