@@ -8,7 +8,7 @@
   "task": "reportedSupreme OFF/ON 동일 정책 태초 인원별 균형과 자기 정보 활용",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
-  "evaluationSourceRef": null,
+  "evaluationSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
   "executions": 0,
   "targetExecutions": 320,
   "cumulativeExecutions": 47360,
@@ -41,8 +41,8 @@
     "executions": 1152,
     "replayedGames": 2
   },
-  "checkpoint": "round045_preregistered_no_new_games",
-  "nextAction": "Support reportedSupreme-only identical selfplay, independent own-condition validator and regressions; freeze before 320 games",
+  "checkpoint": "round045_source_frozen_680_checks_320_finite_running",
+  "nextAction": "Finish at most8x40 games at fixed cad80d2, verify complete and zero-new resume; preserve separate report quality and faction/player-count balance",
   "record": "docs/ai-rounds/ROUND_045_20261018_0616.md",
   "deployment": false,
   "repeatDisabled": false,
@@ -73,22 +73,16 @@
     "actualHumanMatches": 0
   },
   "checks": {
-    "tests": 676,
-    "rules": 601,
+    "tests": 680,
+    "rules": 605,
     "server": 75,
     "typecheck": "4_packages_passed",
     "serverBuild": "passed",
     "clientWorkerBuild": "passed",
-    "observerInvariant": "4_modes_full_match_ON_OFF_equal",
-    "syntheticExecutions": 144,
-    "syntheticOptionChanges": 9,
-    "semanticTamper": "valid_plus4_rehashed_rejections",
-    "supervisorUnknownWriterPreserved": 1,
-    "recovered288PrefixExact": true,
-    "completeResumeNewGames": 0,
-    "completeResumeHashesUnchanged": true,
-    "posthocReplay": "2_original_matches_and_all_actions_exact",
-    "posthocTypecheck": "passed"
+    "observerInvariant": "ON_OFF_and_controller_label_swap_full_match_equal",
+    "semanticTamper": "valid_plus7_rehashed_rejections",
+    "syntheticExecutions": 40,
+    "finalSyntheticExecutions": 20
   },
   "postflightCI": {
     "sourceRef": "2541ef036fba963e83f2cd4b089fc3ddf85735c8",
@@ -169,5 +163,10 @@
     "totalAttackFailuresCandidate": 99,
     "overallRejectedEach": 36,
     "defaultEnabled": false
+  },
+  "runtime": {
+    "raw": "/tmp/gst-round045-selfplay.json",
+    "journal": "/tmp/gst-round045-selfplay.journal.ndjson",
+    "log": "/tmp/gst-round045-validation/research.log"
   }
 }
