@@ -250,8 +250,14 @@
       {
         "name": "Card UI browser check",
         "status": "completed",
-        "conclusion": "failure",
-        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39071055979"
+        "conclusion": "success_after_failed_job_retry",
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39071055979",
+        "initialJob": 117508576084,
+        "initialConclusion": "failure",
+        "initialFailure": "2-shuffle: missing images; MODE03_LIDELLUT_WASTES card back",
+        "retryJob": 117509328673,
+        "retryConclusion": "success",
+        "relatedUISourceUnchangedFromPassing045": true
       },
       {
         "name": "CI",
@@ -259,6 +265,7 @@
         "conclusion": "success",
         "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39071055950"
       }
-    ]
+    ],
+    "record": "docs/evaluations/cooperation-round-046-ci.json"
   }
 }
