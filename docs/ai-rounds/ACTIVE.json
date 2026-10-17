@@ -1,23 +1,23 @@
 {
-  "round": 44,
-  "status": "completed",
-  "owner": "round044-reported-supreme-fresh-development",
-  "startedAt": "2026-10-16T01:26:00+09:00",
-  "leaseUntil": null,
+  "round": 45,
+  "status": "in_progress",
+  "owner": "round045-identical-reported-supreme",
+  "startedAt": "2026-10-18T06:16:00+09:00",
+  "leaseUntil": "2026-10-18T07:16:00+09:00",
   "continuation": "user_20261015_2354_go",
-  "task": "既存 reportedSupreme 단독 새 고정 상대 개발; 기회/실제 보고 공격과 전체 성능 분리",
+  "task": "reportedSupreme OFF/ON 동일 정책 태초 인원별 균형과 자기 정보 활용",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
-  "evaluationSourceRef": "2541ef036fba963e83f2cd4b089fc3ddf85735c8",
-  "executions": 1152,
-  "targetExecutions": 1152,
+  "evaluationSourceRef": null,
+  "executions": 0,
+  "targetExecutions": 320,
   "cumulativeExecutions": 47360,
   "cumulativeTerminatedExecutions": 47358,
   "cumulativeUnfinishedExecutions": 2,
   "developmentSeeds": {
-    "start": 150000,
-    "count": 8,
-    "status": "used_complete_round044"
+    "start": 151000,
+    "count": 80,
+    "status": "reserved_unused_round045"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -25,9 +25,9 @@
     "status": "unused"
   },
   "nextSeeds": {
-    "start": 151000,
+    "start": 152000,
     "count": 80,
-    "status": "reserved_unused_balance"
+    "status": "reserved_unused_next_diagnostic"
   },
   "remainingUnused148000Reservation": {
     "start": 148008,
@@ -35,19 +35,19 @@
     "status": "unused"
   },
   "previousCompleted": {
-    "round": 43,
-    "record": "docs/ai-rounds/ROUND_043_20261016_0106.md",
-    "sourceRef": "4eb38918c69988ef1643dc83ec29c791544e75df",
-    "executions": 0,
-    "replayedGames": 320
+    "round": 44,
+    "record": "docs/ai-rounds/ROUND_044_20261016_0126.md",
+    "sourceRef": "2541ef036fba963e83f2cd4b089fc3ddf85735c8",
+    "executions": 1152,
+    "replayedGames": 2
   },
-  "checkpoint": "round044_complete_behavior_verified_strength_uncertain",
-  "nextAction": "Round045 preregister/verify unused151000-151079 and evaluate 320 identical-policy primordial games; preserve default OFF and skill values",
-  "record": "docs/ai-rounds/ROUND_044_20261016_0126.md",
+  "checkpoint": "round045_preregistered_no_new_games",
+  "nextAction": "Support reportedSupreme-only identical selfplay, independent own-condition validator and regressions; freeze before 320 games",
+  "record": "docs/ai-rounds/ROUND_045_20261018_0616.md",
   "deployment": false,
   "repeatDisabled": false,
   "replayTarget": 0,
-  "replayedGames": 2,
+  "replayedGames": 0,
   "corpusAudit": {
     "path": "docs/evaluations/cooperation-round-044-cumulative-audit.json",
     "primaryDatasets": 33,
@@ -114,7 +114,7 @@
     "unmatchedReceivedReports": 0,
     "wrongCommanderMessages": 0
   },
-  "nextRoundStarted": false,
+  "nextRoundStarted": true,
   "reportedSupremeSamePoint": {
     "control": {
       "eligible": 163,
@@ -139,21 +139,8 @@
     "count": 72,
     "status": "unused"
   },
-  "runtimeRecovery": {
-    "sourceRef": "2541ef036fba963e83f2cd4b089fc3ddf85735c8",
-    "stableRaw": "/dev/shm/gst-round044-recovery/data.json",
-    "stableJournal": "/dev/shm/gst-round044-recovery/data.journal.ndjson",
-    "lastDiskSnapshot": "/tmp/gst-round044-development/data.json",
-    "lastDiskSnapshotExecutions": 288,
-    "interruptedDuplicatesArchive": "/tmp/gst-round044-interrupted-generations.tar.gz",
-    "newGamesRerun": 0,
-    "log": "/tmp/gst-round044-validation/recovered-development.log",
-    "resolved": true,
-    "canonicalRepo": "docs/evaluations/cooperation-round-044-development.json.gz"
-  },
-  "completedCorpusBeforeRound": 46208,
-  "completedAt": "2026-10-16T01:50:00+09:00",
-  "analysisSourceRef": "361cd20ba11cff4edd5b20849e45c42a93db7b15",
+  "completedCorpusBeforeRound": 47360,
+  "analysisSourceRef": null,
   "functionalDecision044": {
     "eligible": 58,
     "selected": 54,
