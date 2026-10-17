@@ -14,7 +14,7 @@
   },
   "inputSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
   "inputRaw": "docs/evaluations/cooperation-round-045-selfplay.json.gz",
-  "evaluationSourceRef": null,
+  "evaluationSourceRef": "c09a74ff54ba15b1fcaac5f9a39ef925faac8696",
   "executions": 0,
   "targetExecutions": 0,
   "replayTarget": 320,
@@ -48,8 +48,10 @@
     "seedRangesDisjoint": true
   },
   "record": "docs/ai-rounds/ROUND_047_20261018_0705.md",
-  "checkpoint": "preregistered_before_replay",
-  "nextAction": "Implement evaluator-only event replay and semantic checks, validate, freeze source, then finite320 unique-game replay",
+  "checkpoint": "source_frozen_689tests_types_builds_and_synthetic10checks_passed",
+  "nextAction": "Finite8x40 unique-game engine replay; validate every prefix with independent verifier",
+  "checks": {"tests": 689, "rules": 614, "server": 75, "typecheck": "4_packages_passed", "serverClientWorkerBuild": "passed", "engineRegression": 9, "syntheticPythonChecks": 10, "syntheticUniqueGames": 4},
+  "runtime": {"raw": "/tmp/gst-round047-deaths.json", "journal": "/tmp/gst-round047-deaths.journal.ndjson", "canonical": "/tmp/gst-round047-deaths.json.store", "driver": "tools/run-commander-death-replay.py"},
   "deployment": false,
   "repeatDisabled": false,
   "humanValidation": {
