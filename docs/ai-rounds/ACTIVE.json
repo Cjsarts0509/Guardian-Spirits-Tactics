@@ -1,23 +1,23 @@
 {
-  "round": 52,
-  "status": "completed",
-  "owner": "round052-preaction-incoming-sender",
-  "startedAt": "2026-10-18T08:10:00+09:00",
-  "leaseUntil": null,
+  "round": 53,
+  "status": "in_progress",
+  "owner": "round053-commander-report-sender-mode",
+  "startedAt": "2026-10-18T08:21:00+09:00",
+  "leaseUntil": "2026-10-18T09:00:00+09:00",
   "continuation": "user_20261015_2354_go",
-  "task": "같은4경기 킬더/드라칸 주행동 직전 미확정 보고 발신자 확인 기회와 기존 useful-report 대안 관측",
+  "task": "기존 확인 위치의 미확정 지휘관 보고 발신자 한정 기본OFF 후보 구현/기능 검증",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "previousCompleted": {
-    "round": 51,
-    "record": "docs/ai-rounds/ROUND_051_20261018_0745.md",
-    "sourceRef": "9e823b52ee6b066cf2b96904922c2dd57b289974",
-    "resultHead": "dc4baacbf9611426090bf8d11d49c09d2f1124c3"
+    "round": 52,
+    "record": "docs/ai-rounds/ROUND_052_20261018_0810.md",
+    "sourceRef": "3bafb562897e480b7935a3718f713d5931a088aa",
+    "resultHead": "fbbb317aad24c84b2993322b4c10957fb4eb8252"
   },
   "inputSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
   "executions": 0,
   "targetExecutions": 0,
   "replayTarget": 4,
-  "newEngineReplayPasses": 8,
+  "newEngineReplayPasses": 0,
   "cumulativeExecutions": 47680,
   "cumulativeTerminatedExecutions": 47678,
   "cumulativeUnfinishedExecutions": 2,
@@ -39,57 +39,11 @@
     "unfinished": 2,
     "seedRangesDisjoint": true
   },
-  "record": "docs/ai-rounds/ROUND_052_20261018_0810.md",
-  "checkpoint": "round052_complete_specific_report_sender_ignored_by_broad_existing_filter",
+  "record": "docs/ai-rounds/ROUND_053_20261018_0821.md",
+  "checkpoint": "preregistered_OFF_mode_no_new_performance_games",
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
   },
-  "nextRoundStarted": false,
-  "evaluationSourceRef": "3bafb562897e480b7935a3718f713d5931a088aa",
-  "checks": {
-    "tests": 703,
-    "rules": 628,
-    "server": 75,
-    "typecheck": "4_packages_passed",
-    "serverClientWorkerBuild": "passed",
-    "syntheticPython": 14,
-    "realPython": 14,
-    "newFailures": 0,
-    "newUnfinished": 0
-  },
-  "completedAt": "2026-10-18T08:19:25+09:00",
-  "replayedGames": 4,
-  "originalCollectorPasses": 4,
-  "policyWitnessPasses": 4,
-  "preactionWitness052": {
-    "reportObserved": 8,
-    "feasibleSenderConfirmationChoices": 6,
-    "alternativeTargetsNamedSender": 0,
-    "uniqueSituations": 1,
-    "policies": 2,
-    "activePrimaryChoices": 153,
-    "changedOtherSenderProbes": 8,
-    "probeAccepted": 8
-  },
-  "runtime": {
-    "raw": "docs/evaluations/cooperation-round-052-witness.json.gz",
-    "summary": "docs/evaluations/cooperation-round-052-summary.json",
-    "focus": "docs/evaluations/cooperation-round-052-focus.json",
-    "completion": "docs/evaluations/cooperation-round-052-completion.json"
-  },
-  "postflightCI": {
-    "sourceRef": "3bafb562897e480b7935a3718f713d5931a088aa",
-    "checkedAt": "2026-10-18T08:19:20+09:00",
-    "CI": {
-      "run": 39078355461,
-      "conclusion": "success"
-    },
-    "browser": {
-      "run": 39078355492,
-      "conclusion": "success"
-    },
-    "retries": 0
-  },
-  "nextAction": "Round053 implement and functionally test an OFF commander-report sender verification mode at unchanged information-stage priority; no fact promotion, default behavior preserved, no fresh performance seeds until preregistered"
+  "nextRoundStarted": false
 }
