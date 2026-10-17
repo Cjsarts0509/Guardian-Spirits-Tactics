@@ -1,9 +1,9 @@
 {
   "round": 50,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round050-guardian-report-chain",
   "startedAt": "2026-10-18T07:41:00+09:00",
-  "leaseUntil": "2026-10-18T08:25:00+09:00",
+  "leaseUntil": null,
   "continuation": "user_20261015_2354_go",
   "task": "049 보호자 자기 수신과045 실제 접수 명령의 정보 전달 경로를 분리 검증",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
@@ -39,10 +39,44 @@
     "seedRangesDisjoint": true
   },
   "record": "docs/ai-rounds/ROUND_050_20261018_0741.md",
-  "checkpoint": "preregistered_existing049_own_receipts_only",
+  "checkpoint": "round050_complete_no_addressed_reports_to_nominal_case_guardians",
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
   },
-  "nextRoundStarted": false
+  "nextRoundStarted": false,
+  "evaluationSourceRef": "8e9ff0a32bf6907ebe01bcee7d8065a01940ce65",
+  "completedAt": "2026-10-18T07:43:20+09:00",
+  "reportPath050": {
+    "originalGames": 4,
+    "episodes": 8,
+    "activeChoices": 162,
+    "classification": {
+      "reported_only_to_others": 4,
+      "no_report_command": 2,
+      "addressed_receipt_observed": 2
+    },
+    "reportCommands": 16,
+    "addressedReportCommands": 2,
+    "ownReceivedReportEvents": 2,
+    "ownReceivedReportChoices": 38,
+    "failures": 0
+  },
+  "checks": {
+    "newSyntheticPython": 16,
+    "existingActualWitnessPython": 8,
+    "inputWitnessIndependentVerification": "passed",
+    "receiverPrivacyPrefixAndActualActionJoin": "passed",
+    "repeatedCompressedAndSummaryByteIdentical": true,
+    "wrongClaims": 0,
+    "wrongOwnKnownChoices": 0,
+    "newFailures": 0,
+    "newUnfinished": 0
+  },
+  "runtime": {
+    "raw": "docs/evaluations/cooperation-round-050-path.json.gz",
+    "summary": "docs/evaluations/cooperation-round-050-summary.json",
+    "completion": "docs/evaluations/cooperation-round-050-completion.json"
+  },
+  "nextAction": "Round051 observe own sender knowledge/allies/sent/cooldown and actual share proposal across same four games; no hidden-identity recipient selection, no policy change or new seeds"
 }
