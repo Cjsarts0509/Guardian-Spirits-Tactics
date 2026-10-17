@@ -1,4 +1,4 @@
-import {shareIntel,verifyIntel,hasUsefulIntelExchange,reportedSupremeAttack,reportedFirstWarningAttack} from './bot-intel.js';
+import {shareIntel,verifyIntel,hasUsefulIntelExchange,hasUnresolvedCommanderReport,reportedSupremeAttack,reportedFirstWarningAttack} from './bot-intel.js';
 // 봇 두 종류
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
@@ -41,8 +41,8 @@ export interface BotOptions {
   verifyDeadAllyReports?: boolean;
   /** 개발 비교: 다음 턴 완성이 가까운 진명·마나 조건에서만 부분 보석 사용을 보류. 기본 OFF. */
   preservePartialGem?: boolean | 'when-busy';
-  /** 개발 비교: 미확인 동맹 요청자를 먼저 확인한다. 요청은 정체 사실로 취급하지 않는다. */
-  verifyIncomingAllies?: boolean | 'useful-report';
+  /** 기본OFF 개발 비교: 기존 정보 수집 위치에서 요청자 확인. commander-report는 미확정 지휘관 보고 발신자만. 요청/보고는 facts가 아니다. */
+  verifyIncomingAllies?: boolean | 'useful-report' | 'commander-report';
   /** 개발 비교: 일반 인물의 위장 전 보석 목표 단계. 지휘관/변장 노출 예외는 유지한다. */
   claimGemGoal?: 2 | 3;
   /** 개발 비교: 성장 기간에만 지휘관 진명. 기본 none이며 변장 인물의 위장은 유지한다. */
@@ -648,7 +648,8 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
     // A가 B를 알아도 B는 A의 정체를 모를 수 있다. 실제 확인으로 대화의 신뢰 경로를 연다.
     // 공표나 단방향 동맹 요청 자체를 아군 facts로 승격하지 않는다.
     const incoming=unknown.filter(p=>me.alliedBy.includes(p.id)&&
-      (opts.verifyIncomingAllies!=='useful-report'||hasUsefulIntelExchange(view,knowledge,mem,p.id)));
+      (opts.verifyIncomingAllies!=='useful-report'||hasUsefulIntelExchange(view,knowledge,mem,p.id))&&
+      (opts.verifyIncomingAllies!=='commander-report'||hasUnresolvedCommanderReport(view,knowledge,mem,p.id)));
     const check=bestConfirmation(view,belief,incoming,[...usable.values()]);
     if(check)return sequence(check);
     const gem=usable.get('truth_gem');

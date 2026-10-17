@@ -108,6 +108,22 @@ export function hasUsefulIntelExchange(view: PlayerView, knowledge: Knowledge, m
   return false;
 }
 
+/** 기본OFF 확인 동기일 뿐: 미확정 지휘관 보고의 발신자를 실제 스킬로 확인한다.
+ * 보고/요청/공표는 사실이 아니며 상충 보고도 여기서 정체를 확정하지 않는다.
+ */
+export function hasUnresolvedCommanderReport(view: PlayerView, knowledge: Knowledge, memory: BotMemory, sender: PlayerId): boolean {
+  if (sender === view.me.id || knowledge.known.has(sender) || !view.me.alliedBy.includes(sender) ||
+      !view.players.some(p => p.id === sender && p.alive)) return false;
+  for (const [target, reports] of memory.perception?.intel?.reports ?? []) {
+    const report = reports.get(sender);
+    if (report && target !== view.me.id && !knowledge.known.has(target) &&
+        view.players.some(p => p.id === target && p.alive) &&
+        view.roster.some(r => r.inGame && r.key === report.character && r.commander) &&
+        knowledge.candidates.get(target)?.includes(report.character)) return true;
+  }
+  return false;
+}
+
 export function shareIntel(view: PlayerView, knowledge: Knowledge, memory: BotMemory): Action | null {
   const intel = intelFor(memory);
   if (view.elapsedMs - intel.lastSentAt < 12_000) return null;
