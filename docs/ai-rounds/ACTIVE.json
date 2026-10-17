@@ -1,16 +1,16 @@
 {
-  "round": 45,
-  "status": "completed",
-  "owner": "round045-identical-reported-supreme",
-  "startedAt": "2026-10-18T06:11:22+09:00",
-  "leaseUntil": null,
+  "round": 46,
+  "status": "in_progress",
+  "owner": "round046-commander-stage-analysis",
+  "startedAt": "2026-10-18T06:23:15.000+09:00",
+  "leaseUntil": "2026-10-17T22:23:15.000Z",
   "continuation": "user_20261015_2354_go",
-  "task": "reportedSupreme OFF/ON 동일 정책 태초 인원별 균형과 자기 정보 활용",
+  "task": "045 동일 정책 경기의 지휘관 제거 전후 압박 진단; 새 연구0",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
-  "evaluationSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
-  "executions": 320,
-  "targetExecutions": 320,
+  "evaluationSourceRef": null,
+  "executions": 0,
+  "targetExecutions": 0,
   "cumulativeExecutions": 47680,
   "cumulativeTerminatedExecutions": 47678,
   "cumulativeUnfinishedExecutions": 2,
@@ -35,15 +35,14 @@
     "status": "unused"
   },
   "previousCompleted": {
-    "round": 44,
-    "record": "docs/ai-rounds/ROUND_044_20261016_0126.md",
-    "sourceRef": "2541ef036fba963e83f2cd4b089fc3ddf85735c8",
-    "executions": 1152,
-    "replayedGames": 2
+    "round": 45,
+    "record": "docs/ai-rounds/ROUND_045_20261018_0616.md",
+    "sourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
+    "executions": 320
   },
-  "checkpoint": "round045_complete_320_report_quality_faction_bias_remains",
-  "nextAction": "Round046 no-new-game commander-stage diagnosis on all045 data; exclude unobserved death timing",
-  "record": "docs/ai-rounds/ROUND_045_20261018_0616.md",
+  "checkpoint": "round046_preregistered_analysis_only",
+  "nextAction": "Validate terminal leaders and direct-death coverage; split attack/report opportunity stages only with complete observed ground-commander deaths",
+  "record": "docs/ai-rounds/ROUND_046_20261018_0623.md",
   "deployment": false,
   "repeatDisabled": false,
   "replayTarget": 0,
@@ -111,7 +110,7 @@
     "unmatchedReceivedReports": 0,
     "wrongCommanderMessages": 0
   },
-  "nextRoundStarted": false,
+  "nextRoundStarted": true,
   "reportedSupremeSamePoint": {
     "control": {
       "eligible": 163,
@@ -172,7 +171,6 @@
     "journal": "/tmp/gst-round045-selfplay.journal.ndjson",
     "log": "/tmp/gst-round045-validation/research.log"
   },
-  "completedAt": "2026-10-18T06:23:00+09:00",
   "functionalDecision045": {
     "activeChoices": 26294,
     "eligible": 53,
