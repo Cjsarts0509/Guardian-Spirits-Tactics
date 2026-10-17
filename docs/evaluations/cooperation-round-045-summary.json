@@ -1,0 +1,3521 @@
+{
+  "kind": "identical-report-policy-primordial",
+  "complete": true,
+  "executions": 320,
+  "sourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
+  "optionsSHA256": "a7e199b0f74ab98f19cbfea039b4b17984d60b960e0fadba4adeec1787deda7c",
+  "snapshotSHA256": "3660f8ce495e8789e011171ca23ceec9a1f97825e90a1020ba3d1d415ca0e822",
+  "journalSHA256": "f0ffbc171a345cb0746ef57e31e287ff8244ce5c4e05d37ade40ae9121756fa3",
+  "publicationVerified": true,
+  "variants": {
+    "cooperative": {
+      "games": 160,
+      "side1Wins": 147,
+      "side2Wins": 13,
+      "unfinished": 0,
+      "failedAttacks": 11,
+      "rejectedActions": 0,
+      "nominalSkillMana": 277155,
+      "netSkillManaDelta": -252105,
+      "incomingAllyManaGross": 66940,
+      "report": {},
+      "byCount": {
+        "8": {
+          "games": 32,
+          "side1Wins": 28,
+          "side2Wins": 4,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.875,
+          "seedBootstrap95": [
+            0.75,
+            0.96875
+          ]
+        },
+        "9": {
+          "games": 32,
+          "side1Wins": 32,
+          "side2Wins": 0,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 1.0,
+          "seedBootstrap95": [
+            1.0,
+            1.0
+          ]
+        },
+        "10": {
+          "games": 32,
+          "side1Wins": 31,
+          "side2Wins": 1,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.96875,
+          "seedBootstrap95": [
+            0.90625,
+            1.0
+          ]
+        },
+        "11": {
+          "games": 32,
+          "side1Wins": 32,
+          "side2Wins": 0,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 1.0,
+          "seedBootstrap95": [
+            1.0,
+            1.0
+          ]
+        },
+        "12": {
+          "games": 32,
+          "side1Wins": 24,
+          "side2Wins": 8,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.75,
+          "seedBootstrap95": [
+            0.5625,
+            0.9375
+          ]
+        }
+      },
+      "bySide": {
+        "2": {
+          "actions": 10343,
+          "rejected": 0,
+          "nominalSkillMana": 132950,
+          "netSkillManaDelta": -116235
+        },
+        "1": {
+          "actions": 9568,
+          "rejected": 0,
+          "nominalSkillMana": 144205,
+          "netSkillManaDelta": -135870
+        }
+      },
+      "byRole": {
+        "rael": {
+          "side": 1,
+          "games": 160,
+          "survived": 144,
+          "teamWins": 147
+        },
+        "eoril": {
+          "side": 1,
+          "games": 160,
+          "survived": 39,
+          "teamWins": 147
+        },
+        "kilder": {
+          "side": 2,
+          "games": 160,
+          "survived": 98,
+          "teamWins": 13
+        },
+        "hermilly": {
+          "side": 2,
+          "games": 128,
+          "survived": 74,
+          "teamWins": 13
+        },
+        "eltas": {
+          "side": 2,
+          "games": 160,
+          "survived": 13,
+          "teamWins": 13
+        },
+        "drakan": {
+          "side": 2,
+          "games": 160,
+          "survived": 98,
+          "teamWins": 13
+        },
+        "kane": {
+          "side": 1,
+          "games": 160,
+          "survived": 142,
+          "teamWins": 147
+        },
+        "nukelius": {
+          "side": 1,
+          "games": 160,
+          "survived": 26,
+          "teamWins": 147
+        },
+        "tachin": {
+          "side": 1,
+          "games": 128,
+          "survived": 97,
+          "teamWins": 119
+        },
+        "sasint": {
+          "side": 2,
+          "games": 128,
+          "survived": 82,
+          "teamWins": 9
+        },
+        "kumarin": {
+          "side": 1,
+          "games": 64,
+          "survived": 37,
+          "teamWins": 56
+        },
+        "consume": {
+          "side": 2,
+          "games": 32,
+          "survived": 21,
+          "teamWins": 8
+        }
+      },
+      "seedCount": 80,
+      "side1Score": 0.91875,
+      "seedBootstrap95": [
+        0.8625,
+        0.9625
+      ]
+    },
+    "reportedSupreme": {
+      "games": 160,
+      "side1Wins": 142,
+      "side2Wins": 18,
+      "unfinished": 0,
+      "failedAttacks": 11,
+      "rejectedActions": 0,
+      "nominalSkillMana": 277440,
+      "netSkillManaDelta": -251385,
+      "incomingAllyManaGross": 65080,
+      "report": {
+        "activeDecisions": 26294,
+        "withSupreme": 3183,
+        "withTrustedReport": 4529,
+        "eligible": 53,
+        "selected": 47,
+        "changed": 47,
+        "higherPriorityPreserved": 6,
+        "idleReplaced": 41,
+        "alreadySame": 0,
+        "target:no_skill": 5391,
+        "target:before_four_minutes": 252,
+        "target:friendly_report": 63,
+        "target:skill_blocked": 97,
+        "target:eligible": 66,
+        "accepted": 47,
+        "rejected": 0,
+        "wrong": 0,
+        "attackFailure": 0,
+        "nominalMana": 2350,
+        "netManaDelta": -970,
+        "commanderAttacks": 19,
+        "target:reserve_mana": 30
+      },
+      "byCount": {
+        "8": {
+          "games": 32,
+          "side1Wins": 23,
+          "side2Wins": 9,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.71875,
+          "seedBootstrap95": [
+            0.53125,
+            0.90625
+          ]
+        },
+        "9": {
+          "games": 32,
+          "side1Wins": 32,
+          "side2Wins": 0,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 1.0,
+          "seedBootstrap95": [
+            1.0,
+            1.0
+          ]
+        },
+        "10": {
+          "games": 32,
+          "side1Wins": 30,
+          "side2Wins": 2,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.9375,
+          "seedBootstrap95": [
+            0.84375,
+            1.0
+          ]
+        },
+        "11": {
+          "games": 32,
+          "side1Wins": 32,
+          "side2Wins": 0,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 1.0,
+          "seedBootstrap95": [
+            1.0,
+            1.0
+          ]
+        },
+        "12": {
+          "games": 32,
+          "side1Wins": 25,
+          "side2Wins": 7,
+          "unfinished": 0,
+          "seedCount": 16,
+          "side1Score": 0.78125,
+          "seedBootstrap95": [
+            0.59375,
+            0.9375
+          ]
+        }
+      },
+      "bySide": {
+        "2": {
+          "actions": 10324,
+          "rejected": 0,
+          "nominalSkillMana": 134050,
+          "netSkillManaDelta": -116295,
+          "activeReportChoices": 13044,
+          "eligibleReportChoices": 53,
+          "selectedReports": 47,
+          "changedReports": 47,
+          "idleReplaced": 41,
+          "acceptedReports": 47,
+          "failedReports": 0
+        },
+        "1": {
+          "actions": 9481,
+          "rejected": 0,
+          "nominalSkillMana": 143390,
+          "netSkillManaDelta": -135090,
+          "activeReportChoices": 13250,
+          "eligibleReportChoices": 0,
+          "selectedReports": 0,
+          "changedReports": 0,
+          "idleReplaced": 0
+        }
+      },
+      "byRole": {
+        "rael": {
+          "side": 1,
+          "games": 160,
+          "survived": 137,
+          "teamWins": 142
+        },
+        "eoril": {
+          "side": 1,
+          "games": 160,
+          "survived": 37,
+          "teamWins": 142
+        },
+        "kilder": {
+          "side": 2,
+          "games": 160,
+          "survived": 97,
+          "teamWins": 18
+        },
+        "hermilly": {
+          "side": 2,
+          "games": 128,
+          "survived": 75,
+          "teamWins": 18
+        },
+        "eltas": {
+          "side": 2,
+          "games": 160,
+          "survived": 18,
+          "teamWins": 18
+        },
+        "drakan": {
+          "side": 2,
+          "games": 160,
+          "survived": 98,
+          "teamWins": 18
+        },
+        "kane": {
+          "side": 1,
+          "games": 160,
+          "survived": 135,
+          "teamWins": 142
+        },
+        "nukelius": {
+          "side": 1,
+          "games": 160,
+          "survived": 25,
+          "teamWins": 142
+        },
+        "tachin": {
+          "side": 1,
+          "games": 128,
+          "survived": 96,
+          "teamWins": 119
+        },
+        "sasint": {
+          "side": 2,
+          "games": 128,
+          "survived": 82,
+          "teamWins": 9
+        },
+        "kumarin": {
+          "side": 1,
+          "games": 64,
+          "survived": 37,
+          "teamWins": 57
+        },
+        "consume": {
+          "side": 2,
+          "games": 32,
+          "survived": 22,
+          "teamWins": 7
+        }
+      },
+      "seedCount": 80,
+      "side1Score": 0.8875,
+      "seedBootstrap95": [
+        0.825,
+        0.94375
+      ]
+    }
+  },
+  "pairedContrasts": {
+    "all": {
+      "seeds": 80,
+      "side1Delta": -0.03125,
+      "seedBootstrap95": [
+        -0.075,
+        0.00625
+      ]
+    },
+    "8": {
+      "seeds": 16,
+      "side1Delta": -0.15625,
+      "seedBootstrap95": [
+        -0.34375,
+        0.0
+      ]
+    },
+    "9": {
+      "seeds": 16,
+      "side1Delta": 0.0,
+      "seedBootstrap95": [
+        0.0,
+        0.0
+      ]
+    },
+    "10": {
+      "seeds": 16,
+      "side1Delta": -0.03125,
+      "seedBootstrap95": [
+        -0.09375,
+        0.0
+      ]
+    },
+    "11": {
+      "seeds": 16,
+      "side1Delta": 0.0,
+      "seedBootstrap95": [
+        0.0,
+        0.0
+      ]
+    },
+    "12": {
+      "seeds": 16,
+      "side1Delta": 0.03125,
+      "seedBootstrap95": [
+        0.0,
+        0.09375
+      ]
+    }
+  },
+  "fullTrajectoryIdenticalPairs": 120,
+  "firstDivergences": [
+    {
+      "seed": 151010,
+      "reversed": true,
+      "original": {
+        "player": "p7",
+        "at": 307000,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p3",
+          "text": "확인 정보: [7] 케인"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "drakan",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "hermilly",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "케인"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p3",
+        "at": 287750,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p6",
+          "name": "rael"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 145,
+        "afterMana": 125,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151013,
+      "reversed": true,
+      "original": {
+        "player": "p11",
+        "at": 280000,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p2",
+          "text": "확인 정보: [9] 허밀리"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "허밀리"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p11",
+        "at": 280000,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "kumarin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 110,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151014,
+      "reversed": false,
+      "original": {
+        "player": "p10",
+        "at": 483250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p2",
+          "name": "kumarin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 110,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "consume",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "chosen": {
+        "player": "p10",
+        "at": 483250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p12",
+          "name": "rael"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 110,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "consume",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death",
+          "game.end"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151014,
+      "reversed": true,
+      "original": {
+        "player": "p6",
+        "at": 618750,
+        "action": {
+          "type": "skill",
+          "skill": "publish",
+          "name": "kane"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 45,
+        "afterMana": 50,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "tachin",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "kane",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "publish"
+        ]
+      },
+      "chosen": {
+        "player": "p10",
+        "at": 592750,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p6",
+          "name": "kane"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "consume",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151018,
+      "reversed": false,
+      "original": {
+        "player": "p10",
+        "at": 278000,
+        "action": {
+          "type": "skill",
+          "skill": "ally_check",
+          "target": "p6"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 95,
+        "afterMana": 80,
+        "maxMana": 150,
+        "nominalMana": 15,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "tachin",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "rael",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "inspect",
+          "inspect.result"
+        ]
+      },
+      "chosen": {
+        "player": "p3",
+        "at": 276250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "tachin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 110,
+        "afterMana": 90,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "drakan",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151019,
+      "reversed": false,
+      "original": {
+        "player": "p12",
+        "at": 544750,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p3",
+          "name": "tachin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "chosen": {
+        "player": "p12",
+        "at": 541500,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p10",
+          "name": "rael"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death",
+          "game.end"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151020,
+      "reversed": true,
+      "original": {
+        "player": "p2",
+        "at": 257750,
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p5",
+          "name": "nukelius"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 70,
+        "afterMana": 70,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "kilder",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "chosen": {
+        "player": "p4",
+        "at": 254000,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p5",
+          "name": "nukelius"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 105,
+        "afterMana": 85,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "drakan",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151021,
+      "reversed": false,
+      "original": {
+        "player": "p9",
+        "at": 381000,
+        "action": {
+          "type": "skill",
+          "skill": "rael_master_power",
+          "target": "p2"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 35,
+        "afterMana": 25,
+        "maxMana": 150,
+        "nominalMana": 10,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "rael",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "rael",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "skill.rael_master_power",
+          "death.self",
+          "death"
+        ]
+      },
+      "chosen": {
+        "player": "p6",
+        "at": 361250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "kane"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 105,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "sasint",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151024,
+      "reversed": false,
+      "original": {
+        "player": "p9",
+        "at": 604000,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p6",
+          "text": "확인 정보: [7] 사신트"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 150,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "사신트"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p9",
+        "at": 604000,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p8",
+          "name": "kane"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151024,
+      "reversed": true,
+      "original": {
+        "player": "p9",
+        "at": 327750,
+        "action": {
+          "type": "skill",
+          "skill": "ally_check",
+          "target": "p2"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 110,
+        "maxMana": 150,
+        "nominalMana": 15,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "inspect",
+          "inspect.result"
+        ]
+      },
+      "chosen": {
+        "player": "p9",
+        "at": 327750,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p4",
+          "name": "tachin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 105,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151025,
+      "reversed": false,
+      "original": {
+        "player": "p8",
+        "at": 320250,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p5",
+          "text": "확인 정보: [6] 라엘"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 120,
+        "afterMana": 120,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "drakan",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "라엘"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p5",
+        "at": 304750,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p3",
+          "name": "kane"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 115,
+        "afterMana": 95,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "drakan",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151025,
+      "reversed": true,
+      "original": {
+        "player": "p3",
+        "at": 273250,
+        "action": {
+          "type": "skill",
+          "skill": "truth_gem",
+          "target": "p5"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 100,
+        "afterMana": 50,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "kane",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "kane",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "gem.use",
+          "gem.result"
+        ]
+      },
+      "chosen": {
+        "player": "p5",
+        "at": 272250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p6",
+          "name": "rael"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 105,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151027,
+      "reversed": false,
+      "original": {
+        "player": "p7",
+        "at": 371500,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p10",
+          "text": "확인 정보: [6] 사신트"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 115,
+        "afterMana": 115,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "eoril",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eoril",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "사신트"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p4",
+        "at": 371250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "eoril"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 105,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "sasint",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151027,
+      "reversed": true,
+      "original": {
+        "player": "p1",
+        "at": 286000,
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p7",
+          "name": "eoril"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 75,
+        "afterMana": 75,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "kilder",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "skill.kilder_absorb",
+          "skill.grant",
+          "death.self",
+          "death"
+        ]
+      },
+      "chosen": {
+        "player": "p4",
+        "at": 284250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "eoril"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 105,
+        "afterMana": 85,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "sasint",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151029,
+      "reversed": true,
+      "original": {
+        "player": "p1",
+        "at": 598500,
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p10",
+          "name": "rael"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 55,
+        "afterMana": 5,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "kilder",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.guarded"
+        ]
+      },
+      "chosen": {
+        "player": "p7",
+        "at": 582500,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p10",
+          "name": "rael"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 100,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "consume",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.guarded"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151030,
+      "reversed": false,
+      "original": {
+        "player": "p7",
+        "at": 387000,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p5",
+          "text": "확인 정보: [2] 엘타스"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 150,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "eoril",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eoril",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "엘타스"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p2",
+        "at": 383500,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p4",
+          "name": "kane"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 120,
+        "afterMana": 100,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151034,
+      "reversed": false,
+      "original": {
+        "player": "p3",
+        "at": 440250,
+        "action": {
+          "type": "skill",
+          "skill": "ally_check",
+          "target": "p2"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 110,
+        "maxMana": 150,
+        "nominalMana": 15,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "consume",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "inspect",
+          "inspect.result"
+        ]
+      },
+      "chosen": {
+        "player": "p3",
+        "at": 440250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p9",
+          "name": "kumarin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 105,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "consume",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151038,
+      "reversed": false,
+      "original": {
+        "player": "p3",
+        "at": 265250,
+        "action": {
+          "type": "skill",
+          "skill": "publish",
+          "name": "kumarin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 50,
+        "afterMana": 55,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "rael",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "rael",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "publish"
+        ]
+      },
+      "chosen": {
+        "player": "p11",
+        "at": 260250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p2",
+          "name": "eoril"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 140,
+        "afterMana": 120,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "drakan",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151040,
+      "reversed": true,
+      "original": {
+        "player": "p1",
+        "at": 405250,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p3",
+          "text": "확인 정보: [5] 케인"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 65,
+        "afterMana": 65,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "drakan",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "drakan",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "케인"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p3",
+        "at": 404250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p5",
+          "name": "rael"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 100,
+        "afterMana": 80,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151042,
+      "reversed": true,
+      "original": {
+        "player": "p5",
+        "at": 282250,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p1",
+          "text": "확인 정보: [2] 허밀리"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 150,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "sasint",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "허밀리"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p5",
+        "at": 282250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p6",
+          "name": "nukelius"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "sasint",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151044,
+      "reversed": false,
+      "original": {
+        "player": "p5",
+        "at": 241000,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p4",
+          "text": "확인 정보: [10] 사신트"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 125,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "drakan",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "사신트"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p5",
+        "at": 241000,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p9",
+          "name": "kumarin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 105,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "drakan",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151045,
+      "reversed": false,
+      "original": {
+        "player": "p1",
+        "at": 275250,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p2",
+          "text": "확인 정보: [8] 허밀리"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "허밀리"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p1",
+        "at": 275250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p5",
+          "name": "kane"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 110,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151045,
+      "reversed": true,
+      "original": {
+        "player": "p1",
+        "at": 275250,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p6",
+          "text": "확인 정보: [7] 드라칸"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 140,
+        "afterMana": 140,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "드라칸"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p1",
+        "at": 275250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "rael"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 140,
+        "afterMana": 120,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151049,
+      "reversed": false,
+      "original": {
+        "player": "p7",
+        "at": 268750,
+        "action": {
+          "type": "skill",
+          "skill": "ally_check",
+          "target": "p8"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 115,
+        "afterMana": 100,
+        "maxMana": 150,
+        "nominalMana": 15,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "consume",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "inspect",
+          "inspect.result"
+        ]
+      },
+      "chosen": {
+        "player": "p7",
+        "at": 268750,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p1",
+          "name": "tachin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 115,
+        "afterMana": 95,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "consume",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151050,
+      "reversed": true,
+      "original": {
+        "player": "p3",
+        "at": 401750,
+        "action": {
+          "type": "skill",
+          "skill": "drakan_black_spell",
+          "target": "p4"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 70,
+        "maxMana": 150,
+        "nominalMana": 80,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "drakan",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "skill.drakan_black_spell",
+          "status.incapacitated.self"
+        ]
+      },
+      "chosen": {
+        "player": "p1",
+        "at": 399750,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "rael"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 110,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151051,
+      "reversed": false,
+      "original": {
+        "player": "p1",
+        "at": 358000,
+        "action": {
+          "type": "skill",
+          "skill": "ally_check",
+          "target": "p2"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 100,
+        "afterMana": 85,
+        "maxMana": 150,
+        "nominalMana": 15,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "nukelius",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "rael",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "inspect",
+          "inspect.result"
+        ]
+      },
+      "chosen": {
+        "player": "p9",
+        "at": 323250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "tachin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 110,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "drakan",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151055,
+      "reversed": true,
+      "original": {
+        "player": "p6",
+        "at": 400250,
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p5",
+          "name": "eltas"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 50,
+        "afterMana": 0,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "kane",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "kane",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death",
+          "game.end"
+        ]
+      },
+      "chosen": {
+        "player": "p5",
+        "at": 395500,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "rael"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "drakan",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151056,
+      "reversed": false,
+      "original": {
+        "player": "p2",
+        "at": 407500,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p1",
+          "text": "확인 정보: [9] 킬데르"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 150,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "킬데르"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p2",
+        "at": 407500,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p8",
+          "name": "tachin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151056,
+      "reversed": true,
+      "original": {
+        "player": "p7",
+        "at": 359000,
+        "action": {
+          "type": "skill",
+          "skill": "ally_check",
+          "target": "p3"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 115,
+        "maxMana": 150,
+        "nominalMana": 15,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "eoril",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eoril",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "inspect",
+          "inspect.result"
+        ]
+      },
+      "chosen": {
+        "player": "p2",
+        "at": 346250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "eoril"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 105,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151058,
+      "reversed": false,
+      "original": {
+        "player": "p9",
+        "at": 340500,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p11",
+          "text": "확인 정보: [3] 드라칸"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 105,
+        "afterMana": 105,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "드라칸"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p9",
+        "at": 328500,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p2",
+          "name": "nukelius"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 105,
+        "afterMana": 85,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151058,
+      "reversed": true,
+      "original": {
+        "player": "p9",
+        "at": 252500,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p7",
+          "text": "확인 정보: [8] 허밀리"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 100,
+        "afterMana": 100,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "허밀리"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p9",
+        "at": 252500,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p10",
+          "name": "kumarin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 100,
+        "afterMana": 80,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151059,
+      "reversed": false,
+      "original": {
+        "player": "p6",
+        "at": 347750,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p5",
+          "text": "확인 정보: [9] 드라칸"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 125,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "드라칸"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p6",
+        "at": 347750,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p1",
+          "name": "kumarin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 125,
+        "afterMana": 105,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151059,
+      "reversed": true,
+      "original": {
+        "player": "p6",
+        "at": 460250,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p5",
+          "text": "확인 정보: [10] 킬데르"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 150,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "킬데르"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p6",
+        "at": 460250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "tachin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151060,
+      "reversed": false,
+      "original": {
+        "player": "p4",
+        "at": 285250,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p5",
+          "text": "확인 정보: [2] 허밀리"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 120,
+        "afterMana": 120,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "허밀리"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p4",
+        "at": 285250,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "eoril"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 120,
+        "afterMana": 100,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151062,
+      "reversed": false,
+      "original": {
+        "player": "p2",
+        "at": 241500,
+        "action": {
+          "type": "skill",
+          "skill": "ally_check",
+          "target": "p6"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 100,
+        "afterMana": 85,
+        "maxMana": 150,
+        "nominalMana": 15,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "sasint",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "inspect",
+          "inspect.result"
+        ]
+      },
+      "chosen": {
+        "player": "p2",
+        "at": 241500,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p4",
+          "name": "nukelius"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 100,
+        "afterMana": 80,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "sasint",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151063,
+      "reversed": true,
+      "original": {
+        "player": "p3",
+        "at": 257000,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p6",
+          "text": "확인 정보: [5] 엘타스"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 10,
+        "afterMana": 10,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "kumarin",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "kumarin",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "엘타스"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p7",
+        "at": 257000,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p11",
+          "name": "eoril"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 110,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151064,
+      "reversed": true,
+      "original": {
+        "player": "p3",
+        "at": 363000,
+        "action": {
+          "type": "chat",
+          "channel": "whisper",
+          "to": "p2",
+          "text": "확인 정보: [1] 컨슘"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 0,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "consume",
+        "manualSameName": true,
+        "activeDecision": false,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": true,
+          "reportExpectedName": "컨슘"
+        },
+        "receiptKinds": [
+          "chat.whisper"
+        ]
+      },
+      "chosen": {
+        "player": "p3",
+        "at": 363000,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "eoril"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 110,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "consume",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151067,
+      "reversed": false,
+      "original": {
+        "player": "p10",
+        "at": 436500,
+        "action": {
+          "type": "skill",
+          "skill": "truth_gem",
+          "target": "p5"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 100,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "tachin",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "tachin",
+        "side": 1,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "gem.use",
+          "gem.result"
+        ]
+      },
+      "chosen": {
+        "player": "p9",
+        "at": 430500,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p10",
+          "name": "tachin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "hermilly",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151069,
+      "reversed": false,
+      "original": {
+        "player": "p4",
+        "at": 449500,
+        "action": {
+          "type": "skill",
+          "skill": "truth_gem",
+          "target": "p5"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 130,
+        "afterMana": 80,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": true,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "kilder",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "gem.use",
+          "gem.result"
+        ]
+      },
+      "chosen": {
+        "player": "p7",
+        "at": 443500,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p5",
+          "name": "tachin"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 150,
+        "afterMana": 130,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "consume",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.hit",
+          "attack.lives"
+        ]
+      },
+      "hasEarlierReport": true
+    },
+    {
+      "seed": 151070,
+      "reversed": true,
+      "original": {
+        "player": "p6",
+        "at": 253000,
+        "action": {
+          "type": "skill",
+          "skill": "ally_check",
+          "target": "p1"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 105,
+        "afterMana": 90,
+        "maxMana": 150,
+        "nominalMana": 15,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "inspect",
+          "inspect.result"
+        ]
+      },
+      "chosen": {
+        "player": "p6",
+        "at": 253000,
+        "action": {
+          "type": "skill",
+          "skill": "supreme_attack",
+          "target": "p7",
+          "name": "nukelius"
+        },
+        "accepted": true,
+        "error": null,
+        "beforeMana": 105,
+        "afterMana": 85,
+        "maxMana": 150,
+        "nominalMana": 50,
+        "holding": false,
+        "beforeTrueName": false,
+        "beforePublished": "kilder",
+        "manualSameName": true,
+        "activeDecision": true,
+        "reaffirmationProof": null,
+        "character": "eltas",
+        "side": 2,
+        "grading": {
+          "breakTargetSide": null,
+          "breakTargetName": null,
+          "breakKnownName": null,
+          "allyTargetSide": null,
+          "report": false,
+          "reportExpectedName": null
+        },
+        "receiptKinds": [
+          "attack.kill",
+          "death.self",
+          "death"
+        ]
+      },
+      "hasEarlierReport": true
+    }
+  ],
+  "limitations": [
+    "Synthetic bots; actual human matches zero.",
+    "Faction outcomes are not policy strength.",
+    "Bootstrap [0,0] from tied samples is not population equivalence.",
+    "OFF and ON trajectory opportunities are not interchangeable; same-action RNG timing may differ."
+  ]
+}

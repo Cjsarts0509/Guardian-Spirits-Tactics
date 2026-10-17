@@ -1,23 +1,23 @@
 {
   "round": 45,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round045-identical-reported-supreme",
   "startedAt": "2026-10-18T06:11:22+09:00",
-  "leaseUntil": "2026-10-18T07:16:00+09:00",
+  "leaseUntil": null,
   "continuation": "user_20261015_2354_go",
   "task": "reportedSupreme OFF/ON 동일 정책 태초 인원별 균형과 자기 정보 활용",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "policySourceRef": "4ef818fbe53751c5fb5cb086410625bb6ddc54f0",
   "evaluationSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
-  "executions": 0,
+  "executions": 320,
   "targetExecutions": 320,
-  "cumulativeExecutions": 47360,
-  "cumulativeTerminatedExecutions": 47358,
+  "cumulativeExecutions": 47680,
+  "cumulativeTerminatedExecutions": 47678,
   "cumulativeUnfinishedExecutions": 2,
   "developmentSeeds": {
     "start": 151000,
     "count": 80,
-    "status": "reserved_unused_round045"
+    "status": "used_complete_round045"
   },
   "holdoutSeeds": {
     "start": 121000,
@@ -41,18 +41,18 @@
     "executions": 1152,
     "replayedGames": 2
   },
-  "checkpoint": "round045_source_frozen_680_checks_320_finite_running",
-  "nextAction": "Finish at most8x40 games at fixed cad80d2, verify complete and zero-new resume; preserve separate report quality and faction/player-count balance",
+  "checkpoint": "round045_complete_320_report_quality_faction_bias_remains",
+  "nextAction": "Round046 no-new-game commander-stage diagnosis on all045 data; exclude unobserved death timing",
   "record": "docs/ai-rounds/ROUND_045_20261018_0616.md",
   "deployment": false,
   "repeatDisabled": false,
   "replayTarget": 0,
   "replayedGames": 0,
   "corpusAudit": {
-    "path": "docs/evaluations/cooperation-round-044-cumulative-audit.json",
-    "primaryDatasets": 33,
-    "verifiedExecutions": 47360,
-    "terminated": 47358,
+    "path": "docs/evaluations/cooperation-round-045-cumulative-audit.json",
+    "primaryDatasets": 34,
+    "verifiedExecutions": 47680,
+    "terminated": 47678,
     "unfinished": 2,
     "seedRangesDisjoint": true
   },
@@ -82,20 +82,23 @@
     "observerInvariant": "ON_OFF_and_controller_label_swap_full_match_equal",
     "semanticTamper": "valid_plus7_rehashed_rejections",
     "syntheticExecutions": 40,
-    "finalSyntheticExecutions": 20
+    "finalSyntheticExecutions": 20,
+    "completeResumeNewGames": 0,
+    "completeResumeHashesUnchanged": true,
+    "repeatedSummary": "byte_identical"
   },
   "postflightCI": {
-    "sourceRef": "2541ef036fba963e83f2cd4b089fc3ddf85735c8",
+    "sourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
     "checks": [
       {
         "name": "CI",
         "conclusion": "success",
-        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38769468633"
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39070156800"
       },
       {
         "name": "Card UI browser check",
         "conclusion": "success",
-        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38769468558"
+        "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39070156802"
       }
     ]
   },
@@ -108,7 +111,7 @@
     "unmatchedReceivedReports": 0,
     "wrongCommanderMessages": 0
   },
-  "nextRoundStarted": true,
+  "nextRoundStarted": false,
   "reportedSupremeSamePoint": {
     "control": {
       "eligible": 163,
@@ -168,5 +171,47 @@
     "raw": "/tmp/gst-round045-selfplay.json",
     "journal": "/tmp/gst-round045-selfplay.journal.ndjson",
     "log": "/tmp/gst-round045-validation/research.log"
+  },
+  "completedAt": "2026-10-18T06:23:00+09:00",
+  "functionalDecision045": {
+    "activeChoices": 26294,
+    "eligible": 53,
+    "selected": 47,
+    "accepted": 47,
+    "wrong": 0,
+    "failed": 0,
+    "promotedFacts": 0,
+    "higherPriorityPreserved": 6,
+    "idleReplaced": 41
+  },
+  "identicalBalance045": {
+    "mode": "primordial",
+    "gamesEach": 160,
+    "seeds": 80,
+    "OFF": {
+      "groundWins": 147,
+      "darknessWins": 13
+    },
+    "ON": {
+      "groundWins": 142,
+      "darknessWins": 18
+    },
+    "groundDeltaPP": -3.125,
+    "seed95PP": [
+      -7.5,
+      0.625
+    ],
+    "groundToDarkness": 7,
+    "darknessToGround": 2,
+    "tied": 151,
+    "fullTrajectoryIdenticalPairs": 120,
+    "failedAttacks": [
+      11,
+      11
+    ],
+    "rejected": [
+      0,
+      0
+    ]
   }
 }
