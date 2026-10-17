@@ -1,9 +1,9 @@
 {
   "round": 51,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round051-own-sender-share-witness",
   "startedAt": "2026-10-18T07:45:00+09:00",
-  "leaseUntil": "2026-10-18T08:25:00+09:00",
+  "leaseUntil": null,
   "continuation": "user_20261015_2354_go",
   "task": "두 배정 양정책4기존경기의 킬더/드라칸 본인 보고 가능 경로 관측",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
@@ -16,7 +16,7 @@
   "inputSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
   "executions": 0,
   "targetExecutions": 0,
-  "newEngineReplayPasses": 0,
+  "newEngineReplayPasses": 8,
   "cumulativeExecutions": 47680,
   "cumulativeTerminatedExecutions": 47678,
   "cumulativeUnfinishedExecutions": 2,
@@ -39,12 +39,58 @@
     "seedRangesDisjoint": true
   },
   "record": "docs/ai-rounds/ROUND_051_20261018_0745.md",
-  "checkpoint": "preregistered_finite_own_sender_witness",
+  "checkpoint": "round051_complete_no_shareable_guardian_pair_in_nominal_case",
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
   },
   "nextRoundStarted": false,
-  "nextAction": "Freeze sender-only observer after real engine/privacy/ON-OFF regression, then replay four registered existing fixtures",
-  "replayTarget": 4
+  "nextAction": "Round052 finite primary-preaction own-input diagnostic in same four games: confirm unknown report senders, usable check/gem/reserve/combat priority and existing OFF verifyIncomingAllies:'useful-report' alternative; no report promotion, no policy activation or fresh seeds until justified",
+  "replayTarget": 4,
+  "evaluationSourceRef": "9e823b52ee6b066cf2b96904922c2dd57b289974",
+  "checks": {
+    "tests": 697,
+    "rules": 622,
+    "server": 75,
+    "typecheck": "4_packages_passed",
+    "serverClientWorkerBuild": "passed",
+    "syntheticPython": 10,
+    "classifierPython": 8,
+    "realPython": 10,
+    "persistedIndependentVerification": "passed",
+    "newFailures": 0,
+    "newUnfinished": 0
+  },
+  "completedAt": "2026-10-18T07:52:25+09:00",
+  "replayedGames": 4,
+  "originalCollectorPasses": 4,
+  "policyWitnessPasses": 4,
+  "runtime": {
+    "raw": "docs/evaluations/cooperation-round-051-witness.json.gz",
+    "summary": "docs/evaluations/cooperation-round-051-summary.json",
+    "pathAnalysis": "docs/evaluations/cooperation-round-051-path.json.gz",
+    "pathSummary": "docs/evaluations/cooperation-round-051-path-summary.json",
+    "completion": "docs/evaluations/cooperation-round-051-completion.json"
+  },
+  "ownSenderWitness051": {
+    "activeCalls": 153,
+    "selectedAcceptedWhispers": 31,
+    "wrongKnownEntries": 0,
+    "matchedActions": 651,
+    "nominalCaseKilderCommanderKnownChoicesPerPolicy": 10,
+    "withinThoseGuardianKnownChoices": 0,
+    "withinThoseOutgoingRouteChoices": 0
+  },
+  "postflightCI": {
+    "round": 51,
+    "sourceRef": "9e823b52ee6b066cf2b96904922c2dd57b289974",
+    "CI": {
+      "run": 39076581757,
+      "conclusion": "success"
+    },
+    "browser": {
+      "run": 39076581914,
+      "conclusion": "success"
+    }
+  }
 }
