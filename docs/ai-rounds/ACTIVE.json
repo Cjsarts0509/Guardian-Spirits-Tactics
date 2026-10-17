@@ -1,9 +1,9 @@
 {
   "round": 48,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round048-protector-coverage-analysis",
-  "startedAt": "2026-10-18T07:17:00+09:00",
-  "leaseUntil": "2026-10-18T07:55:00+09:00",
+  "startedAt": "2026-10-18T07:16:42+09:00",
+  "leaseUntil": null,
   "continuation": "user_20261015_2354_go",
   "task": "기존045/047全320경기 인원별 실제 보호자 편성·사망 시 준비와 실제 공격 흡수 구분",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
@@ -14,12 +14,12 @@
     "resultHead": "002ee4ad296e7d26241d77257aafa8b969e90548"
   },
   "inputSourceRef": "c09a74ff54ba15b1fcaac5f9a39ef925faac8696",
-  "evaluationSourceRef": null,
+  "evaluationSourceRef": "24ff7103d6a9140cb8bb9d35f40be1321f48d7a2",
   "executions": 0,
   "targetExecutions": 0,
   "replayTarget": 0,
   "replayedGames": 0,
-  "analyzedExistingGames": 0,
+  "analyzedExistingGames": 320,
   "cumulativeExecutions": 47680,
   "cumulativeTerminatedExecutions": 47678,
   "cumulativeUnfinishedExecutions": 2,
@@ -64,15 +64,71 @@
     },
     "browser": {
       "run": 39074048168,
-      "conclusion": "in_progress"
+      "conclusion": "success"
     }
   },
   "record": "docs/ai-rounds/ROUND_048_20261018_0717.md",
-  "checkpoint": "preregistered_before_analysis",
-  "nextAction": "Pure posthoc all320 census; no new games/replays/policy or skill tuning",
+  "checkpoint": "round048_complete_protector_composition_and_actual_absorption_census",
+  "nextAction": "Round049 replay two nominal-readiness situations151009reversed/151014forward under both original policies(4games), inspect own knowledge and last actual active choice; no new research or skill tuning",
   "deployment": false,
   "repeatDisabled": false,
   "humanValidation": {
     "actualHumanMatches": 0
+  },
+  "analysisSourceRef": "24ff7103d6a9140cb8bb9d35f40be1321f48d7a2",
+  "completedAt": "2026-10-18T07:20:15+09:00",
+  "postflightCI048": {
+    "sourceRef": "24ff7103d6a9140cb8bb9d35f40be1321f48d7a2",
+    "CI": {
+      "run": 39074585532,
+      "conclusion": "in_progress"
+    },
+    "browser": {
+      "run": 39074585576,
+      "conclusion": "in_progress"
+    }
+  },
+  "analysisChecks": {
+    "python": 10,
+    "rawAndSummaryRepeatedByteIdentical": true,
+    "input047IndependentSummaryByteIdentical": true,
+    "engineAndPolicySourceUnchanged": true
+  },
+  "runtime": {
+    "raw": "docs/evaluations/cooperation-round-048-coverage.json.gz",
+    "summary": "docs/evaluations/cooperation-round-048-summary.json"
+  },
+  "protectorCoverage048": {
+    "gamesEach": 160,
+    "consumeAssignedEach": 32,
+    "kumarinAssignedEach": 64,
+    "eltasNamedGuardAbsorptions": [
+      38,
+      38
+    ],
+    "raelNamedGuardAbsorptions": [
+      4,
+      5
+    ],
+    "eltasDeathGuardStatus": {
+      "OFF": {
+        "notAssigned": 123,
+        "guardianDead": 9,
+        "empty": 9,
+        "activeCharged": 5,
+        "unactivatedNominallyReady": 1
+      },
+      "ON": {
+        "notAssigned": 117,
+        "guardianDead": 9,
+        "empty": 10,
+        "activeCharged": 5,
+        "unactivatedNominallyReady": 1
+      }
+    },
+    "nominalReadyRows": 3,
+    "nominalReadyUniqueSituations": 2,
+    "legalGuardOpportunityDenominator": "not_yet_measured",
+    "nextRoundStarted": false
   }
 }
