@@ -1,36 +1,44 @@
 {
-  "round": 54,
-  "status": "completed",
-  "owner": "round054-commander-sender-information-arbitration",
-  "startedAt": "2026-10-18T09:08:00+09:00",
-  "leaseUntil": null,
+  "round": 55,
+  "status": "in_progress",
+  "owner": "round055-fresh-commander-sender-development",
+  "startedAt": "2026-10-18T10:12:00+09:00",
+  "leaseUntil": "2026-10-18T11:05:00+09:00",
   "continuation": "user_20261015_2354_go",
-  "task": "전투/지원/동맹 뒤 정보 단계의 지휘관 보고 발신자 확인 중재 기본OFF 검증",
-  "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
+  "task": "고정 commander-report-first의 새 고정상대 개발: 행동 품질/실제 후속 활용/성능·비용 별도평가",
   "previousCompleted": {
-    "round": 53,
-    "record": "docs/ai-rounds/ROUND_053_20261018_0821.md",
-    "sourceRef": "d5f9f468022a9ee7294c6f11ffe47799f724a5d1",
-    "resultHead": "e6b08093250a697d852469140b9e2d21918e7187"
+    "round": 54,
+    "record": "docs/ai-rounds/ROUND_054_20261018_0908.md",
+    "sourceRef": "6e48905746c92d026b4a69210eafb747bc347dd9",
+    "resultHead": "61287996bb621237ca44be2b0aed0db4ddcdda0c"
   },
-  "inputSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
+  "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
+  "record": "docs/ai-rounds/ROUND_055_20261018_1012.md",
+  "checkpoint": "preregistered_no_new_development_executions",
+  "start": 152000,
+  "count": 8,
   "executions": 0,
-  "targetExecutions": 0,
-  "replayTarget": 4,
-  "newEngineReplayPasses": 8,
-  "cumulativeExecutions": 47680,
-  "cumulativeTerminatedExecutions": 47678,
-  "cumulativeUnfinishedExecutions": 2,
+  "targetExecutions": 1152,
+  "candidateOptions": {
+    "verifyIncomingAllies": "commander-report-first"
+  },
+  "candidateOptionsSHA256": "5041fce452719fa4ecca0f4394a28f59e46abb2bc2497b40c15fd6250a64bf8a",
+  "baselinePolicy": "scripts/baselines/pre-cooperative.ts (main a92d9bb)",
+  "controlPolicy": "frozen current-default (no experimental flags)",
+  "phase": "development",
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
     "status": "unused"
   },
   "nextSeeds": {
-    "start": 152000,
-    "count": 80,
-    "status": "reserved_unused_next_diagnostic"
+    "start": 152008,
+    "count": 72,
+    "status": "reserved_unused"
   },
+  "cumulativeExecutions": 47680,
+  "cumulativeTerminatedExecutions": 47678,
+  "cumulativeUnfinishedExecutions": 2,
   "corpusAudit": {
     "path": "docs/evaluations/cooperation-round-045-cumulative-audit.json",
     "primaryDatasets": 34,
@@ -39,75 +47,11 @@
     "unfinished": 2,
     "seedRangesDisjoint": true
   },
-  "record": "docs/ai-rounds/ROUND_054_20261018_0908.md",
-  "checkpoint": "round054_complete_same_stage_change2_clone_confirmed2_performance_not_evaluated",
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
   },
   "nextRoundStarted": false,
-  "evaluationSourceRef": "6e48905746c92d026b4a69210eafb747bc347dd9",
-  "candidateOptions": {
-    "verifyIncomingAllies": "commander-report-first"
-  },
-  "actualCandidateGames": 0,
-  "replayedGames": 4,
-  "originalCollectorPasses": 4,
-  "policyWitnessPasses": 4,
-  "nextAction": "Round055 preregister fresh development 152000–152007 (1152 games,4 modes×3 fixed opponents×4 side/order×baseline/control/candidate) with fixed commander-report-first only, preserving protocol behavior/performance separation. Collect actual sender confirmation/trusted-report followup and resource/failure costs. No source retuning on final data. Not started;152000–152079/121000 unused.",
-  "checks": {
-    "tests": 723,
-    "rules": 648,
-    "server": 75,
-    "typecheck": "4_packages_passed",
-    "serverClientWorkerBuild": "passed",
-    "syntheticPython": 20,
-    "syntheticProbeMutationCasesWithProbe": 0,
-    "focusedObserverFinal": 2,
-    "realPython": 20,
-    "realProbeMutationCasesExercised": 2,
-    "resumeNew": 0,
-    "resumeThreeHashesUnchanged": true,
-    "repeatSummaryAndStageAuditByteIdentical": true,
-    "repoCompressedVerification": "passed",
-    "newFailures": 0,
-    "newUnfinished": 0
-  },
-  "candidateOptionsSHA256": "5041fce452719fa4ecca0f4394a28f59e46abb2bc2497b40c15fd6250a64bf8a",
-  "completedAt": "2026-10-18T09:16:39+09:00",
-  "runtime": {
-    "raw": "docs/evaluations/cooperation-round-054-witness.json.gz",
-    "summary": "docs/evaluations/cooperation-round-054-summary.json",
-    "stageAudit": "docs/evaluations/cooperation-round-054-stage-audit.json",
-    "completion": "docs/evaluations/cooperation-round-054-completion.json"
-  },
-  "senderArbitration054": {
-    "activePrimaryChoices": 153,
-    "incomingEligibleChoices": 8,
-    "resourceFeasibleProposals": 6,
-    "actualOrdinaryReportCompetition": 2,
-    "actualStageSelected": 2,
-    "changedChoices": 2,
-    "counterfactualProbes": 2,
-    "counterfactualAccepted": 2,
-    "counterfactualDirectSenderFacts": 2,
-    "wrongKnownBeforeAndAfter": 0,
-    "uniqueChangedSeedSeatSituations": 1,
-    "higherPriorityPreserved": 4,
-    "pairedOwnInputsMatched": 153,
-    "pairedAlternativeRngMatched": 153
-  },
-  "postflightCI": {
-    "sourceRef": "6e48905746c92d026b4a69210eafb747bc347dd9",
-    "checkedAt": "2026-10-18T09:16:39+09:00",
-    "CI": {
-      "run": 39081982779,
-      "conclusion": "success"
-    },
-    "browser": {
-      "run": 39081982831,
-      "conclusion": "success"
-    },
-    "retryRequests": 0
-  }
+  "evaluationSourceRef": null,
+  "nextAction": "Build nonintervening finite collector, verify before source freeze, then 12 batches96 with journal/publication and independent own-input validation."
 }
