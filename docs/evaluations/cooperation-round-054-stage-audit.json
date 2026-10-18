@@ -1,0 +1,273 @@
+{
+  "kind": "round054-paired-own-stage-audit",
+  "oldSHA256": "92274255bc35dc8faf6e3c6b2fb871b036a2e97d48ddf4ba57a4ca15457c6b85",
+  "newSHA256": "e1815dda1b6c4340f6ca8cfd24f96d886bd46bac053a030d55beadc1716b9ea5",
+  "sourceSHA256": "3cf86c2b35873fb97e108ad55a5336bb8a9edb56a4aa3111241d687de4f04dea",
+  "counts": {
+    "sameOwnInputs": 153,
+    "sameChosenAction": 153,
+    "samePreRng": 153,
+    "sameAlternativeAfterRng": 153,
+    "unchangedAlternatives": 151,
+    "changedAlternatives": 2,
+    "resourceProposals": 6,
+    "ordinaryReportCompetes": 2,
+    "selectedArbitration": 2,
+    "upperPriorityPreserved": 4,
+    "sourceRecordActionsMatched": 651
+  },
+  "changes": [
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "cooperative",
+      "at": 265000,
+      "player": "p10",
+      "before": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p11"
+      },
+      "after": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p1"
+      },
+      "beforeMana": 65,
+      "afterMana": 15,
+      "ownDirectReceipt": [
+        {
+          "seq": 260,
+          "at": 265000,
+          "kind": "gem.use",
+          "vis": {
+            "to": "all"
+          },
+          "text": "누군가가 [12] 봇1에게 진실의 보석을 사용하였습니다.",
+          "data": {
+            "target": "p1"
+          }
+        },
+        {
+          "seq": 261,
+          "at": 265000,
+          "kind": "gem.result",
+          "vis": {
+            "to": "players",
+            "ids": [
+              "p10"
+            ]
+          },
+          "text": "-비공개: [12] 봇1은 킬데르다!",
+          "data": {
+            "target": "p1"
+          },
+          "facts": [
+            {
+              "player": "p1",
+              "character": "kilder"
+            }
+          ]
+        }
+      ],
+      "knownAfter": [
+        [
+          "p7",
+          "eoril"
+        ],
+        [
+          "p12",
+          "nukelius"
+        ],
+        [
+          "p3",
+          "consume"
+        ],
+        [
+          "p9",
+          "kumarin"
+        ],
+        [
+          "p1",
+          "kilder"
+        ]
+      ],
+      "trustedReportsAfter": [
+        [
+          "p5",
+          "eltas"
+        ],
+        [
+          "p11",
+          "hermilly"
+        ]
+      ]
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "reportedSupreme",
+      "at": 265000,
+      "player": "p10",
+      "before": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p11"
+      },
+      "after": {
+        "type": "skill",
+        "skill": "truth_gem",
+        "target": "p1"
+      },
+      "beforeMana": 65,
+      "afterMana": 15,
+      "ownDirectReceipt": [
+        {
+          "seq": 260,
+          "at": 265000,
+          "kind": "gem.use",
+          "vis": {
+            "to": "all"
+          },
+          "text": "누군가가 [12] 봇1에게 진실의 보석을 사용하였습니다.",
+          "data": {
+            "target": "p1"
+          }
+        },
+        {
+          "seq": 261,
+          "at": 265000,
+          "kind": "gem.result",
+          "vis": {
+            "to": "players",
+            "ids": [
+              "p10"
+            ]
+          },
+          "text": "-비공개: [12] 봇1은 킬데르다!",
+          "data": {
+            "target": "p1"
+          },
+          "facts": [
+            {
+              "player": "p1",
+              "character": "kilder"
+            }
+          ]
+        }
+      ],
+      "knownAfter": [
+        [
+          "p7",
+          "eoril"
+        ],
+        [
+          "p12",
+          "nukelius"
+        ],
+        [
+          "p3",
+          "consume"
+        ],
+        [
+          "p9",
+          "kumarin"
+        ],
+        [
+          "p1",
+          "kilder"
+        ]
+      ],
+      "trustedReportsAfter": [
+        [
+          "p5",
+          "eltas"
+        ],
+        [
+          "p11",
+          "hermilly"
+        ]
+      ]
+    }
+  ],
+  "preserved": [
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "cooperative",
+      "at": 189750,
+      "action": {
+        "type": "skill",
+        "skill": "drakan_enchant_muscle",
+        "target": "p3"
+      }
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "cooperative",
+      "at": 230250,
+      "action": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      }
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "reportedSupreme",
+      "at": 189750,
+      "action": {
+        "type": "skill",
+        "skill": "drakan_enchant_muscle",
+        "target": "p3"
+      }
+    },
+    {
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "reportedSupreme",
+      "at": 230250,
+      "action": {
+        "type": "skill",
+        "skill": "ally",
+        "target": "p3"
+      }
+    }
+  ],
+  "limitations": [
+    "The two changes repeat one seed/seat situation under two policies, not two independent trials.",
+    "No real candidate full game or causal protection/win evidence; own direct identity remains distinct from trusted report."
+  ]
+}

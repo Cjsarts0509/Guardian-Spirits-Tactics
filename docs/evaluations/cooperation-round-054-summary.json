@@ -1,0 +1,2189 @@
+{
+  "kind": "sender-arbitration-witness",
+  "sourceRef": "6e48905746c92d026b4a69210eafb747bc347dd9",
+  "candidateOptionsSHA256": "5041fce452719fa4ecca0f4394a28f59e46abb2bc2497b40c15fd6250a64bf8a",
+  "actualCandidateGames": 0,
+  "uniqueReplayedGames": 4,
+  "originalCollectorPasses": 4,
+  "witnessPasses": 4,
+  "newResearchExecutions": 0,
+  "rows": [
+    {
+      "variant": "cooperative",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "counts": {
+        "activePrimaryChoices": 31,
+        "incomingEligibleChoices": 4,
+        "proposalChoices": 3,
+        "proposalMatchesAlternative": 1,
+        "changedChoices": 1,
+        "resourceStageCompetition": 1,
+        "actualArbitrationChanges": 1,
+        "wrongKnownEntries": 0,
+        "counterfactualTrustedReports": 2,
+        "counterfactualProbes": 1,
+        "counterfactualAccepted": 1,
+        "counterfactualConfirmedSender": 1,
+        "counterfactualOwnDirectSenderFacts": 1,
+        "wrongCounterfactualKnownEntries": 0
+      }
+    },
+    {
+      "variant": "reportedSupreme",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "counts": {
+        "activePrimaryChoices": 31,
+        "incomingEligibleChoices": 4,
+        "proposalChoices": 3,
+        "proposalMatchesAlternative": 1,
+        "changedChoices": 1,
+        "resourceStageCompetition": 1,
+        "actualArbitrationChanges": 1,
+        "wrongKnownEntries": 0,
+        "counterfactualTrustedReports": 2,
+        "counterfactualProbes": 1,
+        "counterfactualAccepted": 1,
+        "counterfactualConfirmedSender": 1,
+        "counterfactualOwnDirectSenderFacts": 1,
+        "wrongCounterfactualKnownEntries": 0
+      }
+    },
+    {
+      "variant": "cooperative",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151014,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "counts": {
+        "activePrimaryChoices": 46,
+        "incomingEligibleChoices": 0,
+        "proposalChoices": 0,
+        "proposalMatchesAlternative": 0,
+        "changedChoices": 0,
+        "resourceStageCompetition": 0,
+        "actualArbitrationChanges": 0,
+        "wrongKnownEntries": 0
+      }
+    },
+    {
+      "variant": "reportedSupreme",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151014,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "counts": {
+        "activePrimaryChoices": 45,
+        "incomingEligibleChoices": 0,
+        "proposalChoices": 0,
+        "proposalMatchesAlternative": 0,
+        "changedChoices": 0,
+        "resourceStageCompetition": 0,
+        "actualArbitrationChanges": 0,
+        "wrongKnownEntries": 0
+      }
+    }
+  ],
+  "totals": {
+    "activePrimaryChoices": 153,
+    "incomingEligibleChoices": 8,
+    "proposalChoices": 6,
+    "proposalMatchesAlternative": 2,
+    "changedChoices": 2,
+    "resourceStageCompetition": 2,
+    "actualArbitrationChanges": 2,
+    "wrongKnownEntries": 0,
+    "counterfactualTrustedReports": 4,
+    "counterfactualProbes": 2,
+    "counterfactualAccepted": 2,
+    "counterfactualConfirmedSender": 2,
+    "counterfactualOwnDirectSenderFacts": 2,
+    "wrongCounterfactualKnownEntries": 0
+  },
+  "focus": [
+    {
+      "variant": "cooperative",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "deathAt": 286250,
+      "activeChoices": 15,
+      "reportObservedChoices": 4,
+      "rows": [
+        {
+          "at": 2250,
+          "beforeAppliedActions": 1,
+          "mana": 120,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 58000,
+          "beforeAppliedActions": 29,
+          "mana": 125,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "drakan_black_spell",
+            "target": "p7"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "drakan_black_spell",
+            "target": "p7"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 60000,
+          "beforeAppliedActions": 32,
+          "mana": 45,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p7"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p7"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 65250,
+          "beforeAppliedActions": 35,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 74500,
+          "beforeAppliedActions": 42,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 75000,
+          "beforeAppliedActions": 42,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 80500,
+          "beforeAppliedActions": 46,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 82250,
+          "beforeAppliedActions": 46,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 82750,
+          "beforeAppliedActions": 46,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 88250,
+          "beforeAppliedActions": 52,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 93000,
+          "beforeAppliedActions": 52,
+          "mana": 65,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 117000,
+          "beforeAppliedActions": 71,
+          "mana": 65,
+          "reportObserved": true,
+          "senderKnown": null,
+          "incoming": true,
+          "useful": true,
+          "eligibleSender": true,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 189750,
+          "beforeAppliedActions": 104,
+          "mana": 115,
+          "reportObserved": true,
+          "senderKnown": null,
+          "incoming": true,
+          "useful": true,
+          "eligibleSender": true,
+          "proposal": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p1"
+          },
+          "chosenAction": {
+            "type": "skill",
+            "skill": "drakan_enchant_muscle",
+            "target": "p3"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "drakan_enchant_muscle",
+            "target": "p3"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 230250,
+          "beforeAppliedActions": 119,
+          "mana": 75,
+          "reportObserved": true,
+          "senderKnown": null,
+          "incoming": true,
+          "useful": true,
+          "eligibleSender": true,
+          "proposal": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p1"
+          },
+          "chosenAction": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p3"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p3"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 265000,
+          "beforeAppliedActions": 132,
+          "mana": 65,
+          "reportObserved": true,
+          "senderKnown": null,
+          "incoming": true,
+          "useful": true,
+          "eligibleSender": true,
+          "proposal": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p1"
+          },
+          "chosenAction": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p11"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p1"
+          },
+          "changed": true,
+          "probe": {
+            "accepted": true,
+            "error": null,
+            "ownEvents": [
+              {
+                "seq": 260,
+                "at": 265000,
+                "kind": "gem.use",
+                "vis": {
+                  "to": "all"
+                },
+                "text": "누군가가 [12] 봇1에게 진실의 보석을 사용하였습니다.",
+                "data": {
+                  "target": "p1"
+                }
+              },
+              {
+                "seq": 261,
+                "at": 265000,
+                "kind": "gem.result",
+                "vis": {
+                  "to": "players",
+                  "ids": [
+                    "p10"
+                  ]
+                },
+                "text": "-비공개: [12] 봇1은 킬데르다!",
+                "data": {
+                  "target": "p1"
+                },
+                "facts": [
+                  {
+                    "player": "p1",
+                    "character": "kilder"
+                  }
+                ]
+              }
+            ],
+            "knownAfter": [
+              [
+                "p7",
+                "eoril"
+              ],
+              [
+                "p12",
+                "nukelius"
+              ],
+              [
+                "p3",
+                "consume"
+              ],
+              [
+                "p9",
+                "kumarin"
+              ],
+              [
+                "p1",
+                "kilder"
+              ]
+            ],
+            "targetKnownAfter": "kilder",
+            "candidatesAfter": [
+              [
+                "p12",
+                [
+                  "nukelius"
+                ]
+              ],
+              [
+                "p11",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p9",
+                [
+                  "kumarin"
+                ]
+              ],
+              [
+                "p8",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p7",
+                [
+                  "eoril"
+                ]
+              ],
+              [
+                "p6",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p5",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p4",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p3",
+                [
+                  "consume"
+                ]
+              ],
+              [
+                "p2",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p1",
+                [
+                  "kilder"
+                ]
+              ]
+            ],
+            "trustedReportsAfter": [
+              [
+                "p5",
+                "eltas"
+              ],
+              [
+                "p11",
+                "hermilly"
+              ]
+            ],
+            "beforeMana": 65,
+            "afterMana": 15,
+            "ended": false
+          }
+        }
+      ]
+    },
+    {
+      "variant": "reportedSupreme",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "deathAt": 286250,
+      "activeChoices": 15,
+      "reportObservedChoices": 4,
+      "rows": [
+        {
+          "at": 2250,
+          "beforeAppliedActions": 1,
+          "mana": 120,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 58000,
+          "beforeAppliedActions": 29,
+          "mana": 125,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "drakan_black_spell",
+            "target": "p7"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "drakan_black_spell",
+            "target": "p7"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 60000,
+          "beforeAppliedActions": 32,
+          "mana": 45,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p7"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p7"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 65250,
+          "beforeAppliedActions": 35,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 74500,
+          "beforeAppliedActions": 42,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 75000,
+          "beforeAppliedActions": 42,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 80500,
+          "beforeAppliedActions": 46,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 82250,
+          "beforeAppliedActions": 46,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 82750,
+          "beforeAppliedActions": 46,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 88250,
+          "beforeAppliedActions": 52,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 93000,
+          "beforeAppliedActions": 52,
+          "mana": 65,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 117000,
+          "beforeAppliedActions": 71,
+          "mana": 65,
+          "reportObserved": true,
+          "senderKnown": null,
+          "incoming": true,
+          "useful": true,
+          "eligibleSender": true,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 189750,
+          "beforeAppliedActions": 104,
+          "mana": 115,
+          "reportObserved": true,
+          "senderKnown": null,
+          "incoming": true,
+          "useful": true,
+          "eligibleSender": true,
+          "proposal": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p1"
+          },
+          "chosenAction": {
+            "type": "skill",
+            "skill": "drakan_enchant_muscle",
+            "target": "p3"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "drakan_enchant_muscle",
+            "target": "p3"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 230250,
+          "beforeAppliedActions": 119,
+          "mana": 75,
+          "reportObserved": true,
+          "senderKnown": null,
+          "incoming": true,
+          "useful": true,
+          "eligibleSender": true,
+          "proposal": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p1"
+          },
+          "chosenAction": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p3"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p3"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 265000,
+          "beforeAppliedActions": 132,
+          "mana": 65,
+          "reportObserved": true,
+          "senderKnown": null,
+          "incoming": true,
+          "useful": true,
+          "eligibleSender": true,
+          "proposal": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p1"
+          },
+          "chosenAction": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p11"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p1"
+          },
+          "changed": true,
+          "probe": {
+            "accepted": true,
+            "error": null,
+            "ownEvents": [
+              {
+                "seq": 260,
+                "at": 265000,
+                "kind": "gem.use",
+                "vis": {
+                  "to": "all"
+                },
+                "text": "누군가가 [12] 봇1에게 진실의 보석을 사용하였습니다.",
+                "data": {
+                  "target": "p1"
+                }
+              },
+              {
+                "seq": 261,
+                "at": 265000,
+                "kind": "gem.result",
+                "vis": {
+                  "to": "players",
+                  "ids": [
+                    "p10"
+                  ]
+                },
+                "text": "-비공개: [12] 봇1은 킬데르다!",
+                "data": {
+                  "target": "p1"
+                },
+                "facts": [
+                  {
+                    "player": "p1",
+                    "character": "kilder"
+                  }
+                ]
+              }
+            ],
+            "knownAfter": [
+              [
+                "p7",
+                "eoril"
+              ],
+              [
+                "p12",
+                "nukelius"
+              ],
+              [
+                "p3",
+                "consume"
+              ],
+              [
+                "p9",
+                "kumarin"
+              ],
+              [
+                "p1",
+                "kilder"
+              ]
+            ],
+            "targetKnownAfter": "kilder",
+            "candidatesAfter": [
+              [
+                "p12",
+                [
+                  "nukelius"
+                ]
+              ],
+              [
+                "p11",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p9",
+                [
+                  "kumarin"
+                ]
+              ],
+              [
+                "p8",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p7",
+                [
+                  "eoril"
+                ]
+              ],
+              [
+                "p6",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p5",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p4",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p3",
+                [
+                  "consume"
+                ]
+              ],
+              [
+                "p2",
+                [
+                  "rael",
+                  "kane",
+                  "tachin",
+                  "eltas",
+                  "sasint",
+                  "hermilly"
+                ]
+              ],
+              [
+                "p1",
+                [
+                  "kilder"
+                ]
+              ]
+            ],
+            "trustedReportsAfter": [
+              [
+                "p5",
+                "eltas"
+              ],
+              [
+                "p11",
+                "hermilly"
+              ]
+            ],
+            "beforeMana": 65,
+            "afterMana": 15,
+            "ended": false
+          }
+        }
+      ]
+    },
+    {
+      "variant": "cooperative",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151014,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "deathAt": null,
+      "activeChoices": 30,
+      "reportObservedChoices": 0,
+      "rows": [
+        {
+          "at": 250,
+          "beforeAppliedActions": 0,
+          "mana": 120,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 40500,
+          "beforeAppliedActions": 18,
+          "mana": 125,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p11"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p11"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 59500,
+          "beforeAppliedActions": 22,
+          "mana": 105,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 98000,
+          "beforeAppliedActions": 33,
+          "mana": 135,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "drakan_black_spell",
+            "target": "p11"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "drakan_black_spell",
+            "target": "p11"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 104250,
+          "beforeAppliedActions": 39,
+          "mana": 55,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p12"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p12"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 114750,
+          "beforeAppliedActions": 42,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 163750,
+          "beforeAppliedActions": 59,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 168750,
+          "beforeAppliedActions": 63,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 171000,
+          "beforeAppliedActions": 63,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p2"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p2"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 172000,
+          "beforeAppliedActions": 66,
+          "mana": 15,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 189250,
+          "beforeAppliedActions": 79,
+          "mana": 55,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "drakan_enchant_muscle",
+            "target": "p7"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "drakan_enchant_muscle",
+            "target": "p7"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 193500,
+          "beforeAppliedActions": 81,
+          "mana": 15,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p7"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p7"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 208000,
+          "beforeAppliedActions": 89,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 253750,
+          "beforeAppliedActions": 112,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 256500,
+          "beforeAppliedActions": 114,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 256750,
+          "beforeAppliedActions": 114,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 266500,
+          "beforeAppliedActions": 118,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 269500,
+          "beforeAppliedActions": 120,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 293000,
+          "beforeAppliedActions": 128,
+          "mana": 55,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p9"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p9"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 299500,
+          "beforeAppliedActions": 132,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 303750,
+          "beforeAppliedActions": 132,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 363500,
+          "beforeAppliedActions": 152,
+          "mana": 95,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "sasint"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "sasint"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 365250,
+          "beforeAppliedActions": 153,
+          "mana": 100,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p3"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p3"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 381500,
+          "beforeAppliedActions": 161,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p10"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p10"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 390000,
+          "beforeAppliedActions": 165,
+          "mana": 15,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 394000,
+          "beforeAppliedActions": 167,
+          "mana": 15,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 422750,
+          "beforeAppliedActions": 174,
+          "mana": 15,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 428250,
+          "beforeAppliedActions": 176,
+          "mana": 20,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 459750,
+          "beforeAppliedActions": 178,
+          "mana": 70,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 518250,
+          "beforeAppliedActions": 183,
+          "mana": 70,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "sasint"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "sasint"
+          },
+          "changed": false,
+          "probe": null
+        }
+      ]
+    },
+    {
+      "variant": "reportedSupreme",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 151014,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "deathAt": null,
+      "activeChoices": 29,
+      "reportObservedChoices": 0,
+      "rows": [
+        {
+          "at": 250,
+          "beforeAppliedActions": 0,
+          "mana": 120,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 40500,
+          "beforeAppliedActions": 18,
+          "mana": 125,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p11"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p11"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 59500,
+          "beforeAppliedActions": 22,
+          "mana": 105,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 98000,
+          "beforeAppliedActions": 33,
+          "mana": 135,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "drakan_black_spell",
+            "target": "p11"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "drakan_black_spell",
+            "target": "p11"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 104250,
+          "beforeAppliedActions": 39,
+          "mana": 55,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p12"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p12"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 114750,
+          "beforeAppliedActions": 42,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 163750,
+          "beforeAppliedActions": 59,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 168750,
+          "beforeAppliedActions": 63,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 171000,
+          "beforeAppliedActions": 63,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p2"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p2"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 172000,
+          "beforeAppliedActions": 66,
+          "mana": 15,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 189250,
+          "beforeAppliedActions": 79,
+          "mana": 55,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "drakan_enchant_muscle",
+            "target": "p7"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "drakan_enchant_muscle",
+            "target": "p7"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 193500,
+          "beforeAppliedActions": 81,
+          "mana": 15,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p7"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p7"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 208000,
+          "beforeAppliedActions": 89,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 253750,
+          "beforeAppliedActions": 112,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 256500,
+          "beforeAppliedActions": 114,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 256750,
+          "beforeAppliedActions": 114,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 266500,
+          "beforeAppliedActions": 118,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 269500,
+          "beforeAppliedActions": 120,
+          "mana": 5,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 293000,
+          "beforeAppliedActions": 128,
+          "mana": 55,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p9"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "enemy_check",
+            "target": "p9"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 299500,
+          "beforeAppliedActions": 132,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 303750,
+          "beforeAppliedActions": 132,
+          "mana": 35,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 363500,
+          "beforeAppliedActions": 152,
+          "mana": 95,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "sasint"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "sasint"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 365250,
+          "beforeAppliedActions": 153,
+          "mana": 100,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p3"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "truth_gem",
+            "target": "p3"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 381500,
+          "beforeAppliedActions": 161,
+          "mana": 25,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p10"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "ally",
+            "target": "p10"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 390000,
+          "beforeAppliedActions": 165,
+          "mana": 15,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 394000,
+          "beforeAppliedActions": 167,
+          "mana": 15,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 422750,
+          "beforeAppliedActions": 174,
+          "mana": 15,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "alternative": {
+            "type": "skill",
+            "skill": "publish",
+            "name": "drakan"
+          },
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 428250,
+          "beforeAppliedActions": 176,
+          "mana": 20,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        },
+        {
+          "at": 459750,
+          "beforeAppliedActions": 178,
+          "mana": 70,
+          "reportObserved": false,
+          "senderKnown": null,
+          "incoming": null,
+          "useful": null,
+          "eligibleSender": false,
+          "proposal": null,
+          "chosenAction": null,
+          "alternative": null,
+          "changed": false,
+          "probe": null
+        }
+      ]
+    }
+  ],
+  "snapshotSHA256": "e1815dda1b6c4340f6ca8cfd24f96d886bd46bac053a030d55beadc1716b9ea5",
+  "input045SHA256": "3660f8ce495e8789e011171ca23ceec9a1f97825e90a1020ba3d1d415ca0e822",
+  "optionsSHA256": "a7e199b0f74ab98f19cbfea039b4b17984d60b960e0fadba4adeec1787deda7c",
+  "limitations": [
+    "Four selected synthetic games, not independent performance evidence.",
+    "Entropy rechecked from recorded own belief; assignment DP itself is covered by existing engine tests, not independently retrained.",
+    "Changed alternatives are isolated immediate clone probes, not actual changes or follow-up wins."
+  ]
+}
