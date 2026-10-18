@@ -22,5 +22,11 @@ class Checks(unittest.TestCase):
   if any(r['decisions'] for r in records):self.reject(lambda r:r['decisions'][0].update(changed=not r['decisions'][0]['changed']),lambda r:r['decisions'])
  def test_false_report_memory(self):
   if any(r['decisions'] for r in records):self.reject(lambda r:r['decisions'][0]['intel']['reports'].append(['fake',[]]),lambda r:r['decisions'])
+ def test_missing_confirming_gem_receipt(self):
+  predicate=lambda r:any(d['selected'] and d['receipt']['accepted'] and d['chosenAction']['skill']=='truth_gem' and d['chosenAction']['target'] in dict(d['receipt']['knownAfter']) for d in r['decisions'])
+  if any(predicate(r) for r in records):
+   def change(r):
+    d=next(d for d in r['decisions'] if d['selected'] and d['receipt']['accepted'] and d['chosenAction']['skill']=='truth_gem' and d['chosenAction']['target'] in dict(d['receipt']['knownAfter']));d['receipt']['ownEvents']=[]
+   self.reject(change,predicate)
  def test_false_episode(self):self.reject(lambda r:r['episodes'].append(dict(decision=-999)))
 if __name__=='__main__':unittest.main()

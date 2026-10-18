@@ -121,7 +121,7 @@ def validate_record(r):
   if d['changed']:assert r['variant']=='candidate' and d['selected']
   if a is not None:
    actual=actions[d['ordinal']];assert actual['player']==p and actual['at']==d['at'] and actual['action']==a and actual['activePrimary']
-  counts['incomingEligibleChoices']+=1;counts['resourceProposals']+=proposal is not None;counts['selected']+=d['selected'];counts['changed']+=d['changed'];counts['wrongKnownFromSavedDecisions']+=sum(roles[t]['character']!=name for t,name in known.items())
+  counts['sameActionDifferentRng']+=not d['changed'] and d['originalAfterRng']!=d['chosenAfterRng'];counts['policyDivergenceSignals']+=d['changed'] or d['originalAfterRng']!=d['chosenAfterRng'];counts['incomingEligibleChoices']+=1;counts['resourceProposals']+=proposal is not None;counts['selected']+=d['selected'];counts['changed']+=d['changed'];counts['wrongKnownFromSavedDecisions']+=sum(roles[t]['character']!=name for t,name in known.items())
   receipt=d['receipt'];assert (receipt is not None)==d['selected']
   if receipt:
    actual=actions[d['ordinal']];assert receipt['accepted']==actual['accepted'] and receipt['error']==actual['error'] and receipt['beforeMana']==actual['beforeMana'] and receipt['afterMana']==actual['afterMana']
@@ -129,7 +129,12 @@ def validate_record(r):
    ak=dict(receipt['knownAfter']);ac=dict(receipt['candidatesAfter']);tr=trusted(v,ak,ac,{t:dict(x) for t,x in d['intel']['reports']})
    assert dict(receipt['trustedReportsAfter'])==dict(tr)
    sender=a['target'];counts['accepted']+=receipt['accepted'];counts['immediateConfirmed']+=sender in ak;counts['wrongKnownAfter']+=sum(roles[t]['character']!=name for t,name in ak.items())
-   if receipt['accepted'] and a['skill']=='truth_gem' and sender in ak:assert any(z.get('player')==sender and z.get('character')==ak[sender] for e in receipt['ownEvents'] for z in e.get('facts',[]))
+   if receipt['accepted'] and sender in ak:
+    exact=any(z.get('player')==sender and z.get('character')==ak[sender] for e in receipt['ownEvents'] for z in e.get('facts',[]))
+    counts['exactIdentityReceipts']+=exact;counts['constraintConfirmed']+=not exact
+    if a['skill']=='truth_gem':
+     assert ac[sender]==[ak[sender]]
+     assert exact or any(z.get('player')==sender and z.get('commander') and any(c['key']==ak[sender] and c['commander'] for c in v['roster']) for e in receipt['ownEvents'] for z in e.get('facts',[]))
  for key in ['incomingEligibleChoices','resourceProposals','selected','changed']:assert r['counters'][key]==counts[key]
  assert r['counters']['activeChoices']>=len(r['decisions']) and r['counters']['knownEntriesChecked']>=r['counters']['wrongKnownEntries']>=counts['wrongKnownFromSavedDecisions']
  selected_accepted=[i for i,d in enumerate(r['decisions']) if d['selected'] and d['receipt']['accepted']]
@@ -161,6 +166,9 @@ def verify(path,journal,pub,partial=False):
  meta={k:v for k,v in d.items() if k not in ['fingerprint','executions','complete','records','journalSha256']}
  assert d['fingerprint']==sha(enc(meta));lines=jb.splitlines();assert json.loads(lines[0])==dict(type='header',fingerprint=d['fingerprint'],meta=meta) and [json.loads(x) for x in lines[1:]]==d['records']
  assert p==dict(version=2,fingerprint=d['fingerprint'],executions=d['executions'],complete=d['complete'],snapshotSHA256=sha(raw),journalSHA256=sha(jb)) and d['journalSha256']==sha(jb)
+ expected_sources={x.removeprefix('packages/rules/') for x in subprocess.check_output(['git','ls-tree','-r','--name-only',d['sourceRef'],'packages/rules/src'],text=True).splitlines() if x.endswith('.ts')}
+ expected_sources|={'scripts/'+x for x in ['sender-development.ts','sender-development-run.ts','sender-arbitration-witness.ts','cooperative-store.ts','league-runner.ts','baselines/pre-cooperative.ts','claim-opponents.ts']}
+ assert set(d['sourceHashes'])==expected_sources and set(d['verificationHashes'])=={'tools/verify-sender-development.py','tools/test-sender-development.py','tools/verify-own-share-witness.py'}
  for file,h in d['sourceHashes'].items():assert h==sha(subprocess.check_output(['git','show',d['sourceRef']+':packages/rules/'+file]))
  for file,h in d['verificationHashes'].items():assert h==sha(subprocess.check_output(['git','show',d['sourceRef']+':'+file]))
  assert d['executions']==len(d['records']) and (partial or d['complete'] and d['executions']==d['count']*144)
@@ -168,8 +176,8 @@ def verify(path,journal,pub,partial=False):
  for r in d['records']:
   f=r['fixture'];v=r['variant'];style=r['style'];assert v in d['variants'] and style in ['truthful','bluff','skill-aware-bluff'] and f['mode'] in RULES and d['start']<=f['seed']<d['start']+d['count'] and f['count']==8+(f['seed']-d['start'])%5 and type(f['reversed']) is bool and f['currentSide'] in [1,2]
   key=(f['mode'],style,f['seed'],f['reversed'],f['currentSide']);assert (key,v) not in seen;seen.add((key,v));pairs[key,v]=r
-  counts=validate_record(r);cell=cells.setdefault(v,{}).setdefault(f['mode'],dict(games=0,score=0,wins=0,unfinished=0,resources=collections.Counter(),behavior=collections.Counter(),followups=collections.Counter(),confirmedSenderFollowups=collections.Counter(),episodes=0,confirmedMemoryEpisodes=0,targetObservedEpisodes=0))
-  score=.5 if r['game']['winner'] is None else int(r['game']['winnerPolicy']=='current');cell['games']+=1;cell['score']+=score;cell['wins']+=r['game']['winnerPolicy']=='current';cell['unfinished']+=r['game']['winner'] is None;cell['resources'].update(r['resources']);cell['behavior'].update(counts);cell['behavior'].update({k:r['counters'][k] for k in ['activeChoices','knownEntriesChecked','wrongKnownEntries']});cell['episodes']+=len(r['episodes']);cell['confirmedMemoryEpisodes']+=sum(e['memoryObservedAt'] is not None for e in r['episodes']);cell['targetObservedEpisodes']+=sum(bool(e['targetObserved']) for e in r['episodes']);cell['followups'].update(z['kind'] for z in r['followups']);cell['confirmedSenderFollowups'].update(z['kind'] for z in r['followups'] if z['senderKnownName'] is not None);byseed[v][f['seed']].append(score)
+  counts=validate_record(r);cell=cells.setdefault(v,{}).setdefault(f['mode'],dict(games=0,score=0,wins=0,unfinished=0,resources=collections.Counter(),behavior=collections.Counter(),followups=collections.Counter(),confirmedSenderFollowups=collections.Counter(),uniqueFollowupActions=collections.Counter(),uniqueConfirmedFollowupActions=collections.Counter(),episodes=0,confirmedMemoryEpisodes=0,targetObservedEpisodes=0))
+  score=.5 if r['game']['winner'] is None else int(r['game']['winnerPolicy']=='current');cell['games']+=1;cell['score']+=score;cell['wins']+=r['game']['winnerPolicy']=='current';cell['unfinished']+=r['game']['winner'] is None;cell['resources'].update(r['resources']);cell['behavior'].update(counts);cell['behavior'].update({k:r['counters'][k] for k in ['activeChoices','knownEntriesChecked','wrongKnownEntries']});cell['episodes']+=len(r['episodes']);cell['confirmedMemoryEpisodes']+=sum(e['memoryObservedAt'] is not None for e in r['episodes']);cell['targetObservedEpisodes']+=sum(bool(e['targetObserved']) for e in r['episodes']);cell['followups'].update(z['kind'] for z in r['followups']);cell['confirmedSenderFollowups'].update(z['kind'] for z in r['followups'] if z['senderKnownName'] is not None);cell['uniqueFollowupActions'].update(z[1] for z in {(t['ordinal'],t['kind'],t['target']) for t in r['followups']});cell['uniqueConfirmedFollowupActions'].update(z[1] for z in {(t['ordinal'],t['kind'],t['target']) for t in r['followups'] if t['senderKnownName'] is not None});byseed[v][f['seed']].append(score)
  contrasts={}
  for left in ['control','baseline']:
   xs=[];improved=worsened=tied=0
@@ -187,7 +195,7 @@ def verify(path,journal,pub,partial=False):
   control=pairs[key,'control']
   path_counts['pairedGames']+=1
   path_counts['sameFullGameActionsResources']+=all(r[x]==control[x] for x in ['game','actions','resources'])
-  path_counts['gamesWithChangedChoice']+=any(z['changed'] for z in r['decisions'])
+  path_counts['gamesWithChangedChoice']+=any(z['changed'] for z in r['decisions']);path_counts['gamesWithChoiceOrRngChange']+=any(z['changed'] or z['originalAfterRng']!=z['chosenAfterRng'] for z in r['decisions'])
  return dict(paths=path_counts,kind=d['kind'],sourceRef=d['sourceRef'],executions=d['executions'],complete=d['complete'],start=d['start'],count=d['count'],variants=cells,contrasts=contrasts,snapshotSHA256=sha(raw),journalSHA256=sha(jb),promotionEvidence=False,limitations=['Synthetic fixed opponents, not human or identical-policy faction balance.','Proposal availability is not a stage execution opportunity; changed selection and same-action matching reported separately.','Followups are report-consistent technical observations, not causal protection or win attribution.','Entropy rechecked from own recorded belief, not an independent retraining of the assignment model.'])
 if __name__=='__main__':
  result=verify(*sys.argv[1:4],partial='--partial' in sys.argv);pathlib.Path(sys.argv[4]).write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k not in ['variants','limitations']},ensure_ascii=False))
