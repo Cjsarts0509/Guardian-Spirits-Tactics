@@ -1,31 +1,31 @@
 {
-  "round": 55,
-  "status": "completed",
-  "owner": "round055-fresh-commander-sender-development",
-  "startedAt": "2026-10-18T10:12:00+09:00",
-  "leaseUntil": null,
+  "round": 56,
+  "status": "in_progress",
+  "owner": "round056-troll-regression-own-opportunity-replay",
+  "startedAt": "2026-10-18T10:44:00+09:00",
+  "leaseUntil": "2026-10-18T11:25:00+09:00",
   "continuation": "user_20261015_2354_go",
-  "task": "고정 commander-report-first의 새 고정상대 개발: 행동 품질/실제 후속 활용/성능·비용 별도평가",
+  "task": "055트롤 3패배쌍의 첫분기 이후 자기 정보·자원·보호·공격 기회비용 사후진단; 새시드/정책조정0",
   "previousCompleted": {
-    "round": 54,
-    "record": "docs/ai-rounds/ROUND_054_20261018_0908.md",
-    "sourceRef": "6e48905746c92d026b4a69210eafb747bc347dd9",
-    "resultHead": "61287996bb621237ca44be2b0aed0db4ddcdda0c"
+    "round": 55,
+    "record": "docs/ai-rounds/ROUND_055_20261018_1012.md",
+    "sourceRef": "1b7bbf1512218be16ae3d8a8f432407b79226751",
+    "resultHead": "49516259c69f682539166b637bf87ac84996a47f"
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
-  "record": "docs/ai-rounds/ROUND_055_20261018_1012.md",
-  "checkpoint": "round055_complete_functional_routes_increase_score_not_confirmed_main_gap_and_troll_regression_preserved",
+  "record": "docs/ai-rounds/ROUND_056_20261018_1044.md",
+  "checkpoint": "round056_preregistered_no_new_seeds",
   "start": 152000,
   "count": 8,
-  "executions": 1152,
-  "targetExecutions": 1152,
+  "executions": 0,
+  "targetExecutions": 0,
   "candidateOptions": {
     "verifyIncomingAllies": "commander-report-first"
   },
   "candidateOptionsSHA256": "5041fce452719fa4ecca0f4394a28f59e46abb2bc2497b40c15fd6250a64bf8a",
   "baselinePolicy": "scripts/baselines/pre-cooperative.ts (main a92d9bb)",
   "controlPolicy": "frozen current-default (no experimental flags)",
-  "phase": "development",
+  "phase": "posthoc_diagnosis",
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
@@ -51,9 +51,9 @@
   "humanValidation": {
     "actualHumanMatches": 0
   },
-  "nextRoundStarted": false,
+  "nextRoundStarted": true,
   "evaluationSourceRef": "1b7bbf1512218be16ae3d8a8f432407b79226751",
-  "nextAction": "Round056 without new seeds: replay the three troll control-win/candidate-loss pairs (152007 truthful forward side1;152002 bluff forward side2;152005 skill-aware-bluff forward side2), diagnose information/resource/protection/attack tradeoffs after first confirmation/RNG signal. Preserve raw grading-field correction (working knowledge vs stored map), no policy/skill retuning on final data. Same-policy faction balance remains a separate follow-up;152008–152079/121000 unused.",
+  "nextAction": "Replay the three frozen troll regression pairs with own-input diagnostics and immutable-command engine traces; no policy retuning or new seeds.",
   "checks": {
     "tests": 726,
     "rules": 651,
