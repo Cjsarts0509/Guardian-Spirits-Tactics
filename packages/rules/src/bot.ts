@@ -1,4 +1,4 @@
-import {shareIntel,verifyIntel,hasUsefulIntelExchange,hasUnresolvedCommanderReport,reportedSupremeAttack,reportedFirstWarningAttack} from './bot-intel.js';
+import {shareIntel,verifyIntel,trustedIntel,hasUsefulIntelExchange,hasUnresolvedCommanderReport,reportedSupremeAttack,reportedFirstWarningAttack} from './bot-intel.js';
 // 봇 두 종류
 // - randomBotAction: 무작위 (규칙 엔진 퍼즈 테스트용)
 // - smartBotAction: 자기가 아는 것(자기 정체, 공개 정보, 자기가 받은 확인 결과)만으로 판단하는 봇 (플레이테스트용)
@@ -41,8 +41,8 @@ export interface BotOptions {
   verifyDeadAllyReports?: boolean;
   /** 개발 비교: 다음 턴 완성이 가까운 진명·마나 조건에서만 부분 보석 사용을 보류. 기본 OFF. */
   preservePartialGem?: boolean | 'when-busy';
-  /** 기본OFF 개발 비교: 기존 정보 수집 위치에서 요청자 확인. commander-report는 미확정 지휘관 보고 발신자만. 요청/보고는 facts가 아니다. */
-  verifyIncomingAllies?: boolean | 'useful-report' | 'commander-report';
+  /** 기본OFF 개발 비교: 기존 정보 수집 위치에서 요청자 확인. commander-report는 미확정 지휘관 보고 발신자만, -first는 같은 정보 단계의 신뢰 일반 보고 확인보다 먼저. 요청/보고는 facts가 아니다. */
+  verifyIncomingAllies?: boolean | 'useful-report' | 'commander-report' | 'commander-report-first';
   /** 개발 비교: 일반 인물의 위장 전 보석 목표 단계. 지휘관/변장 노출 예외는 유지한다. */
   claimGemGoal?: 2 | 3;
   /** 개발 비교: 성장 기간에만 지휘관 진명. 기본 none이며 변장 인물의 위장은 유지한다. */
@@ -639,7 +639,21 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
     if(opts.reportedSupreme){const attack=reportedSupremeAttack(view,knowledge,mem,usable,attackable);if(attack)return attack;}
     if(opts.reportedFirstWarning){const attack=reportedFirstWarningAttack(view,knowledge,mem,usable,attackable);if(attack)return attack;}
     if(opts.reportVerification!=='normal'){
-      const check=verifyIntel(view,knowledge,mem,usable);if(check)return sequence(check);
+      const check=verifyIntel(view,knowledge,mem,usable);
+      if(check){
+        // 전투/지원/동맹 뒤 같은 정보 단계에서만 중재한다. 신뢰 지휘관 보고 확인은 넘지 않는다.
+        const reportName=opts.verifyIncomingAllies==='commander-report-first'&&check.type==='skill'&&check.target
+          ?trustedIntel(view,knowledge,mem).get(check.target):undefined;
+        if(reportName&&view.roster.some(r=>r.key===reportName&&!r.commander)){
+          const incoming=unknown.filter(p=>me.alliedBy.includes(p.id)&&hasUnresolvedCommanderReport(view,knowledge,mem,p.id));
+          const senderCheck=bestConfirmation(view,belief,incoming,[...usable.values()]);
+          if(senderCheck)return sequence(senderCheck);
+          const senderGem=usable.get('truth_gem');
+          const sender=senderGem&&incoming.find(p=>!mem.perception!.commanders.has(p.id)&&checkInformation(view,belief,p.id,'truth_gem')>0);
+          if(senderGem&&sender)return act(senderGem,sender.id);
+        }
+        return sequence(check);
+      }
       if(opts.verifyDeadAllyReports){const deadCheck=verifyIntel(view,knowledge,mem,usable,true);if(deadCheck)return sequence(deadCheck);}
     }
   }
@@ -649,7 +663,7 @@ function chooseSmartBotAction(state: GameState, playerId: PlayerId, mem: BotMemo
     // 공표나 단방향 동맹 요청 자체를 아군 facts로 승격하지 않는다.
     const incoming=unknown.filter(p=>me.alliedBy.includes(p.id)&&
       (opts.verifyIncomingAllies!=='useful-report'||hasUsefulIntelExchange(view,knowledge,mem,p.id))&&
-      (opts.verifyIncomingAllies!=='commander-report'||hasUnresolvedCommanderReport(view,knowledge,mem,p.id)));
+      ((opts.verifyIncomingAllies!=='commander-report'&&opts.verifyIncomingAllies!=='commander-report-first')||hasUnresolvedCommanderReport(view,knowledge,mem,p.id)));
     const check=bestConfirmation(view,belief,incoming,[...usable.values()]);
     if(check)return sequence(check);
     const gem=usable.get('truth_gem');

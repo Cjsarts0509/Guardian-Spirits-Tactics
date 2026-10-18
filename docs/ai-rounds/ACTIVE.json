@@ -40,7 +40,7 @@
     "seedRangesDisjoint": true
   },
   "record": "docs/ai-rounds/ROUND_054_20261018_0908.md",
-  "checkpoint": "preregistered_no_new_seed_or_evaluation_started",
+  "checkpoint": "preflight_passed_freeze_before_same_moment_replay",
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
@@ -54,5 +54,16 @@
   "replayedGames": 4,
   "originalCollectorPasses": 4,
   "policyWitnessPasses": 4,
-  "nextAction": "Implement narrow same-stage arbitration; preserve trusted commander verification and higher priorities. Functional change before fresh performance seeds."
+  "nextAction": "Implement narrow same-stage arbitration; preserve trusted commander verification and higher priorities. Functional change before fresh performance seeds.",
+  "checks": {
+    "tests": 723,
+    "rules": 648,
+    "server": 75,
+    "typecheck": "4_packages_passed",
+    "serverClientWorkerBuild": "passed",
+    "syntheticPython": 20,
+    "syntheticProbeMutationCasesWithProbe": 0,
+    "focusedObserverFinal": 2
+  },
+  "candidateOptionsSHA256": "5041fce452719fa4ecca0f4394a28f59e46abb2bc2497b40c15fd6250a64bf8a"
 }
