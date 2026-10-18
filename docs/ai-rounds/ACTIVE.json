@@ -14,7 +14,7 @@
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "record": "docs/ai-rounds/ROUND_055_20261018_1012.md",
-  "checkpoint": "preregistered_no_new_development_executions",
+  "checkpoint": "preflight_passed_freeze_then_synthetic_store_and_fresh_batches",
   "start": 152000,
   "count": 8,
   "executions": 0,
@@ -53,5 +53,17 @@
   },
   "nextRoundStarted": false,
   "evaluationSourceRef": null,
-  "nextAction": "Build nonintervening finite collector, verify before source freeze, then 12 batches96 with journal/publication and independent own-input validation."
+  "nextAction": "Build nonintervening finite collector, verify before source freeze, then 12 batches96 with journal/publication and independent own-input validation.",
+  "checks": {
+    "tests": 726,
+    "rules": 651,
+    "server": 75,
+    "typecheck": "4_packages_passed",
+    "serverClientWorkerBuild": "passed",
+    "syntheticGames": 48,
+    "syntheticEligibleDecisions": 16,
+    "syntheticSelected": 1,
+    "syntheticPython": 12,
+    "finalObserverLeakTests": 4
+  }
 }
