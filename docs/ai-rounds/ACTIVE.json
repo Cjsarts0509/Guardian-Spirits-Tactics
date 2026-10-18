@@ -1,10 +1,10 @@
 {
   "round": 57,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round057-pending-own-confirmation-census",
   "startedAt": "2026-10-18T11:10:00+09:00",
-  "completedAt": null,
-  "leaseUntil": "2026-10-18T11:50:00+09:00",
+  "completedAt": "2026-10-18T11:21:55+09:00",
+  "leaseUntil": null,
   "continuation": "user_20261015_2354_go",
   "task": "055전후보384경기의 자기혼돈주술 대기중 추가확인 전수감사;control384는기술대조",
   "previousCompleted": {
@@ -15,12 +15,12 @@
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "record": "docs/ai-rounds/ROUND_057_20261018_1110.md",
-  "checkpoint": "round057_preregistered_all_candidate_games_no_new_seeds",
-  "evaluationSourceRef": null,
+  "checkpoint": "round057_complete_extra_checks_not_uniformly_waste_pending_census_and_early_use_preserved",
+  "evaluationSourceRef": "3c1720a63c388836d99f9ba185fa12794cc4c2ba",
   "phase": "posthoc_diagnosis",
   "executions": 0,
   "targetExecutions": 0,
-  "replayedUniqueGames": 6,
+  "replayedUniqueGames": 96,
   "candidateOptions": {
     "verifyIncomingAllies": "commander-report-first"
   },
@@ -45,34 +45,80 @@
     "count": 72,
     "status": "reserved_unused"
   },
-  "nextRoundStarted": true,
-  "nextAction": "Enumerate all accepted own chaos_hex actions and all actual same-target checks before due; distinguish sparse stored report-motivated decisions from all active choices. Replay only if receipt/knowledge outcome is missing.",
+  "nextRoundStarted": false,
+  "nextAction": "Round058: diagnose own accepted chaos_hex target/due/result representation through persistent memory and host restore, separating cooldown estimates from unresolved own commands. Only if a functional omission reproduces, consider default-OFF memory-only candidate preserving actions/RNG; no blanket pending-check suppression/new seeds/performance tuning.",
   "checks": {
-    "rules": 654,
+    "rules": 657,
     "server": 75,
-    "total": 729,
-    "newDiagnosticTests": 3,
+    "total": 732,
+    "syntheticPython": 8,
+    "independentValid": 1,
+    "independentTamperRejected": 8,
     "typePackages": 4,
     "serverClientWorkerBuild": "passed",
-    "ownWorkingKnowledgeRebuilt": true,
-    "wholeCollectorAndReceiptsMatched": true,
-    "observationOnOffIdentical": true,
+    "allRequestedGamesReplayed": true,
+    "ownKnowledgeRebuilt": true,
+    "wholeGameAllReceiptsMatched": true,
+    "observerOnOffMatched": true,
     "repeatRawByteIdentical": true,
     "repeatSummaryByteIdentical": true,
-    "repoGzipReverified": true,
-    "independentValid": 1,
-    "independentTamper": 8
+    "repoGzipReverified": true
   },
   "runtime": {
-    "raw": "docs/evaluations/cooperation-round-056-replay.json.gz",
-    "summary": "docs/evaluations/cooperation-round-056-summary.json",
-    "completion": "docs/evaluations/cooperation-round-056-completion.json",
-    "ci": "docs/evaluations/cooperation-round-056-ci.json"
+    "raw": "docs/evaluations/cooperation-round-057-census.json.gz",
+    "summary": "docs/evaluations/cooperation-round-057-summary.json",
+    "completion": "docs/evaluations/cooperation-round-057-completion.json",
+    "ci": "docs/evaluations/cooperation-round-057-ci.json"
   },
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
   },
   "identicalPolicyBalanceEvaluated": false,
-  "productionSourceChanges": 0
+  "productionSourceChanges": 0,
+  "scannedGames": 768,
+  "behavior057": {
+    "control": {
+      "games": 384,
+      "requestBearingGames": 48,
+      "requests": 149,
+      "requestsWithActive": 131,
+      "pendingChoices": 414,
+      "unknownLiveSlots": 409,
+      "knownSlots": 5,
+      "originalStoredChoices": 16,
+      "extra": 10,
+      "acceptedExtra": 10,
+      "confirmedExtra": 3,
+      "unconfirmedExtra": 7,
+      "earlyConfirmedFollowupActions": 3,
+      "extraNominalMana": 320,
+      "extraNetManaDelta": -320
+    },
+    "candidate": {
+      "games": 384,
+      "requestBearingGames": 48,
+      "requests": 149,
+      "requestsWithActive": 131,
+      "pendingChoices": 415,
+      "unknownLiveSlots": 409,
+      "knownSlots": 6,
+      "originalStoredChoices": 15,
+      "extra": 12,
+      "acceptedExtra": 12,
+      "confirmedExtra": 4,
+      "unconfirmedExtra": 8,
+      "earlyConfirmedFollowupActions": 3,
+      "extraNominalMana": 360,
+      "extraNetManaDelta": -360
+    },
+    "delayedResultEach": {
+      "aliveSuccess": 73,
+      "aliveFailure": 57,
+      "postmortemSuccess": 10,
+      "postmortemFailure": 5,
+      "endBeforeDue": 4,
+      "unobserved": 0
+    }
+  }
 }
