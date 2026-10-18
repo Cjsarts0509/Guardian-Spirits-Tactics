@@ -1,11 +1,12 @@
 {
   "round": 56,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round056-troll-regression-own-opportunity-replay",
   "startedAt": "2026-10-18T10:44:00+09:00",
-  "leaseUntil": "2026-10-18T11:25:00+09:00",
+  "completedAt": "2026-10-18T10:52:17+09:00",
+  "leaseUntil": null,
   "continuation": "user_20261015_2354_go",
-  "task": "055트롤 3패배쌍의 첫분기 이후 자기 정보·자원·보호·공격 기회비용 사후진단; 새시드/정책조정0",
+  "task": "055트롤3패배쌍 확인후 기회비용 사후진단",
   "previousCompleted": {
     "round": 55,
     "record": "docs/ai-rounds/ROUND_055_20261018_1012.md",
@@ -14,18 +15,26 @@
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "record": "docs/ai-rounds/ROUND_056_20261018_1044.md",
-  "checkpoint": "round056_preregistered_no_new_seeds",
-  "start": 152000,
-  "count": 8,
+  "checkpoint": "round056_complete_confirmation_target_tradeoffs_and_pending_result_overlap_no_policy_retuning",
+  "evaluationSourceRef": "e719447504be87b93519f241ffa68261575d1627",
+  "phase": "posthoc_diagnosis",
   "executions": 0,
   "targetExecutions": 0,
+  "replayedUniqueGames": 6,
   "candidateOptions": {
     "verifyIncomingAllies": "commander-report-first"
   },
   "candidateOptionsSHA256": "5041fce452719fa4ecca0f4394a28f59e46abb2bc2497b40c15fd6250a64bf8a",
-  "baselinePolicy": "scripts/baselines/pre-cooperative.ts (main a92d9bb)",
-  "controlPolicy": "frozen current-default (no experimental flags)",
-  "phase": "posthoc_diagnosis",
+  "cumulativeExecutions": 48832,
+  "cumulativeTerminatedExecutions": 48830,
+  "cumulativeUnfinishedExecutions": 2,
+  "corpusAudit": {
+    "path": "docs/evaluations/cooperation-round-055-cumulative-audit.json",
+    "primaryDatasets": 35,
+    "verifiedExecutions": 48832,
+    "terminated": 48830,
+    "unfinished": 2
+  },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
@@ -36,145 +45,34 @@
     "count": 72,
     "status": "reserved_unused"
   },
-  "cumulativeExecutions": 48832,
-  "cumulativeTerminatedExecutions": 48830,
-  "cumulativeUnfinishedExecutions": 2,
-  "corpusAudit": {
-    "path": "docs/evaluations/cooperation-round-055-cumulative-audit.json",
-    "primaryDatasets": 35,
-    "verifiedExecutions": 48832,
-    "terminated": 48830,
-    "unfinished": 2,
-    "seedRangesDisjoint": true
+  "nextRoundStarted": false,
+  "nextAction": "Round057: audit pending own chaos-hex receipts→60s delayed results across all 384 existing055 candidate games, without outcome selection/new seeds/policy tuning. Distinguish unresolved own pending checks, extra confirmations, valid facts, and later combat cost; replay only where raw evidence is insufficient.",
+  "checks": {
+    "rules": 654,
+    "server": 75,
+    "total": 729,
+    "newDiagnosticTests": 3,
+    "typePackages": 4,
+    "serverClientWorkerBuild": "passed",
+    "ownWorkingKnowledgeRebuilt": true,
+    "wholeCollectorAndReceiptsMatched": true,
+    "observationOnOffIdentical": true,
+    "repeatRawByteIdentical": true,
+    "repeatSummaryByteIdentical": true,
+    "repoGzipReverified": true,
+    "independentValid": 1,
+    "independentTamper": 8
+  },
+  "runtime": {
+    "raw": "docs/evaluations/cooperation-round-056-replay.json.gz",
+    "summary": "docs/evaluations/cooperation-round-056-summary.json",
+    "completion": "docs/evaluations/cooperation-round-056-completion.json",
+    "ci": "docs/evaluations/cooperation-round-056-ci.json"
   },
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
   },
-  "nextRoundStarted": true,
-  "evaluationSourceRef": "1b7bbf1512218be16ae3d8a8f432407b79226751",
-  "nextAction": "Replay the three frozen troll regression pairs with own-input diagnostics and immutable-command engine traces; no policy retuning or new seeds.",
-  "checks": {
-    "tests": 726,
-    "rules": 651,
-    "server": 75,
-    "typecheck": "4_packages_passed",
-    "serverClientWorkerBuild": "passed",
-    "syntheticGames": 48,
-    "syntheticEligibleDecisions": 16,
-    "syntheticSelected": 1,
-    "syntheticPython": 12,
-    "finalObserverLeakTests": 4,
-    "finalSyntheticStoreGames": 144,
-    "finalSyntheticStoreVerified": true,
-    "fullSelectedObserver": {
-      "selected": 1,
-      "matchedActions": 70
-    },
-    "realPython": 13,
-    "posthocReportProofTests": 6,
-    "posthocReportReplayGames": 8,
-    "posthocReportReplayMatchedActions": 732,
-    "posthocReportReplayReports": 166,
-    "posthocRebuiltSparseProofCases": 30,
-    "posthocTypes": "passed",
-    "batches": 12,
-    "freshSum": 1152,
-    "mid576PrefixMatched": true,
-    "resumeFresh": 0,
-    "resumeThreeHashesUnchanged": true,
-    "rawSummarySemanticEqual": true,
-    "rawSummaryByteIdentical": false,
-    "canonicalSummaryByteIdentical": true,
-    "followupAndPathByteIdentical": true,
-    "repoCompressedVerification": "passed",
-    "duplicates": 0,
-    "discarded": 0,
-    "multipartReassemblyExact": true
-  },
-  "runtime": {
-    "raw": "docs/evaluations/cooperation-round-055-development.parts.json",
-    "journal": "docs/evaluations/cooperation-round-055-development.journal.ndjson.gz",
-    "publication": "docs/evaluations/cooperation-round-055-development.publication.json",
-    "summary": "docs/evaluations/cooperation-round-055-summary.json",
-    "followup": "docs/evaluations/cooperation-round-055-followup.json",
-    "paths": "docs/evaluations/cooperation-round-055-paths.json",
-    "reportProofReplay": "docs/evaluations/cooperation-round-055-report-proof-replay.json.gz",
-    "completion": "docs/evaluations/cooperation-round-055-completion.json",
-    "materialization": "python tools/materialize-sender-development.py docs/evaluations/cooperation-round-055-development.parts.json /tmp/round055-development.json"
-  },
-  "completedAt": "2026-10-18T10:36:00+09:00",
-  "actualCandidateGames": 384,
-  "behavior055": {
-    "activeChoices": 43753,
-    "knownEntriesExternallyScored": 143746,
-    "wrongKnownEntries": 0,
-    "reportMotivatedChoices": 758,
-    "publiclyEligibleIncomingChoices": 758,
-    "resourceProposals": 119,
-    "selected": 102,
-    "changed": 80,
-    "sameActionDifferentRng": 15,
-    "accepted": 102,
-    "immediateConfirmed": 89,
-    "exactIdentityReceipts": 82,
-    "constraintConfirmed": 7,
-    "newTrustedCommanderEpisodes": 81,
-    "newTrustedCommanderTargetLinks": 88,
-    "uniqueConfirmedReportConsistentChecks": 12,
-    "reportConsistentAttacks": 0,
-    "truthWrongReports": 0,
-    "missingStoredMapProofReports": 802
-  },
-  "performance055": {
-    "baseline": {
-      "wins": 280,
-      "games": 384
-    },
-    "control": {
-      "wins": 259,
-      "games": 384
-    },
-    "candidate": {
-      "wins": 260,
-      "games": 384
-    },
-    "candidateMinusControl": 0.0026041666666666665,
-    "seed95VsControl": [
-      -0.005208333333333333,
-      0.010416666666666666
-    ],
-    "candidateMinusBaseline": -0.052083333333333336,
-    "seed95VsBaseline": [
-      -0.0859375,
-      -0.0234375
-    ],
-    "controlToCandidateImproved": 4,
-    "worsened": 3,
-    "tied": 377,
-    "trollControlWins": 58,
-    "trollCandidateWins": 55,
-    "trollGames": 96,
-    "skillNominalManaDelta": 1765,
-    "acceptedSkillNetManaDelta": -1750,
-    "attackFailuresControl": 87,
-    "attackFailuresCandidate": 87,
-    "rejectionsControl": 17,
-    "rejectionsCandidate": 17,
-    "newUnfinished": 0,
-    "promotionEvidence": false,
-    "identicalPolicyBalanceEvaluated": false
-  },
-  "postflightCI": {
-    "sourceRef": "1b7bbf1512218be16ae3d8a8f432407b79226751",
-    "CI": {
-      "run": 39086128222,
-      "conclusion": "success"
-    },
-    "browser": {
-      "run": 39086128233,
-      "conclusion": "success"
-    },
-    "retryRequests": 0
-  }
+  "identicalPolicyBalanceEvaluated": false,
+  "productionSourceChanges": 0
 }

@@ -1,0 +1,118 @@
+{
+  "round": 56,
+  "status": "completed",
+  "sourceRef": "e719447504be87b93519f241ffa68261575d1627",
+  "inputSourceRef": "1b7bbf1512218be16ae3d8a8f432407b79226751",
+  "runtimeVersions": {
+    "node": "v24.19.0",
+    "python": "3.12.14"
+  },
+  "newResearchExecutions": 0,
+  "cumulativeExecutions": 48832,
+  "terminated": 48830,
+  "historicalUnfinished": 2,
+  "primaryDatasets": 35,
+  "replayedUniqueGames": 6,
+  "policyCollectorPasses": 6,
+  "ownObserverPasses": 12,
+  "commandPasses": 12,
+  "repeatExcluded": true,
+  "matchedActions": 573,
+  "activeChoices": 333,
+  "knownEntriesExternallyScored": 1406,
+  "wrongKnown": 0,
+  "wrongEmittedNames": 0,
+  "reportCounts": {
+    "control": 38,
+    "candidate": 41
+  },
+  "readyKnownNamedAttackCandidates": {
+    "control": 6,
+    "candidate": 3,
+    "selectedControl": 6,
+    "selectedCandidate": 3,
+    "scope": "resource/public-rule candidates, not exact code-stage denominator"
+  },
+  "candidateChanges": {
+    "selected": 5,
+    "accepted": 5,
+    "immediateConfirmed": 3,
+    "exactFacts": 2,
+    "constraintConfirmed": 1,
+    "unconfirmed": 2
+  },
+  "checks": {
+    "rules": 654,
+    "server": 75,
+    "total": 729,
+    "newDiagnosticTests": 3,
+    "typePackages": 4,
+    "serverClientWorkerBuild": "passed",
+    "ownWorkingKnowledgeRebuilt": true,
+    "wholeCollectorAndReceiptsMatched": true,
+    "observationOnOffIdentical": true,
+    "repeatRawByteIdentical": true,
+    "repeatSummaryByteIdentical": true,
+    "repoGzipReverified": true,
+    "independentValid": 1,
+    "independentTamper": 8
+  },
+  "codeHashes": {
+    "tools/verify-troll-regression.py": "f3a7f1c5c60ae769cdf5e69b575776acbc16dd193f02d680efccf551cf73803e",
+    "packages/rules/scripts/troll-regression-replay.ts": "ff2ac57e4cd78ae46acd755d691e5a875b24cf82e15b72f55f58c3d8c5c12d94",
+    "packages/rules/scripts/troll-regression-run.ts": "639050e96ce2ac800d6638626798e3e917e8d2280246e276139d7ae7449d9ca7",
+    "packages/rules/test/troll-regression.test.ts": "39ac6e47de5e3aaa9ceabf31ba2812d11cbfa58993ae04fbf9e692efcc03fe8d"
+  },
+  "hashes": {
+    "input": "ee3a619c0c0d453174dd64533a838068acc6f8c4523fee4560c97774f34a8e77",
+    "raw": "8d9099352133fcce33bc96e89ca0f2bf514ac8498bbb524403f792c09a2c5f30",
+    "gzip": "c8b6ef310da08b6839749f8fced5c90c8eb4ae6225201484dc17f34e5b24318b",
+    "summary": "9ee2e260489c4b57c587cb06623d931b32c381f94b033189de55e3e94c81c39f",
+    "options": "5041fce452719fa4ecca0f4394a28f59e46abb2bc2497b40c15fd6250a64bf8a"
+  },
+  "ci": {
+    "sourceRef": "e719447504be87b93519f241ffa68261575d1627",
+    "workflow_runs": [
+      {
+        "id": 39087755553,
+        "name": "CI",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 277,
+        "jobs_url": "https://api.github.com/repos/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39087755553/jobs",
+        "logs_url": "https://api.github.com/repos/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39087755553/logs",
+        "workflow_id": 375276842
+      },
+      {
+        "id": 39087755549,
+        "name": "Card UI browser check",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 180,
+        "jobs_url": "https://api.github.com/repos/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39087755549/jobs",
+        "logs_url": "https://api.github.com/repos/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39087755549/logs",
+        "workflow_id": 379353271
+      }
+    ],
+    "retryRequests": 0
+  },
+  "failures": [
+    {
+      "stage": "pre-freeze-typecheck",
+      "error": "Action union inside callback",
+      "resolved": true,
+      "policyChanges": 0
+    },
+    {
+      "stage": "independent-test-initial",
+      "error": "Tampered unrelated nonactor mana was outside independently audited actor-receipt scope and not rejected",
+      "resolution": "Corrected actor-mana test and documented independent coverage limitation",
+      "resolved": true,
+      "policyChanges": 0
+    }
+  ],
+  "nextAction": "Round057: audit pending own chaos-hex receipts→60s delayed results across all 384 existing055 candidate games, without outcome selection/new seeds/policy tuning. Distinguish unresolved own pending checks, extra confirmations, valid facts, and later combat cost; replay only where raw evidence is insufficient.",
+  "promotionEvidence": false,
+  "actualHumanMatches": 0,
+  "productionSourceChanges": 0
+}
