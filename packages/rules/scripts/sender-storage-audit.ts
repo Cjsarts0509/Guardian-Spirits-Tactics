@@ -1,0 +1,13 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {gunzipSync} from 'node:zlib';
+import {deepStrictEqual,strictEqual} from 'node:assert';
+import {storeHash} from './cooperative-store.js';
+const [raw,mid,log,out]=process.argv.slice(2);if(!out)throw Error('raw mid.gz batchlog output');
+const bytes=readFileSync(raw!),d=JSON.parse(bytes.toString()),mb=gunzipSync(readFileSync(mid!)),m=JSON.parse(mb.toString());
+strictEqual(m.executions,576);strictEqual(m.complete,false);strictEqual(d.executions,1152);strictEqual(d.complete,true);deepStrictEqual(m.records,d.records.slice(0,576));
+const journal=JSON.stringify({type:'header',fingerprint:d.fingerprint,meta:Object.fromEntries(Object.entries(d).filter(([k])=>!['fingerprint','executions','complete','records','journalSha256'].includes(k)))})+'\n'+m.records.map((r:unknown)=>JSON.stringify(r)+'\n').join('');
+strictEqual(storeHash(journal),m.journalSha256);
+const batches=readFileSync(log!,'utf8').trim().split('\n').map(x=>JSON.parse(x)).filter(x=>Object.hasOwn(x,'fresh'));
+strictEqual(batches.length,12);for(let i=0;i<12;i++){strictEqual(batches[i].fresh,96);strictEqual(batches[i].total,(i+1)*96);}strictEqual(batches.reduce((n,x)=>n+x.fresh,0),1152);
+const result={kind:'round055-storage-prefix-audit',sourceRef:d.sourceRef,midExecutions:576,midSHA256:storeHash(mb),midJournalSHA256:m.journalSha256,finalExecutions:1152,finalSHA256:storeHash(bytes),prefixMatched:true,batches,freshSum:1152,duplicates:0,discarded:0,newResearchReplayOrSynthetic:0};
+writeFileSync(out,JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({prefixMatched:true,batches:12,freshSum:1152,duplicates:0,discarded:0}));

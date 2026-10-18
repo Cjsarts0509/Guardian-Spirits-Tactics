@@ -1,0 +1,24 @@
+{
+  "kind": "gst-evaluation-multipart-gzip",
+  "sourceRef": "1b7bbf1512218be16ae3d8a8f432407b79226751",
+  "executions": 1152,
+  "start": 152000,
+  "count": 8,
+  "logicalFilename": "cooperation-round-055-development.json.gz",
+  "compressedBytes": 15190831,
+  "compressedSHA256": "c1ff046099061c48a3ab7f8af3e3ca6eb92956779b76872baa5a3d636f8bf457",
+  "decodedSHA256": "ee3a619c0c0d453174dd64533a838068acc6f8c4523fee4560c97774f34a8e77",
+  "parts": [
+    {
+      "name": "cooperation-round-055-development.json.gz.part00",
+      "bytes": 8388608,
+      "sha256": "85b739859e0e68cb9a3827b64eacf993e2ea6ebc0cf8a7ed27b5230fd55c0c22"
+    },
+    {
+      "name": "cooperation-round-055-development.json.gz.part01",
+      "bytes": 6802223,
+      "sha256": "b34801687e6e5ee08b03c50a2e3021781c5d9698e9bc7a0787b60716f99c68af"
+    }
+  ],
+  "materialize": "python tools/materialize-sender-development.py docs/evaluations/cooperation-round-055-development.parts.json /tmp/round055-development.json"
+}

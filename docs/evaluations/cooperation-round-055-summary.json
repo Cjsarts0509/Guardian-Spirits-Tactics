@@ -1,0 +1,613 @@
+{
+  "complete": true,
+  "contrasts": {
+    "baseline": {
+      "improved": 32,
+      "meanDifference": -0.052083333333333336,
+      "seed95": [
+        -0.0859375,
+        -0.0234375
+      ],
+      "seedDeltas": [
+        -0.14583333333333334,
+        -0.020833333333333332,
+        -0.08333333333333333,
+        -0.020833333333333332,
+        -0.08333333333333333,
+        0.0,
+        -0.020833333333333332,
+        -0.041666666666666664
+      ],
+      "tied": 300,
+      "worsened": 52
+    },
+    "control": {
+      "improved": 4,
+      "meanDifference": 0.0026041666666666665,
+      "seed95": [
+        -0.005208333333333333,
+        0.010416666666666666
+      ],
+      "seedDeltas": [
+        0.020833333333333332,
+        0.0,
+        -0.020833333333333332,
+        0.0,
+        0.0,
+        0.0,
+        0.020833333333333332,
+        0.0
+      ],
+      "tied": 377,
+      "worsened": 3
+    }
+  },
+  "count": 8,
+  "executions": 1152,
+  "journalSHA256": "a2ed42d73bc60c7087b5f69d0deda43fbe57aa8dc2a6e54bd010c7403bf3c1e1",
+  "kind": "commander-sender-development",
+  "limitations": [
+    "Synthetic fixed opponents, not human or identical-policy faction balance.",
+    "Proposal availability is not a stage execution opportunity; changed selection and same-action matching reported separately.",
+    "Followups are report-consistent technical observations, not causal protection or win attribution.",
+    "Entropy rechecked from own recorded belief, not an independent retraining of the assignment model."
+  ],
+  "paths": {
+    "gamesWithChangedChoice": 63,
+    "gamesWithChoiceOrRngChange": 73,
+    "pairedGames": 384,
+    "sameFullGameActionsResources": 311
+  },
+  "promotionEvidence": false,
+  "snapshotSHA256": "ee3a619c0c0d453174dd64533a838068acc6f8c4523fee4560c97774f34a8e77",
+  "sourceRef": "1b7bbf1512218be16ae3d8a8f432407b79226751",
+  "start": 152000,
+  "variants": {
+    "baseline": {
+      "civil_war": {
+        "behavior": {
+          "activeChoices": 0,
+          "knownEntriesChecked": 0,
+          "wrongKnownEntries": 0
+        },
+        "confirmedMemoryEpisodes": 0,
+        "confirmedSenderFollowups": {},
+        "episodes": 0,
+        "followups": {},
+        "games": 96,
+        "resources": {
+          "attackFailures": 3,
+          "falseReports": 0,
+          "netSkillManaDelta": -77455,
+          "nominalSkillMana": 80155,
+          "rejected": 25,
+          "reports": 0
+        },
+        "score": 72,
+        "targetObservedEpisodes": 0,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {},
+        "uniqueFollowupActions": {},
+        "wins": 72
+      },
+      "lidellut": {
+        "behavior": {
+          "activeChoices": 0,
+          "knownEntriesChecked": 0,
+          "wrongKnownEntries": 0
+        },
+        "confirmedMemoryEpisodes": 0,
+        "confirmedSenderFollowups": {},
+        "episodes": 0,
+        "followups": {},
+        "games": 96,
+        "resources": {
+          "attackFailures": 1,
+          "falseReports": 0,
+          "netSkillManaDelta": -80420,
+          "nominalSkillMana": 83955,
+          "rejected": 24,
+          "reports": 0
+        },
+        "score": 74,
+        "targetObservedEpisodes": 0,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {},
+        "uniqueFollowupActions": {},
+        "wins": 74
+      },
+      "primordial": {
+        "behavior": {
+          "activeChoices": 0,
+          "knownEntriesChecked": 0,
+          "wrongKnownEntries": 0
+        },
+        "confirmedMemoryEpisodes": 0,
+        "confirmedSenderFollowups": {},
+        "episodes": 0,
+        "followups": {},
+        "games": 96,
+        "resources": {
+          "attackFailures": 25,
+          "falseReports": 0,
+          "netSkillManaDelta": -76965,
+          "nominalSkillMana": 86105,
+          "rejected": 0,
+          "reports": 0
+        },
+        "score": 68,
+        "targetObservedEpisodes": 0,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {},
+        "uniqueFollowupActions": {},
+        "wins": 68
+      },
+      "troll": {
+        "behavior": {
+          "activeChoices": 0,
+          "knownEntriesChecked": 0,
+          "wrongKnownEntries": 0
+        },
+        "confirmedMemoryEpisodes": 0,
+        "confirmedSenderFollowups": {},
+        "episodes": 0,
+        "followups": {},
+        "games": 96,
+        "resources": {
+          "attackFailures": 3,
+          "falseReports": 0,
+          "netSkillManaDelta": -98350,
+          "nominalSkillMana": 100630,
+          "rejected": 0,
+          "reports": 0
+        },
+        "score": 66,
+        "targetObservedEpisodes": 0,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {},
+        "uniqueFollowupActions": {},
+        "wins": 66
+      }
+    },
+    "candidate": {
+      "civil_war": {
+        "behavior": {
+          "accepted": 15,
+          "activeChoices": 10862,
+          "changed": 12,
+          "constraintConfirmed": 0,
+          "exactIdentityReceipts": 15,
+          "immediateConfirmed": 15,
+          "incomingEligibleChoices": 202,
+          "knownEntriesChecked": 32478,
+          "policyDivergenceSignals": 15,
+          "resourceProposals": 15,
+          "sameActionDifferentRng": 3,
+          "selected": 15,
+          "wrongKnownAfter": 0,
+          "wrongKnownEntries": 0,
+          "wrongKnownFromSavedDecisions": 0
+        },
+        "confirmedMemoryEpisodes": 15,
+        "confirmedSenderFollowups": {
+          "direct_known_report_sent": 4,
+          "direct_known_target_action": 2,
+          "report_consistent_check": 4,
+          "sender_ally": 15
+        },
+        "episodes": 15,
+        "followups": {
+          "direct_known_report_sent": 4,
+          "direct_known_target_action": 2,
+          "report_consistent_check": 4,
+          "sender_ally": 15
+        },
+        "games": 96,
+        "resources": {
+          "attackFailures": 21,
+          "falseReports": 307,
+          "netSkillManaDelta": -89980,
+          "nominalSkillMana": 93505,
+          "rejected": 15,
+          "reports": 1354
+        },
+        "score": 72,
+        "targetObservedEpisodes": 6,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {
+          "direct_known_report_sent": 4,
+          "direct_known_target_action": 2,
+          "report_consistent_check": 4,
+          "sender_ally": 15
+        },
+        "uniqueFollowupActions": {
+          "direct_known_report_sent": 4,
+          "direct_known_target_action": 2,
+          "report_consistent_check": 4,
+          "sender_ally": 15
+        },
+        "wins": 72
+      },
+      "lidellut": {
+        "behavior": {
+          "accepted": 18,
+          "activeChoices": 9580,
+          "changed": 17,
+          "constraintConfirmed": 0,
+          "exactIdentityReceipts": 17,
+          "immediateConfirmed": 17,
+          "incomingEligibleChoices": 128,
+          "knownEntriesChecked": 35467,
+          "policyDivergenceSignals": 17,
+          "resourceProposals": 20,
+          "sameActionDifferentRng": 0,
+          "selected": 18,
+          "wrongKnownAfter": 0,
+          "wrongKnownEntries": 0,
+          "wrongKnownFromSavedDecisions": 0
+        },
+        "confirmedMemoryEpisodes": 18,
+        "confirmedSenderFollowups": {
+          "direct_known_report_sent": 1,
+          "direct_known_target_action": 3,
+          "sender_ally": 17
+        },
+        "episodes": 18,
+        "followups": {
+          "direct_known_report_sent": 1,
+          "direct_known_target_action": 3,
+          "sender_ally": 17
+        },
+        "games": 96,
+        "resources": {
+          "attackFailures": 9,
+          "falseReports": 140,
+          "netSkillManaDelta": -91265,
+          "nominalSkillMana": 95290,
+          "rejected": 2,
+          "reports": 1564
+        },
+        "score": 68,
+        "targetObservedEpisodes": 2,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {
+          "direct_known_report_sent": 1,
+          "direct_known_target_action": 3,
+          "sender_ally": 17
+        },
+        "uniqueFollowupActions": {
+          "direct_known_report_sent": 1,
+          "direct_known_target_action": 3,
+          "sender_ally": 17
+        },
+        "wins": 68
+      },
+      "primordial": {
+        "behavior": {
+          "accepted": 29,
+          "activeChoices": 10961,
+          "changed": 20,
+          "constraintConfirmed": 0,
+          "exactIdentityReceipts": 26,
+          "immediateConfirmed": 26,
+          "incomingEligibleChoices": 122,
+          "knownEntriesChecked": 35752,
+          "policyDivergenceSignals": 25,
+          "resourceProposals": 38,
+          "sameActionDifferentRng": 5,
+          "selected": 29,
+          "wrongKnownAfter": 0,
+          "wrongKnownEntries": 0,
+          "wrongKnownFromSavedDecisions": 0
+        },
+        "confirmedMemoryEpisodes": 26,
+        "confirmedSenderFollowups": {
+          "direct_known_report_sent": 1,
+          "report_consistent_check": 1,
+          "sender_ally": 21
+        },
+        "episodes": 29,
+        "followups": {
+          "direct_known_report_sent": 1,
+          "report_consistent_check": 1,
+          "sender_ally": 21
+        },
+        "games": 96,
+        "resources": {
+          "attackFailures": 49,
+          "falseReports": 35,
+          "netSkillManaDelta": -74205,
+          "nominalSkillMana": 83825,
+          "rejected": 0,
+          "reports": 1128
+        },
+        "score": 65,
+        "targetObservedEpisodes": 3,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {
+          "direct_known_report_sent": 1,
+          "report_consistent_check": 1,
+          "sender_ally": 21
+        },
+        "uniqueFollowupActions": {
+          "direct_known_report_sent": 1,
+          "report_consistent_check": 1,
+          "sender_ally": 21
+        },
+        "wins": 65
+      },
+      "troll": {
+        "behavior": {
+          "accepted": 40,
+          "activeChoices": 12350,
+          "changed": 31,
+          "constraintConfirmed": 7,
+          "exactIdentityReceipts": 24,
+          "immediateConfirmed": 31,
+          "incomingEligibleChoices": 306,
+          "knownEntriesChecked": 40049,
+          "policyDivergenceSignals": 38,
+          "resourceProposals": 46,
+          "sameActionDifferentRng": 7,
+          "selected": 40,
+          "wrongKnownAfter": 0,
+          "wrongKnownEntries": 0,
+          "wrongKnownFromSavedDecisions": 0
+        },
+        "confirmedMemoryEpisodes": 31,
+        "confirmedSenderFollowups": {
+          "direct_known_report_sent": 9,
+          "direct_known_target_action": 12,
+          "report_consistent_check": 9,
+          "sender_ally": 31
+        },
+        "episodes": 40,
+        "followups": {
+          "direct_known_report_sent": 9,
+          "direct_known_target_action": 13,
+          "report_consistent_check": 9,
+          "sender_ally": 31
+        },
+        "games": 96,
+        "resources": {
+          "attackFailures": 8,
+          "falseReports": 320,
+          "netSkillManaDelta": -97210,
+          "nominalSkillMana": 100150,
+          "rejected": 0,
+          "reports": 1316
+        },
+        "score": 55,
+        "targetObservedEpisodes": 10,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {
+          "direct_known_report_sent": 8,
+          "direct_known_target_action": 12,
+          "report_consistent_check": 7,
+          "sender_ally": 30
+        },
+        "uniqueFollowupActions": {
+          "direct_known_report_sent": 8,
+          "direct_known_target_action": 13,
+          "report_consistent_check": 7,
+          "sender_ally": 30
+        },
+        "wins": 55
+      }
+    },
+    "control": {
+      "civil_war": {
+        "behavior": {
+          "accepted": 3,
+          "activeChoices": 10770,
+          "changed": 0,
+          "constraintConfirmed": 0,
+          "exactIdentityReceipts": 3,
+          "immediateConfirmed": 3,
+          "incomingEligibleChoices": 249,
+          "knownEntriesChecked": 31992,
+          "policyDivergenceSignals": 0,
+          "resourceProposals": 15,
+          "sameActionDifferentRng": 0,
+          "selected": 3,
+          "wrongKnownAfter": 0,
+          "wrongKnownEntries": 0,
+          "wrongKnownFromSavedDecisions": 0
+        },
+        "confirmedMemoryEpisodes": 3,
+        "confirmedSenderFollowups": {
+          "report_consistent_check": 4,
+          "sender_ally": 3
+        },
+        "episodes": 3,
+        "followups": {
+          "report_consistent_check": 4,
+          "sender_ally": 3
+        },
+        "games": 96,
+        "resources": {
+          "attackFailures": 21,
+          "falseReports": 301,
+          "netSkillManaDelta": -89190,
+          "nominalSkillMana": 92700,
+          "rejected": 15,
+          "reports": 1327
+        },
+        "score": 72,
+        "targetObservedEpisodes": 2,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {
+          "report_consistent_check": 4,
+          "sender_ally": 3
+        },
+        "uniqueFollowupActions": {
+          "report_consistent_check": 4,
+          "sender_ally": 3
+        },
+        "wins": 72
+      },
+      "lidellut": {
+        "behavior": {
+          "accepted": 4,
+          "activeChoices": 9417,
+          "changed": 0,
+          "constraintConfirmed": 0,
+          "exactIdentityReceipts": 4,
+          "immediateConfirmed": 4,
+          "incomingEligibleChoices": 230,
+          "knownEntriesChecked": 34549,
+          "policyDivergenceSignals": 0,
+          "resourceProposals": 40,
+          "sameActionDifferentRng": 0,
+          "selected": 4,
+          "wrongKnownAfter": 0,
+          "wrongKnownEntries": 0,
+          "wrongKnownFromSavedDecisions": 0
+        },
+        "confirmedMemoryEpisodes": 4,
+        "confirmedSenderFollowups": {
+          "sender_ally": 4
+        },
+        "episodes": 4,
+        "followups": {
+          "sender_ally": 4
+        },
+        "games": 96,
+        "resources": {
+          "attackFailures": 10,
+          "falseReports": 143,
+          "netSkillManaDelta": -91000,
+          "nominalSkillMana": 94915,
+          "rejected": 2,
+          "reports": 1543
+        },
+        "score": 66,
+        "targetObservedEpisodes": 1,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {
+          "sender_ally": 4
+        },
+        "uniqueFollowupActions": {
+          "sender_ally": 4
+        },
+        "wins": 66
+      },
+      "primordial": {
+        "behavior": {
+          "accepted": 12,
+          "activeChoices": 10896,
+          "changed": 0,
+          "constraintConfirmed": 0,
+          "exactIdentityReceipts": 12,
+          "immediateConfirmed": 12,
+          "incomingEligibleChoices": 192,
+          "knownEntriesChecked": 35651,
+          "policyDivergenceSignals": 0,
+          "resourceProposals": 55,
+          "sameActionDifferentRng": 0,
+          "selected": 12,
+          "wrongKnownAfter": 0,
+          "wrongKnownEntries": 0,
+          "wrongKnownFromSavedDecisions": 0
+        },
+        "confirmedMemoryEpisodes": 12,
+        "confirmedSenderFollowups": {
+          "direct_known_report_sent": 1,
+          "direct_known_target_action": 1,
+          "report_consistent_check": 2,
+          "sender_ally": 12
+        },
+        "episodes": 12,
+        "followups": {
+          "direct_known_report_sent": 1,
+          "direct_known_target_action": 1,
+          "report_consistent_check": 2,
+          "sender_ally": 12
+        },
+        "games": 96,
+        "resources": {
+          "attackFailures": 48,
+          "falseReports": 38,
+          "netSkillManaDelta": -73715,
+          "nominalSkillMana": 83420,
+          "rejected": 0,
+          "reports": 1126
+        },
+        "score": 63,
+        "targetObservedEpisodes": 3,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {
+          "direct_known_report_sent": 1,
+          "direct_known_target_action": 1,
+          "report_consistent_check": 2,
+          "sender_ally": 12
+        },
+        "uniqueFollowupActions": {
+          "direct_known_report_sent": 1,
+          "direct_known_target_action": 1,
+          "report_consistent_check": 2,
+          "sender_ally": 12
+        },
+        "wins": 63
+      },
+      "troll": {
+        "behavior": {
+          "accepted": 12,
+          "activeChoices": 12290,
+          "changed": 0,
+          "constraintConfirmed": 3,
+          "exactIdentityReceipts": 7,
+          "immediateConfirmed": 10,
+          "incomingEligibleChoices": 513,
+          "knownEntriesChecked": 40008,
+          "policyDivergenceSignals": 0,
+          "resourceProposals": 65,
+          "sameActionDifferentRng": 0,
+          "selected": 12,
+          "wrongKnownAfter": 0,
+          "wrongKnownEntries": 0,
+          "wrongKnownFromSavedDecisions": 0
+        },
+        "confirmedMemoryEpisodes": 9,
+        "confirmedSenderFollowups": {
+          "direct_known_report_sent": 2,
+          "direct_known_target_action": 7,
+          "report_consistent_check": 4,
+          "sender_ally": 9
+        },
+        "episodes": 12,
+        "followups": {
+          "direct_known_report_sent": 2,
+          "direct_known_target_action": 8,
+          "report_consistent_check": 4,
+          "sender_ally": 9
+        },
+        "games": 96,
+        "resources": {
+          "attackFailures": 8,
+          "falseReports": 316,
+          "netSkillManaDelta": -97005,
+          "nominalSkillMana": 99970,
+          "rejected": 0,
+          "reports": 1272
+        },
+        "score": 58,
+        "targetObservedEpisodes": 5,
+        "unfinished": 0,
+        "uniqueConfirmedFollowupActions": {
+          "direct_known_report_sent": 2,
+          "direct_known_target_action": 7,
+          "report_consistent_check": 4,
+          "sender_ally": 9
+        },
+        "uniqueFollowupActions": {
+          "direct_known_report_sent": 2,
+          "direct_known_target_action": 8,
+          "report_consistent_check": 4,
+          "sender_ally": 9
+        },
+        "wins": 58
+      }
+    }
+  }
+}

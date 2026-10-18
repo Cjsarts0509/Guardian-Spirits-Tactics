@@ -1,0 +1,3775 @@
+{
+  "kind": "round055-descriptive-sender-followup",
+  "snapshotSHA256": "ee3a619c0c0d453174dd64533a838068acc6f8c4523fee4560c97774f34a8e77",
+  "analysisSourceSHA256": "40ba5d250d36f2b34c02bcfa6a391b034132a0f831b7523f18ce63b01e331905",
+  "variants": {
+    "baseline": {
+      "counts": {
+        "activeChoices": 0,
+        "reportMotivatedChoices": 0,
+        "publiclyEligibleIncomingChoices": 0,
+        "resourceFeasibleProposals": 0,
+        "selectedMatches": 0,
+        "changedChoices": 0,
+        "sameActionDifferentRngChoices": 0,
+        "actualReports": 0,
+        "truthWrongReports": 0,
+        "missingStoredKnownProofReports": 0,
+        "contradictedStoredKnownReports": 0,
+        "uniqueConfirmedSenderFollowupActions": 0,
+        "uniqueConfirmedReportConsistentActions": 0
+      },
+      "byMode": {},
+      "episodes": []
+    },
+    "control": {
+      "counts": {
+        "activeChoices": 43373,
+        "reportMotivatedChoices": 1184,
+        "publiclyEligibleIncomingChoices": 1184,
+        "resourceFeasibleProposals": 175,
+        "selectedMatches": 31,
+        "changedChoices": 0,
+        "sameActionDifferentRngChoices": 0,
+        "actualReports": 5268,
+        "truthWrongReports": 0,
+        "missingStoredKnownProofReports": 798,
+        "contradictedStoredKnownReports": 0,
+        "uniqueConfirmedSenderFollowupActions": 49,
+        "uniqueConfirmedReportConsistentActions": 10,
+        "acceptedSelectedAttempts": 31,
+        "immediateConfirmed": 29,
+        "exactIdentityReceipts": 26,
+        "constraintConfirmed": 3,
+        "directPerceptionMemoryObserved": 28,
+        "episodesWithLaterConfirmedKnowledgeUse": 29,
+        "newTrustedCommanderTargetLinks": 32,
+        "episodesOpeningTrustedCommanderRoute": 27,
+        "episodesWithLaterDirectTargetObservation": 11,
+        "episodesWithConfirmedSenderFollowup": 29,
+        "episodesWithReportConsistentAction": 7
+      },
+      "byMode": {
+        "civil_war": {
+          "acceptedSelectedAttempts": 3,
+          "immediateConfirmed": 3,
+          "exactIdentityReceipts": 3,
+          "constraintConfirmed": 0,
+          "directPerceptionMemoryObserved": 3,
+          "episodesWithLaterConfirmedKnowledgeUse": 3,
+          "newTrustedCommanderTargetLinks": 3,
+          "episodesOpeningTrustedCommanderRoute": 3,
+          "episodesWithLaterDirectTargetObservation": 2,
+          "episodesWithConfirmedSenderFollowup": 3,
+          "episodesWithReportConsistentAction": 2
+        },
+        "primordial": {
+          "acceptedSelectedAttempts": 12,
+          "immediateConfirmed": 12,
+          "exactIdentityReceipts": 12,
+          "constraintConfirmed": 0,
+          "directPerceptionMemoryObserved": 12,
+          "episodesWithLaterConfirmedKnowledgeUse": 12,
+          "newTrustedCommanderTargetLinks": 13,
+          "episodesOpeningTrustedCommanderRoute": 12,
+          "episodesWithLaterDirectTargetObservation": 3,
+          "episodesWithConfirmedSenderFollowup": 12,
+          "episodesWithReportConsistentAction": 2
+        },
+        "lidellut": {
+          "acceptedSelectedAttempts": 4,
+          "immediateConfirmed": 4,
+          "exactIdentityReceipts": 4,
+          "constraintConfirmed": 0,
+          "directPerceptionMemoryObserved": 4,
+          "episodesWithLaterConfirmedKnowledgeUse": 4,
+          "newTrustedCommanderTargetLinks": 6,
+          "episodesOpeningTrustedCommanderRoute": 4,
+          "episodesWithLaterDirectTargetObservation": 1,
+          "episodesWithConfirmedSenderFollowup": 4,
+          "episodesWithReportConsistentAction": 0
+        },
+        "troll": {
+          "acceptedSelectedAttempts": 12,
+          "immediateConfirmed": 10,
+          "exactIdentityReceipts": 7,
+          "constraintConfirmed": 3,
+          "directPerceptionMemoryObserved": 9,
+          "episodesWithLaterConfirmedKnowledgeUse": 10,
+          "newTrustedCommanderTargetLinks": 10,
+          "episodesOpeningTrustedCommanderRoute": 8,
+          "episodesWithLaterDirectTargetObservation": 5,
+          "episodesWithConfirmedSenderFollowup": 10,
+          "episodesWithReportConsistentAction": 3
+        }
+      },
+      "episodes": [
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152000,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p1",
+          "sender": "p3",
+          "at": 539750,
+          "changed": false,
+          "immediateKnown": "mertz",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 539750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152003,
+            "count": 11,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p5",
+          "sender": "p1",
+          "at": 248000,
+          "changed": false,
+          "immediateKnown": "mertz",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 248000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p4",
+              "name": "dantes",
+              "at": 839000
+            }
+          ],
+          "confirmedSenderFollowupLinks": 3,
+          "confirmedSenderReportConsistentActions": 2
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152003,
+            "count": 11,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p1",
+          "at": 248000,
+          "changed": false,
+          "immediateKnown": "mertz",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 248000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p4",
+              "name": "dantes",
+              "at": 839000
+            }
+          ],
+          "confirmedSenderFollowupLinks": 3,
+          "confirmedSenderReportConsistentActions": 2
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152000,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p4",
+          "sender": "p7",
+          "at": 122250,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 122250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "rael"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p3",
+          "sender": "p9",
+          "at": 165250,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 165250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "rael"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p9",
+          "sender": "p8",
+          "at": 244750,
+          "changed": false,
+          "immediateKnown": "kilder",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 244750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p9",
+          "sender": "p8",
+          "at": 149250,
+          "changed": false,
+          "immediateKnown": "kilder",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 149250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p7",
+          "sender": "p9",
+          "at": 196750,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 196750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p10",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p10",
+              "name": "kane",
+              "at": 239500
+            }
+          ],
+          "confirmedSenderFollowupLinks": 3,
+          "confirmedSenderReportConsistentActions": 1
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152000,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p2",
+          "sender": "p7",
+          "at": 218750,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 218750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p3",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p3",
+          "sender": "p9",
+          "at": 504500,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 504500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "rael"
+            },
+            {
+              "target": "p10",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 2,
+          "confirmedSenderReportConsistentActions": 1
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p8",
+          "sender": "p9",
+          "at": 98750,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 98750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p10",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p3",
+          "sender": "p9",
+          "at": 150000,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 150000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p10",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p10",
+              "name": "kane",
+              "at": 731250
+            }
+          ],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p7",
+          "sender": "p9",
+          "at": 196750,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 196750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p10",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p10",
+              "name": "kane",
+              "at": 699500
+            }
+          ],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152005,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p8",
+          "sender": "p5",
+          "at": 267500,
+          "changed": false,
+          "immediateKnown": "drakan",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 267500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "rael"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152005,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p4",
+          "at": 451000,
+          "changed": false,
+          "immediateKnown": "kilder",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 451000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 2,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152003,
+            "count": 11,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p2",
+          "sender": "p11",
+          "at": 555000,
+          "changed": false,
+          "immediateKnown": "kamikaze",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 555000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "kai"
+            },
+            {
+              "target": "p7",
+              "name": "shining"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152003,
+            "count": 11,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p9",
+          "sender": "p11",
+          "at": 601750,
+          "changed": false,
+          "immediateKnown": "kamikaze",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 601750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p9",
+          "sender": "p3",
+          "at": 920750,
+          "changed": false,
+          "immediateKnown": "chizuko",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 920750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "kai"
+            },
+            {
+              "target": "p4",
+              "name": "shining"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p12",
+          "sender": "p1",
+          "at": 798250,
+          "changed": false,
+          "immediateKnown": "chizuko",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 798250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p7",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p7",
+              "name": "kai",
+              "at": 1247000
+            }
+          ],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p6",
+          "sender": "p5",
+          "at": 528500,
+          "changed": false,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152000,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p7",
+          "sender": "p2",
+          "at": 700500,
+          "changed": false,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 700500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "chis"
+            },
+            {
+              "target": "p8",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152000,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p3",
+          "sender": "p6",
+          "at": 579250,
+          "changed": false,
+          "immediateKnown": "chis",
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": 747250,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [
+            {
+              "target": "p8",
+              "name": "deka",
+              "at": 647000
+            }
+          ],
+          "confirmedSenderFollowupLinks": 6,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p5",
+          "sender": "p8",
+          "at": 704250,
+          "changed": false,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 704250,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p10",
+          "sender": "p8",
+          "at": 633500,
+          "changed": false,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 633500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p7",
+              "name": "chis"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152005,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p7",
+          "sender": "p6",
+          "at": 540500,
+          "changed": false,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 541000
+            }
+          ],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152006,
+            "count": 9,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p3",
+          "sender": "p7",
+          "at": 439750,
+          "changed": false,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 439750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p9",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p9",
+          "sender": "p8",
+          "at": 712500,
+          "changed": false,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": 732000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 1058250
+            }
+          ],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p9",
+          "sender": "p8",
+          "at": 483750,
+          "changed": false,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p7",
+          "sender": "p8",
+          "at": 602000,
+          "changed": false,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 602000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 1090250
+            }
+          ],
+          "confirmedSenderFollowupLinks": 4,
+          "confirmedSenderReportConsistentActions": 2
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p8",
+          "at": 966750,
+          "changed": false,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 966750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p7",
+              "name": "chis"
+            },
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 1095500
+            }
+          ],
+          "confirmedSenderFollowupLinks": 4,
+          "confirmedSenderReportConsistentActions": 1
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152006,
+            "count": 9,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p9",
+          "sender": "p5",
+          "at": 455750,
+          "changed": false,
+          "immediateKnown": "neonis",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 455750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p2",
+              "name": "chis"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 2,
+          "confirmedSenderReportConsistentActions": 1
+        }
+      ]
+    },
+    "candidate": {
+      "counts": {
+        "activeChoices": 43753,
+        "reportMotivatedChoices": 758,
+        "publiclyEligibleIncomingChoices": 758,
+        "resourceFeasibleProposals": 119,
+        "selectedMatches": 102,
+        "changedChoices": 80,
+        "sameActionDifferentRngChoices": 15,
+        "actualReports": 5362,
+        "truthWrongReports": 0,
+        "missingStoredKnownProofReports": 802,
+        "contradictedStoredKnownReports": 0,
+        "uniqueConfirmedSenderFollowupActions": 126,
+        "uniqueConfirmedReportConsistentActions": 12,
+        "acceptedSelectedAttempts": 102,
+        "immediateConfirmed": 89,
+        "exactIdentityReceipts": 82,
+        "constraintConfirmed": 7,
+        "directPerceptionMemoryObserved": 90,
+        "episodesWithLaterConfirmedKnowledgeUse": 87,
+        "newTrustedCommanderTargetLinks": 88,
+        "episodesOpeningTrustedCommanderRoute": 81,
+        "episodesWithLaterDirectTargetObservation": 21,
+        "episodesWithConfirmedSenderFollowup": 87,
+        "episodesWithReportConsistentAction": 10
+      },
+      "byMode": {
+        "civil_war": {
+          "acceptedSelectedAttempts": 15,
+          "immediateConfirmed": 15,
+          "exactIdentityReceipts": 15,
+          "constraintConfirmed": 0,
+          "directPerceptionMemoryObserved": 15,
+          "episodesWithLaterConfirmedKnowledgeUse": 15,
+          "newTrustedCommanderTargetLinks": 15,
+          "episodesOpeningTrustedCommanderRoute": 15,
+          "episodesWithLaterDirectTargetObservation": 6,
+          "episodesWithConfirmedSenderFollowup": 15,
+          "episodesWithReportConsistentAction": 2
+        },
+        "primordial": {
+          "acceptedSelectedAttempts": 29,
+          "immediateConfirmed": 26,
+          "exactIdentityReceipts": 26,
+          "constraintConfirmed": 0,
+          "directPerceptionMemoryObserved": 26,
+          "episodesWithLaterConfirmedKnowledgeUse": 21,
+          "newTrustedCommanderTargetLinks": 26,
+          "episodesOpeningTrustedCommanderRoute": 26,
+          "episodesWithLaterDirectTargetObservation": 3,
+          "episodesWithConfirmedSenderFollowup": 21,
+          "episodesWithReportConsistentAction": 1
+        },
+        "lidellut": {
+          "acceptedSelectedAttempts": 18,
+          "immediateConfirmed": 17,
+          "exactIdentityReceipts": 17,
+          "constraintConfirmed": 0,
+          "directPerceptionMemoryObserved": 18,
+          "episodesWithLaterConfirmedKnowledgeUse": 18,
+          "newTrustedCommanderTargetLinks": 20,
+          "episodesOpeningTrustedCommanderRoute": 16,
+          "episodesWithLaterDirectTargetObservation": 2,
+          "episodesWithConfirmedSenderFollowup": 18,
+          "episodesWithReportConsistentAction": 0
+        },
+        "troll": {
+          "acceptedSelectedAttempts": 40,
+          "immediateConfirmed": 31,
+          "exactIdentityReceipts": 24,
+          "constraintConfirmed": 7,
+          "directPerceptionMemoryObserved": 31,
+          "episodesWithLaterConfirmedKnowledgeUse": 33,
+          "newTrustedCommanderTargetLinks": 27,
+          "episodesOpeningTrustedCommanderRoute": 24,
+          "episodesWithLaterDirectTargetObservation": 10,
+          "episodesWithConfirmedSenderFollowup": 33,
+          "episodesWithReportConsistentAction": 7
+        }
+      },
+      "episodes": [
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152000,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p1",
+          "sender": "p3",
+          "at": 539750,
+          "changed": false,
+          "immediateKnown": "mertz",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 539750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p5",
+          "sender": "p10",
+          "at": 465250,
+          "changed": true,
+          "immediateKnown": "mertz",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 465250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152000,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p5",
+          "sender": "p1",
+          "at": 506500,
+          "changed": true,
+          "immediateKnown": "freya",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 506500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152001,
+            "count": 9,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p7",
+          "sender": "p2",
+          "at": 492500,
+          "changed": true,
+          "immediateKnown": "tuma",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 492500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p5",
+          "sender": "p10",
+          "at": 466250,
+          "changed": true,
+          "immediateKnown": "mertz",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 466250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "dantes",
+              "at": 554250
+            }
+          ],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152003,
+            "count": 11,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p5",
+          "sender": "p1",
+          "at": 248000,
+          "changed": false,
+          "immediateKnown": "mertz",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 248000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p4",
+              "name": "dantes",
+              "at": 839250
+            }
+          ],
+          "confirmedSenderFollowupLinks": 3,
+          "confirmedSenderReportConsistentActions": 2
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p4",
+          "sender": "p11",
+          "at": 477750,
+          "changed": true,
+          "immediateKnown": "kaspa",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 477750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p7",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p3",
+          "sender": "p11",
+          "at": 575500,
+          "changed": true,
+          "immediateKnown": "kaspa",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 575500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p7",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152006,
+            "count": 9,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p4",
+          "sender": "p6",
+          "at": 452750,
+          "changed": true,
+          "immediateKnown": "mertz",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 452750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p2",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p2",
+              "name": "dantes",
+              "at": 551500
+            }
+          ],
+          "confirmedSenderFollowupLinks": 4,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152000,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p1",
+          "at": 506500,
+          "changed": true,
+          "immediateKnown": "freya",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 506500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152001,
+            "count": 9,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p7",
+          "sender": "p2",
+          "at": 492500,
+          "changed": true,
+          "immediateKnown": "tuma",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 492500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p10",
+          "at": 466250,
+          "changed": true,
+          "immediateKnown": "mertz",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 466250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "dantes",
+              "at": 554250
+            }
+          ],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152003,
+            "count": 11,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p1",
+          "at": 248000,
+          "changed": false,
+          "immediateKnown": "mertz",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 248000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p4",
+              "name": "dantes",
+              "at": 839250
+            }
+          ],
+          "confirmedSenderFollowupLinks": 3,
+          "confirmedSenderReportConsistentActions": 2
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p3",
+          "sender": "p11",
+          "at": 577250,
+          "changed": true,
+          "immediateKnown": "kaspa",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 577250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p7",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "civil_war",
+            "seed": 152006,
+            "count": 9,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p4",
+          "sender": "p6",
+          "at": 452750,
+          "changed": true,
+          "immediateKnown": "mertz",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 452750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p2",
+              "name": "dantes"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p2",
+              "name": "dantes",
+              "at": 551500
+            }
+          ],
+          "confirmedSenderFollowupLinks": 4,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152000,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p4",
+          "sender": "p7",
+          "at": 122250,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 122250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "rael"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152001,
+            "count": 9,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p4",
+          "sender": "p2",
+          "at": 215000,
+          "changed": true,
+          "immediateKnown": "kilder",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 215000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p6",
+          "sender": "p5",
+          "at": 185750,
+          "changed": true,
+          "immediateKnown": "eoril",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 185750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "rael"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p3",
+          "sender": "p9",
+          "at": 165250,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 165250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "rael"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p9",
+          "sender": "p8",
+          "at": 244750,
+          "changed": false,
+          "immediateKnown": "kilder",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 244750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p9",
+          "sender": "p8",
+          "at": 149250,
+          "changed": false,
+          "immediateKnown": "kilder",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 149250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p7",
+          "sender": "p9",
+          "at": 196750,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 196750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p10",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p10",
+              "name": "kane",
+              "at": 239500
+            }
+          ],
+          "confirmedSenderFollowupLinks": 3,
+          "confirmedSenderReportConsistentActions": 1
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152003,
+            "count": 11,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p10",
+          "sender": "p9",
+          "at": 261250,
+          "changed": true,
+          "immediateKnown": "kilder",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 261250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p8",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152005,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p8",
+          "sender": "p4",
+          "at": 152000,
+          "changed": true,
+          "immediateKnown": "kilder",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 152000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152007,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p7",
+          "sender": "p4",
+          "at": 249000,
+          "changed": true,
+          "immediateKnown": "kane",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 249000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p8",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152007,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p7",
+          "sender": "p4",
+          "at": 249000,
+          "changed": true,
+          "immediateKnown": "kane",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 249000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p8",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152003,
+            "count": 11,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p9",
+          "sender": "p11",
+          "at": 176250,
+          "changed": true,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 176250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p8",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152003,
+            "count": 11,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p10",
+          "sender": "p11",
+          "at": 261250,
+          "changed": true,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 261250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p8",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152006,
+            "count": 9,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p1",
+          "sender": "p8",
+          "at": 307000,
+          "changed": true,
+          "immediateKnown": "nukelius",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 307000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152006,
+            "count": 9,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p1",
+          "sender": "p8",
+          "at": 307000,
+          "changed": true,
+          "immediateKnown": "nukelius",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 307000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152000,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p4",
+          "sender": "p7",
+          "at": 122250,
+          "changed": true,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 122250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "rael"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152000,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p2",
+          "sender": "p7",
+          "at": 218750,
+          "changed": true,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 218750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p3",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p3",
+          "sender": "p9",
+          "at": 71500,
+          "changed": true,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 71500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "rael"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p4",
+          "sender": "p9",
+          "at": 318750,
+          "changed": true,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 318750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "rael"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p7",
+          "sender": "p9",
+          "at": 481750,
+          "changed": true,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 481750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p10",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p8",
+          "sender": "p9",
+          "at": 98750,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 98750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p10",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p3",
+          "sender": "p9",
+          "at": 150000,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 150000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p10",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p10",
+              "name": "kane",
+              "at": 731500
+            }
+          ],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p7",
+          "sender": "p9",
+          "at": 196750,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 196750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p10",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p10",
+              "name": "kane",
+              "at": 699500
+            }
+          ],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p9",
+          "sender": "p7",
+          "at": 439250,
+          "changed": true,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p9",
+          "sender": "p7",
+          "at": 439500,
+          "changed": true,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152005,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p4",
+          "at": 205000,
+          "changed": true,
+          "immediateKnown": "kilder",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 205000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152005,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p4",
+          "at": 205000,
+          "changed": true,
+          "immediateKnown": "kilder",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 205000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "eltas"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152005,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p8",
+          "at": 451000,
+          "changed": false,
+          "immediateKnown": "hermilly",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 451000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p7",
+              "name": "kane"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 152006,
+            "count": 9,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p8",
+          "sender": "p2",
+          "at": 280750,
+          "changed": true,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p6",
+          "sender": "p5",
+          "at": 441000,
+          "changed": true,
+          "immediateKnown": "kaspa",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 441000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "kai"
+            },
+            {
+              "target": "p4",
+              "name": "shining"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p6",
+          "sender": "p2",
+          "at": 441000,
+          "changed": true,
+          "immediateKnown": "freia",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 441000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152003,
+            "count": 11,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p1",
+          "sender": "p3",
+          "at": 458750,
+          "changed": true,
+          "immediateKnown": "kaspa",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 458750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152003,
+            "count": 11,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p1",
+          "sender": "p5",
+          "at": 723750,
+          "changed": true,
+          "immediateKnown": "freia",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 723750,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152003,
+            "count": 11,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p2",
+          "sender": "p11",
+          "at": 270250,
+          "changed": true,
+          "immediateKnown": "kamikaze",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 270250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p4",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p3",
+          "sender": "p1",
+          "at": 583500,
+          "changed": true,
+          "immediateKnown": "chizuko",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 583500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p5",
+              "name": "shining"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152005,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p8",
+          "sender": "p4",
+          "at": 709500,
+          "changed": true,
+          "immediateKnown": "chizuko",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 709500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "kai"
+            },
+            {
+              "target": "p1",
+              "name": "shining"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152005,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p8",
+          "sender": "p4",
+          "at": 460250,
+          "changed": true,
+          "immediateKnown": "chizuko",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 460250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "kai"
+            },
+            {
+              "target": "p1",
+              "name": "shining"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152007,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p4",
+          "sender": "p2",
+          "at": 439500,
+          "changed": true,
+          "immediateKnown": "kaspa",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 439500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p8",
+              "name": "shining"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152007,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p4",
+          "sender": "p7",
+          "at": 438750,
+          "changed": true,
+          "immediateKnown": "freia",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 438750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152007,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p9",
+          "sender": "p7",
+          "at": 467000,
+          "changed": true,
+          "immediateKnown": "freia",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 467000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152007,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p5",
+          "sender": "p10",
+          "at": 413750,
+          "changed": true,
+          "immediateKnown": "chizuko",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 413750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152000,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p7",
+          "sender": "p4",
+          "at": 423000,
+          "changed": true,
+          "immediateKnown": "chizuko",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 423000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 2,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p9",
+          "sender": "p3",
+          "at": 425000,
+          "changed": true,
+          "immediateKnown": "chizuko",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 425000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152002,
+            "count": 10,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p9",
+          "sender": "p3",
+          "at": 425000,
+          "changed": true,
+          "immediateKnown": "chizuko",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 425000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "kai"
+            },
+            {
+              "target": "p4",
+              "name": "shining"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p1",
+          "sender": "p11",
+          "at": 464250,
+          "changed": true,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": 492000,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [
+            {
+              "target": "p5",
+              "name": "shining",
+              "at": 492000
+            }
+          ],
+          "confirmedSenderFollowupLinks": 3,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p12",
+          "sender": "p1",
+          "at": 798250,
+          "changed": false,
+          "immediateKnown": "chizuko",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 798250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p7",
+              "name": "kai"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p7",
+              "name": "kai",
+              "at": 1247000
+            }
+          ],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "lidellut",
+            "seed": 152006,
+            "count": 9,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p9",
+          "at": 360500,
+          "changed": true,
+          "immediateKnown": "chizuko",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 360500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "shining"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152001,
+            "count": 9,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "truthful",
+          "actor": "p6",
+          "sender": "p7",
+          "at": 590750,
+          "changed": true,
+          "immediateKnown": "neonis",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 590750,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p1",
+          "sender": "p5",
+          "at": 374500,
+          "changed": true,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 374500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p3",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p3",
+              "name": "deka",
+              "at": 545000
+            }
+          ],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p6",
+          "sender": "p5",
+          "at": 528500,
+          "changed": false,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p6",
+          "sender": "p7",
+          "at": 663250,
+          "changed": true,
+          "immediateKnown": "chis",
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152006,
+            "count": 9,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p2",
+          "sender": "p4",
+          "at": 407500,
+          "changed": true,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 407500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p9",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152007,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "truthful",
+          "actor": "p4",
+          "sender": "p6",
+          "at": 443750,
+          "changed": true,
+          "immediateKnown": "chis",
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": 454500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p10",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152000,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p7",
+          "sender": "p2",
+          "at": 700500,
+          "changed": false,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 700500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p6",
+              "name": "chis"
+            },
+            {
+              "target": "p8",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152000,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p3",
+          "sender": "p6",
+          "at": 579250,
+          "changed": false,
+          "immediateKnown": "chis",
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": 747500,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [
+            {
+              "target": "p8",
+              "name": "deka",
+              "at": 647250
+            }
+          ],
+          "confirmedSenderFollowupLinks": 6,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152000,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p7",
+          "sender": "p2",
+          "at": 700500,
+          "changed": true,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 700500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p8",
+              "name": "deka"
+            },
+            {
+              "target": "p6",
+              "name": "chis"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152001,
+            "count": 9,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p4",
+          "sender": "p2",
+          "at": 687250,
+          "changed": true,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 687250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p9",
+              "name": "chis"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p10",
+          "sender": "p4",
+          "at": 1101250,
+          "changed": true,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p10",
+          "sender": "p4",
+          "at": 1192500,
+          "changed": true,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p10",
+          "sender": "p4",
+          "at": 1364500,
+          "changed": false,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152002,
+            "count": 10,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p9",
+          "sender": "p7",
+          "at": 180000,
+          "changed": true,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 180000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p3",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p5",
+          "sender": "p8",
+          "at": 445000,
+          "changed": true,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 445000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p7",
+              "name": "chis"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 2,
+          "confirmedSenderReportConsistentActions": 1
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p5",
+          "sender": "p6",
+          "at": 704250,
+          "changed": false,
+          "immediateKnown": "satoshi",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 704250,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p11",
+          "sender": "p4",
+          "at": 790500,
+          "changed": true,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 790500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p12",
+          "sender": "p4",
+          "at": 799000,
+          "changed": true,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 799000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p9",
+          "sender": "p6",
+          "at": 475250,
+          "changed": true,
+          "immediateKnown": "satoshi",
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 2,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p10",
+          "sender": "p8",
+          "at": 633500,
+          "changed": false,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 633500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p7",
+              "name": "chis"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p10",
+          "sender": "p6",
+          "at": 901250,
+          "changed": true,
+          "immediateKnown": "satoshi",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 901250,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152005,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p8",
+          "sender": "p5",
+          "at": 463750,
+          "changed": true,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 463750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152005,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p7",
+          "sender": "p6",
+          "at": 501750,
+          "changed": true,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 541000
+            }
+          ],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152006,
+            "count": 9,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "bluff",
+          "actor": "p1",
+          "sender": "p2",
+          "at": 666000,
+          "changed": true,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 0,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152006,
+            "count": 9,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "bluff",
+          "actor": "p3",
+          "sender": "p7",
+          "at": 439750,
+          "changed": false,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 439750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p9",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152000,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p7",
+          "sender": "p2",
+          "at": 423000,
+          "changed": true,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 423000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p8",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152001,
+            "count": 9,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p4",
+          "sender": "p2",
+          "at": 435000,
+          "changed": true,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 435000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p9",
+              "name": "chis"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p7",
+          "sender": "p8",
+          "at": 602500,
+          "changed": true,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 602500,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 1076000
+            }
+          ],
+          "confirmedSenderFollowupLinks": 6,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p9",
+          "sender": "p8",
+          "at": 668250,
+          "changed": true,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": 732250,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p8",
+          "at": 725000,
+          "changed": true,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 725000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 1185500
+            }
+          ],
+          "confirmedSenderFollowupLinks": 2,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p6",
+          "sender": "p7",
+          "at": 1127500,
+          "changed": true,
+          "immediateKnown": "chis",
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": 1165500,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 1207500
+            }
+          ],
+          "confirmedSenderFollowupLinks": 3,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p9",
+          "sender": "p8",
+          "at": 437250,
+          "changed": true,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": null,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p7",
+          "sender": "p8",
+          "at": 602000,
+          "changed": false,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 602000,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 1048000
+            }
+          ],
+          "confirmedSenderFollowupLinks": 4,
+          "confirmedSenderReportConsistentActions": 2
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p8",
+          "at": 724750,
+          "changed": true,
+          "immediateKnown": "zwinra",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 724750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p7",
+              "name": "chis"
+            },
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 1063250
+            }
+          ],
+          "confirmedSenderFollowupLinks": 5,
+          "confirmedSenderReportConsistentActions": 2
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p6",
+          "at": 967500,
+          "changed": true,
+          "immediateKnown": "satoshi",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 967500,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 1063250
+            }
+          ],
+          "confirmedSenderFollowupLinks": 3,
+          "confirmedSenderReportConsistentActions": 1
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152005,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p4",
+          "at": 207250,
+          "changed": true,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": 278250,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 2,
+          "confirmedSenderReportConsistentActions": 1
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152005,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p4",
+          "at": 273250,
+          "changed": true,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": 278250,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 2,
+          "confirmedSenderReportConsistentActions": 1
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152005,
+            "count": 8,
+            "reversed": false,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p8",
+          "sender": "p5",
+          "at": 463750,
+          "changed": true,
+          "immediateKnown": "kanulla",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 463750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p1",
+              "name": "deka"
+            }
+          ],
+          "targetDirectlyObserved": [
+            {
+              "target": "p1",
+              "name": "deka",
+              "at": 491250
+            }
+          ],
+          "confirmedSenderFollowupLinks": 2,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152005,
+            "count": 8,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p5",
+          "sender": "p4",
+          "at": 205500,
+          "changed": true,
+          "immediateKnown": null,
+          "exactIdentityReceipt": false,
+          "memoryObservedAt": 273000,
+          "newTrustedCommanderTargets": [],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 1,
+          "confirmedSenderReportConsistentActions": 0
+        },
+        {
+          "fixture": {
+            "mode": "troll",
+            "seed": 152006,
+            "count": 9,
+            "reversed": true,
+            "currentSide": 2
+          },
+          "style": "skill-aware-bluff",
+          "actor": "p9",
+          "sender": "p5",
+          "at": 455750,
+          "changed": false,
+          "immediateKnown": "neonis",
+          "exactIdentityReceipt": true,
+          "memoryObservedAt": 455750,
+          "newTrustedCommanderTargets": [
+            {
+              "target": "p2",
+              "name": "chis"
+            }
+          ],
+          "targetDirectlyObserved": [],
+          "confirmedSenderFollowupLinks": 2,
+          "confirmedSenderReportConsistentActions": 1
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "A later action is descriptive, not caused solely by this confirmation attempt.",
+    "Raw resources.falseReports combines missing stored-map proof with wrong names. truthWrongReports independently compares the actual emitted name to the post-choice assignment; missing stored-map entries are not false-report findings.",
+    "Attempt episodes may overlap; unique action counts remove episode duplication within each game.",
+    "No later report-consistent action is not a missed-opportunity finding; remaining activity/budget opportunities were not fully observed for this question.",
+    "Exact identity receipts and legitimate constraint deductions are separate. Raw memoryObservedAt/targetObserved track the stored perception known-map; derived singleton knowledge may be usable by the policy without appearing in that map. Do not treat an absent stored-map observation as forgetting. direct_known followup labels mean confirmed own knowledge, which may include valid deductions, not necessarily an exact identity receipt.",
+    "Raw counter incomingEligibleChoices is the pre-public-protection report-motivation gate; publiclyEligibleIncomingChoices independently applies diagnostic incoming-pool exclusions. Neither resource availability nor this pool proves the full policy reached its information stage."
+  ]
+}
