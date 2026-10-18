@@ -5,7 +5,15 @@
   "startedAt": "2026-10-18T11:10:00+09:00",
   "completedAt": "2026-10-18T11:21:55+09:00",
   "leaseUntil": null,
-  "continuation": "user_20261015_2354_go",
+  "continuation": "paused_by_user_20261018_1200_after_round057",
+  "pausedByUser": true,
+  "stopInstruction": "2026-10-18 12:00 KST: 현재 회차까지 마무리, 모든 예약 종료, 전체 회차 중간보고 요청. 057은 완료되어 058을 시작하지 않음. 재개 지시 전 새 개발/실험 금지.",
+  "scheduling": {
+    "enabledTasksAfterStop": 0,
+    "disabledThisRequest": 2,
+    "allVisibleTasksDisabled": 7
+  },
+  "interimReport": "docs/ai-rounds/INTERIM_001_057_20261018.md",
   "task": "055전후보384경기의 자기혼돈주술 대기중 추가확인 전수감사;control384는기술대조",
   "previousCompleted": {
     "round": 56,
@@ -46,7 +54,7 @@
     "status": "reserved_unused"
   },
   "nextRoundStarted": false,
-  "nextAction": "Round058: diagnose own accepted chaos_hex target/due/result representation through persistent memory and host restore, separating cooldown estimates from unresolved own commands. Only if a functional omission reproduces, consider default-OFF memory-only candidate preserving actions/RNG; no blanket pending-check suppression/new seeds/performance tuning.",
+  "nextAction": "STOPPED by latest user instruction. Round058 is NOT started. Only after explicit user resume: diagnose own accepted chaos_hex target/due/result representation through persistent memory and host restore; no blanket pending-check suppression/new seeds/performance tuning.",
   "checks": {
     "rules": 657,
     "server": 75,
