@@ -135,7 +135,9 @@ export function savedInput058(c:{view:PlayerView;events:GameEvent[];known:any;ca
   const {view:v,events}=c;
   ok(events.every(e=>own(e,v.me.id)&&e.at<=v.elapsedMs));
   const a=createBotMemory(258),b=createBotMemory(258),k=updateBotKnowledge(v,events,a,{learnOwnAttackOutcome:false});
-  deepStrictEqual([...k.known],c.known);deepStrictEqual([...k.candidates],c.candidates);
+  // Rebuilding from the full own history can insert inferred identities in a different order.
+  // Compare exact target/value mappings; this does not claim incremental memory/trajectory equality.
+  deepStrictEqual(k.known,new Map(c.known));deepStrictEqual(k.candidates,new Map(c.candidates));
   let rewrites=0;
   const changed=events.map(e=>{
     if(e.kind!=='skill.chaos_hex.self'||!c.waiting.some(w=>w.receiptSeq===e.seq))return e;

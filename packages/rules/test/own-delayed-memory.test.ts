@@ -1,7 +1,14 @@
 import {describe,it,expect} from 'vitest';
-import {fixture058,readOwn058,targetCollision058,scenario058,hostTrace058} from '../scripts/own-delayed-memory.js';
+import {fixture058,readOwn058,targetCollision058,scenario058,hostTrace058,savedInput058} from '../scripts/own-delayed-memory.js';
+import {pendingOwn} from '../scripts/pending-confirmation.js';
 import {createBotMemory,updateBotKnowledge} from '../src/index.js';
 describe('058 own delayed receipt representation and real host restore',()=>{
+  it('saved knowledge compares exact player/value mappings independently of insertion order, rejecting wrong values',()=>{
+    const f=fixture058(),r=readOwn058(f.snapshot,f.actor);
+    const c={...r,known:r.known.slice().reverse(),candidates:r.candidates.slice().reverse(),waiting:pendingOwn(r.events,f.actor,r.view.elapsedMs)};
+    expect(savedInput058(c).knowledgeRebuilt).toBe(true);
+    expect(()=>savedInput058({...c,known:[[f.target,'wrong']]})).toThrow();
+  });
   it('distinct accepted target histories collapse to the same persistent memory, not just the same identity map',()=>{
     const r=targetCollision058();expect(r.targets[0]).not.toBe(r.targets[1]);expect(r.persistentMemoryEqual).toBe(true);expect(r.cooldownRemainingMs).toBe(70000);
   });
