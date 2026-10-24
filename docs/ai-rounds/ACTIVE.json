@@ -1,10 +1,10 @@
 {
   "round": 60,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round060-live-delayed-memory-intake",
   "startedAt": "2026-10-24T09:14:35+09:00",
-  "leaseUntil": "2026-10-24T10:09:35+09:00",
-  "completedAt": null,
+  "leaseUntil": null,
+  "completedAt": "2026-10-24T09:22:15+09:00",
   "continuation": "resumed_by_user_until_20261024_1500_KST",
   "pausedByUser": false,
   "stopAt": "2026-10-24T15:00:00+09:00",
@@ -17,7 +17,7 @@
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "record": "docs/ai-rounds/ROUND_060_20261024_0913.md",
-  "checkpoint": "validated_ready_to_freeze_live_census",
+  "checkpoint": "completed_actual_policy_intake_and_censoring",
   "phase": "functional_diagnosis",
   "executions": 0,
   "targetExecutions": 0,
@@ -49,7 +49,7 @@
   },
   "interimReport": "docs/ai-rounds/INTERIM_001_057_20261018.md",
   "nextRoundStarted": false,
-  "nextAction": "Instrument actual current-policy memories, validate observer ON/OFF and frozen trajectories, then finite 96-game replay.",
+  "nextAction": "061: verify exact chaos_hex failure faction information against public rule and all 12 role fixtures; separate optional inference from passive ledger.",
   "checks": {
     "newRealEngineTests": 2,
     "rulesTypes": "passed",
@@ -63,5 +63,12 @@
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
-  }
+  },
+  "sourceRef": "5879d51695c44c76d807f77b4e2c96af63dd7a16",
+  "evidence": {
+    "raw": "docs/evaluations/cooperation-round-060-live.json.gz",
+    "summary": "docs/evaluations/cooperation-round-060-summary.json",
+    "journal": "docs/evaluations/cooperation-round-060-live.journal.ndjson.gz"
+  },
+  "remoteChecks": "in_progress_at_local_completion"
 }
