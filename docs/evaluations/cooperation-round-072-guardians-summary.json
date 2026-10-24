@@ -1,0 +1,1213 @@
+{
+  "kind": "own-failure-stalemate-replay",
+  "sourceRef": "1ad149dfc12ba6c391e85de328d0e4715b736f94",
+  "complete": true,
+  "replayedGames": 4,
+  "newResearchExecutions": 0,
+  "totals": {
+    "primary": 49249,
+    "activePrimary": 564,
+    "inactivePrimary": 48685,
+    "chat": 49249,
+    "candidateSetObservations": 6204,
+    "truthAbsentCandidates": 0,
+    "activeNull": 163,
+    "persistedKnownObservations": 1152,
+    "wrongPersistedKnown": 0,
+    "reconstructedKnownObservations": 1155,
+    "wrongReconstructedKnown": 0
+  },
+  "rows": [
+    {
+      "inputId": "round063",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 153009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "candidate",
+      "style": "identical-policy",
+      "counts": {
+        "primary": 12480,
+        "activePrimary": 150,
+        "inactivePrimary": 12330,
+        "chat": 12480,
+        "candidateSetObservations": 1650,
+        "truthAbsentCandidates": 0,
+        "activeNull": 49,
+        "persistedKnownObservations": 344,
+        "wrongPersistedKnown": 0,
+        "reconstructedKnownObservations": 344,
+        "wrongReconstructedKnown": 0
+      },
+      "actors": {
+        "p12": {
+          "character": "rael",
+          "side": 1,
+          "active": 14,
+          "null": 5,
+          "chosen": {
+            "publish": 3,
+            "ally": 2,
+            "rael_leadership": 1,
+            "rael_eoril_test": 1,
+            "truth_gem": 1,
+            "ally_check": 1
+          },
+          "nominallyReady": {
+            "publish": 7,
+            "ally": 8,
+            "break_ally": 8,
+            "attack": 7,
+            "ally_check": 8,
+            "rael_leadership": 2,
+            "rael_eoril_test": 1,
+            "rael_master_power": 3,
+            "truth_gem": 2
+          }
+        },
+        "p8": {
+          "character": "hermilly",
+          "side": 2,
+          "active": 14,
+          "null": 4,
+          "chosen": {
+            "publish": 1,
+            "scan": 4,
+            "hermilly_seeing_libido": 1,
+            "ally": 3,
+            "hermilly_libido_protection": 1
+          },
+          "nominallyReady": {
+            "publish": 11,
+            "ally": 11,
+            "break_ally": 12,
+            "scan": 7,
+            "hermilly_libido_protection": 9,
+            "hermilly_seeing_libido": 3
+          }
+        },
+        "p3": {
+          "character": "drakan",
+          "side": 2,
+          "active": 14,
+          "null": 7,
+          "chosen": {
+            "publish": 2,
+            "enemy_check": 2,
+            "drakan_enchant_muscle": 1,
+            "ally": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 12,
+            "ally": 14,
+            "break_ally": 14,
+            "enemy_check": 7,
+            "drakan_black_spell": 8,
+            "drakan_enchant_muscle": 6,
+            "truth_gem": 2
+          }
+        },
+        "p4": {
+          "character": "tachin",
+          "side": 1,
+          "active": 14,
+          "null": 8,
+          "chosen": {
+            "publish": 1,
+            "tachin_union": 2,
+            "ally": 1,
+            "truth_gem": 1,
+            "advanced_attack": 1
+          },
+          "nominallyReady": {
+            "publish": 12,
+            "ally": 13,
+            "break_ally": 14,
+            "advanced_attack": 11,
+            "tachin_union": 3,
+            "tachin_neutralize": 12,
+            "truth_gem": 1
+          }
+        },
+        "p5": {
+          "character": "kilder",
+          "side": 2,
+          "active": 11,
+          "null": 2,
+          "chosen": {
+            "publish": 1,
+            "ally_check": 3,
+            "ally": 2,
+            "kilder_casanova": 1,
+            "attack": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 11,
+            "ally": 11,
+            "break_ally": 11,
+            "attack": 9,
+            "ally_check": 8,
+            "kilder_casanova": 3,
+            "truth_gem": 2,
+            "kilder_master_power": 3
+          }
+        },
+        "p7": {
+          "character": "kane",
+          "side": 1,
+          "active": 14,
+          "null": 6,
+          "chosen": {
+            "publish": 3,
+            "advanced_enemy_check": 2,
+            "attack": 2,
+            "kane_wolfs_slash": 1
+          },
+          "nominallyReady": {
+            "publish": 7,
+            "ally": 14,
+            "break_ally": 14,
+            "attack": 6,
+            "advanced_enemy_check": 8,
+            "kane_wolfs_slash": 6
+          }
+        },
+        "p2": {
+          "character": "eltas",
+          "side": 2,
+          "active": 15,
+          "null": 6,
+          "chosen": {
+            "publish": 2,
+            "eltas_leadership": 1,
+            "ally": 4,
+            "ally_check": 2
+          },
+          "nominallyReady": {
+            "publish": 12,
+            "ally": 14,
+            "break_ally": 15,
+            "supreme_attack": 15,
+            "ally_check": 11,
+            "eltas_leadership": 1
+          }
+        },
+        "p1": {
+          "character": "sasint",
+          "side": 2,
+          "active": 13,
+          "null": 2,
+          "chosen": {
+            "publish": 1,
+            "advanced_ally_check": 3,
+            "ally": 3,
+            "sasint_support": 1,
+            "sasint_training": 1,
+            "sasint_battle_mastery": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 12,
+            "ally": 11,
+            "break_ally": 13,
+            "attack": 11,
+            "advanced_ally_check": 11,
+            "sasint_support": 5,
+            "sasint_training": 6,
+            "sasint_battle_mastery": 11,
+            "truth_gem": 2,
+            "advanced_attack": 1
+          }
+        },
+        "p11": {
+          "character": "kumarin",
+          "side": 1,
+          "active": 10,
+          "null": 3,
+          "chosen": {
+            "publish": 1,
+            "ally_check": 1,
+            "ally": 2,
+            "kumarin_commander_guard": 1,
+            "truth_gem": 1,
+            "attack": 1
+          },
+          "nominallyReady": {
+            "publish": 9,
+            "ally": 10,
+            "break_ally": 10,
+            "attack": 7,
+            "ally_check": 7,
+            "kumarin_union": 7,
+            "kumarin_binding": 10,
+            "kumarin_commander_guard": 4,
+            "truth_gem": 2
+          }
+        },
+        "p9": {
+          "character": "nukelius",
+          "side": 1,
+          "active": 12,
+          "null": 2,
+          "chosen": {
+            "publish": 1,
+            "scan": 4,
+            "ally": 3,
+            "truth_gem": 1,
+            "nukelius_chakra_magic": 1
+          },
+          "nominallyReady": {
+            "publish": 10,
+            "ally": 12,
+            "break_ally": 12,
+            "scan": 5,
+            "nukelius_chakra_magic": 10,
+            "truth_gem": 2
+          }
+        },
+        "p6": {
+          "character": "eoril",
+          "side": 1,
+          "active": 8,
+          "null": 1,
+          "chosen": {
+            "publish": 1,
+            "ally_check": 3,
+            "ally": 2,
+            "eoril_trial": 1
+          },
+          "nominallyReady": {
+            "publish": 5,
+            "ally": 8,
+            "break_ally": 8,
+            "ally_check": 4,
+            "eoril_trial": 4,
+            "eoril_flame_shackle": 8,
+            "eoril_phoenix_flame": 8
+          }
+        },
+        "p10": {
+          "character": "consume",
+          "side": 2,
+          "active": 11,
+          "null": 3,
+          "chosen": {
+            "publish": 1,
+            "ally": 4,
+            "consume_final_evolution": 1,
+            "truth_gem": 1,
+            "consume_slave_instinct": 1
+          },
+          "nominallyReady": {
+            "publish": 10,
+            "ally": 6,
+            "break_ally": 10,
+            "attack": 2,
+            "consume_slave_instinct": 10,
+            "consume_master_guard": 7,
+            "consume_final_evolution": 5,
+            "advanced_attack": 5,
+            "truth_gem": 3,
+            "consume_slaughter": 5
+          }
+        }
+      },
+      "unfinished": false
+    },
+    {
+      "inputId": "round063",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 153039,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "candidate",
+      "style": "identical-policy",
+      "counts": {
+        "primary": 13044,
+        "activePrimary": 144,
+        "inactivePrimary": 12900,
+        "chat": 13044,
+        "candidateSetObservations": 1584,
+        "truthAbsentCandidates": 0,
+        "activeNull": 39,
+        "persistedKnownObservations": 290,
+        "wrongPersistedKnown": 0,
+        "reconstructedKnownObservations": 290,
+        "wrongReconstructedKnown": 0
+      },
+      "actors": {
+        "p7": {
+          "character": "nukelius",
+          "side": 1,
+          "active": 12,
+          "null": 4,
+          "chosen": {
+            "publish": 1,
+            "scan": 3,
+            "ally": 2,
+            "nukelius_chakra_magic": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 12,
+            "ally": 12,
+            "break_ally": 12,
+            "scan": 6,
+            "nukelius_chakra_magic": 6,
+            "truth_gem": 1
+          }
+        },
+        "p6": {
+          "character": "kilder",
+          "side": 2,
+          "active": 15,
+          "null": 4,
+          "chosen": {
+            "publish": 1,
+            "ally_check": 4,
+            "ally": 4,
+            "truth_gem": 1,
+            "attack": 1
+          },
+          "nominallyReady": {
+            "publish": 14,
+            "ally": 13,
+            "break_ally": 15,
+            "attack": 12,
+            "ally_check": 9,
+            "kilder_casanova": 2,
+            "truth_gem": 1,
+            "kilder_master_power": 6
+          }
+        },
+        "p3": {
+          "character": "tachin",
+          "side": 1,
+          "active": 14,
+          "null": 6,
+          "chosen": {
+            "publish": 1,
+            "tachin_union": 4,
+            "ally": 2,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 12,
+            "ally": 14,
+            "break_ally": 14,
+            "advanced_attack": 13,
+            "tachin_union": 5,
+            "tachin_neutralize": 13,
+            "truth_gem": 3
+          }
+        },
+        "p8": {
+          "character": "eltas",
+          "side": 2,
+          "active": 10,
+          "null": 1,
+          "chosen": {
+            "publish": 2,
+            "eltas_leadership": 1,
+            "ally": 3,
+            "ally_check": 2,
+            "supreme_attack": 1
+          },
+          "nominallyReady": {
+            "publish": 6,
+            "ally": 10,
+            "break_ally": 10,
+            "supreme_attack": 10,
+            "ally_check": 7,
+            "eltas_leadership": 1
+          }
+        },
+        "p5": {
+          "character": "eoril",
+          "side": 1,
+          "active": 12,
+          "null": 2,
+          "chosen": {
+            "publish": 1,
+            "ally_check": 3,
+            "ally": 3,
+            "eoril_trial": 1,
+            "eoril_flame_shackle": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 10,
+            "ally": 10,
+            "break_ally": 12,
+            "ally_check": 6,
+            "eoril_trial": 7,
+            "eoril_flame_shackle": 8,
+            "eoril_phoenix_flame": 12,
+            "truth_gem": 1
+          }
+        },
+        "p2": {
+          "character": "sasint",
+          "side": 2,
+          "active": 9,
+          "null": 2,
+          "chosen": {
+            "publish": 1,
+            "advanced_ally_check": 1,
+            "ally": 2,
+            "sasint_training": 1,
+            "sasint_battle_mastery": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 8,
+            "ally": 9,
+            "break_ally": 9,
+            "attack": 6,
+            "advanced_ally_check": 7,
+            "sasint_support": 6,
+            "sasint_training": 4,
+            "sasint_battle_mastery": 6,
+            "truth_gem": 3,
+            "advanced_attack": 1
+          }
+        },
+        "p9": {
+          "character": "hermilly",
+          "side": 2,
+          "active": 13,
+          "null": 3,
+          "chosen": {
+            "publish": 1,
+            "scan": 3,
+            "hermilly_seeing_libido": 1,
+            "ally": 3,
+            "hermilly_libido_protection": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 12,
+            "ally": 8,
+            "break_ally": 11,
+            "scan": 7,
+            "hermilly_libido_protection": 7,
+            "hermilly_seeing_libido": 3,
+            "truth_gem": 2
+          }
+        },
+        "p1": {
+          "character": "kane",
+          "side": 1,
+          "active": 13,
+          "null": 5,
+          "chosen": {
+            "publish": 2,
+            "advanced_enemy_check": 3,
+            "attack": 2,
+            "kane_wolfs_slash": 1
+          },
+          "nominallyReady": {
+            "publish": 10,
+            "ally": 13,
+            "break_ally": 13,
+            "attack": 5,
+            "advanced_enemy_check": 7,
+            "kane_wolfs_slash": 6,
+            "truth_gem": 1
+          }
+        },
+        "p4": {
+          "character": "drakan",
+          "side": 2,
+          "active": 11,
+          "null": 5,
+          "chosen": {
+            "publish": 1,
+            "enemy_check": 2,
+            "drakan_enchant_muscle": 1,
+            "ally": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 10,
+            "ally": 9,
+            "break_ally": 10,
+            "enemy_check": 6,
+            "drakan_black_spell": 10,
+            "drakan_enchant_muscle": 5,
+            "truth_gem": 3
+          }
+        },
+        "p10": {
+          "character": "consume",
+          "side": 2,
+          "active": 11,
+          "null": 4,
+          "chosen": {
+            "publish": 1,
+            "consume_slave_instinct": 2,
+            "ally": 3,
+            "consume_final_evolution": 1
+          },
+          "nominallyReady": {
+            "publish": 9,
+            "ally": 9,
+            "break_ally": 11,
+            "attack": 6,
+            "consume_slave_instinct": 7,
+            "consume_master_guard": 11,
+            "consume_final_evolution": 11,
+            "advanced_attack": 5,
+            "truth_gem": 3
+          }
+        },
+        "p11": {
+          "character": "rael",
+          "side": 1,
+          "active": 12,
+          "null": 1,
+          "chosen": {
+            "publish": 3,
+            "ally": 4,
+            "rael_leadership": 1,
+            "rael_eoril_test": 1,
+            "ally_check": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 9,
+            "ally": 8,
+            "break_ally": 10,
+            "attack": 7,
+            "ally_check": 7,
+            "rael_leadership": 2,
+            "rael_eoril_test": 2,
+            "rael_master_power": 5,
+            "truth_gem": 2
+          }
+        },
+        "p12": {
+          "character": "kumarin",
+          "side": 1,
+          "active": 12,
+          "null": 2,
+          "chosen": {
+            "kumarin_commander_guard": 1,
+            "ally": 5,
+            "publish": 1,
+            "ally_check": 2,
+            "kumarin_union": 1
+          },
+          "nominallyReady": {
+            "publish": 10,
+            "ally": 11,
+            "break_ally": 12,
+            "attack": 12,
+            "ally_check": 6,
+            "kumarin_union": 6,
+            "kumarin_binding": 12,
+            "kumarin_commander_guard": 1
+          }
+        }
+      },
+      "unfinished": false
+    },
+    {
+      "inputId": "round069",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 153044,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "variant": "candidate",
+      "style": "identical-policy",
+      "counts": {
+        "primary": 13035,
+        "activePrimary": 146,
+        "inactivePrimary": 12889,
+        "chat": 13035,
+        "candidateSetObservations": 1606,
+        "truthAbsentCandidates": 0,
+        "persistedKnownObservations": 284,
+        "wrongPersistedKnown": 0,
+        "reconstructedKnownObservations": 285,
+        "wrongReconstructedKnown": 0,
+        "activeNull": 44
+      },
+      "actors": {
+        "p4": {
+          "character": "eltas",
+          "side": 2,
+          "active": 16,
+          "null": 5,
+          "chosen": {
+            "publish": 3,
+            "eltas_leadership": 1,
+            "ally": 4,
+            "ally_check": 3
+          },
+          "nominallyReady": {
+            "publish": 11,
+            "ally": 13,
+            "break_ally": 16,
+            "supreme_attack": 13,
+            "ally_check": 8,
+            "eltas_leadership": 1
+          }
+        },
+        "p12": {
+          "character": "eoril",
+          "side": 1,
+          "active": 11,
+          "null": 1,
+          "chosen": {
+            "publish": 1,
+            "ally_check": 2,
+            "ally": 3,
+            "eoril_trial": 1,
+            "eoril_flame_shackle": 2,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 11,
+            "ally": 9,
+            "break_ally": 11,
+            "ally_check": 7,
+            "eoril_trial": 4,
+            "eoril_flame_shackle": 7,
+            "eoril_phoenix_flame": 11,
+            "truth_gem": 1
+          }
+        },
+        "p8": {
+          "character": "hermilly",
+          "side": 2,
+          "active": 11,
+          "null": 4,
+          "chosen": {
+            "publish": 1,
+            "scan": 2,
+            "hermilly_seeing_libido": 1,
+            "ally": 2,
+            "hermilly_libido_protection": 1
+          },
+          "nominallyReady": {
+            "publish": 9,
+            "ally": 8,
+            "break_ally": 11,
+            "scan": 6,
+            "hermilly_libido_protection": 11,
+            "hermilly_seeing_libido": 4,
+            "truth_gem": 2
+          }
+        },
+        "p2": {
+          "character": "nukelius",
+          "side": 1,
+          "active": 10,
+          "null": 2,
+          "chosen": {
+            "publish": 1,
+            "scan": 3,
+            "ally": 3,
+            "nukelius_chakra_magic": 1
+          },
+          "nominallyReady": {
+            "publish": 10,
+            "ally": 7,
+            "break_ally": 10,
+            "scan": 5,
+            "nukelius_chakra_magic": 7
+          }
+        },
+        "p10": {
+          "character": "kumarin",
+          "side": 1,
+          "active": 15,
+          "null": 5,
+          "chosen": {
+            "publish": 1,
+            "ally_check": 3,
+            "ally": 3,
+            "truth_gem": 1,
+            "kumarin_commander_guard": 1,
+            "attack": 1
+          },
+          "nominallyReady": {
+            "publish": 14,
+            "ally": 12,
+            "break_ally": 15,
+            "attack": 15,
+            "ally_check": 9,
+            "kumarin_union": 15,
+            "kumarin_binding": 15,
+            "kumarin_commander_guard": 14,
+            "truth_gem": 1
+          }
+        },
+        "p5": {
+          "character": "rael",
+          "side": 1,
+          "active": 15,
+          "null": 3,
+          "chosen": {
+            "publish": 3,
+            "rael_leadership": 1,
+            "ally": 4,
+            "ally_check": 3,
+            "rael_eoril_test": 1
+          },
+          "nominallyReady": {
+            "publish": 10,
+            "ally": 13,
+            "break_ally": 14,
+            "attack": 11,
+            "ally_check": 10,
+            "rael_leadership": 1,
+            "rael_eoril_test": 1,
+            "rael_master_power": 3
+          }
+        },
+        "p9": {
+          "character": "kane",
+          "side": 1,
+          "active": 12,
+          "null": 3,
+          "chosen": {
+            "publish": 4,
+            "advanced_enemy_check": 3,
+            "attack": 2
+          },
+          "nominallyReady": {
+            "publish": 7,
+            "ally": 10,
+            "break_ally": 10,
+            "attack": 4,
+            "advanced_enemy_check": 6,
+            "kane_wolfs_slash": 4
+          }
+        },
+        "p3": {
+          "character": "drakan",
+          "side": 2,
+          "active": 9,
+          "null": 3,
+          "chosen": {
+            "publish": 1,
+            "drakan_enchant_muscle": 1,
+            "ally": 2,
+            "truth_gem": 1,
+            "drakan_black_spell": 1
+          },
+          "nominallyReady": {
+            "publish": 7,
+            "ally": 6,
+            "break_ally": 7,
+            "enemy_check": 7,
+            "drakan_black_spell": 7,
+            "drakan_enchant_muscle": 2,
+            "truth_gem": 1
+          }
+        },
+        "p11": {
+          "character": "sasint",
+          "side": 2,
+          "active": 9,
+          "null": 1,
+          "chosen": {
+            "publish": 1,
+            "advanced_ally_check": 2,
+            "ally": 2,
+            "sasint_training": 1,
+            "attack": 1,
+            "sasint_battle_mastery": 1
+          },
+          "nominallyReady": {
+            "publish": 8,
+            "ally": 8,
+            "break_ally": 9,
+            "attack": 7,
+            "advanced_ally_check": 9,
+            "sasint_support": 8,
+            "sasint_training": 4,
+            "sasint_battle_mastery": 8,
+            "truth_gem": 2
+          }
+        },
+        "p6": {
+          "character": "kilder",
+          "side": 2,
+          "active": 13,
+          "null": 4,
+          "chosen": {
+            "publish": 1,
+            "ally_check": 3,
+            "ally": 3,
+            "truth_gem": 1,
+            "kilder_casanova": 1
+          },
+          "nominallyReady": {
+            "publish": 10,
+            "ally": 13,
+            "break_ally": 13,
+            "attack": 12,
+            "ally_check": 5,
+            "kilder_casanova": 6,
+            "truth_gem": 1
+          }
+        },
+        "p1": {
+          "character": "tachin",
+          "side": 1,
+          "active": 14,
+          "null": 9,
+          "chosen": {
+            "publish": 1,
+            "tachin_union": 1,
+            "ally": 1,
+            "truth_gem": 1,
+            "tachin_neutralize": 1
+          },
+          "nominallyReady": {
+            "publish": 12,
+            "ally": 14,
+            "break_ally": 14,
+            "advanced_attack": 14,
+            "tachin_union": 3,
+            "tachin_neutralize": 13,
+            "truth_gem": 1
+          }
+        },
+        "p7": {
+          "character": "consume",
+          "side": 2,
+          "active": 11,
+          "null": 4,
+          "chosen": {
+            "publish": 1,
+            "consume_slave_instinct": 2,
+            "ally": 3,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 7,
+            "ally": 10,
+            "break_ally": 11,
+            "attack": 5,
+            "consume_slave_instinct": 7,
+            "consume_master_guard": 11,
+            "consume_final_evolution": 11,
+            "advanced_attack": 6,
+            "truth_gem": 1
+          }
+        }
+      },
+      "unfinished": false
+    },
+    {
+      "inputId": "round069",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 153059,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "variant": "candidate",
+      "style": "identical-policy",
+      "counts": {
+        "primary": 10690,
+        "activePrimary": 124,
+        "inactivePrimary": 10566,
+        "chat": 10690,
+        "candidateSetObservations": 1364,
+        "truthAbsentCandidates": 0,
+        "activeNull": 31,
+        "persistedKnownObservations": 234,
+        "wrongPersistedKnown": 0,
+        "reconstructedKnownObservations": 236,
+        "wrongReconstructedKnown": 0
+      },
+      "actors": {
+        "p6": {
+          "character": "nukelius",
+          "side": 1,
+          "active": 10,
+          "null": 2,
+          "chosen": {
+            "publish": 1,
+            "scan": 3,
+            "ally": 3,
+            "nukelius_chakra_magic": 1
+          },
+          "nominallyReady": {
+            "publish": 9,
+            "ally": 9,
+            "break_ally": 10,
+            "scan": 5,
+            "nukelius_chakra_magic": 7
+          }
+        },
+        "p10": {
+          "character": "eltas",
+          "side": 2,
+          "active": 9,
+          "null": 1,
+          "chosen": {
+            "publish": 2,
+            "eltas_leadership": 1,
+            "ally": 3,
+            "ally_check": 2
+          },
+          "nominallyReady": {
+            "publish": 6,
+            "ally": 9,
+            "break_ally": 9,
+            "supreme_attack": 9,
+            "ally_check": 7,
+            "eltas_leadership": 1
+          }
+        },
+        "p4": {
+          "character": "hermilly",
+          "side": 2,
+          "active": 9,
+          "null": 3,
+          "chosen": {
+            "publish": 1,
+            "scan": 2,
+            "hermilly_seeing_libido": 1,
+            "hermilly_libido_protection": 1,
+            "ally": 1
+          },
+          "nominallyReady": {
+            "publish": 5,
+            "ally": 9,
+            "break_ally": 9,
+            "scan": 4,
+            "hermilly_libido_protection": 8,
+            "hermilly_seeing_libido": 5
+          }
+        },
+        "p11": {
+          "character": "kumarin",
+          "side": 1,
+          "active": 16,
+          "null": 4,
+          "chosen": {
+            "publish": 1,
+            "ally_check": 3,
+            "ally": 4,
+            "kumarin_union": 2,
+            "kumarin_commander_guard": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 14,
+            "ally": 14,
+            "break_ally": 16,
+            "attack": 15,
+            "ally_check": 8,
+            "kumarin_union": 11,
+            "kumarin_binding": 16,
+            "kumarin_commander_guard": 13,
+            "truth_gem": 4
+          }
+        },
+        "p5": {
+          "character": "rael",
+          "side": 1,
+          "active": 9,
+          "null": 0,
+          "chosen": {
+            "publish": 3,
+            "rael_leadership": 1,
+            "ally": 3,
+            "rael_eoril_test": 1,
+            "ally_check": 1
+          },
+          "nominallyReady": {
+            "publish": 4,
+            "ally": 8,
+            "break_ally": 9,
+            "attack": 6,
+            "ally_check": 8,
+            "rael_leadership": 1,
+            "rael_eoril_test": 1,
+            "rael_master_power": 3
+          }
+        },
+        "p2": {
+          "character": "eoril",
+          "side": 1,
+          "active": 17,
+          "null": 4,
+          "chosen": {
+            "publish": 1,
+            "ally_check": 4,
+            "ally": 5,
+            "eoril_trial": 1,
+            "eoril_flame_shackle": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 14,
+            "ally": 14,
+            "break_ally": 17,
+            "ally_check": 5,
+            "eoril_trial": 4,
+            "eoril_flame_shackle": 11,
+            "eoril_phoenix_flame": 17,
+            "truth_gem": 1
+          }
+        },
+        "p12": {
+          "character": "kane",
+          "side": 1,
+          "active": 12,
+          "null": 5,
+          "chosen": {
+            "publish": 2,
+            "advanced_enemy_check": 2,
+            "attack": 3
+          },
+          "nominallyReady": {
+            "publish": 10,
+            "ally": 11,
+            "break_ally": 11,
+            "attack": 5,
+            "advanced_enemy_check": 5,
+            "kane_wolfs_slash": 4
+          }
+        },
+        "p9": {
+          "character": "kilder",
+          "side": 2,
+          "active": 10,
+          "null": 2,
+          "chosen": {
+            "publish": 1,
+            "ally_check": 2,
+            "ally": 2,
+            "attack": 2,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 9,
+            "ally": 9,
+            "break_ally": 10,
+            "attack": 9,
+            "ally_check": 7,
+            "kilder_casanova": 6,
+            "truth_gem": 2
+          }
+        },
+        "p1": {
+          "character": "drakan",
+          "side": 2,
+          "active": 11,
+          "null": 6,
+          "chosen": {
+            "publish": 1,
+            "enemy_check": 2,
+            "ally": 1,
+            "drakan_enchant_muscle": 1
+          },
+          "nominallyReady": {
+            "publish": 7,
+            "ally": 7,
+            "break_ally": 9,
+            "enemy_check": 5,
+            "drakan_black_spell": 9,
+            "drakan_enchant_muscle": 8
+          }
+        },
+        "p7": {
+          "character": "tachin",
+          "side": 1,
+          "active": 8,
+          "null": 4,
+          "chosen": {
+            "publish": 1,
+            "tachin_union": 1,
+            "ally": 1,
+            "truth_gem": 1
+          },
+          "nominallyReady": {
+            "publish": 5,
+            "ally": 8,
+            "break_ally": 8,
+            "advanced_attack": 8,
+            "tachin_union": 2,
+            "tachin_neutralize": 8,
+            "truth_gem": 1
+          }
+        },
+        "p8": {
+          "character": "sasint",
+          "side": 2,
+          "active": 9,
+          "null": 0,
+          "chosen": {
+            "publish": 1,
+            "advanced_ally_check": 2,
+            "ally": 3,
+            "sasint_support": 1,
+            "sasint_training": 1,
+            "sasint_battle_mastery": 1
+          },
+          "nominallyReady": {
+            "publish": 8,
+            "ally": 7,
+            "break_ally": 9,
+            "attack": 9,
+            "advanced_ally_check": 7,
+            "sasint_support": 5,
+            "sasint_training": 7,
+            "sasint_battle_mastery": 9,
+            "truth_gem": 1
+          }
+        },
+        "p3": {
+          "character": "consume",
+          "side": 2,
+          "active": 4,
+          "null": 0,
+          "chosen": {
+            "publish": 1,
+            "ally": 3
+          },
+          "nominallyReady": {
+            "publish": 4,
+            "ally": 4,
+            "break_ally": 4,
+            "attack": 1,
+            "consume_slave_instinct": 4,
+            "consume_master_guard": 4,
+            "consume_final_evolution": 4,
+            "advanced_attack": 3,
+            "truth_gem": 2
+          }
+        }
+      },
+      "unfinished": false
+    }
+  ],
+  "rawSHA256": "f2e9108b7348080a4276cd8c8f11db56bb46575830cf9112551f456bb2f46602",
+  "journalSHA256": "cb7e5b41d119a6c1ec337a3cdf46421401be067c648d942878049f315f845373",
+  "limitations": [
+    "Selected capped games and paired policies are failure diagnostics, not population estimates.",
+    "Activity-gate and nominal readiness do not establish target-specific legal alternative opportunities.",
+    "Target resources are external grading after choice; legacy reconstructed knowledge is not asserted to be its exact decision belief."
+  ]
+}

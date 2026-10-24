@@ -35,11 +35,11 @@
     "unfinished": 4
   },
   "round": 72,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round072-guardian-own-choice-replay",
   "startedAt": "2026-10-24T14:46:49.195023+09:00",
-  "leaseUntil": "2026-10-24T15:05:00+09:00",
-  "completedAt": null,
+  "leaseUntil": null,
+  "completedAt": "2026-10-24T14:48:28.800178+09:00",
   "record": "docs/ai-rounds/ROUND_072_20261024_1446.md",
   "task": "사망 전 보호자의 자기 지식·자원·실제 선택 진단",
   "previousCompleted": {
@@ -48,9 +48,9 @@
     "resultHead": "ddc169836ce0bf22a04de67700369456ff020a1a"
   },
   "sourceRef": "1ad149dfc12ba6c391e85de328d0e4715b736f94",
-  "checkpoint": "registered_before_first_selected_replay",
-  "phase": "frozen_failure_diagnostic",
-  "executions": 0,
+  "checkpoint": "complete_verified_and_archived",
+  "phase": "completed",
+  "executions": 4,
   "targetExecutions": 4,
   "newResearchExecutions": 0,
   "checks": {
@@ -77,11 +77,12 @@
   "runtime": {
     "output": "/tmp/round072-guardians.json",
     "processAlive": false,
-    "newResearchExecutions": 0
+    "newResearchExecutions": 0,
+    "completedAt": "2026-10-24T14:48:28.800178+09:00"
   },
   "nextHypothesis": "직전 선택에서 확정 정체가 부족했다면 실제 수신 보고·발신자 신뢰·확인 경로를 분리하고, 준비된 확정 제안이 있었다면 상위 선택과 실제 합법성을 먼저 확인한다.",
   "nextRoundStarted": false,
   "cumulativeScope": "Complete069 added once; partial/synthetic/replay excluded.",
-  "nextAction": "사망 시 미기동·명목 준비 사례가 있다면 본인 직전 활성 선택의 자기 지식·마나·대상 합법성·선택 우선순위를 진단한다.",
+  "nextAction": "직전 선택에서 확정 정체가 부족했다면 실제 수신 보고·발신자 신뢰·확인 경로를 분리하고, 준비된 확정 제안이 있었다면 상위 선택과 실제 합법성을 먼저 확인한다.",
   "analysisSourceRef": "fe42521fb3cd22b2ed0a0bd93114362f24531b1d"
 }
