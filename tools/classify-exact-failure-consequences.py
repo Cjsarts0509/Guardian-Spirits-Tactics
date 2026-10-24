@@ -17,7 +17,8 @@ def classify(raw_path,recasts_path,proof_path):
         assert on['failedTargetPurify']['targetAlive'] and on['priorTargetPurify']['targetAlive']!=on['existingMarker']
         assert on['finalMarker']==on['priorSuccessfulTarget']
         assert len(on['failureReceipts'])==2 and all(r['accepted'] for r in on['failureReceipts'])
-        points=on['points'];assert len(points)==10 and all(p['externalGradingOnly'] and p['observerUnchanged'] and p['unrelatedReaderPrivateChaosEvents']==0 for p in points)
+        points=on['points'];assert [p['stage'] for p in points]==['first-request','first-result']+['failure-request','before-failure-due','failure-result']*2
+        assert all(p['externalGradingOnly'] and p['observerUnchanged'] and p['unrelatedReaderPrivateChaosEvents']==0 for p in points)
         for p in points[2:]:assert p['externalMarker']==on['priorSuccessfulTarget']
         result=[e for e in points[-1]['ownChaosEvents'] if e['kind']=='skill.chaos_hex.result'][-2:]
         assert len(result)==2 and all(e['data']=={'target':on['failureTarget'],'success':False} and not e.get('facts') for e in result)
