@@ -1,6 +1,7 @@
 import {observeIntel, type BotIntel} from './bot-intel.js';
 import {observeClaimTurnCommitment} from './bot-claim-commitment.js';
 import {observeOwnAttack, type OwnAttackMemory} from './bot-own-attack.js';
+import {observeOwnDelayedCheck, type OwnDelayedCheckMemory} from './bot-own-delayed-check.js';
 import type { CharKey, GameEvent, PlayerId } from './types.js';
 import type { PlayerView } from './engine/view.js';
 import type { AssignmentBelief } from './bot-belief.js';
@@ -37,6 +38,8 @@ export interface BotPerception {
   directCheckReaction?: {seq:number;at:number;target:string;name:CharKey};
   /** Optional direct evidence linking one's own named attack to a visible successful outcome. */
   ownAttacks?: OwnAttackMemory;
+  /** 기본OFF: 자기 지연 확인의 접수와 실제 결과. 정체 확정/행동 억제와 분리한다. */
+  ownDelayedChecks?: OwnDelayedCheckMemory;
   battle: BattleMemory;
   intel?: BotIntel;
   lastBurn?: { target: PlayerId; at: number };
@@ -63,7 +66,7 @@ export function createBotMemory(seed: number): BotMemory {
  * 지속되는 실제 봇 기억은 기본값으로 모든 관측 스킬/쿨다운을 기록한다.
  */
 export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[], memory: BotMemory,
-  options: { recordBattle?: boolean; claimTurnCommitment?: boolean; directCheckFollowup?:boolean; learnOwnAttackOutcome?:boolean } = {}): Knowledge {
+  options: { recordBattle?: boolean; claimTurnCommitment?: boolean; directCheckFollowup?:boolean; learnOwnAttackOutcome?:boolean; rememberOwnDelayedCheck?:boolean } = {}): Knowledge {
   let p = memory.perception;
   if (!p || p.playerId !== view.me.id || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs) {
     memory.plan = undefined;
@@ -81,6 +84,10 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
   if (options.learnOwnAttackOutcome === false) delete p.ownAttacks;
   if (options.learnOwnAttackOutcome === true) p.ownAttacks ??= { proofs: new Map() };
   observeOwnAttack(view, events, memory);
+  if(options.rememberOwnDelayedCheck===false)delete p.ownDelayedChecks;
+  if(options.rememberOwnDelayedCheck===true&&view.mode==='troll'&&view.me.character==='kanulla')
+    p.ownDelayedChecks??={lastSeq:0,records:[]};
+  if(p.ownDelayedChecks)observeOwnDelayedCheck(view,events,p.ownDelayedChecks);
   for (const e of events) {
     if (e.seq <= p.lastSeq || !(e.vis.to === 'all' || (e.vis.to === 'players' && e.vis.ids.includes(view.me.id)))) continue;
     if (options.recordBattle !== false) observeBattle(view, e, p.battle);
