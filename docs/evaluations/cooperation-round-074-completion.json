@@ -1,0 +1,114 @@
+{
+  "kind": "round074-pinned-main-comparison-completion",
+  "completedAt": "2026-10-24T17:45:56.218641+09:00",
+  "sourceRef": "426a91a49df41d76de3ae9a373ffbf23cb2efc26",
+  "candidateRef": "f29949ba12b9a6929e9bb129a068081cdc58d53d",
+  "mainRef": "a92d9bb32d4d302b11eb839fd71f84974f7070cb",
+  "executions": 100,
+  "terminated": 100,
+  "unfinished": 0,
+  "newResearchExecutions": 100,
+  "newReplayedGamesCounted": 0,
+  "primaryDatasets": 39,
+  "cumulativeExecutions": 52004,
+  "cumulativeTerminated": 52000,
+  "cumulativeUnfinished": 4,
+  "candidateWins": 35,
+  "mainWins": 65,
+  "candidateOptions": {
+    "verifyIncomingAllies": "commander-report-first",
+    "rememberOwnDelayedCheck": true,
+    "learnOwnDelayedFailureFaction": true
+  },
+  "candidateScore95": [
+    0.29,
+    0.41
+  ],
+  "independentSeeds": 40,
+  "completeExchange": {
+    "games": 80,
+    "candidateWins": 26,
+    "mainWins": 54,
+    "unfinished": 0
+  },
+  "singletonExtras": {
+    "games": 20,
+    "candidateWins": 9,
+    "mainWins": 11,
+    "unfinished": 0
+  },
+  "manifest": {
+    "docs/evaluations/cooperation-round-074-main-comparison.json.gz": {
+      "sha256": "d8cc5bdeb4e554c2298f56d25d5e31fdcb86393408bcaf804935ec283684379e",
+      "bytes": 4400149,
+      "decodedSHA256": "eb2844639fbad04440ee4251a6964bcab70479ac77e1be308aad0ae4ac003933",
+      "decodedBytes": 148866123
+    },
+    "docs/evaluations/cooperation-round-074-main-comparison.journal.ndjson.gz": {
+      "sha256": "96bd2f9de306e5f098191e9c595896b3c0985ab4f15dd2f1374e048793e60e84",
+      "bytes": 2539846,
+      "decodedSHA256": "50752d7784124cf9a35cf2c951eb348604f4264f6546c46c5a1ff515e3abe788",
+      "decodedBytes": 62421094
+    },
+    "docs/evaluations/cooperation-round-074-resume-check.json.gz": {
+      "sha256": "a5b6bb466f99093110e8306c5b443a940a20101b169bfe2f7478a4d6e00353bd",
+      "bytes": 861,
+      "decodedSHA256": "5f82366658a88411c2ca7ca9c177817514d0027a4519b67567402d1c2ad976a9",
+      "decodedBytes": 3244
+    },
+    "docs/evaluations/cooperation-round-074-replay-check.json.gz": {
+      "sha256": "33d2ee4837692abfa43b8a4f9e76e8f67f5f2d9e627c0a22c12034679d4305a5",
+      "bytes": 267,
+      "decodedSHA256": "0b245015bccda00f6c4d662c7f6d0eaaa592e77db2321515115ff6ed484ad2cd",
+      "decodedBytes": 1067
+    },
+    "docs/evaluations/cooperation-round-074-main-comparison.publication.json": {
+      "sha256": "d83b8ac4b968fdf956c31556cb401f92632f7e1b8060046c5d213df41f5b460e",
+      "bytes": 319
+    },
+    "docs/evaluations/cooperation-round-074-summary.json": {
+      "sha256": "6dc31985ed639d5d6ee06a99e643b94054d7b19ceaab9e8d7a6f3d6d007a503f",
+      "bytes": 13147
+    },
+    "docs/evaluations/cooperation-round-074-plan.json": {
+      "sha256": "03bb87a646c8602d662c7eead65c1aa68911bfad865eb9f88d941e4d17119798",
+      "bytes": 13617
+    },
+    "docs/evaluations/cooperation-round-074-preflight.json.gz": {
+      "sha256": "04ae2e01181f813b0689cf5051457141edefeb20215da31afb7105c3097c2bae",
+      "bytes": 1198,
+      "decodedSHA256": "ca749ec56117c5488e8b46d82396406aeb4cad6c93d92573843067fa1e3b5216"
+    },
+    "tools/verify-main-comparison.py": {
+      "sha256": "f94ce195f88c7bfe1cc13d395bbfdff84227f846455db9ee6966f38f5f3aaa96",
+      "bytes": 10966
+    },
+    "tools/merge-main-comparison.mjs": {
+      "sha256": "9026b62e15279ee6bf0a29c48b5838b679f80c80f4190ab44d778af95fb3a15e",
+      "bytes": 2789
+    }
+  },
+  "checks": {
+    "rulesTests": 719,
+    "serverTests": 75,
+    "typecheckPackages": 4,
+    "builds": [
+      "server",
+      "client",
+      "hostWorker"
+    ],
+    "observerOnOffEquivalentModes": 4,
+    "exactFullOriginalGameReplays": 4,
+    "semanticTamperRejected": 6,
+    "completedResumeNewGames": 0,
+    "resumeExportHashesUnchanged": 12
+  },
+  "findings": "최신 검증 후보는 정확한 main 코드와의100경기에서35승·65패였다. 내전7/25·태초11/25·황야12/25·트롤5/25이며 모두 정상 종료했다. 완전 진영/순서4교환80경기만 보면후보26승·main54승이다. 후보 오확정0/21794·후보집합의 실제정체 오소거0/69207·실제 보고1141건의 오이름/자기지식 미지지/미확정·적 수신자0·적 동맹0/721이지만 종합 대전 성능은 main보다 열세다. 이는 기존 기억·논리 기능의 정확성을 폐기하거나 원인을 단일 옵션/스킬 수치로 단정할 근거는 아니다.",
+  "shortFinding": "최신 검증 후보는 정확한 main 코드와의100경기에서35승·65패였다. 내전7/25·태초11/25·황야12/25·트롤5/25이며 모두 정상 종료했다. 완전 진영/순서4교환80경기만 보면후보26승·main54승이다. 후보 오확정0/21794·후보집합의 실제정체 오소거0/69207·실제 보고1141건의 오이름/자기지식 미지지/미확정·적 수신자0·적 동맹0/721이지만 종합 대전 성능은 main보다 열세다. 이는 기존 기억·논리 기능의 정확성을 폐기하거나 원인을 단일 옵션/스킬 수치로 단정할 근거는 아니다.",
+  "humanMatches": 0,
+  "skillValuesChanged": false,
+  "productionDefaultOn": false,
+  "deployed": false,
+  "nextRoundStarted": false,
+  "nextHypothesis": "추가 진단 시 별도 새 표본을 고정하여 협력·공표와 확인 후 전투 전환의 기회비용을 분리한다. 이번100경기 결과로 정책을 재튜닝하지 않으며 후속 실험은 착수하지 않았다."
+}
