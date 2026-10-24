@@ -17,8 +17,8 @@
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "record": "docs/ai-rounds/ROUND_062_20261024_0943.md",
-  "checkpoint": "production061_unchanged_new_collector_2_regressions_and10tamper_passed",
-  "phase": "preflight_passed_freezing",
+  "checkpoint": "null_intake_first_followup_regression_and12tamper_passed",
+  "phase": "evaluator_followup_fix_freezing",
   "executions": 0,
   "targetExecutions": 1152,
   "cumulativeExecutions": 48832,
@@ -64,11 +64,16 @@
     "productionSameAs061": true,
     "inheritedFullTests": 778,
     "newCollectorTests": 2,
-    "independentTamperRejected": 10,
+    "independentTamperRejected": 12,
     "rulesTypecheck": true,
     "productionCI061": "success"
   },
-  "runtime": {},
+  "runtime": {
+    "oldSyntheticPID": 63,
+    "oldSyntheticSource": "c05cc6cc4b35888414f269291d37b270adb0a76b",
+    "oldSyntheticOutput": "/tmp/round062-store-synthetic.json",
+    "newResearchExecutions": 0
+  },
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0

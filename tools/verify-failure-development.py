@@ -67,8 +67,11 @@ def validate(r):
  assert r['counters']['knownChecks']>=r['counters']['wrongKnown']>=0
  for follow in r['followups']:
   p=r['probes'][follow['probe']];a=actions[follow['ordinal']]
-  assert follow['ordinal']>p['ordinal'] and follow['actor']==p['actor']==a['player'] and follow['action']==a['action'] and follow['at']==a['at'] and follow['accepted']==a['accepted']
+  assert (follow['ordinal']>p['ordinal'] or follow['ordinal']==p['ordinal'] and p['chosenAction'] is None) and follow['actor']==p['actor']==a['player'] and follow['action']==a['action'] and follow['at']==a['at'] and follow['accepted']==a['accepted']
+  assert follow['at']>=p['at'] and follow['target'] in {e['target'] for e in p['evidence']}|{t for t,n in p['newExact']}
+  assert follow['target']==(a['action'].get('target') if a['action']['type']=='skill' else a['reportTarget'])
   assert follow['actualName']==roles[follow['target']]['character']
+  if a['action']['type']=='chat':assert follow['knownName']==a['reportKnown']
   if follow['knownName']:assert follow['knownName']==follow['actualName']
  return intake
 

@@ -83,7 +83,7 @@ export function playFailureDevelopment(fixture:Fixture,style:ClaimStyle,variant:
    reportTarget,reportedName,reportKnown:reportTarget?b.known.get(reportTarget)??null:null,reportActual:reportTarget?s.players.find(p=>p.id===reportTarget)!.character:null});
   collect(s);
   if(observe&&b.view.me.side===fixture.currentSide)for(let i=0;i<probes.length;i++){
-   const probe=probes[i];if(probe.actor!==id||probe.ordinal>=ordinal)continue;
+   const probe=probes[i];if(probe.actor!==id||ordinal<probe.ordinal||ordinal===probe.ordinal&&probe.chosenAction!==null)continue;
    const targets=new Set([...probe.evidence.map((e:any)=>e.target),...probe.newExact.map((e:any)=>e[0])]);
    const target=a.type==='skill'?a.target:reportTarget;if(!target||!targets.has(target))continue;
    const name=b.known.get(target)??null;followups.push({probe:i,ordinal,actor:id,at:b.view.elapsedMs,target,action:a,accepted:result.ok,knownName:name,

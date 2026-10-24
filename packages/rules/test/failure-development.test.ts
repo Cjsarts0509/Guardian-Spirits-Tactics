@@ -22,4 +22,7 @@ it('062 control preserves previous055 candidate complete match/commands with the
  const on=playFailureDevelopment(f,'truthful','candidate'),off=playFailureDevelopment(f,'truthful','candidate',undefined,false);
  for(const key of ['game','actions','resources','memoryTraceSHA256'] as const)expect(on[key]).toEqual(off[key]);
  expect(on.counters.firstFailures).toBeGreaterThan(0);expect(on.counters.wrongNewElimination).toBe(0);
+ // The intake produced no command, so its ordinal is the next real command, not an earlier action.
+ const first=on.probes[0]!;expect(first.chosenAction).toBe(null);
+ expect(on.followups.some(x=>x.ordinal===first.ordinal&&x.kind==='direct_report'&&x.knownName===x.actualName)).toBe(true);
 },30000);
