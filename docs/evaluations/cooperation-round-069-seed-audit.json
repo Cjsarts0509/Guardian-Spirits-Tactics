@@ -1,0 +1,39 @@
+{
+  "kind": "round069-independent-balance-replication-registration",
+  "registeredAt": "2026-10-24T14:01:56.671186+09:00",
+  "expectedHead": "d179cfc9321ef4e8e56add6ca1168ce07afb2434",
+  "fixedSourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
+  "previousLedgerPath": "docs/evaluations/cooperation-round-063-cumulative-audit.json",
+  "previousLedgerSHA256": "d2f41ac9bf618f5a0ea8af31a08af43eae18b75764189faab995eea36f17a96e",
+  "previousExecutions": 50944,
+  "priorIndependentBlock": [
+    153000,
+    153039
+  ],
+  "developmentSeeds": {
+    "start": 153040,
+    "count": 40,
+    "end": 153079,
+    "executions": 960,
+    "status": "registered_unused"
+  },
+  "holdoutUntouched": [
+    121000,
+    121015
+  ],
+  "reserved152000Untouched": [
+    152016,
+    152079
+  ],
+  "optionsSHA256": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161",
+  "fingerprint": "65536001f0765f4a217cd40e8cbb16b3ce92e417023b4a3e541dabd3e43bf158",
+  "parallelPlanSHA256": "1433359cc21ab92192f765efff711a5d079db06c2e090cbe57809b6589fe8e1c",
+  "orchestrationHashes": {
+    "tools/prepare-failure-selfplay-replication.mjs": "032591ff59e95172572dada8be82cdadaa30ab6553ca620e45e25aebf713e1b5",
+    "tools/parallel-failure-selfplay.mjs": "bbf583a05d8bcb21c8a3fb832d020d10788f4abd0c567b2566d560fcb6761d47",
+    "tools/run-failure-selfplay-shards.py": "a9d60f6428bbe3571dd8a16a7b6744c89cf189345cad5e62bf48e1e3bd929cd1"
+  },
+  "newGamesBeforePublication": 0,
+  "outcomeDependentStopping": false,
+  "selectionRule": "Next disjoint40 development seeds, all4 modes, balanced8–12 players, both seat orders, all3 identical policies. No final data or adaptation; source/options unchanged from063."
+}

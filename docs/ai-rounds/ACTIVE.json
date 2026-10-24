@@ -34,30 +34,50 @@
     "terminated": 50940,
     "unfinished": 4
   },
-  "round": 68,
-  "status": "completed",
-  "owner": "round068-failure-purify-consequence",
-  "startedAt": "2026-10-24T13:52:14.464771+09:00",
-  "leaseUntil": null,
-  "completedAt": "2026-10-24T14:01:05.231475+09:00",
-  "record": "docs/ai-rounds/ROUND_068_20261024_1352.md",
-  "task": "정확 실패 재시전의 정화 표식 효과를 실제 엔진으로 검증",
+  "round": 69,
+  "status": "in_progress",
+  "owner": "round069-independent-identical-policy-replication",
+  "startedAt": "2026-10-24T14:01:56.671186+09:00",
+  "leaseUntil": "2026-10-24T15:05:00+09:00",
+  "completedAt": null,
+  "record": "docs/ai-rounds/ROUND_069_20261024_1401.md",
+  "task": "같은 정책 진영 편향의 새40개발시드 독립 재검증",
   "previousCompleted": {
-    "round": 67,
-    "record": "docs/ai-rounds/ROUND_067_20261024_1349.md",
-    "resultHead": "9dd232a8c2c25022df0f03e6b1a9cb27f73b08d6"
+    "round": 68,
+    "record": "docs/ai-rounds/ROUND_068_20261024_1352.md",
+    "resultHead": "d179cfc9321ef4e8e56add6ca1168ce07afb2434"
   },
-  "sourceRef": "17e387a0965381d043d3500e410935588cd06b64",
-  "checkpoint": "engine_consequences_and_existing_witnesses_verified_archived",
-  "phase": "completed",
+  "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
+  "checkpoint": "registered_before_first_game",
+  "phase": "frozen_balance_development_replication",
   "executions": 0,
+  "targetExecutions": 960,
   "newResearchExecutions": 0,
+  "checks": {
+    "fixedSourceFullTests": 783,
+    "typechecks": 4,
+    "builds": [
+      "server",
+      "client",
+      "hostWorker"
+    ],
+    "ci": "success",
+    "cardUI": "success"
+  },
+  "seedUse": {
+    "development": {
+      "start": 153040,
+      "count": 40,
+      "status": "registered_unused"
+    }
+  },
   "runtime": {
+    "fixedSourceWorktree": "/tmp/gst-round063-calibration",
+    "developmentOutput": "/tmp/round069-development.json",
+    "shards": "/tmp/gst-round069-shards",
     "processAlive": false,
     "newResearchExecutions": 0
   },
-  "nextHypothesis": "고정된 동일 정책의 모드·인원 진영 편향을 새 개발 시드에서 독립 재검증한다.",
-  "nextRoundStarted": false,
-  "classifierSourceRef": "66d56778bdc6981e692f534c5417bdfb0357c18d",
-  "nextAction": "고정된 동일 정책의 모드·인원 진영 편향을 새 개발 시드에서 독립 재검증한다."
+  "nextHypothesis": "태초 지휘관 사망을 실제 엔진의 명명/비명명/지연 경계로 추적해 보호와 사망 원인을 분리한다.",
+  "nextRoundStarted": false
 }
