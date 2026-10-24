@@ -1,0 +1,52 @@
+{
+  "round": 67,
+  "completedAt": "2026-10-24T13:50:25.067655+09:00",
+  "sourceRef": "35fdce5d9bee239a3444698589083a14e52ab796",
+  "analysisSHA256": "c76d49dcbd208ddad9d2a203fd98ae3e8510fb51275eda777051e86b76c04984",
+  "inputSHA256": "4b44eb86285df1eb83ea02ea36d6391f92fa19e525a26b130d22706618fa256f",
+  "optionsSHA256ByInput": {
+    "round062": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161",
+    "round063": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161"
+  },
+  "analyzedExistingReplays": 3,
+  "newResearchExecutions": 0,
+  "newReplays": 0,
+  "newPrimaryDatasets": 0,
+  "repeatBytesIdentical": true,
+  "countsByScope": {
+    "observer-reconstruction-from-legacy-own-memory": {
+      "actorsAcrossGames": 16,
+      "active": 782,
+      "null": 681,
+      "nullAllAttacksManaInsufficient": 487,
+      "nullAttackSkillsReady": 124,
+      "nullReadyWithOwnKnownEnemy": 0,
+      "nullNoAttackSkills": 55
+    },
+    "current-policy-own-update": {
+      "actorsAcrossGames": 8,
+      "active": 1076,
+      "null": 924,
+      "nullAllAttacksManaInsufficient": 356,
+      "nullAttackSkillsReady": 38,
+      "nullReadyWithOwnKnownEnemy": 0,
+      "nullNoAttackSkills": 500
+    }
+  },
+  "shortFinding": "observer-reconstruction-from-legacy-own-memory: 활성782·대기681, 대기 중 모든 공격 마나 미달487, 명목 공격 준비124, 준비+자기 확정 적0; current-policy-own-update: 활성1076·대기924, 대기 중 모든 공격 마나 미달356, 명목 공격 준비38, 준비+자기 확정 적0를 분리했다. 준비+확정 적도 대상별 합법성·보호·우선순위를 확인하기 전에는 미이행으로 판정하지 않는다. 과거 상대 정책의 자원 부족을 현재 후보의 오류로 세지 않았다.",
+  "findings": "observer-reconstruction-from-legacy-own-memory: 활성782·대기681, 대기 중 모든 공격 마나 미달487, 명목 공격 준비124, 준비+자기 확정 적0; current-policy-own-update: 활성1076·대기924, 대기 중 모든 공격 마나 미달356, 명목 공격 준비38, 준비+자기 확정 적0를 분리했다. 준비+확정 적도 대상별 합법성·보호·우선순위를 확인하기 전에는 미이행으로 판정하지 않는다. 과거 상대 정책의 자원 부족을 현재 후보의 오류로 세지 않았다.",
+  "manifest": {
+    "docs/evaluations/cooperation-round-067-own-constraints.json.gz": {
+      "bytes": 2368,
+      "sha256": "001a0c12e2f7255331e06037eab5dab9c0fb73996d7c031cddc0a08ad33fbff3",
+      "decodedSHA256": "04c511d377ce656b6e967f7b14088af8116c9d2326247eb38ceb240409617f78"
+    }
+  },
+  "cumulativeExecutions": 50944,
+  "cumulativeTerminated": 50940,
+  "cumulativeUnfinished": 4,
+  "primaryDatasets": 37,
+  "humanMatches": 0,
+  "policyOrSkillValuesChanged": false,
+  "nextHypothesis": "현재 정책의 준비+확정 적 대기 분모가0이므로 추가 미이행 복제는 시작하지 않는다. 다음은 정확 실패 혼돈주술의 정화 대상 변경 가능성이라는066 유보를 실제 엔진 분기로 검증·정정한다."
+}
