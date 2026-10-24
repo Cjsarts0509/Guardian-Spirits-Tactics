@@ -37,9 +37,9 @@
     "resultHead": "653442f3fdfbaa354961e962706ebcb48dd023bd"
   },
   "record": "docs/ai-rounds/ROUND_063_20261024_1230.md",
-  "checkpoint": "preregistered_before_first_game",
+  "checkpoint": "validated96_prefix_saved",
   "phase": "frozen_balance_development",
-  "executions": 0,
+  "executions": 96,
   "targetExecutions": 960,
   "cumulativeExecutions": 49984,
   "cumulativeTerminatedExecutions": 49980,
@@ -55,7 +55,7 @@
     "development": {
       "start": 153000,
       "count": 40,
-      "status": "registered_unused"
+      "status": "in_progress"
     },
     "remainingReservedUnused152000": [
       152016,
@@ -63,7 +63,7 @@
     ]
   },
   "nextRoundStarted": false,
-  "nextAction": "Run fixedbe72 bounded96 batches; independently verify; preserve immutable midpoint; complete before deadline or checkpoint partial.",
+  "nextAction": "Continue fixedbe72 96-game batches; no policy or option change; save further immutable checkpoints and stop new games at deadline.",
   "checks": {
     "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
     "fullCITests": 783,
@@ -78,13 +78,32 @@
     "newResearchGames": 0,
     "independentTamperRejected": 11,
     "completedResumeUnchanged": true,
-    "deadlineZero": true
+    "deadlineZero": true,
+    "stalematePreparation": {
+      "actualEngineTests": 2,
+      "rulesTypecheck": true,
+      "independentTamperRejected": 11,
+      "newResearchExecutions": 0,
+      "newRoundStarted": false,
+      "artifact": "docs/evaluations/cooperation-round-063-stalemate-preflight.json.gz"
+    }
   },
   "runtime": {
     "fixedSourceWorktree": "/tmp/gst-round063-calibration",
     "developmentOutput": "/tmp/round063-development.json",
-    "newResearchExecutions": 0,
-    "processAlive": false
+    "newResearchExecutions": 96,
+    "processAlive": true,
+    "driverSession": 15451,
+    "validatedResearchExecutions": 96,
+    "recordsAtCheckpoint": 110,
+    "storeHead": {
+      "fingerprint": "798ea3bdc053945cba527c00af3267b85f81a466310f3443719e23999b3a803c",
+      "count": 110,
+      "key": "civil_war/153018/false/control",
+      "sha256": "6481dfd3fbe23603923aac3f7f7dc75c6e81e02853b9e81e7e49146221aedae1"
+    },
+    "canonicalArchive": "docs/evaluations/cooperation-round-063-canonical-96.json.gz",
+    "checkpointAt": "2026-10-24T12:45:02.284468+09:00"
   },
   "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
   "cumulativeScope": "Completed062 included once;063 tracked separately until complete.",
