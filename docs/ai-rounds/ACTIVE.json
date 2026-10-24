@@ -1,8 +1,7 @@
 {
-  "continuation": "stopped_at_user_deadline",
-  "pausedByUser": true,
-  "stopAt": "2026-10-24T15:00:00+09:00",
-  "resumeInstruction": "2026-10-24: \"회차 갱신하면서 오후 3시까지 진행\". Prior 2026-10-18 stop superseded until this deadline.",
+  "continuation": "user_requested_finite_100_game_comparison",
+  "pausedByUser": false,
+  "resumeInstruction": "최신 사용자 요청: main과 진영 교환, 4모드 각25/총100경기만 유한 평가. 예약 재개 없음.",
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "holdoutSeeds": {
     "start": 121000,
@@ -35,24 +34,23 @@
     "terminated": 51900,
     "unfinished": 4
   },
-  "round": 73,
-  "status": "completed",
-  "owner": "round073-guardian-memory-report-analysis",
-  "startedAt": "2026-10-24T14:50:44.893443+09:00",
-  "leaseUntil": null,
-  "completedAt": "2026-10-24T14:54:08.146051+09:00",
-  "record": "docs/ai-rounds/ROUND_073_20261024_1450.md",
-  "task": "사망 전 보호자 자기 기억의 보고·발신자/대상 지식 분리",
+  "round": 74,
+  "status": "in_progress",
+  "owner": "round074-user-requested-main-comparison",
+  "startedAt": "2026-10-24T17:32:07.308801+09:00",
+  "leaseUntil": "2026-10-24T19:32:07.308801+09:00",
+  "record": "docs/ai-rounds/ROUND_074_20261024_1732.md",
+  "task": "현재 후보 대 정확한 main 4모드×25 직접 대전",
   "previousCompleted": {
-    "round": 72,
-    "record": "docs/ai-rounds/ROUND_072_20261024_1446.md",
-    "resultHead": "f994c1da16772389a172a835f76299436f546ae6"
+    "round": 73,
+    "record": "docs/ai-rounds/ROUND_073_20261024_1450.md",
+    "resultHead": "f29949ba12b9a6929e9bb129a068081cdc58d53d"
   },
   "sourceRef": "2044366c4f88c23ca38be86721af5125b42d0dc4",
   "checkpoint": "complete_verified_and_archived",
-  "phase": "completed",
-  "executions": 4,
-  "targetExecutions": 4,
+  "phase": "calibrating_and_freezing",
+  "executions": 0,
+  "targetExecutions": 100,
   "newResearchExecutions": 0,
   "checks": {
     "fixedSourceFullTests": 794,
@@ -69,25 +67,23 @@
     "rowTamperRejected": 9
   },
   "seedUse": {
-    "new": 0,
-    "existing": [
-      63,
-      69
-    ]
+    "new": {
+      "start": 154000,
+      "count": 40
+    },
+    "reservedBeforeEvaluation": true
   },
   "runtime": {
-    "output": "/tmp/round073-reports.json",
     "processAlive": false,
-    "newResearchExecutions": 0,
-    "completedAt": "2026-10-24T14:54:08.146051+09:00"
+    "newResearchExecutions": 0
   },
-  "nextHypothesis": "073의 보고 5건과 보고 미관측 1사례의 자기 수신 사건 전체에서 도착·만료·상충·발신자 확인·완전한 신뢰 조건을 분리한다. 같은 진영 발신자 3건도 신뢰 충족으로 가정하지 않으며 확인과 전투의 실제 기회비용은 후속 검증한다.",
+  "nextHypothesis": "이번 유한 비교 뒤 정책을 재튜닝하지 않고 모드별 결과와 행동 품질을 보고한다.",
   "nextRoundStarted": false,
   "cumulativeScope": "Complete069 added once; partial/synthetic/replay excluded.",
-  "nextAction": "073의 보고 5건과 보고 미관측 1사례의 자기 수신 사건 전체에서 도착·만료·상충·발신자 확인·완전한 신뢰 조건을 분리한다. 같은 진영 발신자 3건도 신뢰 충족으로 가정하지 않으며 확인과 전투의 실제 기회비용은 후속 검증한다.",
-  "analysisSourceRef": "fe42521fb3cd22b2ed0a0bd93114362f24531b1d",
-  "stoppedAt": "2026-10-24T15:00:13.511027+09:00",
-  "deadlineClosure": {
+  "nextAction": "固定 소스에서100경기 완료·독립 검증 후 평가 종료",
+  "candidateRef": "f29949ba12b9a6929e9bb129a068081cdc58d53d",
+  "mainRef": "a92d9bb32d4d302b11eb839fd71f84974f7070cb",
+  "priorDeadlineClosure": {
     "lastCompletedRound": 73,
     "resumeCompletedRounds": [
       58,
@@ -99,5 +95,7 @@
     "report": "docs/ai-rounds/INTERIM_20261024.md",
     "finalCheck": "docs/evaluations/cooperation-resume-20261024-final.json",
     "automationDisableEvidence": "docs/evaluations/cooperation-resume-20261024-automation-stop.json"
-  }
+  },
+  "priorStopAt": "2026-10-24T15:00:13.511027+09:00",
+  "evaluationPlan": "docs/evaluations/cooperation-round-074-plan.json"
 }
