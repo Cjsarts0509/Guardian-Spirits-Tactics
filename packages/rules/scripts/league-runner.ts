@@ -44,27 +44,30 @@ export function prepareMatch(fixture: Fixture) {
 }
 
 export function playMatch(fixture: Fixture, policies: Record<Controller, Policy>, settings: Settings = DEFAULT_SETTINGS,
-  onAction?: (state: GameState, player: string, action: Action, result: ActionResult) => void): MatchResult {
+  onAction?: (state: GameState, player: string, action: Action, result: ActionResult) => void,
+  communications: Partial<Record<Controller, Policy>> = {}, onTick?: (state: GameState) => void): MatchResult {
   if (!(settings.tickMs > 0 && settings.limitMs > 0 && settings.activity >= 0 && settings.activity <= 1)) throw new Error('리그 시간·활동 설정 오류');
   const { state, controllers, memories } = prepareMatch(fixture);
   const stats = { current: newStats(), reference: newStats() };
   const byRole = new Map(state.players.map((p) => [p.character, controllers.get(p.id)!]));
   for (let now = settings.tickMs; state.phase === 'running' && now <= settings.limitMs; now += settings.tickMs) {
     advance(state, now);
+    onTick?.(state); // 평가 관측 전용. 이 자료는 참가 정책/봇 기억에 전달하지 않는다.
     for (const p of state.players) {
       if (state.phase !== 'running') break;
       if (!p.alive) continue;
       const controller = controllers.get(p.id)!;
       const action = policies[controller](state, p.id, memories.get(p.id)!, { activity: settings.activity });
-      if (!action) continue;
-      const result = applyAction(state, p.id, action, now);
-      observeBotActionResult(memories.get(p.id)!, action, result, now - state.startedAt);
-      // 합성 판 평가 전용 관측자. 반환값은 의사결정·봇 메모리에 전달하지 않는다.
-      onAction?.(state, p.id, action, result);
-      const s = stats[controller];
-      s.attempted++;
-      if (result.ok) s.accepted++;
-      else { s.rejected++; const key = action.type === 'skill' ? action.skill : action.type; s.rejectedSkills[key] = (s.rejectedSkills[key] ?? 0) + 1; }
+      const execute=(action:Action)=>{
+        const result = applyAction(state, p.id, action, now);
+        observeBotActionResult(memories.get(p.id)!, action, result, now - state.startedAt);
+        onAction?.(state, p.id, action, result);
+        const s = stats[controller];s.attempted++;
+        if(result.ok)s.accepted++;else{s.rejected++;const key=action.type==='skill'?action.skill:action.type;s.rejectedSkills[key]=(s.rejectedSkills[key]??0)+1;}
+      };
+      if(action)execute(action);
+      const chat=communications[controller]?.(state,p.id,memories.get(p.id)!,{activity:settings.activity});
+      if(chat)execute(chat);
     }
   }
   for (const event of state.log) {

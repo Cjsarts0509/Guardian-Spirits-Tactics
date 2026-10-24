@@ -1,0 +1,25 @@
+{
+  "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
+  "restored": 530,
+  "newGames": 0,
+  "sourceStoreVerifiedAllRecordHashes": true,
+  "restoredSnapshotAndJournalByteHashesIdentical": true,
+  "publication": {
+    "version": 2,
+    "fingerprint": "65536001f0765f4a217cd40e8cbb16b3ce92e417023b4a3e541dabd3e43bf158",
+    "executions": 530,
+    "complete": false,
+    "snapshotSHA256": "0ddb74c4f0df58456982a46b7d5ccf4a9f02908dedde305e958e4bcece942a51",
+    "journalSHA256": "4246ab042e5354f9a2d76af3f6bacc6752fc8750e93135a63a02c3d9e4ebc21d"
+  },
+  "restoreScript": {
+    "text": "import {readFileSync,writeFileSync} from 'node:fs';\nimport {gunzipSync} from 'node:zlib';\nimport {strictEqual} from 'node:assert';\nimport {CooperativeStore} from '/tmp/gst-round063-calibration/packages/rules/scripts/cooperative-store.ts';\nconst out='/tmp/round069-restore530',archive='/workspace/scratch/dda69bfb36e1/Guardian-Spirits-Tactics/docs/evaluations/cooperation-round-069-canonical-530.json.gz';\nconst bundle=JSON.parse(gunzipSync(readFileSync(archive))),{meta,fingerprint}=JSON.parse(readFileSync(out+'.store/metadata.json','utf8'));\nconst key=r=>[r.fixture.mode,r.fixture.seed,r.fixture.reversed,r.variant].join('/');\nconst store=new CooperativeStore({out,meta,fingerprint,expectedCount:meta.count*24,key,project:s=>s.records});\nstrictEqual(store.records.length,530);store.checkpoint({...meta,fingerprint,executions:530,complete:false,records:store.records});store.close();\nconst pub=JSON.parse(readFileSync(out+'.publication.json','utf8'));\nstrictEqual(pub.snapshotSHA256,bundle.verifiedSummary.snapshotSHA256);\nstrictEqual(pub.journalSHA256,bundle.verifiedSummary.journalSHA256);\nwriteFileSync('/tmp/round069-canonical-530-validation.json',JSON.stringify({sourceRef:meta.sourceRef,restored:530,newGames:0,sourceStoreVerifiedAllRecordHashes:true,restoredSnapshotAndJournalByteHashesIdentical:true,publication:pub},null,2));\nconsole.log(JSON.stringify({restored:530,newGames:0,snapshotAndJournalHashesUnchanged:true}));\n",
+    "sha256": "e3a1ecc0414790668bf9fd725d740e2b566a3d2fda00e4a8ff3267369cfa6533"
+  },
+  "materializerSHA256": "c1e0a9be19cde4e6712a2be17efe75d042be1c0d4a9b687d3b25ec0d2660a840",
+  "reproduce": [
+    "python tools/materialize-failure-checkpoint.py /workspace/scratch/dda69bfb36e1/Guardian-Spirits-Tactics/docs/evaluations/cooperation-round-069-canonical-530.json.gz /tmp/round069-restore530",
+    "node --import ./packages/rules/node_modules/tsx/dist/loader.mjs /tmp/gst-round069-verify-restored530.mjs",
+    "python tools/verify-failure-selfplay.py /tmp/round069-restore530 /tmp/round069-restore530.journal.ndjson /tmp/round069-restore530.publication.json /tmp/round069-restored530-summary.json --partial"
+  ]
+}

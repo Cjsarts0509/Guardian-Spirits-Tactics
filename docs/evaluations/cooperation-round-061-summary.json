@@ -1,0 +1,63 @@
+{
+  "valid": true,
+  "byVariant": {
+    "control": {
+      "games": 14,
+      "actions": 1610,
+      "probes": 55,
+      "failedResults": 55,
+      "eligible": 54,
+      "reduced": 54,
+      "actionChanged": 32,
+      "newExactIdentities": 70,
+      "removedNames": 166,
+      "candidateCommands": 40,
+      "candidateRejected": 0
+    },
+    "candidate": {
+      "games": 14,
+      "actions": 1667,
+      "probes": 55,
+      "failedResults": 55,
+      "eligible": 53,
+      "reduced": 53,
+      "actionChanged": 32,
+      "newExactIdentities": 70,
+      "removedNames": 165,
+      "candidateCommands": 41,
+      "candidateRejected": 0
+    }
+  },
+  "rules": {
+    "acceptedFailure": 7,
+    "acceptedSuccess": 4,
+    "rejected": 1
+  },
+  "newResearchExecutions": 0,
+  "scope": "Cross-file own receipt/result/time links and candidate set arithmetic. Runtime candidate execution and hidden-truth assertions are recorded witnesses, not a second independent engine.",
+  "rawSHA256": "677bda7527bd431516b42226b8f6ad35776ce9dbd1861bcd9af857a5c20eefa9",
+  "tamperRejected": 10,
+  "sourceRef": "781a13f470267b15a09347833c6ae6d5885d14ab",
+  "optionsSHA256": "3141bef346d2eb41c2d7e58f2f802132f32b5c785e8c92995b1ce71459694ede",
+  "files": {
+    "cooperation-round-061-failure-probes.json.gz": {
+      "bytes": 454245,
+      "sha256": "ccfd14e604bf676a55674c52596c7ffa2da0cc9c05e6db0a35685edf25481fd1",
+      "decodedSHA256": "677bda7527bd431516b42226b8f6ad35776ce9dbd1861bcd9af857a5c20eefa9"
+    },
+    "cooperation-round-061-failure-probes.journal.ndjson.gz": {
+      "bytes": 63132,
+      "sha256": "db3ae3c91742ab28909e55221703f9dcbe1b0f40eeab62bb74a239ea55027400",
+      "decodedSHA256": "0724432dc70bbb20d0f8f4db56dece99e3d945a508c0ac405186a6d9a618cd1b"
+    }
+  },
+  "sourceHashesVerified": true,
+  "prefixPreserved": true,
+  "completedResumeUnchanged": true,
+  "changedActionKinds": {
+    "chaos_hex": 18,
+    "ally": 44,
+    "troll_enemy_scan": 2
+  },
+  "wrongNewIdentityOrElimination": 0
+}

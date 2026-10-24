@@ -1,0 +1,181 @@
+{
+  "kind": "verified-own-failure-replay-audit",
+  "newResearchExecutions": 0,
+  "replayGames": 23,
+  "originalResultsEqual": 23,
+  "modes": {
+    "civil_war": {
+      "replayRecords": 6,
+      "failures": 6,
+      "warnings": 6,
+      "deaths": 0,
+      "knownNameFailures": 0
+    },
+    "primordial": {
+      "replayRecords": 13,
+      "failures": 13,
+      "warnings": 5,
+      "deaths": 8,
+      "knownNameFailures": 0
+    },
+    "lidellut": {
+      "replayRecords": 2,
+      "failures": 4,
+      "warnings": 2,
+      "deaths": 2,
+      "knownNameFailures": 0,
+      "sameNameRepeat": 2,
+      "repeatWarningDeathWithoutNewDirect": 2
+    },
+    "troll": {
+      "replayRecords": 2,
+      "failures": 4,
+      "warnings": 2,
+      "deaths": 2,
+      "knownNameFailures": 0,
+      "sameNameRepeat": 2,
+      "repeatWarningDeathWithoutNewDirect": 2
+    }
+  },
+  "totals": {
+    "replayRecords": 23,
+    "failures": 27,
+    "warnings": 15,
+    "deaths": 12,
+    "knownNameFailures": 0,
+    "sameNameRepeat": 4,
+    "repeatWarningDeathWithoutNewDirect": 4
+  },
+  "uniqueRepeatSituations": 2,
+  "repeatRows": [
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 142028,
+        "count": 11,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "skill-aware-bluff",
+      "variant": "control",
+      "at": 915250,
+      "action": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p3",
+        "name": "kai"
+      },
+      "actor": "supra",
+      "knownName": null,
+      "candidates": [
+        "kai",
+        "shining"
+      ],
+      "previousSameNameFailureAt": 840250,
+      "newDirectIdentitySinceFailure": [],
+      "advancedLevel": 2,
+      "warning": false,
+      "death": true,
+      "hasPublicTargetIdentity": false,
+      "observationLimit": "Name error and absolute guard are indistinguishable from the own failure receipt; no hidden cause inferred."
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 142028,
+        "count": 11,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "skill-aware-bluff",
+      "variant": "single",
+      "at": 915000,
+      "action": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p3",
+        "name": "kai"
+      },
+      "actor": "supra",
+      "knownName": null,
+      "candidates": [
+        "kai",
+        "shining"
+      ],
+      "previousSameNameFailureAt": 840000,
+      "newDirectIdentitySinceFailure": [],
+      "advancedLevel": 2,
+      "warning": false,
+      "death": true,
+      "hasPublicTargetIdentity": false,
+      "observationLimit": "Name error and absolute guard are indistinguishable from the own failure receipt; no hidden cause inferred."
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 142029,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "variant": "control",
+      "at": 1367750,
+      "action": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p5",
+        "name": "chis"
+      },
+      "actor": "kazrow",
+      "knownName": null,
+      "candidates": [
+        "chis",
+        "deka"
+      ],
+      "previousSameNameFailureAt": 1296500,
+      "newDirectIdentitySinceFailure": [],
+      "advancedLevel": 2,
+      "warning": false,
+      "death": true,
+      "hasPublicTargetIdentity": false,
+      "observationLimit": "Name error and absolute guard are indistinguishable from the own failure receipt; no hidden cause inferred."
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 142029,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "variant": "single",
+      "at": 1367250,
+      "action": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p5",
+        "name": "chis"
+      },
+      "actor": "kazrow",
+      "knownName": null,
+      "candidates": [
+        "chis",
+        "deka"
+      ],
+      "previousSameNameFailureAt": 1296000,
+      "newDirectIdentitySinceFailure": [],
+      "advancedLevel": 2,
+      "warning": false,
+      "death": true,
+      "hasPublicTargetIdentity": false,
+      "observationLimit": "Name error and absolute guard are indistinguishable from the own failure receipt; no hidden cause inferred."
+    }
+  ],
+  "policySelection": false,
+  "promotionEvidence": false,
+  "inputGzSHA256": "520918517c16d349d1ed4966cc7ca78ceab8163ed668cfab1069a4c71c75067d",
+  "replayGzSHA256": "b54f15dc921dee9c00379620199c7a12801bf06117f9c2ec60bc24e5410d5455",
+  "verifierSHA256": "b125d63f7551e1a39418d0e75b2a83233bc7ec4da796065f2189d5d4358344e5"
+}

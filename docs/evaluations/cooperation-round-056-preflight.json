@@ -1,0 +1,39 @@
+{
+  "kind": "round056-preflight",
+  "tests": {
+    "rules": 654,
+    "rulesFiles": 83,
+    "server": 75,
+    "serverFiles": 16,
+    "total": 729,
+    "newDiagnosticTests": 3,
+    "leakPassed": true
+  },
+  "typecheck": {
+    "rules": "passed",
+    "protocol": "passed",
+    "server": "passed",
+    "client": "passed"
+  },
+  "build": {
+    "server": "passed",
+    "client": "passed",
+    "worker": "passed"
+  },
+  "inputSHA256": "ee3a619c0c0d453174dd64533a838068acc6f8c4523fee4560c97774f34a8e77",
+  "newResearchExecutions": 0,
+  "productionSourceChanges": 0,
+  "failures": [
+    {
+      "stage": "initial_typecheck",
+      "message": "Action union narrowing inside callback required local act; corrected before evaluation",
+      "policyChanges": 0
+    }
+  ],
+  "commands": [
+    "node node_modules/vitest/vitest.mjs run (packages/rules and apps/server)",
+    "node node_modules/typescript/bin/tsc -p <each-package>/tsconfig.json --noEmit",
+    "node node_modules/vite/bin/vite.js build (apps/client)",
+    "node node_modules/esbuild/bin/esbuild src/index.ts --bundle --platform=node --target=node22 --format=esm --outfile=dist/index.js --external:bufferutil --external:utf-8-validate --alias:@gst/rules=../../packages/rules/src/index.ts --alias:@gst/protocol=../../packages/protocol/src/index.ts --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\" (apps/server)"
+  ]
+}

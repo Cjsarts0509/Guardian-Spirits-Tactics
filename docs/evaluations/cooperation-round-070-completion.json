@@ -1,0 +1,63 @@
+{
+  "kind": "round070-completion-evidence",
+  "completedAt": "2026-10-24T14:44:13.000621+09:00",
+  "sourceRef": "1ad149dfc12ba6c391e85de328d0e4715b736f94",
+  "manifest": {
+    "docs/evaluations/cooperation-round-070-commanders.json.gz": {
+      "bytes": 806611,
+      "sha256": "ea4b6468b91e57b770122d31d119b36e63e6b8515b49e0585cdac47ccc3c5b38",
+      "decodedBytes": 19876585,
+      "decodedSHA256": "9917f18c05c2d49a269b72f18effba759eb7d27e2ed936a7d5e06a0c17246d16"
+    },
+    "docs/evaluations/cooperation-round-070-commanders.journal.ndjson.gz": {
+      "bytes": 380176,
+      "sha256": "016924432d832d9b557728ea63e7d4aab477c6cebeb7d5a523d50db51183bbf8",
+      "decodedBytes": 9337198,
+      "decodedSHA256": "615e681167df8eb8b1dd089cdf4bd6d7f55703c1e35b62b67cd65e70a6f9e035"
+    },
+    "docs/evaluations/cooperation-round-070-commanders.publication.json": {
+      "bytes": 319,
+      "sha256": "6b2308f728b069535f94642530d076ec7239eea6b615cfc45845031d0ccf76d4",
+      "decodedBytes": 319,
+      "decodedSHA256": "6b2308f728b069535f94642530d076ec7239eea6b615cfc45845031d0ccf76d4"
+    },
+    "docs/evaluations/cooperation-round-070-commanders-summary.json": {
+      "bytes": 155638,
+      "sha256": "842a5f0dbebe84336ef27675135ddeefc34c1fe496f05e223961b8c9f5fc7357",
+      "decodedBytes": 155638,
+      "decodedSHA256": "842a5f0dbebe84336ef27675135ddeefc34c1fe496f05e223961b8c9f5fc7357"
+    },
+    "docs/evaluations/cooperation-round-070-commanders-resume-check.json": {
+      "bytes": 428,
+      "sha256": "2cedb641eedea04ae152a70aeba2747168b3173725f214a7d0e49ff8783af9fe",
+      "decodedBytes": 428,
+      "decodedSHA256": "2cedb641eedea04ae152a70aeba2747168b3173725f214a7d0e49ff8783af9fe"
+    },
+    "docs/evaluations/cooperation-round-070-parallel-completion.json.gz": {
+      "sha256": "c1dd12b7f076436375f6c38e8490ff26340dfb720a81f1919baa58fba8941119",
+      "bytes": 14896,
+      "decodedSHA256": "531433a709e951793889270fee2a456d52a9567ce804e0616062e15b95da3f19"
+    }
+  },
+  "selectionSHA256": "b3d268c8c4407a72f7120575573cd444f8769d3d8c3302a08e9f415d089adc05",
+  "fingerprint": "a03eddf0b8a2717943349c273202e7c88b552ec3f311a2b1b87a04c92ab80ba6",
+  "replayedGames": 160,
+  "policyPasses": 160,
+  "commandPasses": 160,
+  "matchedActions": 19469,
+  "deaths": 186,
+  "newResearchExecutions": 0,
+  "newUnfinished": 0,
+  "cumulativeExecutions": 51904,
+  "cumulativeTerminated": 51900,
+  "cumulativeUnfinished": 4,
+  "primaryDatasets": 38,
+  "completeResumeNewReplays": 0,
+  "resumeByteHashesUnchanged": true,
+  "findings": "기존 동일정책 태초160경기의 정책/기억RNG와 19,469명령을 그대로 재현하고 지휘관 사망 186/186건을 실제 엔진 경계와 연결했다. 엘타스 사망 139건 중 명명 공격만으로 연결되지 않던 94건도 특수/지연 원인으로 구분했다. 사망 순간 명목 준비·외부 보호 상태는 직전 자기정보 기반 행동기회가 아니며 종합성능/스킬원인 증거로 사용하지 않는다.",
+  "humanMatches": 0,
+  "productionDefaultOn": false,
+  "skillValuesChanged": false,
+  "deployed": false,
+  "nextHypothesis": "같은160경기의 보호자 배정·사망·실제 명명 흡수·비명명 피해와 사망 시점 명목 준비를 분리한다."
+}

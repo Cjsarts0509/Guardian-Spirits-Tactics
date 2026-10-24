@@ -1,0 +1,48 @@
+{
+  "round": 54,
+  "status": "passed_before_evaluation",
+  "previousHead": "e6b08093250a697d852469140b9e2d21918e7187",
+  "tests": {
+    "rules": 648,
+    "server": 75,
+    "total": 723
+  },
+  "types": [
+    "packages/rules",
+    "packages/protocol",
+    "apps/server",
+    "apps/client"
+  ],
+  "builds": [
+    "apps/server",
+    "apps/client",
+    "host.worker"
+  ],
+  "candidateOptions": {
+    "verifyIncomingAllies": "commander-report-first"
+  },
+  "candidateOptionsSHA256": "5041fce452719fa4ecca0f4394a28f59e46abb2bc2497b40c15fd6250a64bf8a",
+  "baselineExact053": true,
+  "baselineSHA256": "604467096100800ef3d482fa0f60318b35f5615b0fcb97d50ea9034f13d24102",
+  "legacyPathsCompared": 8,
+  "syntheticPython": 20,
+  "syntheticProbeTamperCasesExercised": 0,
+  "initialFocused": {
+    "passed": 8,
+    "failed": 2,
+    "cause": "test assumptions: commander excluded from scan names; knowing actual Arin allows legitimate uniqueness inference of disguised Soen"
+  },
+  "finalFocused": 10,
+  "finalObserverAfterExtraAssertions": 2,
+  "newResearchExecutions": 0,
+  "reservedUnusedSeeds": [
+    [
+      152000,
+      152079
+    ],
+    [
+      121000,
+      121015
+    ]
+  ]
+}

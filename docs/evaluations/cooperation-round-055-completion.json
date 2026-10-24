@@ -1,0 +1,179 @@
+{
+  "round": 55,
+  "status": "completed",
+  "sourceRef": "1b7bbf1512218be16ae3d8a8f432407b79226751",
+  "runtimeVersions": {
+    "node": "v24.19.0",
+    "python": "3.12.14"
+  },
+  "newResearchExecutions": 1152,
+  "cumulativeExecutions": 48832,
+  "terminated": 48830,
+  "historicalUnfinished": 2,
+  "primaryDatasets": 35,
+  "options": {
+    "baseline": {},
+    "control": {},
+    "candidate": {
+      "verifyIncomingAllies": "commander-report-first"
+    }
+  },
+  "candidateOptionsSHA256": "5041fce452719fa4ecca0f4394a28f59e46abb2bc2497b40c15fd6250a64bf8a",
+  "behavior": {
+    "activeChoices": 43753,
+    "knownEntriesExternallyScored": 143746,
+    "wrongKnownEntries": 0,
+    "reportMotivatedChoices": 758,
+    "publiclyEligibleIncomingChoices": 758,
+    "resourceProposals": 119,
+    "selected": 102,
+    "changed": 80,
+    "sameActionDifferentRng": 15,
+    "accepted": 102,
+    "immediateConfirmed": 89,
+    "exactIdentityReceipts": 82,
+    "constraintConfirmed": 7,
+    "newTrustedCommanderEpisodes": 81,
+    "newTrustedCommanderTargetLinks": 88,
+    "uniqueConfirmedReportConsistentChecks": 12,
+    "reportConsistentAttacks": 0,
+    "truthWrongReports": 0,
+    "missingStoredMapProofReports": 802
+  },
+  "performance": {
+    "baseline": {
+      "wins": 280,
+      "games": 384
+    },
+    "control": {
+      "wins": 259,
+      "games": 384
+    },
+    "candidate": {
+      "wins": 260,
+      "games": 384
+    },
+    "candidateMinusControl": 0.0026041666666666665,
+    "seed95VsControl": [
+      -0.005208333333333333,
+      0.010416666666666666
+    ],
+    "candidateMinusBaseline": -0.052083333333333336,
+    "seed95VsBaseline": [
+      -0.0859375,
+      -0.0234375
+    ],
+    "controlToCandidateImproved": 4,
+    "worsened": 3,
+    "tied": 377,
+    "trollControlWins": 58,
+    "trollCandidateWins": 55,
+    "trollGames": 96,
+    "skillNominalManaDelta": 1765,
+    "acceptedSkillNetManaDelta": -1750,
+    "attackFailuresControl": 87,
+    "attackFailuresCandidate": 87,
+    "rejectionsControl": 17,
+    "rejectionsCandidate": 17,
+    "newUnfinished": 0,
+    "promotionEvidence": false,
+    "identicalPolicyBalanceEvaluated": false
+  },
+  "checks": {
+    "tests": 726,
+    "rules": 651,
+    "server": 75,
+    "typecheck": "4_packages_passed",
+    "serverClientWorkerBuild": "passed",
+    "syntheticGames": 48,
+    "syntheticEligibleDecisions": 16,
+    "syntheticSelected": 1,
+    "syntheticPython": 12,
+    "finalObserverLeakTests": 4,
+    "finalSyntheticStoreGames": 144,
+    "finalSyntheticStoreVerified": true,
+    "fullSelectedObserver": {
+      "selected": 1,
+      "matchedActions": 70
+    },
+    "realPython": 13,
+    "posthocReportProofTests": 6,
+    "posthocReportReplayGames": 8,
+    "posthocReportReplayMatchedActions": 732,
+    "posthocReportReplayReports": 166,
+    "posthocRebuiltSparseProofCases": 30,
+    "posthocTypes": "passed",
+    "batches": 12,
+    "freshSum": 1152,
+    "mid576PrefixMatched": true,
+    "resumeFresh": 0,
+    "resumeThreeHashesUnchanged": true,
+    "rawSummarySemanticEqual": true,
+    "rawSummaryByteIdentical": false,
+    "canonicalSummaryByteIdentical": true,
+    "followupAndPathByteIdentical": true,
+    "repoCompressedVerification": "passed",
+    "duplicates": 0,
+    "discarded": 0,
+    "multipartReassemblyExact": true
+  },
+  "ci": {
+    "sourceRef": "1b7bbf1512218be16ae3d8a8f432407b79226751",
+    "CI": {
+      "run": 39086128222,
+      "conclusion": "success"
+    },
+    "browser": {
+      "run": 39086128233,
+      "conclusion": "success"
+    },
+    "retryRequests": 0
+  },
+  "scope": {
+    "syntheticFixedOpponent": true,
+    "humanMatches": 0,
+    "identicalPolicyBalance": false,
+    "policySourceChanged": false,
+    "skillsChanged": false,
+    "defaultsChanged": false,
+    "merged": false,
+    "deployed": false,
+    "SupabaseChanged": false
+  },
+  "hashes": {
+    "snapshotDecoded": "ee3a619c0c0d453174dd64533a838068acc6f8c4523fee4560c97774f34a8e77",
+    "journalDecoded": "a2ed42d73bc60c7087b5f69d0deda43fbe57aa8dc2a6e54bd010c7403bf3c1e1",
+    "publication": "7db2b29fec4d239837ff69d826bc5a45d5f52c11571902f4cf3f202165aab439",
+    "canonicalSummary": "7f92743df89a1de307f0c58b2ca9b8d9802b13cbdbde62fb4babf37848236937",
+    "followup": "f2b6dc70d0e94fefd059748ee4baf82dc498c218613180b8e92a7bdf84204f81",
+    "paths": "e3b42edcff382f468af897da422fee7b64afbf2a15eb7ad930a3b9164c307013",
+    "storage": "535feb7a3ce05ac188dacde54184582cf83bfddfc2ff609809a9a99f40263679",
+    "reportProofDecoded": "cbe1cde64f85d57fd31153f7035fd9dc0d2163aa9a334fa8c2bcd1cc77d7f309",
+    "compressedSnapshot": "c1ff046099061c48a3ab7f8af3e3ca6eb92956779b76872baa5a3d636f8bf457"
+  },
+  "measurementCaveats": [
+    "Raw falseReports includes absent stored-map proof; actual emitted-name errors0, not798/802 false reports.",
+    "memoryObservedAt reads stored known-map, not all derived working knowledge; missing map entry is not forgetting.",
+    "Raw summary key order varied due set iteration; numeric/semantic equality and canonicalized byte equality verified."
+  ],
+  "nextAction": "Round056 without new seeds: replay the three troll control-win/candidate-loss pairs (152007 truthful forward side1;152002 bluff forward side2;152005 skill-aware-bluff forward side2), diagnose information/resource/protection/attack tradeoffs after first confirmation/RNG signal. Preserve raw grading-field correction (working knowledge vs stored map), no policy/skill retuning on final data. Same-policy faction balance remains a separate follow-up;152008–152079/121000 unused.",
+  "rawManifest": "docs/evaluations/cooperation-round-055-development.parts.json",
+  "rawParts": [
+    {
+      "name": "cooperation-round-055-development.json.gz.part00",
+      "bytes": 8388608,
+      "sha256": "85b739859e0e68cb9a3827b64eacf993e2ea6ebc0cf8a7ed27b5230fd55c0c22"
+    },
+    {
+      "name": "cooperation-round-055-development.json.gz.part01",
+      "bytes": 6802223,
+      "sha256": "b34801687e6e5ee08b03c50a2e3021781c5d9698e9bc7a0787b60716f99c68af"
+    }
+  ],
+  "transport": {
+    "initialFailure": "MCP body exceeds16MiB",
+    "refUpdatedOnFailure": false,
+    "format": "same gzip byte stream split into two parts",
+    "numericResultsChanged": false
+  }
+}

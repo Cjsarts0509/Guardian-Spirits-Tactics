@@ -1,0 +1,13 @@
+{
+  "kind": "next-identical-policy-evaluator-preparation",
+  "roundStarted": false,
+  "newResearchGames": 0,
+  "productionChange": false,
+  "tests": 3,
+  "typecheck": true,
+  "regressionLog": "\n RUN  v2.1.9 /tmp/gst-round063-preparation\n\n ✓ packages/rules/test/failure-selfplay.test.ts > 063 identical policy faction observation > the optional collector extension preserves all3 frozen062 real default paths 30345ms\n ✓ packages/rules/test/failure-selfplay.test.ts > 063 identical policy faction observation > all4modes keep complete actions, outcomes, resource use and actual memory/RNG identical with observationOFF 51210ms\n ✓ packages/rules/test/failure-selfplay.test.ts > 063 identical policy faction observation > main uses the existing same-policy engine path without claim-style rewriting or asymmetric chat 2128ms\n\n Test Files  1 passed (1)\n      Tests  3 passed (3)\n   Start at  12:36:02\n   Duration  85.78s (transform 1.18s, setup 0ms, collect 1.48s, tests 83.68s, environment 0ms, prepare 123ms)\n\n",
+  "typecheckLog": "",
+  "calibrationNotStarted": true,
+  "leakRegressionLog": "\n RUN  v2.1.9 /workspace/scratch/dda69bfb36e1/Guardian-Spirits-Tactics\n\n ✓ packages/rules/test/leak.test.ts > 정보 은닉 > 공개 이벤트 data 로 미공개 정체를 알 수 없고, 남의 뷰에 정체·슬롯이 없다 1291ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  12:42:17\n   Duration  1.88s (transform 290ms, setup 0ms, collect 369ms, tests 1.29s, environment 0ms, prepare 59ms)\n\n",
+  "connectionInterruption": "Temporary exec-server disconnect; existing driver and canonical store remained alive; count advanced313 to318; no restart or duplicate games."
+}

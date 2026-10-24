@@ -1,0 +1,27 @@
+{
+  "round": 57,
+  "kind": "preflight",
+  "tests": {
+    "rules": 657,
+    "server": 75,
+    "total": 732,
+    "newRules": 3,
+    "syntheticPython": 8
+  },
+  "types": "4_packages_passed",
+  "build": "server_client_worker_passed",
+  "productionSourceChanges": 0,
+  "newResearchExecutions": 0,
+  "failures": [
+    {
+      "stage": "initial_typecheck",
+      "message": "Action target union narrowing inside nested callback; local act variable fixed before source freeze",
+      "policyChanges": 0
+    },
+    {
+      "stage": "preregister_builder",
+      "message": "Combined output was not valid JSON; retried with separate ACTIVE read before any mutation",
+      "policyChanges": 0
+    }
+  ]
+}

@@ -1,0 +1,238 @@
+{
+  "kind": "round062-completion-evidence",
+  "completedAt": "2026-10-24T12:26:38.065499+09:00",
+  "sourceRef": "8549b136084650faa1c6b5942760204fe8262748",
+  "options": {
+    "baseline": {},
+    "control": {
+      "verifyIncomingAllies": "commander-report-first",
+      "rememberOwnDelayedCheck": true
+    },
+    "candidate": {
+      "verifyIncomingAllies": "commander-report-first",
+      "rememberOwnDelayedCheck": true,
+      "learnOwnDelayedFailureFaction": true
+    }
+  },
+  "optionsSHA256": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161",
+  "fingerprint": "b634e729193821a802564058680d87a6b3d1ebecd0e68a55d9896101f88359e3",
+  "executions": 1152,
+  "terminated": 1150,
+  "unfinished": 2,
+  "totals": {
+    "baseline": {
+      "games": 384,
+      "wins": 259,
+      "unfinished": 0,
+      "resources": {
+        "nominalSkillMana": 352635,
+        "netSkillManaDelta": -335720,
+        "attackFailures": 59,
+        "rejected": 31,
+        "reports": 0,
+        "falseReports": 0
+      },
+      "behavior": {
+        "knownChecks": 115602,
+        "wrongKnown": 0,
+        "wrongNewElimination": 0,
+        "eligible": 0,
+        "reduced": 0,
+        "firstFailures": 0,
+        "choiceChanged": 0,
+        "rngChanged": 0
+      },
+      "intake": {
+        "no-later-live-update": 106,
+        "receipts": 131,
+        "receiptObserved": 0,
+        "results": 126,
+        "postmortem-result": 20,
+        "ended-before-result": 5
+      }
+    },
+    "control": {
+      "games": 384,
+      "wins": 268,
+      "unfinished": 1,
+      "resources": {
+        "nominalSkillMana": 374345,
+        "netSkillManaDelta": -355090,
+        "attackFailures": 91,
+        "rejected": 11,
+        "reports": 5285,
+        "falseReports": 0
+      },
+      "behavior": {
+        "knownChecks": 291047,
+        "wrongKnown": 0,
+        "wrongNewElimination": 0,
+        "eligible": 77,
+        "reduced": 77,
+        "firstFailures": 86,
+        "choiceChanged": 46,
+        "rngChanged": 23
+      },
+      "intake": {
+        "observed": 140,
+        "receipts": 173,
+        "receiptObserved": 173,
+        "results": 168,
+        "successObserved": 54,
+        "postmortem-result": 23,
+        "failureObserved": 86,
+        "no-later-live-update": 5,
+        "ended-before-result": 5
+      }
+    },
+    "candidate": {
+      "games": 384,
+      "wins": 268,
+      "unfinished": 1,
+      "resources": {
+        "nominalSkillMana": 371395,
+        "netSkillManaDelta": -352180,
+        "attackFailures": 83,
+        "rejected": 11,
+        "reports": 5370,
+        "falseReports": 0
+      },
+      "behavior": {
+        "knownChecks": 291305,
+        "wrongKnown": 0,
+        "wrongNewElimination": 0,
+        "eligible": 31,
+        "reduced": 31,
+        "firstFailures": 36,
+        "choiceChanged": 11,
+        "rngChanged": 0
+      },
+      "intake": {
+        "observed": 95,
+        "receipts": 120,
+        "receiptObserved": 120,
+        "results": 119,
+        "successObserved": 59,
+        "postmortem-result": 22,
+        "failureObserved": 36,
+        "no-later-live-update": 2,
+        "ended-before-result": 1
+      }
+    }
+  },
+  "contrasts": {
+    "control": {
+      "seedDeltas": [
+        -0.020833333333333332,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.020833333333333332,
+        0.0,
+        0.0
+      ],
+      "meanDifference": 0.0,
+      "seed95": [
+        -0.0078125,
+        0.0078125
+      ],
+      "improved": 1,
+      "worsened": 1,
+      "tied": 382
+    },
+    "baseline": {
+      "seedDeltas": [
+        -0.09375,
+        -0.020833333333333332,
+        0.020833333333333332,
+        0.041666666666666664,
+        0.125,
+        -0.14583333333333334,
+        0.16666666666666666,
+        0.10416666666666667
+      ],
+      "meanDifference": 0.024739583333333332,
+      "seed95": [
+        -0.04557291666666667,
+        0.09244791666666667
+      ],
+      "improved": 55,
+      "worsened": 45,
+      "tied": 284
+    }
+  },
+  "paths": {
+    "paired": 384,
+    "sameFullGameActionsResources": 370,
+    "outsideTrollCompared": 288
+  },
+  "manifest": {
+    "docs/evaluations/cooperation-round-062-development.json.gz": {
+      "bytes": 3438658,
+      "sha256": "6810187e729a120d9b7bed514ae6dc0d92db28eec3ad64ceed6e03f2f5e1d254",
+      "decodedBytes": 78373752,
+      "decodedSHA256": "934da82f977972fa58e224088887bf4d21795e7f3dd1ed213f706adc5fb42ae0"
+    },
+    "docs/evaluations/cooperation-round-062-development.journal.ndjson.gz": {
+      "bytes": 2021386,
+      "sha256": "eab02a50c135059353bac207e636dcf700594906d084af1fdd33e1c1d78cb298",
+      "decodedBytes": 40260779,
+      "decodedSHA256": "77e4bca0666f1b33577cf22ef26027305559b6d481ab9225228cdda04cf0f0da"
+    },
+    "docs/evaluations/cooperation-round-062-development.publication.json": {
+      "bytes": 320,
+      "sha256": "77f17689a936f6e5f3462df31d0a48adf3a7da1c56911948e6be885943169816",
+      "decodedBytes": 320,
+      "decodedSHA256": "77f17689a936f6e5f3462df31d0a48adf3a7da1c56911948e6be885943169816"
+    },
+    "docs/evaluations/cooperation-round-062-development-summary.json": {
+      "bytes": 18429,
+      "sha256": "fbc7e65201672d219229b28246cc3a04a5936bfcbcd26ba8706cab0fccd37b6b",
+      "decodedBytes": 18429,
+      "decodedSHA256": "fbc7e65201672d219229b28246cc3a04a5936bfcbcd26ba8706cab0fccd37b6b"
+    },
+    "docs/evaluations/cooperation-round-062-development-diagnostics.json.gz": {
+      "bytes": 5817,
+      "sha256": "0a647bde1942e0b76db2dc19db76b8b74fc06083930c7501aabff62166133470",
+      "decodedBytes": 84131,
+      "decodedSHA256": "1c126d15d0788618dfd3a182323932ca43eff4c3e683a036e4c0b6a4d8940916"
+    },
+    "docs/evaluations/cooperation-round-062-development-actual-actions.json.gz": {
+      "bytes": 1798,
+      "sha256": "71bcae5347249c82ec21fd22dbfc6516bdfb49d0941faba66d3701465a7ddab7",
+      "decodedBytes": 14111,
+      "decodedSHA256": "bc7494b65f114ac1b07c6f599ce67ad7f90caf34fa26a8c49f18b44a5fb0a359"
+    },
+    "docs/evaluations/cooperation-round-062-development-evidence-prefix.json": {
+      "bytes": 9246,
+      "sha256": "798f4ad237764594563ee6b20906a719949961628585c1dbba3021ba9c0b1b17",
+      "decodedBytes": 9246,
+      "decodedSHA256": "798f4ad237764594563ee6b20906a719949961628585c1dbba3021ba9c0b1b17"
+    },
+    "docs/evaluations/cooperation-round-062-development-resume-check.json": {
+      "bytes": 399,
+      "sha256": "a0fc31e09fa31563a9cb56e0e2dcda6bc89db2987cd42ac39ba18365e5aad50f",
+      "decodedBytes": 399,
+      "decodedSHA256": "a0fc31e09fa31563a9cb56e0e2dcda6bc89db2987cd42ac39ba18365e5aad50f"
+    }
+  },
+  "cumulativeExecutions": 49984,
+  "cumulativeTerminated": 49980,
+  "cumulativeUnfinished": 4,
+  "primaryDatasets": 36,
+  "independentTamperRejected": 12,
+  "completeResumeNewGames": 0,
+  "completeResumeByteHashesUnchanged": true,
+  "humanMatches": 0,
+  "productionDefaultOn": false,
+  "skillValuesChanged": false,
+  "deployed": false,
+  "nextRoundStarted": false,
+  "nextHypothesis": "Identical policies on both factions, balanced8–12player strata, separate faction/mode/order/role-composition assessment; preregister unused153000 range after time budget check.",
+  "analysisFiles": {
+    "tools/analyze-failure-development.py": "1c016a9809752174853b13310749332c809138f0071805cbca2956e65a39333a",
+    "tools/analyze-failure-actions.py": "9ce27a01d59ed3f452f6e46eca8f6bcb71ffc914879b73e608f174de41f67d15",
+    "tools/audit-failure-evidence-prefix.py": "5ca108f49e6dbde9a8052cfaa7702ea20c88a244c418fdc47f7c89b3e04582d8"
+  }
+}

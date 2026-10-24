@@ -9,10 +9,10 @@ describe('공표 가중치 학습 실험 경계',()=>{
   let changed=0;
   for(let seed=1;seed<=128;seed++){
    const a=createBotMemory(seed*8191),b=createBotMemory(seed*8191),c=createBotMemory(seed*8191);
-   const baseline=smartBotAction(t.state,self.id,a,{activity:1});
-   expect(smartBotAction(t.state,self.id,b,{activity:1,claimEvidenceScale:4,claimEvidenceScope:'information'})).toEqual(baseline);
+   const baseline=smartBotAction(t.state,self.id,a,{activity:1,teamwork:false});
+   expect(smartBotAction(t.state,self.id,b,{activity:1,teamwork:false,claimEvidenceScale:4,claimEvidenceScope:'information'})).toEqual(baseline);
    expect(b.rng).toBe(a.rng);
-   if(JSON.stringify(smartBotAction(t.state,self.id,c,{activity:1,claimEvidenceScale:4}))!==JSON.stringify(baseline))changed++;
+   if(JSON.stringify(smartBotAction(t.state,self.id,c,{activity:1,teamwork:false,claimEvidenceScale:4}))!==JSON.stringify(baseline))changed++;
   }
   expect(changed).toBeGreaterThan(0);
  });

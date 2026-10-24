@@ -1,0 +1,57 @@
+{
+  "valid": true,
+  "records": 96,
+  "actions": 10157,
+  "receipts": 298,
+  "primaryComparisons": 13047,
+  "chatComparisons": 13047,
+  "intakeObservations": 3996,
+  "byVariant": {
+    "control": {
+      "games": 48,
+      "actions": 5053,
+      "receipts": 149,
+      "receiptObserved": 149,
+      "results": 145,
+      "resultObserved": 125,
+      "postmortemResult": 15,
+      "noLaterLiveUpdate": 5,
+      "endedBeforeResult": 4,
+      "successObserved": 70,
+      "failureObserved": 55
+    },
+    "candidate": {
+      "games": 48,
+      "actions": 5104,
+      "receipts": 149,
+      "receiptObserved": 149,
+      "results": 145,
+      "resultObserved": 125,
+      "postmortemResult": 15,
+      "noLaterLiveUpdate": 5,
+      "endedBeforeResult": 4,
+      "successObserved": 70,
+      "failureObserved": 55
+    }
+  },
+  "scope": "Independent original command/receipt/censoring links; actual memory checks use recorded runtime witnesses.",
+  "tamperRejected": 8,
+  "rawSHA256": "61e7362ec495d6e2169d201af048c1bbc5020e4fed11c200450cdd0abc3a96e2",
+  "sourceRef": "5879d51695c44c76d807f77b4e2c96af63dd7a16",
+  "options": {
+    "control": {
+      "rememberOwnDelayedCheck": true
+    },
+    "candidate": {
+      "verifyIncomingAllies": "commander-report-first",
+      "rememberOwnDelayedCheck": true
+    }
+  },
+  "optionsSHA256": "471dbff021118da953a7bc3023327da3f5a32e72bae609fd84726dfad09c2adb",
+  "completedAt": "2026-10-24T09:22:15+09:00",
+  "prefixPreserved": true,
+  "completionResumeNewReplays": 0,
+  "completionResumeBytesIdentical": true,
+  "compressedSHA256": "369fc72e445ed7fbebdf5d7889e256c17549c17b9a1030f9d1b7e042e9d2345d",
+  "journalSHA256": "18fb23d65b369d9638a0a3192962cb8cf448c9e85ee9991cf2a4a08133c221d8"
+}

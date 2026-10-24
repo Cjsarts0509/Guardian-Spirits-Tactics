@@ -1,0 +1,111 @@
+{
+  "continuation": "completed_user_requested_100_game_comparison",
+  "pausedByUser": false,
+  "resumeInstruction": "최신 사용자 요청: main과 진영 교환, 4모드 각25/총100경기만 유한 평가. 예약 재개 없음.",
+  "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
+  "holdoutSeeds": {
+    "start": 121000,
+    "count": 16,
+    "status": "unused"
+  },
+  "nextSeeds": {
+    "start": 152016,
+    "count": 64,
+    "status": "reserved_unused"
+  },
+  "scheduling": {
+    "automationId": "6acfabdb3d248191b9e2a1e0773010dc",
+    "enabled": false,
+    "resumeUntil": "2026-10-24T15:00:00+09:00",
+    "disabledAt": "2026-10-24T06:00:13.481510+00:00"
+  },
+  "interimReport": "docs/ai-rounds/ROUND_074_20261024_1732.md",
+  "deployment": false,
+  "humanValidation": {
+    "actualHumanMatches": 0
+  },
+  "cumulativeExecutions": 52004,
+  "cumulativeTerminatedExecutions": 52000,
+  "cumulativeUnfinishedExecutions": 4,
+  "corpusAudit": {
+    "path": "docs/evaluations/cooperation-round-074-cumulative-audit.json",
+    "primaryDatasets": 39,
+    "verifiedExecutions": 52004,
+    "terminated": 52000,
+    "unfinished": 4
+  },
+  "round": 74,
+  "status": "completed",
+  "owner": "round074-user-requested-main-comparison",
+  "startedAt": "2026-10-24T17:32:07.308801+09:00",
+  "leaseUntil": null,
+  "record": "docs/ai-rounds/ROUND_074_20261024_1732.md",
+  "task": "현재 후보 대 정확한 main 4모드×25 직접 대전",
+  "previousCompleted": {
+    "round": 73,
+    "record": "docs/ai-rounds/ROUND_073_20261024_1450.md",
+    "resultHead": "f29949ba12b9a6929e9bb129a068081cdc58d53d"
+  },
+  "sourceRef": "426a91a49df41d76de3ae9a373ffbf23cb2efc26",
+  "checkpoint": "complete_verified_and_archived",
+  "phase": "complete_verified_and_archived",
+  "executions": 100,
+  "targetExecutions": 100,
+  "newResearchExecutions": 100,
+  "checks": {
+    "rulesTests": 719,
+    "serverTests": 75,
+    "typecheckPackages": 4,
+    "builds": [
+      "server",
+      "client",
+      "hostWorker"
+    ],
+    "observerOnOffEquivalentModes": 4,
+    "exactFullOriginalGameReplays": 4,
+    "semanticTamperRejected": 6,
+    "completedResumeNewGames": 0,
+    "resumeExportHashesUnchanged": 12
+  },
+  "seedUse": {
+    "new": {
+      "start": 154000,
+      "count": 40
+    },
+    "reservedBeforeEvaluation": true
+  },
+  "runtime": {
+    "processAlive": false,
+    "completedAt": "2026-10-24T17:45:56.218641+09:00",
+    "newResearchExecutions": 100,
+    "primaryRaw": "docs/evaluations/cooperation-round-074-main-comparison.json.gz"
+  },
+  "nextHypothesis": "추가 진단 시 별도 새 표본을 고정하여 협력·공표와 확인 후 전투 전환의 기회비용을 분리한다. 이번100경기 결과로 정책을 재튜닝하지 않으며 후속 실험은 착수하지 않았다.",
+  "nextRoundStarted": false,
+  "cumulativeScope": "Complete069 added once; partial/synthetic/replay excluded.",
+  "nextAction": "요청한100경기 평가 완료. 추가 실험과 정책 재튜닝은 착수하지 않았다.",
+  "candidateRef": "f29949ba12b9a6929e9bb129a068081cdc58d53d",
+  "mainRef": "a92d9bb32d4d302b11eb839fd71f84974f7070cb",
+  "priorDeadlineClosure": {
+    "lastCompletedRound": 73,
+    "resumeCompletedRounds": [
+      58,
+      73
+    ],
+    "resumeNewResearchExecutions": 3072,
+    "unfinishedActiveBatches": 0,
+    "newRoundsAfterDeadline": 0,
+    "report": "docs/ai-rounds/INTERIM_20261024.md",
+    "finalCheck": "docs/evaluations/cooperation-resume-20261024-final.json",
+    "automationDisableEvidence": "docs/evaluations/cooperation-resume-20261024-automation-stop.json"
+  },
+  "priorStopAt": "2026-10-24T15:00:13.511027+09:00",
+  "evaluationPlan": "docs/evaluations/cooperation-round-074-plan.json",
+  "completedAt": "2026-10-24T17:45:56.218641+09:00",
+  "result": {
+    "candidateWins": 35,
+    "mainWins": 65,
+    "unfinished": 0,
+    "primaryRaw": "docs/evaluations/cooperation-round-074-main-comparison.json.gz"
+  }
+}

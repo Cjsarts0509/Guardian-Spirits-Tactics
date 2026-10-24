@@ -1,0 +1,63 @@
+{
+  "kind": "round072-completion-evidence",
+  "completedAt": "2026-10-24T14:48:28.800178+09:00",
+  "sourceRef": "1ad149dfc12ba6c391e85de328d0e4715b736f94",
+  "analysisSourceRef": "fe42521fb3cd22b2ed0a0bd93114362f24531b1d",
+  "manifest": {
+    "docs/evaluations/cooperation-round-072-guardians.json.gz": {
+      "bytes": 2760618,
+      "sha256": "dd607bdc7617206b3507e6ae753e057ce83ea87374a8eabe359e18b96194e461",
+      "decodedBytes": 52480207,
+      "decodedSHA256": "f2e9108b7348080a4276cd8c8f11db56bb46575830cf9112551f456bb2f46602"
+    },
+    "docs/evaluations/cooperation-round-072-guardians.journal.ndjson.gz": {
+      "bytes": 821143,
+      "sha256": "682e91e34f5456ce12dd1eb8b233b39c8d3cce14902751f5401ab7b8fc1a3365",
+      "decodedBytes": 15035145,
+      "decodedSHA256": "cb7e5b41d119a6c1ec337a3cdf46421401be067c648d942878049f315f845373"
+    },
+    "docs/evaluations/cooperation-round-072-guardians.publication.json": {
+      "bytes": 317,
+      "sha256": "b165332dd9ae6d64045a43d586bfc83c9e6bfcfd4ec68c94837215895261e51e",
+      "decodedBytes": 317,
+      "decodedSHA256": "b165332dd9ae6d64045a43d586bfc83c9e6bfcfd4ec68c94837215895261e51e"
+    },
+    "docs/evaluations/cooperation-round-072-guardians-summary.json": {
+      "bytes": 31354,
+      "sha256": "cced3e6c19c87212f6b110f8c48af990c2bfae148199531b823a7ea50cc65bae",
+      "decodedBytes": 31354,
+      "decodedSHA256": "cced3e6c19c87212f6b110f8c48af990c2bfae148199531b823a7ea50cc65bae"
+    },
+    "docs/evaluations/cooperation-round-072-guardians-resume-check.json": {
+      "bytes": 425,
+      "sha256": "d59473d1d63d169e5eacb5248fcb187a4d9a215999cc72107fcfdd71d805be81",
+      "decodedBytes": 425,
+      "decodedSHA256": "d59473d1d63d169e5eacb5248fcb187a4d9a215999cc72107fcfdd71d805be81"
+    },
+    "docs/evaluations/cooperation-round-072-choices.json.gz": {
+      "bytes": 2119,
+      "sha256": "7c39745e2062b4847c5941969ee08b8bb52b3c5c9c5a5374c8cc0ba86e0a2305",
+      "decodedBytes": 24387,
+      "decodedSHA256": "a6889602c63ed8bfb5cefc484a63cf8023fea7a475e8025b86291a33e8a11f92"
+    }
+  },
+  "replayedGames": 4,
+  "matchedActions": 565,
+  "caseCount": 4,
+  "totals": {
+    "activeBeforeDeath": 37,
+    "commander_unknown": 37,
+    "selectedProposal": 0
+  },
+  "newResearchExecutions": 0,
+  "newUnfinished": 0,
+  "resumeUnchanged": true,
+  "repeatedAnalysisByteIdentical": true,
+  "findings": "사망 순간 미기동·명목 준비 4사례의 고유4경기·565명령을 원래 경기/기억RNG 그대로 재현했다. 보호자의 사망 전 실제 활성 선택 37회 중 지휘관 미확정 37, 자기 뷰상 보호 제안 0, 실제 그 제안 선택 0·접수 0회였다. 반복 호출은 독립 기회가 아니며 제안만으로 합법성·최적성·회피 가능 사망을 주장하지 않는다.",
+  "cumulativeExecutions": 51904,
+  "cumulativeTerminated": 51900,
+  "cumulativeUnfinished": 4,
+  "humanMatches": 0,
+  "skillValuesChanged": false,
+  "nextHypothesis": "직전 선택에서 확정 정체가 부족했다면 실제 수신 보고·발신자 신뢰·확인 경로를 분리하고, 준비된 확정 제안이 있었다면 상위 선택과 실제 합법성을 먼저 확인한다."
+}

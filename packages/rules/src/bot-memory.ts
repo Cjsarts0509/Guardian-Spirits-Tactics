@@ -1,3 +1,7 @@
+import {observeIntel, type BotIntel} from './bot-intel.js';
+import {observeClaimTurnCommitment} from './bot-claim-commitment.js';
+import {observeOwnAttack, type OwnAttackMemory} from './bot-own-attack.js';
+import {observeOwnDelayedCheck, learnOwnDelayedFailureFaction, type OwnDelayedCheckMemory} from './bot-own-delayed-check.js';
 import type { CharKey, GameEvent, PlayerId } from './types.js';
 import type { PlayerView } from './engine/view.js';
 import type { AssignmentBelief } from './bot-belief.js';
@@ -28,13 +32,24 @@ export interface BotPerception {
   automaticClaims: Set<PlayerId>;
   manualClaims: Map<PlayerId, { name: CharKey; at: number }>;
   trueNameUntil: number;
+  /** 기본OFF 실험. 자기 성공 공표 이후 다음 자기 턴까지만 유지하는 정책 의도. */
+  claimCommitment?: {lastSeq:number;until:number;publishedAt:number|null};
+  /** 기본OFF 실험: 본인 직접 확인으로 새 적 정체를 얻은 단 한 번의 후속 기회. */
+  directCheckReaction?: {seq:number;at:number;target:string;name:CharKey};
+  /** Optional direct evidence linking one's own named attack to a visible successful outcome. */
+  ownAttacks?: OwnAttackMemory;
+  /** 기본OFF: 자기 지연 확인의 접수와 실제 결과. 정체 확정/행동 억제와 분리한다. */
+  ownDelayedChecks?: OwnDelayedCheckMemory;
   battle: BattleMemory;
+  intel?: BotIntel;
   lastBurn?: { target: PlayerId; at: number };
 }
 
 /** 한 판의 한 플레이어 전용. 서버 상태나 다른 봇의 기억을 보관하지 않는다. */
 export interface BotMemory {
   rng: number;
+  /** 현재 행동 결정에 딸린 대화 1회 허용. 다음 결정 또는 새 판에서 초기화. */
+  communicationAt?: number;
   perception?: BotPerception;
   beliefCache?: { signature: string; value: AssignmentBelief };
   plan?: SkillPlan;
@@ -51,10 +66,11 @@ export function createBotMemory(seed: number): BotMemory {
  * 지속되는 실제 봇 기억은 기본값으로 모든 관측 스킬/쿨다운을 기록한다.
  */
 export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[], memory: BotMemory,
-  options: { recordBattle?: boolean } = {}): Knowledge {
+  options: { recordBattle?: boolean; claimTurnCommitment?: boolean; directCheckFollowup?:boolean; learnOwnAttackOutcome?:boolean; rememberOwnDelayedCheck?:boolean; learnOwnDelayedFailureFaction?:boolean } = {}): Knowledge {
   let p = memory.perception;
   if (!p || p.playerId !== view.me.id || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs) {
     memory.plan = undefined;
+    delete memory.communicationAt;
     delete memory.protectionRetries;
     p = memory.perception = {
       playerId: view.me.id, mode: view.mode, character: view.me.character,
@@ -65,13 +81,27 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
       battle: createBattleMemory(),
     };
   }
+  if (options.learnOwnAttackOutcome === false) delete p.ownAttacks;
+  if (options.learnOwnAttackOutcome === true) p.ownAttacks ??= { proofs: new Map() };
+  observeOwnAttack(view, events, memory);
+  if(options.rememberOwnDelayedCheck===false&&!options.learnOwnDelayedFailureFaction)delete p.ownDelayedChecks;
+  if((options.rememberOwnDelayedCheck===true||options.learnOwnDelayedFailureFaction===true)&&view.mode==='troll'&&view.me.character==='kanulla')
+    p.ownDelayedChecks??={lastSeq:0,records:[]};
+  if(p.ownDelayedChecks)observeOwnDelayedCheck(view,events,p.ownDelayedChecks);
   for (const e of events) {
     if (e.seq <= p.lastSeq || !(e.vis.to === 'all' || (e.vis.to === 'players' && e.vis.ids.includes(view.me.id)))) continue;
     if (options.recordBattle !== false) observeBattle(view, e, p.battle);
     if (e.kind === 'skill.burning_magic.self' && typeof e.data?.target === 'string') p.lastBurn = { target: e.data.target, at: e.at };
     for (const f of e.facts ?? []) {
       if (f.player === view.me.id) continue;
-      if (f.character) p.known.set(f.player, f.character);
+      if (f.character) {
+        if(options.directCheckFollowup&&!p.known.has(f.player)&&['inspect.result','gem.result'].includes(e.kind)&&
+          e.vis.to==='players'&&e.vis.ids.length===1&&e.vis.ids[0]===view.me.id&&!f.oneOf&&
+          e.at<=view.elapsedMs&&view.elapsedMs-e.at<=5000&&
+          view.roster.some(r=>r.key===f.character&&r.side!==view.me.side))
+          p.directCheckReaction={seq:e.seq,at:e.at,target:f.player,name:f.character};
+        p.known.set(f.player, f.character);
+      }
       if (f.not) {
         const excluded = p.excluded.get(f.player) ?? new Set<CharKey>();
         excluded.add(f.not);
@@ -83,6 +113,7 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
       }
       if (f.commander) p.commanders.add(f.player);
     }
+    observeIntel(view, e, memory);
     if (e.kind === 'skill.angel_baptism' && typeof e.data?.character === 'string') p.baptized.add(e.data.character);
     if (e.kind === 'skill.chief_protection') p.chiefProtected = true;
     if (e.kind === 'skill.holy_binding.purge') p.madnessPurged = true;
@@ -107,10 +138,18 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
     p.lastSeq = e.seq;
   }
   p.lastElapsedMs = view.elapsedMs;
+  if(options.claimTurnCommitment===false)delete p.claimCommitment;
+  // 대화 경로가 먼저 수신 이벤트를 소비해도 같은 자기 기억에서 성공/턴을 관찰한다.
+  if(options.claimTurnCommitment===true||p.claimCommitment)observeClaimTurnCommitment(view,events,memory);
   for (const other of view.players) if (other.revealed && other.id !== view.me.id) p.known.set(other.id, other.revealed);
+  if(options.learnOwnDelayedFailureFaction===true)learnOwnDelayedFailureFaction(view,p);
 
   const roster = view.roster.filter((r) => r.inGame);
   const known = new Map(p.known);
+  for (const [id, proof] of p.ownAttacks?.proofs ?? []) {
+    // Direct engine facts take precedence if an inconsistent history is ever supplied.
+    if (!known.has(id)) known.set(id, proof.name);
+  }
   const candidates = new Map<PlayerId, CharKey[]>();
   // 확정 제약과 한 사람당 한 역할이라는 규칙으로 후보가 하나면 정체를 추론한다.
   // 원래 관찰과 분리해서 계산하므로 과거의 추론을 다시 증거로 사용하지 않는다.

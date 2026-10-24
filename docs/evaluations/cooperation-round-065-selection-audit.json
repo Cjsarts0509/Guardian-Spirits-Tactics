@@ -1,0 +1,33 @@
+{
+  "kind": "round065-all-capped-and-paired-preregistration",
+  "registeredAt": "2026-10-24T13:41:05.319333+09:00",
+  "expectedHead": "9f93fdc2d5d5387edb1c1d09ae2361226142be2c",
+  "frozenReplaySource": "c4e367fd0a27e44560b4b5edee26ff51d0a5f4ad",
+  "manifestPath": "docs/evaluations/cooperation-round-065-selection.json",
+  "manifestSHA256": "45c73d96b516a37f37383bd1776b5ffe29b591f495c5ffb289d5f1189a84abb7",
+  "denominators": {
+    "round062": {
+      "totalSourceGames": 1152,
+      "cappedGames": 2,
+      "uniqueCappedFixtures": 1,
+      "selectedPairedGames": 3,
+      "cappedByVariant": {
+        "control": 1,
+        "candidate": 1
+      }
+    },
+    "round063": {
+      "totalSourceGames": 960,
+      "cappedGames": 0,
+      "uniqueCappedFixtures": 0,
+      "selectedPairedGames": 0,
+      "cappedByVariant": {}
+    }
+  },
+  "selectedGames": 3,
+  "outcomeSelectedFailureDiagnostic": true,
+  "populationEffectEstimate": false,
+  "newResearchExecutions": 0,
+  "newSeeds": 0,
+  "selectionRule": "All capped games in complete062/063, expand each unique fixture/style to all three paired policies, deduplicate in source order; no character or desired-result selection."
+}

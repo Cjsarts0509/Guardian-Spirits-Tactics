@@ -1,6 +1,7 @@
 import type { PlayerView } from './engine/view.js';
 import type { BotMemory, Knowledge } from './bot-memory.js';
 import { wantsTrueName } from './bot-claims.js';
+import {claimTurnCommitted} from './bot-claim-commitment.js';
 
 /** 플레이어마다 최신 수동 공표 하나. 확정된 적 정체로만 성향을 분류한다. */
 export function observedClaimStyle(view: PlayerView, knowledge: Knowledge, memory: BotMemory) {
@@ -24,4 +25,30 @@ export function adaptiveClaimName(view: PlayerView, knowledge: Knowledge, memory
   const names = me.skills.find((s) => s.key === 'publish')?.nameOptions ?? [];
   const decoys = names.filter((n) => view.roster.some((r) => r.key === n && r.side === me.side && !r.commander));
   return decoys.includes(me.published ?? '') ? me.published! : decoys[0] ?? me.character;
+}
+
+/** 정체 숨김과 자원 이익을 구분. 진명 스킬·공개된 정체는 유지하고 지휘관/변장은 위장한다. */
+export function strategicClaimName(view: PlayerView, knowledge: Knowledge, memory: BotMemory, gemGoal: 2 | 3 = 2,
+  commanderGrowth: 'none' | 'shining' | 'all' = 'none',turnCommitment=false): string {
+  const me=view.me, names=me.skills.find(s=>s.key==='publish')?.nameOptions??[];
+  if(wantsTrueName(view)||(memory.perception?.trueNameUntil??0)>view.elapsedMs||view.players.find(p=>p.id===me.id)?.revealed)return me.character;
+  if(turnCommitment&&claimTurnCommitted(view,memory))return me.character;
+  const disguise=me.skills.some(s=>s.key==='disguise');
+  // 개발 후보: 성장 중인 지휘관만 한시적으로 자원/보석을 얻고 완성 후 다시 숨긴다.
+  if(!disguise&&me.commander&&me.gem<3&&(commanderGrowth==='all'||commanderGrowth==='shining'&&me.character==='shining'))return me.character;
+  // 일반 인물은 보석 성장·공격/지원 예산을 보호하며 확정 적이 생긴 여유 자원 상황에만 위장한다.
+  const turnWindow=view.nextTurnInMs<=43_000;
+  const attacks=me.skills.filter(s=>['attack','advanced_attack','supreme_attack'].includes(s.key)&&s.usesLeft!==0);
+  const neededMana=attacks.length?Math.max(...attacks.map(s=>s.mana)):30;
+  const threatened=view.players.some(p=>p.alive&&p.id!==me.id&&view.roster.some(r=>r.key===knowledge.known.get(p.id)&&r.side!==me.side));
+  if(!disguise && ((!me.commander&&(me.gem<gemGoal||me.mana<neededMana+40||!threatened))||
+     (me.commander&&turnWindow&&me.mana<neededMana)))return me.character;
+  const decoys=names.filter(n=>n!==me.character&&view.roster.some(r=>r.key===n&&r.inGame&&!r.commander&&
+    (disguise?r.side!==me.side:r.side===me.side)));
+  if(decoys.includes(me.published??''))return me.published!;
+  // 동료의 알려진 정체와 겹치지 않는 이름 우선. 자기 관찰만으로 결정한다.
+  const available=decoys.filter(n=>![...knowledge.known.values()].includes(n));
+  const pool=available.length?available:decoys;
+  let hash=0;for(const c of me.id)hash=(hash*31+c.charCodeAt(0))>>>0;
+  return pool[hash%Math.max(1,pool.length)]??me.character;
 }

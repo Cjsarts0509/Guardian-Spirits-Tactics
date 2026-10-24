@@ -1,0 +1,29 @@
+{
+  "kind": "round066-all-complete-own-failure-recasts",
+  "registeredAt": "2026-10-24T13:46:00.874377+09:00",
+  "expectedHead": "c787a966f42efc7fbb272e54a000962e74e2eadc",
+  "analysisSourceRef": "a24b16625a289c9f55ec3a4f5268d8d47bf6572a",
+  "analysisScript": "tools/analyze-own-failure-recasts.py",
+  "analysisSHA256": "db0159f7a4f00bf0e923c2fd2ecb39b2cd66194d6fddc04beb2027f79f689e75",
+  "newResearchExecutions": 0,
+  "newSeeds": 0,
+  "sources": [
+    {
+      "path": "docs/evaluations/cooperation-round-062-development.json.gz",
+      "rawSHA256": "934da82f977972fa58e224088887bf4d21795e7f3dd1ed213f706adc5fb42ae0",
+      "sourceRef": "8549b136084650faa1c6b5942760204fe8262748",
+      "optionsSHA256": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161",
+      "games": 1152,
+      "eligibleControlCandidateGames": 768
+    },
+    {
+      "path": "docs/evaluations/cooperation-round-063-development.json.gz",
+      "rawSHA256": "699b772f7dc3cc955b5cbf9d34a81d574a1f517375d5a684fdd2535420134a37",
+      "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
+      "optionsSHA256": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161",
+      "games": 960,
+      "eligibleControlCandidateGames": 640
+    }
+  ],
+  "selectionRule": "All control and candidate records in complete062/063; no winner, role, repeat, or favorable outcome selection; baseline intake unmeasured."
+}

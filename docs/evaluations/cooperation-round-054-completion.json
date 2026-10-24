@@ -1,0 +1,102 @@
+{
+  "round": 54,
+  "status": "completed",
+  "sourceRef": "6e48905746c92d026b4a69210eafb747bc347dd9",
+  "sourcePr": 16,
+  "candidateOptions": {
+    "verifyIncomingAllies": "commander-report-first"
+  },
+  "candidateOptionsSHA256": "5041fce452719fa4ecca0f4394a28f59e46abb2bc2497b40c15fd6250a64bf8a",
+  "newResearchExecutions": 0,
+  "cumulativeExecutions": 47680,
+  "terminated": 47678,
+  "historicalUnfinished": 2,
+  "primaryDatasets": 34,
+  "actualCandidateGames": 0,
+  "replayedUniqueGames": 4,
+  "originalCollectorPasses": 4,
+  "witnessPasses": 4,
+  "matchedCommands": 651,
+  "behavior": {
+    "activePrimaryChoices": 153,
+    "incomingEligibleChoices": 8,
+    "resourceFeasibleProposals": 6,
+    "actualOrdinaryReportCompetition": 2,
+    "actualStageSelected": 2,
+    "changedChoices": 2,
+    "counterfactualProbes": 2,
+    "counterfactualAccepted": 2,
+    "counterfactualDirectSenderFacts": 2,
+    "wrongKnownBeforeAndAfter": 0,
+    "uniqueChangedSeedSeatSituations": 1,
+    "higherPriorityPreserved": 4,
+    "pairedOwnInputsMatched": 153,
+    "pairedAlternativeRngMatched": 153
+  },
+  "checks": {
+    "tests": 723,
+    "rules": 648,
+    "server": 75,
+    "typecheck": "4_packages_passed",
+    "serverClientWorkerBuild": "passed",
+    "syntheticPython": 20,
+    "syntheticProbeMutationCasesWithProbe": 0,
+    "focusedObserverFinal": 2,
+    "realPython": 20,
+    "realProbeMutationCasesExercised": 2,
+    "resumeNew": 0,
+    "resumeThreeHashesUnchanged": true,
+    "repeatSummaryAndStageAuditByteIdentical": true,
+    "repoCompressedVerification": "passed",
+    "newFailures": 0,
+    "newUnfinished": 0
+  },
+  "ci": {
+    "sourceRef": "6e48905746c92d026b4a69210eafb747bc347dd9",
+    "checkedAt": "2026-10-18T09:16:39+09:00",
+    "CI": {
+      "run": 39081982779,
+      "conclusion": "success"
+    },
+    "browser": {
+      "run": 39081982831,
+      "conclusion": "success"
+    },
+    "retryRequests": 0
+  },
+  "hashes": {
+    "snapshotDecoded": "e1815dda1b6c4340f6ca8cfd24f96d886bd46bac053a030d55beadc1716b9ea5",
+    "journalDecoded": "2c483862b17caf074e4114c0ec915512fb9405834d617145f3ebadee0845fcc5",
+    "publication": "fcec3bd03d5e8bc89cd4b9262fe6656360e1ee7666231310faeaced0bd09b060",
+    "summary": "5b766d0a5dd138f91e0ec24e21282724650c47aa63a70eeb879573746445a5ce",
+    "stageAudit": "4d2b5d35a79d466d04512b7681c2d4320bc2ef0450e31220c30b4b4c35759809",
+    "snapshotGzip": "ad44fd1e2b4cb20544121b1f0690b6ccbb5112df1beae73d9844869ad1592dcb",
+    "journalGzip": "67878f2e5adff77953f73251dd491b5a325dd90c326fa7795bda6102f4f27261"
+  },
+  "interpretation": {
+    "functionalSelectionChangeDemonstrated": true,
+    "improvedOverallInformationValueDemonstrated": false,
+    "followupProtectionBenefitDemonstrated": false,
+    "performanceEvaluated": false,
+    "balanceEvaluated": false,
+    "actualHumanMatches": 0,
+    "immediateManaPerProbe": 50,
+    "immediateOriginalGemCost": 50,
+    "deferredOrdinaryVerificationCostUnknown": true,
+    "defaultsChanged": false,
+    "skillNumbersChanged": false,
+    "merged": false,
+    "deployed": false
+  },
+  "reservedUnused": [
+    [
+      152000,
+      152079
+    ],
+    [
+      121000,
+      121015
+    ]
+  ],
+  "nextAction": "Round055 preregister fresh development 152000–152007 (1152 games,4 modes×3 fixed opponents×4 side/order×baseline/control/candidate) with fixed commander-report-first only, preserving protocol behavior/performance separation. Collect actual sender confirmation/trusted-report followup and resource/failure costs. No source retuning on final data. Not started;152000–152079/121000 unused."
+}

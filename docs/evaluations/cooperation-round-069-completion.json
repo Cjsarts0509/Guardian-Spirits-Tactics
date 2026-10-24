@@ -1,0 +1,93 @@
+{
+  "kind": "round069-completion-evidence",
+  "completedAt": "2026-10-24T14:35:07.397324+09:00",
+  "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
+  "options": {
+    "baseline": {},
+    "control": {
+      "verifyIncomingAllies": "commander-report-first",
+      "rememberOwnDelayedCheck": true
+    },
+    "candidate": {
+      "verifyIncomingAllies": "commander-report-first",
+      "rememberOwnDelayedCheck": true,
+      "learnOwnDelayedFailureFaction": true
+    }
+  },
+  "optionsSHA256": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161",
+  "fingerprint": "65536001f0765f4a217cd40e8cbb16b3ce92e417023b4a3e541dabd3e43bf158",
+  "executions": 960,
+  "terminated": 960,
+  "unfinished": 0,
+  "manifest": {
+    "docs/evaluations/cooperation-round-069-development.json.gz": {
+      "bytes": 2978082,
+      "sha256": "805f4e5b0e106d8e0dd78ee4e5679f0614007b4a3682fe6151276761616dbb40",
+      "decodedBytes": 68189364,
+      "decodedSHA256": "a163da2176be7be136e5d7cda995bea8c6b39720ca7310499721d441f388ac2a"
+    },
+    "docs/evaluations/cooperation-round-069-development.journal.ndjson.gz": {
+      "bytes": 2060308,
+      "sha256": "4022d11c20bb10fce0d292b68607c1fc1f915ed9f8675c9898ebc489c9f5e01c",
+      "decodedBytes": 36014200,
+      "decodedSHA256": "38579ac3926dbd79e6b9c1981c92dd75ab2644aa82f6dd6091d02348f3a5474f"
+    },
+    "docs/evaluations/cooperation-round-069-development.publication.json": {
+      "bytes": 319,
+      "sha256": "088e7aaf240feb97bd49948aede74fe561082f0ba73f118816a7eb897731234e",
+      "decodedBytes": 319,
+      "decodedSHA256": "088e7aaf240feb97bd49948aede74fe561082f0ba73f118816a7eb897731234e"
+    },
+    "docs/evaluations/cooperation-round-069-development-summary.json": {
+      "bytes": 794680,
+      "sha256": "ad5cf05dd43b25809133101dfb58493c777d43925dcc1d96e7c36d11c78a065d",
+      "decodedBytes": 794680,
+      "decodedSHA256": "ad5cf05dd43b25809133101dfb58493c777d43925dcc1d96e7c36d11c78a065d"
+    },
+    "docs/evaluations/cooperation-round-069-development-actual-actions.json.gz": {
+      "bytes": 1565,
+      "sha256": "4dd7489f7adaf8606c4266ccef4d21553bcdb6422b01ea2e3db70e77de2a3047",
+      "decodedBytes": 9180,
+      "decodedSHA256": "0973a14224764a8abdc318ed6374fc4a18e29d5af93bad6da979824b8c96bb33"
+    },
+    "docs/evaluations/cooperation-round-069-development-evidence-prefix.json": {
+      "bytes": 6018,
+      "sha256": "52e763e313eb4b6f6e8736cf2b20bce382909ceb34f50f67f2f7eda80bc80d0b",
+      "decodedBytes": 6018,
+      "decodedSHA256": "52e763e313eb4b6f6e8736cf2b20bce382909ceb34f50f67f2f7eda80bc80d0b"
+    },
+    "docs/evaluations/cooperation-round-069-development-resume-check.json": {
+      "bytes": 399,
+      "sha256": "6e2db2537361a15df99735c5496015a394fc599a116de99dc57a1626753f6395",
+      "decodedBytes": 399,
+      "decodedSHA256": "6e2db2537361a15df99735c5496015a394fc599a116de99dc57a1626753f6395"
+    },
+    "docs/evaluations/cooperation-round-069-parallel-completion.json.gz": {
+      "bytes": 59732,
+      "sha256": "5eef7f69c745b52ccb857921460df0ae7e61955f421546b98dd9e6d40f64a45a",
+      "decodedBytes": 292379,
+      "decodedSHA256": "b075b54c95a26a4fc525003d54423e03c466036ed7854ec06106fb848bd439a3"
+    }
+  },
+  "cumulativeExecutions": 51904,
+  "cumulativeTerminated": 51900,
+  "cumulativeUnfinished": 4,
+  "primaryDatasets": 38,
+  "independentTamperRejected": 11,
+  "completeResumeNewGames": 0,
+  "completeResumeByteHashesUnchanged": true,
+  "humanMatches": 0,
+  "productionDefaultOn": false,
+  "skillValuesChanged": false,
+  "deployed": false,
+  "nextRoundStarted": false,
+  "evaluationKind": "identical-policy-balance",
+  "newResearchExecutions": 960,
+  "nextHypothesis": "Trace all primordial commander deaths in existing complete identical-policy records using actual engine action/advance boundaries; separate named attacks, other causes, protection and own readiness.",
+  "analysisFiles": {
+    "tools/analyze-failure-actions.py": "9ce27a01d59ed3f452f6e46eca8f6bcb71ffc914879b73e608f174de41f67d15",
+    "tools/audit-failure-evidence-prefix.py": "5ca108f49e6dbde9a8052cfaa7702ea20c88a244c418fdc47f7c89b3e04582d8"
+  },
+  "shortFinding": "새 독립 개발960경기 검증·미종료0. 모드·인원·역순별 동일정책 진영 편향과 행동 품질을 분리했다.",
+  "findings": "새 독립 개발960경기 검증·미종료0. 모드·인원·역순별 동일정책 진영 편향과 행동 품질을 분리했다. 서로 다른 정책의 진영1 승률은 정책 실력 순위가 아니며 전체50%나 개별스킬수치 원인의 증명도 아니다."
+}

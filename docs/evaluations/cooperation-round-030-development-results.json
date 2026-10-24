@@ -1,0 +1,622 @@
+{
+  "kind": "gst-single-direct-check-diagnostic-results",
+  "sourceRef": "7a8eb17df8692a4fc87e59c1810b0d9425d9a0ef",
+  "corePolicySourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
+  "phase": "development-diagnostic",
+  "executions": 3072,
+  "terminated": 3072,
+  "summary": {
+    "format": 1,
+    "phase": "development",
+    "complete": true,
+    "executions": 3072,
+    "fingerprint": "a91f4ab8ee9f22355b65a336201cc9eeef4e9c30815dd3b053202d996860bc4e",
+    "start": 142000,
+    "seeds": 32,
+    "promotionEvidence": false,
+    "developmentGatePassed": false,
+    "holdoutGatePassed": false,
+    "diagnosticGatePassed": false,
+    "contrasts": {
+      "single-control": {
+        "difference": 0.001953125,
+        "seedBootstrap95": [
+          -0.0026041666666666665,
+          0.005859375
+        ],
+        "seedBootstrap99": [
+          -0.00390625,
+          0.007161458333333333
+        ]
+      }
+    },
+    "modes": {
+      "civil_war": {
+        "control": {
+          "games": 384,
+          "scoreSum": 262,
+          "unfinished": 0,
+          "earlyAttackFailures": 0,
+          "safety": {
+            "wrongAllies": 0,
+            "falseReports": 0,
+            "wrongSingleAttack": 0
+          },
+          "score": 0.6822916666666666
+        },
+        "single": {
+          "games": 384,
+          "scoreSum": 261,
+          "unfinished": 0,
+          "earlyAttackFailures": 0,
+          "safety": {
+            "wrongAllies": 0,
+            "falseReports": 0,
+            "wrongSingleAttack": 0
+          },
+          "score": 0.6796875
+        }
+      },
+      "primordial": {
+        "control": {
+          "games": 384,
+          "scoreSum": 268,
+          "unfinished": 0,
+          "earlyAttackFailures": 0,
+          "safety": {
+            "wrongAllies": 0,
+            "falseReports": 0,
+            "wrongSingleAttack": 0
+          },
+          "score": 0.6979166666666666
+        },
+        "single": {
+          "games": 384,
+          "scoreSum": 268,
+          "unfinished": 0,
+          "earlyAttackFailures": 0,
+          "safety": {
+            "wrongAllies": 0,
+            "falseReports": 0,
+            "wrongSingleAttack": 0
+          },
+          "score": 0.6979166666666666
+        }
+      },
+      "lidellut": {
+        "control": {
+          "games": 384,
+          "scoreSum": 252,
+          "unfinished": 0,
+          "earlyAttackFailures": 0,
+          "safety": {
+            "wrongAllies": 0,
+            "falseReports": 0,
+            "wrongSingleAttack": 0
+          },
+          "score": 0.65625
+        },
+        "single": {
+          "games": 384,
+          "scoreSum": 255,
+          "unfinished": 0,
+          "earlyAttackFailures": 0,
+          "safety": {
+            "wrongAllies": 0,
+            "falseReports": 0,
+            "wrongSingleAttack": 0
+          },
+          "score": 0.6640625
+        }
+      },
+      "troll": {
+        "control": {
+          "games": 384,
+          "scoreSum": 235,
+          "unfinished": 0,
+          "earlyAttackFailures": 0,
+          "safety": {
+            "wrongAllies": 0,
+            "falseReports": 0,
+            "wrongSingleAttack": 0
+          },
+          "score": 0.6119791666666666
+        },
+        "single": {
+          "games": 384,
+          "scoreSum": 236,
+          "unfinished": 0,
+          "earlyAttackFailures": 0,
+          "safety": {
+            "wrongAllies": 0,
+            "falseReports": 0,
+            "wrongSingleAttack": 0
+          },
+          "score": 0.6145833333333334
+        }
+      }
+    },
+    "intervenedPairs": 266,
+    "nonIntervenedEqualPairs": 1270,
+    "pairs": 1536,
+    "intervenedSeeds": 28,
+    "intervenedOutcomes": {
+      "same": 257,
+      "worse": 3,
+      "better": 6
+    },
+    "journalVerified": true,
+    "publicationVerified": true
+  },
+  "fingerprint": "a91f4ab8ee9f22355b65a336201cc9eeef4e9c30815dd3b053202d996860bc4e",
+  "policySHA256": "2ea5c58513401067080f126f0231a71b995101209e0fa6100e3cffbd1ac94961",
+  "sourceHashes": {
+    "src/bot-attack-budget.ts": "c9ff67f3e00ded9caa3bbc1ec34f84ed6fc6d914fcfab6ec762d2d2a168be33d",
+    "src/bot-belief.ts": "99e28d211c99ecf514a42bae8242d0fa40fb078b83da4d83e324bcd7a5ff4ee7",
+    "src/bot-claim-commitment.ts": "e78d72ffe94629c6c89004a999bfaea3d85f75f52928e7ed27b70c695c8f2208",
+    "src/bot-claim-policy.ts": "844245cbbee46474942d6d6709016c563bac2b40b7862478c53dcc3e9cb00340",
+    "src/bot-claims.ts": "8b4a70a2b81c531c42b4b55dc97f657e817cfb714c9ad2a544983ffefc60dd04",
+    "src/bot-confirmation-combat.ts": "877c29851874365fca469a482714f6d3e7db1fddd7f819a17e1bc24cd164c7e1",
+    "src/bot-confirmation.ts": "7f7a34fe6ba2ca6a3f5829177a6df68e9345f226f0122e5062b5196582d55585",
+    "src/bot-followup.ts": "624c444dc161c31efabd937ff5f8888dd086997ba4fdfd9137bbedf7a4057c25",
+    "src/bot-growth.ts": "1471bf7a49427652f1f556de1cc2aa2a02abac46bfdfdf7de28951efb69a267b",
+    "src/bot-hypothesis.ts": "d4a4462a35c026d4797240154da71209e0ac1d34acf367d32bcb296f420b39cf",
+    "src/bot-idle-claim.ts": "705f506d006c83ce344c19beaff7169dd4c1d1da239a23aca511a1464bc1f95d",
+    "src/bot-information.ts": "342e4d64600e07923812fec4f46bf5e239d4a8118b6121cc4e93bd27f28827e4",
+    "src/bot-intel.ts": "b42dc044a27b7ed8fc2c2578587ac4b431d957b9e25dd0c800547a1875d1e897",
+    "src/bot-memory.ts": "96cace9fef1cf2eb93ea8cece7d788b70ac600d14b8a5e8ac742520fbd57265a",
+    "src/bot-response.ts": "0a7d792d2f3b2262f22155466014d5a0bc309ee1ddba93aa98158b0107a7b521",
+    "src/bot-retry.ts": "e6c5fd3f88d0aa225561313197b73ca60eda01e8e99e3867584079271efd82cc",
+    "src/bot-rollout.ts": "804d45192914975407e36dd0c5df63ca2f246dd2453087db5f2f6106e391d3df",
+    "src/bot-sequence.ts": "6dd6846739195787289756cb48f20d5d1544855d26ca16a2cc38ebd08c37ab50",
+    "src/bot-tactics.ts": "ea8d2f8122efb603155b5aab75851b41abcbf0555b42eac9e4678115f9af3d87",
+    "src/bot.ts": "9d72511830c7cb2b80c25cd71dbb46676cf3637850e0ec09053cc2cdc96af2ec",
+    "src/constants.ts": "d8e40237ce482f04e9cc07a25ce9c915d53669022c4f0bca319ce75ba7518eee",
+    "src/engine/actions.ts": "89453200644e1232f9e41a6c6e0add1e35db885d5c78965890474b9089c63708",
+    "src/engine/attack.ts": "bb9e1e2c3771a79029d243f64295ec7a30b8608ba6e3294af7dba22ba61e10c8",
+    "src/engine/checks.ts": "b47ebee3a226d7a8c9cd443989356a1fa953276044341b8c95ca95bde1b7cfa2",
+    "src/engine/create.ts": "00852891bee53689b54451dedbb079455da76fabf4fb0a38c5dbc42ff808e69c",
+    "src/engine/game.ts": "dc1bb4fd293f8391cf889ae5b779132015860a2315566d711d8a094666e2b8b0",
+    "src/engine/time.ts": "0b413b8aeb4b16e78d4aeeefa3fca8732b22053d714711dc428e35c9bc707b47",
+    "src/engine/view.ts": "700e8a4fd5f59578bef21f91b65d050a3f8d79e0e4263fcf5cf4e0d00abc0147",
+    "src/host-memory.ts": "afe791a3bc8909bb62d07f98dfa5acb872decb3384c32decdf5e728d2ef27c86",
+    "src/host-runtime.ts": "e3415ffa083ec2cd2132c6024b5b7ff98f8ec187e358c20437aaeda81b97f759",
+    "src/index.ts": "01bab72662393131174875a250077c5d75d35471d8ba381bd804cb58c9b88296",
+    "src/modes/civil_war.ts": "812d13da2eafec3deb957f976ad2ed9d0c433ef1dc24a95c8b238bc56eb2f70d",
+    "src/modes/index.ts": "d839d60dd3c9bc8a709bda120a9f006fded719e94b12e9837f759b3e81055df5",
+    "src/modes/lidellut.ts": "0d10054d0ba72efedc3508faa5137258b64065012d1d5859629fcd378082f041",
+    "src/modes/primordial.ts": "b69146d17a7dd5c2b5e09bbc514f0556fcef3c03f171b5bfd4294a380a0ab104",
+    "src/modes/troll.ts": "38a6288c06a0bc34a9d3378d5faec07be15f7f1c00fd9189153c28b00dd5d629",
+    "src/modes/types.ts": "c4d3496c6f78e921a4cca3768c9f3412d011f19c036f63fdbef6ca60001dc300",
+    "src/rng.ts": "3c4250a2f7358bd04cd377e72759dd386bb149098dadf1e013649afef1ff9695",
+    "src/skills/common.ts": "47d8463b2d44e64f56ff510653bc59e07eaf36f9c6c72ca678fb7fd9f0b1e4d0",
+    "src/skills/registry.ts": "ae569271530dda73f677e9e771918d8bf622ee6767ea0e3a8619c48ad705873e",
+    "src/text.ts": "ed42a4d871e2a039d255f897391c97757803451afb47cf51a54bd60ca5e9aecd",
+    "src/types.ts": "0f56affb727e1776e5345d5ff932ebe9ced9a9f5c88e09a5b509ed153dd219f3",
+    "scripts/cooperative-check-pairs.ts": "a8c701a6f2ad25b0002283db21d80f22f0e3d028eee20d187d1ed685b47f4418",
+    "scripts/cooperative-check-single.ts": "cc2dd7d81d32ca38e680e8e6c60f6f51196fba8723ec734e4252055cdc955664",
+    "scripts/cooperative-claim-intervention.ts": "787ca0c1dc5fe12b7a5c1844066eab31202ac188a3112ce15acb4e7e3c093dd0",
+    "scripts/cooperative-store.ts": "55c86b9db9b6cb3a5b30ec188aeb3cc0045233e0c77123b809578eb1109e5804",
+    "scripts/league-runner.ts": "306938e3c0e5005fb2197b3e59c6e7249f1c0ee160aa41e45b59ce100b4841b7",
+    "scripts/baselines/pre-cooperative.ts": "3fb32af177bcbddfdc15d6cecc12743af1abdc2f837e098ed979e4e03cb2206a",
+    "scripts/claim-opponents.ts": "56b70de28ec2c24d9165f909b6065e99a24bbbd6d334ebd6f4cd1a8d3cd395ef"
+  },
+  "auxiliarySourceHashes": {
+    "tools/verify-check-pairs.py": "9dff117ee433ac0710e77cc5e548c8eed210e8ccecd7683017c1f26b9947f8a8",
+    "tools/run-cooperative-generations.py": "c3e2e17c52fc26b7520e5aa886a87238c71a21becd4778d107f87bcf67c693bb"
+  },
+  "design": {
+    "singleExtraSkill": true,
+    "preserveOriginalRng": true,
+    "noExtraChat": true,
+    "selection": "global_seed99LowerPositive",
+    "minInterventions": 96,
+    "minSeeds": 16,
+    "bootstrapSamples": 10000,
+    "bootstrapSeed": 4674388,
+    "policySelection": false
+  },
+  "settings": {
+    "tickMs": 250,
+    "activity": 0.012,
+    "limitMs": 5400000
+  },
+  "designOptionsSHA256": "6c6cf2ec902a74111de2789bfdb4100b44143b7ab159bfdb87f736f3e881cea5",
+  "resourcesByMode": {
+    "civil_war": {
+      "pairedPoints": 54,
+      "extraAttackAccepted": 54,
+      "extraAttackRejected": 0,
+      "extraAttackNominalMana": 2700,
+      "controlSameAttackWithin5s": 14,
+      "controlNeverSameAttack": 1,
+      "directEvidence": {
+        "gem.result": 42,
+        "inspect.result": 12
+      },
+      "selectedOwnAfterPoint": {
+        "control": {
+          "aliveMs": 17410500,
+          "trueNameMs": 17260500,
+          "turns": 185,
+          "trueNameTurns": 184,
+          "trueNameBonusGross": 1840,
+          "incomingAllyManaGross": 2590,
+          "turnGainGross": 8130,
+          "acceptedSkillMana": 10360,
+          "acceptedSkills": 312,
+          "rejectedSkills": 0,
+          "attackFailures": 4,
+          "aliveAtEnd": 49
+        },
+        "single": {
+          "aliveMs": 15977250,
+          "trueNameMs": 15834500,
+          "turns": 170,
+          "trueNameTurns": 168,
+          "trueNameBonusGross": 1680,
+          "incomingAllyManaGross": 2420,
+          "turnGainGross": 7500,
+          "acceptedSkillMana": 9735,
+          "acceptedSkills": 298,
+          "rejectedSkills": 0,
+          "attackFailures": 2,
+          "aliveAtEnd": 46
+        }
+      }
+    },
+    "primordial": {
+      "pairedPoints": 45,
+      "extraAttackAccepted": 45,
+      "extraAttackRejected": 0,
+      "extraAttackNominalMana": 2250,
+      "controlSameAttackWithin5s": 18,
+      "controlNeverSameAttack": 1,
+      "directEvidence": {
+        "inspect.result": 20,
+        "gem.result": 25
+      },
+      "selectedOwnAfterPoint": {
+        "control": {
+          "aliveMs": 12925250,
+          "trueNameMs": 10210750,
+          "turns": 149,
+          "trueNameTurns": 125,
+          "trueNameBonusGross": 1250,
+          "incomingAllyManaGross": 1510,
+          "turnGainGross": 5740,
+          "acceptedSkillMana": 7205,
+          "acceptedSkills": 188,
+          "rejectedSkills": 0,
+          "attackFailures": 5,
+          "aliveAtEnd": 35
+        },
+        "single": {
+          "aliveMs": 12468250,
+          "trueNameMs": 10231500,
+          "turns": 143,
+          "trueNameTurns": 122,
+          "trueNameBonusGross": 1220,
+          "incomingAllyManaGross": 1570,
+          "turnGainGross": 5650,
+          "acceptedSkillMana": 7415,
+          "acceptedSkills": 191,
+          "rejectedSkills": 0,
+          "attackFailures": 8,
+          "aliveAtEnd": 34
+        }
+      }
+    },
+    "lidellut": {
+      "pairedPoints": 89,
+      "extraAttackAccepted": 89,
+      "extraAttackRejected": 0,
+      "extraAttackNominalMana": 4450,
+      "controlSameAttackWithin5s": 24,
+      "controlNeverSameAttack": 8,
+      "directEvidence": {
+        "inspect.result": 33,
+        "gem.result": 56
+      },
+      "selectedOwnAfterPoint": {
+        "control": {
+          "aliveMs": 25220750,
+          "trueNameMs": 25096250,
+          "turns": 279,
+          "trueNameTurns": 278,
+          "trueNameBonusGross": 2780,
+          "incomingAllyManaGross": 5200,
+          "turnGainGross": 13560,
+          "acceptedSkillMana": 15625,
+          "acceptedSkills": 415,
+          "rejectedSkills": 0,
+          "attackFailures": 2,
+          "aliveAtEnd": 62
+        },
+        "single": {
+          "aliveMs": 24803000,
+          "trueNameMs": 24678500,
+          "turns": 274,
+          "trueNameTurns": 273,
+          "trueNameBonusGross": 2730,
+          "incomingAllyManaGross": 5050,
+          "turnGainGross": 13260,
+          "acceptedSkillMana": 15615,
+          "acceptedSkills": 424,
+          "rejectedSkills": 0,
+          "attackFailures": 2,
+          "aliveAtEnd": 60
+        }
+      }
+    },
+    "troll": {
+      "pairedPoints": 78,
+      "extraAttackAccepted": 78,
+      "extraAttackRejected": 0,
+      "extraAttackNominalMana": 3900,
+      "controlSameAttackWithin5s": 33,
+      "controlNeverSameAttack": 4,
+      "directEvidence": {
+        "gem.result": 61,
+        "inspect.result": 17
+      },
+      "selectedOwnAfterPoint": {
+        "control": {
+          "aliveMs": 30809000,
+          "trueNameMs": 23621250,
+          "turns": 335,
+          "trueNameTurns": 258,
+          "trueNameBonusGross": 2580,
+          "incomingAllyManaGross": 5070,
+          "turnGainGross": 14350,
+          "acceptedSkillMana": 15845,
+          "acceptedSkills": 448,
+          "rejectedSkills": 0,
+          "attackFailures": 2,
+          "aliveAtEnd": 60
+        },
+        "single": {
+          "aliveMs": 29644500,
+          "trueNameMs": 22535250,
+          "turns": 323,
+          "trueNameTurns": 246,
+          "trueNameBonusGross": 2460,
+          "incomingAllyManaGross": 4910,
+          "turnGainGross": 13830,
+          "acceptedSkillMana": 15760,
+          "acceptedSkills": 448,
+          "rejectedSkills": 0,
+          "attackFailures": 2,
+          "aliveAtEnd": 60
+        }
+      }
+    }
+  },
+  "scoreChanges": [
+    {
+      "fixture": {
+        "mode": "civil_war",
+        "seed": 142018,
+        "count": 11,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "truthful",
+      "controlScore": 1,
+      "singleScore": 0,
+      "pointAt": 16500,
+      "receiptKind": "inspect.result",
+      "action": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p7",
+        "name": "reindila"
+      },
+      "cost": 50
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 142002,
+        "count": 10,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "style": "truthful",
+      "controlScore": 0,
+      "singleScore": 1,
+      "pointAt": 210000,
+      "receiptKind": "gem.result",
+      "action": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p7",
+        "name": "yui"
+      },
+      "cost": 50
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 142016,
+        "count": 9,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "style": "truthful",
+      "controlScore": 1,
+      "singleScore": 0,
+      "pointAt": 20250,
+      "receiptKind": "inspect.result",
+      "action": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p3",
+        "name": "yui"
+      },
+      "cost": 50
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 142027,
+        "count": 10,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "style": "truthful",
+      "controlScore": 0,
+      "singleScore": 1,
+      "pointAt": 153000,
+      "receiptKind": "inspect.result",
+      "action": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p10",
+        "name": "yui"
+      },
+      "cost": 50
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 142028,
+        "count": 11,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "truthful",
+      "controlScore": 0,
+      "singleScore": 1,
+      "pointAt": 200250,
+      "receiptKind": "gem.result",
+      "action": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p8",
+        "name": "kaspa"
+      },
+      "cost": 50
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 142005,
+        "count": 8,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "skill-aware-bluff",
+      "controlScore": 0,
+      "singleScore": 1,
+      "pointAt": 258000,
+      "receiptKind": "gem.result",
+      "action": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p5",
+        "name": "kaspa"
+      },
+      "cost": 50
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 142016,
+        "count": 9,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "style": "skill-aware-bluff",
+      "controlScore": 1,
+      "singleScore": 0,
+      "pointAt": 20250,
+      "receiptKind": "inspect.result",
+      "action": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p3",
+        "name": "yui"
+      },
+      "cost": 50
+    },
+    {
+      "fixture": {
+        "mode": "lidellut",
+        "seed": 142023,
+        "count": 11,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "style": "skill-aware-bluff",
+      "controlScore": 0,
+      "singleScore": 1,
+      "pointAt": 72500,
+      "receiptKind": "inspect.result",
+      "action": {
+        "type": "skill",
+        "skill": "attack",
+        "target": "p10",
+        "name": "supra"
+      },
+      "cost": 50
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 142029,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 2
+      },
+      "style": "truthful",
+      "controlScore": 0,
+      "singleScore": 1,
+      "pointAt": 182750,
+      "receiptKind": "gem.result",
+      "action": {
+        "type": "skill",
+        "skill": "advanced_attack",
+        "target": "p12",
+        "name": "tokra"
+      },
+      "cost": 50
+    }
+  ],
+  "resourceInterpretation": "Paired pre-intervention eligible p1 only; own postpoint resource totals and target delays are mechanisms/descriptive endpoints, not evidence of overall/team policy promotion. No subgroup selection. This diagnostic has no main baseline arm.",
+  "promotionEvidence": false,
+  "holdoutUsed": false,
+  "actualHumanMatches": 0,
+  "tests": 622,
+  "rulesTests": 547,
+  "serverTests": 75,
+  "typecheck": "4_packages_passed",
+  "builds": "server_client_Worker_passed",
+  "supervisorRegression": "4_passed",
+  "CI": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38720781717",
+  "browser": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/38720781843",
+  "files": {
+    "cooperation-round-030-development.json.gz": "520918517c16d349d1ed4966cc7ca78ceab8163ed668cfab1069a4c71c75067d",
+    "cooperation-round-030-development.journal.ndjson.gz": "5a8da887de879f695200be701fd4d174993d27eea2d4f5b9766590841aaa31f5",
+    "cooperation-round-030-development.publication.json": "5d32cdcc3465a0580206d545150ccd3f711563c28d37bbe943a4367e258dca55",
+    "cooperation-round-030-development.verified.json": "39287e5d1640c7f5f170a1d811d6c7c68b12504fa9a8df055c3a7ae0b2f8fff9",
+    "cooperation-round-030-development.batches.ndjson": "3208aa0ac5e2b6e706e53aa5037f0ff1bce6c5c19ddbddac9aee052b49f4c792",
+    "cooperation-round-030-postflight.tar.gz": "66685b85981460bcb0ad139469c3f6f1f7c0677f8e7595c6e5b253363a200d93"
+  },
+  "batchFailures": 0,
+  "duplicateExecutions": 0,
+  "batches": 32,
+  "unitFixturesExcluded": true,
+  "checkpointsExcludedAsDuplicates": true,
+  "firstAttack": {
+    "accepted": 266,
+    "attackFailure": 0,
+    "skills": {
+      "advanced_attack": 134,
+      "attack": 132
+    }
+  },
+  "residualWriterLocks": 0,
+  "archiveVerification": "passed_source_ref_7a8eb17",
+  "resumeProof": "cooperation-round-030-resume-proof.json"
+}

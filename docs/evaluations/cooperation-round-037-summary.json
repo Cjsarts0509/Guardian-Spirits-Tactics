@@ -1,0 +1,956 @@
+{
+  "kind": "selfplay-postchoice-guard-audit",
+  "sourceSHA256": "78a4c5c48189b7265541267a0f68bd03c27f4d2043685a974f69c1169d053d26",
+  "observerSourceSHA256": "607c1b7aad73d496352b415485f3942e0e68cfedadd51db4cff35917b84626a7",
+  "sourceFingerprint": "f77cf2caae8e0a9fa96c6d0e1b8379851aed05d29e17cc9bb83979026d411ae4",
+  "optionsSHA256": "3503cc777d3b1b32454c99390acb5432bb9efe6d7b35391163b57f3a1e462612",
+  "policySourceRef": "7a05fcf8be4017ac51f2bdebbd8437153dd7ec98",
+  "researchExecutions": 0,
+  "replayedGames": 32,
+  "observerEntireRecordMatches": 32,
+  "liveStateAndMemoryUnchanged": true,
+  "summary": {
+    "consume": {
+      "games": 32,
+      "decisionReasons": {
+        "identity_unconfirmed": 98,
+        "skill_unavailable": 3,
+        "eligible": 56
+      },
+      "eligibleDecisions": 56,
+      "selectedAtEligibleDecision": 23,
+      "deferredActions": {
+        "ally": 33
+      },
+      "gamesWithEligibleOpportunity": 24,
+      "eligibleGamesEventuallyProtected": 23,
+      "guardAttempts": 23,
+      "guardSuccesses": 23,
+      "guardWrongTargets": 0,
+      "episodes": [
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 374500,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147009,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 60750,
+          "guardAt": 104500,
+          "success": true,
+          "delayMs": 43750
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147009,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 60750,
+          "guardAt": 104500,
+          "success": true,
+          "delayMs": 43750
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147014,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 48500,
+          "guardAt": 81250,
+          "success": true,
+          "delayMs": 32750
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147014,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 48500,
+          "guardAt": 81250,
+          "success": true,
+          "delayMs": 32750
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147019,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": 49250,
+          "guardAt": 102500,
+          "success": true,
+          "delayMs": 53250
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147019,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 49250,
+          "guardAt": 102500,
+          "success": true,
+          "delayMs": 53250
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147024,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 73500,
+          "guardAt": 81750,
+          "success": true,
+          "delayMs": 8250
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147024,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 73500,
+          "guardAt": 81750,
+          "success": true,
+          "delayMs": 8250
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147029,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 189250,
+          "guardAt": 335250,
+          "success": true,
+          "delayMs": 146000
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147029,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 189250,
+          "guardAt": 350750,
+          "success": true,
+          "delayMs": 161500
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147034,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147034,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": 169000,
+          "guardAt": 171250,
+          "success": true,
+          "delayMs": 2250
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147039,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 77750,
+          "guardAt": 113250,
+          "success": true,
+          "delayMs": 35500
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147039,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 77750,
+          "guardAt": 113250,
+          "success": true,
+          "delayMs": 35500
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147044,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147044,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147049,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": 107000,
+          "guardAt": 116750,
+          "success": true,
+          "delayMs": 9750
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147049,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": 107000,
+          "guardAt": 116750,
+          "success": true,
+          "delayMs": 9750
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147054,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 449000,
+          "guardAt": 451750,
+          "success": true,
+          "delayMs": 2750
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147054,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 291000,
+          "guardAt": 313250,
+          "success": true,
+          "delayMs": 22250
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147059,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": 81500,
+          "guardAt": 93500,
+          "success": true,
+          "delayMs": 12000
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147059,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": 81500,
+          "guardAt": 93500,
+          "success": true,
+          "delayMs": 12000
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147064,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147064,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 103250,
+          "guardAt": 108250,
+          "success": true,
+          "delayMs": 5000
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147069,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 152000,
+          "guardAt": 194750,
+          "success": true,
+          "delayMs": 42750
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147069,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 152000,
+          "guardAt": 194750,
+          "success": true,
+          "delayMs": 42750
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147074,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147074,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147079,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147079,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": 33500,
+          "guardAt": 36500,
+          "success": true,
+          "delayMs": 3000
+        }
+      ]
+    },
+    "kumarin": {
+      "games": 32,
+      "decisionReasons": {
+        "identity_unconfirmed": 238,
+        "skill_unavailable": 7,
+        "eligible": 16
+      },
+      "eligibleDecisions": 16,
+      "selectedAtEligibleDecision": 8,
+      "deferredActions": {
+        "ally": 8
+      },
+      "gamesWithEligibleOpportunity": 8,
+      "eligibleGamesEventuallyProtected": 8,
+      "guardAttempts": 20,
+      "guardSuccesses": 20,
+      "guardWrongTargets": 0,
+      "episodes": [
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147004,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": 355500,
+          "success": true,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147004,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147009,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": 126000,
+          "success": true,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147009,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": 126000,
+          "success": true,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147014,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": 277250,
+          "success": true,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147014,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147019,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147019,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": 272750,
+          "success": true,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147024,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": 446750,
+          "success": true,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147024,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147029,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147029,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147034,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": 122250,
+          "success": true,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147034,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": null,
+          "guardAt": 122250,
+          "success": true,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147039,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 64000,
+          "guardAt": 65000,
+          "success": true,
+          "delayMs": 1000
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147039,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 64000,
+          "guardAt": 65000,
+          "success": true,
+          "delayMs": 1000
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147044,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147044,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147049,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": 109500,
+          "guardAt": 111750,
+          "success": true,
+          "delayMs": 2250
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147049,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": 109500,
+          "guardAt": 111750,
+          "success": true,
+          "delayMs": 2250
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147054,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 88500,
+          "guardAt": 116250,
+          "success": true,
+          "delayMs": 27750
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147054,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 88500,
+          "guardAt": 116250,
+          "success": true,
+          "delayMs": 27750
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147059,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147059,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147064,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147064,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": 421000,
+          "success": true,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147069,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 67500,
+          "guardAt": 81000,
+          "success": true,
+          "delayMs": 13500
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147069,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": 67500,
+          "guardAt": 81000,
+          "success": true,
+          "delayMs": 13500
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147074,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": 461500,
+          "success": true,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147074,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": null,
+          "guardAt": null,
+          "success": false,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147079,
+            "count": 12,
+            "reversed": false,
+            "currentSide": 1
+          },
+          "winner": 1,
+          "firstEligibleAt": null,
+          "guardAt": 172750,
+          "success": true,
+          "delayMs": null
+        },
+        {
+          "fixture": {
+            "mode": "primordial",
+            "seed": 147079,
+            "count": 12,
+            "reversed": true,
+            "currentSide": 1
+          },
+          "winner": 2,
+          "firstEligibleAt": null,
+          "guardAt": 172750,
+          "success": true,
+          "delayMs": null
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Active decisions only; inactive polling is not an actionable opportunity.",
+    "Ready and confirmed guards may compete with valid offensive actions; a deferral is not automatically a mistake.",
+    "Commander defeat and subsequent wins are associations, not a causal effect of guarding earlier.",
+    "Replay of development material, excluded from new research sample count."
+  ]
+}

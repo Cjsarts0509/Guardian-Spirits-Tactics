@@ -1,0 +1,144 @@
+{
+  "format": 1,
+  "start": 112000,
+  "seeds": 16,
+  "pairedFixtures": 768,
+  "executions": 1536,
+  "sourceHashes": {
+    "bot.ts": "49383030dbce9958e4d90982bb4ce780d34ca6e3808587c42304a5d287381bc7",
+    "bot-memory.ts": "a7bd679f6a0a9a12b1992adb8f95f99b52c5f9121295d5dd8a3b27de6ee83585",
+    "bot-intel.ts": "309b2efc5b09931462582a3cd68ff592d9af877e4146543d98f59499abf8b483",
+    "bot-belief.ts": "99e28d211c99ecf514a42bae8242d0fa40fb078b83da4d83e324bcd7a5ff4ee7",
+    "bot-claim-policy.ts": "5441e9429944d89b0f71c565ecb1870bd0d47073b562263b8e1b3ebcc6133fe5",
+    "baseline": "3fb32af177bcbddfdc15d6cecc12743af1abdc2f837e098ed979e4e03cb2206a",
+    "runner": "18b5b07cb1d1e4b9617ebe97d75ce3de0bd20944e0b412d17d82713ccd6c789e"
+  },
+  "scoreDifference": -0.026041666666666668,
+  "seedBootstrap95": [
+    -0.05338541666666667,
+    0.002604166666666667
+  ],
+  "modes": {
+    "civil_war": {
+      "baseline": {
+        "score": 0.671875,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 50,
+        "observations": {
+          "trueClaims": 938,
+          "falseClaims": 0,
+          "allies": 681,
+          "wrongAllies": 0,
+          "reports": 0,
+          "falseReports": 0
+        }
+      },
+      "candidate": {
+        "score": 0.71875,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 7,
+        "observations": {
+          "trueClaims": 766,
+          "falseClaims": 454,
+          "allies": 1376,
+          "wrongAllies": 0,
+          "reports": 2768,
+          "falseReports": 0
+        }
+      }
+    },
+    "primordial": {
+      "baseline": {
+        "score": 0.7239583333333334,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "observations": {
+          "trueClaims": 946,
+          "falseClaims": 0,
+          "allies": 917,
+          "wrongAllies": 0,
+          "reports": 0,
+          "falseReports": 0
+        }
+      },
+      "candidate": {
+        "score": 0.7135416666666666,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "observations": {
+          "trueClaims": 1137,
+          "falseClaims": 580,
+          "allies": 1680,
+          "wrongAllies": 0,
+          "reports": 2774,
+          "falseReports": 0
+        }
+      }
+    },
+    "lidellut": {
+      "baseline": {
+        "score": 0.7708333333333334,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 67,
+        "observations": {
+          "trueClaims": 947,
+          "falseClaims": 0,
+          "allies": 723,
+          "wrongAllies": 2,
+          "reports": 0,
+          "falseReports": 0
+        }
+      },
+      "candidate": {
+        "score": 0.6979166666666666,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 14,
+        "observations": {
+          "trueClaims": 881,
+          "falseClaims": 362,
+          "allies": 1608,
+          "wrongAllies": 0,
+          "reports": 3187,
+          "falseReports": 0
+        }
+      }
+    },
+    "troll": {
+      "baseline": {
+        "score": 0.6666666666666666,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "observations": {
+          "trueClaims": 942,
+          "falseClaims": 0,
+          "allies": 838,
+          "wrongAllies": 2,
+          "reports": 0,
+          "falseReports": 0
+        }
+      },
+      "candidate": {
+        "score": 0.5989583333333334,
+        "unfinished": 0,
+        "earlyAttackFailures": 0,
+        "rejected": 0,
+        "observations": {
+          "trueClaims": 875,
+          "falseClaims": 409,
+          "allies": 1171,
+          "wrongAllies": 0,
+          "reports": 2805,
+          "falseReports": 0
+        }
+      }
+    }
+  },
+  "promotionEvidence": false
+}

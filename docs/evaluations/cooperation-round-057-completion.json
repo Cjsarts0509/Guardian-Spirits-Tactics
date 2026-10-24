@@ -1,0 +1,150 @@
+{
+  "round": 57,
+  "status": "completed",
+  "completedAt": "2026-10-18T11:21:55+09:00",
+  "sourceRef": "3c1720a63c388836d99f9ba185fa12794cc4c2ba",
+  "posthocVerifierSHA256": "443d08e090b1104a8987fd6c74adef24848ed462dbd2baefa8dcabe4a23ff8b0",
+  "sourceHashes": {
+    "packages/rules/scripts/pending-confirmation.ts": "2b04f51a8d46ef083abad4bba0169885f8282357ff7d23ba27be8aaa88d498b3",
+    "packages/rules/scripts/pending-confirmation-run.ts": "3102379b6da5ad9707f554861d13fa34aa5c5a4a342eafaeb5d45ffb46704624",
+    "packages/rules/test/pending-confirmation.test.ts": "4d168ba660c6f48d08f3944cd1d3dd9b87f1e094794c61131f2307a332eb1572",
+    "tools/verify-pending-confirmation.py": "443d08e090b1104a8987fd6c74adef24848ed462dbd2baefa8dcabe4a23ff8b0",
+    "tools/test-pending-confirmation.py": "9cdb491267da95beebeaf94b2d72c03d3d84764cb340485113167c1a8b29c861"
+  },
+  "inputSourceRef": "1b7bbf1512218be16ae3d8a8f432407b79226751",
+  "runtimeVersions": {
+    "node": "v24.19.0",
+    "python": "3.12.14"
+  },
+  "newResearchExecutions": 0,
+  "cumulativeExecutions": 48832,
+  "terminated": 48830,
+  "historicalUnfinished": 2,
+  "primaryDatasets": 35,
+  "scannedGames": 768,
+  "replayedUniqueGames": 96,
+  "originalCollectorPasses": 96,
+  "observerPasses": 192,
+  "repeatedPassesExcluded": true,
+  "matchedActions": 10157,
+  "activePendingChoices": 829,
+  "knownEntries": 1963,
+  "wrongKnown": 0,
+  "control": {
+    "games": 384,
+    "requestBearingGames": 48,
+    "requests": 149,
+    "requestsWithActive": 131,
+    "pendingChoices": 414,
+    "unknownLiveSlots": 409,
+    "knownSlots": 5,
+    "originalStoredChoices": 16,
+    "extra": 10,
+    "acceptedExtra": 10,
+    "confirmedExtra": 3,
+    "unconfirmedExtra": 7,
+    "earlyConfirmedFollowupActions": 3,
+    "extraNominalMana": 320,
+    "extraNetManaDelta": -320
+  },
+  "candidate": {
+    "games": 384,
+    "requestBearingGames": 48,
+    "requests": 149,
+    "requestsWithActive": 131,
+    "pendingChoices": 415,
+    "unknownLiveSlots": 409,
+    "knownSlots": 6,
+    "originalStoredChoices": 15,
+    "extra": 12,
+    "acceptedExtra": 12,
+    "confirmedExtra": 4,
+    "unconfirmedExtra": 8,
+    "earlyConfirmedFollowupActions": 3,
+    "extraNominalMana": 360,
+    "extraNetManaDelta": -360
+  },
+  "delayedResultEach": {
+    "aliveSuccess": 73,
+    "aliveFailure": 57,
+    "postmortemSuccess": 10,
+    "postmortemFailure": 5,
+    "endBeforeDue": 4,
+    "unobserved": 0
+  },
+  "checks": {
+    "rules": 657,
+    "server": 75,
+    "total": 732,
+    "syntheticPython": 8,
+    "independentValid": 1,
+    "independentTamperRejected": 8,
+    "typePackages": 4,
+    "serverClientWorkerBuild": "passed",
+    "allRequestedGamesReplayed": true,
+    "ownKnowledgeRebuilt": true,
+    "wholeGameAllReceiptsMatched": true,
+    "observerOnOffMatched": true,
+    "repeatRawByteIdentical": true,
+    "repeatSummaryByteIdentical": true,
+    "repoGzipReverified": true
+  },
+  "hashes": {
+    "input": "ee3a619c0c0d453174dd64533a838068acc6f8c4523fee4560c97774f34a8e77",
+    "raw": "75ce772b18dfaaa254656819af34092bce1e29f1b5aa837739b6207ea9580600",
+    "gzip": "b87460d784d63c247dde06432b2a83149578977a8fd5ad20b5d861195037bf54",
+    "summary": "d129d9630afe838543081f273890e719bd29e63baa2c33f5f4bed8f788cd830c",
+    "options": "5041fce452719fa4ecca0f4394a28f59e46abb2bc2497b40c15fd6250a64bf8a"
+  },
+  "failures": [
+    {
+      "stage": "preregistration helper",
+      "error": "Combined command output was not valid ACTIVE JSON; no mutation occurred",
+      "resolved": true
+    },
+    {
+      "stage": "pre-freeze types",
+      "error": "Action union narrowing inside nested callback; local act fixes narrowing",
+      "resolved": true
+    },
+    {
+      "stage": "independent first tamper test",
+      "error": "Empty first known array made mutation fixture IndexError; changed fixture to inject bogus known entry",
+      "resolved": true,
+      "policyChanged": false
+    }
+  ],
+  "ci": {
+    "sourceRef": "3c1720a63c388836d99f9ba185fa12794cc4c2ba",
+    "workflow_runs": [
+      {
+        "id": 39089490455,
+        "name": "CI",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 280,
+        "jobs_url": "https://api.github.com/repos/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39089490455/jobs",
+        "logs_url": "https://api.github.com/repos/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39089490455/logs",
+        "workflow_id": 375276842
+      },
+      {
+        "id": 39089490446,
+        "name": "Card UI browser check",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 183,
+        "jobs_url": "https://api.github.com/repos/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39089490446/jobs",
+        "logs_url": "https://api.github.com/repos/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/39089490446/logs",
+        "workflow_id": 379353271
+      }
+    ],
+    "retryRequests": 0
+  },
+  "nextAction": "Round058: diagnose own accepted chaos_hex target/due/result representation through persistent memory and host restore, separating cooldown estimates from unresolved own commands. Only if a functional omission reproduces, consider default-OFF memory-only candidate preserving actions/RNG; no blanket pending-check suppression/new seeds/performance tuning.",
+  "promotionEvidence": false,
+  "identicalPolicyBalanceEvaluated": false,
+  "actualHumanMatches": 0,
+  "productionPolicyChanges": 0,
+  "skillChanges": 0,
+  "deployment": false
+}

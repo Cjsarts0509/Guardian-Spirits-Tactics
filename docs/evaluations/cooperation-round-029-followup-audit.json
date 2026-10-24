@@ -1,0 +1,594 @@
+{
+  "kind": "completed-development-first-divergence-audit",
+  "sourceRef": "c598fda20052bf46fc73d2b7affe0d0b5442159e",
+  "newResearchExecutions": 0,
+  "policySelection": false,
+  "promotionEvidence": false,
+  "complete": true,
+  "allChecksPassed": true,
+  "counts": {
+    "pairs": 384,
+    "reactions": 519,
+    "actionsChanged": 294,
+    "outcomesChanged": 15,
+    "nonInterventionPairs": 90,
+    "nonInterventionEqual": 90,
+    "interventionPairs": 294,
+    "prefixEqual": 294,
+    "firstAccepted": 294,
+    "firstOriginalNull": 294
+  },
+  "cohorts": {
+    "none": {
+      "tied": 90
+    },
+    "multiple": {
+      "tied": 155,
+      "worse": 3,
+      "better": 5
+    },
+    "one": {
+      "worse": 3,
+      "tied": 124,
+      "better": 4
+    }
+  },
+  "eventKinds": {
+    "inspect.result": 169,
+    "gem.result": 350
+  },
+  "changedOutcomes": [
+    {
+      "key": [
+        "civil_war",
+        "truthful",
+        141000,
+        true,
+        1
+      ],
+      "reactions": 1,
+      "outcome": "worse",
+      "scoreDifference": -1,
+      "controlScore": 1,
+      "candidateScore": 0,
+      "prefixLength": 31,
+      "prefixEqual": true,
+      "prefixSHA256": "96c182ed59eb0b1319a7291eaee3a8e7df65512dfe979b7d8ff1b0b83f478f87",
+      "first": {
+        "player": "p6",
+        "at": 186250,
+        "receivedAt": 185250,
+        "eventKind": "gem.result",
+        "target": "p8",
+        "name": "krate",
+        "action": {
+          "type": "skill",
+          "skill": "advanced_attack",
+          "target": "p8",
+          "name": "krate"
+        },
+        "accepted": true,
+        "beforeMana": 65,
+        "afterMana": 15,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "civil_war",
+        "truthful",
+        141001,
+        true,
+        2
+      ],
+      "reactions": 2,
+      "outcome": "worse",
+      "scoreDifference": -1,
+      "controlScore": 1,
+      "candidateScore": 0,
+      "prefixLength": 6,
+      "prefixEqual": true,
+      "prefixSHA256": "977d7bdc0f1972de28ba544db53f4175c51aaf6f4697c7d7f0243842bcd88d40",
+      "first": {
+        "player": "p6",
+        "at": 52500,
+        "receivedAt": 51500,
+        "eventKind": "inspect.result",
+        "target": "p3",
+        "name": "mertz",
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p3",
+          "name": "mertz"
+        },
+        "accepted": true,
+        "beforeMana": 105,
+        "afterMana": 55,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        141004,
+        true,
+        1
+      ],
+      "reactions": 3,
+      "outcome": "better",
+      "scoreDifference": 1,
+      "controlScore": 0,
+      "candidateScore": 1,
+      "prefixLength": 78,
+      "prefixEqual": true,
+      "prefixSHA256": "5860e3cc56fef0fcb73dfbf0d2872b3d876525fe7270c8ef2a08974a848f552e",
+      "first": {
+        "player": "p6",
+        "at": 444250,
+        "receivedAt": 443250,
+        "eventKind": "gem.result",
+        "target": "p12",
+        "name": "kaspa",
+        "action": {
+          "type": "skill",
+          "skill": "advanced_attack",
+          "target": "p12",
+          "name": "kaspa"
+        },
+        "accepted": true,
+        "beforeMana": 100,
+        "afterMana": 50,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "civil_war",
+        "bluff",
+        141005,
+        true,
+        2
+      ],
+      "reactions": 1,
+      "outcome": "better",
+      "scoreDifference": 1,
+      "controlScore": 0,
+      "candidateScore": 1,
+      "prefixLength": 10,
+      "prefixEqual": true,
+      "prefixSHA256": "29caa7716a791394b7561000c25612cf49257bf71e0912c7261307a6aeb25925",
+      "first": {
+        "player": "p4",
+        "at": 189250,
+        "receivedAt": 188250,
+        "eventKind": "gem.result",
+        "target": "p7",
+        "name": "freya",
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p7",
+          "name": "freya"
+        },
+        "accepted": true,
+        "beforeMana": 85,
+        "afterMana": 35,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        141004,
+        true,
+        1
+      ],
+      "reactions": 3,
+      "outcome": "better",
+      "scoreDifference": 1,
+      "controlScore": 0,
+      "candidateScore": 1,
+      "prefixLength": 78,
+      "prefixEqual": true,
+      "prefixSHA256": "5860e3cc56fef0fcb73dfbf0d2872b3d876525fe7270c8ef2a08974a848f552e",
+      "first": {
+        "player": "p6",
+        "at": 444250,
+        "receivedAt": 443250,
+        "eventKind": "gem.result",
+        "target": "p12",
+        "name": "kaspa",
+        "action": {
+          "type": "skill",
+          "skill": "advanced_attack",
+          "target": "p12",
+          "name": "kaspa"
+        },
+        "accepted": true,
+        "beforeMana": 100,
+        "afterMana": 50,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "civil_war",
+        "skill-aware-bluff",
+        141005,
+        true,
+        2
+      ],
+      "reactions": 1,
+      "outcome": "better",
+      "scoreDifference": 1,
+      "controlScore": 0,
+      "candidateScore": 1,
+      "prefixLength": 10,
+      "prefixEqual": true,
+      "prefixSHA256": "29caa7716a791394b7561000c25612cf49257bf71e0912c7261307a6aeb25925",
+      "first": {
+        "player": "p4",
+        "at": 189250,
+        "receivedAt": 188250,
+        "eventKind": "gem.result",
+        "target": "p7",
+        "name": "freya",
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p7",
+          "name": "freya"
+        },
+        "accepted": true,
+        "beforeMana": 85,
+        "afterMana": 35,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "lidellut",
+        "truthful",
+        141006,
+        true,
+        2
+      ],
+      "reactions": 2,
+      "outcome": "better",
+      "scoreDifference": 1,
+      "controlScore": 0,
+      "candidateScore": 1,
+      "prefixLength": 25,
+      "prefixEqual": true,
+      "prefixSHA256": "049f5fb25ef46bcdc460039730f14e9ba10473f316d47cd8a533f2238ddce042",
+      "first": {
+        "player": "p4",
+        "at": 121500,
+        "receivedAt": 120500,
+        "eventKind": "inspect.result",
+        "target": "p8",
+        "name": "freia",
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p8",
+          "name": "freia"
+        },
+        "accepted": true,
+        "beforeMana": 100,
+        "afterMana": 50,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "lidellut",
+        "truthful",
+        141007,
+        true,
+        1
+      ],
+      "reactions": 3,
+      "outcome": "worse",
+      "scoreDifference": -1,
+      "controlScore": 1,
+      "candidateScore": 0,
+      "prefixLength": 9,
+      "prefixEqual": true,
+      "prefixSHA256": "2d78ec105178d319f749579bc736130fa846699382bc69ea8c3f03a23958c4e6",
+      "first": {
+        "player": "p5",
+        "at": 48750,
+        "receivedAt": 47750,
+        "eventKind": "inspect.result",
+        "target": "p10",
+        "name": "loneris",
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p10",
+          "name": "loneris"
+        },
+        "accepted": true,
+        "beforeMana": 105,
+        "afterMana": 55,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "lidellut",
+        "truthful",
+        141007,
+        true,
+        2
+      ],
+      "reactions": 3,
+      "outcome": "better",
+      "scoreDifference": 1,
+      "controlScore": 0,
+      "candidateScore": 1,
+      "prefixLength": 13,
+      "prefixEqual": true,
+      "prefixSHA256": "7eaa739e25e33c0095d2b5ad05c0d97637d8d9ba040d8fa85a727e458e3309ce",
+      "first": {
+        "player": "p8",
+        "at": 81000,
+        "receivedAt": 80000,
+        "eventKind": "inspect.result",
+        "target": "p3",
+        "name": "kaspa",
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p3",
+          "name": "kaspa"
+        },
+        "accepted": true,
+        "beforeMana": 70,
+        "afterMana": 20,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "lidellut",
+        "skill-aware-bluff",
+        141005,
+        true,
+        2
+      ],
+      "reactions": 1,
+      "outcome": "worse",
+      "scoreDifference": -1,
+      "controlScore": 1,
+      "candidateScore": 0,
+      "prefixLength": 15,
+      "prefixEqual": true,
+      "prefixSHA256": "f8dccac6c33a40ab063687b3bc2a2abc07bcc8787e72154237494bf9e4721a7a",
+      "first": {
+        "player": "p4",
+        "at": 101500,
+        "receivedAt": 100500,
+        "eventKind": "inspect.result",
+        "target": "p3",
+        "name": "kaspa",
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p3",
+          "name": "kaspa"
+        },
+        "accepted": true,
+        "beforeMana": 90,
+        "afterMana": 40,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "lidellut",
+        "skill-aware-bluff",
+        141006,
+        false,
+        1
+      ],
+      "reactions": 1,
+      "outcome": "worse",
+      "scoreDifference": -1,
+      "controlScore": 1,
+      "candidateScore": 0,
+      "prefixLength": 7,
+      "prefixEqual": true,
+      "prefixSHA256": "70baf4a09b405468da3c39d8e8d09459763ffe1ca94068c7d7bc3a5bc1e19e1f",
+      "first": {
+        "player": "p9",
+        "at": 25750,
+        "receivedAt": 24750,
+        "eventKind": "inspect.result",
+        "target": "p1",
+        "name": "supra",
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p1",
+          "name": "supra"
+        },
+        "accepted": true,
+        "beforeMana": 105,
+        "afterMana": 55,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "troll",
+        "truthful",
+        141002,
+        false,
+        2
+      ],
+      "reactions": 3,
+      "outcome": "better",
+      "scoreDifference": 1,
+      "controlScore": 0,
+      "candidateScore": 1,
+      "prefixLength": 6,
+      "prefixEqual": true,
+      "prefixSHA256": "bdb6edc47648657e6baca24f0710833a8c98cca2c375f8ab898152ada217b0d3",
+      "first": {
+        "player": "p9",
+        "at": 43000,
+        "receivedAt": 42000,
+        "eventKind": "inspect.result",
+        "target": "p3",
+        "name": "uldian",
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p3",
+          "name": "uldian"
+        },
+        "accepted": true,
+        "beforeMana": 105,
+        "afterMana": 55,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "troll",
+        "truthful",
+        141003,
+        true,
+        2
+      ],
+      "reactions": 5,
+      "outcome": "worse",
+      "scoreDifference": -1,
+      "controlScore": 1,
+      "candidateScore": 0,
+      "prefixLength": 6,
+      "prefixEqual": true,
+      "prefixSHA256": "21553df8e2c4aab07280122ed820a487e0daeb65f7dd7799d9758ce6571789f1",
+      "first": {
+        "player": "p7",
+        "at": 58250,
+        "receivedAt": 57250,
+        "eventKind": "inspect.result",
+        "target": "p9",
+        "name": "uldian",
+        "action": {
+          "type": "skill",
+          "skill": "attack",
+          "target": "p9",
+          "name": "uldian"
+        },
+        "accepted": true,
+        "beforeMana": 105,
+        "afterMana": 55,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "troll",
+        "truthful",
+        141007,
+        true,
+        1
+      ],
+      "reactions": 1,
+      "outcome": "better",
+      "scoreDifference": 1,
+      "controlScore": 0,
+      "candidateScore": 1,
+      "prefixLength": 24,
+      "prefixEqual": true,
+      "prefixSHA256": "d41ed6c1808a04dce405927a32c5fbd40dcb7f02bdfd00678a281435e702b0a7",
+      "first": {
+        "player": "p3",
+        "at": 198000,
+        "receivedAt": 197000,
+        "eventKind": "gem.result",
+        "target": "p8",
+        "name": "neonis",
+        "action": {
+          "type": "skill",
+          "skill": "advanced_attack",
+          "target": "p8",
+          "name": "neonis"
+        },
+        "accepted": true,
+        "beforeMana": 50,
+        "afterMana": 0,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    },
+    {
+      "key": [
+        "troll",
+        "bluff",
+        141001,
+        false,
+        1
+      ],
+      "reactions": 1,
+      "outcome": "better",
+      "scoreDifference": 1,
+      "controlScore": 0,
+      "candidateScore": 1,
+      "prefixLength": 21,
+      "prefixEqual": true,
+      "prefixSHA256": "7056ee905a5ca4db902eb1a3f088928a39599e1de2d4573c26b7ebb974377daa",
+      "first": {
+        "player": "p2",
+        "at": 240000,
+        "receivedAt": 239000,
+        "eventKind": "gem.result",
+        "target": "p7",
+        "name": "kanulla",
+        "action": {
+          "type": "skill",
+          "skill": "advanced_attack",
+          "target": "p7",
+          "name": "kanulla"
+        },
+        "accepted": true,
+        "beforeMana": 50,
+        "afterMana": 0,
+        "nominalMana": 50,
+        "sameStateOriginalAction": null
+      }
+    }
+  ],
+  "rawGzSHA256": "f3b7b76b120508fafa46356387ea0ddaa3f289d4b5c7d04659e277d392520f51",
+  "journalGzSHA256": "8df2acf74dd153afa2b2d48c3ee57436fdff4a9c712d683a62cf1b0d520fbf97",
+  "verifiedFingerprint": "fbee16aa22b93883c29650acff61951358e8b4ad2b168dfc36c1d5c6e3f789ab",
+  "detailFile": "docs/evaluations/cooperation-round-029-followup-audit.games.ndjson.gz",
+  "detailGzSHA256": "59de3b206471b6fb3906906d980c59a15b3e85310b3398a767a1a541d46091b2",
+  "auditSourceSHA256": "96febbe6c08c063af9532eb5b9e49c4f6012e9220a71d5ff38aca0df3bcc3dfa",
+  "limitations": [
+    "First-action prefix equality is an actual common-trajectory check, not a replay of hidden state or another bot memory.",
+    "Whole-policy outcome differences include later reactions and RNG paths; they do not identify the isolated combat or mana value of the first action.",
+    "Post-treatment one/multiple cohorts cannot be used to choose a subgroup or promote a policy.",
+    "This is development-only descriptive analysis; no final sample is read or retuned."
+  ]
+}

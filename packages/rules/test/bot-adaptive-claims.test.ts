@@ -13,7 +13,7 @@ describe('관찰된 상대 공표 성향', () => {
       for (const at of [0, 120_000, 240_000]) {
         advance(state, at);
         for (let i = 0; i < 20; i++) {
-          expect(smartBotAction(state, 'p1', a, { activity: 1, claimStrategy: 'adaptive' }))
+          expect(smartBotAction(state, 'p1', a, { activity: 1, claimStrategy: 'adaptive', teamwork:false }))
             .toEqual(previous(state, 'p1', b, { activity: 1 }));
           expect(a.rng).toBe(b.rng);
         }

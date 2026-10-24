@@ -1,0 +1,31 @@
+/** Create an empty, disjoint replication store. This never calls a game policy. */
+import {readFileSync,existsSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {execFileSync} from 'node:child_process';
+import {ok,strictEqual,deepStrictEqual} from 'node:assert';
+const [prior,out,startText,countText,stopAt,frozen]=process.argv.slice(2);
+const start=Number(startText),count=Number(countText);
+ok(prior&&out&&frozen&&Number.isSafeInteger(start)&&Number.isSafeInteger(count)&&count>0&&count%5===0);
+ok(Number.isFinite(Date.parse(stopAt)),'Explicit finite deadline required');
+ok(!existsSync(out)&&!existsSync(out+'.store'),'Refuse an existing output');
+const data=JSON.parse(readFileSync(prior,'utf8'));
+const {meta,fingerprint}=JSON.parse(readFileSync(prior+'.store/metadata.json','utf8'));
+const {CooperativeStore,storeHash}=await import(pathToFileURL(resolve(frozen,'packages/rules/scripts/cooperative-store.ts')).href);
+strictEqual(meta.kind,'own-failure-faction-identical-policy');
+strictEqual(fingerprint,storeHash(JSON.stringify(meta)));
+strictEqual(data.fingerprint,fingerprint);
+strictEqual(data.executions,meta.count*24);
+strictEqual(data.executions,data.records.length);
+strictEqual(data.complete,true);
+strictEqual(execFileSync('git',['rev-parse','HEAD'],{cwd:frozen}).toString().trim(),meta.sourceRef);
+ok(start>=meta.start+meta.count||start+count<=meta.start,'Replication seeds overlap the source');
+for(const [p,h] of Object.entries(meta.sourceHashes))strictEqual(storeHash(readFileSync(resolve(frozen,'packages/rules',p))),h);
+for(const [p,h] of Object.entries(meta.verificationHashes))strictEqual(storeHash(readFileSync(resolve(frozen,p))),h);
+const next={...meta,start,count,stopAt},hash=storeHash(JSON.stringify(next));
+const withoutFixture=x=>Object.fromEntries(Object.entries(x).filter(([k])=>!['start','count','stopAt'].includes(k)));
+deepStrictEqual(withoutFixture(next),withoutFixture(meta));
+const key=r=>[r.fixture.mode,r.fixture.seed,r.fixture.reversed,r.variant].join('/');
+const store=new CooperativeStore({out,meta:next,fingerprint:hash,expectedCount:count*24,key,project:s=>s.records});
+try{store.checkpoint({...next,fingerprint:hash,executions:0,complete:false,records:[]});}finally{store.close();}
+console.log(JSON.stringify({newGames:0,newRecords:0,start,count,expected:count*24,sourceRef:next.sourceRef,optionsSHA256:next.optionsSHA256,fingerprint:hash,onlyFixtureRangeAndDeadlineChanged:true}));

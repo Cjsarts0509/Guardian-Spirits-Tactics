@@ -1,0 +1,39 @@
+{
+  "kind": "same-policy-evaluator-preparation-ci",
+  "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
+  "round063Started": false,
+  "productionSameAs061": true,
+  "ci": {
+    "id": 40051060493,
+    "jobId": 120743617901,
+    "conclusion": "success",
+    "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/40051060493"
+  },
+  "cardUI": {
+    "id": 40051060684,
+    "jobId": 120743618817,
+    "conclusion": "success",
+    "url": "https://github.com/Cjsarts0509/Guardian-Spirits-Tactics/actions/runs/40051060684"
+  },
+  "tests": {
+    "rules": 708,
+    "server": 75,
+    "total": 783
+  },
+  "typecheckPackages": 4,
+  "serverBuild": true,
+  "clientBuild": true,
+  "hostWorkerBuild": true,
+  "evidenceLines": [
+    "2026-10-24T01:43:43.2207783Z packages/rules typecheck: Done",
+    "2026-10-24T01:43:45.6987726Z packages/protocol typecheck: Done",
+    "2026-10-24T01:43:51.6221313Z apps/server typecheck: Done",
+    "2026-10-24T01:43:51.9383520Z apps/client typecheck: Done",
+    "2026-10-24T01:49:38.7431198Z packages/rules test:  Test Files  91 passed (91)",
+    "2026-10-24T01:49:38.7440264Z packages/rules test:       Tests  708 passed (708)",
+    "2026-10-24T01:49:58.1048886Z apps/server test:  Test Files  16 passed (16)",
+    "2026-10-24T01:49:58.1050887Z apps/server test:       Tests  75 passed (75)",
+    "2026-10-24T01:50:12.3131243Z dist/assets/host.worker-BdkTXRx3.js  185.28 kB",
+    "2026-10-24T01:50:12.3134887Z ✓ built in 8.98s"
+  ]
+}

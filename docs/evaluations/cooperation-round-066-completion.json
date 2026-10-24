@@ -1,0 +1,106 @@
+{
+  "round": 66,
+  "completedAt": "2026-10-24T13:47:25.160508+09:00",
+  "sourceRef": "a24b16625a289c9f55ec3a4f5268d8d47bf6572a",
+  "analysisSHA256": "db0159f7a4f00bf0e923c2fd2ecb39b2cd66194d6fddc04beb2027f79f689e75",
+  "optionsSHA256BySource": {
+    "docs/evaluations/cooperation-round-062-development.json.gz": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161",
+    "docs/evaluations/cooperation-round-063-development.json.gz": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161"
+  },
+  "inputManifestSHA256": "30bdd8727aa5ac117bc036cc9f18d99bf8126b0a23da86d06a447e9d1fb881bb",
+  "newResearchExecutions": 0,
+  "newReplays": 0,
+  "newPrimaryDatasets": 0,
+  "analyzedSourceGames": 2112,
+  "eligibleControlCandidateGames": 1408,
+  "repeatBytesIdentical": true,
+  "counts": {
+    "62": {
+      "control": {
+        "games": 384,
+        "unfinished": 1,
+        "consumedFailures": 86,
+        "gamesWithConsumedFailure": 18,
+        "consumedFailureActorTargetPairs": 27,
+        "gamesWithRecast": 12,
+        "recastActorTargetPairs": 16,
+        "acceptedChaosRequests": 173,
+        "acceptedChaosNominalMana": 6920,
+        "recastsAfterConsumedFailure": 68,
+        "recastNominalMana": 2720,
+        "recastImmediateManaDelta": -2720,
+        "recastResult/failed": 64,
+        "sameTickPrimaryIntakeThenRecast": 6,
+        "recastResult/unresolved": 4
+      },
+      "candidate": {
+        "games": 384,
+        "unfinished": 1,
+        "consumedFailures": 36,
+        "gamesWithConsumedFailure": 18,
+        "consumedFailureActorTargetPairs": 36,
+        "gamesWithRecast": 0,
+        "recastActorTargetPairs": 0,
+        "acceptedChaosRequests": 120,
+        "acceptedChaosNominalMana": 4800
+      }
+    },
+    "63": {
+      "control": {
+        "games": 320,
+        "unfinished": 0,
+        "consumedFailures": 14,
+        "gamesWithConsumedFailure": 12,
+        "consumedFailureActorTargetPairs": 12,
+        "gamesWithRecast": 3,
+        "recastActorTargetPairs": 3,
+        "acceptedChaosRequests": 155,
+        "acceptedChaosNominalMana": 6200,
+        "recastsAfterConsumedFailure": 5,
+        "recastNominalMana": 200,
+        "recastImmediateManaDelta": -200,
+        "recastResult/failed": 4,
+        "sameTickPrimaryIntakeThenRecast": 2,
+        "recastResult/unresolved": 1
+      },
+      "candidate": {
+        "games": 320,
+        "unfinished": 0,
+        "consumedFailures": 13,
+        "gamesWithConsumedFailure": 12,
+        "consumedFailureActorTargetPairs": 13,
+        "gamesWithRecast": 0,
+        "recastActorTargetPairs": 0,
+        "acceptedChaosRequests": 151,
+        "acceptedChaosNominalMana": 6040
+      }
+    }
+  },
+  "manifest": {
+    "docs/evaluations/cooperation-round-066-recasts062.json.gz": {
+      "bytes": 5503,
+      "sha256": "8fb5ae58cf88840e4a88fb4f1e1986b5a72a63edbaf2919220d7781d20d37914",
+      "decodedSHA256": "c4ced6d125b90d846434f670e7d8d214310e61fe433a30ebabbeb584c0b983a8"
+    },
+    "docs/evaluations/cooperation-round-066-recasts063.json.gz": {
+      "bytes": 1907,
+      "sha256": "15bdf37a8beec8d289a6ece9ac9e5b18189a39fd1eea026f8c7ef43edcee7338",
+      "decodedSHA256": "eeef4658408290b2ab2cb3b829fa920e72061ddb69bc342be37a9c6ffa59c1de"
+    }
+  },
+  "shortFinding": "062 같은 대상 재시전 control 68 / candidate 0회; 063 같은 대상 재시전 control 5 / candidate 0회를 확인했다. 이는 본인이 정확 실패를 실제 소비한 뒤 접수한 명령 수다. 반복 시전에는 정화 주술 대상 변경 같은 별도 전술 효과가 있을 수 있고, 경기 경로·길이·이후 기회가 다르므로 명목 마나 총량 차이를 인과적 절약이나 승률 효과로 보지 않는다. baseline은 동등한 소비 관측이 없어0회로 채우지 않는다.",
+  "findings": "062 같은 대상 재시전 control 68 / candidate 0회; 063 같은 대상 재시전 control 5 / candidate 0회를 확인했다. 이는 본인이 정확 실패를 실제 소비한 뒤 접수한 명령 수다. 반복 시전에는 정화 주술 대상 변경 같은 별도 전술 효과가 있을 수 있고, 경기 경로·길이·이후 기회가 다르므로 명목 마나 총량 차이를 인과적 절약이나 승률 효과로 보지 않는다. baseline은 동등한 소비 관측이 없어0회로 채우지 않는다.",
+  "cumulativeExecutions": 50944,
+  "cumulativeTerminated": 50940,
+  "cumulativeUnfinished": 4,
+  "primaryDatasets": 37,
+  "humanMatches": 0,
+  "policyOrSkillValuesChanged": false,
+  "nextHypothesis": "제한 미종료의 실제 자기 판단에서 정보 부족·공격 마나·보호 조건을 분리한다.",
+  "interpretationCorrection": {
+    "round": 68,
+    "at": "2026-10-24T14:01:05.231475+09:00",
+    "reason": "chaosTarget assignment occurs on successful delayed results only, not exact failures or requests."
+  },
+  "findingsCurrent": "062 같은 대상 재시전 control68/후보0,063 control5/후보0. 068 실제 엔진 검증에서 정확 실패 재시전은 정화 표식을 변경하지 않음이 확인되어 이전 전술 가능성 유보를 정정했다. 총소모2920마나를 후보의 인과적 절약/승률 효과로 해석하지 않는다. 원래066 해석과 증거는 유지하며 정정 근거는068 참조."
+}

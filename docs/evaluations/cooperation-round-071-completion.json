@@ -1,0 +1,251 @@
+{
+  "kind": "round071-completion-evidence",
+  "completedAt": "2026-10-24T14:46:17.839093+09:00",
+  "sourceRef": "1f3d880c0113b161e83679ce02d8ffe2da894b29",
+  "analyzedGames": 160,
+  "newResearchExecutions": 0,
+  "newReplayedGames": 0,
+  "manifest": {
+    "docs/evaluations/cooperation-round-071-coverage.json.gz": {
+      "sha256": "8376ef2975840e98a7729340cdd40233996d60c7e9057817eb7acac2d4bb1b09",
+      "bytes": 19368,
+      "decodedSHA256": "17d55febf8cb737233456c9d10215c084b119ab047a84494361a75693db87fc2"
+    },
+    "docs/evaluations/cooperation-round-071-coverage-summary.json": {
+      "sha256": "9038c8df0354cacd5dceec045d88c492b0aa19fef55c00445c20bf4878309110",
+      "bytes": 18914,
+      "decodedSHA256": "9038c8df0354cacd5dceec045d88c492b0aa19fef55c00445c20bf4878309110"
+    }
+  },
+  "byteRepeatIdentical": true,
+  "totals": {
+    "games": 480,
+    "leaderSurvived": 294,
+    "guardianAssigned": 96,
+    "leaderDeaths": 186,
+    "deathCause:attack": 80,
+    "deathGuardianStatus:guardian_not_assigned": 129,
+    "named:attack.hit": 299,
+    "named:attack.kill": 80,
+    "deathCause:wolfs_slash": 73,
+    "non_named:attack.kill": 73,
+    "deathCause:master_power": 28,
+    "deathGuardianStatus:guardian_dead": 16,
+    "deathGuardianStatus:active_empty": 9,
+    "named:attack.guarded": 39,
+    "deathGuardianStatus:unactivated_unavailable": 3,
+    "deathGuardianStatus:unactivated_nominally_ready": 4,
+    "deathGuardianStatus:active_charged": 2,
+    "chargedGuardDeathCause:master_power": 1,
+    "deathGuardianStatus:no_guardian_role": 23,
+    "chargedGuardDeathCause:wolfs_slash": 1,
+    "nonNamedWithChargedGuard:attack.kill": 1,
+    "deathCause:slaughter": 3,
+    "deathCause:attack-fail": 2
+  },
+  "deathTimeNominalReadyCases": [
+    {
+      "inputId": "round063",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 153009,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "candidate",
+      "character": "eltas",
+      "guardian": "consume",
+      "death": {
+        "cause": "wolfs_slash",
+        "boundary": {
+          "kind": "action",
+          "at": 275250,
+          "actionIndex": 146,
+          "actor": "p7",
+          "action": {
+            "type": "skill",
+            "skill": "kane_wolfs_slash",
+            "target": "p2"
+          }
+        },
+        "guardianStatus": "unactivated_nominally_ready",
+        "nominalPreparation": {
+          "mana": 55,
+          "skill": {
+            "key": "consume_master_guard",
+            "name": "주인 보호",
+            "hotkey": "X",
+            "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+            "passive": false,
+            "mana": 50,
+            "cooldown": 0,
+            "cooldownRemainingMs": 0,
+            "usesLeft": 1,
+            "level": 1,
+            "target": "player",
+            "ignoresInvulnerable": false,
+            "nameOptions": null,
+            "blocked": null
+          }
+        },
+        "extraLives": 0
+      }
+    },
+    {
+      "inputId": "round063",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 153039,
+        "count": 12,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "candidate",
+      "character": "eltas",
+      "guardian": "consume",
+      "death": {
+        "cause": "wolfs_slash",
+        "boundary": {
+          "kind": "action",
+          "at": 284250,
+          "actionIndex": 148,
+          "actor": "p1",
+          "action": {
+            "type": "skill",
+            "skill": "kane_wolfs_slash",
+            "target": "p8"
+          }
+        },
+        "guardianStatus": "unactivated_nominally_ready",
+        "nominalPreparation": {
+          "mana": 90,
+          "skill": {
+            "key": "consume_master_guard",
+            "name": "주인 보호",
+            "hotkey": "X",
+            "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+            "passive": false,
+            "mana": 50,
+            "cooldown": 0,
+            "cooldownRemainingMs": 0,
+            "usesLeft": 1,
+            "level": 1,
+            "target": "player",
+            "ignoresInvulnerable": false,
+            "nameOptions": null,
+            "blocked": null
+          }
+        },
+        "extraLives": 0
+      }
+    },
+    {
+      "inputId": "round069",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 153044,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "variant": "candidate",
+      "character": "eltas",
+      "guardian": "consume",
+      "death": {
+        "cause": "attack",
+        "boundary": {
+          "kind": "action",
+          "at": 279000,
+          "actionIndex": 140,
+          "actor": "p10",
+          "action": {
+            "type": "skill",
+            "skill": "attack",
+            "target": "p4",
+            "name": "eltas"
+          }
+        },
+        "guardianStatus": "unactivated_nominally_ready",
+        "nominalPreparation": {
+          "mana": 140,
+          "skill": {
+            "key": "consume_master_guard",
+            "name": "주인 보호",
+            "hotkey": "X",
+            "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+            "passive": false,
+            "mana": 50,
+            "cooldown": 0,
+            "cooldownRemainingMs": 0,
+            "usesLeft": 1,
+            "level": 1,
+            "target": "player",
+            "ignoresInvulnerable": false,
+            "nameOptions": null,
+            "blocked": null
+          }
+        },
+        "extraLives": 0
+      }
+    },
+    {
+      "inputId": "round069",
+      "fixture": {
+        "mode": "primordial",
+        "seed": 153059,
+        "count": 12,
+        "reversed": false,
+        "currentSide": 1
+      },
+      "variant": "candidate",
+      "character": "eltas",
+      "guardian": "consume",
+      "death": {
+        "cause": "attack",
+        "boundary": {
+          "kind": "action",
+          "at": 229750,
+          "actionIndex": 127,
+          "actor": "p12",
+          "action": {
+            "type": "skill",
+            "skill": "attack",
+            "target": "p10",
+            "name": "eltas"
+          }
+        },
+        "guardianStatus": "unactivated_nominally_ready",
+        "nominalPreparation": {
+          "mana": 130,
+          "skill": {
+            "key": "consume_master_guard",
+            "name": "주인 보호",
+            "hotkey": "X",
+            "description": "1회. 대상이 엘타스면 컨슘이 살아 있는 동안 엘타스에게 오는 정답 공격을 2번 막는다. 실패해도 소멸한다.",
+            "passive": false,
+            "mana": 50,
+            "cooldown": 0,
+            "cooldownRemainingMs": 0,
+            "usesLeft": 1,
+            "level": 1,
+            "target": "player",
+            "ignoresInvulnerable": false,
+            "nameOptions": null,
+            "blocked": null
+          }
+        },
+        "extraLives": 0
+      }
+    }
+  ],
+  "cumulativeExecutions": 51904,
+  "cumulativeTerminated": 51900,
+  "cumulativeUnfinished": 4,
+  "findings": "160경기·480지휘관 배정을 분모로 보호자 편성 96건, 실제 명명 공격 흡수 39회, 보호 잔여횟수가 있는데도 발생한 사망 2건을 구분했다. 사망 시 미기동·명목 준비 4건은 이전 자기정보 기반 행동기회로 확정하지 않았으며 후속 진단 대상으로만 남겼다. 보호자 편성 부재를 AI 미활용으로 세지 않고, 수치 조정의 인과 근거로 해석하지 않는다.",
+  "shortFinding": "160경기·480지휘관 배정을 분모로 보호자 편성 96건, 실제 명명 공격 흡수 39회, 보호 잔여횟수가 있는데도 발생한 사망 2건을 구분했다. 사망 시 미기동·명목 준비 4건은 이전 자기정보 기반 행동기회로 확정하지 않았으며 후속 진단 대상으로만 남겼다. 보호자 편성 부재를 AI 미활용으로 세지 않고, 수치 조정의 인과 근거로 해석하지 않는다.",
+  "humanMatches": 0,
+  "skillValuesChanged": false,
+  "deployed": false,
+  "nextHypothesis": "사망 시 미기동·명목 준비 사례가 있다면 본인 직전 활성 선택의 자기 지식·마나·대상 합법성·선택 우선순위를 진단한다."
+}

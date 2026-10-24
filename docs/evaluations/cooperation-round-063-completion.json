@@ -1,0 +1,89 @@
+{
+  "kind": "round063-completion-evidence",
+  "completedAt": "2026-10-24T13:35:01.053355+09:00",
+  "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
+  "options": {
+    "baseline": {},
+    "control": {
+      "verifyIncomingAllies": "commander-report-first",
+      "rememberOwnDelayedCheck": true
+    },
+    "candidate": {
+      "verifyIncomingAllies": "commander-report-first",
+      "rememberOwnDelayedCheck": true,
+      "learnOwnDelayedFailureFaction": true
+    }
+  },
+  "optionsSHA256": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161",
+  "fingerprint": "798ea3bdc053945cba527c00af3267b85f81a466310f3443719e23999b3a803c",
+  "executions": 960,
+  "terminated": 960,
+  "unfinished": 0,
+  "manifest": {
+    "docs/evaluations/cooperation-round-063-development.json.gz": {
+      "bytes": 2952990,
+      "sha256": "584a22378d1efc6ead43e745e38d06fac1de5cd40196a3b9ffd213cb89b9bc85",
+      "decodedBytes": 67324821,
+      "decodedSHA256": "699b772f7dc3cc955b5cbf9d34a81d574a1f517375d5a684fdd2535420134a37"
+    },
+    "docs/evaluations/cooperation-round-063-development.journal.ndjson.gz": {
+      "bytes": 2058239,
+      "sha256": "c45a913ce0f2fbe58e1583ee3203e716b8b60be2893b2aa43163b6a81e20c21e",
+      "decodedBytes": 35599744,
+      "decodedSHA256": "cbd98f0fae803bcaf27dec1ea53013a1d49408e3b1670471339b0bf04a9807e7"
+    },
+    "docs/evaluations/cooperation-round-063-development.publication.json": {
+      "bytes": 319,
+      "sha256": "b85d183823c28fb014a3b94f81dd477e8f4f7e6e68dc05aeff61d3984c6bb6ad",
+      "decodedBytes": 319,
+      "decodedSHA256": "b85d183823c28fb014a3b94f81dd477e8f4f7e6e68dc05aeff61d3984c6bb6ad"
+    },
+    "docs/evaluations/cooperation-round-063-development-summary.json": {
+      "bytes": 794484,
+      "sha256": "52cffe69f26b311744a2546cb981d54c915be42a3d719ed23b58ef3e02b4f852",
+      "decodedBytes": 794484,
+      "decodedSHA256": "52cffe69f26b311744a2546cb981d54c915be42a3d719ed23b58ef3e02b4f852"
+    },
+    "docs/evaluations/cooperation-round-063-development-actual-actions.json.gz": {
+      "bytes": 1546,
+      "sha256": "c0f41a0b5a03a46db9fb96c2e9fc4d15f3c3ffe8d96f229404a27fa6a020eb19",
+      "decodedBytes": 10359,
+      "decodedSHA256": "c58d2a7da57715de0f911714002a500bc4f0af1b4f7bd89c3e6d15174ca43512"
+    },
+    "docs/evaluations/cooperation-round-063-development-evidence-prefix.json": {
+      "bytes": 6491,
+      "sha256": "e183c7126185710fc21480e9c63333d7130db066b7a0f02196b680c59b2f6caf",
+      "decodedBytes": 6491,
+      "decodedSHA256": "e183c7126185710fc21480e9c63333d7130db066b7a0f02196b680c59b2f6caf"
+    },
+    "docs/evaluations/cooperation-round-063-development-resume-check.json": {
+      "bytes": 399,
+      "sha256": "310449182cfda1e1200bd45ea436463c300adf760ecb06b8c5a71b0eecb73189",
+      "decodedBytes": 399,
+      "decodedSHA256": "310449182cfda1e1200bd45ea436463c300adf760ecb06b8c5a71b0eecb73189"
+    },
+    "docs/evaluations/cooperation-round-063-parallel-completion.json.gz": {
+      "bytes": 57964,
+      "sha256": "baafb073d1533196b1697a50286818dc1ab6d3a8cc05d025d7962e3a0f621f99",
+      "decodedBytes": 252010,
+      "decodedSHA256": "9183ff9c4d8e1dfe810f64a8776fb66ec0f338af783e32401dbb0748a906fa20"
+    }
+  },
+  "cumulativeExecutions": 50944,
+  "cumulativeTerminated": 50940,
+  "cumulativeUnfinished": 4,
+  "primaryDatasets": 37,
+  "independentTamperRejected": 11,
+  "completeResumeNewGames": 0,
+  "completeResumeByteHashesUnchanged": true,
+  "humanMatches": 0,
+  "productionDefaultOn": false,
+  "skillValuesChanged": false,
+  "deployed": false,
+  "nextRoundStarted": false,
+  "nextHypothesis": "Select all actual inference-linked candidate reports from complete062/063, replay recipient-own input and memory without changing original actions; no new research games.",
+  "analysisFiles": {
+    "tools/analyze-failure-actions.py": "9ce27a01d59ed3f452f6e46eca8f6bcb71ffc914879b73e608f174de41f67d15",
+    "tools/audit-failure-evidence-prefix.py": "5ca108f49e6dbde9a8052cfaa7702ea20c88a244c418fdc47f7c89b3e04582d8"
+  }
+}

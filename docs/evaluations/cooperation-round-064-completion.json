@@ -1,0 +1,63 @@
+{
+  "round": 64,
+  "completedAt": "2026-10-24T13:40:18.260245+09:00",
+  "sourceRef": "f248625430005cdaa2d40b58cdc1c097b0163503",
+  "optionsSHA256ByInput": {
+    "round062": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161",
+    "round063": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161"
+  },
+  "manifestSHA256": "ba45897e8a9df1b4fc460b7f7a0e56f9c55af6b8c7e38ddbaaf5da4dd337dceb",
+  "fingerprint": "f2969a26fd107bbb402922b2f75c56a494580c1be022c0f490482d03140b3213",
+  "replayedGames": 7,
+  "matchedActions": 790,
+  "newResearchExecutions": 0,
+  "newPrimaryDatasets": 0,
+  "completeResumeNewReplays": 0,
+  "completeResumeByteHashesUnchanged": true,
+  "cumulativeExecutions": 50944,
+  "cumulativeTerminated": 50940,
+  "cumulativeUnfinished": 4,
+  "primaryDatasets": 37,
+  "humanMatches": 0,
+  "policyOrSkillValuesChanged": false,
+  "manifest": {
+    "docs/evaluations/cooperation-round-064-reception.json.gz": {
+      "bytes": 348682,
+      "sha256": "60dce92d8c43417736effc545a77927e26fdfcd1c9d7295f9b0c0a391bba6f4c",
+      "decodedBytes": 6944867,
+      "decodedSHA256": "785a2da321ea8de8b33e99771d2904a141c967029757e9a9f5a76aa8b6e2e77a"
+    },
+    "docs/evaluations/cooperation-round-064-reception.journal.ndjson.gz": {
+      "bytes": 83475,
+      "sha256": "060c20ac228d07c76180f7b90fec93fd1e797a6e7a5cf60b32f967dd50db73bc",
+      "decodedBytes": 1808927,
+      "decodedSHA256": "6b687ead1af73f81b28775d0583db2a5352c6934a460efa6ebd02c2a486f2d72"
+    },
+    "docs/evaluations/cooperation-round-064-reception.publication.json": {
+      "bytes": 317,
+      "sha256": "5e3125c62447a9a4c5aee619410840f312ad551c2498597bc2a37aabf8f1f86f",
+      "decodedBytes": 317,
+      "decodedSHA256": "5e3125c62447a9a4c5aee619410840f312ad551c2498597bc2a37aabf8f1f86f"
+    },
+    "docs/evaluations/cooperation-round-064-reception-summary.json": {
+      "bytes": 2119,
+      "sha256": "d3a5d162e4353819fa5f16c21dc0eccfebba36bfad2bbe1e3d9095537a3d083a",
+      "decodedBytes": 2119,
+      "decodedSHA256": "d3a5d162e4353819fa5f16c21dc0eccfebba36bfad2bbe1e3d9095537a3d083a"
+    },
+    "docs/evaluations/cooperation-round-064-reception-resume-check.json": {
+      "bytes": 425,
+      "sha256": "2ce4377560eb557394b1739c9fcefec38d76597a3de609d9224aacd7a6958d45",
+      "decodedBytes": 425,
+      "decodedSHA256": "2ce4377560eb557394b1739c9fcefec38d76597a3de609d9224aacd7a6958d45"
+    },
+    "docs/evaluations/cooperation-round-064-reception-diagnostics.json.gz": {
+      "bytes": 2217,
+      "sha256": "c68cc7dba64f7273d7f989e6d537969559d4a9c821204bca011171dbba726502",
+      "decodedBytes": 22642,
+      "decodedSHA256": "53567d955935e6369898f4509f45817fb6016ff30747ea89a689f110c7ce4440"
+    }
+  },
+  "findings": "실제 발송 24건 중 자기 수신 기억 저장 20건. 종료까지 미소비·생존 1, 종료시 사망·미소비 3건을 분리했다. 소비한 보고를 하나씩 제외한 자기입력 복제에서도 확정 지식·후보집합 불변 20/20. 보고를 직접 사실로 승격하지 않았다. 이후 대상 정체가 확정된 보고 3건은 다른 자기 정보까지 섞인 시간 연결이다. 연결된 수신자의 실제 스킬 명령은 중복제거 11건(접수11), 보고별 링크 합계와 구분한다. 수신 소비 지연은 정책 호출/기억 갱신 지연이며 네트워크 전달 지연이 아니다.",
+  "nextHypothesis": "모든 제한 미종료 배정과 각 대응 정책에서 실제 자기 판단·보호 해제/재부여·보호 마나 소비를 재생해 원인을 분리한다."
+}

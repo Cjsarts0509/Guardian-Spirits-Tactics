@@ -1,0 +1,33 @@
+{
+  "sourceRef": "e0a08f5f395f37ba03465f0dfcd373c824c4715f",
+  "evaluationSourceRef": "cad80d2c843c16dd97104f5c844a0298e589f51d",
+  "analysisCI": {"run": 39071055950, "conclusion": "success"},
+  "browser": {
+    "run": 39071055979,
+    "initialJob": 117508576084,
+    "initialConclusion": "failure",
+    "initialFailure": "AssertionError: 2-shuffle: missing images",
+    "initialImage": "http://127.0.0.1:8799/ui/GST_CARD_BACK_MODE03_LIDELLUT_WASTES_v2.webp",
+    "reportedImageRows": 3,
+    "failureSite": "tools/ui-smoke.cjs:18",
+    "retryScope": "failed_jobs_only; no source or workflow modifications",
+    "retryJob": 117509328673,
+    "retryConclusion": "success",
+    "allRetryStepsSucceeded": true,
+    "conclusion": "success_after_retry; initial_failure_preserved; exact_root_cause_unconfirmed"
+  },
+  "relatedSourceDiff": {
+    "command": "git diff --exit-code cad80d2c843c16dd97104f5c844a0298e589f51d e0a08f5f395f37ba03465f0dfcd373c824c4715f -- apps/client apps/server tools/ui-smoke.cjs .github/workflows",
+    "exitCode": 0,
+    "assetPath": "apps/client/public/ui/GST_CARD_BACK_MODE03_LIDELLUT_WASTES_v2.webp",
+    "assetLocalBytes": 651542,
+    "passing045CI": [39070156800, 39070156802]
+  },
+  "repeatedChecks": {
+    "analysis": {"command": "python tools/test-commander-stage-analysis.py docs/evaluations/cooperation-round-045-selfplay.json.gz docs/evaluations/cooperation-round-045-summary.json", "passed": 9},
+    "selfplaySemanticTamper": {"command": "python tools/test-report-selfplay.py /tmp/gst-round045-synthetic-final.json", "passed": 8, "input": "same final synthetic fixture already archived in round045 preflight; no new matches"}
+  },
+  "newResearchExecutions": 0,
+  "newSyntheticExecutions": 0,
+  "newReplayedGames": 0
+}

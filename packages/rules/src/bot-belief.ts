@@ -1,3 +1,4 @@
+import {trustedIntel,INTEL_WEIGHT} from './bot-intel.js';
 import type { CharKey, PlayerId } from './types.js';
 import type { PlayerView } from './engine/view.js';
 import type { BotMemory, Knowledge } from './bot-memory.js';
@@ -41,7 +42,8 @@ function computeAssignmentBelief(view: PlayerView, knowledge: Knowledge, memory:
   if (!Number.isFinite(claimScale) || claimScale < 0 || claimScale > 4) throw new RangeError('공표 가중치 배율은 0~4입니다.');
   const rows = view.players.filter((p) => p.id !== view.me.id);
   const roles = view.roster.filter((r) => r.inGame && r.key !== view.me.character).map((r) => r.key);
-  const signature = JSON.stringify([claimScale, view.mode, view.me.id, view.me.character, Math.floor(view.elapsedMs / 60_000),
+  const intel = trustedIntel(view, knowledge, memory);
+  const signature = JSON.stringify([[...intel], claimScale, view.mode, view.me.id, view.me.character, Math.floor(view.elapsedMs / 60_000),
     rows.map((p) => [p.id, p.published, memory.perception?.automaticClaims.has(p.id), knowledge.candidates.get(p.id)])]);
   const cached = memory.beliefCache?.signature === signature ? memory.beliefCache.value : undefined;
   if (cached && (!retainSampling || samplingModels.has(cached))) return cached;
@@ -51,7 +53,7 @@ function computeAssignmentBelief(view: PlayerView, knowledge: Knowledge, memory:
   const weights = rows.map((p) => roles.map((c) => {
     if (!knowledge.candidates.get(p.id)?.includes(c)) return 0;
     const weight = claimWeight(view, c, memory.perception?.automaticClaims.has(p.id) ? null : p.published);
-    return claimScale === 1 ? weight : weight ** claimScale;
+    return (claimScale === 1 ? weight : weight ** claimScale) * (intel.get(p.id) === c ? INTEL_WEIGHT : 1);
   }));
   const size = 1 << n;
   const counts = countsFor(n);

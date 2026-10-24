@@ -1,0 +1,87 @@
+{
+  "kind": "storage-regression-only",
+  "researchExecutions": 0,
+  "testFixtureSeed": 23,
+  "collectorSmokeGames": 432,
+  "storeFaultTests": 7,
+  "physicalByteLossCause": "unconfirmed",
+  "codeFailureReproduced": "independent in-memory snapshot count and disk journal hash permit false completion",
+  "sources": {
+    "packages/rules/scripts/cooperative-store.ts": "8f237a2005a5bacf057127c787de907655038398253555540dd6287b79f36090",
+    "tools/test_cooperative_storage.py": "8bf586e8d729db61cf3e9a4a1a3572a6d2f5a78963ebc8fb1433a050bc64ae47"
+  },
+  "files": {
+    "ally-pairs.journal.ndjson.gz": {
+      "bytes": 7384,
+      "sha256": "82e57da95d13c5d7de546faef4fb9a4e7c4421dfcd8f384bd931f5d1ab1f4f51"
+    },
+    "ally-pairs.json.gz": {
+      "bytes": 9250,
+      "sha256": "fb1aa70e14360f2e64ef3ce8e3d566be10f70b1713d9f66c6d88d2b1b5d60ebf"
+    },
+    "ally-pairs.publication.json": {
+      "bytes": 318,
+      "sha256": "205bcf5e6e06a83303605f59fb6971005d3fa26742ddf6acf2edfb64235ef1a3"
+    },
+    "ally-pairs.verified.json": {
+      "bytes": 9359,
+      "sha256": "0e6c2bb7e377a0216dd327c19d4a98a2c2d816bd8e8d49a2c9be3c81b1f18dcb"
+    },
+    "checks.log.gz": {
+      "bytes": 3110,
+      "sha256": "b37ed7d8f6c3b0f95c9edbee829e56defd6602abde13498993e112a535ba753e"
+    },
+    "claim-commitment.journal.ndjson.gz": {
+      "bytes": 109357,
+      "sha256": "ea8942df63d7cc824978e70a734623723ee52c3bc2d44719f63d4b6d6b1d3b64"
+    },
+    "claim-commitment.json.gz": {
+      "bytes": 223589,
+      "sha256": "930e892690a1803ad0abe3e22acafa25981cabadefc0a2e1cff913d18be97d64"
+    },
+    "claim-commitment.publication.json": {
+      "bytes": 319,
+      "sha256": "12f79bcf4fd5aa72acc671829d745591f4c02004edec15e86b061d7b39fa3a4c"
+    },
+    "claim-commitment.verified.json": {
+      "bytes": 65402,
+      "sha256": "735c6f184293f9b1ee0b3d153d9fab807295a12c3b785280b0354e2a7fcc5961"
+    },
+    "claim-pairs.journal.ndjson.gz": {
+      "bytes": 8103,
+      "sha256": "54588f4a4cdb0ffaf4dd3c11e87679092b8392b9561f54d7283510adda0c1b78"
+    },
+    "claim-pairs.json.gz": {
+      "bytes": 10199,
+      "sha256": "f3cf4384b2acb276159bb8a8dca48a3bda5a0d23cf6fe817f0befc8e46548eb6"
+    },
+    "claim-pairs.publication.json": {
+      "bytes": 318,
+      "sha256": "32b36dcfbaaaefacbc810d536122463656171c3778a994d7f498b779fc88831f"
+    },
+    "claim-pairs.verified.json": {
+      "bytes": 8186,
+      "sha256": "2b19acda92e0fed6927124548fe7afb42cd890538705863cf1d848d86173a056"
+    },
+    "report-pairs.journal.ndjson.gz": {
+      "bytes": 8286,
+      "sha256": "9bd4570c43791bab54bcbaddcd218127ef830a0d22f4976e42d21c7d38eb741c"
+    },
+    "report-pairs.json.gz": {
+      "bytes": 10430,
+      "sha256": "a7caa2071cf8828ec62eb664db4150e34a8dc872f69751e300cd9c307ae87c3e"
+    },
+    "report-pairs.publication.json": {
+      "bytes": 318,
+      "sha256": "af5c5355defc7de955eca448c61bead7de5e3d0b2c85b2fd44614c0aed47262c"
+    },
+    "report-pairs.verified.json": {
+      "bytes": 10423,
+      "sha256": "7680c39c9b901765202b40f50315ed29d51a7d64a4e4b096ebdab1e63e532376"
+    },
+    "storage-smoke.log.gz": {
+      "bytes": 52,
+      "sha256": "7b2cb650ec2f34a0d3a310acb94c381cdc5f4878100a2ce8b15689dc5aa91ee6"
+    }
+  }
+}

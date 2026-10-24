@@ -1,10 +1,22 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_SETTINGS, fixtures, pairedInterval, playMatch, prepareMatch, summarize, type MatchResult, type Policy } from '../scripts/league-runner.js';
-import { createBotMemory, smartBotAction } from '../src/index.js';
+import { createBotMemory, smartBotAction, botKnowledge, viewFor } from '../src/index.js';
 import { smartBotAction as foundation } from '../scripts/baselines/foundation.js';
 import { smartBotAction as belief } from '../scripts/baselines/belief.js';
 
 describe('버전 비교 리그', () => {
+  it('틱/복제 기억 관측을 추가해도 정책 기억·난수·경기 결과는 같다', () => {
+    const f=fixtures('civil_war',42,8)[0]!,settings={...DEFAULT_SETTINGS,activity:0.5,limitMs:10*60_000};
+    const baseline=playMatch(f,{current:smartBotAction,reference:smartBotAction},settings);
+    let ticks=0;
+    const observed:Policy=(state,id,memory,options)=>{
+      const action=smartBotAction(state,id,memory,options),before=structuredClone(memory);
+      if(action)botKnowledge(state,id,viewFor(state,id),structuredClone(memory));
+      expect(memory).toEqual(before);return action;
+    };
+    expect(playMatch(f,{current:observed,reference:smartBotAction},settings,undefined,{},()=>{ticks++;})).toEqual(baseline);
+    expect(ticks).toBeGreaterThan(0);
+  });
   it('네 대결에서 배정·역할별 난수는 고정하고 진영과 좌석 순서만 교환한다', () => {
     const prepared = fixtures('troll', 1201, 9).map(prepareMatch);
     const roles = (p: ReturnType<typeof prepareMatch>) => Object.fromEntries(p.state.players.map((x) => [x.id, x.character]).sort());
