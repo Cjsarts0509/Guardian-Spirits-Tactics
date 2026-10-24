@@ -1,36 +1,9 @@
 {
-  "round": 62,
-  "status": "completed",
-  "owner": "round062-failure-faction-development",
-  "startedAt": "2026-10-24T09:40:53+09:00",
-  "leaseUntil": null,
-  "completedAt": "2026-10-24T12:26:38.065499+09:00",
   "continuation": "resumed_by_user_until_20261024_1500_KST",
   "pausedByUser": false,
   "stopAt": "2026-10-24T15:00:00+09:00",
   "resumeInstruction": "2026-10-24: \"회차 갱신하면서 오후 3시까지 진행\". Prior 2026-10-18 stop superseded until this deadline.",
-  "task": "새표본에서 정확 자기 실패 진영 추론의 행동품질·성능·비용 별도 평가",
-  "previousCompleted": {
-    "round": 61,
-    "record": "docs/ai-rounds/ROUND_061_20261024_0924.md",
-    "resultHead": "95592406b73ef7bf4c6949fc03da01f5d87cebbf"
-  },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
-  "record": "docs/ai-rounds/ROUND_062_20261024_0943.md",
-  "checkpoint": "complete1152_verified_and_archived",
-  "phase": "completed",
-  "executions": 1152,
-  "targetExecutions": 1152,
-  "cumulativeExecutions": 49984,
-  "cumulativeTerminatedExecutions": 49980,
-  "cumulativeUnfinishedExecutions": 4,
-  "corpusAudit": {
-    "path": "docs/evaluations/cooperation-round-062-cumulative-audit.json",
-    "primaryDatasets": 36,
-    "verifiedExecutions": 49984,
-    "terminated": 49980,
-    "unfinished": 4
-  },
   "holdoutSeeds": {
     "start": 121000,
     "count": 16,
@@ -41,98 +14,79 @@
     "count": 64,
     "status": "reserved_unused"
   },
-  "seedUse": {
-    "development": {
-      "start": 152008,
-      "count": 8,
-      "status": "completed"
-    },
-    "remainingReservedUnused": [
-      152016,
-      152079
-    ]
-  },
   "scheduling": {
     "automationId": "6acfabdb3d248191b9e2a1e0773010dc",
     "enabled": true,
     "resumeUntil": "2026-10-24T15:00:00+09:00"
   },
   "interimReport": "docs/ai-rounds/INTERIM_20261024.md",
-  "nextRoundStarted": false,
-  "nextAction": "Register exact unused153000 range by wall-time capacity rule, then fixedbe72 identical-policy balance.",
-  "checks": {
-    "productionSameAs061": true,
-    "inheritedFullTests": 778,
-    "newCollectorTests": 2,
-    "independentTamperRejected": 12,
-    "rulesTypecheck": true,
-    "productionCI061": "success",
-    "finalSynthetic144": true,
-    "syntheticCompletedResumeUnchanged": true,
-    "deadlineZeroValidated": true,
-    "sourceCI062": "success",
-    "sourceCardUI062": "success",
-    "nextEvaluatorPreparation": {
-      "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
-      "fullCITests": 783,
-      "typecheckPackages": 4,
-      "builds": [
-        "server",
-        "client",
-        "hostWorker"
-      ],
-      "cardUI": "success",
-      "syntheticGames": 120,
-      "newResearchGames": 0,
-      "independentTamperRejected": 11,
-      "completedResumeUnchanged": true,
-      "deadlineZero": true
-    },
-    "actualFirstAndLaterActionClassifier": true,
-    "recipientReplayPreparation": {
-      "sourceRef": "f248625430005cdaa2d40b58cdc1c097b0163503",
-      "actualEngineTests": 2,
-      "rulesTypecheck": true,
-      "independentTamperRejected": 9,
-      "newResearchExecutions": 0,
-      "newRoundStarted": false
-    },
-    "completeResumeUnchanged": true,
-    "actualActionAnalysis": true,
-    "evidencePrefixAudit": true
-  },
-  "runtime": {
-    "fixedSourceWorktree": "/tmp/gst-round062-final",
-    "developmentOutput": "/tmp/round062-development.json",
-    "newResearchExecutions": 1152,
-    "driverSession": 36563,
-    "recordsAtCheckpoint": 895,
-    "storeHead": {
-      "fingerprint": "b634e729193821a802564058680d87a6b3d1ebecd0e68a55d9896101f88359e3",
-      "count": 895,
-      "key": "troll/truthful/152010/true/1/baseline",
-      "sha256": "4ab772f32dcd8fa873f9ab897ca220e8d9936cf0a4e596ddb99b5d333a28c5de"
-    },
-    "storeWriter": {
-      "owner": "53501669-383b-4691-a4c0-3ed10e9de513",
-      "pid": 1161,
-      "leaseUntil": 1792810523491
-    },
-    "startedAt": "2026-10-24T10:12:00+09:00",
-    "processAlive": false,
-    "validatedResearchExecutions": 1152,
-    "recoveryPrefix": "/tmp/round062-recovery-prefix.json",
-    "recoveryArchive": "docs/evaluations/cooperation-round-062-recovery.json.gz",
-    "partialArchive": "docs/evaluations/cooperation-round-062-checkpoint-098.json.gz",
-    "canonicalArchive": "docs/evaluations/cooperation-round-062-canonical-866.json.gz",
-    "checkpointAt": "2026-10-24T11:50:24.399092+09:00",
-    "completedAt": "2026-10-24T12:26:38.065499+09:00"
-  },
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
   },
-  "sourceRef": "8549b136084650faa1c6b5942760204fe8262748",
-  "cumulativeScope": "Complete062 added once; partial/synthetic/replay excluded.",
-  "nextHypothesis": "After062 completion: identical baseline/control/candidate on both factions; measure faction/mode/8–12-player balance separately with no forced opponent claims or controller-relabel duplicates. Freeze is be72fdb; register exact unused153000 range before research, based on time remaining, not outcomes."
+  "round": 63,
+  "status": "in_progress",
+  "owner": "round063-identical-policy-balance",
+  "startedAt": "2026-10-24T12:30:31.255905+09:00",
+  "leaseUntil": "2026-10-24T14:45:00+09:00",
+  "completedAt": null,
+  "task": "양 진영 동일 정책의 모드/8–12인 균형과 행동 품질 별도 평가",
+  "previousCompleted": {
+    "round": 62,
+    "record": "docs/ai-rounds/ROUND_062_20261024_0943.md",
+    "resultHead": "653442f3fdfbaa354961e962706ebcb48dd023bd"
+  },
+  "record": "docs/ai-rounds/ROUND_063_20261024_1230.md",
+  "checkpoint": "preregistered_before_first_game",
+  "phase": "frozen_balance_development",
+  "executions": 0,
+  "targetExecutions": 960,
+  "cumulativeExecutions": 49984,
+  "cumulativeTerminatedExecutions": 49980,
+  "cumulativeUnfinishedExecutions": 4,
+  "corpusAudit": {
+    "path": "docs/evaluations/cooperation-round-062-cumulative-audit.json",
+    "primaryDatasets": 36,
+    "verifiedExecutions": 49984,
+    "terminated": 49980,
+    "unfinished": 4
+  },
+  "seedUse": {
+    "development": {
+      "start": 153000,
+      "count": 40,
+      "status": "registered_unused"
+    },
+    "remainingReservedUnused152000": [
+      152016,
+      152079
+    ]
+  },
+  "nextRoundStarted": false,
+  "nextAction": "Run fixedbe72 bounded96 batches; independently verify; preserve immutable midpoint; complete before deadline or checkpoint partial.",
+  "checks": {
+    "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
+    "fullCITests": 783,
+    "typecheckPackages": 4,
+    "builds": [
+      "server",
+      "client",
+      "hostWorker"
+    ],
+    "cardUI": "success",
+    "syntheticGames": 120,
+    "newResearchGames": 0,
+    "independentTamperRejected": 11,
+    "completedResumeUnchanged": true,
+    "deadlineZero": true
+  },
+  "runtime": {
+    "fixedSourceWorktree": "/tmp/gst-round063-calibration",
+    "developmentOutput": "/tmp/round063-development.json",
+    "newResearchExecutions": 0,
+    "processAlive": false
+  },
+  "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
+  "cumulativeScope": "Completed062 included once;063 tracked separately until complete.",
+  "nextHypothesis": "After063 save: all qualifying inference-linked reports from complete062/063 replayed with recipient own-view/events/memory; sourcef248 validated785tests; no new games or policy changes."
 }
