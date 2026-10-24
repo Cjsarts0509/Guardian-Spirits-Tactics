@@ -21,7 +21,7 @@ def validate(row,original,selection):
 
 def verify(path,journal,publication,manifest_path,partial=False):
     raw,jb,pb=map(read,[path,journal,publication]);data=json.loads(raw);pub=json.loads(pb);manifest_text=pathlib.Path(manifest_path).read_bytes();manifest=json.loads(manifest_text)
-    assert data['kind']=='failure-commander-death-replay' and data['newResearchExecutions']==0
+    assert data['kind']=='own-failure-commander-death-replay' and data['newResearchExecutions']==0
     assert manifest['kind']=='failure-commander-death-selection' and manifest['newResearchExecutions']==0
     assert len({(s['inputId'],s['recordSHA256']) for s in manifest['selected']})==len(manifest['selected'])
     assert manifest==data['manifest'] and sha(manifest_text)==data['manifestSHA256']

@@ -3,7 +3,8 @@ import gzip, hashlib, json, pathlib, re, sys
 
 bundle=json.loads(gzip.decompress(pathlib.Path(sys.argv[1]).read_bytes()))
 expected_kind={'round062-canonical-checkpoint':'own-failure-faction-development',
-               'round063-canonical-checkpoint':'own-failure-faction-identical-policy'}
+               'round063-canonical-checkpoint':'own-failure-faction-identical-policy',
+               'round069-canonical-checkpoint':'own-failure-faction-identical-policy'}
 assert bundle['kind'] in expected_kind
 target=pathlib.Path(sys.argv[2]+'.store')
 assert not target.exists(), 'Refuse to overwrite any existing store, including a live writer.'
