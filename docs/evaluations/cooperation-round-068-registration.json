@@ -1,0 +1,15 @@
+{
+  "round": 68,
+  "registeredAt": "2026-10-24T13:52:14.464771+09:00",
+  "expectedHead": "9dd232a8c2c25022df0f03e6b1a9cb27f73b08d6",
+  "engineSourceRef": "9dd232a8c2c25022df0f03e6b1a9cb27f73b08d6",
+  "engineSHA256": "38a6288c06a0bc34a9d3378d5faec07be15f7f1c00fd9189153c28b00dd5d629",
+  "hypothesis": "The current engine changes chaosTarget only on a successful delayed result. Recasting an already consumed exact failure therefore does not change the purify-hex target, contrary to an overly broad caveat in066. Verify with real engine positive/negative controls before correcting interpretation.",
+  "inputs": {
+    "docs/evaluations/cooperation-round-066-recasts062.json.gz": "8fb5ae58cf88840e4a88fb4f1e1986b5a72a63edbaf2919220d7781d20d37914",
+    "docs/evaluations/cooperation-round-066-recasts063.json.gz": "15bdf37a8beec8d289a6ece9ac9e5b18189a39fd1eea026f8c7ef43edcee7338"
+  },
+  "newResearchExecutions": 0,
+  "newSeeds": 0,
+  "selectionRule": "All actual recast witnesses from066 in complete062/063, no outcome or role sub-selection. Synthetic engine branches are correctness checks, not new games."
+}
