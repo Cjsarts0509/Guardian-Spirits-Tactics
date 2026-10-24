@@ -1,26 +1,26 @@
 {
-  "round": 61,
-  "status": "completed",
-  "owner": "round061-own-delayed-failure-faction",
-  "startedAt": "2026-10-24T09:25:01+09:00",
-  "leaseUntil": "2026-10-24T09:39:36+09:00",
-  "completedAt": "2026-10-24T09:39:36+09:00",
+  "round": 62,
+  "status": "in_progress",
+  "owner": "round062-failure-faction-development",
+  "startedAt": "2026-10-24T09:40:53+09:00",
+  "leaseUntil": "2026-10-24T10:35:53+09:00",
+  "completedAt": null,
   "continuation": "resumed_by_user_until_20261024_1500_KST",
   "pausedByUser": false,
   "stopAt": "2026-10-24T15:00:00+09:00",
   "resumeInstruction": "2026-10-24: \"회차 갱신하면서 오후 3시까지 진행\". Prior 2026-10-18 stop superseded until this deadline.",
-  "task": "혼돈주술 실제 실패의 진영 단서 검증 및 별도 기본OFF 후보",
+  "task": "새표본에서 정확 자기 실패 진영 추론의 행동품질·성능·비용 별도 평가",
   "previousCompleted": {
-    "round": 60,
-    "record": "docs/ai-rounds/ROUND_060_20261024_0913.md",
-    "resultHead": "85dc17724efd02d712069cee2239f26fa949c480"
+    "round": 61,
+    "record": "docs/ai-rounds/ROUND_061_20261024_0924.md",
+    "resultHead": "95592406b73ef7bf4c6949fc03da01f5d87cebbf"
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
-  "record": "docs/ai-rounds/ROUND_061_20261024_0924.md",
-  "checkpoint": "061_exact_failure_function_validated_performance_unmeasured",
-  "phase": "completed",
+  "record": "docs/ai-rounds/ROUND_062_20261024_0943.md",
+  "checkpoint": "fresh_seeds_audited_before_any_new_game",
+  "phase": "preregistered",
   "executions": 0,
-  "targetExecutions": 0,
+  "targetExecutions": 1152,
   "cumulativeExecutions": 48832,
   "cumulativeTerminatedExecutions": 48830,
   "cumulativeUnfinishedExecutions": 2,
@@ -37,11 +37,21 @@
     "status": "unused"
   },
   "nextSeeds": {
-    "start": 152008,
-    "count": 72,
+    "start": 152016,
+    "count": 64,
     "status": "reserved_unused"
   },
-  "seedUse": "No new research seeds. Synthetic regression fixtures and old-game replay excluded from cumulative totals.",
+  "seedUse": {
+    "development": {
+      "start": 152008,
+      "count": 8,
+      "status": "preregistered_unused"
+    },
+    "remainingReservedUnused": [
+      152016,
+      152079
+    ]
+  },
   "scheduling": {
     "automationId": "6acfabdb3d248191b9e2a1e0773010dc",
     "enabled": true,
@@ -49,19 +59,12 @@
   },
   "interimReport": "docs/ai-rounds/INTERIM_001_057_20261018.md",
   "nextRoundStarted": false,
-  "nextAction": "062: audit and preregister fresh152008–152015 fixed-opponent development, compare frozen main / 055candidate+passive ledger / same+failure-faction; no retuning.",
-  "checks": {
-    "rulesTests": 703,
-    "serverTests": 75,
-    "typecheckPackages": 4,
-    "serverClientWorkerBuild": true,
-    "newRegressionTests": 19,
-    "defaultOffGoldenTraces": true
-  },
+  "nextAction": "Freeze evaluator and verify synthetic observer/storage before new152008–152015 runs.",
+  "checks": {},
   "runtime": {},
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
   },
-  "sourceRef": "781a13f470267b15a09347833c6ae6d5885d14ab"
+  "sourceRef": null
 }
