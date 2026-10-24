@@ -35,11 +35,11 @@
     "unfinished": 4
   },
   "round": 66,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round066-own-failure-recast-analysis",
   "startedAt": "2026-10-24T13:46:00.874377+09:00",
-  "leaseUntil": "2026-10-24T15:05:00+09:00",
-  "completedAt": null,
+  "leaseUntil": null,
+  "completedAt": "2026-10-24T13:47:25.160508+09:00",
   "task": "실제 자기 실패 소비 뒤 동일 대상 재시전 전수 분석",
   "previousCompleted": {
     "round": 65,
@@ -47,8 +47,8 @@
     "resultHead": "c787a966f42efc7fbb272e54a000962e74e2eadc"
   },
   "record": "docs/ai-rounds/ROUND_066_20261024_1346.md",
-  "checkpoint": "registered_before_analysis",
-  "phase": "existing_data_analysis",
+  "checkpoint": "complete_existing_data_analysis_archived",
+  "phase": "completed",
   "executions": 0,
   "newResearchExecutions": 0,
   "seedUse": {
@@ -61,5 +61,6 @@
     "processAlive": false,
     "newResearchExecutions": 0
   },
-  "nextRoundStarted": false
+  "nextRoundStarted": false,
+  "nextAction": "제한 미종료의 실제 자기 판단에서 정보 부족·공격 마나·보호 조건을 분리한다."
 }
