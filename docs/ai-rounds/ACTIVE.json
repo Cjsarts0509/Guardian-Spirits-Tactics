@@ -24,23 +24,24 @@
   "humanValidation": {
     "actualHumanMatches": 0
   },
-  "round": 63,
-  "status": "completed",
-  "owner": "round063-identical-policy-balance",
-  "startedAt": "2026-10-24T12:30:31.255905+09:00",
-  "leaseUntil": null,
-  "completedAt": "2026-10-24T13:35:01.053355+09:00",
-  "task": "양 진영 동일 정책의 모드/8–12인 균형과 행동 품질 별도 평가",
+  "round": 64,
+  "status": "in_progress",
+  "owner": "round064-reception-diagnostic",
+  "startedAt": "2026-10-24T13:36:56.265369+09:00",
+  "leaseUntil": "2026-10-24T15:05:00+09:00",
+  "completedAt": null,
+  "task": "추론 연결 실제 보고의 수신 기억·신뢰·후속 활용",
   "previousCompleted": {
-    "round": 62,
-    "record": "docs/ai-rounds/ROUND_062_20261024_0943.md",
-    "resultHead": "653442f3fdfbaa354961e962706ebcb48dd023bd"
+    "round": 63,
+    "record": "docs/ai-rounds/ROUND_063_20261024_1230.md",
+    "resultHead": "3741d70daef2c641026be9ccb4dd0cf728895152"
   },
-  "record": "docs/ai-rounds/ROUND_063_20261024_1230.md",
-  "checkpoint": "complete_verified_and_archived",
-  "phase": "completed",
-  "executions": 960,
-  "targetExecutions": 960,
+  "record": "docs/ai-rounds/ROUND_064_20261024_1336.md",
+  "checkpoint": "preregistered_before_first_replay",
+  "phase": "frozen_existing_game_replay",
+  "executions": 0,
+  "replayedGames": 0,
+  "targetReplays": 7,
   "cumulativeExecutions": 50944,
   "cumulativeTerminatedExecutions": 50940,
   "cumulativeUnfinishedExecutions": 4,
@@ -52,76 +53,33 @@
     "unfinished": 4
   },
   "seedUse": {
-    "development": {
-      "start": 153000,
-      "count": 40,
-      "status": "completed"
-    },
-    "remainingReservedUnused152000": [
-      152016,
-      152079
+    "newSeeds": 0,
+    "existingData": [
+      "round062",
+      "round063"
     ]
   },
   "nextRoundStarted": false,
-  "nextAction": "Preregister all qualifying candidate reports from complete062/063 and replay recipient own information without policy changes.",
+  "nextAction": "Run immutable manifest in finite replay batches, verify exact original command/memory equality and own-information boundaries.",
   "checks": {
-    "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
-    "fullCITests": 783,
+    "frozenSourceFullTests": 785,
+    "rulesActualEngineTests": 2,
     "typecheckPackages": 4,
     "builds": [
       "server",
       "client",
       "hostWorker"
     ],
-    "cardUI": "success",
-    "syntheticGames": 120,
-    "newResearchGames": 0,
-    "independentTamperRejected": 11,
-    "completedResumeUnchanged": true,
-    "deadlineZero": true,
-    "stalematePreparation": {
-      "actualEngineTests": 2,
-      "rulesTypecheck": true,
-      "independentTamperRejected": 11,
-      "newResearchExecutions": 0,
-      "newRoundStarted": false,
-      "artifact": "docs/evaluations/cooperation-round-063-stalemate-preflight.json.gz"
-    },
-    "completeResumeUnchanged": true,
-    "actualActionAnalysis": true,
-    "evidencePrefixAudit": true
+    "ci": "success",
+    "cardUI": "success"
   },
   "runtime": {
-    "fixedSourceWorktree": "/tmp/gst-round063-calibration",
-    "developmentOutput": "/tmp/round063-development.json",
-    "newResearchExecutions": 960,
-    "processAlive": false,
-    "driverSession": 22765,
-    "validatedResearchExecutions": 960,
-    "recordsAtCheckpoint": 577,
-    "storeHead": {
-      "fingerprint": "798ea3bdc053945cba527c00af3267b85f81a466310f3443719e23999b3a803c",
-      "count": 577,
-      "key": "lidellut/153016/false/baseline",
-      "sha256": "b73b54b0d51f671dd9026522737357b0773819600c50747ac0e016d627d0309d"
-    },
-    "canonicalArchive": "docs/evaluations/cooperation-round-063-canonical-560.json.gz",
-    "checkpointAt": "2026-10-24T13:22:12.571116+09:00",
-    "orchestration": "four-disjoint-seed-workers-of10",
-    "shardPlanSHA256": "61f6afe0087b170bbb44d5110f18f23ff08ea315489771f17a7af7577fd236f6",
-    "transferAudit": "docs/evaluations/cooperation-round-063-parallel-transfer.json.gz",
-    "mergerSession": 68069,
-    "workerCounts": {
-      "0": 196,
-      "1": 158,
-      "2": 148,
-      "3": 146
-    },
-    "uniqueWorkerRecords": 648,
-    "allCopiesExcludedFromCumulative": true,
-    "completedAt": "2026-10-24T13:35:01.053355+09:00"
+    "fixedSourceWorktree": "/tmp/gst-report-reception-frozen",
+    "developmentOutput": "/tmp/round064-reception.json",
+    "newResearchExecutions": 0,
+    "processAlive": false
   },
-  "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
-  "cumulativeScope": "Complete063 added once; partial/synthetic/replay excluded.",
-  "nextHypothesis": "After063 save: all qualifying inference-linked reports from complete062/063 replayed with recipient own-view/events/memory; sourcef248 validated785tests; no new games or policy changes."
+  "sourceRef": "f248625430005cdaa2d40b58cdc1c097b0163503",
+  "cumulativeScope": "Existing games replayed; no new independent games or datasets.",
+  "nextHypothesis": "모든 제한 미종료 배정과 각 대응 정책에서 실제 자기 판단·보호 해제/재부여·보호 마나 소비를 재생해 원인을 분리한다."
 }
