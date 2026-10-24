@@ -17,8 +17,8 @@
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "record": "docs/ai-rounds/ROUND_062_20261024_0943.md",
-  "checkpoint": "final144_verified_complete_resume_unchanged",
-  "phase": "frozen_development_ready",
+  "checkpoint": "runtime_reset_after2_immutable_records",
+  "phase": "development_recovery",
   "executions": 0,
   "targetExecutions": 1152,
   "cumulativeExecutions": 48832,
@@ -45,7 +45,7 @@
     "development": {
       "start": 152008,
       "count": 8,
-      "status": "preregistered_unused"
+      "status": "in_progress"
     },
     "remainingReservedUnused": [
       152016,
@@ -59,7 +59,7 @@
   },
   "interimReport": "docs/ai-rounds/INTERIM_001_057_20261018.md",
   "nextRoundStarted": false,
-  "nextAction": "Run preregistered152008–152015 fixed-source1152 in bounded96-game batches, verify each batch; stop before new game at15:00KST.",
+  "nextAction": "Recover exact2 immutable completed records after orphan writer expiry01:15UTC; resume same preregistered fixed source, no duplicate games.",
   "checks": {
     "productionSameAs061": true,
     "inheritedFullTests": 778,
@@ -76,7 +76,24 @@
   "runtime": {
     "fixedSourceWorktree": "/tmp/gst-round062-final",
     "developmentOutput": "/tmp/round062-development.json",
-    "newResearchExecutions": 0
+    "newResearchExecutions": 0,
+    "driverSession": 4358,
+    "recordsAtCheckpoint": 2,
+    "storeHead": {
+      "fingerprint": "b634e729193821a802564058680d87a6b3d1ebecd0e68a55d9896101f88359e3",
+      "count": 2,
+      "key": "civil_war/truthful/152008/false/1/control",
+      "sha256": "d08e7850b05c211ae45fde3650b65b6962fe8a0d94ff4dfae03518b3f32a4159"
+    },
+    "storeWriter": {
+      "owner": "6a74c301-ed1a-46d5-a677-85dad5f69b44",
+      "pid": 6,
+      "leaseUntil": 1792804500812
+    },
+    "startedAt": "2026-10-24T10:12:00+09:00",
+    "processAlive": false,
+    "validatedResearchExecutions": 0,
+    "recoveryPrefix": "/tmp/round062-recovery-prefix.json"
   },
   "deployment": false,
   "humanValidation": {
