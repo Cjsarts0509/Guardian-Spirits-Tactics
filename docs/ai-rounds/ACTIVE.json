@@ -17,9 +17,9 @@
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "record": "docs/ai-rounds/ROUND_062_20261024_0943.md",
-  "checkpoint": "validated578_midpoint_saved",
+  "checkpoint": "validated866_prefix_saved",
   "phase": "frozen_development_running",
-  "executions": 578,
+  "executions": 866,
   "targetExecutions": 1152,
   "cumulativeExecutions": 48832,
   "cumulativeTerminatedExecutions": 48830,
@@ -88,33 +88,41 @@
       "completedResumeUnchanged": true,
       "deadlineZero": true
     },
-    "actualFirstAndLaterActionClassifier": true
+    "actualFirstAndLaterActionClassifier": true,
+    "recipientReplayPreparation": {
+      "sourceRef": "f248625430005cdaa2d40b58cdc1c097b0163503",
+      "actualEngineTests": 2,
+      "rulesTypecheck": true,
+      "independentTamperRejected": 9,
+      "newResearchExecutions": 0,
+      "newRoundStarted": false
+    }
   },
   "runtime": {
     "fixedSourceWorktree": "/tmp/gst-round062-final",
     "developmentOutput": "/tmp/round062-development.json",
-    "newResearchExecutions": 578,
+    "newResearchExecutions": 866,
     "driverSession": 36563,
-    "recordsAtCheckpoint": 614,
+    "recordsAtCheckpoint": 895,
     "storeHead": {
       "fingerprint": "b634e729193821a802564058680d87a6b3d1ebecd0e68a55d9896101f88359e3",
-      "count": 614,
-      "key": "lidellut/truthful/152011/false/1/control",
-      "sha256": "49e218eda81277849bcdcb80da99772c454468d6957e5324795cdb699f0b1719"
+      "count": 895,
+      "key": "troll/truthful/152010/true/1/baseline",
+      "sha256": "4ab772f32dcd8fa873f9ab897ca220e8d9936cf0a4e596ddb99b5d333a28c5de"
     },
     "storeWriter": {
-      "owner": "192b7257-5d11-418e-9ce9-8ff6cf386a08",
-      "pid": 798,
-      "leaseUntil": 1792808717128
+      "owner": "53501669-383b-4691-a4c0-3ed10e9de513",
+      "pid": 1161,
+      "leaseUntil": 1792810523491
     },
     "startedAt": "2026-10-24T10:12:00+09:00",
     "processAlive": true,
-    "validatedResearchExecutions": 578,
+    "validatedResearchExecutions": 866,
     "recoveryPrefix": "/tmp/round062-recovery-prefix.json",
     "recoveryArchive": "docs/evaluations/cooperation-round-062-recovery.json.gz",
     "partialArchive": "docs/evaluations/cooperation-round-062-checkpoint-098.json.gz",
-    "canonicalArchive": "docs/evaluations/cooperation-round-062-canonical-578.json.gz",
-    "checkpointAt": "2026-10-24T11:20:19.509690+09:00"
+    "canonicalArchive": "docs/evaluations/cooperation-round-062-canonical-866.json.gz",
+    "checkpointAt": "2026-10-24T11:50:24.399092+09:00"
   },
   "deployment": false,
   "humanValidation": {
