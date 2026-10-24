@@ -3,7 +3,7 @@
 Run only after verify-failure-development.py has checked the source and publication.
 Counts of linked followups establish temporal use, not a causal contribution to wins.
 """
-import collections, gzip, hashlib, json, pathlib, sys
+import collections, gzip, hashlib, json, pathlib, random, sys
 
 def read(path):
     data = pathlib.Path(path).read_bytes()
@@ -18,6 +18,50 @@ def action_kind(action):
 
 def action_signature(action):
     return {k: action[k] for k in ['player', 'at', 'stage', 'action', 'accepted', 'error']}
+
+def paired_strata(pairs):
+    """Descriptive whole-game contrasts; exchange games remain in their seed block."""
+    groups = collections.defaultdict(list)
+    for (key, variant), row in pairs.items():
+        if variant != 'candidate':
+            continue
+        f = row['fixture']
+        labels = ['all', 'mode/' + f['mode'], f"mode-side/{f['mode']}/{f['currentSide']}",
+                  f"mode-count/{f['mode']}/{f['count']}", 'style/' + row['style']]
+        for reference in ['control', 'baseline']:
+            other = pairs[key, reference]
+            for label in labels:
+                groups[label, reference].append((row, other))
+    result = {}
+    score = lambda r: .5 if r['game']['winner'] is None else int(r['game']['winnerPolicy'] == 'current')
+    for (label, reference), rows in groups.items():
+        seeds = collections.defaultdict(list)
+        costs = collections.Counter()
+        for row, other in rows:
+            seeds[row['fixture']['seed']].append(score(row) - score(other))
+            for field in row['resources']:
+                costs[field] += row['resources'][field] - other['resources'][field]
+        # Every complete stratum has the same exchange/style multiplicity per seed.
+        assert len({len(values) for values in seeds.values()}) == 1
+        deltas = [sum(values) / len(values) for values in seeds.values()]
+        rng = random.Random(0x475354)
+        sampled = sorted(sum(rng.choices(deltas, k=len(deltas))) / len(deltas) for _ in range(10000)) if len(deltas) > 1 else None
+        result.setdefault(label, {})[reference] = {
+            'pairedGames': len(rows), 'independentSeedBlocks': len(seeds),
+            'gamesPerSeed': len(next(iter(seeds.values()))),
+            'candidateWins': sum(r['game']['winnerPolicy'] == 'current' for r, _ in rows),
+            'referenceWins': sum(r['game']['winnerPolicy'] == 'current' for _, r in rows),
+            'candidateUnfinished': sum(r['game']['winner'] is None for r, _ in rows),
+            'referenceUnfinished': sum(r['game']['winner'] is None for _, r in rows),
+            'meanScoreDifference': sum(deltas) / len(deltas),
+            'seedBootstrap95': [sampled[250], sampled[9749]] if sampled else None,
+            'improved': sum(score(r) > score(o) for r, o in rows),
+            'worsened': sum(score(r) < score(o) for r, o in rows),
+            'tied': sum(score(r) == score(o) for r, o in rows),
+            'resourceDifferenceTotal': dict(costs),
+            'resourceDifferencePerGame': {k: v / len(rows) for k, v in costs.items()},
+        }
+    return result
 
 def analyze(data):
     assert data['complete'] and data['executions'] == data['count'] * 144
@@ -98,6 +142,7 @@ def analyze(data):
     return {
         'kind': 'round062-post-choice-diagnostics', 'sourceRef': data['sourceRef'],
         'executions': data['executions'], 'newExecutions': 0, 'variants': groups,
+        'pairedStrata': paired_strata(pairs),
         'controlCandidateCommandDivergences': divergences,
         'limitations': [
             'OFF/ON clones are local counterfactual choices; actual followups are from the assigned whole-match policy.',
@@ -105,6 +150,10 @@ def analyze(data):
             'Followups are associated with prior evidence; association alone is not win causality.',
             'Accepted whispers establish an engine-accepted message, not recipient belief or later use.',
             'Recipient faction is external scoring after the message choice, never a policy input.',
+            'Mode/side/count/style strata are descriptive, unadjusted for multiple comparisons; no candidate is retuned from them.',
+            'Intervals resample seeds, not individual exchange games; one-seed strata have no interval.',
+            'netSkillManaDelta is the sum of immediate accepted-skill before/after changes, not whole-game net resources.',
+            'Resource differences may reflect changed game length; they do not isolate a causal cost of inference.',
         ],
     }
 
