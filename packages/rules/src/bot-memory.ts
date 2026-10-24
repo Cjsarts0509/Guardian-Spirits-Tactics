@@ -1,7 +1,7 @@
 import {observeIntel, type BotIntel} from './bot-intel.js';
 import {observeClaimTurnCommitment} from './bot-claim-commitment.js';
 import {observeOwnAttack, type OwnAttackMemory} from './bot-own-attack.js';
-import {observeOwnDelayedCheck, type OwnDelayedCheckMemory} from './bot-own-delayed-check.js';
+import {observeOwnDelayedCheck, learnOwnDelayedFailureFaction, type OwnDelayedCheckMemory} from './bot-own-delayed-check.js';
 import type { CharKey, GameEvent, PlayerId } from './types.js';
 import type { PlayerView } from './engine/view.js';
 import type { AssignmentBelief } from './bot-belief.js';
@@ -66,7 +66,7 @@ export function createBotMemory(seed: number): BotMemory {
  * 지속되는 실제 봇 기억은 기본값으로 모든 관측 스킬/쿨다운을 기록한다.
  */
 export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[], memory: BotMemory,
-  options: { recordBattle?: boolean; claimTurnCommitment?: boolean; directCheckFollowup?:boolean; learnOwnAttackOutcome?:boolean; rememberOwnDelayedCheck?:boolean } = {}): Knowledge {
+  options: { recordBattle?: boolean; claimTurnCommitment?: boolean; directCheckFollowup?:boolean; learnOwnAttackOutcome?:boolean; rememberOwnDelayedCheck?:boolean; learnOwnDelayedFailureFaction?:boolean } = {}): Knowledge {
   let p = memory.perception;
   if (!p || p.playerId !== view.me.id || p.mode !== view.mode || p.character !== view.me.character || view.elapsedMs < p.lastElapsedMs) {
     memory.plan = undefined;
@@ -84,8 +84,8 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
   if (options.learnOwnAttackOutcome === false) delete p.ownAttacks;
   if (options.learnOwnAttackOutcome === true) p.ownAttacks ??= { proofs: new Map() };
   observeOwnAttack(view, events, memory);
-  if(options.rememberOwnDelayedCheck===false)delete p.ownDelayedChecks;
-  if(options.rememberOwnDelayedCheck===true&&view.mode==='troll'&&view.me.character==='kanulla')
+  if(options.rememberOwnDelayedCheck===false&&!options.learnOwnDelayedFailureFaction)delete p.ownDelayedChecks;
+  if((options.rememberOwnDelayedCheck===true||options.learnOwnDelayedFailureFaction===true)&&view.mode==='troll'&&view.me.character==='kanulla')
     p.ownDelayedChecks??={lastSeq:0,records:[]};
   if(p.ownDelayedChecks)observeOwnDelayedCheck(view,events,p.ownDelayedChecks);
   for (const e of events) {
@@ -142,6 +142,7 @@ export function updateBotKnowledge(view: PlayerView, events: readonly GameEvent[
   // 대화 경로가 먼저 수신 이벤트를 소비해도 같은 자기 기억에서 성공/턴을 관찰한다.
   if(options.claimTurnCommitment===true||p.claimCommitment)observeClaimTurnCommitment(view,events,memory);
   for (const other of view.players) if (other.revealed && other.id !== view.me.id) p.known.set(other.id, other.revealed);
+  if(options.learnOwnDelayedFailureFaction===true)learnOwnDelayedFailureFaction(view,p);
 
   const roster = view.roster.filter((r) => r.inGame);
   const known = new Map(p.known);

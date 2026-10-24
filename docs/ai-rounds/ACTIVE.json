@@ -17,8 +17,8 @@
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "record": "docs/ai-rounds/ROUND_061_20261024_0924.md",
-  "checkpoint": "preregistered_before_failure_inference",
-  "phase": "functional_diagnosis",
+  "checkpoint": "778_tests_4_types_server_client_worker_passed",
+  "phase": "preflight_passed_freezing",
   "executions": 0,
   "targetExecutions": 0,
   "cumulativeExecutions": 48832,
@@ -50,7 +50,14 @@
   "interimReport": "docs/ai-rounds/INTERIM_001_057_20261018.md",
   "nextRoundStarted": false,
   "nextAction": "Verify all 12 role outcomes, implement only exact own failure faction exclusion if rule confirmed; no generic failure inference.",
-  "checks": {},
+  "checks": {
+    "rulesTests": 703,
+    "serverTests": 75,
+    "typecheckPackages": 4,
+    "serverClientWorkerBuild": true,
+    "newRegressionTests": 19,
+    "defaultOffGoldenTraces": true
+  },
   "runtime": {},
   "deployment": false,
   "humanValidation": {

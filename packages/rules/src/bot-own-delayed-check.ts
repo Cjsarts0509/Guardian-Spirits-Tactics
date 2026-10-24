@@ -1,5 +1,6 @@
 import type {GameEvent,PlayerId} from './types.js';
 import type {PlayerView} from './engine/view.js';
+import type {BotPerception} from './bot-memory.js';
 
 export interface OwnDelayedCheck {
   target: PlayerId;
@@ -49,4 +50,24 @@ export function observeOwnDelayedCheck(view:PlayerView,events:readonly GameEvent
   }
   // More than 64 simultaneous pending casts are impossible under the public cooldown rule.
   memory.records=memory.records.slice(-64);
+}
+
+/** Exact private chaos failure means non-rebel under the public rule; generic failures do not. */
+export function learnOwnDelayedFailureFaction(view:PlayerView,p:BotPerception):void {
+  if(view.mode!=='troll'||view.me.character!=='kanulla'||!view.me.alive||view.phase!=='running')return;
+  const roster=view.roster.filter(r=>r.inGame),taken=new Set([view.me.character,...p.known.values()]);
+  for(const receipt of p.ownDelayedChecks?.records??[]){
+    if(receipt.status!=='failed'||receipt.result?.success!==false||receipt.result.at!==receipt.due||
+      receipt.result.at>view.elapsedMs||receipt.result.seq<=receipt.receiptSeq||p.known.has(receipt.target))continue;
+    const target=view.players.find(x=>x.id===receipt.target);
+    if(!target||target.id===view.me.id||target.revealed)continue;
+    const excluded=p.excluded.get(target.id),alternatives=p.alternatives.get(target.id);
+    const possible=roster.filter(r=>!taken.has(r.key)&&!excluded?.has(r.key)&&(!alternatives||alternatives.has(r.key))&&
+      (!p.commanders.has(target.id)||r.commander));
+    // Contradictory supplied history must not turn an empty candidate set into a false certainty.
+    if(!possible.some(r=>r.side!==2))continue;
+    const learned=new Set(excluded);
+    for(const role of roster)if(role.side===2)learned.add(role.key);
+    p.excluded.set(target.id,learned);
+  }
 }
