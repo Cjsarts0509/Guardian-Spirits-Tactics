@@ -1,0 +1,639 @@
+{
+  "kind": "own-failure-stalemate-replay",
+  "sourceRef": "c4e367fd0a27e44560b4b5edee26ff51d0a5f4ad",
+  "complete": true,
+  "replayedGames": 3,
+  "newResearchExecutions": 0,
+  "totals": {
+    "primary": 156884,
+    "activePrimary": 1858,
+    "inactivePrimary": 155026,
+    "chat": 92652,
+    "candidateSetObservations": 13006,
+    "truthAbsentCandidates": 0,
+    "activeNull": 1605,
+    "persistedKnownObservations": 9566,
+    "wrongPersistedKnown": 0,
+    "reconstructedKnownObservations": 10107,
+    "wrongReconstructedKnown": 0,
+    "purges": 3,
+    "restorations": 3,
+    "trollPaidGuards": 95,
+    "guards": 95
+  },
+  "rows": [
+    {
+      "inputId": "round062",
+      "fixture": {
+        "mode": "troll",
+        "seed": 152008,
+        "count": 8,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "baseline",
+      "style": "skill-aware-bluff",
+      "counts": {
+        "primary": 11880,
+        "activePrimary": 144,
+        "inactivePrimary": 11736,
+        "chat": 0,
+        "candidateSetObservations": 1008,
+        "truthAbsentCandidates": 0,
+        "activeNull": 99,
+        "persistedKnownObservations": 404,
+        "wrongPersistedKnown": 0,
+        "reconstructedKnownObservations": 421,
+        "wrongReconstructedKnown": 0,
+        "purges": 1,
+        "restorations": 1,
+        "trollPaidGuards": 1,
+        "guards": 1
+      },
+      "actors": {
+        "p3": {
+          "character": "neonis",
+          "side": 2,
+          "active": 31,
+          "null": 21,
+          "chosen": {
+            "publish": 1,
+            "enemy_check": 4,
+            "attack": 2,
+            "neviathan_avatar": 1,
+            "support": 1,
+            "ally": 1
+          },
+          "nominallyReady": {
+            "publish": 30,
+            "ally": 15,
+            "break_ally": 15,
+            "attack": 4,
+            "enemy_check": 6,
+            "support": 13,
+            "neviathan_avatar": 28
+          }
+        },
+        "p7": {
+          "character": "tokra",
+          "side": 1,
+          "active": 1,
+          "null": 0,
+          "chosen": {
+            "publish": 1
+          },
+          "nominallyReady": {
+            "publish": 1,
+            "ally": 1,
+            "break_ally": 1,
+            "support": 1,
+            "troll_scan": 1
+          }
+        },
+        "p2": {
+          "character": "kanulla",
+          "side": 2,
+          "active": 10,
+          "null": 3,
+          "chosen": {
+            "publish": 1,
+            "chaos_hex": 2,
+            "troll_enemy_scan": 2,
+            "truth_gem": 1,
+            "destroyer_guidance": 1
+          },
+          "nominallyReady": {
+            "publish": 9,
+            "ally": 10,
+            "break_ally": 10,
+            "troll_enemy_scan": 6,
+            "destroyer_guidance": 10,
+            "chaos_hex": 3,
+            "truth_gem": 1
+          }
+        },
+        "p6": {
+          "character": "satoshi",
+          "side": 1,
+          "active": 10,
+          "null": 7,
+          "chosen": {
+            "publish": 1,
+            "brothers": 1,
+            "ally_check": 1
+          },
+          "nominallyReady": {
+            "publish": 8,
+            "ally": 10,
+            "break_ally": 10,
+            "advanced_attack": 10,
+            "brothers": 7,
+            "chief_protection": 10,
+            "ally_check": 3
+          }
+        },
+        "p1": {
+          "character": "deka",
+          "side": 2,
+          "active": 21,
+          "null": 16,
+          "chosen": {
+            "publish": 1,
+            "advanced_ally_check": 2,
+            "ally": 2
+          },
+          "nominallyReady": {
+            "publish": 20,
+            "ally": 21,
+            "break_ally": 21,
+            "supreme_attack": 21,
+            "advanced_ally_check": 19
+          }
+        },
+        "p5": {
+          "character": "chis",
+          "side": 1,
+          "active": 31,
+          "null": 24,
+          "chosen": {
+            "publish": 1,
+            "troll_ally_scan": 3,
+            "truth_gem": 1,
+            "spirit_hex": 1,
+            "holy_binding": 1
+          },
+          "nominallyReady": {
+            "publish": 28,
+            "ally": 23,
+            "break_ally": 23,
+            "troll_ally_scan": 10,
+            "holy_binding": 20,
+            "spirit_hex": 6,
+            "truth_gem": 1
+          }
+        },
+        "p8": {
+          "character": "kazrow",
+          "side": 2,
+          "active": 24,
+          "null": 18,
+          "chosen": {
+            "publish": 1,
+            "truth_gem": 2,
+            "advanced_attack": 1,
+            "berserk_kazrow": 1,
+            "reckless_charge": 1
+          },
+          "nominallyReady": {
+            "publish": 21,
+            "ally": 24,
+            "break_ally": 24,
+            "advanced_attack": 23,
+            "reckless_charge": 24,
+            "berserk_kazrow": 15,
+            "truth_gem": 2
+          }
+        },
+        "p4": {
+          "character": "zwinra",
+          "side": 1,
+          "active": 16,
+          "null": 10,
+          "chosen": {
+            "publish": 1,
+            "chief_search": 1,
+            "truth_gem": 1,
+            "advanced_attack": 2,
+            "ally": 1
+          },
+          "nominallyReady": {
+            "publish": 16,
+            "ally": 11,
+            "break_ally": 13,
+            "advanced_attack": 8,
+            "brothers": 4,
+            "ally_check": 9,
+            "chief_search": 1,
+            "truth_gem": 2
+          }
+        }
+      },
+      "unfinished": false
+    },
+    {
+      "inputId": "round062",
+      "fixture": {
+        "mode": "troll",
+        "seed": 152008,
+        "count": 8,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "control",
+      "style": "skill-aware-bluff",
+      "counts": {
+        "primary": 72502,
+        "activePrimary": 857,
+        "inactivePrimary": 71645,
+        "chat": 46326,
+        "candidateSetObservations": 5999,
+        "truthAbsentCandidates": 0,
+        "activeNull": 753,
+        "persistedKnownObservations": 4581,
+        "wrongPersistedKnown": 0,
+        "reconstructedKnownObservations": 4843,
+        "wrongReconstructedKnown": 0,
+        "purges": 1,
+        "restorations": 1,
+        "trollPaidGuards": 47,
+        "guards": 47
+      },
+      "actors": {
+        "p3": {
+          "character": "neonis",
+          "side": 2,
+          "active": 29,
+          "null": 19,
+          "chosen": {
+            "publish": 1,
+            "enemy_check": 4,
+            "attack": 2,
+            "neviathan_avatar": 1,
+            "support": 1,
+            "ally": 1
+          },
+          "nominallyReady": {
+            "publish": 28,
+            "ally": 15,
+            "break_ally": 15,
+            "attack": 4,
+            "enemy_check": 6,
+            "support": 13,
+            "neviathan_avatar": 26
+          }
+        },
+        "p7": {
+          "character": "tokra",
+          "side": 1,
+          "active": 1,
+          "null": 0,
+          "chosen": {
+            "publish": 1
+          },
+          "nominallyReady": {
+            "publish": 1,
+            "ally": 1,
+            "break_ally": 1,
+            "support": 1,
+            "troll_scan": 1
+          }
+        },
+        "p2": {
+          "character": "kanulla",
+          "side": 2,
+          "active": 22,
+          "null": 14,
+          "chosen": {
+            "publish": 1,
+            "chaos_hex": 4,
+            "troll_enemy_scan": 1,
+            "truth_gem": 1,
+            "destroyer_guidance": 1
+          },
+          "nominallyReady": {
+            "publish": 21,
+            "ally": 22,
+            "break_ally": 22,
+            "troll_enemy_scan": 20,
+            "destroyer_guidance": 22,
+            "chaos_hex": 6,
+            "truth_gem": 3
+          }
+        },
+        "p6": {
+          "character": "satoshi",
+          "side": 1,
+          "active": 251,
+          "null": 198,
+          "chosen": {
+            "publish": 1,
+            "brothers": 1,
+            "truth_gem": 2,
+            "advanced_attack": 45,
+            "ally_check": 2,
+            "ally": 1,
+            "chief_protection": 1
+          },
+          "nominallyReady": {
+            "publish": 249,
+            "ally": 213,
+            "break_ally": 213,
+            "advanced_attack": 67,
+            "brothers": 7,
+            "chief_protection": 23,
+            "ally_check": 202,
+            "truth_gem": 29
+          }
+        },
+        "p1": {
+          "character": "deka",
+          "side": 2,
+          "active": 252,
+          "null": 246,
+          "chosen": {
+            "publish": 1,
+            "advanced_ally_check": 2,
+            "ally": 2,
+            "supreme_attack": 1
+          },
+          "nominallyReady": {
+            "publish": 251,
+            "ally": 180,
+            "break_ally": 180,
+            "supreme_attack": 34,
+            "advanced_ally_check": 153
+          }
+        },
+        "p5": {
+          "character": "chis",
+          "side": 1,
+          "active": 262,
+          "null": 250,
+          "chosen": {
+            "publish": 2,
+            "troll_ally_scan": 5,
+            "spirit_hex": 2,
+            "ally": 2,
+            "holy_binding": 1
+          },
+          "nominallyReady": {
+            "publish": 257,
+            "ally": 260,
+            "break_ally": 262,
+            "troll_ally_scan": 243,
+            "holy_binding": 25,
+            "spirit_hex": 239,
+            "truth_gem": 233
+          }
+        },
+        "p8": {
+          "character": "kazrow",
+          "side": 2,
+          "active": 16,
+          "null": 12,
+          "chosen": {
+            "publish": 1,
+            "truth_gem": 1,
+            "advanced_attack": 1,
+            "berserk_kazrow": 1
+          },
+          "nominallyReady": {
+            "publish": 13,
+            "ally": 16,
+            "break_ally": 16,
+            "advanced_attack": 15,
+            "reckless_charge": 16,
+            "berserk_kazrow": 15,
+            "truth_gem": 1
+          }
+        },
+        "p4": {
+          "character": "zwinra",
+          "side": 1,
+          "active": 24,
+          "null": 14,
+          "chosen": {
+            "publish": 1,
+            "chief_search": 1,
+            "truth_gem": 1,
+            "advanced_attack": 5,
+            "ally": 1,
+            "ally_check": 1
+          },
+          "nominallyReady": {
+            "publish": 24,
+            "ally": 21,
+            "break_ally": 21,
+            "advanced_attack": 11,
+            "brothers": 4,
+            "ally_check": 17,
+            "chief_search": 1,
+            "truth_gem": 2
+          }
+        }
+      },
+      "unfinished": true
+    },
+    {
+      "inputId": "round062",
+      "fixture": {
+        "mode": "troll",
+        "seed": 152008,
+        "count": 8,
+        "reversed": true,
+        "currentSide": 1
+      },
+      "variant": "candidate",
+      "style": "skill-aware-bluff",
+      "counts": {
+        "primary": 72502,
+        "activePrimary": 857,
+        "inactivePrimary": 71645,
+        "chat": 46326,
+        "candidateSetObservations": 5999,
+        "truthAbsentCandidates": 0,
+        "activeNull": 753,
+        "persistedKnownObservations": 4581,
+        "wrongPersistedKnown": 0,
+        "reconstructedKnownObservations": 4843,
+        "wrongReconstructedKnown": 0,
+        "purges": 1,
+        "restorations": 1,
+        "trollPaidGuards": 47,
+        "guards": 47
+      },
+      "actors": {
+        "p3": {
+          "character": "neonis",
+          "side": 2,
+          "active": 29,
+          "null": 19,
+          "chosen": {
+            "publish": 1,
+            "enemy_check": 4,
+            "attack": 2,
+            "neviathan_avatar": 1,
+            "support": 1,
+            "ally": 1
+          },
+          "nominallyReady": {
+            "publish": 28,
+            "ally": 15,
+            "break_ally": 15,
+            "attack": 4,
+            "enemy_check": 6,
+            "support": 13,
+            "neviathan_avatar": 26
+          }
+        },
+        "p7": {
+          "character": "tokra",
+          "side": 1,
+          "active": 1,
+          "null": 0,
+          "chosen": {
+            "publish": 1
+          },
+          "nominallyReady": {
+            "publish": 1,
+            "ally": 1,
+            "break_ally": 1,
+            "support": 1,
+            "troll_scan": 1
+          }
+        },
+        "p2": {
+          "character": "kanulla",
+          "side": 2,
+          "active": 22,
+          "null": 14,
+          "chosen": {
+            "publish": 1,
+            "chaos_hex": 4,
+            "troll_enemy_scan": 1,
+            "truth_gem": 1,
+            "destroyer_guidance": 1
+          },
+          "nominallyReady": {
+            "publish": 21,
+            "ally": 22,
+            "break_ally": 22,
+            "troll_enemy_scan": 20,
+            "destroyer_guidance": 22,
+            "chaos_hex": 6,
+            "truth_gem": 3
+          }
+        },
+        "p6": {
+          "character": "satoshi",
+          "side": 1,
+          "active": 251,
+          "null": 198,
+          "chosen": {
+            "publish": 1,
+            "brothers": 1,
+            "truth_gem": 2,
+            "advanced_attack": 45,
+            "ally_check": 2,
+            "ally": 1,
+            "chief_protection": 1
+          },
+          "nominallyReady": {
+            "publish": 249,
+            "ally": 213,
+            "break_ally": 213,
+            "advanced_attack": 67,
+            "brothers": 7,
+            "chief_protection": 23,
+            "ally_check": 202,
+            "truth_gem": 29
+          }
+        },
+        "p1": {
+          "character": "deka",
+          "side": 2,
+          "active": 252,
+          "null": 246,
+          "chosen": {
+            "publish": 1,
+            "advanced_ally_check": 2,
+            "ally": 2,
+            "supreme_attack": 1
+          },
+          "nominallyReady": {
+            "publish": 251,
+            "ally": 180,
+            "break_ally": 180,
+            "supreme_attack": 34,
+            "advanced_ally_check": 153
+          }
+        },
+        "p5": {
+          "character": "chis",
+          "side": 1,
+          "active": 262,
+          "null": 250,
+          "chosen": {
+            "publish": 2,
+            "troll_ally_scan": 5,
+            "spirit_hex": 2,
+            "ally": 2,
+            "holy_binding": 1
+          },
+          "nominallyReady": {
+            "publish": 257,
+            "ally": 260,
+            "break_ally": 262,
+            "troll_ally_scan": 243,
+            "holy_binding": 25,
+            "spirit_hex": 239,
+            "truth_gem": 233
+          }
+        },
+        "p8": {
+          "character": "kazrow",
+          "side": 2,
+          "active": 16,
+          "null": 12,
+          "chosen": {
+            "publish": 1,
+            "truth_gem": 1,
+            "advanced_attack": 1,
+            "berserk_kazrow": 1
+          },
+          "nominallyReady": {
+            "publish": 13,
+            "ally": 16,
+            "break_ally": 16,
+            "advanced_attack": 15,
+            "reckless_charge": 16,
+            "berserk_kazrow": 15,
+            "truth_gem": 1
+          }
+        },
+        "p4": {
+          "character": "zwinra",
+          "side": 1,
+          "active": 24,
+          "null": 14,
+          "chosen": {
+            "publish": 1,
+            "chief_search": 1,
+            "truth_gem": 1,
+            "advanced_attack": 5,
+            "ally": 1,
+            "ally_check": 1
+          },
+          "nominallyReady": {
+            "publish": 24,
+            "ally": 21,
+            "break_ally": 21,
+            "advanced_attack": 11,
+            "brothers": 4,
+            "ally_check": 17,
+            "chief_search": 1,
+            "truth_gem": 2
+          }
+        }
+      },
+      "unfinished": true
+    }
+  ],
+  "rawSHA256": "4b44eb86285df1eb83ea02ea36d6391f92fa19e525a26b130d22706618fa256f",
+  "journalSHA256": "0bc262980543d25933a6c7f9f45d1b197b21361b844fe885bbad5faeb18806c0",
+  "limitations": [
+    "Selected capped games and paired policies are failure diagnostics, not population estimates.",
+    "Activity-gate and nominal readiness do not establish target-specific legal alternative opportunities.",
+    "Target resources are external grading after choice; legacy reconstructed knowledge is not asserted to be its exact decision belief."
+  ]
+}

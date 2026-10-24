@@ -1,0 +1,63 @@
+{
+  "round": 65,
+  "completedAt": "2026-10-24T13:43:50.690438+09:00",
+  "sourceRef": "c4e367fd0a27e44560b4b5edee26ff51d0a5f4ad",
+  "optionsSHA256ByInput": {
+    "round062": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161",
+    "round063": "1a63592bb97212a63abf3aaf3341b3b02e28d53f217c2e2734355295a8c0b161"
+  },
+  "manifestSHA256": "45c73d96b516a37f37383bd1776b5ffe29b591f495c5ffb289d5f1189a84abb7",
+  "fingerprint": "10cb08c85f366b911c10d8c10704d7f79e7defc1bb77581b9d5a5e62dec26e6b",
+  "replayedGames": 3,
+  "matchedActions": 287,
+  "newResearchExecutions": 0,
+  "newPrimaryDatasets": 0,
+  "completeResumeNewReplays": 0,
+  "completeResumeByteHashesUnchanged": true,
+  "cumulativeExecutions": 50944,
+  "cumulativeTerminated": 50940,
+  "cumulativeUnfinished": 4,
+  "primaryDatasets": 37,
+  "humanMatches": 0,
+  "policyOrSkillValuesChanged": false,
+  "manifest": {
+    "docs/evaluations/cooperation-round-065-stalemate.json.gz": {
+      "bytes": 8030040,
+      "sha256": "24904e7af275e3e5c051a63745d43fbc1a6b00382f3e17b0483f3f119acf1b66",
+      "decodedBytes": 136982189,
+      "decodedSHA256": "4b44eb86285df1eb83ea02ea36d6391f92fa19e525a26b130d22706618fa256f"
+    },
+    "docs/evaluations/cooperation-round-065-stalemate.journal.ndjson.gz": {
+      "bytes": 1247479,
+      "sha256": "aaf99f4603306d91a46e92413ac3e436a313deb6cade36783c1e65f2507f082f",
+      "decodedBytes": 38327846,
+      "decodedSHA256": "0bc262980543d25933a6c7f9f45d1b197b21361b844fe885bbad5faeb18806c0"
+    },
+    "docs/evaluations/cooperation-round-065-stalemate.publication.json": {
+      "bytes": 317,
+      "sha256": "e4d100721e4a3cff5ffcfa5ebbe3ffef7da33c23c4bd59208e12dcda20024875",
+      "decodedBytes": 317,
+      "decodedSHA256": "e4d100721e4a3cff5ffcfa5ebbe3ffef7da33c23c4bd59208e12dcda20024875"
+    },
+    "docs/evaluations/cooperation-round-065-stalemate-summary.json": {
+      "bytes": 16377,
+      "sha256": "adaf22610964ab3940e423ae05ce28ec95a75e6eaa3eec12d1552115fa4745a0",
+      "decodedBytes": 16377,
+      "decodedSHA256": "adaf22610964ab3940e423ae05ce28ec95a75e6eaa3eec12d1552115fa4745a0"
+    },
+    "docs/evaluations/cooperation-round-065-stalemate-resume-check.json": {
+      "bytes": 425,
+      "sha256": "138f5413b56798fb45a3a391bcca5a5ecd4ffbaf33ef074f0819d9401ea9ca12",
+      "decodedBytes": 425,
+      "decodedSHA256": "138f5413b56798fb45a3a391bcca5a5ecd4ffbaf33ef074f0819d9401ea9ca12"
+    },
+    "docs/evaluations/cooperation-round-065-stalemate-diagnostics.json.gz": {
+      "bytes": 2873,
+      "sha256": "5ff5ee98bb35845e6b285d8bca4ee66161dba93b4c5d34df214d79ff2edb15a3",
+      "decodedBytes": 74324,
+      "decodedSHA256": "06dcd994d662dfa0ba50a0876fb1ca1911ba77fde0ec4c25b8eda4c446ab5ada"
+    }
+  },
+  "findings": "선정된 제한 미종료와 같은 배정의 3정책을 모두 비교했다. 활성 주행동 1858/156884, 그중 명령 없음 1605. 자기 지속지식 오정체 0/9566, 재구성 지식 오정체 0/10107, 후보에서 실제 정체 소거 0/13006 관측. 보호흡수는 공격 이름 실패와 구분했고 트롤 유료흡수 95회에서 대상 마나25씩 소비를 확인했다. 정화 3회·재부여 3회를 사건/명령 순서로 보존했다. 활동 게이트 통과나 명목 준비는 대상별 합법성과 우선순위를 만족한 행동 기회가 아니다. 명령 없는 호출을 모두 AI 오류로 세지 않는다. 선택은 실패 결과 기반이므로 전체 성능 추정이 아니다.",
+  "nextHypothesis": "자기 실패 결과를 실제로 소비한 뒤 같은 대상에 다시 혼돈주술을 요청하는 빈도를 전체 기존 경기의 자기 접수·결과 경로로 검증한다. 새 시드·정책 튜닝 없이 기능의 후속 효과를 분리한다."
+}
