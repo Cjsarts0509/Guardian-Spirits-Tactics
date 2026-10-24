@@ -1,0 +1,23 @@
+{
+  "sourceRef": "8549b136084650faa1c6b5942760204fe8262748",
+  "restored": 578,
+  "newGames": 0,
+  "sourceStoreVerifiedAllRecordHashes": true,
+  "restoredSnapshotAndJournalByteHashesIdentical": true,
+  "publication": {
+    "version": 2,
+    "fingerprint": "b634e729193821a802564058680d87a6b3d1ebecd0e68a55d9896101f88359e3",
+    "executions": 578,
+    "complete": false,
+    "snapshotSHA256": "ad4d7b759d818775e4c79d633fd8b01f0d5bb78d2186d277f1009e0067b53ae7",
+    "journalSHA256": "49a24bd817ca343f2ae534bce769fb95c2a37e70ef01ba684792bc04000d39a5"
+  },
+  "restoreScript": "import {readFileSync,writeFileSync} from 'node:fs';\nimport {gunzipSync} from 'node:zlib';\nimport {strictEqual} from 'node:assert';\nimport {CooperativeStore} from '/tmp/gst-round062-final/packages/rules/scripts/cooperative-store.ts';\nconst out='/tmp/round062-restore578',archive='/workspace/scratch/dda69bfb36e1/Guardian-Spirits-Tactics/docs/evaluations/cooperation-round-062-canonical-578.json.gz';\nconst bundle=JSON.parse(gunzipSync(readFileSync(archive))),{meta,fingerprint}=JSON.parse(readFileSync(out+'.store/metadata.json','utf8'));\nconst key=r=>[r.fixture.mode,r.style,r.fixture.seed,r.fixture.reversed,r.fixture.currentSide,r.variant].join('/');\nconst store=new CooperativeStore({out,meta,fingerprint,expectedCount:meta.count*144,key,project:s=>s.records});\nstrictEqual(store.records.length,578);store.checkpoint({...meta,fingerprint,executions:578,complete:false,records:store.records});store.close();\nconst pub=JSON.parse(readFileSync(out+'.publication.json','utf8'));\nstrictEqual(pub.snapshotSHA256,bundle.verifiedSummary.snapshotSHA256);\nstrictEqual(pub.journalSHA256,bundle.verifiedSummary.journalSHA256);\nwriteFileSync('/tmp/round062-canonical-578-validation.json',JSON.stringify({sourceRef:meta.sourceRef,restored:578,newGames:0,sourceStoreVerifiedAllRecordHashes:true,restoredSnapshotAndJournalByteHashesIdentical:true,publication:pub},null,2));\nconsole.log(JSON.stringify({restored:578,newGames:0,snapshotAndJournalHashesUnchanged:true}));\n",
+  "restoreScriptSHA256": "c533e37cb7dbfd5a9a0f17d0814adf32466bff98202fb3c16a8fbca4d343232f",
+  "reproduction": [
+    "python tools/materialize-failure-checkpoint.py docs/evaluations/cooperation-round-062-canonical-578.json.gz /tmp/round062-restore578",
+    "node --import ./packages/rules/node_modules/tsx/dist/loader.mjs /tmp/gst-round062-verify-restored578.mjs",
+    "python tools/verify-failure-development.py /tmp/round062-restore578 /tmp/round062-restore578.journal.ndjson /tmp/round062-restore578.publication.json /tmp/round062-restored578-summary.json --partial"
+  ],
+  "reproductionNote": "Use a fresh output path; materializer refuses existing stores. restoreScript text is preserved verbatim; its source checkout is the fixed8549 worktree."
+}
