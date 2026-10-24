@@ -24,24 +24,6 @@
   "humanValidation": {
     "actualHumanMatches": 0
   },
-  "round": 65,
-  "status": "completed",
-  "owner": "round065-stalemate-diagnostic",
-  "startedAt": "2026-10-24T13:41:05.319333+09:00",
-  "leaseUntil": null,
-  "completedAt": "2026-10-24T13:43:50.690438+09:00",
-  "task": "제한 미종료의 실제 판단·보호·마나 경로",
-  "previousCompleted": {
-    "round": 64,
-    "record": "docs/ai-rounds/ROUND_064_20261024_1336.md",
-    "resultHead": "9f93fdc2d5d5387edb1c1d09ae2361226142be2c"
-  },
-  "record": "docs/ai-rounds/ROUND_065_20261024_1341.md",
-  "checkpoint": "complete_replay_verified_archived",
-  "phase": "completed",
-  "executions": 0,
-  "replayedGames": 3,
-  "targetReplays": 3,
   "cumulativeExecutions": 50944,
   "cumulativeTerminatedExecutions": 50940,
   "cumulativeUnfinishedExecutions": 4,
@@ -52,38 +34,32 @@
     "terminated": 50940,
     "unfinished": 4
   },
+  "round": 66,
+  "status": "in_progress",
+  "owner": "round066-own-failure-recast-analysis",
+  "startedAt": "2026-10-24T13:46:00.874377+09:00",
+  "leaseUntil": "2026-10-24T15:05:00+09:00",
+  "completedAt": null,
+  "task": "실제 자기 실패 소비 뒤 동일 대상 재시전 전수 분석",
+  "previousCompleted": {
+    "round": 65,
+    "record": "docs/ai-rounds/ROUND_065_20261024_1341.md",
+    "resultHead": "c787a966f42efc7fbb272e54a000962e74e2eadc"
+  },
+  "record": "docs/ai-rounds/ROUND_066_20261024_1346.md",
+  "checkpoint": "registered_before_analysis",
+  "phase": "existing_data_analysis",
+  "executions": 0,
+  "newResearchExecutions": 0,
   "seedUse": {
-    "newSeeds": 0,
-    "existingData": [
-      "round062",
-      "round063"
-    ]
+    "newSeeds": 0
   },
-  "nextRoundStarted": false,
-  "nextAction": "자기 실패 결과를 실제로 소비한 뒤 같은 대상에 다시 혼돈주술을 요청하는 빈도를 전체 기존 경기의 자기 접수·결과 경로로 검증한다. 새 시드·정책 튜닝 없이 기능의 후속 효과를 분리한다.",
-  "checks": {
-    "frozenSourceFullTests": 787,
-    "rulesActualEngineTests": 2,
-    "typecheckPackages": 4,
-    "builds": [
-      "server",
-      "client",
-      "hostWorker"
-    ],
-    "ci": "success",
-    "cardUI": "success",
-    "wholeGameActionsMemoryRNGMatched": true,
-    "completedResumeNewReplays": 0,
-    "completedResumeThreeHashesUnchanged": true
-  },
+  "sourceRef": "a24b16625a289c9f55ec3a4f5268d8d47bf6572a",
+  "analysisSHA256": "db0159f7a4f00bf0e923c2fd2ecb39b2cd66194d6fddc04beb2027f79f689e75",
+  "nextHypothesis": "제한 미종료의 실제 자기 판단에서 정보 부족·공격 마나·보호 조건을 분리한다.",
   "runtime": {
-    "fixedSourceWorktree": "/tmp/gst-stalemate-frozen",
-    "developmentOutput": "/tmp/round065-stalemate.json",
-    "newResearchExecutions": 0,
     "processAlive": false,
-    "completedAt": "2026-10-24T13:43:50.690438+09:00"
+    "newResearchExecutions": 0
   },
-  "sourceRef": "c4e367fd0a27e44560b4b5edee26ff51d0a5f4ad",
-  "cumulativeScope": "Existing games replayed; no new independent games or datasets.",
-  "nextHypothesis": "자기 실패 결과를 실제로 소비한 뒤 같은 대상에 다시 혼돈주술을 요청하는 빈도를 전체 기존 경기의 자기 접수·결과 경로로 검증한다. 새 시드·정책 튜닝 없이 기능의 후속 효과를 분리한다."
+  "nextRoundStarted": false
 }
