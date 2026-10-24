@@ -13,7 +13,7 @@ export type FailureVariant=typeof FAILURE_VARIANTS[number];
 export const FAILURE_OPTIONS={baseline:{},control:{...SENDER_OPTIONS,rememberOwnDelayedCheck:true},candidate:{...SENDER_OPTIONS,rememberOwnDelayedCheck:true,learnOwnDelayedFailureFaction:true}};
 type Episode={actor:string;receipt:GameEvent;due:number;result:GameEvent|null;aliveAtResultCollection:boolean|null;
  firstReceiptSeen:{at:number;stage:string;record:unknown}|null;firstResultSeen:{at:number;stage:string;record:unknown}|null;classification:string};
-export function playFailureDevelopment(fixture:Fixture,style:ClaimStyle,variant:FailureVariant,settings:Settings=DEFAULT_SETTINGS,observe=true){
+export function playFailureDevelopment(fixture:Fixture,style:ClaimStyle,variant:FailureVariant,settings:Settings=DEFAULT_SETTINGS,observe=true,identicalPolicy=false){
  const options=FAILURE_OPTIONS[variant],roles=prepareMatch(fixture).state.players.map(p=>({id:p.id,character:p.character,side:p.side,seat:p.seat}));
  const pending=new Map<string,{view:PlayerView;known:Map<string,string>;stage:string}>(),episodes:Episode[]=[],probes:any[]=[],followups:any[]=[],actions:any[]=[];
  const received=new Set<number>(),failedSeen=new Set<string>(),memoryHash=createHash('sha256');
@@ -23,22 +23,23 @@ export function playFailureDevelopment(fixture:Fixture,style:ClaimStyle,variant:
   for(const event of s.log){
    if(received.has(event.seq))continue;received.add(event.seq);
    if(event.vis.to!=='players'||event.vis.ids.length!==1||!['skill.chaos_hex.self','skill.chaos_hex.result'].includes(event.kind))continue;
-   const actor=event.vis.ids[0]!,player=s.players.find(p=>p.id===actor);if(player?.side!==fixture.currentSide)continue;
+   const actor=event.vis.ids[0]!,player=s.players.find(p=>p.id===actor);if(!player||!identicalPolicy&&player.side!==fixture.currentSide)continue;
    if(event.kind==='skill.chaos_hex.self')episodes.push({actor,receipt:structuredClone(event),due:event.at+60000,result:null,aliveAtResultCollection:null,firstReceiptSeen:null,firstResultSeen:null,classification:'pending'});
    else{const ep=episodes.find(e=>e.actor===actor&&e.receipt.data?.target===event.data?.target&&e.due===event.at&&!e.result);
     if(ep){ep.result=structuredClone(event);ep.aliveAtResultCollection=player.alive;}}
   }
  };
  const wrap=(fn:Policy,stage:string,current:boolean):Policy=>(s,id,m,o)=>{
-  const view=viewFor(s,id),pre=observe&&current&&variant!=='baseline'&&view.mode==='troll'&&view.me.character==='kanulla'?structuredClone(m):null;
+  const enabled=current||identicalPolicy;
+  const view=viewFor(s,id),pre=observe&&enabled&&variant!=='baseline'&&view.mode==='troll'&&view.me.character==='kanulla'?structuredClone(m):null;
   const events=pre?eventsFor(s,id,pre.perception?.lastSeq??0).filter(e=>e.vis.to==='all'||e.vis.to==='players'&&e.vis.ids.includes(id)):[];
-  const a=fn(s,id,m,{...o,...(current?options:{})});
+  const a=fn(s,id,m,{...o,...(enabled?options:{})});
   memoryHash.update(JSON.stringify([id,view.elapsedMs,stage,a,serializeHostMemories(new Map([[id,m]]))]));
-  const k=m.perception?updateBotKnowledge(view,[],structuredClone(m),current?options:{}):null;
+  const k=m.perception?updateBotKnowledge(view,[],structuredClone(m),enabled?options:{}):null;
   if(a)pending.set(id,{view,known:k?.known??new Map(),stage});
   if(!observe)return a;
   collect(s);
-  if(current&&k&&m.perception?.lastElapsedMs===view.elapsedMs&&view.me.alive&&view.phase==='running'){
+  if(enabled&&k&&m.perception?.lastElapsedMs===view.elapsedMs&&view.me.alive&&view.phase==='running'){
    for(const [target,name] of k.known){counters.knownChecks++;if(s.players.find(p=>p.id===target)?.character!==name)counters.wrongKnown++;}
    const records=m.perception.ownDelayedChecks?.records??[];
    for(const rec of records){
@@ -72,7 +73,8 @@ export function playFailureDevelopment(fixture:Fixture,style:ClaimStyle,variant:
   return a;
  };
  const reference:Policy=(s,id,m,o)=>{const a=previous(s,id,m,{activity:o.activity});return a?.type==='skill'&&a.skill==='publish'?{...a,name:opponentClaim(viewFor(s,id),m,style,a.name)}:a;};
- const current=wrap(variant==='baseline'?((s,id,m,o)=>previous(s,id,m,{activity:o.activity})):smartBotAction,'primary',true),ref=wrap(reference,'primary',false),chat=wrap(botCommunicationAction,'chat',true);
+ const own:Policy=variant==='baseline'?((s,id,m,o)=>previous(s,id,m,{activity:o.activity})):smartBotAction;
+ const current=wrap(own,'primary',true),ref=wrap(identicalPolicy?own:reference,'primary',false),chat=wrap(botCommunicationAction,'chat',true),refChat=wrap(botCommunicationAction,'chat',false);
  const game=playMatch(fixture,{current,reference:ref},settings,(s,id,a,result)=>{
   const b=pending.get(id);ok(b);pending.delete(id);const after=viewFor(s,id),ordinal=actions.length;
   const match=a.type==='chat'?/^확인 정보: \[(\d{1,2})\] (.+)$/.exec(a.text):null,reportTarget=match?b.view.players.find(p=>p.seat===Number(match[1]))?.id??null:null;
@@ -82,14 +84,14 @@ export function playFailureDevelopment(fixture:Fixture,style:ClaimStyle,variant:
    nominalMana:a.type==='skill'?b.view.me.skills.find(x=>x.key===a.skill)?.mana??0:0,receiptKinds:result.events.map(e=>e.kind),
    reportTarget,reportedName,reportKnown:reportTarget?b.known.get(reportTarget)??null:null,reportActual:reportTarget?s.players.find(p=>p.id===reportTarget)!.character:null});
   collect(s);
-  if(observe&&b.view.me.side===fixture.currentSide)for(let i=0;i<probes.length;i++){
+  if(observe&&(identicalPolicy||b.view.me.side===fixture.currentSide))for(let i=0;i<probes.length;i++){
    const probe=probes[i];if(probe.actor!==id||ordinal<probe.ordinal||ordinal===probe.ordinal&&probe.chosenAction!==null)continue;
    const targets=new Set([...probe.evidence.map((e:any)=>e.target),...probe.newExact.map((e:any)=>e[0])]);
    const target=a.type==='skill'?a.target:reportTarget;if(!target||!targets.has(target))continue;
    const name=b.known.get(target)??null;followups.push({probe:i,ordinal,actor:id,at:b.view.elapsedMs,target,action:a,accepted:result.ok,knownName:name,
     actualName:s.players.find(p=>p.id===target)!.character,kind:a.type==='chat'?'direct_report':a.skill});
   }
- },variant==='baseline'?{}:{current:chat},collect);
+ },variant==='baseline'?{}:identicalPolicy?{current:chat,reference:refChat}:{current:chat},collect);
  for(const ep of episodes)ep.classification=ep.firstResultSeen?'observed':ep.result?(ep.aliveAtResultCollection?'no-later-live-update':'postmortem-result'):'ended-before-result';
  const mine=actions.filter(a=>a.side===fixture.currentSide),resources={nominalSkillMana:mine.filter(a=>a.accepted&&a.action.type==='skill').reduce((n,a)=>n+a.nominalMana,0),
  netSkillManaDelta:mine.filter(a=>a.accepted&&a.action.type==='skill').reduce((n,a)=>n+a.afterMana-a.beforeMana,0),attackFailures:mine.filter(a=>a.receiptKinds.includes('attack.fail.self')).length,

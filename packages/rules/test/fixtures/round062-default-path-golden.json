@@ -1,0 +1,313 @@
+{
+  "sourceRef": "8549b136084650faa1c6b5942760204fe8262748",
+  "inputSHA256": "902d62b309f828600f9840f09d8611ad9e463a11a4ddfdd4f5ca59e7e4a1b17f",
+  "scope": "First chronologically stored synthetic control game with consumed failure, all3 variants; no win selection.",
+  "rows": [
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 900263,
+        "count": 8,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "variant": "baseline",
+      "game": {
+        "fixture": {
+          "mode": "troll",
+          "seed": 900263,
+          "count": 8,
+          "reversed": false,
+          "currentSide": 2
+        },
+        "winner": 1,
+        "winnerPolicy": "reference",
+        "elapsedMs": 524250,
+        "reason": "얼음 부족이 승리했습니다.",
+        "stats": {
+          "current": {
+            "attempted": 31,
+            "accepted": 31,
+            "rejected": 0,
+            "earlyAttackFailures": 0,
+            "rejectedSkills": {}
+          },
+          "reference": {
+            "attempted": 31,
+            "accepted": 31,
+            "rejected": 0,
+            "earlyAttackFailures": 0,
+            "rejectedSkills": {}
+          }
+        },
+        "survivors": [
+          {
+            "character": "kazrow",
+            "controller": "current",
+            "alive": true
+          },
+          {
+            "character": "zwinra",
+            "controller": "reference",
+            "alive": true
+          },
+          {
+            "character": "kanulla",
+            "controller": "current",
+            "alive": true
+          },
+          {
+            "character": "chis",
+            "controller": "reference",
+            "alive": true
+          },
+          {
+            "character": "neonis",
+            "controller": "current",
+            "alive": true
+          },
+          {
+            "character": "tokra",
+            "controller": "reference",
+            "alive": true
+          },
+          {
+            "character": "deka",
+            "controller": "current",
+            "alive": false
+          },
+          {
+            "character": "satoshi",
+            "controller": "reference",
+            "alive": false
+          }
+        ]
+      },
+      "resources": {
+        "nominalSkillMana": 790,
+        "netSkillManaDelta": -770,
+        "attackFailures": 0,
+        "rejected": 0,
+        "reports": 0,
+        "falseReports": 0
+      },
+      "memoryTraceSHA256": "41d9f7c5c41b166e28d83e80657f65ba361bc31a1a15e42ea47d1b46a8052b63",
+      "actionsSHA256": "d70d70d6d47a587a5086b6b0de1c7993aa6d8934fd966dc692476c4ab295152e",
+      "counters": {
+        "knownChecks": 133,
+        "wrongKnown": 0,
+        "wrongNewElimination": 0,
+        "eligible": 0,
+        "reduced": 0,
+        "firstFailures": 0,
+        "choiceChanged": 0,
+        "rngChanged": 0
+      }
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 900263,
+        "count": 8,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "variant": "control",
+      "game": {
+        "fixture": {
+          "mode": "troll",
+          "seed": 900263,
+          "count": 8,
+          "reversed": false,
+          "currentSide": 2
+        },
+        "winner": 2,
+        "winnerPolicy": "current",
+        "elapsedMs": 1491500,
+        "reason": "얼음 트롤에는 더 이상 공격할 힘이 남아 있지 않습니다! 트롤 반란자측이 승리했습니다.",
+        "stats": {
+          "current": {
+            "attempted": 73,
+            "accepted": 73,
+            "rejected": 0,
+            "earlyAttackFailures": 0,
+            "rejectedSkills": {}
+          },
+          "reference": {
+            "attempted": 66,
+            "accepted": 66,
+            "rejected": 0,
+            "earlyAttackFailures": 0,
+            "rejectedSkills": {}
+          }
+        },
+        "survivors": [
+          {
+            "character": "kazrow",
+            "controller": "current",
+            "alive": true
+          },
+          {
+            "character": "zwinra",
+            "controller": "reference",
+            "alive": false
+          },
+          {
+            "character": "kanulla",
+            "controller": "current",
+            "alive": true
+          },
+          {
+            "character": "chis",
+            "controller": "reference",
+            "alive": true
+          },
+          {
+            "character": "neonis",
+            "controller": "current",
+            "alive": true
+          },
+          {
+            "character": "tokra",
+            "controller": "reference",
+            "alive": false
+          },
+          {
+            "character": "deka",
+            "controller": "current",
+            "alive": true
+          },
+          {
+            "character": "satoshi",
+            "controller": "reference",
+            "alive": false
+          }
+        ]
+      },
+      "resources": {
+        "nominalSkillMana": 1785,
+        "netSkillManaDelta": -1765,
+        "attackFailures": 3,
+        "rejected": 0,
+        "reports": 14,
+        "falseReports": 0
+      },
+      "memoryTraceSHA256": "96236257bd79218194befb26746a2184e076b8eca7ccd46f81839137b5a153fa",
+      "actionsSHA256": "49b0625fc9befd9f92226f9706d4dd3d2efafc1910520b62ffb51c39c2c9b9d4",
+      "counters": {
+        "knownChecks": 1316,
+        "wrongKnown": 0,
+        "wrongNewElimination": 0,
+        "eligible": 12,
+        "reduced": 12,
+        "firstFailures": 12,
+        "choiceChanged": 7,
+        "rngChanged": 7
+      }
+    },
+    {
+      "fixture": {
+        "mode": "troll",
+        "seed": 900263,
+        "count": 8,
+        "reversed": false,
+        "currentSide": 2
+      },
+      "style": "bluff",
+      "variant": "candidate",
+      "game": {
+        "fixture": {
+          "mode": "troll",
+          "seed": 900263,
+          "count": 8,
+          "reversed": false,
+          "currentSide": 2
+        },
+        "winner": 2,
+        "winnerPolicy": "current",
+        "elapsedMs": 1109750,
+        "reason": "얼음 트롤에는 더 이상 공격할 힘이 남아 있지 않습니다! 트롤 반란자측이 승리했습니다.",
+        "stats": {
+          "current": {
+            "attempted": 67,
+            "accepted": 67,
+            "rejected": 0,
+            "earlyAttackFailures": 0,
+            "rejectedSkills": {}
+          },
+          "reference": {
+            "attempted": 58,
+            "accepted": 58,
+            "rejected": 0,
+            "earlyAttackFailures": 0,
+            "rejectedSkills": {}
+          }
+        },
+        "survivors": [
+          {
+            "character": "kazrow",
+            "controller": "current",
+            "alive": true
+          },
+          {
+            "character": "zwinra",
+            "controller": "reference",
+            "alive": false
+          },
+          {
+            "character": "kanulla",
+            "controller": "current",
+            "alive": true
+          },
+          {
+            "character": "chis",
+            "controller": "reference",
+            "alive": true
+          },
+          {
+            "character": "neonis",
+            "controller": "current",
+            "alive": true
+          },
+          {
+            "character": "tokra",
+            "controller": "reference",
+            "alive": false
+          },
+          {
+            "character": "deka",
+            "controller": "current",
+            "alive": true
+          },
+          {
+            "character": "satoshi",
+            "controller": "reference",
+            "alive": false
+          }
+        ]
+      },
+      "resources": {
+        "nominalSkillMana": 1075,
+        "netSkillManaDelta": -1055,
+        "attackFailures": 0,
+        "rejected": 0,
+        "reports": 25,
+        "falseReports": 0
+      },
+      "memoryTraceSHA256": "984d1ec8011f9c49542b94683a5d085e311802720f785b92a51fa0ceb9ad0155",
+      "actionsSHA256": "56e4aa49527e00c1c0d8ef04795d651b055a434e0ccac39b57dae39cbf078360",
+      "counters": {
+        "knownChecks": 1057,
+        "wrongKnown": 0,
+        "wrongNewElimination": 0,
+        "eligible": 3,
+        "reduced": 3,
+        "firstFailures": 3,
+        "choiceChanged": 1,
+        "rngChanged": 0
+      }
+    }
+  ]
+}
