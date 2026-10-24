@@ -1,0 +1,37 @@
+{
+  "sourceRef": "f248625430005cdaa2d40b58cdc1c097b0163503",
+  "ciRun": 40055781102,
+  "ciJob": 120758337600,
+  "cardUIRun": 40055781101,
+  "cardUIJob": 120758337776,
+  "ciConclusion": "success",
+  "cardUIConclusion": "success",
+  "fullTests": 785,
+  "rulesTests": 710,
+  "serverTests": 75,
+  "typecheckPackages": 4,
+  "builds": [
+    "server",
+    "client",
+    "hostWorker"
+  ],
+  "jobLogSHA256": "4a378ac620d7660578eb8afb9755d492e95d2c9af2cbe666743ab0f39b08f7e7",
+  "evidenceLines": [
+    "2026-10-24T02:49:52.1988850Z packages/rules typecheck$ tsc -p tsconfig.json --noEmit",
+    "2026-10-24T02:49:59.0987543Z packages/protocol typecheck$ tsc -p tsconfig.json --noEmit",
+    "2026-10-24T02:50:01.9395845Z apps/client typecheck$ tsc -p tsconfig.json --noEmit",
+    "2026-10-24T02:50:01.9400802Z apps/server typecheck$ tsc -p tsconfig.json --noEmit",
+    "2026-10-24T02:56:29.2673829Z packages/rules test:       Tests  710 passed (710)",
+    "2026-10-24T02:56:29.3003849Z packages/rules test: Done",
+    "2026-10-24T02:56:29.3053768Z packages/protocol test: Done",
+    "2026-10-24T02:56:29.3118117Z apps/client test: Done",
+    "2026-10-24T02:56:48.7225020Z apps/server test:       Tests  75 passed (75)",
+    "2026-10-24T02:56:48.7427900Z apps/server test: Done",
+    "2026-10-24T02:57:03.3119201Z dist/assets/host.worker-BdkTXRx3.js  185.28 kB",
+    "2026-10-24T02:57:03.3122777Z ✓ built in 9.24s"
+  ],
+  "newResearchExecutions": 0,
+  "newRoundStarted": false,
+  "current062SourceUnchanged": "8549b136084650faa1c6b5942760204fe8262748",
+  "next063SourceUnchanged": "be72fdbf70590d60600b377e595d3785cf213682"
+}
