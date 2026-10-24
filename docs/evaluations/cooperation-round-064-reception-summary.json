@@ -1,0 +1,60 @@
+{
+  "kind": "own-failure-report-reception-replay",
+  "sourceRef": "f248625430005cdaa2d40b58cdc1c097b0163503",
+  "complete": true,
+  "replayedGames": 7,
+  "newResearchExecutions": 0,
+  "totals": {
+    "acceptedReports": 24,
+    "consumed": 20,
+    "isolatedReportNoFactPromotion": 20,
+    "unknownSenderAtConsumption": 4,
+    "trustedAtConsumption": 14,
+    "targetAlreadyKnownAtConsumption": 2,
+    "receivedTargetStillUnknown": 18,
+    "sumConsumptionDelayMs": 436500,
+    "recipientTargetActions": 3,
+    "recipientSenderActions": 9,
+    "acceptedRecipientTargetActions": 3,
+    "ended-without-consumption": 1,
+    "dead-by-end-without-consumption": 3
+  },
+  "byInput": {
+    "round062": {
+      "acceptedReports": 15,
+      "consumed": 14,
+      "isolatedReportNoFactPromotion": 14,
+      "unknownSenderAtConsumption": 4,
+      "trustedAtConsumption": 9,
+      "targetAlreadyKnownAtConsumption": 1,
+      "receivedTargetStillUnknown": 13,
+      "sumConsumptionDelayMs": 393000,
+      "recipientTargetActions": 1,
+      "recipientSenderActions": 9,
+      "acceptedRecipientTargetActions": 1,
+      "ended-without-consumption": 1
+    },
+    "round063": {
+      "acceptedReports": 9,
+      "consumed": 6,
+      "isolatedReportNoFactPromotion": 6,
+      "unknownSenderAtConsumption": 0,
+      "trustedAtConsumption": 5,
+      "targetAlreadyKnownAtConsumption": 1,
+      "receivedTargetStillUnknown": 5,
+      "sumConsumptionDelayMs": 43500,
+      "dead-by-end-without-consumption": 3,
+      "recipientTargetActions": 2,
+      "recipientSenderActions": 0,
+      "acceptedRecipientTargetActions": 2
+    }
+  },
+  "sourceSHA256": "785a2da321ea8de8b33e99771d2904a141c967029757e9a9f5a76aa8b6e2e77a",
+  "journalSHA256": "6b687ead1af73f81b28775d0583db2a5352c6934a460efa6ebd02c2a486f2d72",
+  "publicationSHA256": "5e3125c62447a9a4c5aee619410840f312ad551c2498597bc2a37aabf8f1f86f",
+  "limitations": [
+    "Selected existing games are replays, not new independent trials.",
+    "Recipient action links are temporal, not causal report benefit.",
+    "Unconsumed dead-by-end cases do not identify exact death/result ordering."
+  ]
+}
