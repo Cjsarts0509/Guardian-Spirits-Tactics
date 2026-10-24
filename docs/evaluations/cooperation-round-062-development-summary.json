@@ -1,0 +1,839 @@
+{
+  "kind": "own-failure-faction-development",
+  "sourceRef": "8549b136084650faa1c6b5942760204fe8262748",
+  "start": 152008,
+  "count": 8,
+  "executions": 1152,
+  "complete": true,
+  "variants": {
+    "baseline": {
+      "civil_war": {
+        "games": 96,
+        "wins": 60,
+        "score": 60,
+        "unfinished": 0,
+        "resources": {
+          "nominalSkillMana": 76480,
+          "netSkillManaDelta": -73775,
+          "attackFailures": 7,
+          "rejected": 5,
+          "reports": 0,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 20709,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 0,
+          "reduced": 0,
+          "firstFailures": 0,
+          "choiceChanged": 0,
+          "rngChanged": 0
+        },
+        "intake": {},
+        "followups": {}
+      },
+      "primordial": {
+        "games": 96,
+        "wins": 66,
+        "score": 66,
+        "unfinished": 0,
+        "resources": {
+          "nominalSkillMana": 85880,
+          "netSkillManaDelta": -76900,
+          "attackFailures": 33,
+          "rejected": 0,
+          "reports": 0,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 32422,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 0,
+          "reduced": 0,
+          "firstFailures": 0,
+          "choiceChanged": 0,
+          "rngChanged": 0
+        },
+        "intake": {},
+        "followups": {}
+      },
+      "lidellut": {
+        "games": 96,
+        "wins": 67,
+        "score": 67,
+        "unfinished": 0,
+        "resources": {
+          "nominalSkillMana": 87030,
+          "netSkillManaDelta": -84080,
+          "attackFailures": 11,
+          "rejected": 26,
+          "reports": 0,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 27464,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 0,
+          "reduced": 0,
+          "firstFailures": 0,
+          "choiceChanged": 0,
+          "rngChanged": 0
+        },
+        "intake": {},
+        "followups": {}
+      },
+      "troll": {
+        "games": 96,
+        "wins": 66,
+        "score": 66,
+        "unfinished": 0,
+        "resources": {
+          "nominalSkillMana": 103245,
+          "netSkillManaDelta": -100965,
+          "attackFailures": 8,
+          "rejected": 0,
+          "reports": 0,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 35007,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 0,
+          "reduced": 0,
+          "firstFailures": 0,
+          "choiceChanged": 0,
+          "rngChanged": 0
+        },
+        "intake": {
+          "no-later-live-update": 106,
+          "receipts": 131,
+          "receiptObserved": 0,
+          "results": 126,
+          "postmortem-result": 20,
+          "ended-before-result": 5
+        },
+        "followups": {}
+      }
+    },
+    "control": {
+      "civil_war": {
+        "games": 96,
+        "wins": 73,
+        "score": 73,
+        "unfinished": 0,
+        "resources": {
+          "nominalSkillMana": 92060,
+          "netSkillManaDelta": -89035,
+          "attackFailures": 6,
+          "rejected": 4,
+          "reports": 1294,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 61741,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 0,
+          "reduced": 0,
+          "firstFailures": 0,
+          "choiceChanged": 0,
+          "rngChanged": 0
+        },
+        "intake": {},
+        "followups": {}
+      },
+      "primordial": {
+        "games": 96,
+        "wins": 70,
+        "score": 70,
+        "unfinished": 0,
+        "resources": {
+          "nominalSkillMana": 82950,
+          "netSkillManaDelta": -73930,
+          "attackFailures": 45,
+          "rejected": 0,
+          "reports": 1182,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 72122,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 0,
+          "reduced": 0,
+          "firstFailures": 0,
+          "choiceChanged": 0,
+          "rngChanged": 0
+        },
+        "intake": {},
+        "followups": {}
+      },
+      "lidellut": {
+        "games": 96,
+        "wins": 66,
+        "score": 66,
+        "unfinished": 0,
+        "resources": {
+          "nominalSkillMana": 93400,
+          "netSkillManaDelta": -89095,
+          "attackFailures": 14,
+          "rejected": 7,
+          "reports": 1506,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 66375,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 0,
+          "reduced": 0,
+          "firstFailures": 0,
+          "choiceChanged": 0,
+          "rngChanged": 0
+        },
+        "intake": {},
+        "followups": {}
+      },
+      "troll": {
+        "games": 96,
+        "wins": 59,
+        "score": 59.5,
+        "unfinished": 1,
+        "resources": {
+          "nominalSkillMana": 105935,
+          "netSkillManaDelta": -103030,
+          "attackFailures": 26,
+          "rejected": 0,
+          "reports": 1303,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 90809,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 77,
+          "reduced": 77,
+          "firstFailures": 86,
+          "choiceChanged": 46,
+          "rngChanged": 23
+        },
+        "intake": {
+          "observed": 140,
+          "receipts": 173,
+          "receiptObserved": 173,
+          "results": 168,
+          "successObserved": 54,
+          "postmortem-result": 23,
+          "failureObserved": 86,
+          "no-later-live-update": 5,
+          "ended-before-result": 5
+        },
+        "followups": {
+          "direct_report": 27
+        }
+      }
+    },
+    "candidate": {
+      "civil_war": {
+        "games": 96,
+        "wins": 73,
+        "score": 73,
+        "unfinished": 0,
+        "resources": {
+          "nominalSkillMana": 92060,
+          "netSkillManaDelta": -89035,
+          "attackFailures": 6,
+          "rejected": 4,
+          "reports": 1294,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 61741,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 0,
+          "reduced": 0,
+          "firstFailures": 0,
+          "choiceChanged": 0,
+          "rngChanged": 0
+        },
+        "intake": {},
+        "followups": {}
+      },
+      "primordial": {
+        "games": 96,
+        "wins": 70,
+        "score": 70,
+        "unfinished": 0,
+        "resources": {
+          "nominalSkillMana": 82950,
+          "netSkillManaDelta": -73930,
+          "attackFailures": 45,
+          "rejected": 0,
+          "reports": 1182,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 72122,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 0,
+          "reduced": 0,
+          "firstFailures": 0,
+          "choiceChanged": 0,
+          "rngChanged": 0
+        },
+        "intake": {},
+        "followups": {}
+      },
+      "lidellut": {
+        "games": 96,
+        "wins": 66,
+        "score": 66,
+        "unfinished": 0,
+        "resources": {
+          "nominalSkillMana": 93400,
+          "netSkillManaDelta": -89095,
+          "attackFailures": 14,
+          "rejected": 7,
+          "reports": 1506,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 66375,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 0,
+          "reduced": 0,
+          "firstFailures": 0,
+          "choiceChanged": 0,
+          "rngChanged": 0
+        },
+        "intake": {},
+        "followups": {}
+      },
+      "troll": {
+        "games": 96,
+        "wins": 59,
+        "score": 59.5,
+        "unfinished": 1,
+        "resources": {
+          "nominalSkillMana": 102985,
+          "netSkillManaDelta": -100120,
+          "attackFailures": 18,
+          "rejected": 0,
+          "reports": 1388,
+          "falseReports": 0
+        },
+        "behavior": {
+          "knownChecks": 91067,
+          "wrongKnown": 0,
+          "wrongNewElimination": 0,
+          "eligible": 31,
+          "reduced": 31,
+          "firstFailures": 36,
+          "choiceChanged": 11,
+          "rngChanged": 0
+        },
+        "intake": {
+          "observed": 95,
+          "receipts": 120,
+          "receiptObserved": 120,
+          "results": 119,
+          "successObserved": 59,
+          "postmortem-result": 22,
+          "failureObserved": 36,
+          "no-later-live-update": 2,
+          "ended-before-result": 1
+        },
+        "followups": {
+          "direct_report": 71,
+          "destroyer_guidance": 1
+        }
+      }
+    }
+  },
+  "byCount": {
+    "baseline/civil_war/8": {
+      "games": 24,
+      "wins": 18,
+      "unfinished": 0
+    },
+    "control/civil_war/8": {
+      "games": 24,
+      "wins": 16,
+      "unfinished": 0
+    },
+    "candidate/civil_war/8": {
+      "games": 24,
+      "wins": 16,
+      "unfinished": 0
+    },
+    "baseline/civil_war/9": {
+      "games": 24,
+      "wins": 14,
+      "unfinished": 0
+    },
+    "control/civil_war/9": {
+      "games": 24,
+      "wins": 19,
+      "unfinished": 0
+    },
+    "candidate/civil_war/9": {
+      "games": 24,
+      "wins": 19,
+      "unfinished": 0
+    },
+    "baseline/civil_war/10": {
+      "games": 24,
+      "wins": 16,
+      "unfinished": 0
+    },
+    "control/civil_war/10": {
+      "games": 24,
+      "wins": 21,
+      "unfinished": 0
+    },
+    "candidate/civil_war/10": {
+      "games": 24,
+      "wins": 21,
+      "unfinished": 0
+    },
+    "baseline/civil_war/11": {
+      "games": 12,
+      "wins": 5,
+      "unfinished": 0
+    },
+    "control/civil_war/11": {
+      "games": 12,
+      "wins": 7,
+      "unfinished": 0
+    },
+    "candidate/civil_war/11": {
+      "games": 12,
+      "wins": 7,
+      "unfinished": 0
+    },
+    "baseline/civil_war/12": {
+      "games": 12,
+      "wins": 7,
+      "unfinished": 0
+    },
+    "control/civil_war/12": {
+      "games": 12,
+      "wins": 10,
+      "unfinished": 0
+    },
+    "candidate/civil_war/12": {
+      "games": 12,
+      "wins": 10,
+      "unfinished": 0
+    },
+    "baseline/primordial/8": {
+      "games": 24,
+      "wins": 17,
+      "unfinished": 0
+    },
+    "control/primordial/8": {
+      "games": 24,
+      "wins": 16,
+      "unfinished": 0
+    },
+    "candidate/primordial/8": {
+      "games": 24,
+      "wins": 16,
+      "unfinished": 0
+    },
+    "baseline/primordial/9": {
+      "games": 24,
+      "wins": 16,
+      "unfinished": 0
+    },
+    "control/primordial/9": {
+      "games": 24,
+      "wins": 18,
+      "unfinished": 0
+    },
+    "candidate/primordial/9": {
+      "games": 24,
+      "wins": 18,
+      "unfinished": 0
+    },
+    "baseline/primordial/10": {
+      "games": 24,
+      "wins": 18,
+      "unfinished": 0
+    },
+    "control/primordial/10": {
+      "games": 24,
+      "wins": 18,
+      "unfinished": 0
+    },
+    "candidate/primordial/10": {
+      "games": 24,
+      "wins": 18,
+      "unfinished": 0
+    },
+    "baseline/primordial/11": {
+      "games": 12,
+      "wins": 8,
+      "unfinished": 0
+    },
+    "control/primordial/11": {
+      "games": 12,
+      "wins": 8,
+      "unfinished": 0
+    },
+    "candidate/primordial/11": {
+      "games": 12,
+      "wins": 8,
+      "unfinished": 0
+    },
+    "baseline/primordial/12": {
+      "games": 12,
+      "wins": 7,
+      "unfinished": 0
+    },
+    "control/primordial/12": {
+      "games": 12,
+      "wins": 10,
+      "unfinished": 0
+    },
+    "candidate/primordial/12": {
+      "games": 12,
+      "wins": 10,
+      "unfinished": 0
+    },
+    "baseline/lidellut/8": {
+      "games": 24,
+      "wins": 16,
+      "unfinished": 0
+    },
+    "control/lidellut/8": {
+      "games": 24,
+      "wins": 15,
+      "unfinished": 0
+    },
+    "candidate/lidellut/8": {
+      "games": 24,
+      "wins": 15,
+      "unfinished": 0
+    },
+    "baseline/lidellut/9": {
+      "games": 24,
+      "wins": 15,
+      "unfinished": 0
+    },
+    "control/lidellut/9": {
+      "games": 24,
+      "wins": 15,
+      "unfinished": 0
+    },
+    "candidate/lidellut/9": {
+      "games": 24,
+      "wins": 15,
+      "unfinished": 0
+    },
+    "baseline/lidellut/10": {
+      "games": 24,
+      "wins": 20,
+      "unfinished": 0
+    },
+    "control/lidellut/10": {
+      "games": 24,
+      "wins": 19,
+      "unfinished": 0
+    },
+    "candidate/lidellut/10": {
+      "games": 24,
+      "wins": 19,
+      "unfinished": 0
+    },
+    "baseline/lidellut/11": {
+      "games": 12,
+      "wins": 9,
+      "unfinished": 0
+    },
+    "control/lidellut/11": {
+      "games": 12,
+      "wins": 8,
+      "unfinished": 0
+    },
+    "candidate/lidellut/11": {
+      "games": 12,
+      "wins": 8,
+      "unfinished": 0
+    },
+    "baseline/lidellut/12": {
+      "games": 12,
+      "wins": 7,
+      "unfinished": 0
+    },
+    "control/lidellut/12": {
+      "games": 12,
+      "wins": 9,
+      "unfinished": 0
+    },
+    "candidate/lidellut/12": {
+      "games": 12,
+      "wins": 9,
+      "unfinished": 0
+    },
+    "baseline/troll/8": {
+      "games": 24,
+      "wins": 18,
+      "unfinished": 0
+    },
+    "control/troll/8": {
+      "games": 24,
+      "wins": 10,
+      "unfinished": 1
+    },
+    "candidate/troll/8": {
+      "games": 24,
+      "wins": 10,
+      "unfinished": 1
+    },
+    "baseline/troll/9": {
+      "games": 24,
+      "wins": 15,
+      "unfinished": 0
+    },
+    "control/troll/9": {
+      "games": 24,
+      "wins": 15,
+      "unfinished": 0
+    },
+    "candidate/troll/9": {
+      "games": 24,
+      "wins": 15,
+      "unfinished": 0
+    },
+    "baseline/troll/10": {
+      "games": 24,
+      "wins": 15,
+      "unfinished": 0
+    },
+    "control/troll/10": {
+      "games": 24,
+      "wins": 17,
+      "unfinished": 0
+    },
+    "candidate/troll/10": {
+      "games": 24,
+      "wins": 17,
+      "unfinished": 0
+    },
+    "baseline/troll/11": {
+      "games": 12,
+      "wins": 8,
+      "unfinished": 0
+    },
+    "control/troll/11": {
+      "games": 12,
+      "wins": 9,
+      "unfinished": 0
+    },
+    "candidate/troll/11": {
+      "games": 12,
+      "wins": 9,
+      "unfinished": 0
+    },
+    "baseline/troll/12": {
+      "games": 12,
+      "wins": 10,
+      "unfinished": 0
+    },
+    "control/troll/12": {
+      "games": 12,
+      "wins": 8,
+      "unfinished": 0
+    },
+    "candidate/troll/12": {
+      "games": 12,
+      "wins": 8,
+      "unfinished": 0
+    }
+  },
+  "bySide": {
+    "baseline/civil_war/1": {
+      "games": 48,
+      "wins": 40,
+      "unfinished": 0
+    },
+    "control/civil_war/1": {
+      "games": 48,
+      "wins": 38,
+      "unfinished": 0
+    },
+    "candidate/civil_war/1": {
+      "games": 48,
+      "wins": 38,
+      "unfinished": 0
+    },
+    "baseline/civil_war/2": {
+      "games": 48,
+      "wins": 20,
+      "unfinished": 0
+    },
+    "control/civil_war/2": {
+      "games": 48,
+      "wins": 35,
+      "unfinished": 0
+    },
+    "candidate/civil_war/2": {
+      "games": 48,
+      "wins": 35,
+      "unfinished": 0
+    },
+    "baseline/primordial/1": {
+      "games": 48,
+      "wins": 41,
+      "unfinished": 0
+    },
+    "control/primordial/1": {
+      "games": 48,
+      "wins": 43,
+      "unfinished": 0
+    },
+    "candidate/primordial/1": {
+      "games": 48,
+      "wins": 43,
+      "unfinished": 0
+    },
+    "baseline/primordial/2": {
+      "games": 48,
+      "wins": 25,
+      "unfinished": 0
+    },
+    "control/primordial/2": {
+      "games": 48,
+      "wins": 27,
+      "unfinished": 0
+    },
+    "candidate/primordial/2": {
+      "games": 48,
+      "wins": 27,
+      "unfinished": 0
+    },
+    "baseline/lidellut/1": {
+      "games": 48,
+      "wins": 22,
+      "unfinished": 0
+    },
+    "control/lidellut/1": {
+      "games": 48,
+      "wins": 31,
+      "unfinished": 0
+    },
+    "candidate/lidellut/1": {
+      "games": 48,
+      "wins": 31,
+      "unfinished": 0
+    },
+    "baseline/lidellut/2": {
+      "games": 48,
+      "wins": 45,
+      "unfinished": 0
+    },
+    "control/lidellut/2": {
+      "games": 48,
+      "wins": 35,
+      "unfinished": 0
+    },
+    "candidate/lidellut/2": {
+      "games": 48,
+      "wins": 35,
+      "unfinished": 0
+    },
+    "baseline/troll/1": {
+      "games": 48,
+      "wins": 36,
+      "unfinished": 0
+    },
+    "control/troll/1": {
+      "games": 48,
+      "wins": 31,
+      "unfinished": 1
+    },
+    "candidate/troll/1": {
+      "games": 48,
+      "wins": 31,
+      "unfinished": 1
+    },
+    "baseline/troll/2": {
+      "games": 48,
+      "wins": 30,
+      "unfinished": 0
+    },
+    "control/troll/2": {
+      "games": 48,
+      "wins": 28,
+      "unfinished": 0
+    },
+    "candidate/troll/2": {
+      "games": 48,
+      "wins": 28,
+      "unfinished": 0
+    }
+  },
+  "contrasts": {
+    "control": {
+      "seedDeltas": [
+        -0.020833333333333332,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.020833333333333332,
+        0.0,
+        0.0
+      ],
+      "meanDifference": 0.0,
+      "seed95": [
+        -0.0078125,
+        0.0078125
+      ],
+      "improved": 1,
+      "worsened": 1,
+      "tied": 382
+    },
+    "baseline": {
+      "seedDeltas": [
+        -0.09375,
+        -0.020833333333333332,
+        0.020833333333333332,
+        0.041666666666666664,
+        0.125,
+        -0.14583333333333334,
+        0.16666666666666666,
+        0.10416666666666667
+      ],
+      "meanDifference": 0.024739583333333332,
+      "seed95": [
+        -0.04557291666666667,
+        0.09244791666666667
+      ],
+      "improved": 55,
+      "worsened": 45,
+      "tied": 284
+    }
+  },
+  "paths": {
+    "paired": 384,
+    "sameFullGameActionsResources": 370,
+    "outsideTrollCompared": 288
+  },
+  "snapshotSHA256": "934da82f977972fa58e224088887bf4d21795e7f3dd1ed213f706adc5fb42ae0",
+  "journalSHA256": "77e4bca0666f1b33577cf22ef26027305559b6d481ab9225228cdda04cf0f0da",
+  "promotionEvidence": false,
+  "limitations": [
+    "Synthetic fixed-opponent development; no humans or same-policy balance.",
+    "Same-moment OFF/ON clones measure local choice only, whole-game contrasts are separate.",
+    "Repeated knowledge checks are not independent identities; followups deduplicated within each game."
+  ]
+}

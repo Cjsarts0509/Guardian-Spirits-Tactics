@@ -2,7 +2,9 @@
 import gzip, hashlib, json, pathlib, re, sys
 
 bundle=json.loads(gzip.decompress(pathlib.Path(sys.argv[1]).read_bytes()))
-assert bundle['kind']=='round062-canonical-checkpoint'
+expected_kind={'round062-canonical-checkpoint':'own-failure-faction-development',
+               'round063-canonical-checkpoint':'own-failure-faction-identical-policy'}
+assert bundle['kind'] in expected_kind
 target=pathlib.Path(sys.argv[2]+'.store')
 assert not target.exists(), 'Refuse to overwrite any existing store, including a live writer.'
 stem=sys.argv[2].removesuffix('.json')
@@ -12,6 +14,7 @@ for name,text in files.items():
  assert name in ['metadata.json','HEAD.json'] or re.fullmatch(r'records/[a-f0-9]{64}\.json',name)
  assert hashlib.sha256(text.encode()).hexdigest()==bundle['sha256'][name]
 meta=json.loads(files['metadata.json']);head=json.loads(files['HEAD.json'])
+assert meta['meta']['kind']==expected_kind[bundle['kind']]
 assert meta['fingerprint']==head['fingerprint']==bundle['fingerprint']
 assert meta['meta']['sourceRef']==bundle['sourceRef'] and head['count']==bundle['executions']
 records=sorted([json.loads(text) for name,text in files.items() if name.startswith('records/')],key=lambda r:r['ordinal'])
