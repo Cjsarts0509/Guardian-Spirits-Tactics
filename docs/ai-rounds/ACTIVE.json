@@ -71,7 +71,23 @@
     "syntheticCompletedResumeUnchanged": true,
     "deadlineZeroValidated": true,
     "sourceCI062": "success",
-    "sourceCardUI062": "success"
+    "sourceCardUI062": "success",
+    "nextEvaluatorPreparation": {
+      "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
+      "fullCITests": 783,
+      "typecheckPackages": 4,
+      "builds": [
+        "server",
+        "client",
+        "hostWorker"
+      ],
+      "cardUI": "success",
+      "syntheticGames": 120,
+      "newResearchGames": 0,
+      "independentTamperRejected": 11,
+      "completedResumeUnchanged": true,
+      "deadlineZero": true
+    }
   },
   "runtime": {
     "fixedSourceWorktree": "/tmp/gst-round062-final",
@@ -104,5 +120,6 @@
     "actualHumanMatches": 0
   },
   "sourceRef": "8549b136084650faa1c6b5942760204fe8262748",
-  "cumulativeScope": "Completed rounds through061; current062 executions tracked separately and added exactly once on completion."
+  "cumulativeScope": "Completed rounds through061; current062 executions tracked separately and added exactly once on completion.",
+  "nextHypothesis": "After062 completion: identical baseline/control/candidate on both factions; measure faction/mode/8–12-player balance separately with no forced opponent claims or controller-relabel duplicates. Freeze is be72fdb; register exact unused153000 range before research, based on time remaining, not outcomes."
 }
