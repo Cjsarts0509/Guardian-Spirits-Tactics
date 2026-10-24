@@ -1,0 +1,48 @@
+{
+  "kind": "round063-parallel-completed-resume-calibration",
+  "newResearchExecutions": 0,
+  "newGames": 0,
+  "syntheticExistingRows": 120,
+  "copyMergeOriginalThreeHashesEqual": true,
+  "completedDeadlineCalibration": {
+    "newGames": 0,
+    "unchanged": true,
+    "sha256": {
+      "/tmp/round063-deadline-calibration.json": "c66bd33101bb85002edaf41681cba439967936cc6233498dbf0fc6a542ac0097",
+      "/tmp/round063-deadline-calibration.journal.ndjson": "e25b0ec346612b9c1aa390be004f9478c311827ba1f78f78e0e7ceee24cc10d6",
+      "/tmp/round063-deadline-calibration.publication.json": "f274a29124905e94834d985afdbf0f7ec74dba55d43a19313133e4cf49b21f5a"
+    }
+  },
+  "workers": {
+    "at": "2026-10-24T04:15:30.284583+00:00",
+    "workers": [
+      {
+        "worker": 0,
+        "success": true,
+        "complete": true,
+        "executions": 120,
+        "copiedRecords": 120,
+        "freshGames": 0,
+        "batches": [
+          {
+            "fresh": 0,
+            "total": 120,
+            "expected": 120,
+            "complete": true,
+            "deadlineReached": false
+          }
+        ],
+        "resume": {
+          "newGames": 0,
+          "unchanged": true,
+          "sha256": {
+            "/tmp/gst-round063-deadline-shards/worker-0.json": "c66bd33101bb85002edaf41681cba439967936cc6233498dbf0fc6a542ac0097",
+            "/tmp/gst-round063-deadline-shards/worker-0.journal.ndjson": "e25b0ec346612b9c1aa390be004f9478c311827ba1f78f78e0e7ceee24cc10d6",
+            "/tmp/gst-round063-deadline-shards/worker-0.publication.json": "f274a29124905e94834d985afdbf0f7ec74dba55d43a19313133e4cf49b21f5a"
+          }
+        }
+      }
+    ]
+  },
+  "limitation": "Initial no-deadline calibration was rejected by finite-deadline-only driver before executing any game; existing120 payloads reheadered with the declared deadline then all completed resumes fresh0. Live metadata always included the deadline."
+}

@@ -37,9 +37,9 @@
     "resultHead": "653442f3fdfbaa354961e962706ebcb48dd023bd"
   },
   "record": "docs/ai-rounds/ROUND_063_20261024_1230.md",
-  "checkpoint": "canonical288_verified_shards_registered_before_execution",
+  "checkpoint": "canonical560_verified_restored",
   "phase": "frozen_balance_development",
-  "executions": 288,
+  "executions": 560,
   "targetExecutions": 960,
   "cumulativeExecutions": 49984,
   "cumulativeTerminatedExecutions": 49980,
@@ -63,7 +63,7 @@
     ]
   },
   "nextRoundStarted": false,
-  "nextAction": "Frozenbe72 disjoint seed workers, canonical ordered merge, completed per-worker/master fresh0 SHA audit; then064 replay.",
+  "nextAction": "Continue four disjoint frozenbe72 seed workers and canonical ordered merge; finish full verification before064.",
   "checks": {
     "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
     "fullCITests": 783,
@@ -91,22 +91,31 @@
   "runtime": {
     "fixedSourceWorktree": "/tmp/gst-round063-calibration",
     "developmentOutput": "/tmp/round063-development.json",
-    "newResearchExecutions": 288,
-    "processAlive": false,
-    "driverSession": null,
-    "validatedResearchExecutions": 288,
-    "recordsAtCheckpoint": 288,
+    "newResearchExecutions": 560,
+    "processAlive": true,
+    "driverSession": 22765,
+    "validatedResearchExecutions": 560,
+    "recordsAtCheckpoint": 577,
     "storeHead": {
       "fingerprint": "798ea3bdc053945cba527c00af3267b85f81a466310f3443719e23999b3a803c",
-      "count": 288,
-      "key": "primordial/153007/true/candidate",
-      "sha256": "3a639a03b7ba538b71e8735fc587da7f9351b1ffecc66fb26c6942c82dd321fd"
+      "count": 577,
+      "key": "lidellut/153016/false/baseline",
+      "sha256": "b73b54b0d51f671dd9026522737357b0773819600c50747ac0e016d627d0309d"
     },
-    "canonicalArchive": "docs/evaluations/cooperation-round-063-canonical-288.json.gz",
-    "checkpointAt": "2026-10-24T13:11:34.014799+09:00",
+    "canonicalArchive": "docs/evaluations/cooperation-round-063-canonical-560.json.gz",
+    "checkpointAt": "2026-10-24T13:22:12.571116+09:00",
     "orchestration": "four-disjoint-seed-workers-of10",
     "shardPlanSHA256": "61f6afe0087b170bbb44d5110f18f23ff08ea315489771f17a7af7577fd236f6",
-    "transferAudit": "docs/evaluations/cooperation-round-063-parallel-transfer.json.gz"
+    "transferAudit": "docs/evaluations/cooperation-round-063-parallel-transfer.json.gz",
+    "mergerSession": 68069,
+    "workerCounts": {
+      "0": 196,
+      "1": 158,
+      "2": 148,
+      "3": 146
+    },
+    "uniqueWorkerRecords": 648,
+    "allCopiesExcludedFromCumulative": true
   },
   "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
   "cumulativeScope": "Completed062 included once;063 tracked separately until complete.",
