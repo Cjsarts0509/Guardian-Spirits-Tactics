@@ -51,9 +51,15 @@ export function replayFailureReportReception(original:Row,selected:number[],sett
     const after=status(v,m,k,x),signature=JSON.stringify(after);
     if(after.storedReport?.seq===x.event.seq&&x.firstConsumed===null){
      ok(pre);ok(incoming.some(e=>e.seq===x.event.seq),'first storage must come from recipient-visible new events');
+     const withReport=updateBotKnowledge(v,incoming,structuredClone(pre),enabled?options:{});
+     const withoutReport=updateBotKnowledge(v,incoming.filter(e=>e.seq!==x.event.seq),structuredClone(pre),enabled?options:{});
+     deepStrictEqual(withReport.known,withoutReport.known,'a received report changed exact identity knowledge');
+     deepStrictEqual(withReport.candidates,withoutReport.candidates,'a received report removed identity candidates');
      x.firstConsumed={at:v.elapsedMs,stage,ordinal:actions.length,chosenAction:a,
       view:structuredClone(v),events:structuredClone(incoming),preMemory:wire(id,pre),postMemory:wire(id,m),
-      preCallWorkingKnowledgeFromCurrentOwnView:status(v,pre,knowledge(v,pre,enabled),x),after};
+      preCallWorkingKnowledgeFromCurrentOwnView:status(v,pre,knowledge(v,pre,enabled),x),after,
+      isolatedReportKnowledgeInvariant:{known:true,candidates:true,withReportKnown:[...withReport.known],withoutReportKnown:[...withoutReport.known],
+       withReportCandidates:[...withReport.candidates],withoutReportCandidates:[...withoutReport.candidates]}};
     }
     if(signature!==x.lastSignature){x.transitions.push({at:v.elapsedMs,stage,ordinal:actions.length,...after,
      view:structuredClone(v),events:structuredClone(incoming),preMemory:wire(id,pre!),postMemory:wire(id,m)});x.lastSignature=signature;}
@@ -93,7 +99,11 @@ export function replayFailureReportReception(original:Row,selected:number[],sett
  strictEqual(subscriptions.length,selected.length);
  return {fixture:original.fixture,style:original.style,variant:original.variant,identicalPolicy,newResearchExecutions:0,
   matchedActions:actions.length,actionsSHA256:storeHash(JSON.stringify(actions)),memoryTraceSHA256:trace,wholeGameMatched:true,
-  reports:subscriptions.map(({lastSignature,...x})=>x),
+  reports:subscriptions.map(({lastSignature,...x})=>{
+   const role=original.roles.find(r=>r.id===x.recipient)!.character;
+   const recipientAliveAtEnd=original.game.survivors.find(p=>p.character===role)!.alive;
+   return {...x,recipientAliveAtEnd,classification:x.firstConsumed?'consumed':recipientAliveAtEnd?'ended-without-consumption':'dead-by-end-without-consumption'};
+  }),
   limitations:['Replay observations do not count as new independent games.','Report storage and trust are separate from exact identity knowledge.',
    'Pre-call working knowledge is recomputed from the current own view and pre-call memory, without new private events.',
    'Later actions are temporal associations; this replay does not estimate causal report value or a counterfactual win.']};

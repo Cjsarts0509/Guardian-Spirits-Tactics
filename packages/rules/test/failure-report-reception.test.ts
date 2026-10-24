@@ -14,6 +14,7 @@ describe('read-only failure report reception replay',()=>{
   expect(first.at).toBe(246250);expect(first.after.storedReport.character).toBe('chis');
   expect(first.after.storedKnownTarget).toBeNull();expect(first.after.workingKnownTarget).toBeNull();
   expect(first.after.workingKnownSender).toBeNull();expect(first.after.trustedName).toBeNull();
+  expect(first.isolatedReportKnowledgeInvariant.known).toBe(true);expect(first.isolatedReportKnowledgeInvariant.candidates).toBe(true);
   expect(report.actions).toEqual([{ordinal:47,at:258750,action:{type:'skill',skill:'reckless_charge',target:'p6'},accepted:true,
    receiptKinds:['skill.reckless_charge','death.self','death','game.end'],relation:'reported-target',knownAtChoice:'chis'}]);
   for(const t of report.transitions){expect(t.view.phase).toBe('running');expect(t.view.me.alive).toBe(true);
