@@ -35,11 +35,11 @@
     "unfinished": 4
   },
   "round": 73,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round073-guardian-memory-report-analysis",
   "startedAt": "2026-10-24T14:50:44.893443+09:00",
-  "leaseUntil": "2026-10-24T15:05:00+09:00",
-  "completedAt": null,
+  "leaseUntil": null,
+  "completedAt": "2026-10-24T14:54:08.146051+09:00",
   "record": "docs/ai-rounds/ROUND_073_20261024_1450.md",
   "task": "사망 전 보호자 자기 기억의 보고·발신자/대상 지식 분리",
   "previousCompleted": {
@@ -48,9 +48,9 @@
     "resultHead": "f994c1da16772389a172a835f76299436f546ae6"
   },
   "sourceRef": "2044366c4f88c23ca38be86721af5125b42d0dc4",
-  "checkpoint": "registered_before_analysis",
-  "phase": "frozen_own_memory_analysis",
-  "executions": 0,
+  "checkpoint": "complete_verified_and_archived",
+  "phase": "completed",
+  "executions": 4,
   "targetExecutions": 4,
   "newResearchExecutions": 0,
   "checks": {
@@ -77,11 +77,12 @@
   "runtime": {
     "output": "/tmp/round073-reports.json",
     "processAlive": false,
-    "newResearchExecutions": 0
+    "newResearchExecutions": 0,
+    "completedAt": "2026-10-24T14:54:08.146051+09:00"
   },
   "nextHypothesis": "필요하면 자기 수신 사건 전체에서 보고 도착·만료·상충·발신자 확인을 분리하고 전투와 확인의 기회비용을 검증한다.",
   "nextRoundStarted": false,
   "cumulativeScope": "Complete069 added once; partial/synthetic/replay excluded.",
-  "nextAction": "직전 선택에서 확정 정체가 부족했다면 실제 수신 보고·발신자 신뢰·확인 경로를 분리하고, 준비된 확정 제안이 있었다면 상위 선택과 실제 합법성을 먼저 확인한다.",
+  "nextAction": "필요하면 자기 수신 사건 전체에서 보고 도착·만료·상충·발신자 확인을 분리하고 전투와 확인의 기회비용을 검증한다.",
   "analysisSourceRef": "fe42521fb3cd22b2ed0a0bd93114362f24531b1d"
 }
