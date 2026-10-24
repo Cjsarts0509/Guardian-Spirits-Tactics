@@ -1,0 +1,30 @@
+{
+  "sourceRef": "c4e367fd0a27e44560b4b5edee26ff51d0a5f4ad",
+  "ci": "success",
+  "cardUI": "success",
+  "ciRun": 40059644365,
+  "ciJob": 120770148340,
+  "cardUIRun": 40059644343,
+  "cardUIJob": 120770148223,
+  "fullTests": 787,
+  "rulesTests": 712,
+  "serverTests": 75,
+  "typecheckPackages": 4,
+  "builds": [
+    "server",
+    "client",
+    "hostWorker"
+  ],
+  "jobLogSHA256": "8896f0b32f9e2149cbc58ef49aa288bee1b584db2ead5bab73d69ed1275bad36",
+  "evidenceLines": [
+    "2026-10-24T03:46:32.1542444Z packages/rules typecheck: Done",
+    "2026-10-24T03:46:34.6360852Z packages/protocol typecheck: Done",
+    "2026-10-24T03:46:40.5895621Z apps/server typecheck: Done",
+    "2026-10-24T03:46:41.0011919Z apps/client typecheck: Done",
+    "2026-10-24T03:53:12.2689756Z packages/rules test:       Tests  712 passed (712)",
+    "2026-10-24T03:53:31.4928198Z apps/server test:       Tests  75 passed (75)",
+    "2026-10-24T03:53:45.6356484Z dist/assets/host.worker-BdkTXRx3.js  185.28 kB",
+    "2026-10-24T03:53:45.6361274Z ✓ built in 8.97s"
+  ],
+  "newResearchExecutions": 0
+}

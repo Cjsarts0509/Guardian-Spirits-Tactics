@@ -37,9 +37,9 @@
     "resultHead": "653442f3fdfbaa354961e962706ebcb48dd023bd"
   },
   "record": "docs/ai-rounds/ROUND_063_20261024_1230.md",
-  "checkpoint": "validated96_prefix_saved",
+  "checkpoint": "canonical288_verified_shards_registered_before_execution",
   "phase": "frozen_balance_development",
-  "executions": 96,
+  "executions": 288,
   "targetExecutions": 960,
   "cumulativeExecutions": 49984,
   "cumulativeTerminatedExecutions": 49980,
@@ -63,7 +63,7 @@
     ]
   },
   "nextRoundStarted": false,
-  "nextAction": "Continue fixedbe72 96-game batches; no policy or option change; save further immutable checkpoints and stop new games at deadline.",
+  "nextAction": "Frozenbe72 disjoint seed workers, canonical ordered merge, completed per-worker/master fresh0 SHA audit; then064 replay.",
   "checks": {
     "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
     "fullCITests": 783,
@@ -91,19 +91,22 @@
   "runtime": {
     "fixedSourceWorktree": "/tmp/gst-round063-calibration",
     "developmentOutput": "/tmp/round063-development.json",
-    "newResearchExecutions": 96,
-    "processAlive": true,
-    "driverSession": 15451,
-    "validatedResearchExecutions": 96,
-    "recordsAtCheckpoint": 110,
+    "newResearchExecutions": 288,
+    "processAlive": false,
+    "driverSession": null,
+    "validatedResearchExecutions": 288,
+    "recordsAtCheckpoint": 288,
     "storeHead": {
       "fingerprint": "798ea3bdc053945cba527c00af3267b85f81a466310f3443719e23999b3a803c",
-      "count": 110,
-      "key": "civil_war/153018/false/control",
-      "sha256": "6481dfd3fbe23603923aac3f7f7dc75c6e81e02853b9e81e7e49146221aedae1"
+      "count": 288,
+      "key": "primordial/153007/true/candidate",
+      "sha256": "3a639a03b7ba538b71e8735fc587da7f9351b1ffecc66fb26c6942c82dd321fd"
     },
-    "canonicalArchive": "docs/evaluations/cooperation-round-063-canonical-96.json.gz",
-    "checkpointAt": "2026-10-24T12:45:02.284468+09:00"
+    "canonicalArchive": "docs/evaluations/cooperation-round-063-canonical-288.json.gz",
+    "checkpointAt": "2026-10-24T13:11:34.014799+09:00",
+    "orchestration": "four-disjoint-seed-workers-of10",
+    "shardPlanSHA256": "61f6afe0087b170bbb44d5110f18f23ff08ea315489771f17a7af7577fd236f6",
+    "transferAudit": "docs/evaluations/cooperation-round-063-parallel-transfer.json.gz"
   },
   "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
   "cumulativeScope": "Completed062 included once;063 tracked separately until complete.",
