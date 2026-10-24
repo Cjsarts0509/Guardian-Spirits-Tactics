@@ -17,9 +17,9 @@
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
   "record": "docs/ai-rounds/ROUND_062_20261024_0943.md",
-  "checkpoint": "orphan_recovered2_prefix_unchanged",
+  "checkpoint": "validated_development098_archived",
   "phase": "frozen_development_running",
-  "executions": 0,
+  "executions": 98,
   "targetExecutions": 1152,
   "cumulativeExecutions": 48832,
   "cumulativeTerminatedExecutions": 48830,
@@ -78,7 +78,7 @@
     "developmentOutput": "/tmp/round062-development.json",
     "newResearchExecutions": 0,
     "driverSession": 36563,
-    "recordsAtCheckpoint": 10,
+    "recordsAtCheckpoint": 109,
     "storeHead": {
       "fingerprint": "b634e729193821a802564058680d87a6b3d1ebecd0e68a55d9896101f88359e3",
       "count": 2,
@@ -92,13 +92,15 @@
     },
     "startedAt": "2026-10-24T10:12:00+09:00",
     "processAlive": true,
-    "validatedResearchExecutions": 2,
+    "validatedResearchExecutions": 98,
     "recoveryPrefix": "/tmp/round062-recovery-prefix.json",
-    "recoveryArchive": "docs/evaluations/cooperation-round-062-recovery.json.gz"
+    "recoveryArchive": "docs/evaluations/cooperation-round-062-recovery.json.gz",
+    "partialArchive": "docs/evaluations/cooperation-round-062-checkpoint-098.json.gz"
   },
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
   },
-  "sourceRef": "8549b136084650faa1c6b5942760204fe8262748"
+  "sourceRef": "8549b136084650faa1c6b5942760204fe8262748",
+  "cumulativeScope": "Completed rounds through061; current062 executions tracked separately and added exactly once on completion."
 }
