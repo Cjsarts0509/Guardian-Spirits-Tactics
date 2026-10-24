@@ -25,11 +25,11 @@
     "actualHumanMatches": 0
   },
   "round": 63,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round063-identical-policy-balance",
   "startedAt": "2026-10-24T12:30:31.255905+09:00",
-  "leaseUntil": "2026-10-24T14:45:00+09:00",
-  "completedAt": null,
+  "leaseUntil": null,
+  "completedAt": "2026-10-24T13:35:01.053355+09:00",
   "task": "양 진영 동일 정책의 모드/8–12인 균형과 행동 품질 별도 평가",
   "previousCompleted": {
     "round": 62,
@@ -37,25 +37,25 @@
     "resultHead": "653442f3fdfbaa354961e962706ebcb48dd023bd"
   },
   "record": "docs/ai-rounds/ROUND_063_20261024_1230.md",
-  "checkpoint": "canonical560_verified_restored",
-  "phase": "frozen_balance_development",
-  "executions": 560,
+  "checkpoint": "complete_verified_and_archived",
+  "phase": "completed",
+  "executions": 960,
   "targetExecutions": 960,
-  "cumulativeExecutions": 49984,
-  "cumulativeTerminatedExecutions": 49980,
+  "cumulativeExecutions": 50944,
+  "cumulativeTerminatedExecutions": 50940,
   "cumulativeUnfinishedExecutions": 4,
   "corpusAudit": {
-    "path": "docs/evaluations/cooperation-round-062-cumulative-audit.json",
-    "primaryDatasets": 36,
-    "verifiedExecutions": 49984,
-    "terminated": 49980,
+    "path": "docs/evaluations/cooperation-round-063-cumulative-audit.json",
+    "primaryDatasets": 37,
+    "verifiedExecutions": 50944,
+    "terminated": 50940,
     "unfinished": 4
   },
   "seedUse": {
     "development": {
       "start": 153000,
       "count": 40,
-      "status": "in_progress"
+      "status": "completed"
     },
     "remainingReservedUnused152000": [
       152016,
@@ -63,7 +63,7 @@
     ]
   },
   "nextRoundStarted": false,
-  "nextAction": "Continue four disjoint frozenbe72 seed workers and canonical ordered merge; finish full verification before064.",
+  "nextAction": "Preregister all qualifying candidate reports from complete062/063 and replay recipient own information without policy changes.",
   "checks": {
     "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
     "fullCITests": 783,
@@ -86,15 +86,18 @@
       "newResearchExecutions": 0,
       "newRoundStarted": false,
       "artifact": "docs/evaluations/cooperation-round-063-stalemate-preflight.json.gz"
-    }
+    },
+    "completeResumeUnchanged": true,
+    "actualActionAnalysis": true,
+    "evidencePrefixAudit": true
   },
   "runtime": {
     "fixedSourceWorktree": "/tmp/gst-round063-calibration",
     "developmentOutput": "/tmp/round063-development.json",
-    "newResearchExecutions": 560,
-    "processAlive": true,
+    "newResearchExecutions": 960,
+    "processAlive": false,
     "driverSession": 22765,
-    "validatedResearchExecutions": 560,
+    "validatedResearchExecutions": 960,
     "recordsAtCheckpoint": 577,
     "storeHead": {
       "fingerprint": "798ea3bdc053945cba527c00af3267b85f81a466310f3443719e23999b3a803c",
@@ -115,9 +118,10 @@
       "3": 146
     },
     "uniqueWorkerRecords": 648,
-    "allCopiesExcludedFromCumulative": true
+    "allCopiesExcludedFromCumulative": true,
+    "completedAt": "2026-10-24T13:35:01.053355+09:00"
   },
   "sourceRef": "be72fdbf70590d60600b377e595d3785cf213682",
-  "cumulativeScope": "Completed062 included once;063 tracked separately until complete.",
+  "cumulativeScope": "Complete063 added once; partial/synthetic/replay excluded.",
   "nextHypothesis": "After063 save: all qualifying inference-linked reports from complete062/063 replayed with recipient own-view/events/memory; sourcef248 validated785tests; no new games or policy changes."
 }
