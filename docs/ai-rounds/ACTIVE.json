@@ -35,11 +35,11 @@
     "unfinished": 4
   },
   "round": 68,
-  "status": "in_progress",
+  "status": "completed",
   "owner": "round068-failure-purify-consequence",
   "startedAt": "2026-10-24T13:52:14.464771+09:00",
-  "leaseUntil": "2026-10-24T15:05:00+09:00",
-  "completedAt": null,
+  "leaseUntil": null,
+  "completedAt": "2026-10-24T14:01:05.231475+09:00",
   "record": "docs/ai-rounds/ROUND_068_20261024_1352.md",
   "task": "정확 실패 재시전의 정화 표식 효과를 실제 엔진으로 검증",
   "previousCompleted": {
@@ -47,9 +47,9 @@
     "record": "docs/ai-rounds/ROUND_067_20261024_1349.md",
     "resultHead": "9dd232a8c2c25022df0f03e6b1a9cb27f73b08d6"
   },
-  "sourceRef": "9dd232a8c2c25022df0f03e6b1a9cb27f73b08d6",
-  "checkpoint": "registered_before_engine_diagnostic",
-  "phase": "synthetic_engine_regression_and_existing_data_analysis",
+  "sourceRef": "17e387a0965381d043d3500e410935588cd06b64",
+  "checkpoint": "engine_consequences_and_existing_witnesses_verified_archived",
+  "phase": "completed",
   "executions": 0,
   "newResearchExecutions": 0,
   "runtime": {
@@ -57,5 +57,7 @@
     "newResearchExecutions": 0
   },
   "nextHypothesis": "고정된 동일 정책의 모드·인원 진영 편향을 새 개발 시드에서 독립 재검증한다.",
-  "nextRoundStarted": false
+  "nextRoundStarted": false,
+  "classifierSourceRef": "66d56778bdc6981e692f534c5417bdfb0357c18d",
+  "nextAction": "고정된 동일 정책의 모드·인원 진영 편향을 새 개발 시드에서 독립 재검증한다."
 }
