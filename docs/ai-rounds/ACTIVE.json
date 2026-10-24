@@ -1,23 +1,23 @@
 {
-  "round": 59,
-  "status": "completed",
-  "owner": "round059-own-delayed-receipt-memory",
-  "startedAt": "2026-10-24T09:01:24+09:00",
-  "leaseUntil": null,
-  "completedAt": "2026-10-24T09:12:44+09:00",
+  "round": 60,
+  "status": "in_progress",
+  "owner": "round060-live-delayed-memory-intake",
+  "startedAt": "2026-10-24T09:14:35+09:00",
+  "leaseUntil": "2026-10-24T10:09:35+09:00",
+  "completedAt": null,
   "continuation": "resumed_by_user_until_20261024_1500_KST",
   "pausedByUser": false,
   "stopAt": "2026-10-24T15:00:00+09:00",
   "resumeInstruction": "2026-10-24: \"회차 갱신하면서 오후 3시까지 진행\". Prior 2026-10-18 stop superseded until this deadline.",
-  "task": "기본OFF 자기 지연 확인 접수/만기/결과 기억 구현 및 비개입 검증",
+  "task": "기존접수96경기 실제 정책 지연기억 소비/검열 전수 진단",
   "previousCompleted": {
-    "round": 58,
-    "record": "docs/ai-rounds/ROUND_058_20261024_0848.md",
-    "resultHead": "88e35e855f094bceb06ebe1eca5de03dcf2a7e03"
+    "round": 59,
+    "record": "docs/ai-rounds/ROUND_059_20261024_0902.md",
+    "resultHead": "ff00f32080875a447deaaa5641f6e700788617d3"
   },
   "evaluationProtocol": "docs/AI_EVALUATION_PROTOCOL.md",
-  "record": "docs/ai-rounds/ROUND_059_20261024_0902.md",
-  "checkpoint": "completed_passive_memory_functional_validation",
+  "record": "docs/ai-rounds/ROUND_060_20261024_0913.md",
+  "checkpoint": "preregistered_before_live_replay",
   "phase": "functional_diagnosis",
   "executions": 0,
   "targetExecutions": 0,
@@ -49,26 +49,11 @@
   },
   "interimReport": "docs/ai-rounds/INTERIM_001_057_20261018.md",
   "nextRoundStarted": false,
-  "nextAction": "060: replay all 96 request-bearing original games; audit actual passive ledger intake and censoring, preserve all 10157 original commands/resources. No new seeds or strategy.",
-  "checks": {
-    "tests": 757,
-    "rules": 682,
-    "server": 75,
-    "newTests": 12,
-    "fourModeDefaultOffOnTraceEqual": true,
-    "types": "passed",
-    "serverBuild": "passed",
-    "clientWorkerBuild": "passed"
-  },
+  "nextAction": "Instrument actual current-policy memories, validate observer ON/OFF and frozen trajectories, then finite 96-game replay.",
+  "checks": {},
   "runtime": {},
   "deployment": false,
   "humanValidation": {
     "actualHumanMatches": 0
-  },
-  "sourceRef": "c4dbeb316b639e8f69f62ada55248d7def941468",
-  "evidence": {
-    "raw": "docs/evaluations/cooperation-round-059-memory.json.gz",
-    "summary": "docs/evaluations/cooperation-round-059-summary.json"
-  },
-  "remoteChecks": "in_progress_at_local_completion"
+  }
 }
