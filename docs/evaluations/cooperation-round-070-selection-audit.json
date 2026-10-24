@@ -1,0 +1,50 @@
+{
+  "kind": "round070-preregistered-complete-primordial-replay",
+  "registeredAt": "2026-10-24T14:36:39.187224+09:00",
+  "expectedHead": "8fe69aeecfb54b2a84e4972e41a6b6812ed2a615",
+  "sourceRef": "1ad149dfc12ba6c391e85de328d0e4715b736f94",
+  "manifestSHA256": "b3d268c8c4407a72f7120575573cd444f8769d3d8c3302a08e9f415d089adc05",
+  "denominators": {
+    "round063": {
+      "sourceGames": 960,
+      "selectedGames": 80,
+      "seeds": 40,
+      "ordersPerSeed": 2,
+      "counts": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "selectionUsesWinnerOrDeath": false
+    },
+    "round069": {
+      "sourceGames": 960,
+      "selectedGames": 80,
+      "seeds": 40,
+      "ordersPerSeed": 2,
+      "counts": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "selectionUsesWinnerOrDeath": false
+    }
+  },
+  "expectedReplays": 160,
+  "policyPasses": 160,
+  "commandPasses": 160,
+  "newResearchExecutions": 0,
+  "newSeeds": 0,
+  "scopePredeclaredIn": "docs/evaluations/cooperation-round-069-commander-preflight.json.gz",
+  "selectionRule": "All candidate primordial records in complete063 and069, both orders and all8–12 counts; no winner/death selection.",
+  "limitations": [
+    "Post-hoc cause accounting on existing synthetic matches.",
+    "A ready skill at death is not an earlier own-information legal opportunity.",
+    "Protection state is grader-only, never policy input.",
+    "No policy, skill or overall strength intervention."
+  ]
+}
