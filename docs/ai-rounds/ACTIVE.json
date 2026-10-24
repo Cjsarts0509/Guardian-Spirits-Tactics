@@ -34,33 +34,28 @@
     "terminated": 50940,
     "unfinished": 4
   },
-  "round": 66,
-  "status": "completed",
-  "owner": "round066-own-failure-recast-analysis",
-  "startedAt": "2026-10-24T13:46:00.874377+09:00",
-  "leaseUntil": null,
-  "completedAt": "2026-10-24T13:47:25.160508+09:00",
-  "task": "실제 자기 실패 소비 뒤 동일 대상 재시전 전수 분석",
+  "round": 67,
+  "status": "in_progress",
+  "owner": "round067-own-constraint-analysis",
+  "startedAt": "2026-10-24T13:49:13.896521+09:00",
+  "leaseUntil": "2026-10-24T15:05:00+09:00",
+  "completedAt": null,
+  "record": "docs/ai-rounds/ROUND_067_20261024_1349.md",
+  "task": "기존 미종료 판단의 자기 자원·정보 제약 전수 분리",
   "previousCompleted": {
-    "round": 65,
-    "record": "docs/ai-rounds/ROUND_065_20261024_1341.md",
-    "resultHead": "c787a966f42efc7fbb272e54a000962e74e2eadc"
+    "round": 66,
+    "record": "docs/ai-rounds/ROUND_066_20261024_1346.md",
+    "resultHead": "d6a3082482b4f8ac38300e30ad7733346d3d3dfb"
   },
-  "record": "docs/ai-rounds/ROUND_066_20261024_1346.md",
-  "checkpoint": "complete_existing_data_analysis_archived",
-  "phase": "completed",
+  "sourceRef": "35fdce5d9bee239a3444698589083a14e52ab796",
+  "checkpoint": "registered_before_whole_analysis",
+  "phase": "existing_data_analysis",
   "executions": 0,
   "newResearchExecutions": 0,
-  "seedUse": {
-    "newSeeds": 0
-  },
-  "sourceRef": "a24b16625a289c9f55ec3a4f5268d8d47bf6572a",
-  "analysisSHA256": "db0159f7a4f00bf0e923c2fd2ecb39b2cd66194d6fddc04beb2027f79f689e75",
-  "nextHypothesis": "제한 미종료의 실제 자기 판단에서 정보 부족·공격 마나·보호 조건을 분리한다.",
   "runtime": {
     "processAlive": false,
     "newResearchExecutions": 0
   },
-  "nextRoundStarted": false,
-  "nextAction": "제한 미종료의 실제 자기 판단에서 정보 부족·공격 마나·보호 조건을 분리한다."
+  "nextHypothesis": "현재 정책의 명목 준비·확정 적 동시 상황에서 대상별 합법성·보호·상위 행동을 실제 엔진 복제로 분리한다.",
+  "nextRoundStarted": false
 }
