@@ -34,25 +34,23 @@
     "terminated": 51900,
     "unfinished": 4
   },
-  "round": 70,
-  "status": "completed",
-  "owner": "round070-complete-primordial-commander-replay",
-  "startedAt": "2026-10-24T14:36:39.187224+09:00",
-  "leaseUntil": null,
-  "completedAt": "2026-10-24T14:44:13.000621+09:00",
-  "record": "docs/ai-rounds/ROUND_070_20261024_1436.md",
-  "task": "같은 정책 태초 지휘관 사망의 실제 엔진 전수 진단",
+  "round": 71,
+  "status": "in_progress",
+  "owner": "round071-protection-coverage-analysis",
+  "startedAt": "2026-10-24T14:45:22.817764+09:00",
+  "leaseUntil": "2026-10-24T15:05:00+09:00",
+  "completedAt": null,
+  "record": "docs/ai-rounds/ROUND_071_20261024_1445.md",
+  "task": "보호자 편성·실제 흡수·비명명 피해와 준비 상태 분리",
   "previousCompleted": {
-    "round": 69,
-    "record": "docs/ai-rounds/ROUND_069_20261024_1401.md",
-    "resultHead": "8fe69aeecfb54b2a84e4972e41a6b6812ed2a615",
-    "newResearchExecutions": 960,
-    "cumulativeExecutions": 51904
+    "round": 70,
+    "record": "docs/ai-rounds/ROUND_070_20261024_1436.md",
+    "resultHead": "2044366c4f88c23ca38be86721af5125b42d0dc4"
   },
-  "sourceRef": "1ad149dfc12ba6c391e85de328d0e4715b736f94",
-  "checkpoint": "complete_verified_and_archived",
-  "phase": "completed",
-  "executions": 160,
+  "sourceRef": "1f3d880c0113b161e83679ce02d8ffe2da894b29",
+  "checkpoint": "registered_before_analysis",
+  "phase": "frozen_observational_analysis",
+  "executions": 0,
   "targetExecutions": 160,
   "newResearchExecutions": 0,
   "checks": {
@@ -77,14 +75,11 @@
     ]
   },
   "runtime": {
-    "fixedSourceWorktree": "/tmp/gst-failure-commanders-frozen",
-    "output": "/tmp/round070-commanders.json",
+    "output": "/tmp/round071-coverage.json.gz",
     "processAlive": false,
-    "newResearchExecutions": 0,
-    "completedAt": "2026-10-24T14:44:13.000621+09:00",
-    "validatedReplays": 160
+    "newResearchExecutions": 0
   },
-  "nextHypothesis": "분모를 갖춘 지휘관 보호 편성·실제 흡수·비명명 피해 및 자기 준비 상태를 나누고 실제 선택 누락 여부를 후속 확인한다.",
+  "nextHypothesis": "사망 시 미기동·명목 준비 사례가 있다면 본인 직전 활성 선택의 자기 지식·마나·대상 합법성·선택 우선순위를 진단한다.",
   "nextRoundStarted": false,
   "cumulativeScope": "Complete069 added once; partial/synthetic/replay excluded.",
   "nextAction": "같은160경기의 보호자 배정·사망·실제 명명 흡수·비명명 피해와 사망 시점 명목 준비를 분리한다."
